@@ -31,7 +31,7 @@ export function GalleryPage({
   children: ReactNode
 }) {
   return (
-    <main className="mx-auto max-w-5xl bg-bg px-6 py-12 text-fg">
+    <main className="mx-auto max-w-5xl overflow-x-hidden bg-bg px-4 py-8 text-fg sm:px-6 sm:py-12">
       <div className="mb-4">
         <Link
           href="/gallery"
@@ -41,9 +41,9 @@ export function GalleryPage({
           Gallery
         </Link>
       </div>
-      <div className="flex items-center justify-between gap-4 border-b border-border pb-6">
+      <div className="flex flex-col gap-3 border-b border-border pb-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-3xl font-medium tracking-[-0.022em] text-fg">
+          <h1 className="text-2xl font-medium tracking-[-0.022em] text-fg sm:text-3xl">
             {title}
           </h1>
           {premium ? (

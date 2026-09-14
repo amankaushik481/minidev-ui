@@ -26,7 +26,7 @@ function TestimonialCarousel({
     return () => window.clearInterval(id)
   }, [items.length, reduce])
   return (
-    <div data-slot="testimonial-carousel" data-tier="premium" className={cn("rounded-2xl border border-border bg-surface p-8 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <div data-slot="testimonial-carousel" data-tier="premium" className={cn("rounded-2xl border border-border bg-surface p-5 shadow sm:p-8-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
       <AnimatePresence mode="wait">
         <motion.figure
           key={item.name + i}

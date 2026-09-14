@@ -16,10 +16,13 @@ function HeroClientPitch({ className }: { className?: string }) {
     <section
       data-slot="hero-client-pitch"
       data-tier="premium"
-      className={cn("relative overflow-hidden rounded-2xl border border-border bg-bg px-6 py-16 sm:px-12 sm:py-24", className)}
+      className={cn(
+        "relative overflow-hidden rounded-2xl border border-border bg-bg px-4 py-12 sm:px-12 sm:py-24",
+        className
+      )}
     >
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,oklch(0.48_0.17_285/0.55),transparent)]" />
-      <div aria-hidden className="pointer-events-none absolute -right-20 top-10 size-72 rounded-full bg-accent/10" />
+      <div aria-hidden className="pointer-events-none absolute -right-20 top-10 hidden size-72 rounded-full bg-accent/10 sm:block" />
       <div className="relative mx-auto max-w-4xl">
         <motion.p
           initial={reduce ? false : { y: 10 }}
@@ -28,7 +31,7 @@ function HeroClientPitch({ className }: { className?: string }) {
         >
           MiniDev UI · Client-ready registry
         </motion.p>
-        <h1 className="mt-4 text-4xl font-medium leading-[1.05] tracking-[-0.030em] text-fg sm:text-6xl sm:tracking-[-0.034em]">
+        <h1 className="mt-4 text-[2rem] font-medium leading-[1.08] tracking-[-0.028em] text-fg sm:text-6xl sm:leading-[1.05] sm:tracking-[-0.034em]">
           {["Interfaces", "that", "look"].map((w, i) => (
             <span key={w} className="inline-block overflow-hidden align-bottom">
               <motion.span
@@ -56,7 +59,7 @@ function HeroClientPitch({ className }: { className?: string }) {
           initial={reduce ? false : { y: 12 }}
           animate={{ y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mt-6 max-w-xl text-base leading-[1.55] text-fg-muted"
+          className="mt-5 max-w-xl text-sm leading-[1.55] text-fg-muted sm:mt-6 sm:text-base"
         >
           Free MIT product UI for the app. Premium kinetic launch moments for the pages that win deals.
           Same Geist, hue 285, Hairline — no theme drift between tiers.
@@ -65,21 +68,25 @@ function HeroClientPitch({ className }: { className?: string }) {
           initial={reduce ? false : { y: 10 }}
           animate={{ y: 0 }}
           transition={{ delay: 0.5 }}
-          className="mt-8 flex flex-wrap gap-3"
+          className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap"
         >
-          <Button size="lg" render={<Link href="/showcase" />}>Open client showcase</Button>
-          <Button size="lg" variant="outline" render={<Link href="/gallery" />}>Browse gallery</Button>
+          <Button size="lg" className="w-full sm:w-auto" render={<Link href="/showcase" />}>
+            Open client showcase
+          </Button>
+          <Button size="lg" variant="outline" className="w-full sm:w-auto" render={<Link href="/gallery" />}>
+            Browse gallery
+          </Button>
         </motion.div>
         <motion.dl
           initial={reduce ? false : { y: 10 }}
           animate={{ y: 0 }}
           transition={{ delay: 0.58 }}
-          className="mt-12 grid max-w-lg grid-cols-3 gap-4 border-t border-border pt-6"
+          className="mt-10 grid max-w-lg grid-cols-3 gap-2 border-t border-border pt-5 sm:mt-12 sm:gap-4 sm:pt-6"
         >
           {stats.map(([v, l]) => (
-            <div key={l}>
-              <dt className="text-2xl font-medium tabular-nums tracking-[-0.018em] text-fg">{v}</dt>
-              <dd className="mt-0.5 text-xs text-fg-muted">{l}</dd>
+            <div key={l} className="min-w-0">
+              <dt className="text-lg font-medium tabular-nums tracking-[-0.018em] text-fg sm:text-2xl">{v}</dt>
+              <dd className="mt-0.5 text-[10px] text-fg-muted sm:text-xs">{l}</dd>
             </div>
           ))}
         </motion.dl>

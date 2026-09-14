@@ -17,7 +17,7 @@ export default function DocsPage() {
   return (
     <div className="min-h-full bg-bg text-fg">
       <SiteHeader solid />
-      <main className="mx-auto max-w-5xl px-6 py-16 text-fg">
+      <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-16 text-fg">
       <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">MiniDev UI</p>
       <h1 className="mt-2 text-4xl font-medium tracking-[-0.026em]">Docs</h1>
       <p className="mt-3 max-w-2xl text-base leading-[1.55] text-fg-muted">
@@ -48,9 +48,9 @@ export default function DocsPage() {
         <p className="text-sm text-fg-muted">Full spec lives in <code className="rounded bg-sunken px-1.5 py-0.5 font-mono text-xs text-fg">DESIGN.md</code>.</p>
       </section>
 
-      <section className="mt-10 flex flex-wrap gap-3">
-        <Link href="/gallery" className="inline-flex h-9 items-center rounded-lg bg-accent px-4 text-sm font-medium text-primary-foreground">Open gallery</Link>
-        <Link href="/playground/button" className="inline-flex h-9 items-center rounded-lg border border-border bg-surface px-4 text-sm font-medium text-fg">Try playground</Link>
+      <section className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <Link href="/gallery" className="inline-flex h-9 w-full items-center justify-center rounded-lg bg-accent px-4 text-sm font-medium text-primary-foreground sm:w-auto">Open gallery</Link>
+        <Link href="/playground/button" className="inline-flex h-9 w-full items-center justify-center rounded-lg border border-border bg-surface px-4 text-sm font-medium text-fg sm:w-auto">Try playground</Link>
       </section>
 
       {groups.map((g) => (

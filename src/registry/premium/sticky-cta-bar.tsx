@@ -24,14 +24,14 @@ function StickyCtaBar({
       animate={reduce ? { y: show ? 0 : 80 } : { y: show ? 0 : 96 }}
       transition={{ type: "spring", stiffness: 260, damping: 28 }}
       className={cn(
-        "fixed inset-x-0 bottom-4 z-40 mx-auto flex w-[min(640px,calc(100%-2rem))] items-center justify-between gap-3 rounded-2xl border border-border bg-surface/95 px-4 py-3 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] backdrop-blur-sm",
+        "fixed inset-x-0 bottom-3 z-40 mx-auto flex w-[min(640px,calc(100%-1.5rem))] flex-col gap-2 rounded-2xl border border-border bg-surface/95 px-3 py-3 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] backdrop-blur-sm sm:bottom-4 sm:w-[min(640px,calc(100%-2rem))] sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-4",
         className
       )}
     >
-      <p className="text-sm font-medium text-fg">{title}</p>
+      <p className="text-center text-sm font-medium text-fg sm:text-left">{title}</p>
       <div className="flex gap-2">
-        <Button size="sm" variant="outline">Docs</Button>
-        <MagneticCta size="sm">Get Premium</MagneticCta>
+        <Button size="sm" variant="outline" className="flex-1 sm:flex-none">Docs</Button>
+        <MagneticCta size="sm" className="flex-1 sm:flex-none [&_button]:w-full">Get Premium</MagneticCta>
       </div>
     </motion.div>
   )

@@ -18,21 +18,32 @@ import { MetricTickerBoard } from "@/registry/premium/metric-ticker-board"
 
 function ClientPitchKit({ className }: { className?: string }) {
   return (
-    <div data-slot="client-pitch-kit" data-tier="premium" className={cn("space-y-20", className)}>
+    <div
+      data-slot="client-pitch-kit"
+      data-tier="premium"
+      className={cn("space-y-12 sm:space-y-16 lg:space-y-20", className)}
+    >
       <HeroClientPitch />
       <MetricTickerBoard />
       <LiveComponentRail />
       <ProductOsMock />
       <SplitProofPanel />
-      <div className="grid gap-10 lg:grid-cols-2 lg:items-start"><TypographicMarquee /><StackRevealStory /></div>
+      <div className="grid min-w-0 gap-8 lg:grid-cols-2 lg:items-start lg:gap-10">
+        <div className="min-w-0 overflow-hidden">
+          <TypographicMarquee />
+        </div>
+        <StackRevealStory />
+      </div>
       <BeforeAfterWipe beforeLabel="Generic kit" afterLabel="MiniDev Hairline" />
       <FreePremiumCompare />
       <ScrollChapterStory />
       <LogoWallMotion />
       <FaqAccordionMotion />
       <TestimonialCarousel />
-      <div className="flex justify-center py-8">
-        <MagneticCta size="lg">Book a walkthrough</MagneticCta>
+      <div className="flex justify-center py-6 sm:py-8">
+        <MagneticCta size="lg" className="w-full max-w-sm sm:w-auto">
+          Book a walkthrough
+        </MagneticCta>
       </div>
     </div>
   )

@@ -45,3 +45,6 @@ node_modules/
 /shots/
 /npm-pack/
 *.tgz
+
+# Local Netlify folder
+.netlify

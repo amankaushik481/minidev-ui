@@ -34,9 +34,8 @@ function MagneticCta({
       onMouseMove={onMove}
       onMouseLeave={() => { x.set(0); y.set(0) }}
       style={reduce ? undefined : { x: sx, y: sy }}
-      className={cn("inline-flex", className)}
-    >
-      <Button type="button" {...props}>{children}</Button>
+      className={cn("inline-flex", className)}>
+      <Button type="button" className="w-full" {...props}>{children}</Button>
     </motion.div>
   )
 }

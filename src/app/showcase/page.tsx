@@ -4,10 +4,10 @@ import { ClientPitchKit } from "@/registry/premium/client-pitch-kit"
 
 export default function ShowcasePage() {
   return (
-    <div className="min-h-full bg-bg text-fg">
+    <div className="min-h-full overflow-x-hidden bg-bg text-fg">
       <SiteHeader solid />
-      <main className="mx-auto max-w-6xl px-6 py-12 pb-28">
-        <p className="mb-8 text-sm text-fg-muted">
+      <main className="mx-auto max-w-6xl px-4 py-8 pb-24 sm:px-6 sm:py-12 sm:pb-28">
+        <p className="mb-6 text-sm text-fg-muted sm:mb-8">
           Client showcase — the walkthrough page. Scroll the chapters. Toggle free vs Premium. Show the OS mock.
         </p>
         <ClientPitchKit />

@@ -9,7 +9,7 @@ export default function PlaygroundIndex() {
   return (
     <div className="min-h-full bg-bg text-fg">
       <SiteHeader solid />
-      <main className="mx-auto max-w-5xl px-6 py-16 text-fg">
+      <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-16 text-fg">
       <h1 className="text-4xl font-medium tracking-[-0.026em]">Playground</h1>
       <p className="mt-3 max-w-xl text-sm leading-[1.55] text-fg-muted">
         Curated interactive states with light/dark. Every component also has docs with copy/install.

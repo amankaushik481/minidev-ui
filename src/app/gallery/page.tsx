@@ -36,7 +36,7 @@ export default function GalleryIndex() {
       <SiteHeader solid />
       <main className="min-h-0">
       <div className="border-b border-border bg-surface">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 sm:py-10">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-xs font-medium tracking-[0.01em] text-accent uppercase">MiniDev UI</p>
@@ -88,7 +88,7 @@ export default function GalleryIndex() {
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-6 py-8 lg:grid-cols-[200px_1fr]">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-6 sm:px-6 sm:py-8 lg:grid-cols-[200px_1fr]">
         <nav aria-label="Categories" className="lg:sticky lg:top-6 lg:self-start">
           <ul className="flex gap-1 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0">
             <li>

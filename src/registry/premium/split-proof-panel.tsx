@@ -1,5 +1,6 @@
 "use client"
 import * as React from "react"
+import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
@@ -18,9 +19,9 @@ function SplitProofPanel({ className }: { className?: string }) {
       data-tier="premium"
       className={cn("grid overflow-hidden rounded-2xl border border-border lg:grid-cols-2", className)}
     >
-      <div className="space-y-4 bg-surface p-8 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+      <div className="space-y-4 bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] sm:p-8">
         <Badge variant="outline">Proof</Badge>
-        <h3 className="text-2xl font-medium tracking-[-0.018em] text-fg">Built to survive a client tab share</h3>
+        <h3 className="text-xl font-medium tracking-[-0.018em] text-fg sm:text-2xl">Built to survive a client tab share</h3>
         <p className="text-sm leading-[1.55] text-fg-muted">
           Homepage, /showcase, Premium motion, and the living OS mock are the walkthrough. Docs and playground back it up when they ask “can we use this?”
         </p>
@@ -29,13 +30,13 @@ function SplitProofPanel({ className }: { className?: string }) {
             <li key={t} className="flex gap-2"><span className="text-accent">▹</span>{t}</li>
           ))}
         </ul>
-        <Button size="sm">Open /showcase</Button>
+        <Button size="sm" className="w-full sm:w-auto" render={<Link href="/showcase" />}>Open /showcase</Button>
       </div>
       <motion.div
         initial={reduce ? false : { y: 12 }}
         whileInView={{ y: 0 }}
         viewport={{ once: true }}
-        className="flex flex-col justify-center gap-3 bg-sunken p-8"
+        className="flex flex-col justify-center gap-3 bg-sunken p-5 sm:p-8"
       >
         {proofs.map(([k, v]) => (
           <div key={k} className="rounded-xl border border-border bg-surface px-4 py-3 shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]">
