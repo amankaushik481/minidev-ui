@@ -1,0 +1,50 @@
+"use client"
+import * as React from "react"
+import { motion, useReducedMotion } from "motion/react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/registry/ui/button"
+import { Badge } from "@/registry/ui/badge"
+
+function SplitProofPanel({ className }: { className?: string }) {
+  const reduce = useReducedMotion()
+  const proofs: [string, string][] = [
+    ["Gallery", "53 categorized routes"],
+    ["Registry", "460+ paste-ready items"],
+    ["Gate", "build + axe + shots"],
+  ]
+  return (
+    <section
+      data-slot="split-proof-panel"
+      data-tier="premium"
+      className={cn("grid overflow-hidden rounded-2xl border border-border lg:grid-cols-2", className)}
+    >
+      <div className="space-y-4 bg-surface p-8 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+        <Badge variant="outline">Proof</Badge>
+        <h3 className="text-2xl font-medium tracking-[-0.018em] text-fg">Built to survive a client tab share</h3>
+        <p className="text-sm leading-[1.55] text-fg-muted">
+          Homepage, /showcase, Premium motion, and the living OS mock are the walkthrough. Docs and playground back it up when they ask “can we use this?”
+        </p>
+        <ul className="space-y-2 text-sm text-fg">
+          {["Site chrome on every major surface", "Free vs Premium without theme drift", "Audit gate before you demo"].map((t) => (
+            <li key={t} className="flex gap-2"><span className="text-accent">▹</span>{t}</li>
+          ))}
+        </ul>
+        <Button size="sm">Open /showcase</Button>
+      </div>
+      <motion.div
+        initial={reduce ? false : { y: 12 }}
+        whileInView={{ y: 0 }}
+        viewport={{ once: true }}
+        className="flex flex-col justify-center gap-3 bg-sunken p-8"
+      >
+        {proofs.map(([k, v]) => (
+          <div key={k} className="rounded-xl border border-border bg-surface px-4 py-3 shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]">
+            <p className="text-[11px] uppercase tracking-[0.01em] text-fg-muted">{k}</p>
+            <p className="mt-1 text-sm font-medium text-fg">{v}</p>
+          </div>
+        ))}
+      </motion.div>
+    </section>
+  )
+}
+export { SplitProofPanel }

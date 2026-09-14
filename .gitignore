@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+\n# MiniDev audit output\nshots/\n/test-results/\n/playwright-report/\n/blob-report/\n/playwright/.cache/\n
+
+node_modules/
+/shots/
+/npm-pack/
+*.tgz

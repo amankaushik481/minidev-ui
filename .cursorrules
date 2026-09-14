@@ -1,0 +1,30 @@
+You are building MiniDev UI, a free React + Tailwind component library.
+
+BEFORE ANY COMPONENT:
+- Read DESIGN.md. Every value comes from it. Invent nothing.
+- Check if shadcn/ui already has the primitive. If yes, build on it. Never rebuild it.
+- Check if Radix/Base UI has the behavior. If yes, use it. Never hand-roll focus traps,
+  keyboard nav, or portal positioning.
+
+EVERY COMPONENT MUST:
+- Live under src/registry/ (ui/ for primitives, blocks/ for compositions)
+- Use CVA for variants, tailwind-merge for class composition
+- Be fully typed, forwardRef, spread ...props to the root
+- Ship every state in DESIGN.md section "States"
+- Use semantic tokens only. No literal colors, no arbitrary values, no hex
+- Have zero layout shift between states
+- Work in light and dark
+- Include a gallery route at app/gallery/<name>/page.tsx rendering EVERY variant,
+  size, and state on one page, including edge cases: long text, one character,
+  no icon, icon only, empty, error, loading, RTL
+
+AFTER EVERY BATCH:
+- Run `npm run audit`. Fix every failure. Never weaken a rule to pass.
+- Composite the gallery screenshot next to refs/ and look at it
+- Only then move to the next batch
+
+NEVER:
+- transition: all, ease, or 300ms defaults
+- rgba(0,0,0,x) shadows or single-layer shadows
+- a component that is skin-aware or hardcodes a color
+- marking work done without viewing the screenshot

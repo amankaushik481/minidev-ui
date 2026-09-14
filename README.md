@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+# MiniDev UI
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install minidev-ui
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```tsx
+import { Button } from "minidev-ui/ui/button"
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# MiniDev UI
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> Client walkthrough: open `/` then `/showcase`. Free MIT product UI + Premium kinetic launch moments. Hairline · Geist · hue 285 · audit-gated.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+Hairline React + Tailwind registry — **free MIT product UI** and **Premium kinetic launch moments**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Geist Sans · accent hue **285** · audit-gated screenshots + axe.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**457 components** · 398 free · 59 premium
 
-## Deploy on Vercel
+## Quick start
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm install
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Gallery: [http://localhost:3000/gallery](http://localhost:3000/gallery)
+- Docs: [http://localhost:3000/docs](http://localhost:3000/docs)
+- Playground: [http://localhost:3000/playground](http://localhost:3000/playground)
+
+### Use a component
+
+```tsx
+import { Button } from "@/registry/ui/button"
+```
+
+Copy files from `src/registry/ui`, `src/registry/blocks`, or `src/registry/premium` into your app. Keep `DESIGN.md` open — invent nothing.
+
+## Design law
+
+| Decision | Choice |
+|---|---|
+| Typeface | Geist Sans / Mono (not Inter) |
+| Accent | OKLCH hue **285** |
+| Signature | **Hairline** — 1px lines + top highlights |
+| Shadows | No blur shadows outside overlays |
+
+Full spec: [`DESIGN.md`](./DESIGN.md)
+
+## Quality gate
+
+```bash
+npm run build
+npm run audit
+```
+
+`npm run audit` screenshots every gallery route (light/dark × desktop/mobile) and fails on axe violations.
+
+## Structure
+
+```
+src/registry/ui        Free primitives + product surfaces
+src/registry/blocks    Free page compositions
+src/registry/premium   Kinetic heroes + page kits
+src/app/gallery        Browse by category
+src/app/docs           Install + per-component docs
+src/app/playground     Curated interactive states
+registry.json          Machine-readable registry + tiers
+llms.txt               LLM-friendly index
+```
+
+## License
+
+Free UI and blocks: **MIT**. Premium blocks are marked `data-tier="premium"` for commercial soft-gating.

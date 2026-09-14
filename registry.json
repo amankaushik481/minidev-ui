@@ -1,0 +1,5169 @@
+{
+  "name": "minidev-ui",
+  "homepage": "https://minidev.pro",
+  "tiers": {
+    "free": "MIT primitives and product UI",
+    "premium": "Kinetic heroes, templates, launch marketing"
+  },
+  "items": [
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "account-setup-progress",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/account-setup-progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "activity-feed",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/activity-feed.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "add-card-form",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/add-card-form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "admin-stat-strip",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/admin-stat-strip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "admin-user-row",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/admin-user-row.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "agent-trace",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/agent-trace.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "ai-composer",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/ai-composer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "announcement-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/announcement-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "api-key-list",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/api-key-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "app-shell",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/app-shell.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "approval-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/approval-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "area-chart",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/area-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "artifact-preview",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/artifact-preview.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/aspect-ratio.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "assign-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/assign-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "attachment-chip",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/attachment-chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "audio-player",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/audio-player.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "audit-filter-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/audit-filter-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "audit-log-entry",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/audit-log-entry.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "audit-trail",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/audit-trail.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "auth-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/auth-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "autocomplete",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/autocomplete.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar-upload",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/avatar-upload.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "back-link",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/back-link.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "banner",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/banner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "bar-chart",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/bar-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "billing-address",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/billing-address.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "blog-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/blog-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-ellipsis",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/breadcrumb-ellipsis.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "build-pipeline",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/build-pipeline.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "bulk-actions-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/bulk-actions-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "bulk-user-import",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/bulk-user-import.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/button-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "calendar-agenda",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/calendar-agenda.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "calendar-month",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/calendar-month.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "callout",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/callout.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "cancel-flow",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/cancel-flow.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "cart-line-item",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/cart-line-item.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "case-study-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/case-study-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "center",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/center.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "character-count",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/character-count.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chart-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/chart-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chart-legend",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/chart-legend.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chart-tooltip-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/chart-tooltip-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chat-thread",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/chat-thread.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "check-run-list",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/check-run-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox-group",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/checkbox-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkout-summary",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/checkout-summary.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chip-filter",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/chip-filter.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "choice-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/choice-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "citation-chip",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/citation-chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "cluster",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/cluster.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "code-block",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/code-block.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "code-editor-frame",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/code-editor-frame.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "collapsible-sidebar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/collapsible-sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "color-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/color-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "column-visibility-menu",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/column-visibility-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/combobox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command-dialog",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/command-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command-item",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/command-item.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/command-palette.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "comment-composer",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/comment-composer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "comment-thread",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/comment-thread.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "commit-row",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/commit-row.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "comparison-table",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/comparison-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "confirm-destructive",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/confirm-destructive.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "connected-account",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/connected-account.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "console-output",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/console-output.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "container",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/container.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "context-chip",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/context-chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/context-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "context-pill",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/context-pill.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "conversation-sidebar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/conversation-sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "cookie-banner",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/cookie-banner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/copy-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "copy-id",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/copy-id.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "coupon-input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/coupon-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "coverage-meter",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/coverage-meter.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "create-api-key",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/create-api-key.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "credit-balance",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/credit-balance.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "cta-banner",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/cta-banner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "currency-input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/currency-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "danger-zone",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/danger-zone.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "data-table",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/data-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/date-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "date-range-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/date-range-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "delete-account-confirm",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/delete-account-confirm.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "density-toggle",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/density-toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "description-list",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/description-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "diff-view",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/diff-view.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "donut-chart",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/donut-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "downgrade-warning",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/downgrade-warning.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/drawer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "due-date-chip",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/due-date-chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "editable-heading",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/editable-heading.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "email-button",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/email-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "email-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/email-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "email-footer",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/email-footer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "email-header",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/email-header.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "email-layout",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/email-layout.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "email-preview-frame",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/email-preview-frame.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "emoji-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/emoji-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "empty-search",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/empty-search.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/empty-state.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "empty-table",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/empty-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "env-badge",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/env-badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "env-switcher",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/env-switcher.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "error-state",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/error-state.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "expandable-row",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/expandable-row.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "export-data",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/export-data.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "facet-filter",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/facet-filter.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "faq-list",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/faq-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "feature-flag-toggle",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/feature-flag-toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "feature-grid",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/feature-grid.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "feedback-thumbs",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/feedback-thumbs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "file-dropzone",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/file-dropzone.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "file-list",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/file-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "file-reference",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/file-reference.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "file-row",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/file-row.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "filter-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/filter-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "floating-action-button",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/floating-action-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "footer-mega",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/footer-mega.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "footer-nav",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/footer-nav.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "forgot-password-form",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/forgot-password-form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "form-field",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/form-field.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "funnel-steps",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/funnel-steps.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "gantt-row",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/gantt-row.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "gauge-chart",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/gauge-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "goal-ring",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/goal-ring.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "heading",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/heading.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "health-indicator",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/health-indicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "heatmap-cell",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/heatmap-cell.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hero",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/hero.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "horizontal-bar-chart",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/horizontal-bar-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/hover-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-button",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/icon-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "image-gallery",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/image-gallery.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "image-lightbox",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/image-lightbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "image-upload",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/image-upload.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "impersonation-banner",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/impersonation-banner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "incident-banner",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/incident-banner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "inline-alert",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/inline-alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "inline-cell-edit",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/inline-cell-edit.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "inline-code-diff",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/inline-code-diff.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-affix",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/input-affix.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "inset",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/inset.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "integration-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/integration-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "invite-members",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/invite-members.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "invoice-detail",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/invoice-detail.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "invoice-list",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/invoice-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "ip-allowlist",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/ip-allowlist.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "issue-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/issue-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "issue-key",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/issue-key.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "join-workspace",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/join-workspace.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "json-viewer",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/json-viewer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kanban-board",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/kanban-board.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kanban-column",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/kanban-column.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kpi-row",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/kpi-row.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "language-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/language-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "latency-badge",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/latency-badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "line-chart",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/line-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "link-preview",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/link-preview.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "link",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/link.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "list-item",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/list-item.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "live-cursors-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/live-cursors-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "loading-overlay",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/loading-overlay.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "loading-table",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/loading-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "logo-cloud",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/logo-cloud.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "magic-link-form",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/magic-link-form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "markdown-renderer",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/markdown-renderer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/marquee.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "mention-input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/mention-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "menubar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/menubar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "merge-box",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/merge-box.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "message-actions",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/message-actions.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "message-bubble",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/message-bubble.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "meter",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/meter.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "metric-delta",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/metric-delta.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "mobile-action-sheet",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/mobile-action-sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "mobile-nav-drawer",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/mobile-nav-drawer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "model-compare",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/model-compare.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "model-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/model-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "multi-select",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/multi-select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "nav-marketing",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/nav-marketing.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/navigation-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "nested-nav",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/nested-nav.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "newsletter-signup",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/newsletter-signup.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "not-found-state",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/not-found-state.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "notebook-cell",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/notebook-cell.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "notification-item",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/notification-item.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "notification-preferences",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/notification-preferences.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/number-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "offline-banner",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/offline-banner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "offline-state",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/offline-state.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "onboarding-checklist",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/onboarding-checklist.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "onboarding-wizard",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/onboarding-wizard.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "order-summary",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/order-summary.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "org-switcher",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/org-switcher.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "otp-input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/otp-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "page-header",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/page-header.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "password-input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/password-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "payment-method-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/payment-method-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "peek-panel",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/peek-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "permission-chip",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/permission-chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "permission-denied",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/permission-denied.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "phone-input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/phone-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pinned-message",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/pinned-message.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "plan-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/plan-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "plan-comparison",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/plan-comparison.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "presence-dot",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/presence-dot.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "press-quote",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/press-quote.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pricing-table",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/pricing-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pricing-toggle",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/pricing-toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "priority-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/priority-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "product-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/product-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "profile-form",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/profile-form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "progress-circle",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/progress-circle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "prompt-input-attachments",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/prompt-input-attachments.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "prompt-input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/prompt-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "prompt-library",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/prompt-library.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "prose",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/prose.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "publish-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/publish-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "quantity-stepper",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/quantity-stepper.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "query-builder",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/query-builder.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "quota-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/quota-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radar-chart",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/radar-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "range-slider",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/range-slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rating",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/rating.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "reaction-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/reaction-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "read-receipt",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/read-receipt.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "reasoning-block",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/reasoning-block.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "receipt",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/receipt.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "regenerate-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/regenerate-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "region-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/region-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "relative-time",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/relative-time.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "reset-password-form",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/reset-password-form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "resizable-panels",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/resizable-panels.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "resource-quota-grid",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/resource-quota-grid.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "retry-block",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/retry-block.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "review-request-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/review-request-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rich-text-toolbar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/rich-text-toolbar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "role-permission-matrix",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/role-permission-matrix.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "role-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/role-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "row-selection",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/row-selection.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "saved-views",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/saved-views.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "schema-field-row",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/schema-field-row.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "search-input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/search-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "search-with-results",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/search-with-results.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "seat-manager",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/seat-manager.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "secret-reveal",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/secret-reveal.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "section-header",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/section-header.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "segmented-control",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/segmented-control.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "server-error-state",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/server-error-state.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "session-list",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/session-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "settings-layout",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/settings-layout.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "shipping-address",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/shipping-address.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "shortcut-cheat-sheet",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/shortcut-cheat-sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-section",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/sidebar-section.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sign-up-form",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/sign-up-form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "skip-link",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/skip-link.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "slash-command-menu",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/slash-command-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "social-auth-row",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/social-auth-row.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "social-proof",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/social-proof.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sortable-header",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/sortable-header.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "source-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/source-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sparkline-set",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/sparkline-set.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "split-button",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/split-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "split-pane",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/split-pane.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sql-result-table",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/sql-result-table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sso-provider-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/sso-provider-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stack-trace",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/stack-trace.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stack",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/stack.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stacked-bar-chart",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/stacked-bar-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stat-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/stat-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stat-sparkline",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/stat-sparkline.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stats-strip",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/stats-strip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "status-badge",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/status-badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "status-dot",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/status-dot.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "step-progress",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/step-progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stepper",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/stepper.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sticky-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/sticky-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sticky-column",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/sticky-column.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stop-generating",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/stop-generating.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "streak-calendar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/streak-calendar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "streaming-cursor",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/streaming-cursor.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "streaming-message",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/streaming-message.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "suggestion-chips",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/suggestion-chips.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table-pagination",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/table-pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table-toolbar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/table-toolbar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tags-input",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/tags-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tax-fields",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/tax-fields.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "team-member-row",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/team-member-row.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "terminal-window",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/terminal-window.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "testimonial",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/testimonial.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/text.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "theme-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/theme-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "thinking-block",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/thinking-block.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "time-picker",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/time-picker.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/timeline.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/toast.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toc",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/toc.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "token-usage-meter",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/token-usage-meter.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tool-call-card",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/tool-call-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tool-call-collapsed",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/tool-call-collapsed.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tool-result-panel",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/tool-result-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "topbar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/topbar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "trace-waterfall",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/trace-waterfall.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tree-view",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/tree-view.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "trial-banner",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/trial-banner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "two-factor-setup",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/two-factor-setup.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "two-factor-verify",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/two-factor-verify.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "typing-indicator",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/typing-indicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "upgrade-prompt",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/upgrade-prompt.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "uptime-bar",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/uptime-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "usage-breakdown",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/usage-breakdown.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "usage-meter",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/usage-meter.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "user-chip",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/user-chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "version-badge",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/version-badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "vertical-tabs",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/vertical-tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "video-player-chrome",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/video-player-chrome.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "virtualized-list",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/virtualized-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "visually-hidden",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/visually-hidden.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "vote-control",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/vote-control.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "waffle-chart",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/waffle-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "webhook-list",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/webhook-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "welcome-screen",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/welcome-screen.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "well",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/well.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "window-chrome",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/window-chrome.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "wishlist-button",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/wishlist-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "workspace-create",
+      "type": "registry:ui",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/ui/workspace-create.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "admin-console",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/admin-console.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "admin-overview",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/admin-overview.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "analytics-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/analytics-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "api-docs-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/api-docs-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "billing-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/billing-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "changelog-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/changelog-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "chat-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/chat-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "command-center",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/command-center.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "commerce-checkout",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/commerce-checkout.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "dashboard-home",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/dashboard-home.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "docs-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/docs-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "empty-workspace",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/empty-workspace.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "engineering-console",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/engineering-console.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "feature-flags",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/feature-flags.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "form-wizard",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/form-wizard.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "inbox-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/inbox-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "logs-viewer",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/logs-viewer.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "marketing-landing",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/marketing-landing.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "media-library",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/media-library.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "notification-center",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/notification-center.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "onboarding-flow",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/onboarding-flow.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "premium-landing",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/premium-landing.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "project-detail",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/project-detail.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "project-list",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/project-list.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "report-builder",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/report-builder.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "saas-marketing-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/saas-marketing-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "search-results-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/search-results-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "settings-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/settings-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "sign-in-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/sign-in-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "status-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/status-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "support-inbox",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/support-inbox.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "user-detail",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/user-detail.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "users-table-page",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/users-table-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "workflow-board",
+      "type": "registry:block",
+      "tier": "free",
+      "files": [
+        {
+          "path": "src/registry/blocks/workflow-board.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "agency-portfolio",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/agency-portfolio.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "animated-feature-row",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/animated-feature-row.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "before-after-wipe",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/before-after-wipe.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "blog-home",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/blog-home.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "brand-kit-page",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/brand-kit-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "card-tilt",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/card-tilt.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "careers-page",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/careers-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "changelog-marketing",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/changelog-marketing.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "changelog-motion",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/changelog-motion.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "client-pitch-kit",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/client-pitch-kit.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "command-waitlist",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/command-waitlist.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "contact-sales",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/contact-sales.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "cta-glow",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/cta-glow.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "cursor-spotlight-panel",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/cursor-spotlight-panel.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "device-frame-stack",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/device-frame-stack.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "docs-marketing",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/docs-marketing.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "email-receipt",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/email-receipt.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "email-welcome",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/email-welcome.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "faq-accordion-motion",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/faq-accordion-motion.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "feature-bento-motion",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/feature-bento-motion.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "feature-comparison",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/feature-comparison.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "filmstrip-scrub",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/filmstrip-scrub.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "flip-stat-board",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/flip-stat-board.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "free-premium-compare",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/free-premium-compare.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "grid-reveal",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/grid-reveal.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "hero-aurora",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/hero-aurora.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "hero-bento",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/hero-bento.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "hero-client-pitch",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/hero-client-pitch.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "hero-editorial-split",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/hero-editorial-split.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "hero-gradient-mesh",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/hero-gradient-mesh.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "hero-kinetic-type",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/hero-kinetic-type.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "hero-marquee-brands",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/hero-marquee-brands.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "hero-poster-type",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/hero-poster-type.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "hero-split-showcase",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/hero-split-showcase.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "hero-typed-headline",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/hero-typed-headline.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "horizontal-product-rail",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/horizontal-product-rail.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "investor-update",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/investor-update.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "launch-countdown",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/launch-countdown.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "live-component-rail",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/live-component-rail.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "logo-wall-motion",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/logo-wall-motion.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "magnetic-cta",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/magnetic-cta.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "marquee-quotes",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/marquee-quotes.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "masked-gradient-headline",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/masked-gradient-headline.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "metric-ticker-board",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/metric-ticker-board.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "morph-price",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/morph-price.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "onboarding-motion",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/onboarding-motion.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "orbit-logo-cluster",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/orbit-logo-cluster.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "parallax-panel",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/parallax-panel.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "pin-scroll-gallery",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/pin-scroll-gallery.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "pricing-kinetic",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/pricing-kinetic.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "pricing-motion",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/pricing-motion.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "pricing-page",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/pricing-page.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "product-launch",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/product-launch.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "product-os-mock",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/product-os-mock.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "product-tour",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/product-tour.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "saas-landing",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/saas-landing.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "scroll-chapter-story",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/scroll-chapter-story.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "scroll-progress-rail",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/scroll-progress-rail.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "scroll-reveal",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/scroll-reveal.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "soft-stack",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/soft-stack.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "split-proof-panel",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/split-proof-panel.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "stack-reveal-story",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/stack-reveal-story.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "stats-counter",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/stats-counter.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "status-marketing",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/status-marketing.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "sticky-cta-bar",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/sticky-cta-bar.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "sticky-feature-story",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/sticky-feature-story.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "testimonial-carousel",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/testimonial-carousel.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "text-scramble",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/text-scramble.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "typographic-marquee",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/typographic-marquee.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "waitlist-hero",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/waitlist-hero.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "waveform-hero",
+      "type": "registry:block",
+      "tier": "premium",
+      "files": [
+        {
+          "path": "src/registry/premium/waveform-hero.tsx",
+          "type": "registry:block"
+        }
+      ]
+    }
+  ]
+}
