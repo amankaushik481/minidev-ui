@@ -13,9 +13,9 @@ function LogoWallMotion({
   const reduce = useReducedMotion()
   const row = [...logos, ...logos]
   return (
-    <div data-slot="logo-wall-motion" data-tier="premium" className={cn("space-y-3", className)}>
+    <div data-slot="logo-wall-motion" data-tier="premium" className={cn("w-full max-w-full space-y-3 overflow-hidden", className)}>
       <p className="text-center text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">Trusted by product teams</p>
-      <div className="relative overflow-hidden rounded-2xl border border-border bg-sunken py-6">
+      <div className="relative w-full min-w-0 max-w-full overflow-hidden rounded-2xl border border-border bg-sunken py-6">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-[linear-gradient(90deg,var(--color-sunken),transparent)]" aria-hidden />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-[linear-gradient(270deg,var(--color-sunken),transparent)]" aria-hidden />
         <motion.div

@@ -12,7 +12,7 @@ export function GallerySection({
   children: ReactNode
 }) {
   return (
-    <section className="space-y-4 border-b border-border py-10 last:border-b-0">
+    <section className="min-w-0 space-y-4 overflow-x-hidden border-b border-border py-10 last:border-b-0">
       <h2 className="text-xs font-medium uppercase tracking-[0.01em] text-fg">
         {title}
       </h2>
@@ -31,7 +31,7 @@ export function GalleryPage({
   children: ReactNode
 }) {
   return (
-    <main className="mx-auto max-w-5xl overflow-x-hidden bg-bg px-4 py-8 text-fg sm:px-6 sm:py-12">
+    <main className="mx-auto w-full min-w-0 max-w-5xl overflow-x-hidden bg-bg px-4 py-8 text-fg sm:px-6 sm:py-12">
       <div className="mb-4">
         <Link
           href="/gallery"

@@ -30,7 +30,7 @@ function HeroMarqueeBrands({ className }: { className?: string }) {
           <Button variant="outline" className="w-full sm:w-auto">Talk to us</Button>
         </div>
       </div>
-      <div className="w-full max-w-full overflow-hidden border-t border-border bg-sunken py-4">
+      <div className="w-full min-w-0 max-w-full overflow-hidden border-t border-border bg-sunken py-4">
         <motion.div
           className="flex w-max gap-10 px-6 text-sm font-medium text-fg"
           animate={reduce ? undefined : { x: ["0%", "-50%"] }}

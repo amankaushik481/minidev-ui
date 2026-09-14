@@ -25,7 +25,7 @@ function TypographicMarquee({
       data-slot="typographic-marquee"
       data-tier="premium"
       className={cn(
-        "w-full max-w-full overflow-hidden rounded-2xl border border-border bg-bg py-6 sm:py-8",
+        "w-full min-w-0 max-w-full overflow-hidden rounded-2xl border border-border bg-bg py-6 sm:py-8",
         className
       )}
       aria-label="Marquee phrases"

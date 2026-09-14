@@ -46,11 +46,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}
+      className={`${GeistSans.variable} ${GeistMono.variable} h-full overflow-x-hidden antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col overflow-x-hidden bg-bg text-fg">
-        <TooltipProvider>{children}</TooltipProvider>
+      <body className="flex min-h-full w-full min-w-0 flex-col overflow-x-hidden bg-bg text-fg">
+        {/* min-w-0: flex items default to min-width:auto and marquees/w-max would expand the page */}
+        <div className="flex min-h-full w-full min-w-0 flex-1 flex-col">
+          <TooltipProvider>{children}</TooltipProvider>
+        </div>
       </body>
     </html>
   );
