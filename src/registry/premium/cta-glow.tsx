@@ -23,7 +23,7 @@ function CtaGlow({
       whileInView={{ y: 0 }}
       viewport={{ once: true }}
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-border bg-sunken p-8 text-center shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
+        "relative overflow-hidden rounded-2xl border border-border bg-sunken p-5 text-center shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] sm:p-8",
         className
       )}
     >
@@ -39,7 +39,7 @@ function CtaGlow({
       {description ? (
         <p className="relative mx-auto mt-2 max-w-md text-sm text-fg-muted">{description}</p>
       ) : null}
-      <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
+      <div className="relative mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
         <MagneticCta>Get Premium</MagneticCta>
         <Button variant="outline">Stay free</Button>
       </div>

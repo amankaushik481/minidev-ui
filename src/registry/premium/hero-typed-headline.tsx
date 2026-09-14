@@ -18,12 +18,15 @@ function HeroTypedHeadline({ className }: { className?: string }) {
     <section
       data-slot="hero-typed-headline"
       data-tier="premium"
-      className={cn("rounded-2xl border border-border bg-bg px-6 py-24 text-center", className)}
+      className={cn(
+        "overflow-hidden rounded-2xl border border-border bg-bg px-4 py-14 text-center sm:px-6 sm:py-24",
+        className
+      )}
     >
       <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">Premium</p>
-      <h1 className="mx-auto mt-3 max-w-3xl text-4xl font-medium tracking-[-0.030em] text-fg sm:text-5xl">
+      <h1 className="mx-auto mt-3 max-w-3xl text-[clamp(1.5rem,3.2vw+0.9rem,3rem)] font-medium tracking-[-0.028em] text-fg">
         Ship beautiful{" "}
-        <span className="relative inline-flex h-[1.15em] min-w-[8ch] items-baseline justify-center overflow-hidden align-baseline text-accent">
+        <span className="relative inline-flex h-[1.2em] min-w-[9ch] max-w-full items-baseline justify-center overflow-hidden align-baseline text-accent sm:min-w-[12ch]">
           <AnimatePresence mode="wait">
             <motion.span
               key={WORDS[index]}
@@ -31,7 +34,7 @@ function HeroTypedHeadline({ className }: { className?: string }) {
               animate={{ y: 0, opacity: 1 }}
               exit={reduce ? undefined : { y: -16, opacity: 0 }}
               transition={{ duration: 0.28 }}
-              className="absolute inset-x-0"
+              className="absolute inset-x-0 whitespace-nowrap"
             >
               {WORDS[index]}
             </motion.span>
@@ -41,9 +44,9 @@ function HeroTypedHeadline({ className }: { className?: string }) {
       <p className="mx-auto mt-4 max-w-lg text-sm text-fg-muted">
         One registry. Free primitives. Premium motion blocks when you need the wow.
       </p>
-      <div className="mt-8 flex justify-center gap-3">
-        <Button>Explore Premium</Button>
-        <Button variant="outline">Free components</Button>
+      <div className="mx-auto mt-7 flex w-full max-w-sm flex-col gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:justify-center">
+        <Button className="w-full sm:w-auto">Explore Premium</Button>
+        <Button variant="outline" className="w-full sm:w-auto">Free components</Button>
       </div>
     </section>
   )

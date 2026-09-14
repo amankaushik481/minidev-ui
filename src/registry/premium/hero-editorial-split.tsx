@@ -12,13 +12,16 @@ function HeroEditorialSplit({ className }: { className?: string }) {
     <section
       data-slot="hero-editorial-split"
       data-tier="premium"
-      className={cn("grid items-center gap-10 overflow-hidden rounded-2xl border border-border bg-bg px-6 py-16 lg:grid-cols-2 lg:px-12", className)}
+      className={cn(
+        "grid min-w-0 items-center gap-8 overflow-hidden rounded-2xl border border-border bg-bg px-4 py-12 sm:gap-10 sm:px-6 sm:py-16 lg:grid-cols-2 lg:px-12",
+        className
+      )}
     >
-      <div>
+      <div className="min-w-0">
         <motion.p initial={reduce ? false : { y: 8 }} animate={{ y: 0 }} className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">
           MiniDev Premium
         </motion.p>
-        <h1 className="mt-3 text-4xl font-medium tracking-[-0.030em] text-fg sm:text-5xl">
+        <h1 className="mt-3 text-[clamp(1.75rem,3.5vw+1rem,3rem)] font-medium tracking-[-0.028em] text-fg">
           <span className="block overflow-hidden">
             <motion.span className="block" initial={reduce ? false : { y: "110%" }} animate={{ y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
               Local craft.
@@ -33,9 +36,9 @@ function HeroEditorialSplit({ className }: { className?: string }) {
         <p className="mt-4 max-w-md text-sm leading-[1.55] text-fg-muted">
           Free MIT product UI. Premium kinetic moments. Audit-gated so screenshots stay honest when you ship.
         </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <MagneticCta>Browse Premium</MagneticCta>
-          <Button variant="outline">Open docs</Button>
+        <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
+          <MagneticCta className="w-full sm:w-auto">Browse Premium</MagneticCta>
+          <Button variant="outline" className="w-full sm:w-auto">Open docs</Button>
         </div>
       </div>
       <DeviceFrameStack />

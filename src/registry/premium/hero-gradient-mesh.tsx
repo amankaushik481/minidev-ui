@@ -21,12 +21,12 @@ function HeroGradientMesh({ className }: { className?: string }) {
         }}
         aria-hidden
       />
-      <div className="relative px-6 py-28 text-center" style={{ color: "oklch(0.98 0.005 250)" }}>
+      <div className="relative px-4 py-16 text-center sm:px-6 sm:py-28" style={{ color: "oklch(0.98 0.005 250)" }}>
         <motion.h1
           initial={reduce ? false : { opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-4xl font-medium tracking-[-0.030em] sm:text-5xl"
+          className="text-[clamp(1.75rem,3.5vw+1rem,3rem)] font-medium tracking-[-0.028em]"
           style={{ color: "oklch(0.99 0.002 250)" }}
         >
           Dark-mode first. Accent that sings.
@@ -37,16 +37,16 @@ function HeroGradientMesh({ className }: { className?: string }) {
         >
           Premium mesh hero for launches. Respects reduced motion.
         </p>
-        <div className="mt-8 flex justify-center gap-3">
+        <div className="mx-auto mt-7 flex w-full max-w-sm flex-col gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:justify-center">
           <Button
-            className="border-transparent"
+            className="w-full border-transparent sm:w-auto"
             style={{ backgroundColor: "oklch(0.98 0.005 250)", color: "oklch(0.18 0.01 250)" }}
           >
             Launch
           </Button>
           <Button
             variant="outline"
-            className="hover:bg-white/10"
+            className="w-full hover:bg-white/10 sm:w-auto"
             style={{ borderColor: "oklch(0.85 0.01 250)", color: "oklch(0.98 0.005 250)", backgroundColor: "transparent" }}
           >
             Docs

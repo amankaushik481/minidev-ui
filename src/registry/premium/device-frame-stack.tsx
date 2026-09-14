@@ -6,15 +6,18 @@ import { cn } from "@/lib/utils"
 function DeviceFrameStack({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   const frames = [
-    { rotate: -6, x: -40, y: 18, z: 0, label: "Mobile" },
+    { rotate: -5, x: -22, y: 14, z: 0, label: "Mobile" },
     { rotate: 0, x: 0, y: 0, z: 1, label: "App" },
-    { rotate: 5, x: 48, y: 22, z: 0, label: "Docs" },
+    { rotate: 4, x: 26, y: 16, z: 0, label: "Docs" },
   ]
   return (
     <div
       data-slot="device-frame-stack"
       data-tier="premium"
-      className={cn("relative mx-auto flex h-72 w-full max-w-lg items-center justify-center", className)}
+      className={cn(
+        "relative mx-auto flex h-64 w-full max-w-lg items-center justify-center overflow-hidden sm:h-72",
+        className
+      )}
     >
       {frames.map((f, i) => (
         <motion.div
@@ -24,7 +27,7 @@ function DeviceFrameStack({ className }: { className?: string }) {
           viewport={{ once: true }}
           transition={{ delay: 0.1 + i * 0.08, type: "spring", stiffness: 120, damping: 16 }}
           style={{ zIndex: f.z + 1 }}
-          className="absolute w-44 overflow-hidden rounded-xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]"
+          className="absolute w-36 overflow-hidden rounded-xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] sm:w-44"
         >
           <div className="flex h-7 items-center gap-1 border-b border-border bg-sunken px-2">
             <span className="size-1.5 rounded-full bg-fg-subtle/50" />

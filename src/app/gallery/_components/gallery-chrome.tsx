@@ -16,7 +16,7 @@ export function GallerySection({
       <h2 className="text-xs font-medium uppercase tracking-[0.01em] text-fg">
         {title}
       </h2>
-      <div className="flex flex-wrap items-start gap-4">{children}</div>
+      <div className="w-full min-w-0 space-y-4">{children}</div>
     </section>
   )
 }
