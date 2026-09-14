@@ -31,7 +31,7 @@ function HeroClientPitch({ className }: { className?: string }) {
         >
           MiniDev UI · Client-ready registry
         </motion.p>
-        <h1 className="mt-4 text-[2rem] font-medium leading-[1.08] tracking-[-0.028em] text-fg sm:text-6xl sm:leading-[1.05] sm:tracking-[-0.034em]">
+        <h1 className="mt-4 text-[clamp(1.75rem,4.2vw+1rem,3.75rem)] font-medium leading-[1.08] tracking-[-0.028em] text-fg sm:leading-[1.05] sm:tracking-[-0.034em]">
           {["Interfaces", "that", "look"].map((w, i) => (
             <span key={w} className="inline-block overflow-hidden align-bottom">
               <motion.span

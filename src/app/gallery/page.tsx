@@ -32,7 +32,7 @@ export default function GalleryIndex() {
   })
 
   return (
-    <div className="min-h-svh bg-bg text-fg">
+    <div className="min-h-svh overflow-x-hidden bg-bg text-fg">
       <SiteHeader solid />
       <main className="min-h-0">
       <div className="border-b border-border bg-surface">
@@ -88,9 +88,9 @@ export default function GalleryIndex() {
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-6 sm:px-6 sm:py-8 lg:grid-cols-[200px_1fr]">
-        <nav aria-label="Categories" className="lg:sticky lg:top-6 lg:self-start">
-          <ul className="flex gap-1 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0">
+      <div className="mx-auto grid min-w-0 max-w-6xl gap-8 px-4 py-6 sm:px-6 sm:py-8 lg:grid-cols-[200px_1fr]">
+        <nav aria-label="Categories" className="min-w-0 max-w-full lg:sticky lg:top-6 lg:self-start">
+          <ul className="flex w-full min-w-0 flex-nowrap gap-1 overflow-x-auto overscroll-x-contain pb-2 lg:flex-col lg:overflow-visible lg:pb-0">
             <li>
               <CatButton active={cat === "featured"} onClick={() => setCat("featured")}>Featured</CatButton>
             </li>
@@ -121,7 +121,7 @@ export default function GalleryIndex() {
           {filtered.length === 0 ? (
             <p className="rounded-xl border border-dashed border-border px-4 py-10 text-center text-sm text-fg-muted">No matches. Try another search.</p>
           ) : (
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid min-w-0 gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {filtered.map((e) => (
                 <GalleryCard key={e.slug} entry={e} />
               ))}
@@ -155,13 +155,13 @@ function GalleryCard({ entry }: { entry: (typeof GALLERY_ENTRIES)[number] }) {
     <Link
       href={`/gallery/${entry.slug}`}
       className={cn(
-        "group relative flex flex-col rounded-xl border border-border bg-surface p-4 outline-none transition-[border-color] duration-[70ms]",
+        "group relative flex min-w-0 flex-col rounded-xl border border-border bg-surface p-4 outline-none transition-[border-color] duration-[70ms]",
         "hover:border-fg-subtle focus-visible:ring-2 focus-visible:ring-accent",
         entry.premium && "border-accent/25"
       )}
     >
       <div className="mb-3 flex items-start justify-between gap-2">
-        <span className="text-sm font-medium text-fg group-hover:text-accent">{entry.label}</span>
+        <span className="min-w-0 break-words text-sm font-medium text-fg group-hover:text-accent">{entry.label}</span>
         {entry.premium ? (
           <span className="inline-flex items-center gap-1 rounded-md border border-border bg-surface px-1.5 py-0.5 text-[10px] font-medium tracking-[0.01em] text-fg uppercase">
             <SparklesIcon className="size-3 text-accent" /> Premium
@@ -170,7 +170,7 @@ function GalleryCard({ entry }: { entry: (typeof GALLERY_ENTRIES)[number] }) {
           <span className="rounded-md border border-border bg-sunken px-1.5 py-0.5 text-[10px] font-medium tracking-[0.01em] text-fg-muted uppercase">Free</span>
         )}
       </div>
-      <p className="text-xs leading-[1.55] text-fg-muted">{entry.description}</p>
+      <p className="min-w-0 break-words text-xs leading-[1.55] text-fg-muted">{entry.description}</p>
     </Link>
   )
 }
