@@ -3,3 +3,5 @@
 > 398 free · 71 premium · 469 total
 
 Client walkthrough: / and /showcase.
+
+npm: minidev-ui-kit — `npm install minidev-ui-kit` then `import { Button } from "minidev-ui-kit/ui/button"`.

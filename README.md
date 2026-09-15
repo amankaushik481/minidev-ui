@@ -1,40 +1,37 @@
 # MiniDev UI
 
-```bash
-npm install minidev-ui
-```
-
-```tsx
-import { Button } from "minidev-ui/ui/button"
-```
-
-# MiniDev UI
-
-> Client walkthrough: open `/` then `/showcase`. Free MIT product UI + Premium kinetic launch moments. Hairline · Geist · hue 285 · audit-gated.
-
-
 Hairline React + Tailwind registry — **free MIT product UI** and **Premium kinetic launch moments**.
 
 Geist Sans · accent hue **285** · audit-gated screenshots + axe.
 
-**457 components** · 398 free · 59 premium
+Live: [ui.minidev.pro](https://ui.minidev.pro) · npm: [`minidev-ui-kit`](https://www.npmjs.com/package/minidev-ui-kit)
 
-## Quick start
+## Install
+
+```bash
+npm install minidev-ui-kit
+# or
+yarn add minidev-ui-kit
+```
+
+```tsx
+import { Button } from "minidev-ui-kit/ui/button"
+import { HeroKineticType } from "minidev-ui-kit/premium/hero-kinetic-type"
+```
+
+Your bundler must transpile the package (Next.js: `transpilePackages: ["minidev-ui-kit"]`). Peer deps: React 18+, Tailwind, Base UI, CVA, lucide-react; `motion` and `next` are optional peers for Premium / Link usage.
+
+## Local registry (this repo)
 
 ```bash
 npm install
 npm run dev
 ```
 
-- Gallery: [http://localhost:3000/gallery](http://localhost:3000/gallery)
-- Docs: [http://localhost:3000/docs](http://localhost:3000/docs)
-- Playground: [http://localhost:3000/playground](http://localhost:3000/playground)
-
-### Use a component
-
-```tsx
-import { Button } from "@/registry/ui/button"
-```
+- Gallery: http://localhost:3000/gallery
+- Docs: http://localhost:3000/docs
+- Playground: http://localhost:3000/playground
+- Showcase: http://localhost:3000/showcase
 
 Copy files from `src/registry/ui`, `src/registry/blocks`, or `src/registry/premium` into your app. Keep `DESIGN.md` open — invent nothing.
 

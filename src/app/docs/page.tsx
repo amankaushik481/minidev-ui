@@ -26,11 +26,28 @@ export default function DocsPage() {
 
       <section className="mt-12 space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
         <h2 className="text-xl font-medium tracking-[-0.014em]">Install</h2>
-        <p className="text-sm text-fg-muted">Local registry — copy files into your app, or import from the package path once published.</p>
+        <p className="text-sm text-fg-muted">
+          Published as{" "}
+          <a className="font-medium text-fg underline-offset-2 hover:underline" href="https://www.npmjs.com/package/minidev-ui-kit">
+            minidev-ui-kit
+          </a>
+          . Also works with yarn / pnpm / bun from the same registry.
+        </p>
         <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-sunken p-3 font-mono text-xs text-fg">
-          <span className="flex-1 truncate">npx shadcn@latest add ./src/registry/ui/button.tsx</span>
-          <CopyButton value="npx shadcn@latest add ./src/registry/ui/button.tsx" size="sm" />
+          <span className="flex-1 truncate">npm install minidev-ui-kit</span>
+          <CopyButton value="npm install minidev-ui-kit" size="sm" />
         </div>
+        <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-sunken p-3 font-mono text-xs text-fg">
+          <span className="flex-1 truncate">yarn add minidev-ui-kit</span>
+          <CopyButton value="yarn add minidev-ui-kit" size="sm" />
+        </div>
+        <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-sunken p-3 font-mono text-xs text-fg">
+          <span className="flex-1 truncate">{'import { Button } from "minidev-ui-kit/ui/button"'}</span>
+          <CopyButton value={'import { Button } from "minidev-ui-kit/ui/button"'} size="sm" />
+        </div>
+        <p className="text-xs text-fg-muted">
+          Next.js: add <code className="rounded bg-sunken px-1 font-mono text-[11px] text-fg">transpilePackages: [&quot;minidev-ui-kit&quot;]</code>. Or copy from the local registry paths below.
+        </p>
         <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-sunken p-3 font-mono text-xs text-fg">
           <span className="flex-1 truncate">import {"{ Button }"} from "@/registry/ui/button"</span>
           <CopyButton value={'import { Button } from "@/registry/ui/button"'} size="sm" />

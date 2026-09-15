@@ -54,7 +54,7 @@ for (const f of files) {
 }
 
 const pkg = {
-  name: "minidev-ui",
+  name: "minidev-ui-kit",
   version: "0.1.0",
   description: "MiniDev UI — Hairline React + Tailwind components (free) + Premium motion blocks",
   license: "MIT",
@@ -92,28 +92,26 @@ const pkg = {
 await writeFile(path.join(out, "package.json"), JSON.stringify(pkg, null, 2) + "\n")
 await writeFile(
   path.join(out, "README.md"),
-  `# minidev-ui
+  `# minidev-ui-kit
 
-Hairline React + Tailwind registry from MiniDev.
+Hairline React + Tailwind components (free) + Premium motion blocks.
 
 ## Install
 
 \`\`\`bash
-npm install minidev-ui
+npm install minidev-ui-kit
+# or
+yarn add minidev-ui-kit
 \`\`\`
-
-Peer deps: \`react\`, \`react-dom\`, \`@base-ui/react\`, \`class-variance-authority\`, \`clsx\`, \`tailwind-merge\`, \`lucide-react\`. Premium motion blocks also need \`motion\`.
-
-## Import
 
 \`\`\`tsx
-import { Button } from "minidev-ui/ui/button"
-import { HeroKineticType } from "minidev-ui/premium/hero-kinetic-type"
+import { Button } from "minidev-ui-kit/ui/button"
+import { HeroKineticType } from "minidev-ui-kit/premium/hero-kinetic-type"
 \`\`\`
 
-Your bundler must transpile the package (Next.js: \`transpilePackages: ["minidev-ui"]\`).
+Your bundler must transpile the package (Next.js: \`transpilePackages: ["minidev-ui-kit"]\`).
 
-Site + docs: https://ui.minidev.pro  
+Site + docs: https://ui.minidev.pro
 Design law: see \`DESIGN.md\` in this package.
 
 MIT for free UI. Premium blocks are included for evaluation; commercial soft-gate may apply later.

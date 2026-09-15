@@ -29,7 +29,7 @@ export default function Page() {
         <CharacterCount value={12} max={140} />
       </GallerySection>
       <GallerySection title="Copy / rating / title">
-        <CopyButton value="minidev-ui" />
+        <CopyButton value="minidev-ui-kit" />
         <CopyId value="usr_8f2a91" />
         <Rating defaultValue={4} aria-label="Rating" />
         <EditableHeading defaultValue="Untitled doc" />
