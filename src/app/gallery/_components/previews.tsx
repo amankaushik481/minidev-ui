@@ -218,7 +218,10 @@ const PREVIEWS: Record<string, () => React.ReactNode> = {
   "choice-card": () => (
     <div className="flex gap-2">{["Personal", "Team"].map((l, i) => <div key={l} className={cn("w-24 space-y-1 rounded-lg border p-2", i === 1 ? "border-accent shadow-[0_0_0_3px_var(--accent-soft)]" : "border-border bg-surface")}><span className={cn("block size-3 rounded-full border", i === 1 ? "border-accent bg-accent" : "border-border-strong")} /><p className="text-[11px] font-medium text-fg">{l}</p><div className={cn("h-1 w-14", line)} /></div>)}</div>
   ),
-  "file-dropzone": () => <div className="grid h-24 w-52 place-items-center rounded-xl border border-dashed border-border-strong bg-surface/60 text-center"><div><UploadCloudIcon className="mx-auto size-5 text-fg-subtle" /><p className="mt-1 text-[10px] text-fg-muted">Drop files or <span className="text-accent-fg">browse</span></p></div></div>,
+  "segmented-control": () => (
+    <div className="flex h-8 items-center rounded-[9px] bg-sunken p-[3px] text-[11px] font-medium shadow-[inset_0_0_0_1px_var(--border)]">{["Monthly", "Yearly"].map((l, i) => <span key={l} className={cn("flex h-full items-center gap-1 rounded-md px-2.5", i === 1 ? "bg-raised text-fg shadow-[0_1px_2px_0_oklch(0_0_0/0.08),0_0_0_1px_var(--border)]" : "text-fg-muted")}>{l}{i === 1 ? <span className="rounded-full bg-accent-soft px-1 font-mono text-[9px] text-accent-fg">-20%</span> : null}</span>)}</div>
+  ),
+  "file-dropzone": () => <div className="grid h-24 w-52 place-items-center rounded-xl border border-dashed border-accent bg-accent-soft text-center"><div><span className="mx-auto grid size-7 place-items-center rounded-lg bg-accent text-on-accent shadow-ink"><UploadCloudIcon className="size-3.5" /></span><p className="mt-1.5 text-[10px] font-medium text-fg">Release to upload</p></div></div>,
   "dropdown-menu": () => (
     <div className="w-40 rounded-xl border border-border bg-raised p-1 shadow-overlay">{["Edit", "Duplicate", "Share"].map((l, i) => <div key={l} className={cn("flex items-center justify-between rounded-md px-2 py-1 text-[11px]", i === 0 ? "bg-sunken text-fg" : "text-fg-muted")}>{l}<span className="font-mono text-[9px] text-fg-subtle">⌘{l[0]}</span></div>)}<div className="my-1 h-px bg-border" /><div className="rounded-md px-2 py-1 text-[11px] text-danger">Delete</div></div>
   ),

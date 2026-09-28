@@ -10,7 +10,7 @@ function WelcomeScreen({ className }: { className?: string }) {
       <p className="mt-2 max-w-md text-sm leading-[1.55] text-fg-muted">Start from free product primitives, unlock Premium moments when a page has to convert.</p>
       <ol className="mt-6 space-y-2 text-sm text-fg-muted">
         <li>1. Copy a component from the gallery</li>
-        <li>2. Keep DESIGN.md open — hue 285, no blur shadows</li>
+        <li>2. Invite your team and pick a workspace name</li>
         <li>3. Run the audit gate before you share</li>
       </ol>
       <div className="mt-6 flex gap-2">

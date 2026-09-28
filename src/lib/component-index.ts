@@ -1421,14 +1421,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/data-table.tsx",
     "import": "@/registry/ui/data-table",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [
-      "table"
+      "checkbox"
     ],
     "galleries": [
       "data-table"
     ],
-    "usage": "<DataTable\n  data={filtered}\n  columns={[\n    { id: \"name\", header: \"Name\", cell: (r) => r.name },\n    { id: \"plan\", header: \"Plan\", cell: (r) => r.plan },\n    { id: \"status\", header: \"Status\", cell: (r) => (\n      <StatusBadge tone={r.status === \"active\" ? \"success\" : r.status === \"past_due\" ? \"danger\" : \"warning\"}>{r.status}</StatusBadge>\n    ) },\n  ]}\n/>"
+    "description": "Enables sorting on this column. Return the value to compare.",
+    "usage": "<DataTable\n  data={filtered}\n  columns={[\n    { id: \"name\", header: \"Name\", sortValue: (r) => r.name, cell: (r) => r.name },\n    { id: \"plan\", header: \"Plan\", cell: (r) => r.plan },\n    { id: \"status\", header: \"Status\", cell: (r) => (\n      <StatusBadge tone={r.status === \"active\" ? \"success\" : r.status === \"past_due\" ? \"danger\" : \"warning\"}>{r.status}</StatusBadge>\n    ) },\n  ]}\n/>"
   },
   {
     "name": "date-picker",
@@ -1932,10 +1935,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": [
-      "file-dropzone"
-    ],
-    "usage": "<FileDropzone className=\"max-w-lg\" />"
+    "galleries": [],
+    "description": "Failed validation (type/size), so retry makes no sense."
   },
   {
     "name": "file-list",
@@ -3242,6 +3243,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "auth",
       "otp-input"
     ],
+    "description": "Fires once when every slot is filled.",
     "usage": "<OtpInput />"
   },
   {
@@ -4093,12 +4095,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/segmented-control.tsx",
     "import": "@/registry/ui/segmented-control",
-    "deps": [],
-    "registryDeps": [
-      "toggle",
-      "toggle-group"
+    "deps": [
+      "motion"
     ],
-    "galleries": []
+    "registryDeps": [],
+    "galleries": [
+      "segmented-control"
+    ],
+    "description": "Short trailing detail, e.g. \"-20%\" or a count.",
+    "usage": "<SegmentedControl disabled items={[\"Day\", \"Week\", \"Month\"]} aria-label=\"Disabled range\" />"
   },
   {
     "name": "select",

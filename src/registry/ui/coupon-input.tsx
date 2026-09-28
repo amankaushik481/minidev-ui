@@ -20,7 +20,7 @@ function CouponInput({ className }: { className?: string }) {
           Apply
         </Button>
       </div>
-      {ok === true ? <p className="text-xs text-success">Coupon applied — 20% off Premium</p> : null}
+      {ok === true ? <p className="text-xs text-success">Coupon applied: 20% off the Pro plan</p> : null}
       {ok === false ? <p className="text-xs text-danger">Invalid code</p> : null}
     </div>
   )

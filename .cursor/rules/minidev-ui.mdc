@@ -1,0 +1,95 @@
+---
+description: MiniDev UI design system. Applies to every component, demo and page in this repo.
+globs:
+alwaysApply: true
+---
+
+# MiniDev UI rules
+
+You are building MiniDev UI: free, MIT, React 19 + Tailwind v4 + Base UI components, shadcn-compatible.
+The bar is "a senior product designer screenshots it". Linear, Vercel, Stripe, Raycast quality.
+The style is called Hairline: quiet surfaces, 1px lines, a top highlight, one violet accent used sparingly.
+
+## Read before writing any component
+
+1. `DESIGN.md` (the rules) and `src/styles/minidev.css` (every token that exists).
+2. The gold-standard components. Copy their patterns, not just their colours:
+   - `src/registry/ui/segmented-control.tsx`: motion indicator (layoutId), roving keyboard, sizes lookup, controlled + uncontrolled.
+   - `src/registry/ui/otp-input.tsx`: one real input under painted slots, caret, glyph-in, shake on error.
+   - `src/registry/ui/file-dropzone.tsx`: four drag states, SVG hairline border, async list with progress, error, retry, aria-live.
+   - `src/registry/ui/data-table.tsx`: sort with aria-sort, selection with indeterminate, accent rail, hover actions, sticky header shadow, skeleton, floating bulk bar.
+   - `src/registry/ui/toast.tsx`: imperative API plus a stacked, hover-to-expand system.
+   - Primitives: `button.tsx`, `input.tsx`, `checkbox.tsx`, `switch.tsx`, `tabs.tsx`.
+3. `src/components/reference/demos.tsx`: how a demo looks (realistic data, a scenario, then states).
+
+## Tokens (the only colours you may use)
+
+Surfaces: `bg-bg` (page), `bg-surface` (cards, fields), `bg-raised` (menus, thumbs, popovers), `bg-sunken` (tracks, wells, hover fills).
+Lines: `border-border` (default), `border-border-strong` (hover, filled), `bg-border` for 1px dividers.
+Text: `text-fg`, `text-fg-muted` (secondary), `text-fg-subtle` (placeholder, meta).
+Ink (primary action): `bg-ink text-on-ink shadow-ink hover:bg-ink-hover`.
+Accent (violet, punctuation only): `bg-accent text-on-accent`, `text-accent-fg`, `bg-accent-soft`, `border-accent-line`, `ring-accent`.
+Status: `success`, `warning`, `danger`, `info` (text-*, bg-*, border-*). For tints: `bg-[color-mix(in_oklch,var(--danger)_6%,var(--surface))]`.
+Depth: `shadow-xs` (fields), `shadow-raised` (cards), `shadow-key` (outline buttons, keycaps, small tiles), `shadow-ink` (solid buttons), `shadow-overlay` (menus, popovers, dialogs, toasts). Nothing else.
+Opacity tints of fg for hover fills: `hover:bg-fg/5`, pressed `bg-fg/[0.06]`.
+
+Forbidden: hex, `bg-blue-500` style palette steps, `bg-muted`/`text-muted-foreground`/`bg-primary` (old shadcn names), gradients on UI surfaces, glassmorphism, blur shadows on cards, `transition-all`, `hover:scale-*`, `active:scale-*`, 2px borders, emoji in UI, new CSS variables, new npm packages.
+
+## Recipes (paste these, do not improvise)
+
+Field (input, select trigger, combobox, textarea):
+`h-9 rounded-lg border border-border bg-surface px-3 text-sm text-fg shadow-xs outline-none placeholder:text-fg-subtle transition-[border-color,box-shadow,background-color] duration-[140ms] ease-hairline hover:border-border-strong focus-visible:border-accent focus-visible:shadow-[0_0_0_3px_var(--accent-soft)] aria-invalid:border-danger disabled:cursor-not-allowed disabled:bg-sunken disabled:text-fg-muted`
+
+Focus ring for buttons and clickable things:
+`outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg`
+(inside a sunken track use `ring-offset-1 ring-offset-sunken`)
+
+Ghost icon button: `grid size-7 place-items-center rounded-md text-fg-subtle outline-none hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent`
+
+Track (segmented, tabs, slider rail): `bg-sunken shadow-[inset_0_0_0_1px_var(--border)]`
+Thumb / selected segment: `bg-raised shadow-[0_1px_2px_0_oklch(0_0_0/0.08),0_0_0_1px_var(--border),inset_0_1px_0_0_var(--highlight)]`
+
+Card: `rounded-xl border border-border bg-surface shadow-raised`
+Overlay (menu, popover): `rounded-xl border border-border bg-raised p-1 shadow-overlay`
+Menu item: `flex h-8 items-center gap-2 rounded-md px-2 text-[0.8125rem] text-fg outline-none data-[highlighted]:bg-sunken`
+Kbd hint: use `<Kbd>` from `@/registry/ui/kbd`.
+Selected row / item rail: `bg-accent-soft shadow-[inset_2px_0_0_var(--accent)]`
+Hit area on small controls: `relative after:absolute after:-inset-2` (min 44px touch target).
+
+## Geometry and type
+
+Heights: 28 (xs), 32 (sm), 36 (default), 44 (lg), 48 (xl). Radius: controls `rounded-lg`, cards `rounded-xl`, overlays `rounded-xl`/`rounded-2xl`, inner items `rounded-md`. Nested radius = outer minus padding.
+Spacing on a 4px grid. Dense UI text is `text-[0.8125rem]` (13px), meta `text-xs`, labels `font-medium`.
+Numbers: `tabular-nums`. IDs, keys, code, file extensions: `font-mono`.
+Never centre long text. Headings `text-balance`.
+
+## Motion
+
+Colour changes `duration-[70ms]`. Transform and shadow `duration-[140ms]`. Enter `duration-200`. Exit 160ms. Easing `ease-hairline`.
+Indicators and thumbs that move between positions: `motion/react` with `layoutId` and `{ type: "spring", bounce: 0.18, duration: 0.42 }`.
+Always `const reduce = useReducedMotion()` and pass `{ duration: 0 }` when true.
+Available keyframes: `rise-in`, `glyph-in`, `pop-in`, `shake-x`, `dash-march`, `caret-blink`, `shimmer-x`, `shimmer-text`, `pulse-ring`, `marquee`. Use as `animate-[pop-in_280ms_var(--ease-hairline)_both]`.
+Press feedback: `active:translate-y-px` or a darker fill. Never scale.
+
+## Component contract (every file in src/registry)
+
+- `"use client"` at the top when it has state or handlers.
+- Root element has `data-slot="<name>"` and accepts `className` (merged with `cn`).
+- Controlled and uncontrolled: `value` + `defaultValue` + `onChange` (or `checked`/`open` equivalents).
+- Renders something good with ZERO props. The docs page renders every component with no props. Use realistic defaults.
+- Every state is designed, in light and dark: rest, hover, pressed, focus-visible, disabled, loading, empty, error/invalid, selected, read-only where it applies.
+- Keyboard follows the WAI-ARIA APG pattern for its role. Base UI primitives already do this; use them (`@base-ui/react/*`) instead of hand-rolling menus, popovers, dialogs, selects, sliders.
+- Async changes announced with an `aria-live="polite"` sr-only span.
+- Export the component and its props type: `export { Thing }; export type { ThingProps }`.
+- Never break an existing export or prop. Before changing a signature, search for usages (`rg "<Thing"`) and keep old props working.
+- Sample copy is for a fictional SaaS called Lumen (invoices, customers, deploys, workspaces). No lorem ipsum, no "Premium", no MiniDev marketing copy inside components, no em dashes.
+
+## Checks (run after every component)
+
+```
+npm run registry
+npx tsc --noEmit
+npm run craft -- <file-name>
+```
+`npm run craft` must show 0 errors for your files. Fix warnings in files you touched.
+Then look at it: `npm run dev`, open `/gallery/<slug>` and `/docs/<name>`, both themes (header toggle), and at 390px wide. No horizontal scroll.

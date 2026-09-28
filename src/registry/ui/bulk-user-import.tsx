@@ -15,7 +15,7 @@ function BulkUserImport({
   const [ready, setReady] = React.useState(false)
   return (
     <div data-slot="bulk-user-import" className={cn("space-y-3", className)}>
-      <Callout title="CSV format" tone="info">email, name, role — one user per row.</Callout>
+      <Callout title="CSV format" tone="info">email, name, role. One user per row.</Callout>
       <FileDropzone
         accept=".csv,text/csv"
         label="Drop CSV of users"

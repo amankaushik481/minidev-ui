@@ -269,6 +269,13 @@ export const GALLERY_ENTRIES: GalleryEntry[] = [
     "premium": false
   },
   {
+    "slug": "segmented-control",
+    "label": "Segmented control",
+    "category": "forms",
+    "description": "Gliding thumb, keyboard, badges",
+    "premium": false
+  },
+  {
     "slug": "otp-input",
     "label": "OTP",
     "category": "forms",

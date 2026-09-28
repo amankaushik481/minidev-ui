@@ -112,7 +112,7 @@
 - [CtaBanner](https://ui.minidev.pro/docs/cta-banner): `import { CtaBanner } from "minidev-ui-kit/ui/cta-banner"`
 - [CurrencyInput](https://ui.minidev.pro/docs/currency-input): `import { CurrencyInput } from "minidev-ui-kit/ui/currency-input"`
 - [DangerZone](https://ui.minidev.pro/docs/danger-zone): `import { DangerZone } from "minidev-ui-kit/ui/danger-zone"`
-- [DataTable](https://ui.minidev.pro/docs/data-table): `import { DataTable } from "minidev-ui-kit/ui/data-table"`
+- [DataTable](https://ui.minidev.pro/docs/data-table): `import { DataTable } from "minidev-ui-kit/ui/data-table"` — Enables sorting on this column. Return the value to compare.
 - [DatePicker](https://ui.minidev.pro/docs/date-picker): `import { DatePicker } from "minidev-ui-kit/ui/date-picker"`
 - [DateRangePicker](https://ui.minidev.pro/docs/date-range-picker): `import { DateRangePicker } from "minidev-ui-kit/ui/date-range-picker"`
 - [DeleteAccountConfirm](https://ui.minidev.pro/docs/delete-account-confirm): `import { DeleteAccountConfirm } from "minidev-ui-kit/ui/delete-account-confirm"`
@@ -146,7 +146,7 @@
 - [FeatureFlagToggle](https://ui.minidev.pro/docs/feature-flag-toggle): `import { FeatureFlagToggle } from "minidev-ui-kit/ui/feature-flag-toggle"`
 - [FeatureGrid](https://ui.minidev.pro/docs/feature-grid): `import { FeatureGrid } from "minidev-ui-kit/ui/feature-grid"`
 - [FeedbackThumbs](https://ui.minidev.pro/docs/feedback-thumbs): `import { FeedbackThumbs } from "minidev-ui-kit/ui/feedback-thumbs"`
-- [FileDropzone](https://ui.minidev.pro/docs/file-dropzone): `import { FileDropzone } from "minidev-ui-kit/ui/file-dropzone"`
+- [FileDropzone](https://ui.minidev.pro/docs/file-dropzone): `import { FileDropzone } from "minidev-ui-kit/ui/file-dropzone"` — Failed validation (type/size), so retry makes no sense.
 - [FileList](https://ui.minidev.pro/docs/file-list): `import { FileList } from "minidev-ui-kit/ui/file-list"`
 - [FileReference](https://ui.minidev.pro/docs/file-reference): `import { FileReference } from "minidev-ui-kit/ui/file-reference"`
 - [FileRow](https://ui.minidev.pro/docs/file-row): `import { FileRow } from "minidev-ui-kit/ui/file-row"`
@@ -234,7 +234,7 @@
 - [OnboardingWizard](https://ui.minidev.pro/docs/onboarding-wizard): `import { OnboardingWizard } from "minidev-ui-kit/ui/onboarding-wizard"`
 - [OrderSummary](https://ui.minidev.pro/docs/order-summary): `import { OrderSummary } from "minidev-ui-kit/ui/order-summary"`
 - [OrgSwitcher](https://ui.minidev.pro/docs/org-switcher): `import { OrgSwitcher } from "minidev-ui-kit/ui/org-switcher"`
-- [OtpInput](https://ui.minidev.pro/docs/otp-input): `import { OtpInput } from "minidev-ui-kit/ui/otp-input"`
+- [OtpInput](https://ui.minidev.pro/docs/otp-input): `import { OtpInput } from "minidev-ui-kit/ui/otp-input"` — Fires once when every slot is filled.
 - [PageHeader](https://ui.minidev.pro/docs/page-header): `import { PageHeader } from "minidev-ui-kit/ui/page-header"`
 - [Pagination](https://ui.minidev.pro/docs/pagination): `import { Pagination } from "minidev-ui-kit/ui/pagination"`
 - [PasswordInput](https://ui.minidev.pro/docs/password-input): `import { PasswordInput } from "minidev-ui-kit/ui/password-input"`
@@ -292,7 +292,7 @@
 - [SeatManager](https://ui.minidev.pro/docs/seat-manager): `import { SeatManager } from "minidev-ui-kit/ui/seat-manager"`
 - [SecretReveal](https://ui.minidev.pro/docs/secret-reveal): `import { SecretReveal } from "minidev-ui-kit/ui/secret-reveal"`
 - [SectionHeader](https://ui.minidev.pro/docs/section-header): `import { SectionHeader } from "minidev-ui-kit/ui/section-header"`
-- [SegmentedControl](https://ui.minidev.pro/docs/segmented-control): `import { SegmentedControl } from "minidev-ui-kit/ui/segmented-control"`
+- [SegmentedControl](https://ui.minidev.pro/docs/segmented-control): `import { SegmentedControl } from "minidev-ui-kit/ui/segmented-control"` — Short trailing detail, e.g. "-20%" or a count.
 - [Select](https://ui.minidev.pro/docs/select): `import { Select } from "minidev-ui-kit/ui/select"`
 - [Separator](https://ui.minidev.pro/docs/separator): `import { Separator } from "minidev-ui-kit/ui/separator"`
 - [ServerErrorState](https://ui.minidev.pro/docs/server-error-state): `import { ServerErrorState } from "minidev-ui-kit/ui/server-error-state"`

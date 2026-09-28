@@ -25,16 +25,17 @@ function Checkbox({ className, ...props }: CheckboxPrimitive.Root.Props) {
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
         keepMounted
-        className="grid place-content-center text-current data-unchecked:opacity-0"
+        className="grid place-content-center text-current data-unchecked:not-data-indeterminate:opacity-0"
       >
         <svg viewBox="0 0 12 12" fill="none" aria-hidden className="size-3">
+          <path d="M3 6h6" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" className="hidden in-data-indeterminate:block" />
           <path
             d="M2.5 6.2 5 8.6l4.6-5.2"
             stroke="currentColor"
             strokeWidth="1.75"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="[stroke-dasharray:14] [stroke-dashoffset:14] transition-[stroke-dashoffset] duration-200 ease-hairline in-data-checked:[stroke-dashoffset:0]"
+            className="in-data-indeterminate:hidden [stroke-dasharray:14] [stroke-dashoffset:14] transition-[stroke-dashoffset] duration-200 ease-hairline in-data-checked:[stroke-dashoffset:0]"
           />
         </svg>
       </CheckboxPrimitive.Indicator>

@@ -16,7 +16,7 @@ function EmailButton({
       data-slot="email-button"
       href={href}
       className={cn(
-        "inline-flex h-10 items-center justify-center rounded-lg bg-accent px-4 text-sm font-medium text-primary-foreground",
+        "inline-flex h-10 items-center justify-center rounded-lg bg-ink px-4 text-sm font-medium text-on-ink",
         className
       )}
     >
