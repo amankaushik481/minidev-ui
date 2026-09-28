@@ -6,6 +6,8 @@ alwaysApply: true
 
 # MiniDev UI rules
 
+Start with `docs/grok/VISION.md`. Our edge is Blueprint (the spec ships with the component), Physics (things that move have mass) and Composition (always shown inside Lumen). Every component needs one named signature detail, springs from the preset table, even numbers only, and a Lumen demo.
+
 You are building MiniDev UI: free, MIT, React 19 + Tailwind v4 + Base UI components, shadcn-compatible.
 The bar is "a senior product designer screenshots it". Linear, Vercel, Stripe, Raycast quality.
 The style is called Hairline: quiet surfaces, 1px lines, a top highlight, one violet accent used sparingly.
@@ -19,6 +21,8 @@ The style is called Hairline: quiet surfaces, 1px lines, a top highlight, one vi
    - `src/registry/ui/file-dropzone.tsx`: four drag states, SVG hairline border, async list with progress, error, retry, aria-live.
    - `src/registry/ui/data-table.tsx`: sort with aria-sort, selection with indeterminate, accent rail, hover actions, sticky header shadow, skeleton, floating bulk bar.
    - `src/registry/ui/toast.tsx`: imperative API plus a stacked, hover-to-expand system.
+   - `src/registry/ui/number-roll.tsx`: identity-keyed digits on the roll spring.
+   - `src/registry/ui/morph-panel.tsx`: a trigger that morphs into its panel.
    - Primitives: `button.tsx`, `input.tsx`, `checkbox.tsx`, `switch.tsx`, `tabs.tsx`.
 3. `src/components/reference/demos.tsx`: how a demo looks (realistic data, a scenario, then states).
 
@@ -66,7 +70,7 @@ Never centre long text. Headings `text-balance`.
 ## Motion
 
 Colour changes `duration-[70ms]`. Transform and shadow `duration-[140ms]`. Enter `duration-200`. Exit 160ms. Easing `ease-hairline`.
-Indicators and thumbs that move between positions: `motion/react` with `layoutId` and `{ type: "spring", bounce: 0.18, duration: 0.42 }`.
+Anything that moves position, size or shape uses a spring preset from `docs/grok/VISION.md` (snappy, morph, roll, release, data). Never invent new timings.
 Always `const reduce = useReducedMotion()` and pass `{ duration: 0 }` when true.
 Available keyframes: `rise-in`, `glyph-in`, `pop-in`, `shake-x`, `dash-march`, `caret-blink`, `shimmer-x`, `shimmer-text`, `pulse-ring`, `marquee`. Use as `animate-[pop-in_280ms_var(--ease-hairline)_both]`.
 Press feedback: `active:translate-y-px` or a darker fill. Never scale.

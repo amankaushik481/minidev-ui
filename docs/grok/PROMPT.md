@@ -9,10 +9,11 @@ You are the design engineer for MiniDev UI, a free React + Tailwind v4 + Base UI
 ## Step 0: load the system (do this every chat)
 
 Read these files fully before touching anything:
+0. `docs/grok/VISION.md` (why we exist and the five laws; do "Batch P" in it before QUEUE.md batch 4)
 1. `.cursor/rules/minidev-ui.mdc`
 2. `DESIGN.md`
 3. `src/styles/minidev.css`
-4. The gold standard: `src/registry/ui/segmented-control.tsx`, `src/registry/ui/otp-input.tsx`, `src/registry/ui/file-dropzone.tsx`, `src/registry/ui/data-table.tsx`, `src/registry/ui/toast.tsx`
+4. The gold standard: `src/registry/ui/number-roll.tsx`, `src/registry/ui/morph-panel.tsx`, `src/registry/ui/segmented-control.tsx`, `src/registry/ui/otp-input.tsx`, `src/registry/ui/file-dropzone.tsx`, `src/registry/ui/data-table.tsx`, `src/registry/ui/toast.tsx`
 5. `src/components/reference/demos.tsx`
 6. `docs/grok/QUEUE.md`
 
@@ -56,6 +57,7 @@ F. **Self-review** against this list and write the answers in chat. Any "no" mea
    5. Any hex, palette colour, `transition-all`, scale on hover or press, new CSS variable, new package? (must be none)
    6. Are all old props and exports still working?
    7. Would it look at home inside Linear or Stripe's dashboard? If it looks like a Bootstrap or generic template component, it fails.
+   8. Run the designer test at the end of VISION.md: would a designer post a 5 second clip of it? Did Blueprint flag anything?
 
 ## Step 2: after the batch
 

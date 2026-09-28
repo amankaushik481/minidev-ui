@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { TooltipProvider } from "@/registry/ui/tooltip";
+import { BlueprintLayer } from "@/components/blueprint/blueprint"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -46,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} h-full overflow-x-hidden antialiased`}
+      className={`${GeistSans.variable} ${GeistMono.variable} h-full overflow-x-clip antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -56,11 +57,12 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="flex min-h-full w-full min-w-0 flex-col overflow-x-hidden bg-bg text-fg">
+      <body className="flex min-h-full w-full min-w-0 flex-col overflow-x-clip bg-bg text-fg">
         {/* min-w-0: flex items default to min-width:auto and marquees/w-max would expand the page */}
         <div className="flex min-h-full w-full min-w-0 flex-1 flex-col">
           <TooltipProvider>{children}</TooltipProvider>
         </div>
+        <BlueprintLayer />
       </body>
     </html>
   );

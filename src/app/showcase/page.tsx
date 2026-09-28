@@ -14,7 +14,7 @@ const USED = [
 
 export default function ShowcasePage() {
   return (
-    <div className="min-h-full overflow-x-hidden bg-bg text-fg">
+    <div className="min-h-full overflow-x-clip bg-bg text-fg">
       <SiteHeader solid />
       <main>
         <section className="relative isolate overflow-hidden">

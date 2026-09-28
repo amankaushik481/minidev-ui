@@ -2,12 +2,13 @@
 import * as React from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
-import { ArrowRightIcon, CheckIcon, CopyIcon } from "lucide-react"
+import { ArrowRightIcon, CheckIcon, CopyIcon, RulerIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SITE } from "@/lib/site"
 import { COMPONENT_INDEX } from "@/lib/component-index"
 import { Button } from "@/registry/ui/button"
-import { WireCanvas } from "@/components/landing/wire-canvas"
+import { Kbd } from "@/registry/ui/kbd"
+import { useBlueprint } from "@/components/blueprint/blueprint"
 
 export const COUNTS = {
   total: COMPONENT_INDEX.length,
@@ -55,6 +56,7 @@ const rise = (reduce: boolean | null, delay: number) =>
 
 export function Hero() {
   const reduce = useReducedMotion()
+  const { toggle } = useBlueprint()
   return (
     <section className="relative isolate overflow-hidden">
       {/* Hairline field */}
@@ -64,28 +66,34 @@ export function Hero() {
       <div className="mx-auto max-w-7xl px-4 pt-14 sm:px-6 sm:pt-20 lg:px-8 lg:pt-24">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <motion.div {...rise(reduce, 0)}>
-            <Link
-              href="/gallery/ai"
+            <button
+              type="button"
+              onClick={toggle}
               className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 py-1 pr-3 pl-1 text-[12.5px] text-fg-muted shadow-xs backdrop-blur outline-none transition-colors hover:border-border-strong hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
             >
-              <span className="rounded-full bg-ink px-2 py-0.5 text-[11px] font-medium text-on-ink">New</span>
-              AI surfaces: chat, tools, traces, reasoning
+              <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2 py-0.5 text-[11px] font-medium text-on-accent">
+                <RulerIcon className="size-3" /> New
+              </span>
+              <span className="sm:hidden">Blueprint mode. Tap to try</span>
+              <span className="hidden sm:inline-flex sm:items-center sm:gap-1">
+                Blueprint mode: hold <Kbd className="h-4.5 min-w-4.5 text-[10px]">⌥</Kbd> anywhere, or click here
+              </span>
               <ArrowRightIcon className="size-3.5 transition-transform duration-200 ease-hairline group-hover:translate-x-0.5" />
-            </Link>
+            </button>
           </motion.div>
 
           <motion.h1
             {...rise(reduce, 0.08)}
             className="mt-7 text-[2.75rem] leading-[1.02] font-medium tracking-[-0.045em] text-fg sm:text-6xl sm:leading-[0.98] lg:text-[5.25rem] lg:leading-[0.95] lg:tracking-[-0.052em]"
           >
-            Product UI, drawn
+            Every pixel,
             <br />
-            <span className="text-gradient-accent">with a finer pen.</span>
+            <span className="text-gradient-accent">accounted for.</span>
           </motion.h1>
 
           <motion.p {...rise(reduce, 0.16)} className="mt-6 max-w-2xl text-[1.0625rem] leading-[1.6] text-fg-muted sm:text-lg">
-            {COUNTS.total}+ React&nbsp;+&nbsp;Tailwind components for the screens people actually live in: tables, billing,
-            settings, dashboards and AI chat. Every edge on a hairline standard. Copy the file, own the code.
+            {COUNTS.total}+ free React&nbsp;+&nbsp;Tailwind components for real product screens. Drawn to a hairline spec, moved by
+            real springs, and honest enough to show their measurements. Scroll down and we will take one apart.
           </motion.p>
 
           <motion.div {...rise(reduce, 0.24)} className="mt-9 flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row sm:items-center">
@@ -97,7 +105,7 @@ export function Hero() {
           </motion.div>
 
           <motion.ul {...rise(reduce, 0.3)} className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12.5px] text-fg-subtle">
-            {["Free & MIT, forever", "Light + dark from one token set", "Base UI accessibility", "shadcn-compatible"].map((t) => (
+            {["Free and MIT, forever", "Light + dark from one token set", "Base UI accessibility", "shadcn-compatible"].map((t) => (
               <li key={t} className="inline-flex items-center gap-1.5">
                 <CheckIcon className="size-3.5 text-accent" /> {t}
               </li>
@@ -105,19 +113,6 @@ export function Hero() {
           </motion.ul>
         </div>
 
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.2, 0, 0, 1] }}
-          className="relative mx-auto mt-16 max-w-[1200px] sm:mt-20"
-        >
-          {/* Frame bevel */}
-          <div aria-hidden className="absolute -inset-2 -z-10 rounded-[26px] border border-border bg-surface/40 shadow-[inset_0_1px_0_var(--highlight)] sm:-inset-3 sm:rounded-[28px]" />
-          <WireCanvas />
-        </motion.div>
-        <p className="mt-6 text-center text-xs text-fg-subtle">
-          Drag the line. Left is the product, right is its spec. Same geometry, to the pixel.
-        </p>
       </div>
     </section>
   )
