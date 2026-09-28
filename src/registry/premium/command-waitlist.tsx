@@ -17,7 +17,7 @@ function CommandWaitlist({ className }: { className?: string }) {
       viewport={{ once: true }}
       transition={{ type: "spring", stiffness: 160, damping: 20 }}
       className={cn(
-        "mx-auto w-full max-w-lg overflow-hidden rounded-2xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
+        "mx-auto w-full max-w-lg overflow-hidden rounded-2xl border border-border bg-surface shadow-highlight",
         className
       )}
     >

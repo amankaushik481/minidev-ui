@@ -5,7 +5,7 @@ import { PageHeader } from "@/registry/ui/page-header"
 
 function EmptyWorkspace() {
   return (
-    <div data-slot="empty-workspace" className="space-y-6 rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div data-slot="empty-workspace" className="space-y-6 rounded-2xl border border-border bg-surface p-6 shadow-highlight">
       <PageHeader title="Workspace" description="Projects, agents, and shared libraries for this org." />
       <EmptyState
         title="No projects yet"

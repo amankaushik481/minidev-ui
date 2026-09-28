@@ -4,7 +4,7 @@ import { NotificationItem } from "@/registry/ui/notification-item"
 
 function NotificationCenter() {
   return (
-    <div data-slot="notification-center" className="w-full max-w-md overflow-hidden rounded-2xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div data-slot="notification-center" className="w-full max-w-md overflow-hidden rounded-2xl border border-border bg-surface shadow-highlight">
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <h3 className="text-sm font-medium text-fg">Notifications</h3>
         <Button size="sm" variant="ghost">Settings</Button>

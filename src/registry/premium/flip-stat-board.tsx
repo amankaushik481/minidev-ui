@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 function FlipDigit({ value }: { value: string }) {
   const reduce = useReducedMotion()
   return (
-    <span className="relative inline-flex h-10 w-7 items-center justify-center overflow-hidden rounded-md border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]">
+    <span className="relative inline-flex h-10 w-7 items-center justify-center overflow-hidden rounded-md border border-border bg-surface shadow-highlight">
       <motion.span
         key={value}
         initial={reduce ? false : { y: 14 }}

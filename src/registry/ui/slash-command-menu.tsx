@@ -23,7 +23,7 @@ function SlashCommandMenu({
       aria-label="Slash commands"
       className={cn(
         "w-72 overflow-hidden rounded-xl border border-border bg-raised p-1",
-        "shadow-[0_8px_24px_oklch(0.35_0.02_250/0.10)]",
+        "shadow-lg",
         className
       )}
     >

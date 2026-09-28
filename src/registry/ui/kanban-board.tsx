@@ -16,7 +16,7 @@ function KanbanBoard({ columns, className }: { columns: KanbanColumn[]; classNam
           </div>
           <div className="space-y-2">
             {col.cards.map((card) => (
-              <div key={card.id} className="rounded-lg border border-border bg-surface p-3 shadow-[inset_0_1px_0_oklch(1_0_0/0.6)]">
+              <div key={card.id} className="rounded-lg border border-border bg-surface p-3 shadow-highlight">
                 <p className="text-sm text-fg">{card.title}</p>
                 {card.meta ? <p className="mt-1 text-xs text-fg-muted">{card.meta}</p> : null}
               </div>

@@ -1,7 +1,25 @@
 # MiniDev UI
 
-> 398 free · 71 premium · 469 total
+> 469 free, MIT-licensed React + Tailwind v4 components for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Hairline design language: 1px structure, semantic OKLCH tokens, light + dark from one token set.
 
-Client walkthrough: / and /showcase.
+## Install
 
-npm: minidev-ui-kit — `npm install minidev-ui-kit` then `import { Button } from "minidev-ui-kit/ui/button"`.
+- npm: `npm i minidev-ui-kit` then `import { Button } from "minidev-ui-kit/ui/button"` (Next.js: add `transpilePackages: ["minidev-ui-kit"]`)
+- shadcn CLI, one file at a time: `npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`
+- Or copy the single source file into your repo. Every component is one file.
+
+## Rules for generating code with MiniDev UI
+
+- Use semantic tokens only: bg, surface, raised, sunken, border, border-strong, fg, fg-muted, fg-subtle, ink, on-ink, accent, accent-soft, accent-fg, success, warning, danger, info. Never raw hex or palette steps like blue-500.
+- Primary actions use <Button> (ink). Brand-coloured actions use <Button variant="accent">. Secondary: variant="outline". Quiet: variant="ghost".
+- Depth: shadow-xs, shadow-sm, shadow-raised (cards), shadow-md, shadow-lg, shadow-overlay (menus, dialogs). No other shadows.
+- Radius: controls rounded-lg (8px), cards rounded-xl (12px), overlays rounded-2xl. Nested radius = outer minus padding.
+- Numbers are tabular (tabular-nums). Headings use negative tracking; body text does not.
+- Dark mode: add the `dark` class to <html>. Components never branch on theme.
+
+## Docs
+
+- [Getting started](https://ui.minidev.pro/docs)
+- [All components](https://ui.minidev.pro/gallery)
+- [Full index for LLMs](https://ui.minidev.pro/llms-full.txt)
+- [Registry index](https://ui.minidev.pro/r/registry.json)

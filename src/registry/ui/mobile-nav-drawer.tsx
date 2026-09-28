@@ -21,7 +21,7 @@ function MobileNavDrawer({ className }: { className?: string }) {
       </Button>
       {open ? (
         <div className="fixed inset-0 z-50 bg-bg/80" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-          <div className="absolute inset-y-0 right-0 flex w-72 flex-col border-l border-border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+          <div className="absolute inset-y-0 right-0 flex w-72 flex-col border-l border-border bg-surface p-4 shadow-highlight">
             <div className="mb-4 flex items-center justify-between">
               <p className="text-sm font-medium text-fg">MiniDev UI</p>
               <Button type="button" size="icon-sm" variant="ghost" aria-label="Close menu" onClick={() => setOpen(false)}>

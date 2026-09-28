@@ -30,7 +30,7 @@ function Combobox({ items, value, onChange, placeholder = "Select…", disabled,
         aria-label={selected?.label ?? placeholder}
         className={cn(
           "inline-flex h-9 w-64 items-center justify-between gap-2 rounded-lg border border-border bg-surface px-3 text-sm text-fg",
-          "shadow-[inset_0_1px_0_oklch(1_0_0/0.5)] outline-none",
+          "shadow-highlight outline-none",
           "hover:border-fg-subtle focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
           "disabled:opacity-50",
           className

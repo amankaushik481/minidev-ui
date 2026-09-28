@@ -27,7 +27,7 @@ function FreePremiumCompare({ className }: { className?: string }) {
           viewport={{ once: true }}
           transition={{ delay: i * 0.08, duration: 0.3 }}
           className={cn(
-            "rounded-2xl border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] sm:p-8",
+            "rounded-2xl border bg-surface p-6 shadow-highlight sm:p-8",
             col.featured ? "border-accent shadow-[inset_0_0_0_1px_var(--accent)]" : "border-border"
           )}
         >

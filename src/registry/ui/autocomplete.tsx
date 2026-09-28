@@ -42,7 +42,7 @@ function Autocomplete({ options, value, onChange, placeholder, disabled, classNa
         }}
       />
       {open && filtered.length > 0 ? (
-        <ul id={listId} role="listbox" className="absolute z-50 mt-1.5 max-h-56 w-full overflow-auto rounded-xl border border-border bg-raised p-1 shadow-[0_1px_2px_oklch(0.35_0.02_250/0.08),0_8px_24px_oklch(0.35_0.02_250/0.10)]">
+        <ul id={listId} role="listbox" className="absolute z-50 mt-1.5 max-h-56 w-full overflow-auto rounded-xl border border-border bg-raised p-1 shadow-lg">
           {filtered.map((opt) => (
             <li key={opt}>
               <div

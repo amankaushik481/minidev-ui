@@ -19,7 +19,7 @@ function KpiRow({
   return (
     <div data-slot="kpi-row" className={cn("grid gap-3 sm:grid-cols-2 lg:grid-cols-4", className)}>
       {items.map((k) => (
-        <div key={k.label} className="rounded-xl border border-border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+        <div key={k.label} className="rounded-xl border border-border bg-surface p-4 shadow-highlight">
           <p className="text-[11px] font-medium uppercase tracking-[0.01em] text-fg-muted">{k.label}</p>
           <div className="mt-2 flex items-end justify-between gap-2">
             <p className="text-2xl font-medium tabular-nums tracking-[-0.018em] text-fg">{k.value}</p>

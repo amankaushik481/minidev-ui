@@ -58,7 +58,7 @@ function SplitButton({
           disabled={disabled}
           className={cn(
             "inline-flex h-9 w-9 items-center justify-center rounded-l-none rounded-r-lg border border-border bg-surface text-fg",
-            "border-l-border shadow-[inset_0_1px_0_oklch(1_0_0/0.6)] outline-none",
+            "border-l-border shadow-highlight outline-none",
             "transition-[border-color,background-color,transform] duration-[70ms]",
             "hover:border-fg-subtle focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
             "active:translate-y-[0.5px] disabled:opacity-50"

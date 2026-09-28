@@ -14,7 +14,7 @@ function SourceCard({
   className?: string
 }) {
   return (
-    <article data-slot="source-card" className={cn("rounded-xl border border-border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <article data-slot="source-card" className={cn("rounded-xl border border-border bg-surface p-4 shadow-highlight", className)}>
       <div className="flex items-center justify-between gap-2">
         <h3 className="text-sm font-medium text-fg">{title}</h3>
         <Badge variant="outline">source</Badge>

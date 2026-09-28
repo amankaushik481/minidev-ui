@@ -15,7 +15,7 @@ function TokenUsageMeter({
   const id = React.useId()
   const pct = Math.min(100, Math.round((used / limit) * 100))
   return (
-    <div data-slot="token-usage-meter" className={cn("space-y-2 rounded-xl border border-border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <div data-slot="token-usage-meter" className={cn("space-y-2 rounded-xl border border-border bg-surface p-4 shadow-highlight", className)}>
       <div className="flex justify-between text-sm">
         <span className="font-medium text-fg" id={id}>Token usage</span>
         <span className="font-mono tabular-nums text-fg-muted">{used.toLocaleString()} / {limit.toLocaleString()}</span>

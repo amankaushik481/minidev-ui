@@ -20,7 +20,7 @@ import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 export default function Page() {
   return (
-    <GalleryPage title="Premium templates" premium>
+    <GalleryPage title="Page templates" premium description="Whole pages composed from the kit: landing, pricing, docs, changelog, careers.">
       <GallerySection title="Brand kit">
         <div className="w-full overflow-hidden rounded-xl border border-border"><BrandKitPage /></div>
       </GallerySection>

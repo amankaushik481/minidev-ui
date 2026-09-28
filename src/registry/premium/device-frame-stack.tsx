@@ -27,7 +27,7 @@ function DeviceFrameStack({ className }: { className?: string }) {
           viewport={{ once: true }}
           transition={{ delay: 0.1 + i * 0.08, type: "spring", stiffness: 120, damping: 16 }}
           style={{ zIndex: f.z + 1 }}
-          className="absolute w-36 overflow-hidden rounded-xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] sm:w-44"
+          className="absolute w-36 overflow-hidden rounded-xl border border-border bg-surface shadow-highlight sm:w-44"
         >
           <div className="flex h-7 items-center gap-1 border-b border-border bg-sunken px-2">
             <span className="size-1.5 rounded-full bg-fg-subtle/50" />
@@ -38,7 +38,7 @@ function DeviceFrameStack({ className }: { className?: string }) {
           <div className="space-y-2 p-3">
             <div className="h-2 w-3/4 rounded bg-fg/10" />
             <div className="h-2 w-1/2 rounded bg-fg/5" />
-            <div className="mt-2 aspect-video rounded-md border border-border bg-[radial-gradient(circle_at_40%_30%,oklch(0.48_0.17_285/0.22),transparent_65%)] bg-sunken" />
+            <div className="mt-2 aspect-video rounded-md border border-border bg-[radial-gradient(circle_at_40%_30%,color-mix(in_oklch,var(--accent)_22%,transparent),transparent_65%)] bg-sunken" />
           </div>
         </motion.div>
       ))}

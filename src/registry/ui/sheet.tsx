@@ -34,7 +34,7 @@ function Sheet({
         aria-modal
         aria-label={title ?? "Sheet"}
         className={cn(
-          "absolute flex flex-col border-border bg-surface shadow-[0_8px_24px_oklch(0.35_0.02_250/0.12)]",
+          "absolute flex flex-col border-border bg-surface shadow-lg",
           pos,
           className
         )}

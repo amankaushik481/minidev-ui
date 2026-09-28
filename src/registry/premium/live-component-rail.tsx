@@ -40,7 +40,7 @@ function LiveComponentRail({ className }: { className?: string }) {
               whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.04, duration: 0.25 }}
-              className="flex w-[160px] shrink-0 flex-col gap-3 rounded-xl border border-border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]"
+              className="flex w-[160px] shrink-0 flex-col gap-3 rounded-xl border border-border bg-surface p-4 shadow-highlight"
             >
               <p className="text-[11px] font-medium uppercase tracking-[0.01em] text-fg-muted">{c.label}</p>
               <div className="flex min-h-10 items-center">{c.node}</div>

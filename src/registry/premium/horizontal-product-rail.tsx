@@ -43,9 +43,9 @@ function HorizontalProductRail({
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
             whileHover={reduce ? undefined : { y: -4 }}
-            className="w-64 shrink-0 snap-start overflow-hidden rounded-xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]"
+            className="w-64 shrink-0 snap-start overflow-hidden rounded-xl border border-border bg-surface shadow-highlight"
           >
-            <div className="aspect-[16/10] border-b border-border bg-[radial-gradient(circle_at_70%_30%,oklch(0.48_0.17_285/0.2),transparent_60%)] bg-sunken" />
+            <div className="aspect-[16/10] border-b border-border bg-[radial-gradient(circle_at_70%_30%,color-mix(in_oklch,var(--accent)_20%,transparent),transparent_60%)] bg-sunken" />
             <div className="space-y-1 p-4">
               {item.tag ? <p className="text-[10px] font-medium tracking-[0.01em] text-fg-muted uppercase">{item.tag}</p> : null}
               <h4 className="text-sm font-medium text-fg">{item.title}</h4>

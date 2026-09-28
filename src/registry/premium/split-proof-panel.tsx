@@ -19,7 +19,7 @@ function SplitProofPanel({ className }: { className?: string }) {
       data-tier="premium"
       className={cn("grid overflow-hidden rounded-2xl border border-border lg:grid-cols-2", className)}
     >
-      <div className="space-y-4 bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] sm:p-8">
+      <div className="space-y-4 bg-surface p-5 shadow-highlight sm:p-8">
         <Badge variant="outline">Proof</Badge>
         <h3 className="text-xl font-medium tracking-[-0.018em] text-fg sm:text-2xl">Built to survive a client tab share</h3>
         <p className="text-sm leading-[1.55] text-fg-muted">
@@ -39,7 +39,7 @@ function SplitProofPanel({ className }: { className?: string }) {
         className="flex flex-col justify-center gap-3 bg-sunken p-5 sm:p-8"
       >
         {proofs.map(([k, v]) => (
-          <div key={k} className="rounded-xl border border-border bg-surface px-4 py-3 shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]">
+          <div key={k} className="rounded-xl border border-border bg-surface px-4 py-3 shadow-highlight">
             <p className="text-[11px] uppercase tracking-[0.01em] text-fg-muted">{k}</p>
             <p className="mt-1 text-sm font-medium text-fg">{v}</p>
           </div>

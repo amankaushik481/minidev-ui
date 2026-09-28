@@ -20,7 +20,7 @@ function EmojiPicker({
       aria-label="Emoji picker"
       className={cn(
         "grid grid-cols-6 gap-1 rounded-xl border border-border bg-raised p-2",
-        "shadow-[0_8px_24px_oklch(0.35_0.02_250/0.10)]",
+        "shadow-lg",
         className
       )}
     >

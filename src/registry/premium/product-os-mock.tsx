@@ -25,7 +25,7 @@ function ProductOsMock({ className }: { className?: string }) {
       data-slot="product-os-mock"
       data-tier="premium"
       className={cn(
-        "overflow-hidden rounded-2xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
+        "overflow-hidden rounded-2xl border border-border bg-surface shadow-highlight",
         className
       )}
     >
@@ -51,7 +51,7 @@ function ProductOsMock({ className }: { className?: string }) {
                   onClick={() => setActive(i)}
                   className={cn(
                     "flex items-center justify-between rounded-lg px-2.5 py-1.5 text-left text-sm outline-none transition-[background-color] duration-[70ms] focus-visible:ring-2 focus-visible:ring-accent lg:w-full",
-                    i === active ? "bg-surface text-fg shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]" : "text-fg-muted hover:text-fg"
+                    i === active ? "bg-surface text-fg shadow-highlight" : "text-fg-muted hover:text-fg"
                   )}
                 >
                   {s.title}
@@ -76,7 +76,7 @@ function ProductOsMock({ className }: { className?: string }) {
                 initial={reduce ? false : { y: 8 }}
                 animate={{ y: 0 }}
                 transition={{ delay: i * 0.05, duration: 0.2, ease: [0.2, 0, 0, 1] }}
-                className="flex items-center justify-between gap-3 rounded-xl border border-border bg-bg px-3 py-2.5 shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]"
+                className="flex items-center justify-between gap-3 rounded-xl border border-border bg-bg px-3 py-2.5 shadow-highlight"
               >
                 <span className="min-w-0 truncate text-sm text-fg">{row}</span>
                 <span className="shrink-0 font-mono text-[11px] text-fg-muted">0{i + 1}</span>

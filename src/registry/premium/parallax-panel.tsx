@@ -19,7 +19,7 @@ function ParallaxPanel({
   const y2 = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-20, 20])
   return (
     <div ref={ref} data-slot="parallax-panel" data-tier="premium" className={cn("relative overflow-hidden rounded-2xl border border-border bg-sunken p-10", className)}>
-      <motion.div style={{ y: y2 }} aria-hidden className="pointer-events-none absolute -right-8 -top-8 size-40 rounded-full bg-[radial-gradient(circle,oklch(0.48_0.17_285/0.22),transparent_70%)]" />
+      <motion.div style={{ y: y2 }} aria-hidden className="pointer-events-none absolute -right-8 -top-8 size-40 rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--accent)_22%,transparent),transparent_70%)]" />
       <motion.div style={{ y }} className="relative max-w-lg">
         <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">Parallax</p>
         <h3 className="mt-2 text-3xl font-medium tracking-[-0.022em] text-fg">{title}</h3>

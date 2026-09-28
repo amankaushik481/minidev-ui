@@ -1,0 +1,394 @@
+/*
+ * MiniDev UI — tokens, depth, motion and Hairline utilities.
+ * Import after Tailwind:  @import "tailwindcss"; @import "minidev-ui-kit/styles.css";
+ * Tell Tailwind to scan the package: @source "../node_modules/minidev-ui-kit";
+ */
+@custom-variant dark (&:is(.dark *));
+
+/* ────────────────────────────────────────────────────────────────────────────
+   MiniDev UI — Hairline foundation (see DESIGN.md)
+   Semantic tokens only. Dark mode redefines tokens, never components.
+   ──────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Surfaces: elevation changes lightness */
+  --bg: oklch(0.985 0.0015 264);
+  --surface: oklch(1 0 0);
+  --raised: oklch(1 0 0);
+  --sunken: oklch(0.967 0.0025 264);
+  --overlay-scrim: oklch(0.2 0.01 264 / 0.28);
+
+  /* Lines */
+  --border: oklch(0.917 0.004 264);
+  --border-strong: oklch(0.862 0.006 264);
+  --grid-line: oklch(0.2 0.02 264 / 0.055);
+
+  /* Ink */
+  --fg: oklch(0.185 0.012 268);
+  --fg-muted: oklch(0.45 0.012 266);
+  --fg-subtle: oklch(0.54 0.01 266);
+  --ink: oklch(0.205 0.013 268);
+  --ink-hover: oklch(0.29 0.014 268);
+  --on-ink: oklch(0.99 0.002 264);
+
+  /* Brand — violet, spent like punctuation */
+  --accent: oklch(0.53 0.215 283);
+  --accent-hover: oklch(0.48 0.215 283);
+  --accent-fg: oklch(0.47 0.2 283);
+  --accent-soft: oklch(0.53 0.215 283 / 0.09);
+  --accent-line: oklch(0.53 0.215 283 / 0.28);
+  --on-accent: oklch(0.99 0.004 283);
+  --accent-2: oklch(0.62 0.19 318);
+
+  /* Semantic — equal perceptual weight */
+  --success: oklch(0.53 0.13 155);
+  --warning: oklch(0.64 0.14 72);
+  --danger: oklch(0.54 0.2 25);
+  --info: oklch(0.55 0.13 240);
+
+  --highlight: oklch(1 0 0 / 0.8);
+  /* Depth — hue-tinted, always layered. Blur only on overlays. */
+  --sh-highlight: inset 0 1px 0 0 var(--highlight);
+  --sh-xs: 0 1px 1px 0 oklch(0.22 0.025 264 / 0.05);
+  --sh-sm: 0 1px 2px 0 oklch(0.22 0.025 264 / 0.06), 0 1px 1px -1px oklch(0.22 0.025 264 / 0.05);
+  --sh-raised: inset 0 1px 0 0 var(--highlight), 0 1px 2px 0 oklch(0.22 0.025 264 / 0.05);
+  --sh-md: 0 1px 2px 0 oklch(0.22 0.025 264 / 0.05), 0 4px 12px -2px oklch(0.22 0.025 264 / 0.08);
+  --sh-lg: 0 2px 4px 0 oklch(0.22 0.025 264 / 0.04), 0 12px 32px -6px oklch(0.22 0.025 264 / 0.14);
+  --sh-overlay: inset 0 1px 0 0 var(--highlight), 0 0 0 1px oklch(0.22 0.025 264 / 0.05), 0 4px 12px -4px oklch(0.22 0.025 264 / 0.1), 0 24px 56px -12px oklch(0.22 0.025 264 / 0.24);
+  --sh-ink: inset 0 1px 0 0 oklch(1 0 0 / 0.14), inset 0 -1px 0 0 oklch(0 0 0 / 0.24), 0 1px 2px 0 oklch(0.22 0.025 264 / 0.18);
+  --sh-key: inset 0 1px 0 0 var(--highlight), 0 1px 0 0 var(--border-strong), 0 1px 2px 0 oklch(0.22 0.025 264 / 0.04);
+  --sh-glow: 0 0 0 1px var(--accent-line), 0 10px 36px -10px oklch(0.53 0.215 283 / 0.55);
+
+  /* shadcn compatibility map */
+  --background: var(--bg);
+  --foreground: var(--fg);
+  --card: var(--surface);
+  --card-foreground: var(--fg);
+  --popover: var(--raised);
+  --popover-foreground: var(--fg);
+  --primary: var(--accent);
+  --primary-foreground: var(--on-accent);
+  --secondary: var(--sunken);
+  --secondary-foreground: var(--fg);
+  --muted: var(--sunken);
+  --muted-foreground: var(--fg-muted);
+  --accent-foreground: var(--on-accent);
+  --destructive: var(--danger);
+  --input: var(--border);
+  --ring: var(--accent);
+  --radius: 0.5rem;
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--fg);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--on-accent);
+  --sidebar-accent: var(--sunken);
+  --sidebar-accent-foreground: var(--fg);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--accent);
+  --chart-1: var(--accent);
+  --chart-2: oklch(0.7 0.12 200);
+  --chart-3: var(--warning);
+  --chart-4: var(--success);
+  --chart-5: var(--fg-subtle);
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg: oklch(0.145 0.004 270);
+  --surface: oklch(0.172 0.005 270);
+  --raised: oklch(0.2 0.006 270);
+  --sunken: oklch(0.125 0.004 270);
+  --overlay-scrim: oklch(0.05 0.005 270 / 0.6);
+
+  --border: oklch(0.262 0.006 270);
+  --border-strong: oklch(0.33 0.008 270);
+  --grid-line: oklch(1 0 0 / 0.045);
+
+  --fg: oklch(0.965 0.003 270);
+  --fg-muted: oklch(0.73 0.01 270);
+  --fg-subtle: oklch(0.63 0.01 270);
+  --ink: oklch(0.965 0.003 270);
+  --ink-hover: oklch(0.88 0.004 270);
+  --on-ink: oklch(0.17 0.006 270);
+
+  --accent: oklch(0.7 0.165 285);
+  --accent-hover: oklch(0.76 0.15 285);
+  --accent-fg: oklch(0.78 0.13 285);
+  --accent-soft: oklch(0.7 0.165 285 / 0.13);
+  --accent-line: oklch(0.7 0.165 285 / 0.35);
+  --on-accent: oklch(0.16 0.02 285);
+  --accent-2: oklch(0.76 0.14 325);
+
+  --success: oklch(0.72 0.14 155);
+  --warning: oklch(0.8 0.13 78);
+  --danger: oklch(0.7 0.17 25);
+  --info: oklch(0.72 0.12 240);
+
+  --highlight: oklch(1 0 0 / 0.06);
+  --sh-highlight: inset 0 1px 0 0 var(--highlight);
+  --sh-xs: 0 1px 1px 0 oklch(0 0 0 / 0.3);
+  --sh-sm: 0 1px 2px 0 oklch(0 0 0 / 0.35), 0 1px 1px -1px oklch(0 0 0 / 0.3);
+  --sh-raised: inset 0 1px 0 0 var(--highlight), 0 1px 2px 0 oklch(0 0 0 / 0.3);
+  --sh-md: 0 1px 2px 0 oklch(0 0 0 / 0.3), 0 4px 12px -2px oklch(0 0 0 / 0.4);
+  --sh-lg: 0 2px 4px 0 oklch(0 0 0 / 0.3), 0 12px 32px -6px oklch(0 0 0 / 0.55);
+  --sh-overlay: inset 0 1px 0 0 oklch(1 0 0 / 0.07), 0 0 0 1px oklch(1 0 0 / 0.06), 0 4px 12px -4px oklch(0 0 0 / 0.5), 0 24px 56px -12px oklch(0 0 0 / 0.7);
+  --sh-ink: inset 0 1px 0 0 oklch(1 0 0 / 0.5), inset 0 -1px 0 0 oklch(0 0 0 / 0.12), 0 1px 2px 0 oklch(0 0 0 / 0.4);
+  --sh-key: inset 0 1px 0 0 var(--highlight), 0 1px 0 0 oklch(0 0 0 / 0.35), 0 1px 2px 0 oklch(0 0 0 / 0.25);
+  --sh-glow: 0 0 0 1px var(--accent-line), 0 10px 36px -10px oklch(0.7 0.165 285 / 0.5);
+
+  --chart-2: oklch(0.78 0.11 200);
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-sunken: var(--sunken);
+  --color-scrim: var(--overlay-scrim);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-grid: var(--grid-line);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-ink: var(--ink);
+  --color-ink-hover: var(--ink-hover);
+  --color-on-ink: var(--on-ink);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+  --color-on-accent: var(--on-accent);
+  --color-accent-2: var(--accent-2);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-geist-sans);
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 0.875rem;
+  --radius-3xl: 1.25rem;
+  --radius-4xl: 1.5rem;
+
+  /* Depth — tokens live in :root/.dark as --sh-* so each theme tunes its own */
+  --shadow-highlight: var(--sh-highlight);
+  --shadow-xs: var(--sh-xs);
+  --shadow-sm: var(--sh-sm);
+  --shadow-raised: var(--sh-raised);
+  --shadow-md: var(--sh-md);
+  --shadow-lg: var(--sh-lg);
+  --shadow-overlay: var(--sh-overlay);
+  --shadow-ink: var(--sh-ink);
+  --shadow-key: var(--sh-key);
+  --shadow-glow: var(--sh-glow);
+
+  --ease-hairline: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1.45;
+  --text-2xs--letter-spacing: 0.02em;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.55;
+  --text-xs--letter-spacing: 0.01em;
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.55;
+  --text-sm--letter-spacing: 0.005em;
+  --text-base: 0.875rem;
+  --text-base--line-height: 1.55;
+  --text-base--letter-spacing: 0;
+  --text-lg: 1rem;
+  --text-lg--line-height: 1.55;
+  --text-lg--letter-spacing: -0.008em;
+  --text-xl: 1.125rem;
+  --text-xl--line-height: 1.35;
+  --text-xl--letter-spacing: -0.014em;
+  --text-2xl: 1.375rem;
+  --text-2xl--line-height: 1.2;
+  --text-2xl--letter-spacing: -0.018em;
+  --text-3xl: 1.75rem;
+  --text-3xl--line-height: 1.15;
+  --text-3xl--letter-spacing: -0.022em;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 1.08;
+  --text-4xl--letter-spacing: -0.026em;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1.04;
+  --text-5xl--letter-spacing: -0.03em;
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: 1;
+  --text-6xl--letter-spacing: -0.036em;
+  --text-7xl: 4.5rem;
+  --text-7xl--line-height: 0.98;
+  --text-7xl--letter-spacing: -0.042em;
+  --text-8xl: 6rem;
+  --text-8xl--line-height: 0.95;
+  --text-8xl--letter-spacing: -0.048em;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scrollbar-gutter: stable;
+  }
+  body {
+    @apply bg-bg text-fg font-sans text-base antialiased;
+    font-variant-numeric: tabular-nums;
+    font-optical-sizing: auto;
+  }
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--accent) 22%, transparent);
+    color: var(--fg);
+  }
+  :focus-visible {
+    outline-offset: 2px;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ── Hairline signature utilities ─────────────────────────────────────────── */
+
+/* 1px structural grid — the signature texture */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size, 48px) var(--grid-size, 48px);
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size, 16px) var(--grid-size, 16px);
+}
+
+/* Diagonal hatch for disabled / placeholder regions */
+@utility bg-hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--grid-line) 0 1px,
+    transparent 1px 7px
+  );
+}
+
+/* A hairline that fades at both ends */
+@utility hairline-x {
+  background: linear-gradient(90deg, transparent, var(--border-strong) 20%, var(--border-strong) 80%, transparent);
+  height: 1px;
+}
+
+/* Accent text with a controlled, non-rainbow gradient */
+@utility text-gradient-accent {
+  background-image: linear-gradient(100deg, var(--fg) 10%, var(--accent) 55%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-gradient-fade {
+  background-image: linear-gradient(180deg, var(--fg) 30%, color-mix(in oklch, var(--fg) 55%, transparent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes hairline-draw {
+  from { stroke-dashoffset: var(--len, 1000); }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes shimmer-x {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--accent) 45%, transparent); }
+  100% { box-shadow: 0 0 0 10px transparent; }
+}
+
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+@keyframes shimmer-text {
+  from { background-position: 100% 0; }
+  to { background-position: -150% 0; }
+}

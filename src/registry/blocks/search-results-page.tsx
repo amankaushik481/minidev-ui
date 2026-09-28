@@ -10,7 +10,7 @@ const HITS = [
 
 function SearchResultsPage() {
   return (
-    <div data-slot="search-results-page" className="space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div data-slot="search-results-page" className="space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-highlight">
       <Input defaultValue="pitch" placeholder="Search registry" />
       <p className="text-xs text-fg-muted">3 results</p>
       <ul className="space-y-2">

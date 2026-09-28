@@ -42,7 +42,7 @@ export default function PlaygroundPage() {
           {demos.map((d) => (
             <section key={d.label} className="space-y-3">
               <h2 className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">{d.label}</h2>
-              <div className="flex flex-wrap items-start gap-4 rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+              <div className="flex flex-wrap items-start gap-4 rounded-2xl border border-border bg-surface p-6 shadow-highlight">
                 {d.node}
               </div>
             </section>

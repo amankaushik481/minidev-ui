@@ -34,11 +34,11 @@ function PinScrollGallery({ className }: { className?: string }) {
         <motion.div style={{ x }} className="flex w-full">
           {frames.map((f) => (
             <div key={f.title} className="w-full shrink-0 px-2">
-              <div className="rounded-2xl border border-border bg-surface p-10 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+              <div className="rounded-2xl border border-border bg-surface p-10 shadow-highlight">
                 <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">Pinned story</p>
                 <h3 className="mt-3 text-4xl font-medium tracking-[-0.026em] text-fg">{f.title}</h3>
                 <p className="mt-3 max-w-md text-base leading-[1.55] text-fg-muted">{f.body}</p>
-                <div className="mt-8 aspect-[16/9] rounded-xl border border-border bg-[radial-gradient(circle_at_30%_20%,oklch(0.48_0.17_285/0.2),transparent_60%)] bg-sunken" />
+                <div className="mt-8 aspect-[16/9] rounded-xl border border-border bg-[radial-gradient(circle_at_30%_20%,color-mix(in_oklch,var(--accent)_20%,transparent),transparent_60%)] bg-sunken" />
               </div>
             </div>
           ))}

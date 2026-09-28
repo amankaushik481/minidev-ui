@@ -11,7 +11,7 @@ const SEATS = [
 
 function SeatManager({ className }: { className?: string }) {
   return (
-    <div data-slot="seat-manager" className={cn("overflow-hidden rounded-2xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <div data-slot="seat-manager" className={cn("overflow-hidden rounded-2xl border border-border bg-surface shadow-highlight", className)}>
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div>
           <h3 className="text-sm font-medium text-fg">Seats</h3>

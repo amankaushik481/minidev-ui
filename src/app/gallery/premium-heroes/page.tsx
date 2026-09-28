@@ -19,7 +19,7 @@ import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 export default function Page() {
   return (
-    <GalleryPage title="Premium heroes & marketing" premium>
+    <GalleryPage title="Heroes & marketing" premium description="First screens that earn the scroll, plus the sections that follow them.">
       <GallerySection title="Kinetic">
         <div className="w-full min-w-0"><HeroKineticType /></div>
       </GallerySection>
@@ -70,7 +70,7 @@ export default function Page() {
             { quote: "We shipped a launch page in an afternoon.", name: "Lee Park", role: "Design Eng" },
             { quote: "Free kit for product, Premium for marketing.", name: "Ava Chen", role: "PM" },
           ]} />
-          <CtaGlow title="Upgrade the moments that matter" description="Keep building free. Soft-gate Premium when the page needs to convert." />
+          <CtaGlow title="Upgrade the moments that matter" description="Keep building free. Swap in a kinetic hero when the page needs to convert." />
           <div className="flex justify-center"><MagneticCta size="lg" className="w-full max-w-sm sm:w-auto">Feel the CTA</MagneticCta></div>
         </div>
       </GallerySection>

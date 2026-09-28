@@ -19,10 +19,10 @@ function DropdownMenuTrigger({ ...props }: MenuPrimitive.Trigger.Props) {
 
 const menuSurface =
   "rounded-xl border border-border bg-raised text-fg " +
-  "shadow-[0_1px_2px_oklch(0.35_0.02_250/0.08),0_8px_24px_oklch(0.35_0.02_250/0.10),inset_0_1px_0_oklch(1_0_0/0.7)]"
+  "shadow-overlay"
 
 const itemBase =
-  "relative flex w-full cursor-default items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm tracking-[0.005em] outline-none select-none " +
+  "relative flex w-full cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-[0.8125rem] outline-none select-none " +
   "transition-[background-color,color] duration-[70ms] " +
   "data-disabled:pointer-events-none data-disabled:opacity-50 " +
   "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"

@@ -11,7 +11,7 @@ const THREADS = [
 
 function SupportInbox() {
   return (
-    <div data-slot="support-inbox" className="overflow-hidden rounded-2xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div data-slot="support-inbox" className="overflow-hidden rounded-2xl border border-border bg-surface shadow-highlight">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3">
         <div>
           <h3 className="text-sm font-medium text-fg">Support inbox</h3>

@@ -53,8 +53,8 @@ function StickyFeatureStory({
           ))}
         </div>
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-sunken">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,oklch(0.48_0.17_285/0.18),transparent_55%)]" aria-hidden />
-          <div className="absolute inset-4 rounded-xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.6)]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,color-mix(in_oklch,var(--accent)_18%,transparent),transparent_55%)]" aria-hidden />
+          <div className="absolute inset-4 rounded-xl border border-border bg-surface shadow-highlight">
             <div className="flex h-9 items-center gap-1.5 border-b border-border px-3">
               <span className="size-2 rounded-full bg-fg-subtle/40" />
               <span className="size-2 rounded-full bg-fg-subtle/40" />

@@ -43,6 +43,7 @@ for (const kind of ["ui", "premium", "blocks"]) {
   await cp(path.join(root, "src/registry", kind), path.join(out, kind), { recursive: true })
 }
 await cp(path.join(root, "DESIGN.md"), path.join(out, "DESIGN.md"))
+await cp(path.join(root, "src/styles/minidev.css"), path.join(out, "styles.css"))
 await cp(path.join(root, "registry.json"), path.join(out, "registry.json"))
 await cp(path.join(root, "llms.txt"), path.join(out, "llms.txt"))
 
@@ -55,16 +56,17 @@ for (const f of files) {
 
 const pkg = {
   name: "minidev-ui-kit",
-  version: "0.1.0",
-  description: "MiniDev UI — Hairline React + Tailwind components (free) + Premium motion blocks",
+  version: "0.2.0",
+  description: "MiniDev UI: free React + Tailwind components drawn to a hairline standard",
   license: "MIT",
   type: "module",
-  sideEffects: false,
-  files: ["ui", "premium", "blocks", "utils.ts", "DESIGN.md", "registry.json", "llms.txt", "README.md"],
+  sideEffects: ["*.css"],
+  files: ["ui", "premium", "blocks", "utils.ts", "styles.css", "DESIGN.md", "registry.json", "llms.txt", "README.md"],
   exports: {
     "./package.json": "./package.json",
     "./utils": "./utils.ts",
     "./registry.json": "./registry.json",
+    "./styles.css": "./styles.css",
     "./ui/*": "./ui/*.tsx",
     "./premium/*": "./premium/*.tsx",
     "./blocks/*": "./blocks/*.tsx"
@@ -94,14 +96,19 @@ await writeFile(
   path.join(out, "README.md"),
   `# minidev-ui-kit
 
-Hairline React + Tailwind components (free) + Premium motion blocks.
+Free React + Tailwind v4 components drawn to a hairline standard. MIT.
 
 ## Install
 
 \`\`\`bash
-npm install minidev-ui-kit
-# or
-yarn add minidev-ui-kit
+npm i minidev-ui-kit @base-ui/react class-variance-authority clsx tailwind-merge lucide-react
+\`\`\`
+
+\`\`\`css
+/* app/globals.css */
+@import "tailwindcss";
+@import "minidev-ui-kit/styles.css";
+@source "../node_modules/minidev-ui-kit";
 \`\`\`
 
 \`\`\`tsx
@@ -109,12 +116,9 @@ import { Button } from "minidev-ui-kit/ui/button"
 import { HeroKineticType } from "minidev-ui-kit/premium/hero-kinetic-type"
 \`\`\`
 
-Your bundler must transpile the package (Next.js: \`transpilePackages: ["minidev-ui-kit"]\`).
+Next.js: add \`transpilePackages: ["minidev-ui-kit"]\` to next.config.
 
-Site + docs: https://ui.minidev.pro
-Design law: see \`DESIGN.md\` in this package.
-
-MIT for free UI. Premium blocks are included for evaluation; commercial soft-gate may apply later.
+Docs: https://ui.minidev.pro · For AI agents: https://ui.minidev.pro/llms.txt
 `
 )
 

@@ -7,7 +7,7 @@ function Well({ children, className }: { children?: React.ReactNode; className?:
     <div
       data-slot="well"
       className={cn(
-        "rounded-xl border border-border bg-sunken p-4 text-sm leading-[1.55] text-fg shadow-[inset_0_1px_0_oklch(1_0_0/0.4)]",
+        "rounded-xl border border-border bg-sunken p-4 text-sm leading-[1.55] text-fg shadow-highlight",
         className
       )}
     >

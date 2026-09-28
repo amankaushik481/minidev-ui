@@ -11,7 +11,7 @@ function ToggleGroup({
       data-slot="toggle-group"
       className={cn(
         "inline-flex items-center gap-1 rounded-xl border border-border bg-surface p-1",
-        "shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]",
+        "shadow-highlight",
         className
       )}
       {...props}

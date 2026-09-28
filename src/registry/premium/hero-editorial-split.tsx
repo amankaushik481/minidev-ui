@@ -28,7 +28,7 @@ function HeroEditorialSplit({ className }: { className?: string }) {
             </motion.span>
           </span>
           <span className="block overflow-hidden">
-            <motion.span className="block bg-[linear-gradient(100deg,oklch(0.30_0.14_285),oklch(0.36_0.12_300))] bg-clip-text text-transparent" initial={reduce ? false : { y: "110%" }} animate={{ y: 0 }} transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
+            <motion.span className="block bg-[linear-gradient(100deg,var(--fg)_0%,var(--accent)_60%,var(--accent-2)_100%)] bg-clip-text text-transparent" initial={reduce ? false : { y: "110%" }} animate={{ y: 0 }} transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
               Public-ready polish.
             </motion.span>
           </span>

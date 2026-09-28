@@ -18,7 +18,7 @@ function Toast({
       data-slot="toast"
       role="status"
       className={cn(
-        "w-80 rounded-xl border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
+        "w-80 rounded-xl border bg-surface p-4 shadow-highlight",
         tone === "neutral" && "border-border",
         tone === "success" && "border-success/40",
         tone === "danger" && "border-danger/40",

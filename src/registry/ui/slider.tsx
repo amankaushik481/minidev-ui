@@ -51,7 +51,7 @@ function Slider({
             }
             className={cn(
               "relative block size-3.5 shrink-0 rounded-full border border-border bg-surface",
-              "shadow-[inset_0_1px_0_oklch(1_0_0/0.7)] select-none",
+              "shadow-highlight select-none",
               "transition-[box-shadow,border-color] duration-[70ms]",
               "hover:border-fg-subtle focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg focus-visible:outline-hidden",
               "disabled:pointer-events-none disabled:opacity-50"

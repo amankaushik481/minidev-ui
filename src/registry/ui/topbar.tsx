@@ -17,7 +17,7 @@ function Topbar({
     <header
       data-slot="topbar"
       className={cn(
-        "flex h-14 items-center gap-3 border-b border-border bg-surface px-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
+        "flex h-14 items-center gap-3 border-b border-border bg-surface px-4 shadow-highlight",
         className
       )}
     >

@@ -22,7 +22,7 @@ function EmptyState({
     <div
       data-slot="empty-state"
       className={cn(
-        "flex flex-col items-center justify-center rounded-xl border border-dashed border-border bg-surface/50 px-6 py-16 text-center shadow-[inset_0_1px_0_oklch(1_0_0/0.4)]",
+        "flex flex-col items-center justify-center rounded-xl border border-dashed border-border bg-surface/50 px-6 py-16 text-center shadow-highlight",
         className
       )}
     >

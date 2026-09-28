@@ -19,7 +19,7 @@ function AuthCard({
     <div
       data-slot="auth-card"
       className={cn(
-        "mx-auto w-full max-w-sm space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
+        "mx-auto w-full max-w-sm space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-highlight",
         className
       )}
     >

@@ -31,7 +31,7 @@ function MetricCell({ label, value, suffix = "" }: { label: string; value: numbe
   }, [reduce])
   const n = useCount(value, play)
   return (
-    <div ref={ref} className="rounded-2xl border border-border bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div ref={ref} className="rounded-2xl border border-border bg-surface p-5 shadow-highlight">
       <p className="text-[11px] font-medium uppercase tracking-[0.01em] text-fg-muted">{label}</p>
       <p className="mt-2 text-3xl font-medium tabular-nums tracking-[-0.022em] text-fg">
         {n}{suffix}

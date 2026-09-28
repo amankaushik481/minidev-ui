@@ -16,7 +16,7 @@ function ContextPill({
     <span
       data-slot="context-pill"
       className={cn(
-        "inline-flex h-7 max-w-full items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 text-xs text-fg shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]",
+        "inline-flex h-7 max-w-full items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 text-xs text-fg shadow-highlight",
         className
       )}
     >

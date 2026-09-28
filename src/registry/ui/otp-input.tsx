@@ -34,7 +34,7 @@ function OtpInput({ length = 6, value, onChange, disabled, className, ...a11y }:
           value={digits[i] === " " ? "" : digits[i]}
           className={cn(
             "h-11 w-10 rounded-lg border border-border bg-surface text-center text-base tabular-nums text-fg",
-            "shadow-[inset_0_1px_0_oklch(1_0_0/0.5)] outline-none",
+            "shadow-highlight outline-none",
             "focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
             "disabled:opacity-50"
           )}

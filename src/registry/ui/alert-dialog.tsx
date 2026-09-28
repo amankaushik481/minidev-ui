@@ -17,7 +17,7 @@ function AlertDialogContent({ className, children, ...props }: React.ComponentPr
         data-slot="alert-dialog-content"
         className={cn(
           "fixed top-1/2 left-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2",
-          "rounded-xl border border-border bg-raised p-5 shadow-[0_8px_24px_oklch(0.35_0.02_250/0.16)] outline-none",
+          "rounded-xl border border-border bg-raised p-5 shadow-lg outline-none",
           className
         )}
         {...props}

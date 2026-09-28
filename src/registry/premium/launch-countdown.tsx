@@ -15,7 +15,7 @@ function Unit({ label, value }: { label: string; value: number }) {
             key={`${label}-${i}-${d}`}
             initial={reduce ? false : { y: 10 }}
             animate={{ y: 0 }}
-            className="inline-flex h-14 w-10 items-center justify-center rounded-lg border border-border bg-surface font-mono text-2xl font-medium tabular-nums text-fg shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]"
+            className="inline-flex h-14 w-10 items-center justify-center rounded-lg border border-border bg-surface font-mono text-2xl font-medium tabular-nums text-fg shadow-highlight"
           >
             {d}
           </motion.span>

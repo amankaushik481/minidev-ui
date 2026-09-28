@@ -17,7 +17,7 @@ function HeroGradientMesh({ className }: { className?: string }) {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at top, oklch(0.48 0.17 285 / 0.45), transparent 55%), radial-gradient(ellipse at bottom right, oklch(0.55 0.12 250 / 0.3), transparent 50%)",
+            "radial-gradient(ellipse at top, color-mix(in oklch, var(--accent) 45%, transparent), transparent 55%), radial-gradient(ellipse at bottom right, oklch(0.55 0.12 250 / 0.3), transparent 50%)",
         }}
         aria-hidden
       />

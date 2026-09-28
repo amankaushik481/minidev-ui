@@ -19,7 +19,7 @@ function LoadingOverlay({
         className
       )}
     >
-      <div className="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-fg shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+      <div className="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-fg shadow-highlight">
         <Spinner size="sm" />
         {label}
       </div>

@@ -10,7 +10,7 @@ const MSGS = [
 
 function InboxPage() {
   return (
-    <div data-slot="inbox-page" className="overflow-hidden rounded-2xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div data-slot="inbox-page" className="overflow-hidden rounded-2xl border border-border bg-surface shadow-highlight">
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <h3 className="text-sm font-medium text-fg">Inbox</h3>
         <Button size="sm" variant="outline">Mark all read</Button>

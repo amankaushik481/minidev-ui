@@ -36,7 +36,7 @@ function AiComposer({
   className?: string
 }) {
   return (
-    <div data-slot="ai-composer" className={cn("space-y-2 rounded-2xl border border-border bg-surface p-3 shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]", className)}>
+    <div data-slot="ai-composer" className={cn("space-y-2 rounded-2xl border border-border bg-surface p-3 shadow-highlight", className)}>
       {suggestions?.length ? (
         <SuggestionChips items={suggestions} onSelect={(s) => onChange?.(s)} />
       ) : null}

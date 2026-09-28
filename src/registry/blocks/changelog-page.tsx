@@ -9,7 +9,7 @@ const ENTRIES = [
 
 function ChangelogPage() {
   return (
-    <div data-slot="changelog-page" className="space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div data-slot="changelog-page" className="space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-highlight">
       <div>
         <h3 className="text-xl font-medium tracking-[-0.014em] text-fg">Changelog</h3>
         <p className="mt-1 text-sm text-fg-muted">What shipped recently in the local craft loop.</p>

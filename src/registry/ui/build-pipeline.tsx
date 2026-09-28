@@ -27,7 +27,7 @@ function BuildPipeline({
     <ol data-slot="build-pipeline" className={cn("flex flex-wrap items-center gap-2", className)}>
       {stages.map((s, i) => (
         <li key={s.name} className="flex items-center gap-2">
-          <div className="inline-flex h-8 items-center gap-2 rounded-lg border border-border bg-surface px-2.5 text-xs font-medium text-fg shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]">
+          <div className="inline-flex h-8 items-center gap-2 rounded-lg border border-border bg-surface px-2.5 text-xs font-medium text-fg shadow-highlight">
             {icon(s.status)}
             <span>{s.name}</span>
             <span className="sr-only">{s.status}</span>

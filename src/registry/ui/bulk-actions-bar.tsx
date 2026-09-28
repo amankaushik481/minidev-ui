@@ -21,7 +21,7 @@ function BulkActionsBar({
       role="status"
       className={cn(
         "sticky bottom-4 z-40 mx-auto flex w-fit items-center gap-3 rounded-xl border border-border bg-raised px-3 py-2",
-        "shadow-[0_8px_24px_oklch(0.35_0.02_250/0.12)]",
+        "shadow-lg",
         className
       )}
     >

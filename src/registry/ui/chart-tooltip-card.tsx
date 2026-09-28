@@ -16,7 +16,7 @@ function ChartTooltipCard({
       data-slot="chart-tooltip-card"
       role="status"
       className={cn(
-        "min-w-40 rounded-lg border border-border bg-raised p-2.5 shadow-[0_8px_24px_oklch(0.35_0.02_250/0.12)]",
+        "min-w-40 rounded-lg border border-border bg-raised p-2.5 shadow-lg",
         className
       )}
     >

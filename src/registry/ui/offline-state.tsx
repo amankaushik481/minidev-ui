@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 
 function OfflineState({ className }: { className?: string }) {
   return (
-    <div data-slot="offline-state" className={cn("rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <div data-slot="offline-state" className={cn("rounded-2xl border border-border bg-surface p-6 shadow-highlight", className)}>
       <div className="flex items-start gap-3">
         <span className="mt-1 size-2.5 rounded-full bg-warning" aria-hidden />
         <div>

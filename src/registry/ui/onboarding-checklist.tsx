@@ -19,7 +19,7 @@ function OnboardingChecklist({
 }) {
   const [state, setState] = React.useState(items)
   return (
-    <div data-slot="onboarding-checklist" className={cn("rounded-2xl border border-border bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <div data-slot="onboarding-checklist" className={cn("rounded-2xl border border-border bg-surface p-5 shadow-highlight", className)}>
       <h3 className="text-sm font-medium text-fg">Get started</h3>
       <ul className="mt-4 space-y-2">
         {state.map((item) => (

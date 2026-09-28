@@ -17,7 +17,7 @@ function FaqAccordionMotion({ className }: { className?: string }) {
       {FAQS.map((f, i) => {
         const isOpen = open === i
         return (
-          <div key={f.q} className="rounded-xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+          <div key={f.q} className="rounded-xl border border-border bg-surface shadow-highlight">
             <button
               type="button"
               aria-expanded={isOpen}

@@ -20,7 +20,7 @@ function PeekPanel({
       data-slot="peek-panel"
       aria-label={title}
       className={cn(
-        "flex h-full w-full max-w-md flex-col border-l border-border bg-surface shadow-[inset_1px_0_0_oklch(1_0_0/0.4)]",
+        "flex h-full w-full max-w-md flex-col border-l border-border bg-surface shadow-highlight",
         className
       )}
     >

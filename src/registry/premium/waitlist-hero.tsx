@@ -23,7 +23,7 @@ function WaitlistHero({
     >
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_top,oklch(0.48_0.17_285/0.25),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_top,color-mix(in_oklch,var(--accent)_25%,transparent),transparent_70%)]"
         animate={reduce ? undefined : { opacity: [0.7, 1, 0.7] }}
         transition={{ duration: 6, repeat: Infinity }}
       />

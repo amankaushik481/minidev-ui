@@ -8,7 +8,7 @@ export default function ShowcasePage() {
       <SiteHeader solid />
       <main className="mx-auto max-w-6xl px-4 py-8 pb-24 sm:px-6 sm:py-12 sm:pb-28">
         <p className="mb-6 text-sm text-fg-muted sm:mb-8">
-          Client showcase — the walkthrough page. Scroll the chapters. Toggle free vs Premium. Show the OS mock.
+          Showcase: the walkthrough page. Scroll the chapters and open the living product mock.
         </p>
         <ClientPitchKit />
       </main>

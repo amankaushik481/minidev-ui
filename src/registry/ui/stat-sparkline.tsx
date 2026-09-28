@@ -1,5 +1,7 @@
 "use client"
+import * as React from "react"
 import { cn } from "@/lib/utils"
+import { AreaChart } from "@/registry/ui/area-chart"
 
 function StatWithSparkline({
   label,
@@ -14,27 +16,17 @@ function StatWithSparkline({
   points: number[]
   className?: string
 }) {
-  const max = Math.max(...points, 1)
+  const up = delta ? !/^[-−▼]/.test(delta.trim()) : true
   return (
-    <div
-      data-slot="stat-with-sparkline"
-      className={cn(
-        "rounded-xl border border-border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
-        className
-      )}
-    >
-      <p className="text-[11px] font-medium uppercase tracking-[0.01em] text-fg-muted">{label}</p>
-      <div className="mt-2 flex items-end justify-between gap-3">
-        <div>
-          <p className="text-2xl font-medium tabular-nums tracking-[-0.018em] text-fg">{value}</p>
-          {delta ? <p className="mt-0.5 text-xs text-fg-muted">{delta}</p> : null}
-        </div>
-        <div className="flex h-8 items-end gap-0.5" aria-hidden>
-          {points.map((n, i) => (
-            <span key={i} className="w-1 rounded-sm bg-accent/80" style={{ height: `${(n / max) * 100}%` }} />
-          ))}
+    <div data-slot="stat-with-sparkline" className={cn("overflow-hidden rounded-xl border border-border bg-surface shadow-raised", className)}>
+      <div className="p-4 pb-0">
+        <p className="text-[0.8125rem] text-fg-muted">{label}</p>
+        <div className="mt-2 flex items-baseline gap-2">
+          <p className="text-2xl font-medium tabular-nums tracking-[-0.025em] text-fg">{value}</p>
+          {delta ? <span className={cn("text-xs font-medium tabular-nums", up ? "text-success" : "text-danger")}>{delta}</span> : null}
         </div>
       </div>
+      <AreaChart data={points} grid={false} tone={up ? "accent" : "danger"} highlight={points.length - 1} className="mt-2 h-12" label={`${label} trend`} />
     </div>
   )
 }

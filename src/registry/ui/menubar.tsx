@@ -9,7 +9,7 @@ function Menubar({ className, ...props }: React.ComponentProps<typeof MenubarPri
     <MenubarPrimitive
       data-slot="menubar"
       className={cn(
-        "flex h-10 items-center gap-1 rounded-xl border border-border bg-surface p-1 shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]",
+        "flex h-10 items-center gap-1 rounded-xl border border-border bg-surface p-1 shadow-highlight",
         className
       )}
       {...props}
@@ -42,7 +42,7 @@ function MenubarContent({ className, ...props }: React.ComponentProps<typeof Men
         <Menu.Popup
           data-slot="menubar-content"
           className={cn(
-            "min-w-40 rounded-xl border border-border bg-raised p-1 text-sm text-fg shadow-[0_8px_24px_oklch(0.35_0.02_250/0.10)] outline-none",
+            "min-w-40 rounded-xl border border-border bg-raised p-1 text-sm text-fg shadow-lg outline-none",
             className
           )}
           {...props}
