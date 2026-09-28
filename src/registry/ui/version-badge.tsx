@@ -15,7 +15,7 @@ function VersionBadge({
     <span
       data-slot="version-badge"
       className={cn(
-        "inline-flex h-6 items-center gap-1.5 rounded-md border border-border bg-sunken px-2 font-mono text-[11px] text-fg-muted shadow-[inset_0_1px_0_oklch(1_0_0/0.45)]",
+        "inline-flex h-6 items-center gap-1.5 rounded-md border border-border bg-sunken px-2 font-mono text-[11px] text-fg-muted shadow-highlight",
         className
       )}
     >

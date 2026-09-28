@@ -26,7 +26,7 @@ export default function Page() {
           </EmailLayout>
         </EmailPreviewFrame>
       </GallerySection>
-      <GallerySection title="Premium templates">
+      <GallerySection title="Templates">
         <div className="grid w-full gap-6 lg:grid-cols-2">
           <EmailWelcome />
           <EmailReceipt />

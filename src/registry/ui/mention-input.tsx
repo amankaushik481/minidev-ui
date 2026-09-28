@@ -57,7 +57,7 @@ function MentionInput({
           id={listId}
           role="listbox"
           aria-label="Mention suggestions"
-          className="absolute z-50 mt-1.5 max-h-48 w-56 overflow-auto rounded-xl border border-border bg-raised p-1 shadow-[0_8px_24px_oklch(0.35_0.02_250/0.10)]"
+          className="absolute z-50 mt-1.5 max-h-48 w-56 overflow-auto rounded-xl border border-border bg-raised p-1 shadow-lg"
         >
           {filtered.map((s) => (
             <li key={s} role="option" aria-selected={false}>

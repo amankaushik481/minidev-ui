@@ -29,7 +29,7 @@ function StackRevealStory({ className }: { className?: string }) {
           transition={{ delay: i * 0.08, duration: 0.35, ease: [0.2, 0, 0, 1] }}
           style={{ zIndex: i + 1 }}
           className={cn(
-            "relative rounded-2xl border border-border bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] sm:p-6",
+            "relative rounded-2xl border border-border bg-surface p-5 shadow-highlight sm:p-6",
             // Overlap ONLY from md up — was -mt-10 on all viewports (mobile bug)
             i > 0 && "md:-mt-10"
           )}

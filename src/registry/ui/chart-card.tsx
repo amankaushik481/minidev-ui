@@ -9,9 +9,9 @@ function ChartCard({ title, description, children, className }: {
   className?: string
 }) {
   return (
-    <section data-slot="chart-card" className={cn("rounded-xl border border-border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.6)]", className)}>
+    <section data-slot="chart-card" className={cn("rounded-xl border border-border bg-surface p-5 shadow-raised", className)}>
       <header className="mb-4">
-        <h3 className="text-sm font-medium text-fg">{title}</h3>
+        <h3 className="text-[0.9375rem] font-medium tracking-[-0.01em] text-fg">{title}</h3>
         {description ? <p className="mt-1 text-xs text-fg-muted">{description}</p> : null}
       </header>
       <div className="min-h-40">{children}</div>

@@ -25,7 +25,7 @@ function HeroKineticType({
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,oklch(0.48_0.17_285/0.5),transparent)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,color-mix(in_oklch,var(--accent)_50%,transparent),transparent)]"
       />
       <div className="relative mx-auto max-w-4xl min-w-0">
         <h1 className="text-[clamp(1.75rem,4vw+1rem,3.75rem)] font-medium leading-[1.08] tracking-[-0.028em] text-fg sm:leading-[1.05] sm:tracking-[-0.034em]">
@@ -38,7 +38,7 @@ function HeroKineticType({
                 transition={{ duration: 0.7, delay: 0.08 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               >
                 {i === lines.length - 1 ? (
-                  <span className="bg-[linear-gradient(105deg,oklch(0.30_0.15_285),oklch(0.34_0.12_300))] bg-clip-text text-transparent">
+                  <span className="bg-[linear-gradient(100deg,var(--fg)_0%,var(--accent)_60%,var(--accent-2)_100%)] bg-clip-text text-transparent">
                     {line}
                   </span>
                 ) : (

@@ -29,7 +29,7 @@ function StatsCounter({
     return () => window.clearInterval(id)
   }, [inView, value, reduce])
   return (
-    <div ref={ref} data-slot="stats-counter" data-tier="premium" className={cn("rounded-xl border border-border bg-surface p-4 text-center shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <div ref={ref} data-slot="stats-counter" data-tier="premium" className={cn("rounded-xl border border-border bg-surface p-4 text-center shadow-highlight", className)}>
       <p className="text-3xl font-medium tracking-[-0.022em] tabular-nums text-fg" aria-label={`${value} ${label}`}>{n}</p>
       <p className="mt-1 text-xs text-fg-muted">{label}</p>
     </div>

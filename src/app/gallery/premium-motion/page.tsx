@@ -35,7 +35,7 @@ import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 export default function Page() {
   return (
-    <GalleryPage title="Premium motion" premium>
+    <GalleryPage title="Motion" premium description="Kinetic type, sticky stories, magnetic calls to action. Everything respects reduced motion.">
       <GallerySection title="Poster / kinetic">
         <div className="w-full space-y-8">
           <HeroEditorialSplit />
@@ -74,7 +74,7 @@ export default function Page() {
       <GallerySection title="Masked + magnetic">
         <div className="w-full space-y-6">
           <MaskedGradientHeadline />
-          <MagneticCta>Get Premium</MagneticCta>
+          <MagneticCta>Get started</MagneticCta>
         </div>
       </GallerySection>
       <GallerySection title="Device stack + orbit">

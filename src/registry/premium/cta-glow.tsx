@@ -23,16 +23,16 @@ function CtaGlow({
       whileInView={{ y: 0 }}
       viewport={{ once: true }}
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-border bg-sunken p-5 text-center shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] sm:p-8",
+        "relative overflow-hidden rounded-2xl border border-border bg-sunken p-5 text-center shadow-highlight sm:p-8",
         className
       )}
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,oklch(0.48_0.17_285/0.22),transparent_60%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,color-mix(in_oklch,var(--accent)_22%,transparent),transparent_60%)]"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,oklch(0.48_0.17_285/0.55),transparent)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,color-mix(in_oklch,var(--accent)_55%,transparent),transparent)]"
         aria-hidden
       />
       <h3 className="relative text-2xl font-medium tracking-[-0.018em] text-fg">{title}</h3>

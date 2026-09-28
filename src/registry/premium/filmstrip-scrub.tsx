@@ -49,7 +49,7 @@ function FilmstripScrub({
         max={frames - 1}
         value={i}
         onChange={(e) => setI(Number(e.target.value))}
-        className="w-full accent-[oklch(0.48_0.17_285)]"
+        className="w-full accent-accent"
       />
     </div>
   )

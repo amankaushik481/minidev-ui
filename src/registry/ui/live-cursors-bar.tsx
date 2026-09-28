@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback } from "@/registry/ui/avatar"
 
 function LiveCursorsBar({
   people = [
-    { name: "Aman", color: "oklch(0.48 0.17 285)" },
+    { name: "Aman", color: "var(--accent)" },
     { name: "Casey", color: "oklch(0.52 0.12 150)" },
     { name: "Riley", color: "oklch(0.55 0.19 25)" },
   ],

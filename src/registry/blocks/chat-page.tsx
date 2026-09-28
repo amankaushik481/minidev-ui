@@ -5,7 +5,7 @@ import { PageHeader } from "@/registry/ui/page-header"
 
 function ChatPage() {
   return (
-    <div data-slot="chat-page" className="flex h-[520px] flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div data-slot="chat-page" className="flex h-[520px] flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-highlight">
       <div className="border-b border-border px-4 py-3">
         <PageHeader title="Agent" description="Hairline chat surface" className="mb-0 border-b-0 pb-0" />
       </div>

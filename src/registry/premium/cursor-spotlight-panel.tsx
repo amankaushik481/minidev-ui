@@ -15,7 +15,7 @@ function CursorSpotlightPanel({
   const reduce = useReducedMotion()
   const mx = useMotionValue(50)
   const my = useMotionValue(40)
-  const background = useMotionTemplate`radial-gradient(420px circle at ${mx}% ${my}%, oklch(0.48 0.17 285 / 0.18), transparent 55%)`
+  const background = useMotionTemplate`radial-gradient(420px circle at ${mx}% ${my}%, color-mix(in oklch, var(--accent) 18%, transparent), transparent 55%)`
 
   return (
     <motion.div
@@ -30,7 +30,7 @@ function CursorSpotlightPanel({
       style={reduce ? undefined : { background }}
       className={cn(
         "relative overflow-hidden rounded-2xl border border-border bg-sunken p-8",
-        "shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
+        "shadow-highlight",
         className
       )}
     >

@@ -27,7 +27,7 @@ function InlineAlert({
       data-slot="inline-alert"
       role="alert"
       className={cn(
-        "flex gap-3 rounded-xl border border-border bg-surface p-3 text-sm shadow-[inset_0_1px_0_oklch(1_0_0/0.45)]",
+        "flex gap-3 rounded-xl border border-border bg-surface p-3 text-sm shadow-highlight",
         tone === "danger" && "border-danger",
         tone === "warning" && "border-warning",
         tone === "success" && "border-success",

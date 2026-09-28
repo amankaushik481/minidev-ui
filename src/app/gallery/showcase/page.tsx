@@ -13,7 +13,7 @@ import { StackRevealStory } from "@/registry/premium/stack-reveal-story"
 
 export default function Page() {
   return (
-    <GalleryPage title="Client showcase kit" premium>
+    <GalleryPage title="Showcase kit" premium description="A walkthrough page: pitch hero, living product mock and scroll chapters.">
       <GallerySection title="Pitch hero">
         <div className="w-full"><HeroClientPitch /></div>
       </GallerySection>

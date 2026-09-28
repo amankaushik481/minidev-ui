@@ -32,7 +32,7 @@ function MultiSelect({ items, value, onChange, placeholder = "Select…", disabl
           aria-label={placeholder}
           className={cn(
             "flex min-h-9 w-72 items-center justify-between gap-2 rounded-lg border border-border bg-surface px-3 py-1.5 text-left text-sm",
-            "shadow-[inset_0_1px_0_oklch(1_0_0/0.5)] outline-none hover:border-fg-subtle",
+            "shadow-highlight outline-none hover:border-fg-subtle",
             "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
             "disabled:opacity-50",
             className

@@ -33,7 +33,7 @@ function TagsInput({ value, defaultValue = [], onChange, placeholder = "Add tag"
       data-slot="tags-input"
       className={cn(
         "flex min-h-9 w-full flex-wrap items-center gap-1.5 rounded-lg border border-border bg-surface px-2 py-1.5",
-        "shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]",
+        "shadow-highlight",
         "focus-within:border-accent focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2 focus-within:ring-offset-bg",
         "aria-invalid:border-danger",
         disabled && "pointer-events-none bg-sunken",

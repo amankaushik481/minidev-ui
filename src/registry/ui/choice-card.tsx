@@ -17,7 +17,7 @@ function ChoiceCard({ title, description, selected, icon, className, ...props }:
       aria-pressed={selected || undefined}
       className={cn(
         "flex w-full items-start gap-3 rounded-xl border border-border bg-surface p-4 text-left",
-        "shadow-[inset_0_1px_0_oklch(1_0_0/0.6)] outline-none",
+        "shadow-highlight outline-none",
         "transition-[border-color,background-color,box-shadow] duration-[70ms]",
         "hover:border-fg-subtle",
         "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",

@@ -22,7 +22,7 @@ function OrbitLogoCluster({
       <div className="absolute inset-[18%] rounded-full border border-border" aria-hidden />
       <div className="absolute inset-[32%] rounded-full border border-border/70" aria-hidden />
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="flex size-16 items-center justify-center rounded-2xl border border-accent/40 bg-accent/10 text-sm font-medium text-fg shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]">
+        <div className="flex size-16 items-center justify-center rounded-2xl border border-accent/40 bg-accent/10 text-sm font-medium text-fg shadow-highlight">
           {center}
         </div>
       </div>

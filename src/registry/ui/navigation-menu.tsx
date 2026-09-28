@@ -58,7 +58,7 @@ function NavigationMenuViewport({ className, ...props }: React.ComponentProps<ty
   return (
     <Nav.Portal>
       <Nav.Positioner sideOffset={8} className="z-50">
-        <Nav.Popup className={cn("overflow-hidden rounded-xl border border-border bg-raised shadow-[0_8px_24px_oklch(0.35_0.02_250/0.12)]", className)}>
+        <Nav.Popup className={cn("overflow-hidden rounded-xl border border-border bg-raised shadow-lg", className)}>
           <Nav.Viewport data-slot="navigation-menu-viewport" {...props} />
         </Nav.Popup>
       </Nav.Positioner>

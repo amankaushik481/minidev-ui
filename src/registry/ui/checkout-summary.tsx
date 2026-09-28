@@ -15,7 +15,7 @@ function CheckoutSummary({
   className?: string
 }) {
   return (
-    <div data-slot="checkout-summary" className={cn("space-y-4 rounded-2xl border border-border bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <div data-slot="checkout-summary" className={cn("space-y-4 rounded-2xl border border-border bg-surface p-5 shadow-highlight", className)}>
       <h3 className="text-sm font-medium text-fg">Order summary</h3>
       <ul className="space-y-2">
         {items.map((i) => (

@@ -68,7 +68,7 @@ function BeforeAfterWipe({
               <div
                 key={i}
                 className={cn(
-                  "h-16 rounded-lg border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]",
+                  "h-16 rounded-lg border border-border bg-surface shadow-highlight",
                   i === 1 && "border-accent/40 bg-accent/10"
                 )}
               />

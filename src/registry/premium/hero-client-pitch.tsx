@@ -21,7 +21,7 @@ function HeroClientPitch({ className }: { className?: string }) {
         className
       )}
     >
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,oklch(0.48_0.17_285/0.55),transparent)]" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,color-mix(in_oklch,var(--accent)_55%,transparent),transparent)]" />
       <div aria-hidden className="pointer-events-none absolute -right-20 top-10 hidden size-72 rounded-full bg-accent/10 sm:block" />
       <div className="relative mx-auto max-w-4xl">
         <motion.p
@@ -46,7 +46,7 @@ function HeroClientPitch({ className }: { className?: string }) {
           ))}
           <span className="block overflow-hidden">
             <motion.span
-              className="inline-block bg-[linear-gradient(105deg,oklch(0.32_0.16_285),oklch(0.38_0.14_310))] bg-clip-text text-transparent"
+              className="inline-block bg-[linear-gradient(100deg,var(--fg)_0%,var(--accent)_60%,var(--accent-2)_100%)] bg-clip-text text-transparent"
               initial={reduce ? false : { y: "110%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.6, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}

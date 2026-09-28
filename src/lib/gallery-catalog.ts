@@ -23,7 +23,7 @@ export const GALLERY_CATEGORIES = [
   { id: "workflow", label: "Workflow" },
   { id: "system", label: "System" },
   { id: "layout", label: "Layout" },
-  { id: "premium", label: "Premium" },
+  { id: "premium", label: "Motion" },
   { id: "blocks", label: "Blocks" }
 ] as const
 
@@ -34,7 +34,7 @@ export const GALLERY_ENTRIES: GalleryEntry[] = [
     slug: "showcase",
     label: "Client showcase",
     category: "featured",
-    description: "Pitch hero, OS mock, free vs Premium, scroll chapters — the client walkthrough.",
+    description: "Pitch hero, living product mock and scroll chapters.",
     premium: true,
   },
   {
@@ -174,7 +174,7 @@ export const GALLERY_ENTRIES: GalleryEntry[] = [
     "slug": "email",
     "label": "Email",
     "category": "marketing",
-    "description": "Layouts & Premium templates",
+    "description": "Layouts & templates",
     "premium": false
   },
   {
@@ -277,21 +277,21 @@ export const GALLERY_ENTRIES: GalleryEntry[] = [
   },
   {
     "slug": "premium-heroes",
-    "label": "Premium heroes",
+    "label": "Heroes & marketing",
     "category": "premium",
     "description": "Motion launch heroes",
     "premium": true
   },
   {
     "slug": "premium-motion",
-    "label": "Premium motion",
+    "label": "Motion",
     "category": "premium",
     "description": "Kinetic type, sticky story, magnetic CTA",
     "premium": true
   },
   {
     "slug": "premium-templates",
-    "label": "Premium templates",
+    "label": "Page templates",
     "category": "premium",
     "description": "Page kits & landings",
     "premium": true

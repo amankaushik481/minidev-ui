@@ -16,7 +16,7 @@ function IssueCard({
   className?: string
 }) {
   return (
-    <article data-slot="issue-card" className={cn("rounded-xl border border-border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <article data-slot="issue-card" className={cn("rounded-xl border border-border bg-surface p-4 shadow-highlight", className)}>
       <div className="flex items-center gap-2">
         <span className="font-mono text-xs text-fg-muted">{id}</span>
         <Badge variant="outline">{status}</Badge>

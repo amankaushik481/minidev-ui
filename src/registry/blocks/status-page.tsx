@@ -11,7 +11,7 @@ const SERVICES = [
 
 function StatusPage() {
   return (
-    <div data-slot="status-page" className="space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div data-slot="status-page" className="space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-highlight">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h3 className="text-xl font-medium tracking-[-0.014em] text-fg">System status</h3>

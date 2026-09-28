@@ -12,7 +12,7 @@ function EmailLayout({
   return (
     <div
       data-slot="email-layout"
-      className={cn("mx-auto w-full max-w-[560px] overflow-hidden rounded-xl border border-border bg-surface text-fg shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]", className)}
+      className={cn("mx-auto w-full max-w-[560px] overflow-hidden rounded-xl border border-border bg-surface text-fg shadow-highlight", className)}
     >
       {children}
     </div>

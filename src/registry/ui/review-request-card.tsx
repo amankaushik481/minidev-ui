@@ -17,7 +17,7 @@ function ReviewRequestCard({
   className?: string
 }) {
   return (
-    <div data-slot="review-request-card" className={cn("rounded-xl border border-border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <div data-slot="review-request-card" className={cn("rounded-xl border border-border bg-surface p-4 shadow-highlight", className)}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <StatusBadge tone="accent">Review requested</StatusBadge>

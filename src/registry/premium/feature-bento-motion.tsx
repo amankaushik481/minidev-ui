@@ -23,7 +23,7 @@ function FeatureBentoMotion({ className }: { className?: string }) {
           transition={{ delay: i * 0.05 }}
           whileHover={reduce ? undefined : { y: -3 }}
           className={cn(
-            "rounded-xl border border-border bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
+            "rounded-xl border border-border bg-surface p-5 shadow-highlight",
             c.span
           )}
         >

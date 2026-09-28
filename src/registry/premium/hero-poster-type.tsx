@@ -21,7 +21,7 @@ function HeroPosterType({ className }: { className?: string }) {
         <div className="absolute inset-y-0 left-2/3 w-px bg-border" />
         <div className="absolute inset-x-0 top-1/3 h-px bg-border" />
         <div className="absolute inset-x-0 top-2/3 h-px bg-border" />
-        <div className="absolute right-4 bottom-4 size-28 rounded-full bg-[radial-gradient(circle,oklch(0.48_0.17_285/0.25),transparent_70%)] sm:right-8 sm:bottom-8 sm:size-40" />
+        <div className="absolute right-4 bottom-4 size-28 rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--accent)_25%,transparent),transparent_70%)] sm:right-8 sm:bottom-8 sm:size-40" />
       </div>
       <div className="relative mx-auto max-w-5xl min-w-0">
         <motion.p
@@ -44,7 +44,7 @@ function HeroPosterType({ className }: { className?: string }) {
           </span>
           <span className="block overflow-hidden">
             <motion.span
-              className="block bg-[linear-gradient(100deg,oklch(0.28_0.12_285),oklch(0.34_0.14_300))] bg-clip-text text-transparent"
+              className="block bg-[linear-gradient(100deg,var(--fg)_0%,var(--accent)_60%,var(--accent-2)_100%)] bg-clip-text text-transparent"
               initial={reduce ? false : { y: "110%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.75, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}

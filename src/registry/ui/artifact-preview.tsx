@@ -22,7 +22,7 @@ function ArtifactPreview({
     <div
       data-slot="artifact-preview"
       className={cn(
-        "overflow-hidden rounded-xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
+        "overflow-hidden rounded-xl border border-border bg-surface shadow-highlight",
         className
       )}
     >

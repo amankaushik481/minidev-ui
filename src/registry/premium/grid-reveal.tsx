@@ -20,7 +20,7 @@ function GridReveal({
           whileInView={{ y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ delay: i * 0.04, duration: 0.28, ease: [0.2, 0, 0, 1] }}
-          className="rounded-xl border border-border bg-surface px-4 py-6 text-center shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]"
+          className="rounded-xl border border-border bg-surface px-4 py-6 text-center shadow-highlight"
         >
           <p className="text-sm font-medium text-fg">{item}</p>
           <p className="mt-1 font-mono text-[10px] text-fg-muted">0{i + 1}</p>

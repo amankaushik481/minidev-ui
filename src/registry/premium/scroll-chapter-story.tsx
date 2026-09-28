@@ -27,7 +27,7 @@ function ScrollChapterStory({ className }: { className?: string }) {
             whileInView={{ y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.35, ease: [0.2, 0, 0, 1] }}
-            className="rounded-2xl border border-border bg-surface p-8 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)] sm:p-12"
+            className="rounded-2xl border border-border bg-surface p-8 shadow-highlight sm:p-12"
           >
             <p className="text-xs font-medium uppercase tracking-[0.01em] text-accent">{c.kicker}</p>
             <h3 className="mt-3 max-w-2xl text-3xl font-medium leading-[1.15] tracking-[-0.022em] text-fg sm:text-4xl sm:tracking-[-0.026em]">

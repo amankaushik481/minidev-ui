@@ -18,7 +18,7 @@ function Row({ items, reverse }: { items: Q[]; reverse?: boolean }) {
         {doubled.map((q, i) => (
           <figure
             key={`${q.name}-${i}`}
-            className="w-72 shrink-0 rounded-xl border border-border bg-surface p-4 shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]"
+            className="w-72 shrink-0 rounded-xl border border-border bg-surface p-4 shadow-highlight"
           >
             <blockquote className="text-sm leading-[1.55] text-fg">“{q.quote}”</blockquote>
             <figcaption className="mt-3 text-xs text-fg-muted">{q.name}</figcaption>

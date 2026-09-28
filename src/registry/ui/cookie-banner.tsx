@@ -19,7 +19,7 @@ function CookieBanner({
       aria-label="Cookie consent"
       className={cn(
         "fixed right-4 bottom-4 z-50 max-w-sm rounded-xl border border-border bg-raised p-4",
-        "shadow-[0_8px_24px_oklch(0.35_0.02_250/0.12)]",
+        "shadow-lg",
         className
       )}
     >

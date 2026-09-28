@@ -44,7 +44,7 @@ function HeroSplitShowcase({
         className="relative min-w-0"
       >
         <div className="absolute -inset-2 rounded-2xl bg-accent/10 sm:-inset-3" aria-hidden />
-        <Card className="relative overflow-hidden shadow-[0_8px_24px_oklch(0.35_0.02_250/0.10)]">
+        <Card className="relative overflow-hidden shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center justify-between gap-2">
               <span className="min-w-0 truncate">Revenue</span>

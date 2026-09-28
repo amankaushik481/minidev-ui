@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "registry": "node tools/build-registry.mjs",
+    "predev": "node tools/build-registry.mjs",
+    "prebuild": "node tools/build-registry.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -40,5 +43,5 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "description": "MiniDev UI \u2014 free Hairline React + Tailwind registry + Premium motion blocks"
+  "description": "MiniDev UI: free React + Tailwind components drawn to a hairline standard"
 }

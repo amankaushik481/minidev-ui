@@ -23,7 +23,7 @@ function InputAffix({
     <div
       data-slot="input-affix"
       className={cn(
-        "flex w-full items-center rounded-lg border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]",
+        "flex w-full items-center rounded-lg border border-border bg-surface shadow-highlight",
         "transition-[border-color,box-shadow] duration-[70ms]",
         "focus-within:border-accent focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2 focus-within:ring-offset-bg",
         "has-[[aria-invalid=true]]:border-danger",

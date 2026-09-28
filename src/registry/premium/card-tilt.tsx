@@ -19,7 +19,7 @@ function CardTilt({
   const ry = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), { stiffness: 200, damping: 20 })
   const glareX = useTransform(x, [-0.5, 0.5], [20, 80])
   const glareY = useTransform(y, [-0.5, 0.5], [20, 80])
-  const glare = useMotionTemplate`radial-gradient(420px circle at ${glareX}% ${glareY}%, oklch(0.48 0.17 285 / 0.16), transparent 55%)`
+  const glare = useMotionTemplate`radial-gradient(420px circle at ${glareX}% ${glareY}%, color-mix(in oklch, var(--accent) 16%, transparent), transparent 55%)`
 
   return (
     <motion.div
@@ -34,7 +34,7 @@ function CardTilt({
       onMouseLeave={() => { x.set(0); y.set(0) }}
       style={reduce ? undefined : { rotateX: rx, rotateY: ry, transformPerspective: 900 }}
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]",
+        "relative overflow-hidden rounded-2xl border border-border bg-surface p-6 shadow-highlight",
         className
       )}
     >

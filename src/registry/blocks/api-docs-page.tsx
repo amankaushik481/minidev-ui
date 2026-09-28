@@ -20,7 +20,7 @@ function ApiDocsPage() {
           ))}
         </ul>
       </aside>
-      <div className="space-y-6 rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+      <div className="space-y-6 rounded-2xl border border-border bg-surface p-6 shadow-highlight">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h3 className="text-xl font-medium tracking-[-0.014em] text-fg">Registry API</h3>

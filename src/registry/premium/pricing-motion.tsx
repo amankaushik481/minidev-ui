@@ -19,7 +19,7 @@ function PricingMotion({ plans, className }: { plans: Plan[]; className?: string
           transition={{ delay: i * 0.08 }}
           className={cn(
             "flex flex-col rounded-xl border bg-surface p-6",
-            p.featured ? "border-accent shadow-[0_8px_24px_oklch(0.35_0.02_250/0.10)]" : "border-border"
+            p.featured ? "border-accent shadow-lg" : "border-border"
           )}
         >
           <h3 className="text-sm font-medium text-fg">{p.name}</h3>

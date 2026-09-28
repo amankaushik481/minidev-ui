@@ -26,7 +26,7 @@ function LogoWallMotion({
           {row.map((logo, i) => (
             <div
               key={`${logo}-${i}`}
-              className="inline-flex h-11 min-w-28 items-center justify-center rounded-xl border border-border bg-surface px-4 text-sm font-medium text-fg shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]"
+              className="inline-flex h-11 min-w-28 items-center justify-center rounded-xl border border-border bg-surface px-4 text-sm font-medium text-fg shadow-highlight"
             >
               {logo}
             </div>

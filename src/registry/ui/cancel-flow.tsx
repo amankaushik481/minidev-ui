@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 function CancelFlow({ className }: { className?: string }) {
   const [step, setStep] = React.useState<"why" | "confirm">("why")
   return (
-    <div data-slot="cancel-flow" className={cn("space-y-4 rounded-xl border border-border bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <div data-slot="cancel-flow" className={cn("space-y-4 rounded-xl border border-border bg-surface p-5 shadow-highlight", className)}>
       <h3 className="text-sm font-medium text-fg">Cancel Premium</h3>
       {step === "why" ? (
         <>

@@ -34,7 +34,7 @@ function HeroBento({ className }: { className?: string }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 * i, duration: 0.35 }}
             className={cn(
-              "min-w-0 rounded-xl border border-border bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]",
+              "min-w-0 rounded-xl border border-border bg-surface p-5 shadow-highlight",
               t.span
             )}
           >

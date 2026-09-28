@@ -11,7 +11,7 @@ const LOGS = [
 
 function LogsViewer() {
   return (
-    <div data-slot="logs-viewer" className="overflow-hidden rounded-2xl border border-border bg-surface shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div data-slot="logs-viewer" className="overflow-hidden rounded-2xl border border-border bg-surface shadow-highlight">
       <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-3">
         <h3 className="mr-auto text-sm font-medium text-fg">Logs</h3>
         <Input className="h-8 w-48" placeholder="Filter…" />

@@ -9,7 +9,7 @@ const STEPS = ["Workspace", "Team", "Theme"]
 function OnboardingFlow() {
   const [step, setStep] = React.useState(0)
   return (
-    <div data-slot="onboarding-flow" className="mx-auto max-w-lg space-y-6 rounded-2xl border border-border bg-surface p-6 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]">
+    <div data-slot="onboarding-flow" className="mx-auto max-w-lg space-y-6 rounded-2xl border border-border bg-surface p-6 shadow-highlight">
       <div>
         <h3 className="text-lg font-medium tracking-[-0.014em] text-fg">Set up MiniDev</h3>
         <p className="mt-1 text-sm text-fg-muted">Three steps. Keep Hairline defaults or swap tokens later.</p>

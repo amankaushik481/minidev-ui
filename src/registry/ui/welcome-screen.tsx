@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 
 function WelcomeScreen({ className }: { className?: string }) {
   return (
-    <div data-slot="welcome-screen" className={cn("rounded-2xl border border-border bg-surface p-8 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]", className)}>
+    <div data-slot="welcome-screen" className={cn("rounded-2xl border border-border bg-surface p-8 shadow-highlight", className)}>
       <p className="text-xs font-medium uppercase tracking-[0.01em] text-accent">Welcome</p>
       <h2 className="mt-2 text-2xl font-medium tracking-[-0.018em] text-fg">Ship Hairline UI today</h2>
       <p className="mt-2 max-w-md text-sm leading-[1.55] text-fg-muted">Start from free product primitives, unlock Premium moments when a page has to convert.</p>

@@ -25,7 +25,7 @@ function ContextMenu({
       {pos ? (
         <div
           role="menu"
-          className="fixed z-50 min-w-44 rounded-xl border border-border bg-raised p-1 shadow-[0_1px_2px_oklch(0.35_0.02_250/0.08),0_8px_24px_oklch(0.35_0.02_250/0.10)]"
+          className="fixed z-50 min-w-44 rounded-xl border border-border bg-raised p-1 shadow-lg"
           style={{ left: pos.x, top: pos.y }}
         >
           {items.map((item) => (

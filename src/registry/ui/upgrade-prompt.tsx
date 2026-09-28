@@ -15,7 +15,7 @@ function UpgradePrompt({
     <div
       data-slot="upgrade-prompt"
       className={cn(
-        "rounded-xl border border-border bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]",
+        "rounded-xl border border-border bg-surface p-5 shadow-highlight",
         className
       )}
     >

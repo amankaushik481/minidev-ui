@@ -1,15 +1,17 @@
 {
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "minidev-ui",
-  "homepage": "https://minidev.pro",
-  "tiers": {
-    "free": "MIT primitives and product UI",
-    "premium": "Kinetic heroes, templates, launch marketing"
-  },
+  "homepage": "https://ui.minidev.pro",
   "items": [
     {
       "name": "accordion",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Accordion",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/accordion.tsx",
@@ -20,7 +22,11 @@
     {
       "name": "account-setup-progress",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Account setup progress",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/progress.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/account-setup-progress.tsx",
@@ -31,7 +37,12 @@
     {
       "name": "activity-feed",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Activity feed",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json",
+        "https://ui.minidev.pro/r/list-item.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/activity-feed.tsx",
@@ -42,7 +53,13 @@
     {
       "name": "add-card-form",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Add card form",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/add-card-form.tsx",
@@ -53,7 +70,11 @@
     {
       "name": "admin-stat-strip",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Admin stat strip",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/metric-delta.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/admin-stat-strip.tsx",
@@ -64,7 +85,16 @@
     {
       "name": "admin-user-row",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Admin user row",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json",
+        "https://ui.minidev.pro/r/icon-button.json",
+        "https://ui.minidev.pro/r/permission-chip.json",
+        "https://ui.minidev.pro/r/status-dot.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/admin-user-row.tsx",
@@ -75,7 +105,12 @@
     {
       "name": "agent-trace",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Agent trace",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/status-badge.json",
+        "https://ui.minidev.pro/r/tool-call-card.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/agent-trace.tsx",
@@ -86,7 +121,15 @@
     {
       "name": "ai-composer",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Ai composer",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json",
+        "https://ui.minidev.pro/r/model-picker.json",
+        "https://ui.minidev.pro/r/suggestion-chips.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/ai-composer.tsx",
@@ -97,7 +140,11 @@
     {
       "name": "alert-dialog",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Alert dialog",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/alert-dialog.tsx",
@@ -108,7 +155,11 @@
     {
       "name": "announcement-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Announcement bar",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/announcement-bar.tsx",
@@ -119,7 +170,12 @@
     {
       "name": "api-key-list",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Api key list",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/api-key-list.tsx",
@@ -130,7 +186,9 @@
     {
       "name": "app-shell",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "App shell",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/app-shell.tsx",
@@ -141,7 +199,12 @@
     {
       "name": "approval-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Approval card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/approval-card.tsx",
@@ -152,7 +215,10 @@
     {
       "name": "area-chart",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Area chart",
+      "description": "Monotone cubic interpolation — smooth without overshooting the data.",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/area-chart.tsx",
@@ -163,7 +229,14 @@
     {
       "name": "artifact-preview",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Artifact preview",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/copy-button.json",
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/artifact-preview.tsx",
@@ -174,7 +247,9 @@
     {
       "name": "aspect-ratio",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Aspect ratio",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/aspect-ratio.tsx",
@@ -185,7 +260,11 @@
     {
       "name": "assign-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Assign picker",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/assign-picker.tsx",
@@ -196,7 +275,11 @@
     {
       "name": "attachment-chip",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Attachment chip",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/attachment-chip.tsx",
@@ -207,7 +290,13 @@
     {
       "name": "audio-player",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Audio player",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/audio-player.tsx",
@@ -218,7 +307,13 @@
     {
       "name": "audit-filter-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Audit filter bar",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/chip-filter.json",
+        "https://ui.minidev.pro/r/date-range-picker.json",
+        "https://ui.minidev.pro/r/search-input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/audit-filter-bar.tsx",
@@ -229,7 +324,12 @@
     {
       "name": "audit-log-entry",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Audit log entry",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json",
+        "https://ui.minidev.pro/r/relative-time.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/audit-log-entry.tsx",
@@ -240,7 +340,11 @@
     {
       "name": "audit-trail",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Audit trail",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/audit-log-entry.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/audit-trail.tsx",
@@ -251,7 +355,9 @@
     {
       "name": "auth-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Auth card",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/auth-card.tsx",
@@ -262,7 +368,11 @@
     {
       "name": "autocomplete",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Autocomplete",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/autocomplete.tsx",
@@ -273,7 +383,12 @@
     {
       "name": "avatar-upload",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Avatar upload",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/avatar-upload.tsx",
@@ -284,7 +399,11 @@
     {
       "name": "avatar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Avatar",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/avatar.tsx",
@@ -295,7 +414,11 @@
     {
       "name": "back-link",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Back link",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/back-link.tsx",
@@ -306,7 +429,12 @@
     {
       "name": "badge",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Badge",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/badge.tsx",
@@ -317,7 +445,13 @@
     {
       "name": "banner",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Banner",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/banner.tsx",
@@ -328,7 +462,10 @@
     {
       "name": "bar-chart",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Bar chart",
+      "description": "Rounded-top bars on a hairline baseline. Hovering one bar dims",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/bar-chart.tsx",
@@ -339,7 +476,13 @@
     {
       "name": "billing-address",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Billing address",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/textarea.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/billing-address.tsx",
@@ -350,7 +493,12 @@
     {
       "name": "blog-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Blog card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/aspect-ratio.json",
+        "https://ui.minidev.pro/r/relative-time.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/blog-card.tsx",
@@ -361,7 +509,11 @@
     {
       "name": "breadcrumb-ellipsis",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Breadcrumb ellipsis",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/breadcrumb-ellipsis.tsx",
@@ -372,7 +524,11 @@
     {
       "name": "breadcrumb",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Breadcrumb",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/breadcrumb.tsx",
@@ -383,7 +539,11 @@
     {
       "name": "build-pipeline",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Build pipeline",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/build-pipeline.tsx",
@@ -394,7 +554,11 @@
     {
       "name": "bulk-actions-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Bulk actions bar",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/bulk-actions-bar.tsx",
@@ -405,7 +569,13 @@
     {
       "name": "bulk-user-import",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Bulk user import",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/callout.json",
+        "https://ui.minidev.pro/r/file-dropzone.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/bulk-user-import.tsx",
@@ -416,7 +586,9 @@
     {
       "name": "button-group",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Button group",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/button-group.tsx",
@@ -427,7 +599,13 @@
     {
       "name": "button",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Button",
+      "description": "The Hairline keycap.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/button.tsx",
@@ -438,7 +616,9 @@
     {
       "name": "calendar-agenda",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Calendar agenda",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/calendar-agenda.tsx",
@@ -449,7 +629,9 @@
     {
       "name": "calendar-month",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Calendar month",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/calendar-month.tsx",
@@ -460,7 +642,9 @@
     {
       "name": "callout",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Callout",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/callout.tsx",
@@ -471,7 +655,11 @@
     {
       "name": "cancel-flow",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Cancel flow",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/cancel-flow.tsx",
@@ -482,7 +670,9 @@
     {
       "name": "card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Card",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/card.tsx",
@@ -493,7 +683,13 @@
     {
       "name": "carousel",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Carousel",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/carousel.tsx",
@@ -504,7 +700,14 @@
     {
       "name": "cart-line-item",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Cart line item",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json",
+        "https://ui.minidev.pro/r/quantity-stepper.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/cart-line-item.tsx",
@@ -515,7 +718,11 @@
     {
       "name": "case-study-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Case study card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/metric-delta.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/case-study-card.tsx",
@@ -526,7 +733,9 @@
     {
       "name": "center",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Center",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/center.tsx",
@@ -537,7 +746,9 @@
     {
       "name": "character-count",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Character count",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/character-count.tsx",
@@ -548,7 +759,9 @@
     {
       "name": "chart-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Chart card",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/chart-card.tsx",
@@ -559,7 +772,9 @@
     {
       "name": "chart-legend",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Chart legend",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/chart-legend.tsx",
@@ -570,7 +785,9 @@
     {
       "name": "chart-tooltip-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Chart tooltip card",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/chart-tooltip-card.tsx",
@@ -581,7 +798,11 @@
     {
       "name": "chat-thread",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Chat thread",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/message-bubble.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/chat-thread.tsx",
@@ -592,7 +813,11 @@
     {
       "name": "check-run-list",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Check run list",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/check-run-list.tsx",
@@ -603,7 +828,9 @@
     {
       "name": "checkbox-group",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Checkbox group",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/checkbox-group.tsx",
@@ -614,7 +841,11 @@
     {
       "name": "checkbox",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Checkbox",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/checkbox.tsx",
@@ -625,7 +856,11 @@
     {
       "name": "checkout-summary",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Checkout summary",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/checkout-summary.tsx",
@@ -636,7 +871,9 @@
     {
       "name": "chip-filter",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Chip filter",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/chip-filter.tsx",
@@ -647,7 +884,9 @@
     {
       "name": "choice-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Choice card",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/choice-card.tsx",
@@ -658,7 +897,9 @@
     {
       "name": "citation-chip",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Citation chip",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/citation-chip.tsx",
@@ -669,7 +910,9 @@
     {
       "name": "cluster",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Cluster",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/cluster.tsx",
@@ -680,7 +923,12 @@
     {
       "name": "code-block",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Code block",
+      "description": "An ink well in both themes. Lightweight token colouring",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/code-block.tsx",
@@ -691,7 +939,9 @@
     {
       "name": "code-editor-frame",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Code editor frame",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/code-editor-frame.tsx",
@@ -702,7 +952,14 @@
     {
       "name": "collapsible-sidebar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Collapsible sidebar",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/sidebar.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/collapsible-sidebar.tsx",
@@ -713,7 +970,11 @@
     {
       "name": "collapsible",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Collapsible",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/collapsible.tsx",
@@ -724,7 +985,9 @@
     {
       "name": "color-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Color picker",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/color-picker.tsx",
@@ -735,7 +998,12 @@
     {
       "name": "column-visibility-menu",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Column visibility menu",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/dropdown-menu.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/column-visibility-menu.tsx",
@@ -746,7 +1014,14 @@
     {
       "name": "combobox",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Combobox",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/popover.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/combobox.tsx",
@@ -757,7 +1032,11 @@
     {
       "name": "command-dialog",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Command dialog",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/command-palette.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/command-dialog.tsx",
@@ -768,7 +1047,9 @@
     {
       "name": "command-item",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Command item",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/command-item.tsx",
@@ -779,7 +1060,13 @@
     {
       "name": "command-palette",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Command palette",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/dialog.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/command-palette.tsx",
@@ -790,7 +1077,12 @@
     {
       "name": "comment-composer",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Comment composer",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/textarea.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/comment-composer.tsx",
@@ -801,7 +1093,11 @@
     {
       "name": "comment-thread",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Comment thread",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/comment-thread.tsx",
@@ -812,7 +1108,13 @@
     {
       "name": "commit-row",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Commit row",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json",
+        "https://ui.minidev.pro/r/copy-button.json",
+        "https://ui.minidev.pro/r/relative-time.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/commit-row.tsx",
@@ -823,7 +1125,11 @@
     {
       "name": "comparison-table",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Comparison table",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/comparison-table.tsx",
@@ -834,7 +1140,12 @@
     {
       "name": "confirm-destructive",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Confirm destructive",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/dialog.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/confirm-destructive.tsx",
@@ -845,7 +1156,11 @@
     {
       "name": "connected-account",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Connected account",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/connected-account.tsx",
@@ -856,7 +1171,9 @@
     {
       "name": "console-output",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Console output",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/console-output.tsx",
@@ -867,7 +1184,9 @@
     {
       "name": "container",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Container",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/container.tsx",
@@ -878,7 +1197,9 @@
     {
       "name": "context-chip",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Context chip",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/context-chip.tsx",
@@ -889,7 +1210,9 @@
     {
       "name": "context-menu",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Context menu",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/context-menu.tsx",
@@ -900,7 +1223,11 @@
     {
       "name": "context-pill",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Context pill",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/context-pill.tsx",
@@ -911,7 +1238,14 @@
     {
       "name": "conversation-sidebar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Conversation sidebar",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/relative-time.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/conversation-sidebar.tsx",
@@ -922,7 +1256,11 @@
     {
       "name": "cookie-banner",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Cookie banner",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/cookie-banner.tsx",
@@ -933,7 +1271,14 @@
     {
       "name": "copy-button",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Copy button",
+      "dependencies": [
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/copy-button.tsx",
@@ -944,7 +1289,11 @@
     {
       "name": "copy-id",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Copy id",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/copy-id.tsx",
@@ -955,7 +1304,12 @@
     {
       "name": "coupon-input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Coupon input",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/coupon-input.tsx",
@@ -966,7 +1320,9 @@
     {
       "name": "coverage-meter",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Coverage meter",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/coverage-meter.tsx",
@@ -977,7 +1333,13 @@
     {
       "name": "create-api-key",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Create api key",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/create-api-key.tsx",
@@ -988,7 +1350,9 @@
     {
       "name": "credit-balance",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Credit balance",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/credit-balance.tsx",
@@ -999,7 +1363,11 @@
     {
       "name": "cta-banner",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Cta banner",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/cta-banner.tsx",
@@ -1010,7 +1378,11 @@
     {
       "name": "currency-input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Currency input",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/currency-input.tsx",
@@ -1021,7 +1393,11 @@
     {
       "name": "danger-zone",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Danger zone",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/danger-zone.tsx",
@@ -1032,7 +1408,11 @@
     {
       "name": "data-table",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Data table",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/table.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/data-table.tsx",
@@ -1043,7 +1423,11 @@
     {
       "name": "date-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Date picker",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/date-picker.tsx",
@@ -1054,7 +1438,11 @@
     {
       "name": "date-range-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Date range picker",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/date-picker.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/date-range-picker.tsx",
@@ -1065,7 +1453,14 @@
     {
       "name": "delete-account-confirm",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Delete account confirm",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/inline-alert.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/delete-account-confirm.tsx",
@@ -1076,7 +1471,12 @@
     {
       "name": "density-toggle",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Density toggle",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/toggle.json",
+        "https://ui.minidev.pro/r/toggle-group.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/density-toggle.tsx",
@@ -1087,7 +1487,9 @@
     {
       "name": "description-list",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Description list",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/description-list.tsx",
@@ -1098,7 +1500,14 @@
     {
       "name": "dialog",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Dialog",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/dialog.tsx",
@@ -1109,7 +1518,9 @@
     {
       "name": "diff-view",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Diff view",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/diff-view.tsx",
@@ -1120,7 +1531,9 @@
     {
       "name": "donut-chart",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Donut chart",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/donut-chart.tsx",
@@ -1131,7 +1544,11 @@
     {
       "name": "downgrade-warning",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Downgrade warning",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/downgrade-warning.tsx",
@@ -1142,7 +1559,11 @@
     {
       "name": "drawer",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Drawer",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/sheet.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/drawer.tsx",
@@ -1153,7 +1574,12 @@
     {
       "name": "dropdown-menu",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Dropdown menu",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/dropdown-menu.tsx",
@@ -1164,7 +1590,11 @@
     {
       "name": "due-date-chip",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Due date chip",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/due-date-chip.tsx",
@@ -1175,7 +1605,9 @@
     {
       "name": "editable-heading",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Editable heading",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/editable-heading.tsx",
@@ -1186,7 +1618,9 @@
     {
       "name": "email-button",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Email button",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/email-button.tsx",
@@ -1197,7 +1631,9 @@
     {
       "name": "email-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Email card",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/email-card.tsx",
@@ -1208,7 +1644,11 @@
     {
       "name": "email-footer",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Email footer",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/link.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/email-footer.tsx",
@@ -1219,7 +1659,9 @@
     {
       "name": "email-header",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Email header",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/email-header.tsx",
@@ -1230,7 +1672,9 @@
     {
       "name": "email-layout",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Email layout",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/email-layout.tsx",
@@ -1241,7 +1685,9 @@
     {
       "name": "email-preview-frame",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Email preview frame",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/email-preview-frame.tsx",
@@ -1252,7 +1698,9 @@
     {
       "name": "emoji-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Emoji picker",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/emoji-picker.tsx",
@@ -1263,7 +1711,11 @@
     {
       "name": "empty-search",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Empty search",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/empty-state.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/empty-search.tsx",
@@ -1274,7 +1726,11 @@
     {
       "name": "empty-state",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Empty state",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/empty-state.tsx",
@@ -1285,7 +1741,11 @@
     {
       "name": "empty-table",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Empty table",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/empty-table.tsx",
@@ -1296,7 +1756,9 @@
     {
       "name": "env-badge",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Env badge",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/env-badge.tsx",
@@ -1307,7 +1769,11 @@
     {
       "name": "env-switcher",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Env switcher",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/segmented-control.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/env-switcher.tsx",
@@ -1318,7 +1784,11 @@
     {
       "name": "error-state",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Error state",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/error-state.tsx",
@@ -1329,7 +1799,11 @@
     {
       "name": "expandable-row",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Expandable row",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/expandable-row.tsx",
@@ -1340,7 +1814,11 @@
     {
       "name": "export-data",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Export data",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/export-data.tsx",
@@ -1351,7 +1829,12 @@
     {
       "name": "facet-filter",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Facet filter",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/checkbox.json",
+        "https://ui.minidev.pro/r/label.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/facet-filter.tsx",
@@ -1362,7 +1845,11 @@
     {
       "name": "faq-list",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Faq list",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/accordion.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/faq-list.tsx",
@@ -1373,7 +1860,12 @@
     {
       "name": "feature-flag-toggle",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Feature flag toggle",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/label.json",
+        "https://ui.minidev.pro/r/switch.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/feature-flag-toggle.tsx",
@@ -1384,7 +1876,9 @@
     {
       "name": "feature-grid",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Feature grid",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/feature-grid.tsx",
@@ -1395,7 +1889,11 @@
     {
       "name": "feedback-thumbs",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Feedback thumbs",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/feedback-thumbs.tsx",
@@ -1406,7 +1904,11 @@
     {
       "name": "file-dropzone",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "File dropzone",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/file-dropzone.tsx",
@@ -1417,7 +1919,11 @@
     {
       "name": "file-list",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "File list",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/file-row.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/file-list.tsx",
@@ -1428,7 +1934,11 @@
     {
       "name": "file-reference",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "File reference",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/file-reference.tsx",
@@ -1439,7 +1949,13 @@
     {
       "name": "file-row",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "File row",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/file-row.tsx",
@@ -1450,7 +1966,12 @@
     {
       "name": "filter-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Filter bar",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/search-input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/filter-bar.tsx",
@@ -1461,7 +1982,11 @@
     {
       "name": "floating-action-button",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Floating action button",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/floating-action-button.tsx",
@@ -1472,7 +1997,11 @@
     {
       "name": "footer-mega",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Footer mega",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/link.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/footer-mega.tsx",
@@ -1483,7 +2012,11 @@
     {
       "name": "footer-nav",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Footer nav",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/link.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/footer-nav.tsx",
@@ -1494,7 +2027,14 @@
     {
       "name": "forgot-password-form",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Forgot password form",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/auth-card.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/forgot-password-form.tsx",
@@ -1505,7 +2045,11 @@
     {
       "name": "form-field",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Form field",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/label.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/form-field.tsx",
@@ -1516,7 +2060,9 @@
     {
       "name": "funnel-steps",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Funnel steps",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/funnel-steps.tsx",
@@ -1527,7 +2073,9 @@
     {
       "name": "gantt-row",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Gantt row",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/gantt-row.tsx",
@@ -1538,7 +2086,9 @@
     {
       "name": "gauge-chart",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Gauge chart",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/gauge-chart.tsx",
@@ -1549,7 +2099,9 @@
     {
       "name": "goal-ring",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Goal ring",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/goal-ring.tsx",
@@ -1560,7 +2112,9 @@
     {
       "name": "heading",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Heading",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/heading.tsx",
@@ -1571,7 +2125,11 @@
     {
       "name": "health-indicator",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Health indicator",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/status-dot.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/health-indicator.tsx",
@@ -1582,7 +2140,9 @@
     {
       "name": "heatmap-cell",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Heatmap cell",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/heatmap-cell.tsx",
@@ -1593,7 +2153,11 @@
     {
       "name": "hero",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Hero",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/hero.tsx",
@@ -1604,7 +2168,9 @@
     {
       "name": "horizontal-bar-chart",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Horizontal bar chart",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/horizontal-bar-chart.tsx",
@@ -1615,7 +2181,9 @@
     {
       "name": "hover-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Hover card",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/hover-card.tsx",
@@ -1626,7 +2194,13 @@
     {
       "name": "icon-button",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Icon button",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/icon-button.tsx",
@@ -1637,7 +2211,11 @@
     {
       "name": "image-gallery",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Image gallery",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/aspect-ratio.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/image-gallery.tsx",
@@ -1648,7 +2226,13 @@
     {
       "name": "image-lightbox",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Image lightbox",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/image-lightbox.tsx",
@@ -1659,7 +2243,13 @@
     {
       "name": "image-upload",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Image upload",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/file-dropzone.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/image-upload.tsx",
@@ -1670,7 +2260,11 @@
     {
       "name": "impersonation-banner",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Impersonation banner",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/impersonation-banner.tsx",
@@ -1681,7 +2275,11 @@
     {
       "name": "incident-banner",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Incident banner",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/status-dot.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/incident-banner.tsx",
@@ -1692,7 +2290,11 @@
     {
       "name": "inline-alert",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Inline alert",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/inline-alert.tsx",
@@ -1703,7 +2305,11 @@
     {
       "name": "inline-cell-edit",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Inline cell edit",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/inline-cell-edit.tsx",
@@ -1714,7 +2320,9 @@
     {
       "name": "inline-code-diff",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Inline code diff",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/inline-code-diff.tsx",
@@ -1725,7 +2333,11 @@
     {
       "name": "input-affix",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Input affix",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/input-affix.tsx",
@@ -1736,7 +2348,12 @@
     {
       "name": "input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Input",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/input.tsx",
@@ -1747,7 +2364,9 @@
     {
       "name": "inset",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Inset",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/inset.tsx",
@@ -1758,7 +2377,12 @@
     {
       "name": "integration-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Integration card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/integration-card.tsx",
@@ -1769,7 +2393,13 @@
     {
       "name": "invite-members",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Invite members",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/invite-members.tsx",
@@ -1780,7 +2410,11 @@
     {
       "name": "invoice-detail",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Invoice detail",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/status-badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/invoice-detail.tsx",
@@ -1791,7 +2425,11 @@
     {
       "name": "invoice-list",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Invoice list",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/status-badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/invoice-list.tsx",
@@ -1802,7 +2440,15 @@
     {
       "name": "ip-allowlist",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Ip allowlist",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/icon-button.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/ip-allowlist.tsx",
@@ -1813,7 +2459,11 @@
     {
       "name": "issue-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Issue card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/issue-card.tsx",
@@ -1824,7 +2474,9 @@
     {
       "name": "issue-key",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Issue key",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/issue-key.tsx",
@@ -1835,7 +2487,12 @@
     {
       "name": "join-workspace",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Join workspace",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/join-workspace.tsx",
@@ -1846,7 +2503,9 @@
     {
       "name": "json-viewer",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Json viewer",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/json-viewer.tsx",
@@ -1857,7 +2516,9 @@
     {
       "name": "kanban-board",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Kanban board",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/kanban-board.tsx",
@@ -1868,7 +2529,11 @@
     {
       "name": "kanban-column",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Kanban column",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/kanban-column.tsx",
@@ -1879,7 +2544,10 @@
     {
       "name": "kbd",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Kbd",
+      "description": "A physical keycap: surface, hairline, 1px key edge.",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/kbd.tsx",
@@ -1890,7 +2558,11 @@
     {
       "name": "kpi-row",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Kpi row",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/metric-delta.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/kpi-row.tsx",
@@ -1901,7 +2573,9 @@
     {
       "name": "label",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Label",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/label.tsx",
@@ -1912,7 +2586,9 @@
     {
       "name": "language-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Language picker",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/language-picker.tsx",
@@ -1923,7 +2599,9 @@
     {
       "name": "latency-badge",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Latency badge",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/latency-badge.tsx",
@@ -1934,7 +2612,12 @@
     {
       "name": "line-chart",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Line chart",
+      "description": "Multiple smooth series on a hairline grid, with end-point dots.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/area-chart.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/line-chart.tsx",
@@ -1945,7 +2628,11 @@
     {
       "name": "link-preview",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Link preview",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/aspect-ratio.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/link-preview.tsx",
@@ -1956,7 +2643,9 @@
     {
       "name": "link",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Link",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/link.tsx",
@@ -1967,7 +2656,9 @@
     {
       "name": "list-item",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "List item",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/list-item.tsx",
@@ -1978,7 +2669,11 @@
     {
       "name": "live-cursors-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Live cursors bar",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/live-cursors-bar.tsx",
@@ -1989,7 +2684,11 @@
     {
       "name": "loading-overlay",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Loading overlay",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/spinner.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/loading-overlay.tsx",
@@ -2000,7 +2699,11 @@
     {
       "name": "loading-table",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Loading table",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/skeleton.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/loading-table.tsx",
@@ -2011,7 +2714,9 @@
     {
       "name": "logo-cloud",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Logo cloud",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/logo-cloud.tsx",
@@ -2022,7 +2727,14 @@
     {
       "name": "magic-link-form",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Magic link form",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/auth-card.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/magic-link-form.tsx",
@@ -2033,7 +2745,9 @@
     {
       "name": "markdown-renderer",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Markdown renderer",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/markdown-renderer.tsx",
@@ -2044,7 +2758,9 @@
     {
       "name": "marquee",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Marquee",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/marquee.tsx",
@@ -2055,7 +2771,11 @@
     {
       "name": "mention-input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Mention input",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/mention-input.tsx",
@@ -2066,7 +2786,11 @@
     {
       "name": "menubar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Menubar",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/menubar.tsx",
@@ -2077,7 +2801,12 @@
     {
       "name": "merge-box",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Merge box",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/callout.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/merge-box.tsx",
@@ -2088,7 +2817,13 @@
     {
       "name": "message-actions",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Message actions",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/message-actions.tsx",
@@ -2099,7 +2834,12 @@
     {
       "name": "message-bubble",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Message bubble",
+      "description": "User turns sit in a sunken capsule; assistant turns are",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/streaming-cursor.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/message-bubble.tsx",
@@ -2110,7 +2850,9 @@
     {
       "name": "meter",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Meter",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/meter.tsx",
@@ -2121,7 +2863,11 @@
     {
       "name": "metric-delta",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Metric delta",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/metric-delta.tsx",
@@ -2132,7 +2878,9 @@
     {
       "name": "mobile-action-sheet",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Mobile action sheet",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/mobile-action-sheet.tsx",
@@ -2143,7 +2891,13 @@
     {
       "name": "mobile-nav-drawer",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Mobile nav drawer",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/mobile-nav-drawer.tsx",
@@ -2154,7 +2908,11 @@
     {
       "name": "model-compare",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Model compare",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/latency-badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/model-compare.tsx",
@@ -2165,7 +2923,11 @@
     {
       "name": "model-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Model picker",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/select.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/model-picker.tsx",
@@ -2176,7 +2938,13 @@
     {
       "name": "multi-select",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Multi select",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/popover.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/multi-select.tsx",
@@ -2187,7 +2955,12 @@
     {
       "name": "nav-marketing",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Nav marketing",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/link.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/nav-marketing.tsx",
@@ -2198,7 +2971,11 @@
     {
       "name": "navigation-menu",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Navigation menu",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/navigation-menu.tsx",
@@ -2209,7 +2986,11 @@
     {
       "name": "nested-nav",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Nested nav",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/nested-nav.tsx",
@@ -2220,7 +3001,12 @@
     {
       "name": "newsletter-signup",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Newsletter signup",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/newsletter-signup.tsx",
@@ -2231,7 +3017,11 @@
     {
       "name": "not-found-state",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Not found state",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/not-found-state.tsx",
@@ -2242,7 +3032,14 @@
     {
       "name": "notebook-cell",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Notebook cell",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/code-editor-frame.json",
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/notebook-cell.tsx",
@@ -2253,7 +3050,11 @@
     {
       "name": "notification-item",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Notification item",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/relative-time.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/notification-item.tsx",
@@ -2264,7 +3065,12 @@
     {
       "name": "notification-preferences",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Notification preferences",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/label.json",
+        "https://ui.minidev.pro/r/switch.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/notification-preferences.tsx",
@@ -2275,7 +3081,14 @@
     {
       "name": "number-input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Number input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/number-input.tsx",
@@ -2286,7 +3099,13 @@
     {
       "name": "offline-banner",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Offline banner",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/offline-banner.tsx",
@@ -2297,7 +3116,11 @@
     {
       "name": "offline-state",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Offline state",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/offline-state.tsx",
@@ -2308,7 +3131,11 @@
     {
       "name": "onboarding-checklist",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Onboarding checklist",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/onboarding-checklist.tsx",
@@ -2319,7 +3146,14 @@
     {
       "name": "onboarding-wizard",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Onboarding wizard",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/invite-members.json",
+        "https://ui.minidev.pro/r/stepper.json",
+        "https://ui.minidev.pro/r/workspace-create.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/onboarding-wizard.tsx",
@@ -2330,7 +3164,11 @@
     {
       "name": "order-summary",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Order summary",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/separator.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/order-summary.tsx",
@@ -2341,7 +3179,13 @@
     {
       "name": "org-switcher",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Org switcher",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/popover.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/org-switcher.tsx",
@@ -2352,7 +3196,9 @@
     {
       "name": "otp-input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Otp input",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/otp-input.tsx",
@@ -2363,7 +3209,9 @@
     {
       "name": "page-header",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Page header",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/page-header.tsx",
@@ -2374,7 +3222,11 @@
     {
       "name": "pagination",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Pagination",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/pagination.tsx",
@@ -2385,7 +3237,14 @@
     {
       "name": "password-input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Password input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/password-input.tsx",
@@ -2396,7 +3255,11 @@
     {
       "name": "payment-method-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Payment method card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/payment-method-card.tsx",
@@ -2407,7 +3270,13 @@
     {
       "name": "peek-panel",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Peek panel",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/peek-panel.tsx",
@@ -2418,7 +3287,9 @@
     {
       "name": "permission-chip",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Permission chip",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/permission-chip.tsx",
@@ -2429,7 +3300,11 @@
     {
       "name": "permission-denied",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Permission denied",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/permission-denied.tsx",
@@ -2440,7 +3315,11 @@
     {
       "name": "phone-input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Phone input",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/phone-input.tsx",
@@ -2451,7 +3330,11 @@
     {
       "name": "pinned-message",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Pinned message",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/pinned-message.tsx",
@@ -2462,7 +3345,11 @@
     {
       "name": "plan-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Plan card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/plan-card.tsx",
@@ -2473,7 +3360,11 @@
     {
       "name": "plan-comparison",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Plan comparison",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/plan-comparison.tsx",
@@ -2484,7 +3375,11 @@
     {
       "name": "popover",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Popover",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/popover.tsx",
@@ -2495,7 +3390,9 @@
     {
       "name": "presence-dot",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Presence dot",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/presence-dot.tsx",
@@ -2506,7 +3403,9 @@
     {
       "name": "press-quote",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Press quote",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/press-quote.tsx",
@@ -2517,7 +3416,11 @@
     {
       "name": "pricing-table",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Pricing table",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/plan-card.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/pricing-table.tsx",
@@ -2528,7 +3431,11 @@
     {
       "name": "pricing-toggle",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Pricing toggle",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/segmented-control.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/pricing-toggle.tsx",
@@ -2539,7 +3446,9 @@
     {
       "name": "priority-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Priority picker",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/priority-picker.tsx",
@@ -2550,7 +3459,12 @@
     {
       "name": "product-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Product card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/aspect-ratio.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/product-card.tsx",
@@ -2561,7 +3475,14 @@
     {
       "name": "profile-form",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Profile form",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/textarea.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/profile-form.tsx",
@@ -2572,7 +3493,9 @@
     {
       "name": "progress-circle",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Progress circle",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/progress-circle.tsx",
@@ -2583,7 +3506,11 @@
     {
       "name": "progress",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Progress",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/progress.tsx",
@@ -2594,7 +3521,14 @@
     {
       "name": "prompt-input-attachments",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Prompt input attachments",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/prompt-input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/prompt-input-attachments.tsx",
@@ -2605,7 +3539,12 @@
     {
       "name": "prompt-input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Prompt input",
+      "description": "The composer. Grows with content, submits on Enter,",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/prompt-input.tsx",
@@ -2616,7 +3555,11 @@
     {
       "name": "prompt-library",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Prompt library",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/search-input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/prompt-library.tsx",
@@ -2627,7 +3570,9 @@
     {
       "name": "prose",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Prose",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/prose.tsx",
@@ -2638,7 +3583,12 @@
     {
       "name": "publish-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Publish bar",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/status-badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/publish-bar.tsx",
@@ -2649,7 +3599,11 @@
     {
       "name": "quantity-stepper",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Quantity stepper",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/quantity-stepper.tsx",
@@ -2660,7 +3614,14 @@
     {
       "name": "query-builder",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Query builder",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/query-builder.tsx",
@@ -2671,7 +3632,9 @@
     {
       "name": "quota-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Quota bar",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/quota-bar.tsx",
@@ -2682,7 +3645,9 @@
     {
       "name": "radar-chart",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Radar chart",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/radar-chart.tsx",
@@ -2693,7 +3658,11 @@
     {
       "name": "radio-group",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Radio group",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/radio-group.tsx",
@@ -2704,7 +3673,11 @@
     {
       "name": "range-slider",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Range slider",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/slider.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/range-slider.tsx",
@@ -2715,7 +3688,11 @@
     {
       "name": "rating",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Rating",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/rating.tsx",
@@ -2726,7 +3703,9 @@
     {
       "name": "reaction-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Reaction bar",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/reaction-bar.tsx",
@@ -2737,7 +3716,11 @@
     {
       "name": "read-receipt",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Read receipt",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/read-receipt.tsx",
@@ -2748,7 +3731,12 @@
     {
       "name": "reasoning-block",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Reasoning block",
+      "description": "The model's thinking, folded by default. While `active`,",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/reasoning-block.tsx",
@@ -2759,7 +3747,9 @@
     {
       "name": "receipt",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Receipt",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/receipt.tsx",
@@ -2770,7 +3760,13 @@
     {
       "name": "regenerate-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Regenerate bar",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/regenerate-bar.tsx",
@@ -2781,7 +3777,9 @@
     {
       "name": "region-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Region picker",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/region-picker.tsx",
@@ -2792,7 +3790,9 @@
     {
       "name": "relative-time",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Relative time",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/relative-time.tsx",
@@ -2803,7 +3803,14 @@
     {
       "name": "reset-password-form",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Reset password form",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/auth-card.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/reset-password-form.tsx",
@@ -2814,7 +3821,9 @@
     {
       "name": "resizable-panels",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Resizable panels",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/resizable-panels.tsx",
@@ -2825,7 +3834,11 @@
     {
       "name": "resource-quota-grid",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Resource quota grid",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/quota-bar.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/resource-quota-grid.tsx",
@@ -2836,7 +3849,12 @@
     {
       "name": "retry-block",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Retry block",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/inline-alert.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/retry-block.tsx",
@@ -2847,7 +3865,13 @@
     {
       "name": "review-request-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Review request card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/status-badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/review-request-card.tsx",
@@ -2858,7 +3882,15 @@
     {
       "name": "rich-text-toolbar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Rich text toolbar",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/separator.json",
+        "https://ui.minidev.pro/r/toggle.json",
+        "https://ui.minidev.pro/r/toggle-group.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/rich-text-toolbar.tsx",
@@ -2869,7 +3901,11 @@
     {
       "name": "role-permission-matrix",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Role permission matrix",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/checkbox.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/role-permission-matrix.tsx",
@@ -2880,7 +3916,12 @@
     {
       "name": "role-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Role picker",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/label.json",
+        "https://ui.minidev.pro/r/radio-group.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/role-picker.tsx",
@@ -2891,7 +3932,11 @@
     {
       "name": "row-selection",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Row selection",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/checkbox.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/row-selection.tsx",
@@ -2902,7 +3947,9 @@
     {
       "name": "saved-views",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Saved views",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/saved-views.tsx",
@@ -2913,7 +3960,11 @@
     {
       "name": "schema-field-row",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Schema field row",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/schema-field-row.tsx",
@@ -2924,7 +3975,11 @@
     {
       "name": "scroll-area",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Scroll area",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/scroll-area.tsx",
@@ -2935,7 +3990,13 @@
     {
       "name": "search-input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Search input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/input-affix.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/search-input.tsx",
@@ -2946,7 +4007,11 @@
     {
       "name": "search-with-results",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Search with results",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/search-input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/search-with-results.tsx",
@@ -2957,7 +4022,12 @@
     {
       "name": "seat-manager",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Seat manager",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/seat-manager.tsx",
@@ -2968,7 +4038,14 @@
     {
       "name": "secret-reveal",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Secret reveal",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/copy-button.json",
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/secret-reveal.tsx",
@@ -2979,7 +4056,9 @@
     {
       "name": "section-header",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Section header",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/section-header.tsx",
@@ -2990,7 +4069,12 @@
     {
       "name": "segmented-control",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Segmented control",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/toggle.json",
+        "https://ui.minidev.pro/r/toggle-group.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/segmented-control.tsx",
@@ -3001,7 +4085,12 @@
     {
       "name": "select",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Select",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/select.tsx",
@@ -3012,7 +4101,11 @@
     {
       "name": "separator",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Separator",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/separator.tsx",
@@ -3023,7 +4116,11 @@
     {
       "name": "server-error-state",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Server error state",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/server-error-state.tsx",
@@ -3034,7 +4131,11 @@
     {
       "name": "session-list",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Session list",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/session-list.tsx",
@@ -3045,7 +4146,9 @@
     {
       "name": "settings-layout",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Settings layout",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/settings-layout.tsx",
@@ -3056,7 +4159,11 @@
     {
       "name": "sheet",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Sheet",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/sheet.tsx",
@@ -3067,7 +4174,13 @@
     {
       "name": "shipping-address",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Shipping address",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/label.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/shipping-address.tsx",
@@ -3078,7 +4191,11 @@
     {
       "name": "shortcut-cheat-sheet",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Shortcut cheat sheet",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/kbd.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/shortcut-cheat-sheet.tsx",
@@ -3089,7 +4206,9 @@
     {
       "name": "sidebar-section",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Sidebar section",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/sidebar-section.tsx",
@@ -3100,7 +4219,9 @@
     {
       "name": "sidebar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Sidebar",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/sidebar.tsx",
@@ -3111,7 +4232,15 @@
     {
       "name": "sign-up-form",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Sign up form",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/auth-card.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/social-auth-row.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/sign-up-form.tsx",
@@ -3122,7 +4251,10 @@
     {
       "name": "skeleton",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Skeleton",
+      "description": "A sunken plate with a hairline sheen that sweeps once per 1.6s.",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/skeleton.tsx",
@@ -3133,7 +4265,9 @@
     {
       "name": "skip-link",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Skip link",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/skip-link.tsx",
@@ -3144,7 +4278,9 @@
     {
       "name": "slash-command-menu",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Slash command menu",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/slash-command-menu.tsx",
@@ -3155,7 +4291,11 @@
     {
       "name": "slider",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Slider",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/slider.tsx",
@@ -3166,7 +4306,11 @@
     {
       "name": "social-auth-row",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Social auth row",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/social-auth-row.tsx",
@@ -3177,7 +4321,11 @@
     {
       "name": "social-proof",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Social proof",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/social-proof.tsx",
@@ -3188,7 +4336,11 @@
     {
       "name": "sortable-header",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Sortable header",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/sortable-header.tsx",
@@ -3199,7 +4351,11 @@
     {
       "name": "source-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Source card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/source-card.tsx",
@@ -3210,7 +4366,12 @@
     {
       "name": "sparkline-set",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Sparkline set",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/area-chart.json",
+        "https://ui.minidev.pro/r/metric-delta.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/sparkline-set.tsx",
@@ -3221,7 +4382,9 @@
     {
       "name": "spinner",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Spinner",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/spinner.tsx",
@@ -3232,7 +4395,14 @@
     {
       "name": "split-button",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Split button",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/dropdown-menu.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/split-button.tsx",
@@ -3243,7 +4413,9 @@
     {
       "name": "split-pane",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Split pane",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/split-pane.tsx",
@@ -3254,7 +4426,9 @@
     {
       "name": "sql-result-table",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Sql result table",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/sql-result-table.tsx",
@@ -3265,7 +4439,13 @@
     {
       "name": "sso-provider-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Sso provider card",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/status-badge.json",
+        "https://ui.minidev.pro/r/switch.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/sso-provider-card.tsx",
@@ -3276,7 +4456,9 @@
     {
       "name": "stack-trace",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Stack trace",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/stack-trace.tsx",
@@ -3287,7 +4469,9 @@
     {
       "name": "stack",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Stack",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/stack.tsx",
@@ -3298,7 +4482,9 @@
     {
       "name": "stacked-bar-chart",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Stacked bar chart",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/stacked-bar-chart.tsx",
@@ -3309,7 +4495,10 @@
     {
       "name": "stat-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Stat card",
+      "description": "Label, a big tabular value, and a delta chip that colours itself.",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/stat-card.tsx",
@@ -3320,7 +4509,11 @@
     {
       "name": "stat-sparkline",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Stat sparkline",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/area-chart.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/stat-sparkline.tsx",
@@ -3331,7 +4524,9 @@
     {
       "name": "stats-strip",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Stats strip",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/stats-strip.tsx",
@@ -3342,7 +4537,12 @@
     {
       "name": "status-badge",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Status badge",
+      "description": "Tinted fill, hairline edge, and a status dot that carries the",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/status-badge.tsx",
@@ -3353,7 +4553,11 @@
     {
       "name": "status-dot",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Status dot",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/status-dot.tsx",
@@ -3364,7 +4568,9 @@
     {
       "name": "step-progress",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Step progress",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/step-progress.tsx",
@@ -3375,7 +4581,9 @@
     {
       "name": "stepper",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Stepper",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/stepper.tsx",
@@ -3386,7 +4594,9 @@
     {
       "name": "sticky-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Sticky bar",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/sticky-bar.tsx",
@@ -3397,7 +4607,9 @@
     {
       "name": "sticky-column",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Sticky column",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/sticky-column.tsx",
@@ -3408,7 +4620,13 @@
     {
       "name": "stop-generating",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Stop generating",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/stop-generating.tsx",
@@ -3419,7 +4637,9 @@
     {
       "name": "streak-calendar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Streak calendar",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/streak-calendar.tsx",
@@ -3430,7 +4650,9 @@
     {
       "name": "streaming-cursor",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Streaming cursor",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/streaming-cursor.tsx",
@@ -3441,7 +4663,11 @@
     {
       "name": "streaming-message",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Streaming message",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/streaming-cursor.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/streaming-message.tsx",
@@ -3452,7 +4678,9 @@
     {
       "name": "suggestion-chips",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Suggestion chips",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/suggestion-chips.tsx",
@@ -3463,7 +4691,12 @@
     {
       "name": "switch",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Switch",
+      "description": "Hairline track, raised thumb. The thumb travels on a spring;",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/switch.tsx",
@@ -3474,7 +4707,13 @@
     {
       "name": "table-pagination",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Table pagination",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/table-pagination.tsx",
@@ -3485,7 +4724,11 @@
     {
       "name": "table-toolbar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Table toolbar",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/search-input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/table-toolbar.tsx",
@@ -3496,7 +4739,9 @@
     {
       "name": "table",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Table",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/table.tsx",
@@ -3507,7 +4752,12 @@
     {
       "name": "tabs",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Tabs",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/tabs.tsx",
@@ -3518,7 +4768,11 @@
     {
       "name": "tags-input",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Tags input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/tags-input.tsx",
@@ -3529,7 +4783,11 @@
     {
       "name": "tax-fields",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Tax fields",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/tax-fields.tsx",
@@ -3540,7 +4798,12 @@
     {
       "name": "team-member-row",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Team member row",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json",
+        "https://ui.minidev.pro/r/badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/team-member-row.tsx",
@@ -3551,7 +4814,9 @@
     {
       "name": "terminal-window",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Terminal window",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/terminal-window.tsx",
@@ -3562,7 +4827,11 @@
     {
       "name": "testimonial",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Testimonial",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/testimonial.tsx",
@@ -3573,7 +4842,9 @@
     {
       "name": "text",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Text",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/text.tsx",
@@ -3584,7 +4855,9 @@
     {
       "name": "textarea",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Textarea",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/textarea.tsx",
@@ -3595,7 +4868,9 @@
     {
       "name": "theme-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Theme picker",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/theme-picker.tsx",
@@ -3606,7 +4881,11 @@
     {
       "name": "thinking-block",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Thinking block",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/thinking-block.tsx",
@@ -3617,7 +4896,11 @@
     {
       "name": "time-picker",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Time picker",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/time-picker.tsx",
@@ -3628,7 +4911,9 @@
     {
       "name": "timeline",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Timeline",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/timeline.tsx",
@@ -3639,7 +4924,9 @@
     {
       "name": "toast",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Toast",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/toast.tsx",
@@ -3650,7 +4937,9 @@
     {
       "name": "toc",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Toc",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/toc.tsx",
@@ -3661,7 +4950,11 @@
     {
       "name": "toggle-group",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Toggle group",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/toggle-group.tsx",
@@ -3672,7 +4965,12 @@
     {
       "name": "toggle",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Toggle",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/toggle.tsx",
@@ -3683,7 +4981,11 @@
     {
       "name": "token-usage-meter",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Token usage meter",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/progress.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/token-usage-meter.tsx",
@@ -3694,7 +4996,12 @@
     {
       "name": "tool-call-card",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Tool call card",
+      "description": "One tool invocation inside an agent turn: the call, its",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/tool-call-card.tsx",
@@ -3705,7 +5012,11 @@
     {
       "name": "tool-call-collapsed",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Tool call collapsed",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/tool-call-collapsed.tsx",
@@ -3716,7 +5027,12 @@
     {
       "name": "tool-result-panel",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Tool result panel",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/code-block.json",
+        "https://ui.minidev.pro/r/status-badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/tool-result-panel.tsx",
@@ -3727,7 +5043,11 @@
     {
       "name": "tooltip",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Tooltip",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/tooltip.tsx",
@@ -3738,7 +5058,9 @@
     {
       "name": "topbar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Topbar",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/topbar.tsx",
@@ -3749,7 +5071,9 @@
     {
       "name": "trace-waterfall",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Trace waterfall",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/trace-waterfall.tsx",
@@ -3760,7 +5084,11 @@
     {
       "name": "tree-view",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Tree view",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/tree-view.tsx",
@@ -3771,7 +5099,11 @@
     {
       "name": "trial-banner",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Trial banner",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/trial-banner.tsx",
@@ -3782,7 +5114,13 @@
     {
       "name": "two-factor-setup",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Two factor setup",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/auth-card.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/otp-input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/two-factor-setup.tsx",
@@ -3793,7 +5131,13 @@
     {
       "name": "two-factor-verify",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Two factor verify",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/auth-card.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/otp-input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/two-factor-verify.tsx",
@@ -3804,7 +5148,9 @@
     {
       "name": "typing-indicator",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Typing indicator",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/typing-indicator.tsx",
@@ -3815,7 +5161,11 @@
     {
       "name": "upgrade-prompt",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Upgrade prompt",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/upgrade-prompt.tsx",
@@ -3826,7 +5176,9 @@
     {
       "name": "uptime-bar",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Uptime bar",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/uptime-bar.tsx",
@@ -3837,7 +5189,9 @@
     {
       "name": "usage-breakdown",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Usage breakdown",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/usage-breakdown.tsx",
@@ -3848,7 +5202,11 @@
     {
       "name": "usage-meter",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Usage meter",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/progress.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/usage-meter.tsx",
@@ -3859,7 +5217,13 @@
     {
       "name": "user-chip",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "User chip",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/user-chip.tsx",
@@ -3870,7 +5234,9 @@
     {
       "name": "version-badge",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Version badge",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/version-badge.tsx",
@@ -3881,7 +5247,9 @@
     {
       "name": "vertical-tabs",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Vertical tabs",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/vertical-tabs.tsx",
@@ -3892,7 +5260,13 @@
     {
       "name": "video-player-chrome",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Video player chrome",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/video-player-chrome.tsx",
@@ -3903,7 +5277,9 @@
     {
       "name": "virtualized-list",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Virtualized list",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/virtualized-list.tsx",
@@ -3914,7 +5290,9 @@
     {
       "name": "visually-hidden",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Visually hidden",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/visually-hidden.tsx",
@@ -3925,7 +5303,11 @@
     {
       "name": "vote-control",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Vote control",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/vote-control.tsx",
@@ -3936,7 +5318,9 @@
     {
       "name": "waffle-chart",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Waffle chart",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/waffle-chart.tsx",
@@ -3947,7 +5331,12 @@
     {
       "name": "webhook-list",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Webhook list",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/webhook-list.tsx",
@@ -3958,7 +5347,11 @@
     {
       "name": "welcome-screen",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Welcome screen",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/welcome-screen.tsx",
@@ -3969,7 +5362,9 @@
     {
       "name": "well",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Well",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/well.tsx",
@@ -3980,7 +5375,9 @@
     {
       "name": "window-chrome",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Window chrome",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/window-chrome.tsx",
@@ -3991,7 +5388,13 @@
     {
       "name": "wishlist-button",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Wishlist button",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/wishlist-button.tsx",
@@ -4002,7 +5405,13 @@
     {
       "name": "workspace-create",
       "type": "registry:ui",
-      "tier": "free",
+      "title": "Workspace create",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/workspace-create.tsx",
@@ -4012,1156 +5421,1841 @@
     },
     {
       "name": "admin-console",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Admin console",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/admin-stat-strip.json",
+        "https://ui.minidev.pro/r/admin-user-row.json",
+        "https://ui.minidev.pro/r/audit-filter-bar.json",
+        "https://ui.minidev.pro/r/bulk-user-import.json",
+        "https://ui.minidev.pro/r/impersonation-banner.json",
+        "https://ui.minidev.pro/r/ip-allowlist.json",
+        "https://ui.minidev.pro/r/org-switcher.json",
+        "https://ui.minidev.pro/r/page-header.json",
+        "https://ui.minidev.pro/r/resource-quota-grid.json",
+        "https://ui.minidev.pro/r/sso-provider-card.json",
+        "https://ui.minidev.pro/r/tabs.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/admin-console.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "admin-overview",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Admin overview",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/activity-feed.json",
+        "https://ui.minidev.pro/r/admin-stat-strip.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/admin-overview.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "analytics-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Analytics page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/admin-stat-strip.json",
+        "https://ui.minidev.pro/r/chart-card.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/analytics-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "api-docs-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Api docs page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/code-block.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/api-docs-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "billing-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Billing page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/invoice-list.json",
+        "https://ui.minidev.pro/r/plan-card.json",
+        "https://ui.minidev.pro/r/usage-meter.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/billing-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "changelog-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Changelog page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/changelog-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "chat-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Chat page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/chat-thread.json",
+        "https://ui.minidev.pro/r/page-header.json",
+        "https://ui.minidev.pro/r/prompt-input.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/chat-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "command-center",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Command center",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/command-dialog.json",
+        "https://ui.minidev.pro/r/kpi-row.json",
+        "https://ui.minidev.pro/r/page-header.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/command-center.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "commerce-checkout",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Commerce checkout",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/cart-line-item.json",
+        "https://ui.minidev.pro/r/order-summary.json",
+        "https://ui.minidev.pro/r/page-header.json",
+        "https://ui.minidev.pro/r/shipping-address.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/commerce-checkout.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "dashboard-home",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Dashboard home",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/activity-feed.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/chart-card.json",
+        "https://ui.minidev.pro/r/kpi-row.json",
+        "https://ui.minidev.pro/r/page-header.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/dashboard-home.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "docs-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Docs page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/callout.json",
+        "https://ui.minidev.pro/r/code-block.json",
+        "https://ui.minidev.pro/r/prose.json",
+        "https://ui.minidev.pro/r/toc.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/docs-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "empty-workspace",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Empty workspace",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/empty-state.json",
+        "https://ui.minidev.pro/r/page-header.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/empty-workspace.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "engineering-console",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Engineering console",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/build-pipeline.json",
+        "https://ui.minidev.pro/r/check-run-list.json",
+        "https://ui.minidev.pro/r/commit-row.json",
+        "https://ui.minidev.pro/r/coverage-meter.json",
+        "https://ui.minidev.pro/r/env-switcher.json",
+        "https://ui.minidev.pro/r/merge-box.json",
+        "https://ui.minidev.pro/r/page-header.json",
+        "https://ui.minidev.pro/r/review-request-card.json",
+        "https://ui.minidev.pro/r/secret-reveal.json",
+        "https://ui.minidev.pro/r/tabs.json",
+        "https://ui.minidev.pro/r/trace-waterfall.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/engineering-console.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "feature-flags",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Feature flags",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/label.json",
+        "https://ui.minidev.pro/r/page-header.json",
+        "https://ui.minidev.pro/r/switch.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/feature-flags.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "form-wizard",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Form wizard",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/stepper.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/form-wizard.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "inbox-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Inbox page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/inbox-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "logs-viewer",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Logs viewer",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/logs-viewer.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "marketing-landing",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Marketing landing",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/cta-banner.json",
+        "https://ui.minidev.pro/r/feature-grid.json",
+        "https://ui.minidev.pro/r/hero.json",
+        "https://ui.minidev.pro/r/logo-cloud.json",
+        "https://ui.minidev.pro/r/stats-strip.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/marketing-landing.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "media-library",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Media library",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/media-library.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "notification-center",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Notification center",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/notification-item.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/notification-center.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "onboarding-flow",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Onboarding flow",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/step-progress.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/onboarding-flow.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "premium-landing",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Premium landing",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/animated-feature-row.json",
+        "https://ui.minidev.pro/r/cta-glow.json",
+        "https://ui.minidev.pro/r/hero-aurora.json",
+        "https://ui.minidev.pro/r/pricing-motion.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/premium-landing.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "project-detail",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Project detail",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/back-link.json",
+        "https://ui.minidev.pro/r/description-list.json",
+        "https://ui.minidev.pro/r/page-header.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/project-detail.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "project-list",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Project list",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/page-header.json",
+        "https://ui.minidev.pro/r/status-badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/project-list.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "report-builder",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Report builder",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/chart-card.json",
+        "https://ui.minidev.pro/r/date-range-picker.json",
+        "https://ui.minidev.pro/r/page-header.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/report-builder.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "saas-marketing-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Saas marketing page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/feature-bento-motion.json",
+        "https://ui.minidev.pro/r/free-premium-compare.json",
+        "https://ui.minidev.pro/r/hero-client-pitch.json",
+        "https://ui.minidev.pro/r/logo-wall-motion.json",
+        "https://ui.minidev.pro/r/magnetic-cta.json",
+        "https://ui.minidev.pro/r/testimonial-carousel.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/saas-marketing-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "search-results-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Search results page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/search-results-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "settings-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Settings page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/danger-zone.json",
+        "https://ui.minidev.pro/r/notification-preferences.json",
+        "https://ui.minidev.pro/r/page-header.json",
+        "https://ui.minidev.pro/r/profile-form.json",
+        "https://ui.minidev.pro/r/theme-picker.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/settings-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "sign-in-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Sign in page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/auth-card.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/social-auth-row.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/sign-in-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "status-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Status page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/health-indicator.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/status-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "support-inbox",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Support inbox",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/input.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/support-inbox.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "user-detail",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "User detail",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/avatar.json",
+        "https://ui.minidev.pro/r/back-link.json",
+        "https://ui.minidev.pro/r/page-header.json",
+        "https://ui.minidev.pro/r/team-member-row.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/user-detail.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "users-table-page",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Users table page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/data-table.json",
+        "https://ui.minidev.pro/r/page-header.json",
+        "https://ui.minidev.pro/r/status-badge.json",
+        "https://ui.minidev.pro/r/table-toolbar.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/users-table-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "workflow-board",
-      "type": "registry:block",
-      "tier": "free",
+      "type": "registry:component",
+      "title": "Workflow board",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/approval-card.json",
+        "https://ui.minidev.pro/r/card.json",
+        "https://ui.minidev.pro/r/due-date-chip.json",
+        "https://ui.minidev.pro/r/issue-key.json",
+        "https://ui.minidev.pro/r/page-header.json",
+        "https://ui.minidev.pro/r/priority-picker.json"
+      ],
       "files": [
         {
           "path": "src/registry/blocks/workflow-board.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "agency-portfolio",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Agency portfolio",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/aspect-ratio.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/footer-mega.json",
+        "https://ui.minidev.pro/r/nav-marketing.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/agency-portfolio.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "animated-feature-row",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Animated feature row",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/animated-feature-row.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "before-after-wipe",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Before after wipe",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/before-after-wipe.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "blog-home",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Blog home",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/blog-card.json",
+        "https://ui.minidev.pro/r/chip-filter.json",
+        "https://ui.minidev.pro/r/footer-mega.json",
+        "https://ui.minidev.pro/r/nav-marketing.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/blog-home.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "brand-kit-page",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Brand kit page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/card-tilt.json",
+        "https://ui.minidev.pro/r/grid-reveal.json",
+        "https://ui.minidev.pro/r/hero-poster-type.json",
+        "https://ui.minidev.pro/r/magnetic-cta.json",
+        "https://ui.minidev.pro/r/morph-price.json",
+        "https://ui.minidev.pro/r/text-scramble.json",
+        "https://ui.minidev.pro/r/typographic-marquee.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/brand-kit-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "card-tilt",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Card tilt",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/card-tilt.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "careers-page",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Careers page",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/footer-mega.json",
+        "https://ui.minidev.pro/r/nav-marketing.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/careers-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "changelog-marketing",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Changelog marketing",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/magnetic-cta.json",
+        "https://ui.minidev.pro/r/masked-gradient-headline.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/changelog-marketing.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "changelog-motion",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Changelog motion",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/changelog-motion.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "client-pitch-kit",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Client pitch kit",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/before-after-wipe.json",
+        "https://ui.minidev.pro/r/faq-accordion-motion.json",
+        "https://ui.minidev.pro/r/free-premium-compare.json",
+        "https://ui.minidev.pro/r/hero-client-pitch.json",
+        "https://ui.minidev.pro/r/live-component-rail.json",
+        "https://ui.minidev.pro/r/logo-wall-motion.json",
+        "https://ui.minidev.pro/r/magnetic-cta.json",
+        "https://ui.minidev.pro/r/metric-ticker-board.json",
+        "https://ui.minidev.pro/r/product-os-mock.json",
+        "https://ui.minidev.pro/r/scroll-chapter-story.json",
+        "https://ui.minidev.pro/r/split-proof-panel.json",
+        "https://ui.minidev.pro/r/stack-reveal-story.json",
+        "https://ui.minidev.pro/r/testimonial-carousel.json",
+        "https://ui.minidev.pro/r/typographic-marquee.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/client-pitch-kit.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "command-waitlist",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Command waitlist",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/command-waitlist.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "contact-sales",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Contact sales",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/case-study-card.json",
+        "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/nav-marketing.json",
+        "https://ui.minidev.pro/r/press-quote.json",
+        "https://ui.minidev.pro/r/textarea.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/contact-sales.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "cta-glow",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Cta glow",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/magnetic-cta.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/cta-glow.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "cursor-spotlight-panel",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Cursor spotlight panel",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/cursor-spotlight-panel.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "device-frame-stack",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Device frame stack",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/device-frame-stack.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "docs-marketing",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Docs marketing",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/callout.json",
+        "https://ui.minidev.pro/r/code-block.json",
+        "https://ui.minidev.pro/r/scroll-reveal.json",
+        "https://ui.minidev.pro/r/search-input.json",
+        "https://ui.minidev.pro/r/toc.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/docs-marketing.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "email-receipt",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Email receipt",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/email-footer.json",
+        "https://ui.minidev.pro/r/email-header.json",
+        "https://ui.minidev.pro/r/email-layout.json",
+        "https://ui.minidev.pro/r/email-preview-frame.json",
+        "https://ui.minidev.pro/r/separator.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/email-receipt.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "email-welcome",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Email welcome",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/email-button.json",
+        "https://ui.minidev.pro/r/email-card.json",
+        "https://ui.minidev.pro/r/email-footer.json",
+        "https://ui.minidev.pro/r/email-header.json",
+        "https://ui.minidev.pro/r/email-layout.json",
+        "https://ui.minidev.pro/r/email-preview-frame.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/email-welcome.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "faq-accordion-motion",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Faq accordion motion",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/faq-accordion-motion.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "feature-bento-motion",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Feature bento motion",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/feature-bento-motion.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "feature-comparison",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Feature comparison",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/feature-comparison.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "filmstrip-scrub",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Filmstrip scrub",
+      "dependencies": [],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/filmstrip-scrub.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "flip-stat-board",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Flip stat board",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/flip-stat-board.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "free-premium-compare",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Free premium compare",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/free-premium-compare.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "grid-reveal",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Grid reveal",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/grid-reveal.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "hero-aurora",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Hero aurora",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/hero-aurora.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "hero-bento",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Hero bento",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/hero-bento.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "hero-client-pitch",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Hero client pitch",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/hero-client-pitch.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "hero-editorial-split",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Hero editorial split",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/device-frame-stack.json",
+        "https://ui.minidev.pro/r/magnetic-cta.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/hero-editorial-split.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "hero-gradient-mesh",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Hero gradient mesh",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/hero-gradient-mesh.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "hero-kinetic-type",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Hero kinetic type",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/hero-kinetic-type.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "hero-marquee-brands",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Hero marquee brands",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/hero-marquee-brands.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "hero-poster-type",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Hero poster type",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/magnetic-cta.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/hero-poster-type.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "hero-split-showcase",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Hero split showcase",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/card.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/hero-split-showcase.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "hero-typed-headline",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Hero typed headline",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/hero-typed-headline.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "horizontal-product-rail",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Horizontal product rail",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/horizontal-product-rail.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "investor-update",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Investor update",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/cursor-spotlight-panel.json",
+        "https://ui.minidev.pro/r/flip-stat-board.json",
+        "https://ui.minidev.pro/r/horizontal-product-rail.json",
+        "https://ui.minidev.pro/r/masked-gradient-headline.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/investor-update.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "launch-countdown",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Launch countdown",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/magnetic-cta.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/launch-countdown.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "live-component-rail",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Live component rail",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/switch.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/live-component-rail.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "logo-wall-motion",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Logo wall motion",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/logo-wall-motion.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "magnetic-cta",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Magnetic cta",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/magnetic-cta.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "marquee-quotes",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Marquee quotes",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/marquee-quotes.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "masked-gradient-headline",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Masked gradient headline",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/masked-gradient-headline.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "metric-ticker-board",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Metric ticker board",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/metric-ticker-board.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "morph-price",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Morph price",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/pricing-toggle.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/morph-price.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "onboarding-motion",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Onboarding motion",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/magnetic-cta.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/onboarding-motion.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "orbit-logo-cluster",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Orbit logo cluster",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/orbit-logo-cluster.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "parallax-panel",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Parallax panel",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/parallax-panel.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "pin-scroll-gallery",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Pin scroll gallery",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/pin-scroll-gallery.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "pricing-kinetic",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Pricing kinetic",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/feature-comparison.json",
+        "https://ui.minidev.pro/r/magnetic-cta.json",
+        "https://ui.minidev.pro/r/morph-price.json",
+        "https://ui.minidev.pro/r/typographic-marquee.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/pricing-kinetic.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "pricing-motion",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Pricing motion",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/pricing-motion.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "pricing-page",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Pricing page",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/cta-glow.json",
+        "https://ui.minidev.pro/r/faq-list.json",
+        "https://ui.minidev.pro/r/feature-comparison.json",
+        "https://ui.minidev.pro/r/footer-mega.json",
+        "https://ui.minidev.pro/r/nav-marketing.json",
+        "https://ui.minidev.pro/r/pricing-motion.json",
+        "https://ui.minidev.pro/r/pricing-toggle.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/pricing-page.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "product-launch",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Product launch",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/before-after-wipe.json",
+        "https://ui.minidev.pro/r/command-waitlist.json",
+        "https://ui.minidev.pro/r/cursor-spotlight-panel.json",
+        "https://ui.minidev.pro/r/device-frame-stack.json",
+        "https://ui.minidev.pro/r/flip-stat-board.json",
+        "https://ui.minidev.pro/r/hero-kinetic-type.json",
+        "https://ui.minidev.pro/r/horizontal-product-rail.json",
+        "https://ui.minidev.pro/r/launch-countdown.json",
+        "https://ui.minidev.pro/r/magnetic-cta.json",
+        "https://ui.minidev.pro/r/marquee-quotes.json",
+        "https://ui.minidev.pro/r/scroll-progress-rail.json",
+        "https://ui.minidev.pro/r/sticky-feature-story.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/product-launch.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "product-os-mock",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Product os mock",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/product-os-mock.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "product-tour",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Product tour",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/product-tour.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "saas-landing",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Saas landing",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/animated-feature-row.json",
+        "https://ui.minidev.pro/r/cta-glow.json",
+        "https://ui.minidev.pro/r/faq-list.json",
+        "https://ui.minidev.pro/r/hero-aurora.json",
+        "https://ui.minidev.pro/r/logo-wall-motion.json",
+        "https://ui.minidev.pro/r/pricing-motion.json",
+        "https://ui.minidev.pro/r/stats-counter.json",
+        "https://ui.minidev.pro/r/testimonial-carousel.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/saas-landing.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "scroll-chapter-story",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Scroll chapter story",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/scroll-chapter-story.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "scroll-progress-rail",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Scroll progress rail",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/scroll-progress-rail.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "scroll-reveal",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Scroll reveal",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/scroll-reveal.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "soft-stack",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Soft stack",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/soft-stack.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "split-proof-panel",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Split proof panel",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/badge.json",
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/split-proof-panel.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "stack-reveal-story",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Stack reveal story",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/stack-reveal-story.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "stats-counter",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Stats counter",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/stats-counter.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "status-marketing",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Status marketing",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/incident-banner.json",
+        "https://ui.minidev.pro/r/masked-gradient-headline.json",
+        "https://ui.minidev.pro/r/status-badge.json",
+        "https://ui.minidev.pro/r/uptime-bar.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/status-marketing.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "sticky-cta-bar",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Sticky cta bar",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/magnetic-cta.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/sticky-cta-bar.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "sticky-feature-story",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Sticky feature story",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/sticky-feature-story.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "testimonial-carousel",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Testimonial carousel",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/testimonial-carousel.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "text-scramble",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Text scramble",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/text-scramble.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "typographic-marquee",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Typographic marquee",
+      "description": "@deprecated use phrases",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/premium/typographic-marquee.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "waitlist-hero",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Waitlist hero",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/social-proof.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/waitlist-hero.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     },
     {
       "name": "waveform-hero",
-      "type": "registry:block",
-      "tier": "premium",
+      "type": "registry:component",
+      "title": "Waveform hero",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/magnetic-cta.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/waveform-hero.tsx",
-          "type": "registry:block"
+          "type": "registry:ui"
         }
       ]
     }

@@ -41,10 +41,10 @@ function SelectTrigger({
       data-size={size}
       className={cn(
         "flex w-full items-center justify-between gap-2 rounded-lg border border-border bg-surface",
-        "px-3 text-sm tracking-[0.005em] text-fg shadow-[inset_0_1px_0_oklch(1_0_0/0.5)]",
+        "px-3 text-sm text-fg shadow-xs",
         "outline-none select-none",
-        "transition-[border-color,box-shadow,background-color] duration-[70ms]",
-        "focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
+        "transition-[border-color,box-shadow,background-color] duration-[140ms] ease-hairline hover:border-border-strong",
+        "focus-visible:border-accent focus-visible:shadow-[0_0_0_3px_var(--accent-soft)] data-popup-open:border-accent data-popup-open:shadow-[0_0_0_3px_var(--accent-soft)]",
         "disabled:cursor-not-allowed disabled:bg-sunken disabled:text-fg-muted",
         "aria-invalid:border-danger",
         "text-fg data-placeholder:text-fg-muted",
@@ -95,7 +95,7 @@ function SelectContent({
             "relative isolate z-50 max-h-(--available-height) w-(--anchor-width) min-w-44",
             "origin-(--transform-origin) overflow-x-hidden overflow-y-auto p-1 outline-none",
             "rounded-xl border border-border bg-raised text-fg",
-            "shadow-[0_1px_2px_oklch(0.35_0.02_250/0.08),0_8px_24px_oklch(0.35_0.02_250/0.10),inset_0_1px_0_oklch(1_0_0/0.7)]",
+            "shadow-overlay",
             "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95",
             "data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
             "duration-[200ms] data-closed:duration-[160ms]",
@@ -137,8 +137,8 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full cursor-default items-center gap-2 rounded-lg py-1.5 pr-8 pl-2.5",
-        "text-sm tracking-[0.005em] outline-none select-none",
+        "relative flex w-full cursor-default items-center gap-2 rounded-md py-1.5 pr-8 pl-2",
+        "text-[0.8125rem] outline-none select-none",
         "transition-[background-color] duration-[70ms]",
         "focus:bg-sunken focus:text-fg",
         "data-disabled:pointer-events-none data-disabled:opacity-50",

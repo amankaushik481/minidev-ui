@@ -16,7 +16,7 @@ function SoftStack({ className }: { className?: string }) {
           viewport={{ once: true }}
           transition={{ delay: i * 0.08, type: "spring", stiffness: 140, damping: 18 }}
           style={{ zIndex: cards.length - i }}
-          className="absolute inset-x-0 top-0 rounded-2xl border border-border bg-surface p-5 shadow-[inset_0_1px_0_oklch(1_0_0/0.55)]"
+          className="absolute inset-x-0 top-0 rounded-2xl border border-border bg-surface p-5 shadow-highlight"
         >
           <p className="text-sm font-medium text-fg">{c}</p>
           <div className="mt-4 space-y-2">

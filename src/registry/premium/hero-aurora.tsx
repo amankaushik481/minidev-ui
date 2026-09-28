@@ -32,16 +32,16 @@ function HeroAurora({
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <motion.div
-          className="absolute -top-24 left-1/4 size-[min(28rem,90vw)] rounded-full bg-[radial-gradient(circle,oklch(0.48_0.17_285/0.28),transparent_70%)]"
+          className="absolute -top-24 left-1/4 size-[min(28rem,90vw)] rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--accent)_28%,transparent),transparent_70%)]"
           animate={reduce ? undefined : { x: [0, 40, -20, 0], y: [0, 20, -10, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-          className="absolute -bottom-32 right-0 size-[min(24rem,80vw)] rounded-full bg-[radial-gradient(circle,oklch(0.48_0.17_285/0.18),transparent_70%)]"
+          className="absolute -bottom-32 right-0 size-[min(24rem,80vw)] rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--accent)_18%,transparent),transparent_70%)]"
           animate={reduce ? undefined : { x: [0, -30, 10, 0], y: [0, -25, 15, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,oklch(1_0_0/0.02),transparent_40%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--highlight),transparent_40%)]" />
       </div>
       <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-16 text-center sm:px-6 sm:py-32">
         <motion.p
