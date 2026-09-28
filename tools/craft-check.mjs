@@ -21,6 +21,7 @@ const RULES = [
   ["warn", "arbitrary-shadow", /\bshadow-\[(?!inset_0_0_0_1px|0_0_0_3px)/g, "Arbitrary shadow. Prefer shadow-xs/sm/raised/key/ink/overlay."],
   ["warn", "raw-oklch", /oklch\((?!0_0_0|1_0_0)[^)]*\)/g, "Raw oklch in a component. Prefer a token or color-mix(in_oklch,var(--token)_N%,transparent)."],
   ["warn", "duration", /\bduration-(?:75|100|150|300|500|700|1000)\b/g, "Off-scale duration. Use duration-[70ms] (colour), duration-[140ms] (transform/shadow), duration-200 (enter)."],
+  ["warn", "material-blind", /\bbg-(?:white|black)\b|\bbg-(?:surface|raised|bg)\/\d+/g, "Materials cannot reach bg-white, bg-black or opacity variants of surfaces. Use bg-surface / bg-raised / bg-bg as is."],
   ["warn", "text-gray", /\btext-(?:sm|xs|base)\s+text-(?:gray|zinc)/g, "Grey text. Use text-fg-muted or text-fg-subtle."],
 ]
 

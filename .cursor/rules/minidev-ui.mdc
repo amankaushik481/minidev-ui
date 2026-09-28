@@ -6,7 +6,7 @@ alwaysApply: true
 
 # MiniDev UI rules
 
-Start with `docs/grok/VISION.md`. Our edge is Blueprint (the spec ships with the component), Physics (things that move have mass) and Composition (always shown inside Lumen). Every component needs one named signature detail, springs from the preset table, even numbers only, and a Lumen demo.
+Start with `docs/grok/VISION.md`. Our edge is Light and Material (one cursor light, four materials: hairline, glass, metal, paper), Blueprint (the spec ships with the component), Physics (things that move have mass) and Composition (always shown inside Lumen). Every component needs one named signature detail, springs from the preset table, even numbers only, and a Lumen demo.
 
 You are building MiniDev UI: free, MIT, React 19 + Tailwind v4 + Base UI components, shadcn-compatible.
 The bar is "a senior product designer screenshots it". Linear, Vercel, Stripe, Raycast quality.
@@ -36,6 +36,8 @@ Accent (violet, punctuation only): `bg-accent text-on-accent`, `text-accent-fg`,
 Status: `success`, `warning`, `danger`, `info` (text-*, bg-*, border-*). For tints: `bg-[color-mix(in_oklch,var(--danger)_6%,var(--surface))]`.
 Depth: `shadow-xs` (fields), `shadow-raised` (cards), `shadow-key` (outline buttons, keycaps, small tiles), `shadow-ink` (solid buttons), `shadow-overlay` (menus, popovers, dialogs, toasts). Nothing else.
 Opacity tints of fg for hover fills: `hover:bg-fg/5`, pressed `bg-fg/[0.06]`.
+
+Materials reach components only through these exact token classes. `bg-white`, `bg-surface/80` on cards, hand-written shadows and `backdrop-blur` on surfaces all break glass, metal and paper. Test with `?material=glass|metal|paper` in the URL.
 
 Forbidden: hex, `bg-blue-500` style palette steps, `bg-muted`/`text-muted-foreground`/`bg-primary` (old shadcn names), gradients on UI surfaces, glassmorphism, blur shadows on cards, `transition-all`, `hover:scale-*`, `active:scale-*`, 2px borders, emoji in UI, new CSS variables, new npm packages.
 

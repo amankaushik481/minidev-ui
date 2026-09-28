@@ -6,7 +6,10 @@ Read this before every batch. It is the reason behind every rule.
 
 AI writes a component in seconds. There are thousands of libraries and most of them look the same. In 2026 nobody browses a component library unless it gives them something their AI cannot produce on its own. "Clean and accessible" is not an edge any more. It is the floor.
 
-## Our edge: three things AI cannot fake
+## Our edge: four things AI cannot fake
+
+0. **Light and Material. Every other UI kit is flat. This one is lit.**
+   One light source (the cursor, or a slow drift on phones) crosses the whole page. Every shadow falls away from it, every raised edge catches it, glass sheens under it, metal glints. And the whole kit comes in four materials: `hairline` (unlit, quiet), `glass`, `metal`, `paper`. A material is one attribute, `data-material="metal"`, on `<html>` or on any element, and it nests. Same markup, four finishes. Nobody else ships this.
 
 1. **Blueprint. The spec ships with the component.**
    Every value is a token and every size sits on the grid, and we prove it live. Hold Option (Alt) on any page of the site and hover anything: box, padding, gaps, radius, type, and the exact token classes. Off-grid values get flagged. AI agents read the same spec from llms.txt. Designers can check our work. Nobody else lets them.
@@ -18,6 +21,16 @@ AI writes a component in seconds. There are thousands of libraries and most of t
    Every component is shown inside Lumen, our fictional finance app, with real data. The landing page takes a Lumen screen apart into five layers and puts it back together. If a component only looks good alone on a dotted background, it is not done.
 
 Tagline: **Every pixel, accounted for.**
+
+## The material law (read this twice)
+
+Materials only reach a component through tokens. So:
+
+- Surfaces use exactly `bg-bg`, `bg-surface`, `bg-raised`, `bg-sunken`, `bg-ink`, `bg-accent`. No `bg-white`, no `bg-black`, no opacity variants like `bg-surface/80` on cards (the material cannot reach those classes).
+- Depth uses exactly `shadow-xs`, `shadow-sm`, `shadow-raised`, `shadow-key`, `shadow-ink`, `shadow-md`, `shadow-lg`, `shadow-overlay`. These follow the light. A hand-written `shadow-[...]` does not, so it looks dead in glass and metal. Only exception: the inset 1px ring and the 3px focus halo.
+- Never add `backdrop-blur` to a surface. Glass adds it.
+- Thumbs and knobs get `data-slot="<name>-thumb"`, so metal can machine them (add the slot to the knob list in minidev.css if it is new).
+- Check every component in all four: add `?material=glass`, `?material=metal`, `?material=paper` to the URL, light and dark. That is eight looks. All eight must be good.
 
 ## The five laws (every component, no exceptions)
 
@@ -50,6 +63,8 @@ Read these, copy their patterns:
 - `src/registry/ui/otp-input.tsx`, `file-dropzone.tsx`, `data-table.tsx`, `toast.tsx`: states, keyboard, async.
 - `src/components/landing/exploded.tsx`: how we show composition.
 - `src/components/blueprint/blueprint.tsx`: the spec engine. Do not modify it. Make your components read well in it.
+- `src/registry/ui/light-provider.tsx` and the LIGHT & MATERIAL section of `src/styles/minidev.css`: the light and the materials. Do not modify them without asking. If a component looks wrong in a material, fix the component's classes first.
+- `src/components/landing/materials.tsx`: the same markup in four materials side by side.
 
 ## Batch P: physics upgrades (do these before QUEUE.md batch 4 onward)
 
@@ -73,6 +88,6 @@ Read these, copy their patterns:
 
 1. Record five seconds of using it. Would a designer post that clip? If not, the signature detail is missing or too weak.
 2. Turn Blueprint on and hover every part. Token classes are named, nothing is flagged off-grid.
-3. Switch to dark mode in the middle of an interaction. Nothing breaks.
+3. Switch to dark mode in the middle of an interaction. Nothing breaks. Then switch material (glass, metal, paper). Nothing looks flat or dead.
 4. Use it with the keyboard only.
 5. Turn on reduced motion (DevTools, Rendering, prefers-reduced-motion). Everything still works, instantly.
