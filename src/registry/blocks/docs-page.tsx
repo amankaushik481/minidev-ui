@@ -19,12 +19,12 @@ function DocsPage() {
       <div className="space-y-6">
         <Prose>
           <h1 id="intro">Introduction</h1>
-          <p>MiniDev UI is a Hairline shadcn registry for product teams.</p>
+          <p>Everything you need to integrate Lumen, from first request to production.</p>
           <h2 id="install">Install</h2>
           <p>Add components from the registry into your Next.js app.</p>
         </Prose>
         <CodeBlock code="npx shadcn@latest add @minidev/button" language="bash" />
-        <Callout title="Tip" tone="info">Read DESIGN.md before inventing values.</Callout>
+        <Callout title="Tip" tone="info">Start with the quickstart, then explore the API reference.</Callout>
       </div>
     </div>
   )

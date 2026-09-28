@@ -31,7 +31,7 @@ function StickyCtaBar({
       <p className="text-center text-sm font-medium text-fg sm:text-left">{title}</p>
       <div className="flex gap-2">
         <Button size="sm" variant="outline" className="flex-1 sm:flex-none">Docs</Button>
-        <MagneticCta size="sm" className="flex-1 sm:flex-none [&_button]:w-full">Get Premium</MagneticCta>
+        <MagneticCta size="sm" className="flex-1 sm:flex-none [&_button]:w-full">Get started</MagneticCta>
       </div>
     </motion.div>
   )

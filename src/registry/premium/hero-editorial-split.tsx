@@ -19,7 +19,7 @@ function HeroEditorialSplit({ className }: { className?: string }) {
     >
       <div className="min-w-0">
         <motion.p initial={reduce ? false : { y: 8 }} animate={{ y: 0 }} className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">
-          MiniDev Premium
+          Introducing Lumen 2.0
         </motion.p>
         <h1 className="mt-3 text-[clamp(1.75rem,3.5vw+1rem,3rem)] font-medium tracking-[-0.028em] text-fg">
           <span className="block overflow-hidden">
@@ -34,10 +34,10 @@ function HeroEditorialSplit({ className }: { className?: string }) {
           </span>
         </h1>
         <p className="mt-4 max-w-md text-sm leading-[1.55] text-fg-muted">
-          Free MIT product UI. Premium kinetic moments. Audit-gated so screenshots stay honest when you ship.
+          A calmer way to plan, build and ship. Everything your team needs in one place, and nothing it does not.
         </p>
         <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
-          <MagneticCta className="w-full sm:w-auto">Browse Premium</MagneticCta>
+          <MagneticCta className="w-full sm:w-auto">Start free trial</MagneticCta>
           <Button variant="outline" className="w-full sm:w-auto">Open docs</Button>
         </div>
       </div>

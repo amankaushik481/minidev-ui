@@ -157,7 +157,7 @@ const FOOTER = [
       { href: "/gallery", label: "Components" },
       { href: "/gallery/blocks", label: "Blocks" },
       { href: "/gallery/premium-motion", label: "Motion" },
-      { href: "/playground", label: "Playground" },
+      { href: "/playground", label: "Theme playground" },
     ],
   },
   {
@@ -201,8 +201,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
-          <div className="max-w-xs">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
+          <div className="col-span-2 max-w-xs lg:col-span-1">
             <Logo />
             <p className="mt-4 text-[0.8125rem] leading-[1.6] text-fg-muted">
               {COMPONENT_COUNT_LABEL} React + Tailwind components drawn in hairlines. Copy them, own them, ship them. MIT, free forever.

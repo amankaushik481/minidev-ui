@@ -4,9 +4,9 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { cn } from "@/lib/utils"
 
 const CHAPTERS = [
-  { kicker: "01 — Free", title: "Ship product UI without waiting on design systems.", body: "Buttons, tables, AI threads, billing, admin — Hairline primitives you can paste tomorrow." },
-  { kicker: "02 — Premium", title: "Save the kinetic moments for pages that convert.", body: "Heroes, sticky stories, wipe compares, magnetic CTAs. Soft-gated commercially, same tokens." },
-  { kicker: "03 — Craft", title: "Audit-gated so screenshots stay honest.", body: "Build + axe + visual shots. If it breaks a11y mid-animation, it does not ship." },
+  { kicker: "01 · Plan", title: "Turn scattered requests into one clear roadmap.", body: "Collect feedback from every channel, then rank it by the revenue behind it." },
+  { kicker: "02 · Build", title: "Ship in small, confident steps.", body: "Specs, designs and pull requests live side by side, so nothing gets lost between tools." },
+  { kicker: "03 · Measure", title: "Know what worked, the day it ships.", body: "Adoption, retention and revenue per feature, without writing a single query." },
 ]
 
 function ScrollChapterStory({ className }: { className?: string }) {

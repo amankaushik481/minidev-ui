@@ -35,7 +35,7 @@ export function GallerySection({
       </div>
       <div className="relative min-w-0 overflow-hidden rounded-2xl border border-border bg-surface shadow-raised">
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-dots [--grid-size:14px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]" />
-        <div className={cn("relative flex min-w-0 flex-wrap items-center gap-3 p-5 sm:p-10", className)}>
+        <div className={cn("relative flex min-w-0 flex-wrap items-center gap-3 p-5 sm:p-10 [&>[class*='max-w-']]:w-full", className)}>
           {children}
         </div>
       </div>

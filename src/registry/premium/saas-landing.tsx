@@ -14,11 +14,11 @@ function SaasLanding({ className }: { className?: string }) {
   return (
     <div data-slot="saas-landing" data-tier="premium" className={cn("space-y-20 py-6", className)}>
       <HeroAurora
-        eyebrow="MiniDev Premium"
+        eyebrow="Introducing Lumen 2.0"
         title="The UI kit your launch page deserves"
         description="Compose free product primitives. Drop Premium motion when the first screen has to convert."
         primaryLabel="Start free"
-        secondaryLabel="See Premium"
+        secondaryLabel="See pricing"
       />
       <LogoWallMotion logos={["Acme", "Globex", "Initech", "Umbrella", "Stark", "Wayne", "Oscorp", "Cyberdyne"]} />
       <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">

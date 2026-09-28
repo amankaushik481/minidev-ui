@@ -60,7 +60,7 @@ const REPLY =
 
 type Msg = { id: string; role: "user" | "assistant"; content: React.ReactNode; streaming?: boolean }
 
-function AiDemo() {
+export function AiDemo() {
   const [prompt, setPrompt] = React.useState("")
   const [msgs, setMsgs] = React.useState<Msg[]>([
     { id: "u1", role: "user", content: "Add a yearly toggle to the pricing table" },
@@ -167,7 +167,7 @@ const ROWS = [
   { id: "c4", name: "Tomás Reyes", email: "tomas@kestrel.io", role: "Member", status: "Suspended", tone: "danger" },
 ] as const
 
-function DataDemo() {
+export function DataDemo() {
   const [sel, setSel] = React.useState<Set<string>>(new Set(["c2"]))
   const all = sel.size === ROWS.length
   const toggle = (id: string) => setSel((s) => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n })
@@ -222,7 +222,7 @@ function DataDemo() {
 
 /* ── Billing ─────────────────────────────────────────────────────────────── */
 
-function BillingDemo() {
+export function BillingDemo() {
   const [cycle, setCycle] = React.useState<"monthly" | "yearly">("yearly")
   const [plan, setPlan] = React.useState("team")
   const plans = [
@@ -278,7 +278,7 @@ function BillingDemo() {
 
 /* ── Settings ────────────────────────────────────────────────────────────── */
 
-function SettingsDemo() {
+export function SettingsDemo() {
   const [v, setV] = React.useState({ digest: true, product: false, security: true })
   const rows = [
     { k: "digest", t: "Weekly digest", d: "A Monday summary of activity" },
@@ -314,7 +314,7 @@ const CMDS = [
   { icon: SparklesIcon, label: "Ask Lumen AI", hint: "Assistant", key: "A" },
 ]
 
-function CommandDemo() {
+export function CommandDemo() {
   const [q, setQ] = React.useState("")
   const [active, setActive] = React.useState(0)
   const list = CMDS.filter((c) => c.label.toLowerCase().includes(q.toLowerCase()))
@@ -362,7 +362,7 @@ function CommandDemo() {
 
 /* ── Auth ────────────────────────────────────────────────────────────────── */
 
-function AuthDemo() {
+export function AuthDemo() {
   return (
     <div className="mx-auto flex w-full max-w-[300px] flex-1 flex-col justify-center gap-3">
       <div className="text-center">
@@ -386,7 +386,7 @@ function AuthDemo() {
 
 /* ── Chart ───────────────────────────────────────────────────────────────── */
 
-function ChartDemo() {
+export function ChartDemo() {
   return (
     <div className="flex flex-1 flex-col">
       <div className="flex items-baseline justify-between">

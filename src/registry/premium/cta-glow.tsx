@@ -40,7 +40,7 @@ function CtaGlow({
         <p className="relative mx-auto mt-2 max-w-md text-sm text-fg-muted">{description}</p>
       ) : null}
       <div className="relative mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-        <MagneticCta>Get Premium</MagneticCta>
+        <MagneticCta>Get started</MagneticCta>
         <Button variant="outline">Stay free</Button>
       </div>
     </motion.div>

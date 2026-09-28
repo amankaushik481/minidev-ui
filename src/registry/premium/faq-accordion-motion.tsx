@@ -4,8 +4,8 @@ import { motion, useReducedMotion, AnimatePresence } from "motion/react"
 import { cn } from "@/lib/utils"
 
 const FAQS = [
-  { q: "Is the free tier really MIT?", a: "Yes. Free UI and blocks stay MIT. Premium is soft-gated commercially for kinetic launch moments." },
-  { q: "Will Premium drift from free tokens?", a: "No. Same Geist, hue 285, Hairline. Premium only adds motion and composition." },
+  { q: "Is there a free plan?", a: "Yes. The free plan covers up to three projects and has no time limit." },
+  { q: "Can I import my existing data?", a: "Yes. Import from CSV, Linear, Jira or GitHub in a couple of clicks." },
   { q: "How do I demo this to a client?", a: "Open / then /showcase. Walk the OS mock, compare tiers, scroll the chapters." },
 ]
 

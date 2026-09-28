@@ -63,7 +63,7 @@ function FlipStatBoard({
   stats = [
     { value: 400, label: "Registry items" },
     { value: 49, label: "Galleries" },
-    { value: 27, label: "Premium blocks" },
+    { value: 71, label: "Motion pieces" },
   ],
   className,
 }: {

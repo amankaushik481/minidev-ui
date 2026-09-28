@@ -44,7 +44,7 @@ function MetricTickerBoard({ className }: { className?: string }) {
   return (
     <section data-slot="metric-ticker-board" data-tier="premium" className={cn("grid gap-3 sm:grid-cols-2 lg:grid-cols-4", className)}>
       <MetricCell label="Registry items" value={460} suffix="+" />
-      <MetricCell label="Premium moments" value={65} suffix="+" />
+      <MetricCell label="Motion pieces" value={71} />
       <MetricCell label="Gallery routes" value={52} />
       <MetricCell label="A11y gate" value={100} suffix="%" />
     </section>

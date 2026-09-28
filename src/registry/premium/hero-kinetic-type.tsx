@@ -6,7 +6,7 @@ import { Button } from "@/registry/ui/button"
 
 function HeroKineticType({
   lines = ["Ship interfaces", "that feel", "composed."],
-  description = "Kinetic type, Hairline structure, and motion that yields to prefers-reduced-motion.",
+  description = "Plan, build and ship from one calm workspace. Every detail considered, nothing in your way.",
   className,
 }: {
   lines?: string[]
@@ -62,7 +62,7 @@ function HeroKineticType({
           transition={{ delay: 0.55 }}
           className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap"
         >
-          <Button className="w-full sm:w-auto">Browse Premium</Button>
+          <Button className="w-full sm:w-auto">Start free trial</Button>
           <Button variant="outline" className="w-full sm:w-auto">Free kit</Button>
         </motion.div>
       </div>

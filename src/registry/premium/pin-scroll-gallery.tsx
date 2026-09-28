@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils"
 
 const frames = [
   { title: "Compose", body: "Free primitives for product UI." },
-  { title: "Elevate", body: "Premium motion for the first screen." },
-  { title: "Ship", body: "Audit gate keeps screenshots honest." },
+  { title: "Elevate", body: "Motion that earns the first screen." },
+  { title: "Ship", body: "Preview, approve and publish in one flow." },
 ]
 
 function PinScrollGallery({ className }: { className?: string }) {

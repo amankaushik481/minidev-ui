@@ -8,8 +8,8 @@ type Step = { title: string; body: string; label: string }
 function StickyFeatureStory({
   steps = [
     { label: "01", title: "Compose free", body: "Ship product UI from the MIT kit — tables, AI, billing, shells." },
-    { label: "02", title: "Drop Premium", body: "When the first screen has to convert, swap in kinetic heroes." },
-    { label: "03", title: "Stay on-token", body: "Same Hairline borders, same hue 285, same audit gate." },
+    { label: "02", title: "Invite the team", body: "Bring everyone in with one link. Roles and permissions are already set." },
+    { label: "03", title: "Ship it", body: "Publish when you are ready. Roll back in one click if you are not." },
   ],
   className,
 }: {

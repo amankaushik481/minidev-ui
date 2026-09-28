@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 function MaskedGradientHeadline({
-  children = "Premium moments, free primitives.",
+  children = "Details that make it feel inevitable.",
   className,
 }: {
   children?: React.ReactNode

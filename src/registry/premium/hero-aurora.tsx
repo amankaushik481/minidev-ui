@@ -5,10 +5,10 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
 function HeroAurora({
-  eyebrow = "Premium",
+  eyebrow = "Now in public beta",
   title = "Interfaces that feel composed",
-  description = "Motion, Hairline structure, and semantic tokens — a registry built for product teams who care.",
-  primaryLabel = "Browse Premium",
+  description = "Plan, ship and measure in one calm workspace, built for teams who care about the details.",
+  primaryLabel = "Start free trial",
   secondaryLabel = "View free kit",
   onPrimary,
   onSecondary,

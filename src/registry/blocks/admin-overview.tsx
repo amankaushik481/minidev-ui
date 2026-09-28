@@ -20,8 +20,8 @@ function AdminOverview() {
         { label: "Churn", value: "1.2%", delta: -0.4 },
       ]} />
       <ActivityFeed items={[
-        { id: "1", user: "Aman", action: "raised Premium craft bar", time: "2m" },
-        { id: "2", user: "Ops", action: "passed audit gate", time: "14m" },
+        { id: "1", user: "Aman", action: "upgraded the workspace to Team", time: "2m" },
+        { id: "2", user: "Ops", action: "rotated the production API key", time: "14m" },
         { id: "3", user: "Agent", action: "thickened 15 blocks", time: "1h" },
       ]} />
     </div>

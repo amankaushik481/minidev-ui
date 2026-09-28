@@ -29,7 +29,7 @@ function WaitlistHero({
       />
       <div className="relative mx-auto max-w-xl">
         <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">Coming soon</p>
-        <h1 className="mt-3 text-4xl font-medium tracking-[-0.026em] text-fg">Join the Premium waitlist</h1>
+        <h1 className="mt-3 text-4xl font-medium tracking-[-0.026em] text-fg">Join the waitlist</h1>
         <p className="mt-3 text-sm text-fg-muted">Be first to the motion pack, landing templates, and launch kits.</p>
         <form
           className="mt-6 flex flex-col gap-2 sm:flex-row"

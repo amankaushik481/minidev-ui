@@ -18,7 +18,7 @@ function TypographicMarquee({
     phrases ??
     (text
       ? [text]
-      : ["Hairline craft", "Hue 285", "Geist Sans", "Audit-gated", "Free forever", "Premium moments"])
+      : ["Realtime sync", "Offline first", "SOC 2 Type II", "99.99% uptime", "Ships weekly", "Loved by teams"])
   const loop = [...items, ...items]
   return (
     <section

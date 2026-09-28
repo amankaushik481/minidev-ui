@@ -4,7 +4,7 @@ import { Badge } from "@/registry/ui/badge"
 const ENTRIES = [
   { version: "0.9.0", date: "Sep 14", tag: "Premium", title: "Client showcase + OS mock", body: "Pitch kit, scroll chapters, free/premium compare, metric ticker." },
   { version: "0.8.0", date: "Sep 14", tag: "Craft", title: "Docs, playground, data-slot", body: "Every free UI ships data-slot. Curated playground demos expanded." },
-  { version: "0.7.0", date: "Sep 14", tag: "Motion", title: "Kinetic Premium elevation", body: "Sticky stories, magnetic CTA, wipe, device stack, countdown." },
+  { version: "0.7.0", date: "Sep 14", tag: "Motion", title: "Faster search, everywhere", body: "Sticky stories, magnetic CTA, wipe, device stack, countdown." },
 ]
 
 function ChangelogPage() {

@@ -12,7 +12,7 @@ function ChangelogMarketing({
     {
       version: "v0.6",
       date: "Sep 14",
-      title: "Premium actually feels Premium",
+      title: "Launch pages that feel expensive",
       highlight: true,
       items: ["Kinetic type + sticky story", "Magnetic CTA + wipe compare", "Launch + investor kits"],
     },

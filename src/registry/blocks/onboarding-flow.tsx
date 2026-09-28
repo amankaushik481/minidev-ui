@@ -11,8 +11,8 @@ function OnboardingFlow() {
   return (
     <div data-slot="onboarding-flow" className="mx-auto max-w-lg space-y-6 rounded-2xl border border-border bg-surface p-6 shadow-highlight">
       <div>
-        <h3 className="text-lg font-medium tracking-[-0.014em] text-fg">Set up MiniDev</h3>
-        <p className="mt-1 text-sm text-fg-muted">Three steps. Keep Hairline defaults or swap tokens later.</p>
+        <h3 className="text-lg font-medium tracking-[-0.014em] text-fg">Set up your workspace</h3>
+        <p className="mt-1 text-sm text-fg-muted">Three steps. You can change any of this later.</p>
       </div>
       <StepProgress steps={STEPS} current={step} />
       {step === 0 && (

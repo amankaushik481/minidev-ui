@@ -8,14 +8,14 @@ import { MagneticCta } from "@/registry/premium/magnetic-cta"
 const steps = [
   {
     title: "Install the free kit",
-    body: "Add Hairline primitives. Tokens, Geist, audit gate — already decided.",
+    body: "Pick a template. Tokens, type and spacing are already decided.",
   },
   {
     title: "Compose product UI",
     body: "Dashboards, AI studio, billing, admin. Stay free as long as you want.",
   },
   {
-    title: "Unlock Premium moments",
+    title: "Invite your team",
     body: "Kinetic heroes and launch kits when the first screen has to convert.",
   },
 ]
