@@ -10,6 +10,7 @@ import { Logo, LogoMark } from "@/components/logo"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { SiteSearch } from "@/components/site-search"
 import { BlueprintToggle } from "@/components/blueprint/blueprint"
+import { MaterialSwitcher } from "@/registry/ui/light-provider"
 
 function GithubIcon(props: React.ComponentProps<"svg">) {
   return (
@@ -105,6 +106,7 @@ export function SiteHeader({ solid }: { solid?: boolean }) {
           <a href={SITE.npm} target="_blank" rel="noreferrer" aria-label="npm package" className="hidden size-8 items-center justify-center rounded-lg text-fg-muted outline-none transition-colors hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent sm:inline-flex">
             <NpmIcon className="size-4" />
           </a>
+          <MaterialSwitcher size="sm" labels={false} className="hidden xl:inline-flex" />
           <BlueprintToggle className="hidden sm:inline-flex" />
           <ThemeToggle />
           <Button size="sm" className="ml-1 hidden lg:inline-flex" render={<Link href="/docs" />}>

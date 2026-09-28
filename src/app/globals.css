@@ -21,3 +21,7 @@ html, body {
 [data-blueprint] body {
   cursor: crosshair;
 }
+
+/* Site-only helpers for the material demo */
+.only-glass { display: none; }
+[data-material="glass"] .only-glass { display: block; }

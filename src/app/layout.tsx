@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { TooltipProvider } from "@/registry/ui/tooltip";
 import { BlueprintLayer } from "@/components/blueprint/blueprint"
+import { LightRoot } from "@/components/light-root"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -53,7 +54,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")}catch(e){}})()`,
+            __html: `(function(){try{var r=document.documentElement;var t=localStorage.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)r.classList.add("dark");var q=new URLSearchParams(location.search).get("material");var m=q||localStorage.getItem("material")||"glass";r.setAttribute("data-material",m)}catch(e){}})()`,
           }}
         />
       </head>
@@ -63,6 +64,7 @@ export default function RootLayout({
           <TooltipProvider>{children}</TooltipProvider>
         </div>
         <BlueprintLayer />
+        <LightRoot />
       </body>
     </html>
   );

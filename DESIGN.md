@@ -10,7 +10,20 @@ Tokens live in `src/styles/minidev.css` (shipped as `minidev-ui-kit/styles.css`)
 | Type | **Geist Sans** for UI and headings, **Geist Mono** for data and code. Never Inter. |
 | Primary action | **Ink**: near-black in light, near-white in dark (`bg-ink text-on-ink shadow-ink`). |
 | Brand colour | **Violet, hue 283**. Spent like punctuation: focus, selection, links, charts, one accent button. |
-| Signature | **Hairline**: structure is 1px lines plus a top highlight. Blur shadows only on overlays. |
+| Signature | **Light and material**: one light source crosses the page; four materials (hairline, glass, metal, paper) from one token set. Hairline is the quiet default. |
+
+## Light and material
+
+One light source, set by `<LightProvider />` from the pointer (a slow drift on touch and idle), writes `--lx --ly --sx --sy --la` on `<html>`. The shadow set, raised edges and sheens all read it, so every shadow falls away from the same light.
+
+Materials are an attribute: `data-material="hairline | glass | metal | paper"` on `<html>` or any element; they nest. A material redefines the tokens and sets `--mat-*` hooks that decorate `bg-surface`, `bg-raised`, `bg-ink`, `bg-accent`, `bg-bg` and `*-thumb` slots:
+
+| Material | Character |
+|---|---|
+| hairline | Unlit. 1px lines, quiet depth. The default for products. |
+| glass | Translucent surfaces, 22px frost, sheen under the light, colour behind. |
+| metal | Brushed aluminium (black anodised in dark), bevels that turn with the light, machined knobs. |
+| paper | Warm stock, grain, long soft shadows; ink-blue primary. |
 
 ## Colour tokens (semantic only)
 
