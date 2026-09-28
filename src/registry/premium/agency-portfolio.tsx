@@ -23,7 +23,7 @@ function AgencyPortfolio({ className }: { className?: string }) {
           <motion.h1 initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="text-4xl font-medium tracking-[-0.026em] text-fg">
             Product UI with a pulse
           </motion.h1>
-          <p className="mt-3 text-sm text-fg-muted">Selected work built on MiniDev Hairline — free primitives, Premium moments.</p>
+          <p className="mt-3 text-sm text-fg-muted">Selected work. Products we designed, built and shipped in thirty days.</p>
           <Button className="mt-6">Start a project</Button>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

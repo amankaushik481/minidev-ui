@@ -396,3 +396,27 @@
   from { background-position: 100% 0; }
   to { background-position: -150% 0; }
 }
+
+/* Micro-interaction keyframes used by the gold-standard components */
+@keyframes shake-x {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+}
+
+@keyframes glyph-in {
+  from { opacity: 0; transform: translateY(5px) scale(0.92); filter: blur(2px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes dash-march {
+  to { stroke-dashoffset: -22; }
+}
+
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.6); }
+  60% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}

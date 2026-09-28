@@ -74,6 +74,7 @@ import { FreePremiumCompare } from "@/registry/premium/free-premium-compare"
 import { LiveComponentRail } from "@/registry/premium/live-component-rail"
 import { CommandWaitlist } from "@/registry/premium/command-waitlist"
 import { Toaster, toast } from "@/registry/ui/toast"
+import { DataTableDemo, DropzoneDemo, OtpDemo, SegmentedDemo } from "@/components/reference/demos"
 import { InteractiveAreaChart } from "@/registry/ui/interactive-area-chart"
 import { NotificationInbox } from "@/registry/ui/notification-inbox"
 
@@ -224,6 +225,10 @@ export function getPlaygroundDemos(name: string): DemoState[] | null {
     "chat-thread": [{ label: "Thread", node: <div className="w-full max-w-md rounded-xl border border-border bg-surface p-4 shadow-raised"><ChatThread messages={[{ id: "1", role: "user", content: "Summarise churn for September." }, { id: "2", role: "assistant", content: "Net churn fell to 1.8%, down 0.4 points. Most of the drop came from annual plans renewing early after the pricing change." }]} /></div> }],
     "agent-trace": [{ label: "Agent run", node: <AgentTrace steps={AGENT_STEPS} meta="3 tools · 0.8s · $0.004" /> }],
     toast: [{ label: "Click to fire, hover the stack to expand", node: <ToastDemo /> }],
+    "data-table": [{ label: "Sort, select, hover a row", node: <DataTableDemo compactControls /> }],
+    "file-dropzone": [{ label: "Drag a file over it", node: <DropzoneDemo /> }],
+    "otp-input": [{ label: "Type or paste a code", node: <OtpDemo /> }],
+    "segmented-control": [{ label: "Click or use arrow keys", node: <SegmentedDemo /> }],
     "interactive-area-chart": [{ label: "Hover or use arrow keys", node: <InteractiveAreaChart /> }],
     "notification-inbox": [{ label: "Click the bell", node: <NotificationInbox /> }],
     "artifact-preview": [{ label: "Artifact", node: <div className="w-full max-w-md"><ArtifactPreview title="preview.tsx" copyValue=" console.log(1)">{" "}<pre className="font-mono text-xs text-fg">const ok = true</pre></ArtifactPreview></div> }],

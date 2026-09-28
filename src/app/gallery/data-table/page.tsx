@@ -7,6 +7,7 @@ import { StatusBadge } from "@/registry/ui/status-badge"
 import { EmptyTable } from "@/registry/ui/empty-table"
 import { LoadingTable } from "@/registry/ui/loading-table"
 import { Button } from "@/registry/ui/button"
+import { DataTableDemo, DataTableEmptyDemo } from "@/components/reference/demos"
 import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 const rows = [
@@ -20,7 +21,9 @@ export default function Page() {
   const [page, setPage] = React.useState(1)
   const filtered = rows.filter((r) => r.name.toLowerCase().includes(q.toLowerCase()))
   return (
-    <GalleryPage title="Data table">
+    <GalleryPage title="Data table" description="Sort by any header, select rows for bulk actions, hover a row for its menu. Scroll inside it and the header picks up a shadow.">
+      <GallerySection title="Invoices"><DataTableDemo /></GallerySection>
+      <GallerySection title="Empty"><DataTableEmptyDemo /></GallerySection>
       <GallerySection title="Toolbar + table + pagination">
         <div className="w-full max-w-3xl">
           <TableToolbar search={q} onSearchChange={setQ}>
@@ -29,7 +32,7 @@ export default function Page() {
           <DataTable
             data={filtered}
             columns={[
-              { id: "name", header: "Name", cell: (r) => r.name },
+              { id: "name", header: "Name", sortValue: (r) => r.name, cell: (r) => r.name },
               { id: "plan", header: "Plan", cell: (r) => r.plan },
               { id: "status", header: "Status", cell: (r) => (
                 <StatusBadge tone={r.status === "active" ? "success" : r.status === "past_due" ? "danger" : "warning"}>{r.status}</StatusBadge>

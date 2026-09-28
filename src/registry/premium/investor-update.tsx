@@ -38,7 +38,7 @@ function InvestorUpdate({ className }: { className?: string }) {
         <ul className="space-y-2 text-sm leading-[1.55] text-fg-muted">
           <li className="border-l border-accent/40 pl-3">Email + admin density for real product consoles</li>
           <li className="border-l border-accent/40 pl-3">Premium kinetic layer: sticky story, magnetic CTA, wipe compares</li>
-          <li className="border-l border-accent/40 pl-3">Gallery UX with Free/Premium filters — not a flat dump</li>
+          <li className="border-l border-accent/40 pl-3">Self-serve onboarding shipped, activation up 18%</li>
         </ul>
       </section>
       <HorizontalProductRail ariaLabel="Update product surfaces" />

@@ -1409,9 +1409,12 @@
       "name": "data-table",
       "type": "registry:ui",
       "title": "Data table",
-      "dependencies": [],
+      "description": "Enables sorting on this column. Return the value to compare.",
+      "dependencies": [
+        "lucide-react"
+      ],
       "registryDependencies": [
-        "https://ui.minidev.pro/r/table.json"
+        "https://ui.minidev.pro/r/checkbox.json"
       ],
       "files": [
         {
@@ -1905,6 +1908,7 @@
       "name": "file-dropzone",
       "type": "registry:ui",
       "title": "File dropzone",
+      "description": "Failed validation (type/size), so retry makes no sense.",
       "dependencies": [
         "lucide-react"
       ],
@@ -3230,6 +3234,7 @@
       "name": "otp-input",
       "type": "registry:ui",
       "title": "Otp input",
+      "description": "Fires once when every slot is filled.",
       "dependencies": [],
       "registryDependencies": [],
       "files": [
@@ -4103,11 +4108,11 @@
       "name": "segmented-control",
       "type": "registry:ui",
       "title": "Segmented control",
-      "dependencies": [],
-      "registryDependencies": [
-        "https://ui.minidev.pro/r/toggle.json",
-        "https://ui.minidev.pro/r/toggle-group.json"
+      "description": "Short trailing detail, e.g. \"-20%\" or a count.",
+      "dependencies": [
+        "motion"
       ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/segmented-control.tsx",
