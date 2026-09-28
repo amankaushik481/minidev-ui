@@ -106,11 +106,11 @@
       "name": "agent-trace",
       "type": "registry:ui",
       "title": "Agent trace",
-      "dependencies": [],
-      "registryDependencies": [
-        "https://ui.minidev.pro/r/status-badge.json",
-        "https://ui.minidev.pro/r/tool-call-card.json"
+      "description": "E.g. \"1.2s\"",
+      "dependencies": [
+        "lucide-react"
       ],
+      "registryDependencies": [],
       "files": [
         {
           "path": "src/registry/ui/agent-trace.tsx",
@@ -2391,6 +2391,22 @@
       ]
     },
     {
+      "name": "interactive-area-chart",
+      "type": "registry:ui",
+      "title": "Interactive area chart",
+      "description": "Hover or arrow-key across the series; a hairline",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/area-chart.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/interactive-area-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "invite-members",
       "type": "registry:ui",
       "title": "Invite members",
@@ -3043,6 +3059,23 @@
       "files": [
         {
           "path": "src/registry/ui/notebook-cell.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "notification-inbox",
+      "type": "registry:ui",
+      "title": "Notification inbox",
+      "description": "A bell with an unread count that opens an inbox:",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/notification-inbox.tsx",
           "type": "registry:ui"
         }
       ]
@@ -4925,7 +4958,10 @@
       "name": "toast",
       "type": "registry:ui",
       "title": "Toast",
-      "dependencies": [],
+      "description": "A single notification card: status glyph, title, optional",
+      "dependencies": [
+        "lucide-react"
+      ],
       "registryDependencies": [],
       "files": [
         {

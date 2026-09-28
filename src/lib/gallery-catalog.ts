@@ -27,9 +27,16 @@ export const GALLERY_CATEGORIES = [
   { id: "blocks", label: "Blocks" }
 ] as const
 
-export const FEATURED_SLUGS = ["showcase", "premium-motion", "premium-heroes", "premium-templates", "ai-studio", "engineering", "marketing-sections", "email", "charts", "blocks"] as const
+export const FEATURED_SLUGS = ["new", "showcase", "premium-motion", "premium-heroes", "premium-templates", "ai-studio", "engineering", "marketing-sections", "email", "charts", "blocks"] as const
 
 export const GALLERY_ENTRIES: GalleryEntry[] = [
+  {
+    slug: "new",
+    label: "New in 0.2",
+    category: "featured",
+    description: "Interactive chart, toasts, agent runs, inbox",
+    premium: false,
+  },
   {
     slug: "showcase",
     label: "Client showcase",

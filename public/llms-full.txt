@@ -1,6 +1,6 @@
 # MiniDev UI
 
-> 469 free, MIT-licensed React + Tailwind v4 components for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Hairline design language: 1px structure, semantic OKLCH tokens, light + dark from one token set.
+> 471 free, MIT-licensed React + Tailwind v4 components for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Hairline design language: 1px structure, semantic OKLCH tokens, light + dark from one token set.
 
 ## Install
 
@@ -17,7 +17,7 @@
 - Numbers are tabular (tabular-nums). Headings use negative tracking; body text does not.
 - Dark mode: add the `dark` class to <html>. Components never branch on theme.
 
-## Components (364)
+## Components (366)
 
 - [Accordion](https://ui.minidev.pro/docs/accordion): `import { Accordion } from "minidev-ui-kit/ui/accordion"`
 - [AccountSetupProgress](https://ui.minidev.pro/docs/account-setup-progress): `import { AccountSetupProgress } from "minidev-ui-kit/ui/account-setup-progress"`
@@ -25,7 +25,7 @@
 - [AddCardForm](https://ui.minidev.pro/docs/add-card-form): `import { AddCardForm } from "minidev-ui-kit/ui/add-card-form"`
 - [AdminStatStrip](https://ui.minidev.pro/docs/admin-stat-strip): `import { AdminStatStrip } from "minidev-ui-kit/ui/admin-stat-strip"`
 - [AdminUserRow](https://ui.minidev.pro/docs/admin-user-row): `import { AdminUserRow } from "minidev-ui-kit/ui/admin-user-row"`
-- [AgentTrace](https://ui.minidev.pro/docs/agent-trace): `import { AgentTrace } from "minidev-ui-kit/ui/agent-trace"`
+- [AgentTrace](https://ui.minidev.pro/docs/agent-trace): `import { AgentTrace } from "minidev-ui-kit/ui/agent-trace"` — E.g. "1.2s"
 - [AiComposer](https://ui.minidev.pro/docs/ai-composer): `import { AiComposer } from "minidev-ui-kit/ui/ai-composer"`
 - [AlertDialog](https://ui.minidev.pro/docs/alert-dialog): `import { AlertDialog } from "minidev-ui-kit/ui/alert-dialog"`
 - [AnnouncementBar](https://ui.minidev.pro/docs/announcement-bar): `import { AnnouncementBar } from "minidev-ui-kit/ui/announcement-bar"`
@@ -179,6 +179,7 @@
 - [Input](https://ui.minidev.pro/docs/input): `import { Input } from "minidev-ui-kit/ui/input"`
 - [Inset](https://ui.minidev.pro/docs/inset): `import { Inset } from "minidev-ui-kit/ui/inset"`
 - [IntegrationCard](https://ui.minidev.pro/docs/integration-card): `import { IntegrationCard } from "minidev-ui-kit/ui/integration-card"`
+- [InteractiveAreaChart](https://ui.minidev.pro/docs/interactive-area-chart): `import { InteractiveAreaChart } from "minidev-ui-kit/ui/interactive-area-chart"` — Hover or arrow-key across the series; a hairline
 - [InviteMembers](https://ui.minidev.pro/docs/invite-members): `import { InviteMembers } from "minidev-ui-kit/ui/invite-members"`
 - [InvoiceDetail](https://ui.minidev.pro/docs/invoice-detail): `import { InvoiceDetail } from "minidev-ui-kit/ui/invoice-detail"`
 - [InvoiceList](https://ui.minidev.pro/docs/invoice-list): `import { InvoiceList } from "minidev-ui-kit/ui/invoice-list"`
@@ -223,6 +224,7 @@
 - [NewsletterSignup](https://ui.minidev.pro/docs/newsletter-signup): `import { NewsletterSignup } from "minidev-ui-kit/ui/newsletter-signup"`
 - [NotFoundState](https://ui.minidev.pro/docs/not-found-state): `import { NotFoundState } from "minidev-ui-kit/ui/not-found-state"`
 - [NotebookCell](https://ui.minidev.pro/docs/notebook-cell): `import { NotebookCell } from "minidev-ui-kit/ui/notebook-cell"`
+- [NotificationInbox](https://ui.minidev.pro/docs/notification-inbox): `import { NotificationInbox } from "minidev-ui-kit/ui/notification-inbox"` — A bell with an unread count that opens an inbox:
 - [NotificationItem](https://ui.minidev.pro/docs/notification-item): `import { NotificationItem } from "minidev-ui-kit/ui/notification-item"`
 - [NotificationPreferences](https://ui.minidev.pro/docs/notification-preferences): `import { NotificationPreferences } from "minidev-ui-kit/ui/notification-preferences"`
 - [NumberInput](https://ui.minidev.pro/docs/number-input): `import { NumberInput } from "minidev-ui-kit/ui/number-input"`
@@ -349,7 +351,7 @@
 - [ThinkingBlock](https://ui.minidev.pro/docs/thinking-block): `import { ThinkingBlock } from "minidev-ui-kit/ui/thinking-block"`
 - [TimePicker](https://ui.minidev.pro/docs/time-picker): `import { TimePicker } from "minidev-ui-kit/ui/time-picker"`
 - [Timeline](https://ui.minidev.pro/docs/timeline): `import { Timeline } from "minidev-ui-kit/ui/timeline"`
-- [Toast](https://ui.minidev.pro/docs/toast): `import { Toast } from "minidev-ui-kit/ui/toast"`
+- [Toast](https://ui.minidev.pro/docs/toast): `import { Toast } from "minidev-ui-kit/ui/toast"` — A single notification card: status glyph, title, optional
 - [Toc](https://ui.minidev.pro/docs/toc): `import { Toc } from "minidev-ui-kit/ui/toc"`
 - [ToggleGroup](https://ui.minidev.pro/docs/toggle-group): `import { ToggleGroup } from "minidev-ui-kit/ui/toggle-group"`
 - [Toggle](https://ui.minidev.pro/docs/toggle): `import { Toggle } from "minidev-ui-kit/ui/toggle"`

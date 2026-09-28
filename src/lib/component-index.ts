@@ -119,13 +119,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/agent-trace.tsx",
     "import": "@/registry/ui/agent-trace",
-    "deps": [],
-    "registryDeps": [
-      "status-badge",
-      "tool-call-card"
+    "deps": [
+      "lucide-react"
     ],
-    "galleries": [],
-    "usage": "<AgentTrace steps={[{ id: \"1\", name: \"plan\", status: \"done\", detail: \"Scope polish wave\" }, { id: \"2\", name: \"edit\", status: \"running\", detail: \"Thicken stubs\" }]} />"
+    "registryDeps": [],
+    "galleries": [
+      "new"
+    ],
+    "description": "E.g. \"1.2s\"",
+    "usage": "<AgentTrace\n  steps={STEPS.map((s, i) => ({ id: String(i), name: s.name, duration: s.duration, detail: s.detail, status: i < k ? \"done\" : i === k ? \"running\" : \"pending\" }))}\n  meta={k >= STEPS.length ? \"4 tools · 3.8s · $0.006\" : \"running…\"}\n/>"
   },
   {
     "name": "ai-composer",
@@ -619,6 +621,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "data-extra",
       "data-table",
       "dropdown-menu",
+      "new",
       "overlays",
       "settings",
       "shells"
@@ -2404,6 +2407,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "interactive-area-chart",
+    "title": "InteractiveAreaChart",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/interactive-area-chart.tsx",
+    "import": "@/registry/ui/interactive-area-chart",
+    "deps": [],
+    "registryDeps": [
+      "area-chart"
+    ],
+    "galleries": [
+      "new"
+    ],
+    "description": "Hover or arrow-key across the series; a hairline",
+    "usage": "<InteractiveAreaChart />"
+  },
+  {
     "name": "invite-members",
     "title": "InviteMembers",
     "tier": "free",
@@ -3054,6 +3074,24 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<NotebookCell code={\"const n = 42\\nconsole.log(n)\"} output=\"42\" />"
   },
   {
+    "name": "notification-inbox",
+    "title": "NotificationInbox",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/notification-inbox.tsx",
+    "import": "@/registry/ui/notification-inbox",
+    "deps": [
+      "@base-ui/react",
+      "lucide-react"
+    ],
+    "registryDeps": [],
+    "galleries": [
+      "new"
+    ],
+    "description": "A bell with an unread count that opens an inbox:",
+    "usage": "<NotificationInbox />"
+  },
+  {
     "name": "notification-item",
     "title": "NotificationItem",
     "tier": "free",
@@ -3540,7 +3578,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [
-      "ai"
+      "ai",
+      "new"
     ],
     "description": "The composer. Grows with content, submits on Enter,",
     "usage": "<PromptInput value={prompt} onChange={setPrompt} onSubmit={() => setPrompt(\"\")} />"
@@ -3739,7 +3778,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [
-      "ai"
+      "ai",
+      "new"
     ],
     "description": "The model's thinking, folded by default. While `active`,",
     "usage": "<ReasoningBlock>\n  Considered layout density, Hairline borders, and tabular numbers for prices.\n</ReasoningBlock>"
@@ -4908,11 +4948,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/toast.tsx",
     "import": "@/registry/ui/toast",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [],
     "galleries": [
+      "new",
       "overlays"
     ],
+    "description": "A single notification card: status glyph, title, optional",
     "usage": "<Toast title=\"Saved\" description=\"Changes are live.\" tone=\"success\" />"
   },
   {
@@ -4987,7 +5031,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [
-      "ai"
+      "ai",
+      "new"
     ],
     "description": "One tool invocation inside an agent turn: the call, its",
     "usage": "<ToolCallCard name=\"read_file\" status=\"done\">\n  DESIGN.md § Geometry\n</ToolCallCard>"

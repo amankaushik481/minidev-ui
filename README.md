@@ -1,73 +1,56 @@
 # MiniDev UI
 
-Hairline React + Tailwind registry — **free MIT product UI** and **Premium kinetic launch moments**.
+Free React + Tailwind v4 components for the screens people actually live in: tables, billing, settings, dashboards and AI chat. Drawn to a hairline standard, built on Base UI, MIT forever.
 
-Geist Sans · accent hue **285** · audit-gated screenshots + axe.
+**[ui.minidev.pro](https://ui.minidev.pro)** · [Docs](https://ui.minidev.pro/docs) · [Components](https://ui.minidev.pro/gallery) · [Theme playground](https://ui.minidev.pro/playground) · [llms.txt](https://ui.minidev.pro/llms.txt)
 
-Live: [ui.minidev.pro](https://ui.minidev.pro) · npm: [`minidev-ui-kit`](https://www.npmjs.com/package/minidev-ui-kit)
-
-## Install
+## Use it
 
 ```bash
-npm install minidev-ui-kit
-# or
-yarn add minidev-ui-kit
+# one component, via the shadcn CLI
+npx shadcn@latest add https://ui.minidev.pro/r/button.json
+
+# or the whole kit
+npm i minidev-ui-kit
+```
+
+```css
+/* app/globals.css */
+@import "tailwindcss";
+@import "minidev-ui-kit/styles.css";
+@source "../node_modules/minidev-ui-kit";
 ```
 
 ```tsx
 import { Button } from "minidev-ui-kit/ui/button"
-import { HeroKineticType } from "minidev-ui-kit/premium/hero-kinetic-type"
 ```
 
-Your bundler must transpile the package (Next.js: `transpilePackages: ["minidev-ui-kit"]`). Peer deps: React 18+, Tailwind, Base UI, CVA, lucide-react; `motion` and `next` are optional peers for Premium / Link usage.
-
-## Local registry (this repo)
+## Develop
 
 ```bash
 npm install
-npm run dev
+npm run dev        # generates the registry, then starts Next.js
 ```
 
-- Gallery: http://localhost:3000/gallery
-- Docs: http://localhost:3000/docs
-- Playground: http://localhost:3000/playground
-- Showcase: http://localhost:3000/showcase
-
-Copy files from `src/registry/ui`, `src/registry/blocks`, or `src/registry/premium` into your app. Keep `DESIGN.md` open — invent nothing.
-
-## Design law
-
-| Decision | Choice |
+| Route | What |
 |---|---|
-| Typeface | Geist Sans / Mono (not Inter) |
-| Accent | OKLCH hue **285** |
-| Signature | **Hairline** — 1px lines + top highlights |
-| Shadows | No blur shadows outside overlays |
-
-Full spec: [`DESIGN.md`](./DESIGN.md)
-
-## Quality gate
-
-```bash
-npm run build
-npm run audit
-```
-
-`npm run audit` screenshots every gallery route (light/dark × desktop/mobile) and fails on axe violations.
+| `/` | Landing |
+| `/gallery` | Every component, by category, with live thumbnails |
+| `/docs`, `/docs/[name]` | Guides, live preview, source, install |
+| `/playground` | Theme builder that exports CSS variables |
+| `/showcase` | Lumen, a whole app built only from the kit |
 
 ## Structure
 
 ```
-src/registry/ui        Free primitives + product surfaces
-src/registry/blocks    Free page compositions
-src/registry/premium   Kinetic heroes + page kits
-src/app/gallery        Browse by category
-src/app/docs           Install + per-component docs
-src/app/playground     Curated interactive states
-registry.json          Machine-readable registry + tiers
-llms.txt               LLM-friendly index
+src/styles/minidev.css      tokens, depth, motion, Hairline utilities (the design system)
+src/registry/ui             components
+src/registry/blocks         full-page compositions
+src/registry/premium        motion pieces (free, like everything else)
+tools/build-registry.mjs    registry + docs index + llms.txt generator
+DESIGN.md                   the rules
 ```
 
 ## License
 
-Free UI and blocks: **MIT**. Premium blocks are marked `data-tier="premium"` for commercial soft-gating.
+MIT. Built by [MiniDev](https://minidev.pro), a studio that ships MVPs in 30 days with this kit.
