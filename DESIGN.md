@@ -1,105 +1,68 @@
-# MiniDev UI — DESIGN.md
+# MiniDev UI · DESIGN.md
 
-Load-bearing spec. Every component derives from this and invents nothing.
-Cursor must read this before any component work.
+The load-bearing spec. Every component derives from it and invents nothing.
+Tokens live in `src/styles/minidev.css` (shipped as `minidev-ui-kit/styles.css`).
 
 ## Decisions
 
 | Decision | Choice |
 |---|---|
-| Typeface (UI + headings) | **Geist Sans** (self-hosted via `geist` package — no Google Fonts CDN) |
-| Typeface (data + code) | **Geist Mono** |
-| Accent hue | **285** (violet) |
-| Signature move | **Hairline** — structure via 1px lines and top highlights; zero blur shadows outside overlays |
+| Type | **Geist Sans** for UI and headings, **Geist Mono** for data and code. Never Inter. |
+| Primary action | **Ink**: near-black in light, near-white in dark (`bg-ink text-on-ink shadow-ink`). |
+| Brand colour | **Violet, hue 283**. Spent like punctuation: focus, selection, links, charts, one accent button. |
+| Signature | **Hairline**: structure is 1px lines plus a top highlight. Blur shadows only on overlays. |
 
-**Not Inter.** Inter is the sound of every AI-generated dashboard.
+## Colour tokens (semantic only)
 
-## Color (Tailwind v4 `@theme`, OKLCH)
+Surfaces, lightness rises with elevation: `bg` → `surface` / `raised` ; `sunken` below.
+Lines: `border`, `border-strong`, `grid` (the dot and grid textures).
+Text: `fg`, `fg-muted` (≥ 7:1), `fg-subtle` (≥ 4.5:1).
+Ink: `ink`, `ink-hover`, `on-ink`.
+Brand: `accent`, `accent-hover`, `accent-fg` (accent text), `accent-soft` (tint fill), `accent-line` (tint border), `on-accent`, `accent-2` (gradient partner only).
+Status: `success`, `warning`, `danger`, `info`, at equal perceptual weight.
 
-Semantic names only. No `blue-500` (or any palette step) in components.
+No hex, no palette steps (`blue-500`) in components. Dark mode redefines tokens, never components.
 
-```css
-@theme {
-  --color-bg:        oklch(0.985 0.002 250);
-  --color-surface:   oklch(1    0     0);
-  --color-raised:    oklch(1    0     0);
-  --color-sunken:    oklch(0.965 0.003 250);
-  --color-border:    oklch(0.905 0.004 250);
-  --color-fg:        oklch(0.19  0.008 250);
-  --color-fg-muted:  oklch(0.42  0.01  250);
-  --color-fg-subtle: oklch(0.45  0.008 250);
-  --color-accent:    oklch(0.48  0.17  285);
-  --color-success:   oklch(0.52  0.12  150);
-  --color-warning:   oklch(0.62  0.13  75);
-  --color-danger:    oklch(0.55  0.19  25);
-}
-```
+## Depth
 
-Dark mode redefines only these tokens.
+| Token | Use |
+|---|---|
+| `shadow-highlight` | Inner 1px top light on raised things |
+| `shadow-xs` / `shadow-sm` | Inputs, small controls |
+| `shadow-raised` | Cards and panels (highlight + contact) |
+| `shadow-key` | Outline buttons, keycaps: highlight + 1px bottom key edge |
+| `shadow-ink` | Solid buttons: top light, bottom edge, contact |
+| `shadow-md` / `shadow-lg` | Floating non-modal elements |
+| `shadow-overlay` | Menus, popovers, dialogs, toasts |
+| `shadow-glow` | Rare brand moments |
 
-Rules:
-- Elevation changes **lightness**, not just shadow. In dark mode shadow alone does not read.
-- Borders are the surface darkened, never a separate gray.
-- Semantic colors share the same perceptual lightness so a row of badges reads as a set.
-- Map shadcn CSS variables onto these semantic tokens — components still use semantic names only.
+Each theme tunes its own shadow strength (`--sh-*`).
 
 ## Geometry
 
-- Spacing: 4px base. Scale: `2 4 6 8 12 16 20 24 32 40 48 64 80 96`
-- Radius: control **8px**, card **12px**, overlay **14px**
-- **Nested radius = outer − padding**, floor **4px**. Concentric radii are the #1 amateur tell.
-- Controls: **36px** default height, **32px** small, **44px** large. Any tap target **44px** minimum.
+- Spacing on a 4px base.
+- Radius: controls `rounded-lg` (8px), cards `rounded-xl` (12px), overlays `rounded-2xl` (14px). Radii are CSS variables, so a scope can retheme them.
+- Nested radius = outer − padding, floor 4px.
+- Controls: 28 (xs), 32 (sm), 36 (default), 44 (lg), 48 (xl). Tap targets ≥ 44px via hit areas.
 
-## Type scale with paired tracking (non-negotiable)
+## Type
 
-Tracking tightens as size grows. A size is never used without its tracking.
-
-| Size | px | tracking |
-|---|---|---|
-| xs | 12 | +0.01em |
-| sm | 13 | +0.005em |
-| base | 14 | 0 |
-| lg | 16 | −0.008em |
-| xl | 18 | −0.014em |
-| 2xl | 22 | −0.018em |
-| 3xl | 28 | −0.022em |
-| 4xl | 36 | −0.026em |
-| 5xl | 48 | −0.030em |
-
-- Body line-height **1.55**, headings **1.15**, display **1.05**
-- Numbers always `tabular-nums`
-
-## Depth (Hairline signature)
-
-- Structure is drawn with **1px lines** and **top highlights**
-- **Zero blur shadows outside overlays**
-- Overlays may use two-layer shadows: contact (`0 1px 2px`) + ambient (`0 Npx 2Npx`), ambient 2–3× more transparent
-- Shadow color is hue-tinted dark (hue ~250), never `rgba(0,0,0,x)`
-- Raised surfaces get `inset 0 1px 0` highlight
-- Flat at rest. Depth on overlay and interaction only
+Every size ships with its tracking and line height (`text-xs` … `text-8xl`). Tracking tightens as size grows: +0.01em at 12px, 0 at 14px, −0.03em at 48px, −0.048em at 96px. Numbers are `tabular-nums`. Headings `text-wrap: balance`, paragraphs `pretty`.
 
 ## Motion
 
-- **70ms** color, **140ms** transform/opacity, **200ms** enter, **160ms** exit. Exit faster than enter.
-- Enter `cubic-bezier(0.2,0,0,1)`, exit `cubic-bezier(0.3,0,0.8,0.15)`
-- Never `transition: all`. Never `ease`. Never 300ms default.
-- Hover changes one property. Press is `translateY(0.5px)`, never scale.
-- **Zero layout shift on any state change.** Borders that appear on hover exist at rest as transparent.
-- Everything respects `prefers-reduced-motion`.
+- 70ms colour, 140ms transform/shadow, 200ms enter, 160ms exit. Exit is faster than entry.
+- `ease-hairline` (0.2, 0, 0, 1) for entering, `ease-exit` (0.3, 0, 0.8, 0.15) for leaving, `ease-spring` for thumbs and dots.
+- Never `transition: all`. Hover changes one property. Press sinks 0.5px, never scales.
+- Zero layout shift between states. Everything respects `prefers-reduced-motion`.
 
-## States (every interactive component ships all of these)
+## States
 
-rest, hover, active, focus-visible, disabled, loading, selected, invalid, read-only, empty, and the dark variant of each.
+Rest, hover, active, focus-visible, disabled, loading, selected, invalid, read-only and empty are all designed, in both themes.
+Focus: buttons get a 2px accent ring with 2px offset; fields get the accent border plus a 3px `accent-soft` halo.
 
-Focus is a **2px** ring at **2px** offset in the accent, with an inner contrast ring so it survives on both grounds.
+## Registry
 
-## Signature move — Hairline
-
-If a cropped screenshot of MiniDev UI is indistinguishable from cropped shadcn, this failed.
-
-
-## Free vs Premium
-
-- **Free (`src/registry/ui`, `src/registry/blocks`)**: MIT product primitives. Hairline, tokens only.
-- **Premium (`src/registry/premium`)**: Motion-forward launch/marketing blocks (heroes, pricing motion, glow CTAs). Same tokens. Marked `data-tier="premium"`. Soft-gated commercially; still compose from free primitives.
-- Motion uses the `motion` package and must respect `prefers-reduced-motion` / `useReducedMotion()`.
+`npm run registry` (runs automatically before `dev` and `build`) generates from `src/registry/**`:
+`public/r/*.json` (shadcn items), `public/r/registry.json`, `src/lib/component-index.ts`, `src/lib/registry-loaders.ts`, `public/llms.txt`, `public/llms-full.txt`.
+Add a file to `src/registry/ui`, run the script, and it appears in docs, search, the registry and llms.txt.

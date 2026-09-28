@@ -73,6 +73,28 @@ import { MetricTickerBoard } from "@/registry/premium/metric-ticker-board"
 import { FreePremiumCompare } from "@/registry/premium/free-premium-compare"
 import { LiveComponentRail } from "@/registry/premium/live-component-rail"
 import { CommandWaitlist } from "@/registry/premium/command-waitlist"
+import { Toaster, toast } from "@/registry/ui/toast"
+import { InteractiveAreaChart } from "@/registry/ui/interactive-area-chart"
+import { NotificationInbox } from "@/registry/ui/notification-inbox"
+
+const AGENT_STEPS = [
+  { id: "1", name: "read_file(\"pricing-table.tsx\")", status: "done" as const, duration: "0.2s", detail: "182 lines · PlanCard × 3, no billing toggle" },
+  { id: "2", name: "search_docs(\"segmented control\")", status: "done" as const, duration: "0.6s", detail: "Found SegmentedControl in registry/ui" },
+  { id: "3", name: "edit_file(\"pricing-table.tsx\")", status: "running" as const, detail: "+ <SegmentedControl items={[\"Monthly\", \"Yearly\"]} />" },
+  { id: "4", name: "run_checks()", status: "pending" as const },
+]
+
+function ToastDemo() {
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-2">
+      <Toaster />
+      <Button variant="outline" onClick={() => toast("Draft saved", { description: "Autosaved 2 seconds ago." })}>Default</Button>
+      <Button variant="outline" onClick={() => toast.success("Invoice sent", { description: "Northwind Labs will get it by email.", action: { label: "View", onClick: () => {} } })}>Success</Button>
+      <Button variant="outline" onClick={() => toast.error("Payment failed", { description: "The card was declined. Try another method." })}>Error</Button>
+      <Button onClick={() => toast.promise(new Promise((r) => setTimeout(r, 1600)), { loading: "Deploying web@4.2.0…", success: "Deployed to production", error: "Deploy failed" })}>Promise</Button>
+    </div>
+  )
+}
 
 export type DemoState = { label: string; node: React.ReactNode }
 
@@ -199,8 +221,11 @@ export function getPlaygroundDemos(name: string): DemoState[] | null {
     "version-badge": [{ label: "Channels", node: <div className="flex flex-wrap gap-2"><VersionBadge version="0.6.0" channel="stable" /><VersionBadge version="0.7.0" channel="beta" /></div> }],
     "context-chip": [{ label: "Active", node: <div className="flex gap-2"><ContextChip active>Files</ContextChip><ContextChip>Web</ContextChip></div> }],
     "diff-view": [{ label: "Sample", node: <div className="w-full max-w-lg"><DiffView filename="button.tsx" lines={[{ type: "ctx", text: "function Button() {" }, { type: "del", text: "  return <button />" }, { type: "add", text: "  return <button data-slot=\"button\" />" }, { type: "ctx", text: "}" }]} /></div> }],
-    "chat-thread": [{ label: "Thread", node: <div className="w-full max-w-md rounded-xl border border-border p-3"><ChatThread messages={[{ id: "1", role: "user", content: "Raise the Premium bar." }, { id: "2", role: "assistant", content: "On it — kinetic heroes first." }]} /></div> }],
-    "agent-trace": [{ label: "Trace", node: <div className="w-full max-w-md"><AgentTrace steps={[{ id: "1", name: "plan", status: "done", detail: "Scope polish wave" }, { id: "2", name: "edit", status: "running", detail: "Thicken stubs" }]} /></div> }],
+    "chat-thread": [{ label: "Thread", node: <div className="w-full max-w-md rounded-xl border border-border bg-surface p-4 shadow-raised"><ChatThread messages={[{ id: "1", role: "user", content: "Summarise churn for September." }, { id: "2", role: "assistant", content: "Net churn fell to 1.8%, down 0.4 points. Most of the drop came from annual plans renewing early after the pricing change." }]} /></div> }],
+    "agent-trace": [{ label: "Agent run", node: <AgentTrace steps={AGENT_STEPS} meta="3 tools · 0.8s · $0.004" /> }],
+    toast: [{ label: "Click to fire, hover the stack to expand", node: <ToastDemo /> }],
+    "interactive-area-chart": [{ label: "Hover or use arrow keys", node: <InteractiveAreaChart /> }],
+    "notification-inbox": [{ label: "Click the bell", node: <NotificationInbox /> }],
     "artifact-preview": [{ label: "Artifact", node: <div className="w-full max-w-md"><ArtifactPreview title="preview.tsx" copyValue=" console.log(1)">{" "}<pre className="font-mono text-xs text-fg">const ok = true</pre></ArtifactPreview></div> }],
     "suggestion-chips": [{ label: "Chips", node: <SuggestionChips /> }],
     "upgrade-prompt": [{ label: "Prompt", node: <div className="w-full max-w-sm"><UpgradePrompt /></div> }],

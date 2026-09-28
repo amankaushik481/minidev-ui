@@ -153,6 +153,19 @@ function Hero({ motion }: { motion?: boolean }) {
 }
 
 const PREVIEWS: Record<string, () => React.ReactNode> = {
+  new: () => (
+    <div className="relative w-60">
+      <div className="rounded-xl border border-border bg-surface p-3 shadow-sm">
+        <p className="text-[10px] text-fg-muted">Revenue · Sep</p>
+        <p className="text-base font-medium tracking-[-0.02em] tabular-nums text-fg">$81k</p>
+        <svg viewBox="0 0 200 50" className="mt-1 h-10 w-full text-accent" preserveAspectRatio="none"><path d="M0,40 C30,38 40,30 70,28 C100,26 110,18 140,16 C165,14 180,8 200,6" fill="none" stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" /><line x1="140" x2="140" y1="0" y2="50" stroke="currentColor" strokeOpacity="0.35" vectorEffect="non-scaling-stroke" /></svg>
+      </div>
+      <div className="absolute -right-4 -bottom-6 flex w-44 items-center gap-2 rounded-lg border border-border bg-raised p-2 shadow-overlay">
+        <span className="grid size-4 place-items-center rounded-full bg-success text-[8px] text-white">✓</span>
+        <span className="text-[10px] font-medium text-fg">Deployed to production</span>
+      </div>
+    </div>
+  ),
   button: () => (
     <div className="flex gap-2"><Button size="sm">Save changes</Button><Button size="sm" variant="outline">Cancel</Button></div>
   ),
