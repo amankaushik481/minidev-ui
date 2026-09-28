@@ -5,7 +5,7 @@ import { HealthIndicator } from "@/registry/ui/health-indicator"
 const SERVICES = [
   { name: "Registry CDN", status: "operational" as const },
   { name: "Docs", status: "operational" as const },
-  { name: "Audit workers", status: "degraded" as const },
+  { name: "Background jobs", status: "degraded" as const },
   { name: "Playground", status: "operational" as const },
 ]
 

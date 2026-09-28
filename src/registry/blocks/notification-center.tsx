@@ -10,8 +10,8 @@ function NotificationCenter() {
         <Button size="sm" variant="ghost">Settings</Button>
       </div>
       <div>
-        <NotificationItem title="Audit passed" body="premium-motion gallery · axe clean" date={new Date().toISOString()} unread />
-        <NotificationItem title="New Premium kit" body="client-pitch-kit landed in registry" date={new Date(Date.now()-3600000).toISOString()} />
+        <NotificationItem title="Deploy succeeded" body="premium-motion gallery · axe clean" date={new Date().toISOString()} unread />
+        <NotificationItem title="New comment on Q3 plan" body="client-pitch-kit landed in registry" date={new Date(Date.now()-3600000).toISOString()} />
         <NotificationItem title="Stub thicken" body="24 product surfaces upgraded" date={new Date(Date.now()-7200000).toISOString()} />
       </div>
     </div>

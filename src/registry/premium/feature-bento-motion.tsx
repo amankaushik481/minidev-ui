@@ -4,10 +4,10 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 const cells = [
-  { title: "Hairline", body: "1px structure, no blur soup.", span: "sm:col-span-2" },
-  { title: "Audit", body: "Screenshots + axe gate.", span: "" },
+  { title: "Realtime", body: "Every change syncs across devices in under 100ms.", span: "sm:col-span-2" },
+  { title: "Secure", body: "SSO, audit logs and encryption by default.", span: "" },
   { title: "Motion", body: "Reduced-motion first.", span: "" },
-  { title: "Tokens", body: "OKLCH hue 285 only.", span: "sm:col-span-2" },
+  { title: "Open", body: "A typed API and webhooks for everything you see.", span: "sm:col-span-2" },
 ]
 
 function FeatureBentoMotion({ className }: { className?: string }) {

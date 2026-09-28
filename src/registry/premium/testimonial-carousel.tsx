@@ -8,9 +8,9 @@ type Item = { quote: string; name: string; role: string }
 
 function TestimonialCarousel({
   items = [
-    { quote: "Premium finally feels like a different tier.", name: "Sam Rivera", role: "Founder" },
-    { quote: "Hairline craft shows up in every screenshot.", name: "Lee Park", role: "Design Eng" },
-    { quote: "Free for product, Premium for launch. Perfect split.", name: "Ava Chen", role: "PM" },
+    { quote: "We replaced four tools with one, and nobody asked to go back.", name: "Sam Rivera", role: "Founder" },
+    { quote: "The first product in years our designers did not want to redesign.", name: "Lee Park", role: "Design Eng" },
+    { quote: "Setup took an afternoon. We shipped the same week.", name: "Ava Chen", role: "PM" },
   ],
   className,
 }: {

@@ -4,7 +4,7 @@ import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform, use
 import { cn } from "@/lib/utils"
 
 function CardTilt({
-  title = "Hairline craft",
+  title = "Crafted details",
   body = "Tilt responds to pointer. Reduced motion stays flat.",
   className,
 }: {
@@ -39,7 +39,7 @@ function CardTilt({
       )}
     >
       <motion.div aria-hidden className="pointer-events-none absolute inset-0" style={reduce ? undefined : { background: glare }} />
-      <p className="relative text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">Premium</p>
+      <p className="relative text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">Featured</p>
       <h3 className="relative mt-2 text-xl font-medium tracking-[-0.014em] text-fg">{title}</h3>
       <p className="relative mt-2 text-sm leading-[1.55] text-fg-muted">{body}</p>
     </motion.div>

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 
 function BeforeAfterWipe({
   beforeLabel = "Generic dashboard",
-  afterLabel = "Hairline Premium",
+  afterLabel = "Redesigned",
   className,
 }: {
   beforeLabel?: string

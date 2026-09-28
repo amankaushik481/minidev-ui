@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
 function MagneticCta({
-  children = "Get Premium",
+  children = "Get started",
   className,
   strength = 28,
   ...props

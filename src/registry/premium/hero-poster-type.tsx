@@ -29,7 +29,7 @@ function HeroPosterType({ className }: { className?: string }) {
           animate={{ y: 0 }}
           className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase"
         >
-          Editorial Premium
+          New in 2.0
         </motion.p>
         <h1 className="mt-4 max-w-4xl text-[clamp(2rem,5vw+1rem,4.5rem)] font-medium leading-[1.05] tracking-[-0.030em] text-fg sm:leading-[1.02] sm:tracking-[-0.034em]">
           <span className="block overflow-hidden">
@@ -67,7 +67,7 @@ function HeroPosterType({ className }: { className?: string }) {
           transition={{ delay: 0.45 }}
           className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap"
         >
-          <MagneticCta className="w-full sm:w-auto">Browse Premium</MagneticCta>
+          <MagneticCta className="w-full sm:w-auto">Start free trial</MagneticCta>
           <Button variant="outline" className="w-full sm:w-auto">Stay free</Button>
         </motion.div>
       </div>

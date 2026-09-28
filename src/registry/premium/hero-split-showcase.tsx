@@ -21,7 +21,7 @@ function HeroSplitShowcase({
       )}
     >
       <div className="min-w-0">
-        <span className="mb-4 inline-flex h-5 items-center rounded-md border border-border bg-sunken px-2 text-[11px] font-medium text-fg">Premium block</span>
+        <span className="mb-4 inline-flex h-5 items-center rounded-md border border-border bg-sunken px-2 text-[11px] font-medium text-fg">New</span>
         <motion.h1
           initial={reduce ? false : { opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}

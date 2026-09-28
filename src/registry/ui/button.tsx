@@ -45,7 +45,7 @@ const buttonVariants = cva(
       },
       size: {
         xs: "h-7 min-h-7 gap-1 rounded-md px-2 text-xs [&_svg:not([class*='size-'])]:size-3.5",
-        sm: "h-8 min-h-8 px-2.5 text-[0.8125rem]",
+        sm: "h-8 min-h-8 px-2.5 text-[0.8125rem] [&_svg:not([class*='size-'])]:size-3.5",
         default: "h-9 min-h-9 px-3.5",
         lg: "h-11 min-h-11 rounded-[0.625rem] px-5 text-[0.9375rem] tracking-[-0.005em]",
         xl: "h-12 min-h-12 rounded-xl px-6 text-base tracking-[-0.01em]",

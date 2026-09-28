@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 
 const CARDS = [
   { title: "Free kit", body: "Product UI you ship tomorrow." },
-  { title: "Premium moments", body: "Kinetic heroes when the page must convert." },
+  { title: "Launch moments", body: "Motion where it earns attention, calm everywhere else." },
   { title: "Client showcase", body: "/showcase — the walkthrough tab." },
 ]
 

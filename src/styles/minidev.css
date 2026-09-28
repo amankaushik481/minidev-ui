@@ -202,13 +202,6 @@
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-geist-sans);
 
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-  --radius-2xl: 0.875rem;
-  --radius-3xl: 1.25rem;
-  --radius-4xl: 1.5rem;
 
   /* Depth — tokens live in :root/.dark as --sh-* so each theme tunes its own */
   --shadow-highlight: var(--sh-highlight);
@@ -265,6 +258,17 @@
   --text-8xl: 6rem;
   --text-8xl--line-height: 0.95;
   --text-8xl--letter-spacing: -0.048em;
+}
+
+/* Radii are not inlined, so a scope can retheme them: style="--radius-lg: 12px" */
+@theme {
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 0.875rem;
+  --radius-3xl: 1.25rem;
+  --radius-4xl: 1.5rem;
 }
 
 @layer base {

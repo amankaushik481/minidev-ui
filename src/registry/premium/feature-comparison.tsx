@@ -46,7 +46,7 @@ function FeatureComparison({
       </div>
       <div className="flex flex-col gap-2 bg-surface px-4 py-4 sm:flex-row sm:justify-end">
         <Button variant="outline" className="w-full sm:w-auto">Stay free</Button>
-        <Button className="w-full sm:w-auto">Get Premium</Button>
+        <Button className="w-full sm:w-auto">Get started</Button>
       </div>
     </div>
   )

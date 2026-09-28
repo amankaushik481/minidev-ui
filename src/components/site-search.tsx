@@ -12,7 +12,6 @@ type Result = { id: string; label: string; hint: string; href: string; group: "P
 const PAGES: Result[] = [
   { id: "p-home", label: "Home", hint: "/", href: "/", group: "Pages" },
   ...NAV.map((n) => ({ id: "p-" + n.href, label: n.label, hint: n.href, href: n.href, group: "Pages" as const })),
-  { id: "p-play", label: "Playground", hint: "/playground", href: "/playground", group: "Pages" },
 ]
 
 const ITEMS: Result[] = COMPONENT_INDEX.map((c) => ({

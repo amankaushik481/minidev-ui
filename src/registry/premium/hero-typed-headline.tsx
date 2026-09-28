@@ -23,7 +23,7 @@ function HeroTypedHeadline({ className }: { className?: string }) {
         className
       )}
     >
-      <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">Premium</p>
+      <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">Introducing Lumen 2.0</p>
       <h1 className="mx-auto mt-3 max-w-3xl text-[clamp(1.5rem,3.2vw+0.9rem,3rem)] font-medium tracking-[-0.028em] text-fg">
         Ship beautiful{" "}
         <span className="relative inline-flex h-[1.2em] min-w-[9ch] max-w-full items-baseline justify-center overflow-hidden align-baseline text-accent sm:min-w-[12ch]">
@@ -42,10 +42,10 @@ function HeroTypedHeadline({ className }: { className?: string }) {
         </span>
       </h1>
       <p className="mx-auto mt-4 max-w-lg text-sm text-fg-muted">
-        One registry. Free primitives. Premium motion blocks when you need the wow.
+        One workspace for plans, docs and releases, fast enough that it disappears.
       </p>
       <div className="mx-auto mt-7 flex w-full max-w-sm flex-col gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:justify-center">
-        <Button className="w-full sm:w-auto">Explore Premium</Button>
+        <Button className="w-full sm:w-auto">Explore the product</Button>
         <Button variant="outline" className="w-full sm:w-auto">Free components</Button>
       </div>
     </section>

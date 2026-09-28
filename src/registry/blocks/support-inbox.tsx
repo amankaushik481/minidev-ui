@@ -6,7 +6,7 @@ import { Input } from "@/registry/ui/input"
 const THREADS = [
   { id: "T-4821", subject: "Seat upgrade stuck on invoice", from: "sam@acme.co", status: "open", sla: "2h" },
   { id: "T-4819", subject: "Dark mode contrast on tables", from: "lee@north.io", status: "pending", sla: "6h" },
-  { id: "T-4810", subject: "Premium license for agency", from: "ava@studio.dev", status: "open", sla: "1h" },
+  { id: "T-4810", subject: "Can we add SSO to our plan?", from: "ava@studio.dev", status: "open", sla: "1h" },
 ]
 
 function SupportInbox() {

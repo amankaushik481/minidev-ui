@@ -3,7 +3,7 @@ import { Badge } from "@/registry/ui/badge"
 import { Button } from "@/registry/ui/button"
 
 const MSGS = [
-  { from: "Design Ops", preview: "Audit gate passed on premium-motion", time: "2m", unread: true },
+  { from: "Design Ops", preview: "Deploy succeeded on web@4.2.0", time: "2m", unread: true },
   { from: "Billing", preview: "Invoice #1842 settled", time: "1h", unread: false },
   { from: "Agents", preview: "Thicken wave complete — 24 stubs", time: "3h", unread: false },
 ]

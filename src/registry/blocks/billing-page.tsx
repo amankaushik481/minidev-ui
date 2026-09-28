@@ -11,12 +11,12 @@ function BillingPage() {
         <p className="mt-1 text-sm text-fg-muted">Plans, usage, and invoices for this workspace.</p>
       </div>
       <div className="grid gap-4 lg:grid-cols-3">
-        <PlanCard name="Free" price="$0" features={["MIT UI", "Galleries", "Docs"]} />
-        <PlanCard name="Pro" price="$49" highlighted features={["Premium moments", "Showcase kit", "Priority"]} />
+        <PlanCard name="Free" price="$0" features={["3 projects", "Community support", "Basic analytics"]} />
+        <PlanCard name="Pro" price="$49" highlighted features={["Unlimited projects", "Advanced analytics", "Priority support"]} />
         <PlanCard name="Team" price="$149" features={["Seats", "SSO", "Support"]} />
       </div>
       <div className="rounded-xl border border-border bg-surface p-4">
-        <UsageMeter label="Premium unlocks" used={18} limit={25} />
+        <UsageMeter label="Seats used" used={18} limit={25} />
       </div>
       <InvoiceList items={[
         { id: "INV-1842", date: "Sep 1", amount: "$49", status: "paid" },

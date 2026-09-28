@@ -22,7 +22,7 @@ function CommandWaitlist({ className }: { className?: string }) {
       )}
     >
       <div className="flex items-center justify-between border-b border-border bg-sunken px-4 py-2.5">
-        <p className="text-xs font-medium text-fg-muted">Waitlist · MiniDev Premium</p>
+        <p className="text-xs font-medium text-fg-muted">Waitlist · Lumen 2.0</p>
         <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 font-mono text-[10px] text-fg-muted">⌘K</kbd>
       </div>
       <form

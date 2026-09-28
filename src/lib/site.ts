@@ -20,5 +20,6 @@ export const NAV = [
   { href: "/gallery", label: "Components" },
   { href: "/gallery/blocks", label: "Blocks" },
   { href: "/gallery/premium-motion", label: "Motion" },
+  { href: "/playground", label: "Themes" },
   { href: "/showcase", label: "Showcase" },
 ] as const

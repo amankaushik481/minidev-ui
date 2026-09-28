@@ -23,10 +23,10 @@ function SplitProofPanel({ className }: { className?: string }) {
         <Badge variant="outline">Proof</Badge>
         <h3 className="text-xl font-medium tracking-[-0.018em] text-fg sm:text-2xl">Built to survive a client tab share</h3>
         <p className="text-sm leading-[1.55] text-fg-muted">
-          Homepage, /showcase, Premium motion, and the living OS mock are the walkthrough. Docs and playground back it up when they ask “can we use this?”
+          Walk a client through the product surface, the component gallery and the docs. Every screen they see is the real, shippable component.
         </p>
         <ul className="space-y-2 text-sm text-fg">
-          {["Site chrome on every major surface", "Free vs Premium without theme drift", "Audit gate before you demo"].map((t) => (
+          {["Site chrome on every major surface", "One token set across every page", "Contrast and keyboard checked in both themes"].map((t) => (
             <li key={t} className="flex gap-2"><span className="text-accent">▹</span>{t}</li>
           ))}
         </ul>

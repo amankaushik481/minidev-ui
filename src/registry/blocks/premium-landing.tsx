@@ -11,7 +11,7 @@ function PremiumLanding() {
       <HeroAurora />
       <AnimatedFeatureRow features={[
         { title: "Motion heroes", description: "Aurora, mesh, typed, bento." },
-        { title: "Same tokens", description: "Premium still speaks Hairline." },
+        { title: "Same tokens", description: "Launch pages that feel inevitable." },
         { title: "Soft gate", description: "Free forever primitives underneath." },
       ]} />
       <PricingMotion plans={[

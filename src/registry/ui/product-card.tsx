@@ -20,7 +20,7 @@ function ProductCard({
   className?: string
 }) {
   return (
-    <div data-slot="product-card" className={cn("overflow-hidden rounded-xl border border-border bg-surface", className)}>
+    <div data-slot="product-card" className={cn("w-full max-w-64 overflow-hidden rounded-xl border border-border bg-surface shadow-raised", className)}>
       <AspectRatio ratio={1} className="bg-sunken">
         {image ? (
           // eslint-disable-next-line @next/next/no-img-element

@@ -27,7 +27,7 @@ function PricingKinetic({ className }: { className?: string }) {
           { feature: "Audit gate", free: true, premium: true },
         ]}
       />
-      <div className="flex justify-center"><MagneticCta size="lg">Upgrade Premium</MagneticCta></div>
+      <div className="flex justify-center"><MagneticCta size="lg">Upgrade to Pro</MagneticCta></div>
     </div>
   )
 }

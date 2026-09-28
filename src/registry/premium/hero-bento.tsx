@@ -23,7 +23,7 @@ function HeroBento({ className }: { className?: string }) {
         <h1 className="text-[clamp(1.5rem,2.5vw+1rem,2.25rem)] font-medium tracking-[-0.022em] text-fg">
           Everything your product shell needs
         </h1>
-        <p className="mt-3 text-sm text-fg-muted">Compose free primitives. Drop Premium bentos when the page has to land.</p>
+        <p className="mt-3 text-sm text-fg-muted">Everything your team needs, arranged so the important parts land first.</p>
         <Button className="mt-6 w-full sm:w-auto">Open gallery</Button>
       </div>
       <div className="mt-8 grid min-w-0 gap-3 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">

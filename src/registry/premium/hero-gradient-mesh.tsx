@@ -35,7 +35,7 @@ function HeroGradientMesh({ className }: { className?: string }) {
           className="mx-auto mt-4 max-w-lg text-sm"
           style={{ color: "oklch(0.90 0.01 250)" }}
         >
-          Premium mesh hero for launches. Respects reduced motion.
+          A launch hero with depth. Motion is optional and respects reduced-motion settings.
         </p>
         <div className="mx-auto mt-7 flex w-full max-w-sm flex-col gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:justify-center">
           <Button

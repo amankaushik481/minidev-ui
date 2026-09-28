@@ -32,9 +32,9 @@ function Row({ items, reverse }: { items: Q[]; reverse?: boolean }) {
 function MarqueeQuotes({
   items = [
     { quote: "Finally motion that matches the product kit.", name: "Jordan Lee" },
-    { quote: "Hairline beats the blur-everywhere look.", name: "Sam Ortiz" },
+    { quote: "Calm, fast, and it never gets in the way.", name: "Sam Ortiz" },
     { quote: "We shipped the launch page in one afternoon.", name: "Riley Ng" },
-    { quote: "Premium feels intentional in screenshots.", name: "Ava Chen" },
+    { quote: "Every screen looks like someone cared.", name: "Ava Chen" },
   ],
   className,
 }: {

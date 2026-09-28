@@ -8,9 +8,9 @@ import { Button } from "@/registry/ui/button"
 function HeroClientPitch({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   const stats: [string, string][] = [
-    ["450+", "components"],
-    ["60+", "premium"],
-    ["100%", "audit gate"],
+    ["460+", "components"],
+    ["2", "themes"],
+    ["AA", "contrast"],
   ]
   return (
     <section
@@ -29,7 +29,7 @@ function HeroClientPitch({ className }: { className?: string }) {
           animate={{ y: 0 }}
           className="text-xs font-medium uppercase tracking-[0.01em] text-accent"
         >
-          MiniDev UI · Client-ready registry
+          Client-ready product UI
         </motion.p>
         <h1 className="mt-4 text-[clamp(1.75rem,4.2vw+1rem,3.75rem)] font-medium leading-[1.08] tracking-[-0.028em] text-fg sm:leading-[1.05] sm:tracking-[-0.034em]">
           {["Interfaces", "that", "look"].map((w, i) => (
@@ -61,8 +61,7 @@ function HeroClientPitch({ className }: { className?: string }) {
           transition={{ delay: 0.4 }}
           className="mt-5 max-w-xl text-sm leading-[1.55] text-fg-muted sm:mt-6 sm:text-base"
         >
-          Free MIT product UI for the app. Premium kinetic launch moments for the pages that win deals.
-          Same Geist, hue 285, Hairline — no theme drift between tiers.
+          Tables, billing, settings and AI chat, drawn to one standard and ready to ship. Built for teams who care how their product feels.
         </motion.p>
         <motion.div
           initial={reduce ? false : { y: 10 }}
@@ -71,7 +70,7 @@ function HeroClientPitch({ className }: { className?: string }) {
           className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap"
         >
           <Button size="lg" className="w-full sm:w-auto" render={<Link href="/showcase" />}>
-            Open client showcase
+            Open showcase
           </Button>
           <Button size="lg" variant="outline" className="w-full sm:w-auto" render={<Link href="/gallery" />}>
             Browse gallery
