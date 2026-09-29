@@ -17,7 +17,7 @@ type FloatingNavProps = {
   brand?: React.ReactNode
   links?: NavLink[]
   cta?: { label: string; href?: string; onClick?: () => void }
-  secondary?: { label: string; href?: string }
+  secondary?: { label: string; href?: string } | null
   /** Sticky inside a scroll container instead of the viewport. */
   className?: string
 }

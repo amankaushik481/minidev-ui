@@ -52,3 +52,43 @@ html, body {
   --accent-soft: oklch(0.76 0.11 195 / 0.13); --accent-line: oklch(0.76 0.11 195 / 0.35); --on-accent: oklch(0.18 0.03 195);
 }
 .font-serif-display { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+.tpl-relay {
+  --accent: oklch(0.66 0.18 50); --accent-hover: oklch(0.6 0.18 50); --accent-fg: oklch(0.52 0.16 50);
+  --accent-soft: oklch(0.66 0.18 50 / 0.11); --accent-line: oklch(0.66 0.18 50 / 0.32); --on-accent: oklch(0.18 0.03 50); --accent-2: oklch(0.72 0.16 80);
+}
+.dark .tpl-relay, .dark.tpl-relay {
+  --accent: oklch(0.76 0.16 55); --accent-hover: oklch(0.82 0.14 55); --accent-fg: oklch(0.82 0.13 55);
+  --accent-soft: oklch(0.76 0.16 55 / 0.13); --accent-line: oklch(0.76 0.16 55 / 0.36); --on-accent: oklch(0.18 0.03 55);
+}
+.tpl-atlas {
+  --accent: oklch(0.56 0.17 250); --accent-hover: oklch(0.5 0.17 250); --accent-fg: oklch(0.48 0.15 250);
+  --accent-soft: oklch(0.56 0.17 250 / 0.1); --accent-line: oklch(0.56 0.17 250 / 0.3); --accent-2: oklch(0.7 0.13 200);
+}
+.dark .tpl-atlas, .dark.tpl-atlas {
+  --accent: oklch(0.72 0.14 250); --accent-hover: oklch(0.78 0.12 250); --accent-fg: oklch(0.8 0.11 250);
+  --accent-soft: oklch(0.72 0.14 250 / 0.14); --accent-line: oklch(0.72 0.14 250 / 0.36); --on-accent: oklch(0.17 0.03 250);
+}
+.tpl-cadence {
+  --accent: oklch(0.62 0.17 28); --accent-hover: oklch(0.56 0.17 28); --accent-fg: oklch(0.52 0.15 28);
+  --accent-soft: oklch(0.62 0.17 28 / 0.1); --accent-line: oklch(0.62 0.17 28 / 0.3); --accent-2: oklch(0.72 0.14 60);
+}
+.dark .tpl-cadence, .dark.tpl-cadence {
+  --accent: oklch(0.74 0.14 30); --accent-hover: oklch(0.8 0.12 30); --accent-fg: oklch(0.8 0.11 30);
+  --accent-soft: oklch(0.74 0.14 30 / 0.14); --accent-line: oklch(0.74 0.14 30 / 0.36); --on-accent: oklch(0.18 0.03 30);
+}
+.tpl-forma {
+  --accent: oklch(0.62 0.2 135); --accent-hover: oklch(0.56 0.2 135); --accent-fg: oklch(0.5 0.16 135);
+  --accent-soft: oklch(0.62 0.2 135 / 0.12); --accent-line: oklch(0.62 0.2 135 / 0.32); --on-accent: oklch(0.16 0.04 135); --accent-2: oklch(0.8 0.16 100);
+}
+.dark .tpl-forma, .dark.tpl-forma {
+  --accent: oklch(0.88 0.2 128); --accent-hover: oklch(0.92 0.18 128); --accent-fg: oklch(0.9 0.18 128);
+  --accent-soft: oklch(0.88 0.2 128 / 0.12); --accent-line: oklch(0.88 0.2 128 / 0.35); --on-accent: oklch(0.18 0.04 128);
+}
+.tpl-hale {
+  --accent: oklch(0.58 0.12 215); --accent-hover: oklch(0.52 0.12 215); --accent-fg: oklch(0.48 0.1 215);
+  --accent-soft: oklch(0.58 0.12 215 / 0.1); --accent-line: oklch(0.58 0.12 215 / 0.3); --accent-2: oklch(0.75 0.12 170);
+}
+.dark .tpl-hale, .dark.tpl-hale {
+  --accent: oklch(0.76 0.11 215); --accent-hover: oklch(0.82 0.1 215); --accent-fg: oklch(0.82 0.09 215);
+  --accent-soft: oklch(0.76 0.11 215 / 0.14); --accent-line: oklch(0.76 0.11 215 / 0.36); --on-accent: oklch(0.17 0.03 215);
+}
