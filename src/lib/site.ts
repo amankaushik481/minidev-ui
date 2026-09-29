@@ -10,6 +10,9 @@ export const SITE = {
     name: "MiniDev",
     url: "https://minidev.pro",
     pitch: "We build MVPs in 30 days, with this exact kit.",
+    /** Where the studio form sends people. Change to your real inbox. */
+    email: "hello@minidev.pro",
+    call: "https://cal.com/minidev.pro/30min",
   },
   /** Set to a public repo URL to show the GitHub link in the header. */
   github: null as string | null,
@@ -19,7 +22,7 @@ export const NAV = [
   { href: "/docs", label: "Docs" },
   { href: "/gallery", label: "Components" },
   { href: "/gallery/blocks", label: "Blocks" },
-  { href: "/gallery/premium-motion", label: "Motion" },
   { href: "/playground", label: "Themes" },
-  { href: "/showcase", label: "Showcase" },
+  { href: "/templates", label: "Templates" },
+  { href: "/studio", label: "Hire us" },
 ] as const
