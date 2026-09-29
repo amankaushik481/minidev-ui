@@ -186,6 +186,16 @@ const PREVIEWS: Record<string, () => React.ReactNode> = {
   switch: () => (
     <div className="space-y-2.5">{["Auto-renew", "Weekly digest"].map((l, i) => <div key={l} className="flex w-40 items-center justify-between text-xs text-fg">{l}<Switch defaultChecked={i === 0} aria-label={l} /></div>)}</div>
   ),
+  tabs: () => (
+    <div className="flex h-8 items-center rounded-lg bg-sunken p-0.5 shadow-[inset_0_0_0_1px_var(--border)]">
+      {["Overview", "Invoices", "Activity"].map((l, i) => (
+        <span key={l} className={cn("flex h-full items-center gap-1 rounded-md px-2.5 text-[11px] font-medium", i === 1 ? "bg-raised text-fg shadow-key" : "text-fg-muted")}>
+          {l}
+          {i === 1 ? <span className="rounded-full bg-accent-soft px-1 font-mono text-[9px] text-accent-fg">12</span> : null}
+        </span>
+      ))}
+    </div>
+  ),
   "radio-group": () => (
     <div className="space-y-2.5">{["Monthly", "Yearly"].map((l, i) => <div key={l} className="flex items-center gap-2 text-xs text-fg"><span className={cn("grid size-4 place-items-center rounded-full border", i === 1 ? "border-accent bg-accent" : "border-border-strong bg-surface")}>{i === 1 ? <span className="size-1.5 rounded-full bg-on-accent" /> : null}</span>{l}</div>)}</div>
   ),

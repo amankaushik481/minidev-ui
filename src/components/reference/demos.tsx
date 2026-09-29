@@ -7,7 +7,10 @@ import { FileDropzone } from "@/registry/ui/file-dropzone"
 import { OtpInput } from "@/registry/ui/otp-input"
 import { SegmentedControl } from "@/registry/ui/segmented-control"
 import { StatusBadge } from "@/registry/ui/status-badge"
+import { RangeSlider } from "@/registry/ui/range-slider"
+import { Slider } from "@/registry/ui/slider"
 import { Switch } from "@/registry/ui/switch"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/ui/tabs"
 
 /* Demos for the gold-standard components. Used by gallery pages and docs previews. */
 
@@ -167,6 +170,185 @@ export function OtpDemo() {
         <p className="text-xs font-medium text-fg-muted">Alphanumeric, large</p>
         <OtpInput length={4} pattern="alphanumeric" size="lg" defaultValue="K7" />
         <p className="text-xs text-fg-subtle">Letters are uppercased as you type.</p>
+      </div>
+    </div>
+  )
+}
+
+const NOTIFY = [
+  { id: "paid", label: "Invoice paid", description: "When a customer settles an invoice.", on: true },
+  { id: "failed", label: "Payment failed", description: "Card declines and bank returns, sent right away.", on: true },
+  { id: "digest", label: "Weekly revenue digest", description: "A Monday summary of MRR, churn and new customers.", on: false },
+  { id: "deploys", label: "Deploy alerts", description: "Production deploys in the Lumen workspace only.", on: false },
+]
+
+export function SwitchDemo() {
+  const [on, setOn] = React.useState<Record<string, boolean>>(() => Object.fromEntries(NOTIFY.map((n) => [n.id, n.on])))
+  const [saving, setSaving] = React.useState<string | null>(null)
+  const toggle = (id: string, v: boolean) => {
+    setOn((s) => ({ ...s, [id]: v }))
+    setSaving(id)
+    setTimeout(() => setSaving((cur) => (cur === id ? null : cur)), 900)
+  }
+  return (
+    <div className="mx-auto w-full max-w-md rounded-xl border border-border bg-surface shadow-raised">
+      <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
+        <div className="min-w-0">
+          <p className="text-[0.8125rem] font-medium text-fg">Email notifications</p>
+          <p className="text-xs text-fg-subtle">Sent to billing@lumen.app</p>
+        </div>
+        <span className="font-mono text-xs text-fg-subtle tabular-nums">{Object.values(on).filter(Boolean).length} of {NOTIFY.length} on</span>
+      </div>
+      <div className="divide-y divide-border">
+        {NOTIFY.map((n) => (
+          <Switch
+            key={n.id}
+            className="px-4 py-3"
+            label={n.label}
+            description={n.description}
+            checked={on[n.id]}
+            loading={saving === n.id}
+            onCheckedChange={(v) => toggle(n.id, v)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const NW_INVOICES: Pick<Invoice, "id" | "amount" | "status" | "issued">[] = [
+  { id: "INV-2041", amount: 12400, status: "paid", issued: "2026-09-24" },
+  { id: "INV-2033", amount: 3890, status: "pending", issued: "2026-09-02" },
+  { id: "INV-2019", amount: 12400, status: "paid", issued: "2026-08-24" },
+  { id: "INV-2004", amount: 890, status: "overdue", issued: "2026-07-30" },
+]
+
+const RANGES = { "7d": [9240, 4.1], "30d": [48210, 12.4], "90d": [131870, 8.9], "12m": [502300, 31.2] } as const
+
+export function TabsDemo() {
+  const [range, setRange] = React.useState<keyof typeof RANGES>("30d")
+  const [total, delta] = RANGES[range]
+  return (
+    <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-6">
+      <div className="min-w-0 rounded-xl border border-border bg-surface shadow-raised">
+        <div className="flex items-center gap-3 px-5 pt-4 pb-3">
+          <span className="grid size-9 shrink-0 place-items-center rounded-full border border-border bg-sunken text-xs font-medium text-fg-muted">NL</span>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-medium text-fg">Northwind Labs</p>
+            <p className="truncate text-xs text-fg-subtle">billing@northwind.io · Customer since March 2024</p>
+          </div>
+        </div>
+        <Tabs defaultValue="invoices" className="gap-0">
+          <div className="overflow-x-auto [scrollbar-width:none]">
+            <TabsList variant="line" className="w-full min-w-max justify-start px-5">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="invoices" badge={NW_INVOICES.length}>Invoices</TabsTrigger>
+              <TabsTrigger value="payments" badge={2}>Payments</TabsTrigger>
+              <TabsTrigger value="activity">Activity</TabsTrigger>
+            </TabsList>
+          </div>
+          <TabsContent value="overview" className="grid grid-cols-3 gap-4 p-5">
+            {[["Lifetime value", "$58,970"], ["Open balance", "$4,780"], ["Paid on time", "94%"]].map(([k, v]) => (
+              <div key={k} className="min-w-0">
+                <p className="truncate text-xs text-fg-subtle">{k}</p>
+                <p className="mt-1 text-lg font-medium text-fg tabular-nums">{v}</p>
+              </div>
+            ))}
+          </TabsContent>
+          <TabsContent value="invoices" className="divide-y divide-border">
+            {NW_INVOICES.map((r) => (
+              <div key={r.id} className="flex h-11 items-center gap-3 px-5 text-[0.8125rem]">
+                <span className="font-mono text-xs text-fg-muted">{r.id}</span>
+                <span className="text-fg-subtle">{day(r.issued)}</span>
+                <span className="ml-auto font-medium text-fg tabular-nums">{money(r.amount)}</span>
+                <StatusBadge tone={TONE[r.status]}>{r.status[0].toUpperCase() + r.status.slice(1)}</StatusBadge>
+              </div>
+            ))}
+          </TabsContent>
+          <TabsContent value="payments" className="divide-y divide-border">
+            {[["Visa ending 4242", "Default · expires 08/28"], ["ACH ending 6789", "Chase business checking"]].map(([k, v]) => (
+              <div key={k} className="flex h-11 items-center justify-between gap-3 px-5 text-[0.8125rem]">
+                <span className="font-medium text-fg">{k}</span>
+                <span className="truncate text-xs text-fg-subtle">{v}</span>
+              </div>
+            ))}
+          </TabsContent>
+          <TabsContent value="activity" className="space-y-3 p-5 text-[0.8125rem] text-fg-muted">
+            <p><span className="font-medium text-fg">Invoice INV-2041 paid</span> · 4 days ago</p>
+            <p><span className="font-medium text-fg">Reminder sent for INV-2004</span> · 2 weeks ago</p>
+            <p><span className="font-medium text-fg">Plan changed to Scale</span> · 1 month ago</p>
+          </TabsContent>
+        </Tabs>
+      </div>
+
+      <Tabs value={range} onValueChange={(v) => setRange(v as keyof typeof RANGES)} className="rounded-xl border border-border bg-surface p-5 shadow-raised">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-[0.8125rem] font-medium text-fg">Revenue</p>
+          <TabsList aria-label="Range">
+            {Object.keys(RANGES).map((k) => (
+              <TabsTrigger key={k} value={k} className="font-mono text-xs uppercase">{k}</TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+        <TabsContent value={range}>
+          <p className="text-2xl font-medium text-fg tabular-nums">{money(total)}</p>
+          <p className="mt-0.5 text-xs text-success tabular-nums">+{delta}% vs previous period</p>
+        </TabsContent>
+      </Tabs>
+    </div>
+  )
+}
+
+const AMOUNTS = [890, 1450, 3890, 5200, 6300, 9980, 12400, 21750]
+
+export function SliderDemo() {
+  const [alertAt, setAlertAt] = React.useState(80)
+  const [seats, setSeats] = React.useState(12)
+  const [amount, setAmount] = React.useState([1000, 12500])
+  const matching = AMOUNTS.filter((a) => a >= amount[0] && a <= amount[1]).length
+  const row = "flex items-baseline justify-between gap-3"
+  return (
+    <div className="mx-auto w-full max-w-md divide-y divide-border rounded-xl border border-border bg-surface shadow-raised">
+      <div className="space-y-3 p-5">
+        <div className={row}>
+          <p id="alert-at" className="text-[0.8125rem] font-medium text-fg">Alert when API usage reaches</p>
+          <span className="text-[0.8125rem] font-medium text-fg tabular-nums">{alertAt}%</span>
+        </div>
+        <Slider
+          aria-labelledby="alert-at"
+          value={alertAt}
+          onValueChange={(v) => setAlertAt(v as number)}
+          step={5}
+          format={(n) => `${n}%`}
+          marks={[{ value: 0, label: "0%" }, { value: 50, label: "50%" }, { value: 80, label: "80%" }, { value: 100, label: "100%" }]}
+        />
+      </div>
+      <div className="space-y-3 p-5">
+        <div className={row}>
+          <p id="seats" className="text-[0.8125rem] font-medium text-fg">Seats</p>
+          <span className="text-xs text-fg-muted tabular-nums">{seats} × $12 = <span className="font-medium text-fg">{money(seats * 12)}/mo</span></span>
+        </div>
+        <Slider aria-labelledby="seats" value={seats} onValueChange={(v) => setSeats(v as number)} min={1} max={50} format={(n) => `${n} ${n === 1 ? "seat" : "seats"}`} />
+      </div>
+      <div className="space-y-3 p-5">
+        <div className={row}>
+          <p id="amount" className="text-[0.8125rem] font-medium text-fg">Invoice amount</p>
+          <span className="text-xs text-fg-muted tabular-nums">{matching} of {AMOUNTS.length} invoices</span>
+        </div>
+        <RangeSlider
+          aria-labelledby="amount"
+          aria-label="Invoice amount"
+          className="w-full"
+          value={amount}
+          onValueChange={setAmount}
+          min={0}
+          max={25000}
+          step={250}
+          minStepsBetweenValues={4}
+          format={money}
+          marks={[{ value: 0, label: "$0" }, { value: 10000, label: "$10k" }, { value: 20000, label: "$20k" }]}
+        />
+        <span className="sr-only" aria-live="polite">{matching} invoices match</span>
       </div>
     </div>
   )

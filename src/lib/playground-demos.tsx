@@ -9,11 +9,12 @@ import { Callout } from "@/registry/ui/callout"
 import { EmptyState } from "@/registry/ui/empty-state"
 import { ErrorState } from "@/registry/ui/error-state"
 import { FormField } from "@/registry/ui/form-field"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/registry/ui/tabs"
 import { Kbd } from "@/registry/ui/kbd"
 import { Skeleton } from "@/registry/ui/skeleton"
 import { Progress } from "@/registry/ui/progress"
 import { Slider } from "@/registry/ui/slider"
+import { RangeSlider } from "@/registry/ui/range-slider"
 import { Textarea } from "@/registry/ui/textarea"
 import { Avatar, AvatarFallback } from "@/registry/ui/avatar"
 import { StatusBadge } from "@/registry/ui/status-badge"
@@ -74,7 +75,7 @@ import { FreePremiumCompare } from "@/registry/premium/free-premium-compare"
 import { LiveComponentRail } from "@/registry/premium/live-component-rail"
 import { CommandWaitlist } from "@/registry/premium/command-waitlist"
 import { Toaster, toast } from "@/registry/ui/toast"
-import { DataTableDemo, DropzoneDemo, OtpDemo, SegmentedDemo } from "@/components/reference/demos"
+import { DataTableDemo, DropzoneDemo, OtpDemo, SegmentedDemo, SliderDemo, SwitchDemo, TabsDemo } from "@/components/reference/demos"
 import { InteractiveAreaChart } from "@/registry/ui/interactive-area-chart"
 import { NotificationInbox } from "@/registry/ui/notification-inbox"
 
@@ -120,7 +121,8 @@ export function getPlaygroundDemos(name: string): DemoState[] | null {
       { label: "Disabled", node: <Input disabled defaultValue="Locked" aria-label="Disabled" /> },
     ],
     switch: [
-      { label: "Off / on", node: <div className="flex items-center gap-3"><Switch aria-label="Notifications" /><Switch defaultChecked aria-label="Marketing" /></div> },
+      { label: "Press and hold, then release", node: <SwitchDemo /> },
+      { label: "Off / on / loading / disabled", node: <div className="flex items-center gap-4"><Switch aria-label="Notifications" /><Switch defaultChecked aria-label="Marketing" /><Switch loading defaultChecked aria-label="Saving" /><Switch disabled aria-label="Disabled" /></div> },
     ],
     checkbox: [
       { label: "States", node: <div className="flex gap-4"><label className="flex items-center gap-2 text-sm"><Checkbox aria-label="A" /> Unchecked</label><label className="flex items-center gap-2 text-sm"><Checkbox defaultChecked aria-label="B" /> Checked</label></div> },
@@ -152,7 +154,8 @@ export function getPlaygroundDemos(name: string): DemoState[] | null {
     "stop-generating": [{ label: "Default", node: <StopGenerating /> }],
     "offline-banner": [{ label: "With retry", node: <div className="w-full"><OfflineBanner onRetry={() => {}} /></div> }],
     tabs: [
-      { label: "Basic", node: <Tabs defaultValue="a"><TabsList><TabsTrigger value="a">Overview</TabsTrigger><TabsTrigger value="b">Activity</TabsTrigger></TabsList><TabsContent value="a">Overview panel</TabsContent><TabsContent value="b">Activity panel</TabsContent></Tabs> },
+      { label: "Click or arrow between tabs", node: <TabsDemo /> },
+      { label: "Default with a badge, line", node: <div className="flex flex-col items-center gap-6"><Tabs defaultValue="b"><TabsList><TabsTrigger value="a">Overview</TabsTrigger><TabsTrigger value="b" badge={12}>Invoices</TabsTrigger><TabsTrigger value="c" disabled>Settings</TabsTrigger></TabsList></Tabs><Tabs defaultValue="a"><TabsList variant="line"><TabsTrigger value="a">Deploys</TabsTrigger><TabsTrigger value="b">Logs</TabsTrigger><TabsTrigger value="c">Environment</TabsTrigger></TabsList></Tabs></div> },
     ],
     dialog: [
       { label: "Basic", node: (
@@ -184,7 +187,13 @@ export function getPlaygroundDemos(name: string): DemoState[] | null {
     kbd: [{ label: "Combo", node: <div className="flex items-center gap-1"><Kbd>⌘</Kbd><Kbd>K</Kbd></div> }],
     skeleton: [{ label: "Block", node: <div className="w-64 space-y-2"><Skeleton className="h-4 w-full" /><Skeleton className="h-4 w-2/3" /><Skeleton className="h-24 w-full" /></div> }],
     progress: [{ label: "Value", node: <Progress value={64} aria-label="Progress" className="w-64" /> }],
-    slider: [{ label: "Default", node: <Slider defaultValue={[40]} aria-label="Intensity" className="w-64" /> }],
+    slider: [
+      { label: "Drag or tab to a thumb", node: <SliderDemo /> },
+      { label: "Marks, disabled", node: <div className="flex flex-wrap justify-center gap-8"><Slider defaultValue={[30]} min={7} max={90} aria-label="Log retention" className="w-56" format={(n) => `${n} days`} marks={[{ value: 7, label: "7d" }, { value: 30, label: "30d" }, { value: 90, label: "90d" }]} /><Slider defaultValue={[40]} disabled aria-label="Disabled" className="w-56" /></div> },
+    ],
+    "range-slider": [
+      { label: "Drag either thumb", node: <RangeSlider defaultValue={[2000, 8000]} min={0} max={10000} step={500} minStepsBetweenValues={2} aria-label="MRR band" className="w-64" format={(n) => `$${n.toLocaleString("en-US")}`} marks={[{ value: 0, label: "$0" }, { value: 5000, label: "$5k" }, { value: 10000, label: "$10k" }]} /> },
+    ],
     textarea: [{ label: "Default", node: <Textarea aria-label="Notes" placeholder="Ship notes…" className="min-h-28" /> }],
     avatar: [{ label: "Fallback", node: <Avatar><AvatarFallback>AK</AvatarFallback></Avatar> }],
     "status-badge": [{ label: "Tones", node: <div className="flex flex-wrap gap-2"><StatusBadge tone="success">Live</StatusBadge><StatusBadge tone="warning">Degraded</StatusBadge><StatusBadge tone="danger">Down</StatusBadge><StatusBadge tone="accent">Premium</StatusBadge></div> }],

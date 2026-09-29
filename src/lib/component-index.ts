@@ -2652,6 +2652,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<LatencyBadge ms={48} />"
   },
   {
+    "name": "light-provider",
+    "title": "LightProvider",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/light-provider.tsx",
+    "import": "@/registry/ui/light-provider",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Drift when the pointer is idle or absent."
+  },
+  {
     "name": "line-chart",
     "title": "LineChart",
     "tier": "free",
@@ -2962,6 +2976,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<ModelPicker\n  models={[\n    { id: \"gpt\", label: \"GPT\" },\n    { id: \"sonnet\", label: \"Sonnet\" },\n    { id: \"opus\", label: \"Opus\" },\n  ]}\n  value=\"sonnet\"\n/>"
   },
   {
+    "name": "morph-panel",
+    "title": "MorphPanel",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/morph-panel.tsx",
+    "import": "@/registry/ui/morph-panel",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Panel width in px."
+  },
+  {
     "name": "multi-select",
     "title": "MultiSelect",
     "tier": "free",
@@ -3137,6 +3166,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "editors"
     ],
     "usage": "<NumberInput value={n} onChange={setN} aria-label=\"Number\" />"
+  },
+  {
+    "name": "number-roll",
+    "title": "NumberRoll",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/number-roll.tsx",
+    "import": "@/registry/ui/number-roll",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Intl.NumberFormat options, e.g. { style: \"currency\", currency: \"USD\" }."
   },
   {
     "name": "offline-banner",
@@ -3723,6 +3766,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "slider"
     ],
+    "description": "Two-thumb slider. Both value bubbles show while either thumb is dragged.",
     "usage": "<RangeSlider defaultValue={[20, 80]} aria-label=\"Price range\" />"
   },
   {
@@ -4319,6 +4363,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "slider"
     ],
+    "description": "Hairline rail, keycap thumb and a value bubble while you drag or tab to it.",
     "usage": "<Slider defaultValue={[40]} aria-label=\"Volume\" aria-labelledby=\"vol-label\" />"
   },
   {
@@ -4719,14 +4764,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "path": "src/registry/ui/switch.tsx",
     "import": "@/registry/ui/switch",
     "deps": [
-      "@base-ui/react"
+      "@base-ui/react",
+      "lucide-react",
+      "motion"
     ],
     "registryDeps": [],
     "galleries": [
       "switch"
     ],
-    "description": "Hairline track, raised thumb. The thumb travels on a spring;",
-    "usage": "<Switch id=\"s1\" aria-label=\"Off\" />"
+    "description": "Hairline track with a raised thumb that leans on press, then springs across.",
+    "usage": "<Switch aria-label=\"Off\" />"
   },
   {
     "name": "table-pagination",
@@ -4782,11 +4829,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/tabs",
     "deps": [
       "@base-ui/react",
-      "class-variance-authority"
+      "class-variance-authority",
+      "motion"
     ],
     "registryDeps": [],
-    "galleries": [],
-    "usage": "<Tabs defaultValue=\"a\"><TabsList><TabsTrigger value=\"a\">Overview</TabsTrigger><TabsTrigger value=\"b\">Activity</TabsTrigger></TabsList><TabsContent value=\"a\">Overview panel</TabsContent><TabsContent value=\"b\">Activity panel</TabsContent></Tabs>"
+    "galleries": [
+      "tabs"
+    ],
+    "description": "A raised thumb or accent underline that glides to the active tab.",
+    "usage": "<Tabs defaultValue=\"overview\" className=\"w-full\">\n  <div className={scroll}>\n    <TabsList>\n      <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n      <TabsTrigger value=\"invoices\" badge={12}>Invoices</TabsTrigger>\n      <TabsTrigger value=\"activity\">Activity</TabsTrigger>\n      <TabsTrigger value=\"settings\" disabled>Settings</TabsTrigger>\n    </TabsList>\n  </div>\n  <TabsContent value=\"overview\" className={panel}>Overview for the Lumen workspace.</TabsContent>\n  <TabsContent value=\"invoices\" className={panel}>12 invoices issued this month.</TabsContent>\n  <TabsContent value=\"activity\" className={panel}>Recent activity.</TabsContent>\n</Tabs>"
   },
   {
     "name": "tags-input",
