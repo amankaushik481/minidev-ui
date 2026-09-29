@@ -285,6 +285,8 @@ export default function PonteTemplate() {
             title="One flat fee. No surprises."
             description="Every plan uses the real mid-market rate. You only choose how often you send."
             currency="GBP"
+            unit="/ mo"
+            per=""
             yearlyBadge="2 months free"
             plans={[
               { name: "Personal", blurb: "For sending home now and then.", monthly: 0, yearly: 0, cta: "Open free account", features: ["£0.99 per transfer", "Mid-market rate", "Pix in seconds", { label: "Scheduled transfers", included: false }, { label: "Multi-currency card", included: false }] },

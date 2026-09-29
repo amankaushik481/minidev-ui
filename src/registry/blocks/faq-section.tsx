@@ -30,11 +30,7 @@ const ITEMS: Faq[] = [
 function FaqSection({
   eyebrow = "FAQ",
   title = "Questions, answered.",
-  description = (
-    <>
-      Something else on your mind? Write to <a className="font-medium text-fg underline decoration-border-strong underline-offset-4 hover:decoration-fg-subtle" href="mailto:hello@example.com">hello@example.com</a> and a person replies the same day.
-    </>
-  ),
+  description = "Something else on your mind? Write to us and a person replies the same day.",
   items = ITEMS,
   className,
 }: FaqSectionProps) {

@@ -5,42 +5,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { ArrowRightIcon, ArrowUpRightIcon } from "lucide-react"
 import { SiteFooter, SiteHeader } from "@/components/site-chrome"
 import { Button } from "@/registry/ui/button"
-
-const TEMPLATES = [
-  { slug: "lumen", name: "Lumen", kind: "AI SaaS", material: "Glass", blurb: "An AI analyst for finance teams. Live product in the hero, live bento, scroll story, pricing that rolls.", tags: ["SaaS", "AI", "Dashboard"] },
-  { slug: "ponte", name: "Ponte", kind: "Fintech app", material: "Metal", blurb: "Money home in 12 seconds. A working transfer app in a phone, live rates, an honest fee calculator.", tags: ["Fintech", "Mobile", "Payments"] },
-  { slug: "kura", name: "Kura", kind: "Healthcare marketplace", material: "Paper", blurb: "Book the right doctor today. Live clinic status, slot booking, and the clinic-side queue dashboard.", tags: ["Marketplace", "Health", "Booking"] },
-]
-
-function LivePreview({ slug }: { slug: string }) {
-  const ref = React.useRef<HTMLDivElement>(null)
-  const [scale, setScale] = React.useState(0.35)
-  const [show, setShow] = React.useState(false)
-  React.useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const ro = new ResizeObserver(() => setScale(el.clientWidth / 1440))
-    ro.observe(el)
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && setShow(true), { rootMargin: "200px" })
-    io.observe(el)
-    return () => { ro.disconnect(); io.disconnect() }
-  }, [])
-  return (
-    <div ref={ref} className="relative aspect-[1440/900] overflow-hidden rounded-t-[22px] border-b border-border bg-sunken">
-      {show ? (
-        <iframe
-          src={`/templates/${slug}`}
-          title={`${slug} template preview`}
-          tabIndex={-1}
-          loading="lazy"
-          className="pointer-events-none absolute top-0 left-0 origin-top-left border-0"
-          style={{ width: 1440, height: 900, transform: `scale(${scale})` }}
-        />
-      ) : null}
-      <div className="absolute inset-0" aria-hidden />
-    </div>
-  )
-}
+import { LivePreview, TEMPLATES } from "@/components/templates/catalog"
 
 export default function TemplatesIndex() {
   const reduce = useReducedMotion()

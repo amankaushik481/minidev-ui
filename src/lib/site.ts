@@ -11,7 +11,7 @@ export const SITE = {
     url: "https://minidev.pro",
     pitch: "We build MVPs in 30 days, with this exact kit.",
     /** Where the studio form sends people. Change to your real inbox. */
-    email: "hello@minidev.pro",
+    email: "aman@minidev.pro",
     call: "https://cal.com/minidev.pro/30min",
   },
   /** Set to a public repo URL to show the GitHub link in the header. */

@@ -31,6 +31,10 @@ type PricingPlansProps = {
   /** Discount badge on the yearly option. */
   yearlyBadge?: string
   onSelect?: (plan: string, period: "monthly" | "yearly") => void
+  /** Price suffix, e.g. "/ seat / mo" or "/ mo". */
+  unit?: string
+  /** Used in "Billed $X per seat yearly". Empty string drops it. */
+  per?: string
   className?: string
 }
 
@@ -48,6 +52,8 @@ function PricingPlans({
   currency = "USD",
   yearlyBadge = "-20%",
   onSelect,
+  unit = "/ seat / mo",
+  per = "per seat",
   className,
 }: PricingPlansProps) {
   const [period, setPeriod] = React.useState<"monthly" | "yearly">("yearly")
@@ -96,12 +102,12 @@ function PricingPlans({
                 <span className="text-[52px] leading-[56px] font-medium tracking-[-0.045em]">
                   {price === 0 ? "Free" : <NumberRoll value={price} format={fmt} />}
                 </span>
-                {price > 0 ? <span className={cn("text-[13px]", p.featured ? "opacity-60" : "text-fg-subtle")}>/ seat / mo</span> : null}
+                {price > 0 ? <span className={cn("text-[13px]", p.featured ? "opacity-60" : "text-fg-subtle")}>{unit}</span> : null}
               </p>
               <p className={cn("mt-1 h-5 text-[12.5px]", p.featured ? "opacity-60" : "text-fg-subtle")}>
                 {price > 0 && period === "yearly" ? (
                   <>
-                    Billed <NumberRoll value={price * 12} format={fmt} /> per seat yearly
+                    Billed <NumberRoll value={price * 12} format={fmt} /> {per} yearly
                   </>
                 ) : price > 0 ? (
                   "Billed monthly, cancel any time"

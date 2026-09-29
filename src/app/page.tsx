@@ -4,6 +4,7 @@ import { Hero } from "@/components/landing/hero"
 import { Exploded } from "@/components/landing/exploded"
 import { BlueprintCallout, Physics } from "@/components/landing/physics"
 import { Materials } from "@/components/landing/materials"
+import { TemplatesStrip } from "@/components/landing/templates-strip"
 import { Bento } from "@/components/landing/bento"
 import { Craft } from "@/components/landing/craft"
 import { CategoryIndex, FinalCta, InstallSection, ProofStrip } from "@/components/landing/sections"
@@ -14,6 +15,7 @@ export default function Home() {
       <SiteHeader />
       <main className="min-w-0">
         <Hero />
+        <TemplatesStrip />
         <Materials />
         <Exploded />
         <ProofStrip />
