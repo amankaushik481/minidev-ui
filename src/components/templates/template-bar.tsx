@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react"
 import { MaterialSwitcher } from "@/registry/ui/light-provider"
 import { useTheme } from "@/components/theme-toggle"
-import { MoonIcon, SunIcon } from "lucide-react"
+import { MoonIcon, SunIcon, SwatchBookIcon } from "lucide-react"
 
 /*
  * The MiniDev bar that floats over every template preview: back to the
@@ -35,6 +35,10 @@ export function TemplateBar({ name, kind }: { name: string; kind: string }) {
         <button type="button" onClick={toggle} aria-label={dark ? "Light mode" : "Dark mode"} className="grid size-9 shrink-0 place-items-center rounded-xl text-fg-muted outline-none hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent">
           {dark ? <SunIcon className="size-4" /> : <MoonIcon className="size-4" />}
         </button>
+        <Link href={`/brand/${name.toLowerCase().replace(/[^a-z]/g, "")}`} className="flex h-9 shrink-0 items-center gap-2 rounded-xl px-3 text-fg-muted outline-none hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent">
+          <SwatchBookIcon className="size-4" />
+          <span className="hidden md:inline">Brand kit</span>
+        </Link>
         <Link href="/studio" className="flex h-9 shrink-0 items-center gap-2 rounded-xl bg-ink px-3.5 font-medium text-on-ink shadow-ink outline-none hover:bg-ink-hover focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-raised">
           Build my version
           <ArrowRightIcon className="size-4" />

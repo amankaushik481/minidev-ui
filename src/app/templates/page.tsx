@@ -52,6 +52,9 @@ export default function TemplatesIndex() {
                       <span key={g} className="rounded-md bg-sunken px-2 py-0.5 text-[11px] text-fg-muted">{g}</span>
                     ))}
                   </div>
+                  <Link href={`/brand/${t.slug}`} className="relative z-10 ml-auto mr-4 rounded-md text-[13px] text-fg-muted underline-offset-4 outline-none hover:text-fg hover:underline focus-visible:ring-2 focus-visible:ring-accent">
+                    Brand kit
+                  </Link>
                   <span className="inline-flex items-center gap-1 text-[13px] font-medium text-fg">
                     Open <ArrowUpRightIcon className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>

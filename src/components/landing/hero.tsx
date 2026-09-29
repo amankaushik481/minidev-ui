@@ -10,6 +10,7 @@ import { Button } from "@/registry/ui/button"
 import { Kbd } from "@/registry/ui/kbd"
 import { useBlueprint } from "@/components/blueprint/blueprint"
 import { MaterialSwitcher } from "@/registry/ui/light-provider"
+import { LightField } from "@/registry/premium/light-field"
 import { NumberRoll } from "@/registry/ui/number-roll"
 import { SegmentedControl } from "@/registry/ui/segmented-control"
 import { Switch } from "@/registry/ui/switch"
@@ -278,8 +279,10 @@ export function Hero() {
   return (
     <section className="relative isolate overflow-hidden pb-8">
       {/* The light, visible on the page itself */}
-      <div aria-hidden className="light-spot absolute inset-0 -z-10" />
-      <div aria-hidden className="absolute inset-0 -z-10 bg-grid [--grid-size:56px] [mask-image:radial-gradient(ellipse_70%_55%_at_50%_0%,black_20%,transparent_75%)]" />
+      <div aria-hidden className="absolute inset-0 -z-10 [mask-image:linear-gradient(black_62%,transparent)]">
+        <LightField />
+      </div>
+      <div aria-hidden className="absolute inset-0 -z-10 bg-grid opacity-50 [--grid-size:56px] [mask-image:radial-gradient(ellipse_70%_55%_at_50%_0%,black_20%,transparent_75%)]" />
 
       <div className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pt-16">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
