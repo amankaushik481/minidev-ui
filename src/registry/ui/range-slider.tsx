@@ -1,12 +1,16 @@
 "use client"
 import * as React from "react"
-import { Slider } from "@/registry/ui/slider"
+import { Slider, type SliderProps } from "@/registry/ui/slider"
 import { cn } from "@/lib/utils"
 
-type RangeSliderProps = {
+/** Two-thumb slider. Both value bubbles show while either thumb is dragged. */
+
+type RangeSliderProps = Pick<SliderProps, "format" | "marks" | "showValue" | "name" | "minStepsBetweenValues" | "aria-labelledby"> & {
   value?: number[]
   defaultValue?: number[]
   onValueChange?: (value: number[]) => void
+  /** Fires once when the user releases the thumb. */
+  onValueCommitted?: (value: number[]) => void
   min?: number
   max?: number
   step?: number
@@ -19,13 +23,16 @@ function RangeSlider({
   value,
   defaultValue = [25, 75],
   onValueChange,
+  onValueCommitted,
   min = 0,
   max = 100,
   step = 1,
   disabled,
   className,
-  ...a11y
+  "aria-label": ariaLabelProp,
+  ...props
 }: RangeSliderProps) {
+  const ariaLabel = ariaLabelProp ?? (props["aria-labelledby"] ? undefined : "Range")
   return (
     <Slider
       data-slot="range-slider"
@@ -35,10 +42,14 @@ function RangeSlider({
       disabled={disabled}
       value={value}
       defaultValue={defaultValue}
-      onValueChange={onValueChange as never}
+      onValueChange={onValueChange ? (v) => onValueChange([...(v as readonly number[])]) : undefined}
+      onValueCommitted={onValueCommitted ? (v) => onValueCommitted([...(v as readonly number[])]) : undefined}
       className={cn("w-56", className)}
-      aria-label={a11y["aria-label"] ?? "Range"}
+      aria-label={ariaLabel}
+      {...props}
     />
   )
 }
+
 export { RangeSlider }
+export type { RangeSliderProps }

@@ -1,6 +1,6 @@
 # MiniDev UI
 
-> 471 free, MIT-licensed React + Tailwind v4 components for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Hairline design language: 1px structure, semantic OKLCH tokens, light + dark from one token set.
+> 474 free, MIT-licensed React + Tailwind v4 components for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Hairline design language: 1px structure, semantic OKLCH tokens, light + dark from one token set.
 
 ## Install
 
@@ -17,7 +17,7 @@
 - Numbers are tabular (tabular-nums). Headings use negative tracking; body text does not.
 - Dark mode: add the `dark` class to <html>. Components never branch on theme.
 
-## Components (366)
+## Components (369)
 
 - [Accordion](https://ui.minidev.pro/docs/accordion): `import { Accordion } from "minidev-ui-kit/ui/accordion"`
 - [AccountSetupProgress](https://ui.minidev.pro/docs/account-setup-progress): `import { AccountSetupProgress } from "minidev-ui-kit/ui/account-setup-progress"`
@@ -195,6 +195,7 @@
 - [Label](https://ui.minidev.pro/docs/label): `import { Label } from "minidev-ui-kit/ui/label"`
 - [LanguagePicker](https://ui.minidev.pro/docs/language-picker): `import { LanguagePicker } from "minidev-ui-kit/ui/language-picker"`
 - [LatencyBadge](https://ui.minidev.pro/docs/latency-badge): `import { LatencyBadge } from "minidev-ui-kit/ui/latency-badge"`
+- [LightProvider](https://ui.minidev.pro/docs/light-provider): `import { LightProvider } from "minidev-ui-kit/ui/light-provider"` — Drift when the pointer is idle or absent.
 - [LineChart](https://ui.minidev.pro/docs/line-chart): `import { LineChart } from "minidev-ui-kit/ui/line-chart"` — Multiple smooth series on a hairline grid, with end-point dots.
 - [LinkPreview](https://ui.minidev.pro/docs/link-preview): `import { LinkPreview } from "minidev-ui-kit/ui/link-preview"`
 - [Link](https://ui.minidev.pro/docs/link): `import { Link } from "minidev-ui-kit/ui/link"`
@@ -217,6 +218,7 @@
 - [MobileNavDrawer](https://ui.minidev.pro/docs/mobile-nav-drawer): `import { MobileNavDrawer } from "minidev-ui-kit/ui/mobile-nav-drawer"`
 - [ModelCompare](https://ui.minidev.pro/docs/model-compare): `import { ModelCompare } from "minidev-ui-kit/ui/model-compare"`
 - [ModelPicker](https://ui.minidev.pro/docs/model-picker): `import { ModelPicker } from "minidev-ui-kit/ui/model-picker"`
+- [MorphPanel](https://ui.minidev.pro/docs/morph-panel): `import { MorphPanel } from "minidev-ui-kit/ui/morph-panel"` — Panel width in px.
 - [MultiSelect](https://ui.minidev.pro/docs/multi-select): `import { MultiSelect } from "minidev-ui-kit/ui/multi-select"`
 - [NavMarketing](https://ui.minidev.pro/docs/nav-marketing): `import { NavMarketing } from "minidev-ui-kit/ui/nav-marketing"`
 - [NavigationMenu](https://ui.minidev.pro/docs/navigation-menu): `import { NavigationMenu } from "minidev-ui-kit/ui/navigation-menu"`
@@ -228,6 +230,7 @@
 - [NotificationItem](https://ui.minidev.pro/docs/notification-item): `import { NotificationItem } from "minidev-ui-kit/ui/notification-item"`
 - [NotificationPreferences](https://ui.minidev.pro/docs/notification-preferences): `import { NotificationPreferences } from "minidev-ui-kit/ui/notification-preferences"`
 - [NumberInput](https://ui.minidev.pro/docs/number-input): `import { NumberInput } from "minidev-ui-kit/ui/number-input"`
+- [NumberRoll](https://ui.minidev.pro/docs/number-roll): `import { NumberRoll } from "minidev-ui-kit/ui/number-roll"` — Intl.NumberFormat options, e.g. { style: "currency", currency: "USD" }.
 - [OfflineBanner](https://ui.minidev.pro/docs/offline-banner): `import { OfflineBanner } from "minidev-ui-kit/ui/offline-banner"`
 - [OfflineState](https://ui.minidev.pro/docs/offline-state): `import { OfflineState } from "minidev-ui-kit/ui/offline-state"`
 - [OnboardingChecklist](https://ui.minidev.pro/docs/onboarding-checklist): `import { OnboardingChecklist } from "minidev-ui-kit/ui/onboarding-checklist"`
@@ -266,7 +269,7 @@
 - [QuotaBar](https://ui.minidev.pro/docs/quota-bar): `import { QuotaBar } from "minidev-ui-kit/ui/quota-bar"`
 - [RadarChart](https://ui.minidev.pro/docs/radar-chart): `import { RadarChart } from "minidev-ui-kit/ui/radar-chart"`
 - [RadioGroup](https://ui.minidev.pro/docs/radio-group): `import { RadioGroup } from "minidev-ui-kit/ui/radio-group"`
-- [RangeSlider](https://ui.minidev.pro/docs/range-slider): `import { RangeSlider } from "minidev-ui-kit/ui/range-slider"`
+- [RangeSlider](https://ui.minidev.pro/docs/range-slider): `import { RangeSlider } from "minidev-ui-kit/ui/range-slider"` — Two-thumb slider. Both value bubbles show while either thumb is dragged.
 - [Rating](https://ui.minidev.pro/docs/rating): `import { Rating } from "minidev-ui-kit/ui/rating"`
 - [ReactionBar](https://ui.minidev.pro/docs/reaction-bar): `import { ReactionBar } from "minidev-ui-kit/ui/reaction-bar"`
 - [ReadReceipt](https://ui.minidev.pro/docs/read-receipt): `import { ReadReceipt } from "minidev-ui-kit/ui/read-receipt"`
@@ -307,7 +310,7 @@
 - [Skeleton](https://ui.minidev.pro/docs/skeleton): `import { Skeleton } from "minidev-ui-kit/ui/skeleton"` — A sunken plate with a hairline sheen that sweeps once per 1.6s.
 - [SkipLink](https://ui.minidev.pro/docs/skip-link): `import { SkipLink } from "minidev-ui-kit/ui/skip-link"`
 - [SlashCommandMenu](https://ui.minidev.pro/docs/slash-command-menu): `import { SlashCommandMenu } from "minidev-ui-kit/ui/slash-command-menu"`
-- [Slider](https://ui.minidev.pro/docs/slider): `import { Slider } from "minidev-ui-kit/ui/slider"`
+- [Slider](https://ui.minidev.pro/docs/slider): `import { Slider } from "minidev-ui-kit/ui/slider"` — Hairline rail, keycap thumb and a value bubble while you drag or tab to it.
 - [SocialAuthRow](https://ui.minidev.pro/docs/social-auth-row): `import { SocialAuthRow } from "minidev-ui-kit/ui/social-auth-row"`
 - [SocialProof](https://ui.minidev.pro/docs/social-proof): `import { SocialProof } from "minidev-ui-kit/ui/social-proof"`
 - [SortableHeader](https://ui.minidev.pro/docs/sortable-header): `import { SortableHeader } from "minidev-ui-kit/ui/sortable-header"`
@@ -335,11 +338,11 @@
 - [StreamingCursor](https://ui.minidev.pro/docs/streaming-cursor): `import { StreamingCursor } from "minidev-ui-kit/ui/streaming-cursor"`
 - [StreamingMessage](https://ui.minidev.pro/docs/streaming-message): `import { StreamingMessage } from "minidev-ui-kit/ui/streaming-message"`
 - [SuggestionChips](https://ui.minidev.pro/docs/suggestion-chips): `import { SuggestionChips } from "minidev-ui-kit/ui/suggestion-chips"`
-- [Switch](https://ui.minidev.pro/docs/switch): `import { Switch } from "minidev-ui-kit/ui/switch"` — Hairline track, raised thumb. The thumb travels on a spring;
+- [Switch](https://ui.minidev.pro/docs/switch): `import { Switch } from "minidev-ui-kit/ui/switch"` — Hairline track with a raised thumb that leans on press, then springs across.
 - [TablePagination](https://ui.minidev.pro/docs/table-pagination): `import { TablePagination } from "minidev-ui-kit/ui/table-pagination"`
 - [TableToolbar](https://ui.minidev.pro/docs/table-toolbar): `import { TableToolbar } from "minidev-ui-kit/ui/table-toolbar"`
 - [Table](https://ui.minidev.pro/docs/table): `import { Table } from "minidev-ui-kit/ui/table"`
-- [Tabs](https://ui.minidev.pro/docs/tabs): `import { Tabs } from "minidev-ui-kit/ui/tabs"`
+- [Tabs](https://ui.minidev.pro/docs/tabs): `import { Tabs } from "minidev-ui-kit/ui/tabs"` — A raised thumb or accent underline that glides to the active tab.
 - [TagsInput](https://ui.minidev.pro/docs/tags-input): `import { TagsInput } from "minidev-ui-kit/ui/tags-input"`
 - [TaxFields](https://ui.minidev.pro/docs/tax-fields): `import { TaxFields } from "minidev-ui-kit/ui/tax-fields"`
 - [TeamMemberRow](https://ui.minidev.pro/docs/team-member-row): `import { TeamMemberRow } from "minidev-ui-kit/ui/team-member-row"`

@@ -1,34 +1,42 @@
 "use client"
-
+import * as React from "react"
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs"
 import { cva, type VariantProps } from "class-variance-authority"
+import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
-function Tabs({
-  className,
-  orientation = "horizontal",
-  ...props
-}: TabsPrimitive.Root.Props) {
+/**
+ * Tabs - a raised thumb or accent underline that glides to the active tab.
+ * Base UI for roving focus and panels. The active tab carries one
+ * indicator per list (a raised thumb, or a 2px accent underline for `line`)
+ * that glides between tabs on a spring, the way segmented-control does.
+ */
+
+type Variant = "default" | "line"
+
+const ListContext = React.createContext<{ variant: Variant; layoutId: string }>({ variant: "default", layoutId: "tabs" })
+
+type TabsProps = TabsPrimitive.Root.Props
+
+function Tabs({ className, orientation = "horizontal", ...props }: TabsProps) {
   return (
     <TabsPrimitive.Root
       data-slot="tabs"
       data-orientation={orientation}
-      className={cn(
-        "group/tabs flex gap-2 data-horizontal:flex-col",
-        className
-      )}
+      orientation={orientation}
+      className={cn("group/tabs flex gap-2 data-horizontal:flex-col", className)}
       {...props}
     />
   )
 }
 
 const tabsListVariants = cva(
-  "group/tabs-list relative inline-flex w-fit items-center justify-center text-fg-muted group-data-horizontal/tabs:h-9 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
+  "group/tabs-list relative isolate inline-flex w-fit items-center justify-center text-fg-muted group-data-horizontal/tabs:h-9 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col group-data-vertical/tabs:items-stretch",
   {
     variants: {
       variant: {
-        default: "rounded-[0.625rem] border border-border bg-sunken p-[3px]",
-        line: "gap-4 rounded-none border-b border-border bg-transparent group-data-vertical/tabs:border-r group-data-vertical/tabs:border-b-0",
+        default: "rounded-lg bg-sunken p-0.5 shadow-[inset_0_0_0_1px_var(--border)]",
+        line: "gap-4 rounded-none border-b border-border bg-transparent group-data-vertical/tabs:gap-0.5 group-data-vertical/tabs:border-r group-data-vertical/tabs:border-b-0",
       },
     },
     defaultVariants: {
@@ -37,42 +45,96 @@ const tabsListVariants = cva(
   }
 )
 
-function TabsList({
-  className,
-  variant = "default",
-  ...props
-}: TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>) {
+type TabsListProps = TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>
+
+function TabsList({ className, variant = "default", ...props }: TabsListProps) {
+  const layoutId = React.useId()
+  const v = variant ?? "default"
+  const ctx = React.useMemo(() => ({ variant: v, layoutId }), [v, layoutId])
   return (
-    <TabsPrimitive.List
-      data-slot="tabs-list"
-      data-variant={variant}
-      className={cn(tabsListVariants({ variant }), className)}
-      {...props}
-    />
+    <ListContext.Provider value={ctx}>
+      <TabsPrimitive.List
+        data-slot="tabs-list"
+        data-variant={v}
+        className={cn(tabsListVariants({ variant: v }), className)}
+        {...props}
+      />
+    </ListContext.Provider>
   )
 }
 
-function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
+const THUMB = "absolute inset-0 -z-10 rounded-[inherit] bg-raised shadow-key"
+const UNDERLINE =
+  "absolute -z-10 rounded-full bg-accent group-data-horizontal/tabs:inset-x-0 group-data-horizontal/tabs:-bottom-px group-data-horizontal/tabs:h-0.5 group-data-vertical/tabs:inset-y-1 group-data-vertical/tabs:-right-px group-data-vertical/tabs:w-0.5"
+
+type TabsTriggerProps = TabsPrimitive.Tab.Props & {
+  /** Short trailing detail, e.g. a count. */
+  badge?: React.ReactNode
+}
+
+function TabsTrigger({ className, badge, children, ...props }: TabsTriggerProps) {
+  const { variant, layoutId } = React.useContext(ListContext)
+  const reduce = useReducedMotion()
+  const line = variant === "line"
   return (
     <TabsPrimitive.Tab
       data-slot="tabs-trigger"
       className={cn(
-        "relative inline-flex h-full flex-1 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap text-[0.8125rem] font-medium outline-none",
-        "transition-[color,background-color,box-shadow] duration-[140ms] ease-hairline",
-        "hover:text-fg data-active:text-fg",
-        "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 focus-visible:ring-offset-bg",
-        "disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45",
-        "group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start",
+        "group/tab relative inline-flex h-full flex-1 cursor-pointer items-center justify-center gap-1.5 text-[0.8125rem] font-medium whitespace-nowrap outline-none select-none",
+        "transition-[color] duration-[70ms] ease-hairline",
+        "text-fg-muted hover:text-fg data-active:text-fg",
+        "disabled:cursor-not-allowed disabled:opacity-45 data-disabled:cursor-not-allowed data-disabled:opacity-45",
+        "group-data-vertical/tabs:w-full group-data-vertical/tabs:flex-none group-data-vertical/tabs:justify-start",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        // default: raised segment
-        "group-data-[variant=default]/tabs-list:rounded-[7px] group-data-[variant=default]/tabs-list:px-3",
-        "group-data-[variant=default]/tabs-list:data-active:bg-surface group-data-[variant=default]/tabs-list:data-active:shadow-[0_1px_2px_0_oklch(0_0_0/0.08),0_0_0_1px_var(--border)]",
-        // line: accent underline on the hairline
-        "group-data-[variant=line]/tabs-list:px-0.5",
-        "after:absolute after:rounded-full after:bg-accent after:opacity-0 after:transition-opacity after:duration-[140ms]",
-        "group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:-bottom-px group-data-horizontal/tabs:after:h-[2px]",
-        "group-data-vertical/tabs:after:inset-y-1 group-data-vertical/tabs:after:-right-px group-data-vertical/tabs:after:w-[2px]",
-        "group-data-[variant=line]/tabs-list:data-active:after:opacity-100",
+        line
+          ? "flex-none rounded-md px-1 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg group-data-vertical/tabs:h-8 group-data-vertical/tabs:px-2.5"
+          : "rounded-md px-3 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 focus-visible:ring-offset-sunken group-data-vertical/tabs:h-8",
+        className
+      )}
+      render={(p, state) => (
+        <button {...p}>
+          {state.active ? (
+            <motion.span
+              layoutId={layoutId}
+              aria-hidden
+              data-slot={line ? "tabs-underline" : "tabs-thumb"}
+              className={line ? UNDERLINE : THUMB}
+              transition={reduce ? { duration: 0 } : { type: "spring", bounce: 0.18, duration: 0.42 }}
+            />
+          ) : line ? null : (
+            <span
+              aria-hidden
+              className="absolute inset-0 -z-10 rounded-[inherit] bg-fg/0 transition-colors duration-[70ms] group-hover/tab:bg-fg/[0.035] group-active/tab:bg-fg/[0.06] group-disabled/tab:bg-fg/0 group-data-disabled/tab:bg-fg/0"
+            />
+          )}
+          {p.children}
+          {badge != null ? (
+            <span
+              className={cn(
+                "rounded-full px-1.5 font-mono text-[10px] leading-4 tabular-nums transition-colors duration-[70ms]",
+                state.active ? "bg-accent-soft text-accent-fg" : "bg-fg/5 text-fg-subtle"
+              )}
+            >
+              {badge}
+            </span>
+          ) : null}
+        </button>
+      )}
+      {...props}
+    >
+      {children}
+    </TabsPrimitive.Tab>
+  )
+}
+
+type TabsContentProps = TabsPrimitive.Panel.Props
+
+function TabsContent({ className, ...props }: TabsContentProps) {
+  return (
+    <TabsPrimitive.Panel
+      data-slot="tabs-content"
+      className={cn(
+        "flex-1 rounded-lg text-sm outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
         className
       )}
       {...props}
@@ -80,14 +142,5 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
   )
 }
 
-function TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {
-  return (
-    <TabsPrimitive.Panel
-      data-slot="tabs-content"
-      className={cn("flex-1 text-sm outline-none", className)}
-      {...props}
-    />
-  )
-}
-
 export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }
+export type { TabsProps, TabsListProps, TabsTriggerProps, TabsContentProps }

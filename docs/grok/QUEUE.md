@@ -6,9 +6,9 @@ Each line says what "done" looks like. The signature detail is the one thing a d
 Already gold (use as reference, do not rewrite): button, input, checkbox, segmented-control, otp-input, file-dropzone, data-table, toast, agent-trace, interactive-area-chart, notification-inbox, prompt-input, code-block.
 
 ## Batch 1: controls people touch first
-- [ ] **switch**: Signature: while pressed, the thumb stretches 4px toward travel direction, then springs to the other side (motion layout spring). Sizes sm/default. Optional `loading` (spinner inside thumb, not clickable). Optional `label` + `description` layout with the whole row clickable.
-- [ ] **tabs**: Signature: default variant gets a sliding raised thumb and line variant a sliding 2px accent underline, both with `motion` `layoutId` (copy segmented-control). Keep Base UI Tabs for keyboard. Optional count badge per tab like segmented-control's `badge`.
-- [ ] **slider** + **range-slider**: Signature: value bubble (ink, shadow-overlay, tabular-nums) appears above the thumb while dragging or focused, with glyph-in. Rail = track recipe, filled part accent. Thumb 16px `bg-white shadow-key border border-border`, grows ring on focus. Optional `marks` (ticks under the rail) and `format` prop. Use Base UI Slider.
+- [x] **switch**: Signature: while pressed, the thumb stretches 4px toward travel direction, then springs to the other side (motion layout spring). Sizes sm/default. Optional `loading` (spinner inside thumb, not clickable). Optional `label` + `description` layout with the whole row clickable.
+- [x] **tabs**: Signature: default variant gets a sliding raised thumb and line variant a sliding 2px accent underline, both with `motion` `layoutId` (copy segmented-control). Keep Base UI Tabs for keyboard. Optional count badge per tab like segmented-control's `badge`.
+- [x] **slider** + **range-slider**: Signature: value bubble (ink, shadow-overlay, tabular-nums) appears above the thumb while dragging or focused, with glyph-in. Rail = track recipe, filled part accent. Thumb 16px `bg-white shadow-key border border-border`, grows ring on focus. Optional `marks` (ticks under the rail) and `format` prop. Use Base UI Slider.
 
 ## Batch 2: selection
 - [ ] **select**: Signature: selected item shows a check that pops in, and the list opens aligned so the selected item sits over the trigger (Base UI `alignItemWithTrigger`). Groups with labels, items with icon + description line, disabled items, invalid state on trigger, placeholder in fg-subtle.

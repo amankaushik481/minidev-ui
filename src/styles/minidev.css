@@ -484,7 +484,7 @@
   background-size: var(--mat-page-size);
   background-blend-mode: var(--mat-blend);
 }
-:is([data-slot="switch-thumb"], [data-slot="slider-thumb"], [data-slot="segmented-control-thumb"]) {
+:is([data-slot="switch-thumb"], [data-slot="slider-thumb"], [data-slot="segmented-control-thumb"], [data-slot="tabs-thumb"]) {
   background-image: var(--mat-knob);
 }
 

@@ -2630,6 +2630,22 @@
       ]
     },
     {
+      "name": "light-provider",
+      "type": "registry:ui",
+      "title": "Light provider",
+      "description": "Drift when the pointer is idle or absent.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/light-provider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "line-chart",
       "type": "registry:ui",
       "title": "Line chart",
@@ -2956,6 +2972,23 @@
       ]
     },
     {
+      "name": "morph-panel",
+      "type": "registry:ui",
+      "title": "Morph panel",
+      "description": "Panel width in px.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/morph-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "multi-select",
       "type": "registry:ui",
       "title": "Multi select",
@@ -3129,6 +3162,22 @@
       "files": [
         {
           "path": "src/registry/ui/number-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "number-roll",
+      "type": "registry:ui",
+      "title": "Number roll",
+      "description": "Intl.NumberFormat options, e.g. { style: \"currency\", currency: \"USD\" }.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/number-roll.tsx",
           "type": "registry:ui"
         }
       ]
@@ -3712,6 +3761,7 @@
       "name": "range-slider",
       "type": "registry:ui",
       "title": "Range slider",
+      "description": "Two-thumb slider. Both value bubbles show while either thumb is dragged.",
       "dependencies": [],
       "registryDependencies": [
         "https://ui.minidev.pro/r/slider.json"
@@ -4330,6 +4380,7 @@
       "name": "slider",
       "type": "registry:ui",
       "title": "Slider",
+      "description": "Hairline rail, keycap thumb and a value bubble while you drag or tab to it.",
       "dependencies": [
         "@base-ui/react"
       ],
@@ -4730,9 +4781,11 @@
       "name": "switch",
       "type": "registry:ui",
       "title": "Switch",
-      "description": "Hairline track, raised thumb. The thumb travels on a spring;",
+      "description": "Hairline track with a raised thumb that leans on press, then springs across.",
       "dependencies": [
-        "@base-ui/react"
+        "@base-ui/react",
+        "lucide-react",
+        "motion"
       ],
       "registryDependencies": [],
       "files": [
@@ -4791,9 +4844,11 @@
       "name": "tabs",
       "type": "registry:ui",
       "title": "Tabs",
+      "description": "A raised thumb or accent underline that glides to the active tab.",
       "dependencies": [
         "@base-ui/react",
-        "class-variance-authority"
+        "class-variance-authority",
+        "motion"
       ],
       "registryDependencies": [],
       "files": [

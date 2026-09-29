@@ -388,6 +388,13 @@ export const GALLERY_ENTRIES: GalleryEntry[] = [
     "premium": false
   },
   {
+    "slug": "tabs",
+    "label": "Tabs",
+    "category": "navigation",
+    "description": "Gliding indicator",
+    "premium": false
+  },
+  {
     "slug": "tags-input",
     "label": "Tags",
     "category": "forms",
