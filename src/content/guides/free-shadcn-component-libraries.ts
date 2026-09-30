@@ -90,7 +90,7 @@ const guide: Guide = {
     { type: "h2", text: "5. MiniDev UI", id: "minidev-ui" },
     {
       type: "p",
-      text: "[MiniDev UI](https://ui.minidev.pro) is a shadcn-compatible registry of about 495 items: roughly 370 UI components, 82 motion components and 43 blocks and pages. Its focus is the screens products live in after launch: data tables, billing and invoices, settings, dashboards, command palettes, notification centers and AI chat surfaces. It is built on Base UI, Tailwind CSS v4 and motion, with semantic OKLCH tokens and a light-and-material system where one light source drives shadows and a `data-material` attribute switches between hairline, glass, metal and paper. Install one file with `npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or the whole kit from npm as `minidev-ui-kit`. It also publishes `llms.txt` for AI tools.",
+      text: "[MiniDev UI](https://ui.minidev.pro) is a shadcn-compatible registry of over 500 items: roughly 375 UI components, 86 motion components and 43 blocks and pages. Its focus is the screens products live in after launch: data tables, billing and invoices, settings, dashboards, command palettes, notification centers and AI chat surfaces. It is built on Base UI, Tailwind CSS v4 and motion, with semantic OKLCH tokens and a light-and-material system where one light source drives shadows and a `data-material` attribute switches between hairline, glass, metal and paper. Install one file with `npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or the whole kit from npm as `minidev-ui-kit`. It also publishes `llms.txt` for AI tools.",
     },
     {
       type: "p",

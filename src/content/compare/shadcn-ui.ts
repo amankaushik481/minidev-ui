@@ -15,7 +15,7 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "MIT" },
     {
       feature: "Scope",
-      minidev: "About 495 registry items: roughly 370 UI components, 82 motion components and 43 blocks and pages",
+      minidev: "Over 500 registry items: roughly 375 UI components, 86 motion components and 43 blocks and pages",
       other: "Core UI components, charts and a set of blocks; see the docs for the current list",
     },
     {
@@ -60,7 +60,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is one of those registries. Every item is a single file you can add with the shadcn CLI, or you can install the whole kit from npm as `minidev-ui-kit`. It is built on Base UI, Tailwind CSS v4 and motion, and it is also MIT. The difference is scope and look: about 495 items, most of them screens and parts of screens that product teams build over and over, drawn to one visual system.",
+      text: "MiniDev UI is one of those registries. Every item is a single file you can add with the shadcn CLI, or you can install the whole kit from npm as `minidev-ui-kit`. It is built on Base UI, Tailwind CSS v4 and motion, and it is also MIT. The difference is scope and look: over 500 items, most of them screens and parts of screens that product teams build over and over, drawn to one visual system.",
     },
     { type: "h2", text: "Where shadcn/ui shines", id: "where-shadcn-ui-shines" },
     {

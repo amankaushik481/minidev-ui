@@ -15,7 +15,7 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "Paid plans allow commercial use; see their license page for the free and paid terms" },
     {
       feature: "Scope",
-      minidev: "About 495 items: roughly 370 UI components, 82 motion components, 43 blocks and pages",
+      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
       other: "Animated components and effects (backgrounds, cards, text, 3D and scroll effects), plus premium blocks",
     },
     {
@@ -52,7 +52,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of about 495 items. Most of them are the screens a product team builds after launch: data tables, invoice lists, billing and settings pages, command palettes, notification centers, AI chat threads and prompt inputs. About 82 motion components cover the marketing side, and everything shares one set of semantic tokens so the app and the site match.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 items. Most of them are the screens a product team builds after launch: data tables, invoice lists, billing and settings pages, command palettes, notification centers, AI chat threads and prompt inputs. About 86 motion components cover the marketing side, and everything shares one set of semantic tokens so the app and the site match.",
     },
     { type: "h2", text: "Where Aceternity UI shines", id: "where-aceternity-ui-shines" },
     {

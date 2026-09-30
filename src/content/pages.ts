@@ -54,7 +54,7 @@ export const TEMPLATE_SEO: Record<string, { title: string; description: string; 
 export const PAGE_SEO = {
   home: {
     title: "MiniDev UI: Free React + Tailwind Components, Blocks and Templates",
-    description: "490+ free React and Tailwind CSS v4 components, landing page blocks and templates. shadcn-compatible, copy and own the code, light and dark, MIT licensed.",
+    description: "500+ free React and Tailwind CSS v4 components, landing page blocks and templates. shadcn-compatible, copy and own the code, light and dark, MIT licensed.",
   },
   docs: {
     title: "Docs: Install Free React Components with the shadcn CLI",
@@ -62,7 +62,7 @@ export const PAGE_SEO = {
   },
   gallery: {
     title: "Component Gallery: Every React Component in Every State",
-    description: "Browse 490+ free React and Tailwind components by category, rendered live with sample data in every state. Tables, billing, AI chat, auth, charts and more.",
+    description: "Browse 500+ free React and Tailwind components by category, rendered live with sample data in every state. Tables, billing, AI chat, auth, charts and more.",
   },
   templates: {
     title: "Free Website Templates for React and Tailwind: Live Demos",

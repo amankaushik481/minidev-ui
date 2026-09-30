@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRightIcon, LayersIcon, PaletteIcon, SparklesIcon, SunIcon } from "lucide-react"
+import { ArrowRightIcon, BlendIcon, ContrastIcon, LayersIcon, PaletteIcon, PipetteIcon, SparklesIcon, SunIcon, SwatchBookIcon, TypeIcon, WavesIcon } from "lucide-react"
 import { TOOLS } from "@/content/tools"
 import { PAGE_SEO } from "@/content/pages"
 import { ContentShell, Crumbs, StudioNote } from "@/components/seo/prose"
@@ -9,7 +9,7 @@ import { breadcrumbLd, graph, itemListLd, meta } from "@/lib/seo"
 
 export const metadata: Metadata = meta({ ...PAGE_SEO.tools, path: "/tools" })
 
-const ICONS: Record<string, typeof SunIcon> = { "box-shadow-generator": SunIcon, "glassmorphism-generator": LayersIcon, "oklch-palette-generator": PaletteIcon, "brand-kit-generator": SparklesIcon }
+const ICONS: Record<string, typeof SunIcon> = { "box-shadow-generator": SunIcon, "glassmorphism-generator": LayersIcon, "oklch-palette-generator": PaletteIcon, "brand-kit-generator": SparklesIcon, "shadcn-theme-generator": SwatchBookIcon, "hex-to-oklch": PipetteIcon, "contrast-checker": ContrastIcon, "fluid-type-calculator": TypeIcon, "mesh-gradient-generator": BlendIcon, "noise-texture-generator": WavesIcon }
 
 export default function ToolsIndex() {
   return (

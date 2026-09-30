@@ -10,7 +10,7 @@ function SplitProofPanel({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   const proofs: [string, string][] = [
     ["Gallery", "53 categorized routes"],
-    ["Registry", "490+ paste-ready items"],
+    ["Registry", "500+ paste-ready items"],
     ["Gate", "build + axe + shots"],
   ]
   return (

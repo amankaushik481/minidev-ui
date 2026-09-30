@@ -15,7 +15,7 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "Open source (see LICENSE.md in the repo); Pro has its own terms" },
     {
       feature: "Scope",
-      minidev: "About 495 items: roughly 370 UI components, 82 motion components, 43 blocks and pages",
+      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
       other: "150+ free animated components and effects: text animations, backgrounds, marquees, device mockups, buttons and more",
     },
     {
@@ -52,7 +52,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of about 495 items built on Base UI, Tailwind CSS v4 and motion. Its focus is the product: data tables, billing and invoice screens, settings layouts, command palettes, notification centers and AI chat surfaces, along with full-page blocks and about 82 motion components. All of it draws from one set of semantic tokens.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 items built on Base UI, Tailwind CSS v4 and motion. Its focus is the product: data tables, billing and invoice screens, settings layouts, command palettes, notification centers and AI chat surfaces, along with full-page blocks and about 86 motion components. All of it draws from one set of semantic tokens.",
     },
     { type: "h2", text: "Where Magic UI shines", id: "where-magic-ui-shines" },
     {

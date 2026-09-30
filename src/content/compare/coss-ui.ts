@@ -15,7 +15,7 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "Open source; check the cosscom/coss repository for the current license" },
     {
       feature: "Scope",
-      minidev: "About 495 items: roughly 370 UI components, 82 motion components, 43 blocks and pages",
+      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
       other: "Core UI components plus particles (ready made compositions); the classic Origin UI collection is still browsable at coss.com/origin",
     },
     {
@@ -52,7 +52,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of about 495 items, also built on Base UI, with Tailwind CSS v4 and motion. It covers core components and goes further into full product screens such as billing, settings, data tables and AI chat, plus page blocks and about 82 motion components.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 items, also built on Base UI, with Tailwind CSS v4 and motion. It covers core components and goes further into full product screens such as billing, settings, data tables and AI chat, plus page blocks and about 86 motion components.",
     },
     { type: "h2", text: "Where coss ui shines", id: "where-coss-ui-shines" },
     {

@@ -120,3 +120,71 @@ export function accentTokens(hex: string) {
     "--on-accent": onAccent,
   }
 }
+
+function hslToRgb(h: number, s: number, l: number): Rgb {
+  const k = (n: number) => (n + h / 30) % 12
+  const a = s * Math.min(l, 1 - l)
+  const f = (n: number) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
+  return [f(0), f(8), f(4)]
+}
+
+/** Parse hex, rgb(), hsl() or oklch() into OKLCH. Returns null for anything else. */
+export function parseColor(input: string): Oklch | null {
+  const s = input.trim().toLowerCase()
+  if (!s) return null
+  const hex = s.match(/^#?([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/)
+  if (hex) return hexToOklch("#" + hex[1].slice(0, hex[1].length === 8 ? 6 : hex[1].length))
+  const nums = (t: string) => t.split(/[\s,/]+/).filter(Boolean)
+  const fn = s.match(/^(rgba?|hsla?|oklch)\(([^)]*)\)$/)
+  if (!fn) return null
+  const p = nums(fn[2])
+  const val = (x: string, scale = 1) => (x.endsWith("%") ? (parseFloat(x) / 100) * scale : parseFloat(x))
+  if (fn[1].startsWith("rgb")) {
+    const [r, g, b] = p.slice(0, 3).map((x) => (x.endsWith("%") ? parseFloat(x) / 100 : parseFloat(x) / 255))
+    if ([r, g, b].some((v) => Number.isNaN(v))) return null
+    return rgbToOklch([r, g, b])
+  }
+  if (fn[1].startsWith("hsl")) {
+    const h = parseFloat(p[0])
+    const sat = val(p[1]) > 1 ? val(p[1]) / 100 : val(p[1])
+    const lig = val(p[2]) > 1 ? val(p[2]) / 100 : val(p[2])
+    if ([h, sat, lig].some((v) => Number.isNaN(v))) return null
+    return rgbToOklch(hslToRgb(h, sat, lig))
+  }
+  const l = p[0]?.endsWith("%") ? parseFloat(p[0]) / 100 : parseFloat(p[0])
+  const c = p[1]?.endsWith("%") ? (parseFloat(p[1]) / 100) * 0.4 : parseFloat(p[1])
+  const h = parseFloat(p[2] ?? "0")
+  if ([l, c].some((v) => Number.isNaN(v))) return null
+  return { l, c, h: Number.isNaN(h) ? 0 : h }
+}
+
+export const fmtHsl = (o: Oklch) => {
+  const [r, g, b] = oklchToRgb(o)
+  const max = Math.max(r, g, b), min = Math.min(r, g, b)
+  const l = (max + min) / 2
+  const d = max - min < 1e-4 ? 0 : max - min
+  let h = 0
+  const s = d === 0 ? 0 : d / (1 - Math.abs(2 * l - 1))
+  if (d) {
+    if (max === r) h = ((g - b) / d) % 6
+    else if (max === g) h = (b - r) / d + 2
+    else h = (r - g) / d + 4
+    h *= 60
+    if (h < 0) h += 360
+  }
+  return `hsl(${Math.round(h)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%)`
+}
+
+export const fmtRgb = (o: Oklch) => `rgb(${oklchToRgb(o).map((v) => Math.round(v * 255)).join(" ")})`
+
+/** Move lightness toward the needed direction until the pair reaches the target WCAG ratio. */
+export function fixContrast(fg: Oklch, bgHex: string, target = 4.5): Oklch | null {
+  const bgL = hexToOklch(bgHex)?.l ?? 1
+  const dir = bgL > 0.6 ? -1 : 1
+  let o = fg
+  for (let i = 0; i < 100; i++) {
+    if (contrast(oklchToHex(o), bgHex) >= target) return toGamut(o)
+    o = { ...o, l: Math.min(1, Math.max(0, o.l + dir * 0.01)) }
+  }
+  return null
+}
