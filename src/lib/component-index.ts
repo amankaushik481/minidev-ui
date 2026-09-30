@@ -4479,6 +4479,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<SplitButton\n  label=\"Save\"\n  items={[\n    { label: \"Save draft\" },\n    { label: \"Save and close\" },\n    { label: \"Discard\", destructive: true },\n  ]}\n/>"
   },
   {
+    "name": "split-flap",
+    "title": "SplitFlap",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/split-flap.tsx",
+    "import": "@/registry/ui/split-flap",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Pad or cut to this many cells."
+  },
+  {
     "name": "split-pane",
     "title": "SplitPane",
     "tier": "free",
@@ -5552,6 +5566,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "bento-live",
+    "title": "BentoLive",
+    "tier": "free",
+    "kind": "block",
+    "path": "src/registry/blocks/bento-live.tsx",
+    "import": "@/registry/blocks/bento-live",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "number-roll"
+    ],
+    "galleries": [],
+    "description": "Column span on large screens (of 6)."
+  },
+  {
     "name": "billing-page",
     "title": "BillingPage",
     "tier": "free",
@@ -5628,6 +5659,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "cta-band",
+    "title": "CtaBand",
+    "tier": "free",
+    "kind": "block",
+    "path": "src/registry/blocks/cta-band.tsx",
+    "import": "@/registry/blocks/cta-band",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": []
+  },
+  {
     "name": "dashboard-home",
     "title": "DashboardHome",
     "tier": "free",
@@ -5646,6 +5691,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "blocks"
     ],
     "usage": "<DashboardHome />"
+  },
+  {
+    "name": "device-frame",
+    "title": "DeviceFrame",
+    "tier": "free",
+    "kind": "block",
+    "path": "src/registry/blocks/device-frame.tsx",
+    "import": "@/registry/blocks/device-frame",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Browser only."
   },
   {
     "name": "docs-page",
@@ -5706,6 +5765,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<EngineeringConsole />"
   },
   {
+    "name": "faq-section",
+    "title": "FaqSection",
+    "tier": "free",
+    "kind": "block",
+    "path": "src/registry/blocks/faq-section.tsx",
+    "import": "@/registry/blocks/faq-section",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [],
+    "galleries": []
+  },
+  {
     "name": "feature-flags",
     "title": "FeatureFlags",
     "tier": "free",
@@ -5719,6 +5791,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "switch"
     ],
     "galleries": []
+  },
+  {
+    "name": "floating-nav",
+    "title": "FloatingNav",
+    "tier": "free",
+    "kind": "block",
+    "path": "src/registry/blocks/floating-nav.tsx",
+    "import": "@/registry/blocks/floating-nav",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "Sticky inside a scroll container instead of the viewport."
   },
   {
     "name": "form-wizard",
@@ -5735,6 +5824,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "stepper"
     ],
     "galleries": []
+  },
+  {
+    "name": "hero-spotlight",
+    "title": "HeroSpotlight",
+    "tier": "free",
+    "kind": "block",
+    "path": "src/registry/blocks/hero-spotlight.tsx",
+    "import": "@/registry/blocks/hero-spotlight",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "Second line of the title, lit by the cursor."
   },
   {
     "name": "inbox-page",
@@ -5841,6 +5947,24 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "pricing-plans",
+    "title": "PricingPlans",
+    "tier": "free",
+    "kind": "block",
+    "path": "src/registry/blocks/pricing-plans.tsx",
+    "import": "@/registry/blocks/pricing-plans",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [
+      "button",
+      "number-roll",
+      "segmented-control"
+    ],
+    "galleries": [],
+    "description": "Discount badge on the yearly option."
+  },
+  {
     "name": "project-detail",
     "title": "ProjectDetail",
     "tier": "free",
@@ -5905,6 +6029,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "scroll-story",
+    "title": "ScrollStory",
+    "tier": "free",
+    "kind": "block",
+    "path": "src/registry/blocks/scroll-story.tsx",
+    "import": "@/registry/blocks/scroll-story",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": []
+  },
+  {
     "name": "search-results-page",
     "title": "SearchResultsPage",
     "tier": "free",
@@ -5950,6 +6088,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "input",
       "social-auth-row"
     ],
+    "galleries": []
+  },
+  {
+    "name": "social-proof-wall",
+    "title": "SocialProofWall",
+    "tier": "free",
+    "kind": "block",
+    "path": "src/registry/blocks/social-proof-wall.tsx",
+    "import": "@/registry/blocks/social-proof-wall",
+    "deps": [],
+    "registryDeps": [],
     "galleries": []
   },
   {
@@ -6739,6 +6888,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-motion"
     ],
     "usage": "<LaunchCountdown />"
+  },
+  {
+    "name": "light-field",
+    "title": "LightField",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/light-field.tsx",
+    "import": "@/registry/premium/light-field",
+    "deps": [],
+    "registryDeps": [],
+    "galleries": []
   },
   {
     "name": "live-component-rail",

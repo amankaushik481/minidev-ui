@@ -1,6 +1,6 @@
 # MiniDev UI
 
-> 474 free, MIT-licensed React + Tailwind v4 components for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Hairline design language: 1px structure, semantic OKLCH tokens, light + dark from one token set.
+> 485 free, MIT-licensed React + Tailwind v4 components for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Hairline design language: 1px structure, semantic OKLCH tokens, light + dark from one token set.
 
 ## Install
 
@@ -17,7 +17,7 @@
 - Numbers are tabular (tabular-nums). Headings use negative tracking; body text does not.
 - Dark mode: add the `dark` class to <html>. Components never branch on theme.
 
-## Components (369)
+## Components (370)
 
 - [Accordion](https://ui.minidev.pro/docs/accordion): `import { Accordion } from "minidev-ui-kit/ui/accordion"`
 - [AccountSetupProgress](https://ui.minidev.pro/docs/account-setup-progress): `import { AccountSetupProgress } from "minidev-ui-kit/ui/account-setup-progress"`
@@ -318,6 +318,7 @@
 - [SparklineSet](https://ui.minidev.pro/docs/sparkline-set): `import { SparklineSet } from "minidev-ui-kit/ui/sparkline-set"`
 - [Spinner](https://ui.minidev.pro/docs/spinner): `import { Spinner } from "minidev-ui-kit/ui/spinner"`
 - [SplitButton](https://ui.minidev.pro/docs/split-button): `import { SplitButton } from "minidev-ui-kit/ui/split-button"`
+- [SplitFlap](https://ui.minidev.pro/docs/split-flap): `import { SplitFlap } from "minidev-ui-kit/ui/split-flap"` — Pad or cut to this many cells.
 - [SplitPane](https://ui.minidev.pro/docs/split-pane): `import { SplitPane } from "minidev-ui-kit/ui/split-pane"`
 - [SqlResultTable](https://ui.minidev.pro/docs/sql-result-table): `import { SqlResultTable } from "minidev-ui-kit/ui/sql-result-table"`
 - [SsoProviderCard](https://ui.minidev.pro/docs/sso-provider-card): `import { SsoProviderCard } from "minidev-ui-kit/ui/sso-provider-card"`
@@ -389,23 +390,29 @@
 - [WishlistButton](https://ui.minidev.pro/docs/wishlist-button): `import { WishlistButton } from "minidev-ui-kit/ui/wishlist-button"`
 - [WorkspaceCreate](https://ui.minidev.pro/docs/workspace-create): `import { WorkspaceCreate } from "minidev-ui-kit/ui/workspace-create"`
 
-## Blocks (34)
+## Blocks (43)
 
 - [AdminConsole](https://ui.minidev.pro/docs/admin-console): `import { AdminConsole } from "minidev-ui-kit/blocks/admin-console"`
 - [AdminOverview](https://ui.minidev.pro/docs/admin-overview): `import { AdminOverview } from "minidev-ui-kit/blocks/admin-overview"`
 - [AnalyticsPage](https://ui.minidev.pro/docs/analytics-page): `import { AnalyticsPage } from "minidev-ui-kit/blocks/analytics-page"`
 - [ApiDocsPage](https://ui.minidev.pro/docs/api-docs-page): `import { ApiDocsPage } from "minidev-ui-kit/blocks/api-docs-page"`
+- [BentoLive](https://ui.minidev.pro/docs/bento-live): `import { BentoLive } from "minidev-ui-kit/blocks/bento-live"` — Column span on large screens (of 6).
 - [BillingPage](https://ui.minidev.pro/docs/billing-page): `import { BillingPage } from "minidev-ui-kit/blocks/billing-page"`
 - [ChangelogPage](https://ui.minidev.pro/docs/changelog-page): `import { ChangelogPage } from "minidev-ui-kit/blocks/changelog-page"`
 - [ChatPage](https://ui.minidev.pro/docs/chat-page): `import { ChatPage } from "minidev-ui-kit/blocks/chat-page"`
 - [CommandCenter](https://ui.minidev.pro/docs/command-center): `import { CommandCenter } from "minidev-ui-kit/blocks/command-center"`
 - [CommerceCheckout](https://ui.minidev.pro/docs/commerce-checkout): `import { CommerceCheckout } from "minidev-ui-kit/blocks/commerce-checkout"`
+- [CtaBand](https://ui.minidev.pro/docs/cta-band): `import { CtaBand } from "minidev-ui-kit/blocks/cta-band"`
 - [DashboardHome](https://ui.minidev.pro/docs/dashboard-home): `import { DashboardHome } from "minidev-ui-kit/blocks/dashboard-home"`
+- [DeviceFrame](https://ui.minidev.pro/docs/device-frame): `import { DeviceFrame } from "minidev-ui-kit/blocks/device-frame"` — Browser only.
 - [DocsPage](https://ui.minidev.pro/docs/docs-page): `import { DocsPage } from "minidev-ui-kit/blocks/docs-page"`
 - [EmptyWorkspace](https://ui.minidev.pro/docs/empty-workspace): `import { EmptyWorkspace } from "minidev-ui-kit/blocks/empty-workspace"`
 - [EngineeringConsole](https://ui.minidev.pro/docs/engineering-console): `import { EngineeringConsole } from "minidev-ui-kit/blocks/engineering-console"`
+- [FaqSection](https://ui.minidev.pro/docs/faq-section): `import { FaqSection } from "minidev-ui-kit/blocks/faq-section"`
 - [FeatureFlags](https://ui.minidev.pro/docs/feature-flags): `import { FeatureFlags } from "minidev-ui-kit/blocks/feature-flags"`
+- [FloatingNav](https://ui.minidev.pro/docs/floating-nav): `import { FloatingNav } from "minidev-ui-kit/blocks/floating-nav"` — Sticky inside a scroll container instead of the viewport.
 - [FormWizard](https://ui.minidev.pro/docs/form-wizard): `import { FormWizard } from "minidev-ui-kit/blocks/form-wizard"`
+- [HeroSpotlight](https://ui.minidev.pro/docs/hero-spotlight): `import { HeroSpotlight } from "minidev-ui-kit/blocks/hero-spotlight"` — Second line of the title, lit by the cursor.
 - [InboxPage](https://ui.minidev.pro/docs/inbox-page): `import { InboxPage } from "minidev-ui-kit/blocks/inbox-page"`
 - [LogsViewer](https://ui.minidev.pro/docs/logs-viewer): `import { LogsViewer } from "minidev-ui-kit/blocks/logs-viewer"`
 - [MarketingLanding](https://ui.minidev.pro/docs/marketing-landing): `import { MarketingLanding } from "minidev-ui-kit/blocks/marketing-landing"`
@@ -413,20 +420,23 @@
 - [NotificationCenter](https://ui.minidev.pro/docs/notification-center): `import { NotificationCenter } from "minidev-ui-kit/blocks/notification-center"`
 - [OnboardingFlow](https://ui.minidev.pro/docs/onboarding-flow): `import { OnboardingFlow } from "minidev-ui-kit/blocks/onboarding-flow"`
 - [PremiumLanding](https://ui.minidev.pro/docs/premium-landing): `import { PremiumLanding } from "minidev-ui-kit/blocks/premium-landing"`
+- [PricingPlans](https://ui.minidev.pro/docs/pricing-plans): `import { PricingPlans } from "minidev-ui-kit/blocks/pricing-plans"` — Discount badge on the yearly option.
 - [ProjectDetail](https://ui.minidev.pro/docs/project-detail): `import { ProjectDetail } from "minidev-ui-kit/blocks/project-detail"`
 - [ProjectList](https://ui.minidev.pro/docs/project-list): `import { ProjectList } from "minidev-ui-kit/blocks/project-list"`
 - [ReportBuilder](https://ui.minidev.pro/docs/report-builder): `import { ReportBuilder } from "minidev-ui-kit/blocks/report-builder"`
 - [SaasMarketingPage](https://ui.minidev.pro/docs/saas-marketing-page): `import { SaasMarketingPage } from "minidev-ui-kit/blocks/saas-marketing-page"`
+- [ScrollStory](https://ui.minidev.pro/docs/scroll-story): `import { ScrollStory } from "minidev-ui-kit/blocks/scroll-story"`
 - [SearchResultsPage](https://ui.minidev.pro/docs/search-results-page): `import { SearchResultsPage } from "minidev-ui-kit/blocks/search-results-page"`
 - [SettingsPage](https://ui.minidev.pro/docs/settings-page): `import { SettingsPage } from "minidev-ui-kit/blocks/settings-page"`
 - [SignInPage](https://ui.minidev.pro/docs/sign-in-page): `import { SignInPage } from "minidev-ui-kit/blocks/sign-in-page"`
+- [SocialProofWall](https://ui.minidev.pro/docs/social-proof-wall): `import { SocialProofWall } from "minidev-ui-kit/blocks/social-proof-wall"`
 - [StatusPage](https://ui.minidev.pro/docs/status-page): `import { StatusPage } from "minidev-ui-kit/blocks/status-page"`
 - [SupportInbox](https://ui.minidev.pro/docs/support-inbox): `import { SupportInbox } from "minidev-ui-kit/blocks/support-inbox"`
 - [UserDetail](https://ui.minidev.pro/docs/user-detail): `import { UserDetail } from "minidev-ui-kit/blocks/user-detail"`
 - [UsersTablePage](https://ui.minidev.pro/docs/users-table-page): `import { UsersTablePage } from "minidev-ui-kit/blocks/users-table-page"`
 - [WorkflowBoard](https://ui.minidev.pro/docs/workflow-board): `import { WorkflowBoard } from "minidev-ui-kit/blocks/workflow-board"`
 
-## Motion (71)
+## Motion (72)
 
 - [AgencyPortfolio](https://ui.minidev.pro/docs/agency-portfolio): `import { AgencyPortfolio } from "minidev-ui-kit/premium/agency-portfolio"`
 - [AnimatedFeatureRow](https://ui.minidev.pro/docs/animated-feature-row): `import { AnimatedFeatureRow } from "minidev-ui-kit/premium/animated-feature-row"`
@@ -466,6 +476,7 @@
 - [HorizontalProductRail](https://ui.minidev.pro/docs/horizontal-product-rail): `import { HorizontalProductRail } from "minidev-ui-kit/premium/horizontal-product-rail"`
 - [InvestorUpdate](https://ui.minidev.pro/docs/investor-update): `import { InvestorUpdate } from "minidev-ui-kit/premium/investor-update"`
 - [LaunchCountdown](https://ui.minidev.pro/docs/launch-countdown): `import { LaunchCountdown } from "minidev-ui-kit/premium/launch-countdown"`
+- [LightField](https://ui.minidev.pro/docs/light-field): `import { LightField } from "minidev-ui-kit/premium/light-field"`
 - [LiveComponentRail](https://ui.minidev.pro/docs/live-component-rail): `import { LiveComponentRail } from "minidev-ui-kit/premium/live-component-rail"`
 - [LogoWallMotion](https://ui.minidev.pro/docs/logo-wall-motion): `import { LogoWallMotion } from "minidev-ui-kit/premium/logo-wall-motion"`
 - [MagneticCta](https://ui.minidev.pro/docs/magnetic-cta): `import { MagneticCta } from "minidev-ui-kit/premium/magnetic-cta"`
