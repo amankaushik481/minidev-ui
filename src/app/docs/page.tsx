@@ -11,11 +11,13 @@ import { Switch } from "@/registry/ui/switch"
 import { Checkbox } from "@/registry/ui/checkbox"
 import { StatusBadge } from "@/registry/ui/status-badge"
 import { DocsH2, DocsShell, Tabbed } from "./_components/docs-shell"
+import { CATEGORIES } from "@/content/categories"
 import { useTheme } from "@/components/theme-toggle"
 
 const TOC = [
   { id: "introduction", label: "Introduction" },
   { id: "installation", label: "Installation" },
+  { id: "browse", label: "Browse by category" },
   { id: "usage", label: "Usage" },
   { id: "theming", label: "Theming" },
   { id: "dark-mode", label: "Dark mode" },
@@ -110,7 +112,7 @@ export default function DocsPage() {
       <article className="max-w-3xl">
         <section id="introduction" className="scroll-mt-24">
           <p className="font-mono text-[11px] tracking-[0.08em] text-accent-fg uppercase">Getting started</p>
-          <h1 className="mt-3 text-4xl font-medium tracking-[-0.035em] text-fg sm:text-5xl">Introduction</h1>
+          <h1 className="mt-3 text-4xl font-medium tracking-[-0.035em] text-fg sm:text-5xl">Get started with MiniDev UI</h1>
           <p className="mt-5 text-[1.0625rem] leading-[1.7] text-fg-muted">
             MiniDev UI is a free collection of {COMPONENT_INDEX.length} React components for the parts of a product people spend their day in: tables,
             forms, billing, settings, dashboards and AI chat. They are built on Tailwind CSS v4 and Base UI, drawn to one design language, and
@@ -174,6 +176,21 @@ export default function DocsPage() {
             filename="app/globals.css"
             code={`@import "tailwindcss";\n@import "${SITE.npmPackage}/styles.css";\n\n/* Let Tailwind see the classes inside the package */\n@source "../node_modules/${SITE.npmPackage}";`}
           />
+        </section>
+
+        <section className="mt-16 space-y-5">
+          <DocsH2 id="browse">Browse by category</DocsH2>
+          <p className="text-[0.9375rem] leading-[1.7] text-fg-muted">Every component lives in one category hub with install commands, notes and answers to common questions.</p>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {CATEGORIES.map((c) => (
+              <Link key={c.id} href={`/components/${c.id}`} className="rounded-lg border border-border bg-surface px-3 py-2 text-[0.8125rem] text-fg shadow-key outline-none hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
+                {c.label}
+              </Link>
+            ))}
+          </div>
+          <p className="text-[0.875rem] text-fg-muted">
+            New to the stack? Start with the <Link href="/guides/shadcn-custom-registry" className="text-accent-fg underline decoration-accent-line underline-offset-4">custom shadcn registry guide</Link> or build a <Link href="/guides/nextjs-landing-page" className="text-accent-fg underline decoration-accent-line underline-offset-4">landing page in Next.js</Link>.
+          </p>
         </section>
 
         <section className="mt-16 space-y-5">

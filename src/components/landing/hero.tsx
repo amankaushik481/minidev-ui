@@ -313,8 +313,9 @@ export function Hero() {
           </motion.h1>
 
           <motion.p {...rise(reduce, 0.16)} className="mt-6 max-w-2xl text-[1.0625rem] leading-[1.6] text-pretty text-fg-muted sm:text-lg">
-            One light crosses the page and all {COUNTS.total} components catch it: shadows swing, glass frosts, metal glints. Pick a
-            material and the whole kit changes with it. Free, MIT, React&nbsp;+&nbsp;Tailwind.
+            One light crosses the page and all {COUNTS.total} free React components catch it: shadows swing, glass frosts, metal glints.
+            Pick a material and the whole kit changes with it. Blocks, templates and brand kits included. MIT, Tailwind&nbsp;CSS&nbsp;v4,
+            shadcn-compatible.
           </motion.p>
 
           <motion.div {...rise(reduce, 0.24)} className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row sm:items-center">

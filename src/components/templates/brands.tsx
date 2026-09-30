@@ -20,11 +20,11 @@ export type Brand = {
   palette: { token: string; name: string; role: string }[]
 }
 
-const GEIST = "var(--font-geist-sans), ui-sans-serif, system-ui"
-const MONO = "var(--font-geist-mono), ui-monospace, monospace"
-const SERIF = `"Instrument Serif", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif`
+export const GEIST = "var(--font-geist-sans), ui-sans-serif, system-ui"
+export const MONO = "var(--font-geist-mono), ui-monospace, monospace"
+export const SERIF = `"Instrument Serif", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif`
 
-const base = (accentName: string, twoName: string) => [
+export const base = (accentName: string, twoName: string) => [
   { token: "--accent", name: accentName, role: "Actions, links, focus. About 10% of any screen." },
   { token: "--accent-2", name: twoName, role: "Gradients and charts only, next to the accent." },
   { token: "--ink", name: "Ink", role: "Primary buttons, headlines on light." },
@@ -34,7 +34,7 @@ const base = (accentName: string, twoName: string) => [
 ]
 
 /* The mark scales with whatever box it is placed in (container query units). */
-const Tile = ({ children, round }: { children: React.ReactNode; round?: boolean }) => (
+export const Tile = ({ children, round }: { children: React.ReactNode; round?: boolean }) => (
   <span style={{ containerType: "size" }} className={`grid size-full place-items-center bg-accent text-on-accent shadow-[inset_0_1px_0_oklch(1_0_0/0.25)] ${round ? "rounded-full" : "rounded-[22%]"}`}>
     <span style={{ fontSize: "52cqh", lineHeight: 1 }} className="grid size-full place-items-center font-semibold tracking-[-0.06em]">{children}</span>
   </span>

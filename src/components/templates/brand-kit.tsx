@@ -30,7 +30,7 @@ function toHex(color: string) {
   }
 }
 
-function useTokens(ref: React.RefObject<HTMLElement | null>, tokens: string[]) {
+function useTokens(ref: React.RefObject<HTMLElement | null>, tokens: string[], refresh?: string) {
   const [vals, setVals] = React.useState<Record<string, { raw: string; hex: string }>>({})
   React.useEffect(() => {
     const read = () => {
@@ -48,7 +48,7 @@ function useTokens(ref: React.RefObject<HTMLElement | null>, tokens: string[]) {
     const mo = new MutationObserver(read)
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "data-material"] })
     return () => mo.disconnect()
-  }, [ref, tokens.join()]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [ref, tokens.join(), refresh]) // eslint-disable-line react-hooks/exhaustive-deps
   return vals
 }
 
@@ -171,10 +171,11 @@ function Applications({ brand }: { brand: Brand }) {
   )
 }
 
-export function BrandKit({ brand, back }: { brand: Brand; back: { href: string; label: string } }) {
+export function BrandKit({ brand, back, refresh, embedded }: { brand: Brand; back: { href: string; label: string }; /** Change to re-read tokens after the parent restyles. */ refresh?: string; /** Inside another page: the wordmark becomes an h2. */ embedded?: boolean }) {
+  const Title = embedded ? "h2" : "h1"
   const ref = React.useRef<HTMLDivElement>(null)
   const extra = ["--success", "--warning", "--danger", "--info", "--on-accent", "--border", "--fg"]
-  const vals = useTokens(ref, [...brand.palette.map((p) => p.token), ...extra])
+  const vals = useTokens(ref, [...brand.palette.map((p) => p.token), ...extra], refresh)
   React.useEffect(() => {
     const el = document.documentElement
     const prev = el.getAttribute("data-material")
@@ -217,9 +218,9 @@ export function BrandKit({ brand, back }: { brand: Brand; back: { href: string; 
         <div className="mx-auto grid max-w-7xl items-end gap-12 px-4 pt-20 pb-20 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8 lg:pt-28">
           <div>
             <p className="font-mono text-[12px] tracking-[0.14em] text-fg-muted uppercase">Brand kit · v1.0 · {brand.kind}</p>
-            <h1 className="mt-5 text-[4rem] leading-[0.9] text-fg sm:text-[7rem] lg:text-[9rem]" style={{ fontFamily: brand.display.css, letterSpacing: "-0.05em" }}>
+            <Title className="mt-5 text-[4rem] leading-[0.9] text-fg sm:text-[7rem] lg:text-[9rem]" style={{ fontFamily: brand.display.css, letterSpacing: "-0.05em" }}>
               {brand.wordmark}
-            </h1>
+            </Title>
             <p className="mt-6 max-w-xl text-xl leading-[1.5] text-fg-muted">{brand.tagline}</p>
           </div>
           <div className="size-28 shadow-overlay [border-radius:22%] sm:size-52" style={{ transform: "rotate(-6deg) translate3d(calc(var(--sx) * -6px), calc(var(--sy) * -6px), 0)" }}>
@@ -238,11 +239,11 @@ export function BrandKit({ brand, back }: { brand: Brand; back: { href: string; 
             ].map((v) => (
               <figure key={v.label}>
                 <div
-                  className={cn("grid aspect-[16/9] place-items-center rounded-3xl shadow-raised md:aspect-[4/3]", v.bg)}
+                  className={cn("grid aspect-[16/9] place-items-center rounded-3xl shadow-raised [container-type:inline-size] md:aspect-[4/3]", v.bg)}
                   style={v.label === "On accent" && vals["--accent"]?.raw ? ({ "--accent": vals["--on-accent"]?.raw, "--on-accent": vals["--accent"]?.raw, background: vals["--accent"]?.raw, color: vals["--on-accent"]?.raw } as React.CSSProperties) : undefined}
                 >
-                  <span className={cn("flex items-center gap-3 text-4xl", v.fg)}>
-                    <span className="size-12">{brand.mark}</span>
+                  <span className={cn("flex max-w-[88%] items-center gap-[0.35em] whitespace-nowrap", v.fg)} style={{ fontSize: "min(2.25rem, 9cqw)" }}>
+                    <span className="size-[1.35em] shrink-0">{brand.mark}</span>
                     <span style={{ fontFamily: brand.display.css }}>{brand.wordmark}</span>
                   </span>
                 </div>

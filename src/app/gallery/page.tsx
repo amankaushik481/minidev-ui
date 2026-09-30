@@ -19,6 +19,11 @@ export default function GalleryIndex() {
   const inputRef = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
+    const initial = new URLSearchParams(window.location.search).get("q")
+    if (initial) setQ(initial)
+  }, [])
+
+  React.useEffect(() => {
     const on = (e: KeyboardEvent) => {
       if (e.key === "/" && document.activeElement?.tagName !== "INPUT") {
         e.preventDefault()

@@ -34,6 +34,32 @@ function pkgName(spec) {
   return spec.split("/")[0]
 }
 
+
+/** Hand-written SEO copy lives in TS content files; read what the llms files need with light regexes. */
+async function readContentMeta() {
+  const seo = {}
+  const seoDir = path.join(root, "src/content/component-seo")
+  for (const f of (await readdir(seoDir).catch(() => [])).filter((f) => /^part-\d+\.ts$/.test(f))) {
+    const src = await readFile(path.join(seoDir, f), "utf8")
+    for (const m of src.matchAll(/^\s*"?([a-z0-9-]+)"?:\s*\{\s*\n\s*description:\s*\n?\s*"((?:[^"\\]|\\.)*)"/gm)) seo[m[1]] = m[2]
+  }
+  const docs = async (dir) => {
+    const d = path.join(root, "src/content", dir)
+    const out = []
+    for (const f of (await readdir(d).catch(() => [])).filter((f) => f.endsWith(".ts") && f !== "index.ts")) {
+      const src = await readFile(path.join(d, f), "utf8")
+      const slug = src.match(/slug:\s*"([^"]+)"/)?.[1]
+      const title = src.match(/title:\s*\n?\s*"([^"]+)"/)?.[1]
+      const description = src.match(/description:\s*\n?\s*"([^"]+)"/)?.[1]
+      if (slug && title) out.push({ slug, title, description })
+    }
+    return out
+  }
+  const cats = [...(await readFile(path.join(root, "src/content/categories.ts"), "utf8").catch(() => "")).matchAll(/id:\s*"([a-z-]+)",\s*\n\s*label:\s*"([^"]+)",\s*\n\s*h1:\s*"([^"]+)"/g)].map((m) => ({ id: m[1], label: m[2], h1: m[3] }))
+  const tools = [...(await readFile(path.join(root, "src/content/tools.ts"), "utf8").catch(() => "")).matchAll(/slug:\s*"([a-z-]+)",\s*\n\s*name:\s*"([^"]+)"/g)].map((m) => ({ slug: m[1], name: m[2] }))
+  return { seo, guides: await docs("guides"), compare: await docs("compare"), cats, tools }
+}
+
 async function collect() {
   const items = []
   for (const k of KINDS) {
@@ -237,10 +263,14 @@ ${items.map((it) => `  ${JSON.stringify(it.name)}: () => import(${JSON.stringify
 - Numbers are tabular (tabular-nums). Headings use negative tracking; body text does not.
 - Dark mode: add the \`dark\` class to <html>. Components never branch on theme.
 `
+  const content = await readContentMeta()
   const list = (k) =>
     items
       .filter((i) => i.kind === k)
-      .map((i) => `- [${i.title}](${SITE}/docs/${i.name}): \`import { ${i.title} } from "minidev-ui-kit/${i.dir}/${i.name}"\`${i.description ? ` — ${i.description}` : ""}`)
+      .map((i) => {
+        const d = content.seo[i.name] ?? i.description
+        return `- [${i.title}](${SITE}/docs/${i.name}): \`npx shadcn@latest add ${SITE}/r/${i.name}.json\`${d ? `. ${d}` : ""}`
+      })
       .join("\n")
   const short = `${header}
 ## Docs
@@ -249,6 +279,27 @@ ${items.map((it) => `  ${JSON.stringify(it.name)}: () => import(${JSON.stringify
 - [All components](${SITE}/gallery)
 - [Full index for LLMs](${SITE}/llms-full.txt)
 - [Registry index](${SITE}/r/registry.json)
+- [Templates (live demos)](${SITE}/templates)
+
+## Components by category
+
+${content.cats.map((c) => `- [${c.h1}](${SITE}/components/${c.id})`).join("\n")}
+
+## Guides
+
+${content.guides.map((g) => `- [${g.title}](${SITE}/guides/${g.slug})${g.description ? `: ${g.description}` : ""}`).join("\n")}
+
+## Free tools
+
+${content.tools.map((t) => `- [${t.name}](${SITE}/tools/${t.slug})`).join("\n")}
+
+## Comparisons
+
+${content.compare.map((c) => `- [${c.title}](${SITE}/compare/${c.slug})`).join("\n")}
+
+## Studio
+
+- [MiniDev](https://minidev.pro): the studio behind MiniDev UI. Designs and builds MVPs, web apps, mobile apps and websites, starting with a free 48 hour prototype. Contact: ${"aman@minidev.pro"}.
 `
   const full = `${header}
 ## Components (${items.filter((i) => i.kind === "ui").length})

@@ -158,16 +158,36 @@ const FOOTER = [
     title: "Library",
     links: [
       { href: "/docs", label: "Getting started" },
-      { href: "/gallery", label: "Components" },
+      { href: "/gallery", label: "Component gallery" },
+      { href: "/components", label: "Browse by category" },
       { href: "/gallery/blocks", label: "Blocks" },
       { href: "/gallery/premium-motion", label: "Motion" },
+      { href: "/templates", label: "Templates" },
       { href: "/playground", label: "Theme playground" },
     ],
   },
   {
-    title: "Resources",
+    title: "Popular",
     links: [
-      { href: "/showcase", label: "Showcase" },
+      { href: "/components/forms", label: "Form components" },
+      { href: "/components/data-tables", label: "Data tables" },
+      { href: "/components/charts", label: "Charts" },
+      { href: "/components/ai-chat", label: "AI chat UI" },
+      { href: "/components/billing", label: "Pricing and billing" },
+      { href: "/components/dashboard", label: "Dashboards" },
+      { href: "/components/marketing", label: "Landing page blocks" },
+      { href: "/components/auth", label: "Login and signup" },
+    ],
+  },
+  {
+    title: "Learn",
+    links: [
+      { href: "/guides", label: "Guides" },
+      { href: "/tools", label: "Free tools" },
+      { href: "/tools/box-shadow-generator", label: "Box shadow generator" },
+      { href: "/tools/oklch-palette-generator", label: "OKLCH palette generator" },
+      { href: "/compare", label: "Compare libraries" },
+      { href: "/brand", label: "Brand kit" },
       { href: "/llms.txt", label: "llms.txt" },
       { href: SITE.npm, label: "npm package", external: true },
     ],
@@ -175,9 +195,10 @@ const FOOTER = [
   {
     title: "Studio",
     links: [
+      { href: "/studio", label: "Hire MiniDev" },
       { href: SITE.studio.url, label: "minidev.pro", external: true },
-      { href: SITE.studio.url, label: "Free 48h prototype", external: true },
-      { href: SITE.studio.url, label: "MVP in 30 days", external: true },
+      { href: "/studio#prototype", label: "Free 48h prototype" },
+      { href: "/tools/brand-kit-generator", label: "Brand kit generator" },
     ],
   },
 ]
@@ -205,7 +226,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div className="col-span-2 max-w-xs lg:col-span-1">
             <Logo />
             <p className="mt-4 text-[0.8125rem] leading-[1.6] text-fg-muted">
@@ -260,4 +281,4 @@ export function SiteFooter() {
   )
 }
 
-const COMPONENT_COUNT_LABEL = "460+"
+const COMPONENT_COUNT_LABEL = SITE.countLabel

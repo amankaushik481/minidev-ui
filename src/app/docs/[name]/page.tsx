@@ -12,6 +12,8 @@ import { cn } from "@/lib/utils"
 import { CodeBlock } from "@/registry/ui/code-block"
 import { Skeleton } from "@/registry/ui/skeleton"
 import { DocsH2, DocsShell, Tabbed, humanize } from "../_components/docs-shell"
+import { componentCopy } from "@/lib/seo-routes"
+import { componentsInCategory } from "@/content/component-seo"
 
 class PreviewBoundary extends React.Component<{ fallback: React.ReactNode; children: React.ReactNode }, { failed: boolean }> {
   state = { failed: false }
@@ -94,6 +96,15 @@ export default function ComponentDocsPage() {
   const pkgPath = entry.import.replace("@/registry/", `${SITE.npmPackage}/`)
   const galleries = entry.galleries.map((s) => GALLERY_ENTRIES.find((g) => g.slug === s)).filter(Boolean) as typeof GALLERY_ENTRIES
   const kindLabel = entry.kind === "ui" ? "Component" : entry.kind === "block" ? "Block" : "Motion"
+  const copy = componentCopy(entry)
+  const related = copy.category
+    ? componentsInCategory(copy.category.id)
+        .filter((n) => n !== entry.name)
+        .map((n) => COMPONENT_INDEX.find((c) => c.name === n))
+        .filter((c): c is (typeof COMPONENT_INDEX)[number] => Boolean(c))
+        .sort((a, b) => Number(b.kind === entry.kind) - Number(a.kind === entry.kind))
+        .slice(0, 6)
+    : []
 
   const fallback = (
     <div className="max-w-sm text-center">
@@ -159,6 +170,7 @@ export default function ComponentDocsPage() {
     { id: "usage", label: "Usage" },
     ...(entry.registryDeps.length || entry.deps.length ? [{ id: "dependencies", label: "Dependencies" }] : []),
     ...(galleries.length ? [{ id: "examples", label: "Examples" }] : []),
+    ...(related.length ? [{ id: "related", label: "Related" }] : []),
   ]
 
   return (
@@ -167,7 +179,13 @@ export default function ComponentDocsPage() {
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-fg-subtle">
           <Link href="/docs" className="hover:text-fg">Docs</Link>
           <span>/</span>
-          <span>{kindLabel === "Component" ? "Components" : kindLabel === "Block" ? "Blocks" : "Motion"}</span>
+          {copy.category ? (
+            <Link href={`/components/${copy.category.id}`} className="hover:text-fg">{copy.category.label}</Link>
+          ) : (
+            <span>{kindLabel === "Component" ? "Components" : kindLabel === "Block" ? "Blocks" : "Motion"}</span>
+          )}
+          <span>/</span>
+          <span className="text-fg-muted">{humanize(entry.title)}</span>
         </nav>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <h1 className="text-4xl font-medium tracking-[-0.035em] text-fg">{humanize(entry.title)}</h1>
@@ -178,7 +196,7 @@ export default function ComponentDocsPage() {
           ) : null}
         </div>
         <p className="mt-3 max-w-2xl text-[1.0625rem] leading-[1.65] text-fg-muted">
-          {entry.description ?? `${humanize(entry.title)}, drawn to the hairline standard. One file, semantic tokens, light and dark.`}
+          {copy.description}
         </p>
         <div className="mt-5 flex flex-wrap items-center gap-2 text-xs">
           <span className="rounded-md border border-border bg-surface px-2 py-1 font-mono text-fg-muted shadow-xs">{entry.path}</span>
@@ -261,6 +279,25 @@ export default function ComponentDocsPage() {
                 </Link>
               ))}
             </div>
+          </section>
+        ) : null}
+
+        {related.length ? (
+          <section className="mt-14 space-y-5">
+            <DocsH2 id="related">Related {copy.category ? copy.category.label.toLowerCase() : ""} components</DocsH2>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {related.map((r) => (
+                <Link key={r.name} href={`/docs/${r.name}`} className="group rounded-xl border border-border bg-surface px-4 py-3 shadow-raised outline-none transition-[border-color] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
+                  <span className="block text-[0.875rem] font-medium text-fg">{humanize(r.title)}</span>
+                  <span className="mt-0.5 line-clamp-2 block text-xs leading-[1.5] text-fg-muted">{componentCopy(r).description}</span>
+                </Link>
+              ))}
+            </div>
+            {copy.category ? (
+              <Link href={`/components/${copy.category.id}`} className="inline-flex items-center gap-1 text-[0.8125rem] font-medium text-fg hover:underline">
+                All {copy.category.h1.replace(/^React /, "")} <ArrowRightIcon className="size-3.5" />
+              </Link>
+            ) : null}
           </section>
         ) : null}
 
