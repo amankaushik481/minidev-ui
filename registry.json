@@ -427,6 +427,22 @@
       ]
     },
     {
+      "name": "back-to-top",
+      "type": "registry:ui",
+      "title": "Back to top",
+      "description": "A back to top button that appears after the reader scrolls, with a ring",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/back-to-top.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "badge",
       "type": "registry:ui",
       "title": "Badge",
@@ -469,6 +485,22 @@
       "files": [
         {
           "path": "src/registry/ui/bar-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "bento-grid",
+      "type": "registry:ui",
+      "title": "Bento grid",
+      "description": "A responsive bento grid: tiles of different spans on a six column grid",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/bento-grid.tsx",
           "type": "registry:ui"
         }
       ]
@@ -2292,6 +2324,23 @@
       ]
     },
     {
+      "name": "infinite-scroll",
+      "type": "registry:ui",
+      "title": "Infinite scroll",
+      "description": "Loads more items when a sentinel near the end of the list scrolls into",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/spinner.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/infinite-scroll.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "inline-alert",
       "type": "registry:ui",
       "title": "Inline alert",
@@ -2800,6 +2849,20 @@
       "files": [
         {
           "path": "src/registry/ui/marquee.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "masonry-grid",
+      "type": "registry:ui",
+      "title": "Masonry grid",
+      "description": "A masonry layout that keeps source order: a CSS grid with tiny rows where",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/masonry-grid.tsx",
           "type": "registry:ui"
         }
       ]
@@ -3335,6 +3398,24 @@
       "files": [
         {
           "path": "src/registry/ui/password-input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "password-strength",
+      "type": "registry:ui",
+      "title": "Password strength",
+      "description": "A password field with a four segment strength meter and a live checklist",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/password-input.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/password-strength.tsx",
           "type": "registry:ui"
         }
       ]
@@ -4337,6 +4418,24 @@
       ]
     },
     {
+      "name": "signature-pad",
+      "type": "registry:ui",
+      "title": "Signature pad",
+      "description": "A signature field drawn with pointer events on a canvas: smooth",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/signature-pad.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "skeleton",
       "type": "registry:ui",
       "title": "Skeleton",
@@ -4433,6 +4532,23 @@
       "files": [
         {
           "path": "src/registry/ui/sortable-header.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sortable-list",
+      "type": "registry:ui",
+      "title": "Sortable list",
+      "description": "A drag to reorder list built on Motion's Reorder: grab the handle to",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/sortable-list.tsx",
           "type": "registry:ui"
         }
       ]
@@ -6314,6 +6430,23 @@
       ]
     },
     {
+      "name": "animated-beam",
+      "type": "registry:component",
+      "title": "Animated beam",
+      "description": "Light that travels along curved paths between elements: sources on the",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/animated-beam.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "animated-feature-row",
       "type": "registry:component",
       "title": "Animated feature row",
@@ -6324,6 +6457,39 @@
       "files": [
         {
           "path": "src/registry/premium/animated-feature-row.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "animated-list",
+      "type": "registry:component",
+      "title": "Animated list",
+      "description": "A live feed where new items drop in at the top with a spring and older",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/animated-list.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "animated-tabs",
+      "type": "registry:component",
+      "title": "Animated tabs",
+      "description": "Tabs with a pill that slides between triggers and panels that cross",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/animated-tabs.tsx",
           "type": "registry:ui"
         }
       ]
@@ -6355,6 +6521,22 @@
       "files": [
         {
           "path": "src/registry/premium/blog-home.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "border-beam",
+      "type": "registry:component",
+      "title": "Border beam",
+      "description": "A short beam of light that travels around the border of any box. Wrap a",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/border-beam.tsx",
           "type": "registry:ui"
         }
       ]
@@ -6495,6 +6677,23 @@
       ]
     },
     {
+      "name": "confetti-button",
+      "type": "registry:component",
+      "title": "Confetti button",
+      "description": "A button that bursts confetti from itself on click: a few dozen paper",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/confetti-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "contact-sales",
       "type": "registry:component",
       "title": "Contact sales",
@@ -6566,6 +6765,23 @@
       ]
     },
     {
+      "name": "dock",
+      "type": "registry:component",
+      "title": "Dock",
+      "description": "A macOS style dock: icons swell as the pointer passes over them and ease",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/dock.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "docs-marketing",
       "type": "registry:component",
       "title": "Docs marketing",
@@ -6583,6 +6799,22 @@
       "files": [
         {
           "path": "src/registry/premium/docs-marketing.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dot-pattern",
+      "type": "registry:component",
+      "title": "Dot pattern",
+      "description": "A background of dots or grid lines drawn as one SVG pattern, faded at the",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/dot-pattern.tsx",
           "type": "registry:ui"
         }
       ]
@@ -6716,6 +6948,22 @@
       "files": [
         {
           "path": "src/registry/premium/free-premium-compare.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "gradient-text",
+      "type": "registry:component",
+      "title": "Gradient text",
+      "description": "Headline text filled with a slowly drifting gradient built from the accent",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/gradient-text.tsx",
           "type": "registry:ui"
         }
       ]
@@ -7122,6 +7370,23 @@
       ]
     },
     {
+      "name": "orbiting-circles",
+      "type": "registry:component",
+      "title": "Orbiting circles",
+      "description": "Icons orbiting a centre on hairline rings, for \"works with everything\"",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/orbiting-circles.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "parallax-panel",
       "type": "registry:component",
       "title": "Parallax panel",
@@ -7338,6 +7603,23 @@
       ]
     },
     {
+      "name": "shimmer-button",
+      "type": "registry:component",
+      "title": "Shimmer button",
+      "description": "A call to action with a slow band of light that sweeps across the face,",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/shimmer-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "soft-stack",
       "type": "registry:component",
       "title": "Soft stack",
@@ -7348,6 +7630,22 @@
       "files": [
         {
           "path": "src/registry/premium/soft-stack.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sparkles-text",
+      "type": "registry:component",
+      "title": "Sparkles text",
+      "description": "Text with small four point stars that twinkle around it, placed at",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/sparkles-text.tsx",
           "type": "registry:ui"
         }
       ]
@@ -7471,6 +7769,22 @@
       ]
     },
     {
+      "name": "text-reveal",
+      "type": "registry:component",
+      "title": "Text reveal",
+      "description": "A paragraph that lights up word by word as it scrolls through the",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/text-reveal.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "text-scramble",
       "type": "registry:component",
       "title": "Text scramble",
@@ -7481,6 +7795,22 @@
       "files": [
         {
           "path": "src/registry/premium/text-scramble.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "typing-text",
+      "type": "registry:component",
+      "title": "Typing text",
+      "description": "A typewriter that types a phrase, holds, deletes and moves to the next,",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/typing-text.tsx",
           "type": "registry:ui"
         }
       ]
@@ -7533,6 +7863,22 @@
       "files": [
         {
           "path": "src/registry/premium/waveform-hero.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "word-rotate",
+      "type": "registry:component",
+      "title": "Word rotate",
+      "description": "Cycles through a list of words in place: the old word lifts and blurs out,",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/word-rotate.tsx",
           "type": "registry:ui"
         }
       ]

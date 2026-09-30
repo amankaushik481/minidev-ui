@@ -432,6 +432,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<BackLink href=\"/gallery\">Gallery</BackLink>"
   },
   {
+    "name": "back-to-top",
+    "title": "BackToTop",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/back-to-top.tsx",
+    "import": "@/registry/ui/back-to-top",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A back to top button that appears after the reader scrolls, with a ring"
+  },
+  {
     "name": "badge",
     "title": "Badge",
     "tier": "free",
@@ -478,6 +492,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "description": "Rounded-top bars on a hairline baseline. Hovering one bar dims",
     "usage": "<BarChart data={[{label:\"Mon\",value:12},{label:\"Tue\",value:18},{label:\"Wed\",value:9},{label:\"Thu\",value:22},{label:\"Fri\",value:16}]} />"
+  },
+  {
+    "name": "bento-grid",
+    "title": "BentoGrid",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/bento-grid.tsx",
+    "import": "@/registry/ui/bento-grid",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A responsive bento grid: tiles of different spans on a six column grid"
   },
   {
     "name": "billing-address",
@@ -2304,6 +2332,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<IncidentBanner />"
   },
   {
+    "name": "infinite-scroll",
+    "title": "InfiniteScroll",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/infinite-scroll.tsx",
+    "import": "@/registry/ui/infinite-scroll",
+    "deps": [],
+    "registryDeps": [
+      "button",
+      "spinner"
+    ],
+    "galleries": [],
+    "description": "Loads more items when a sentinel near the end of the list scrolls into"
+  },
+  {
     "name": "inline-alert",
     "title": "InlineAlert",
     "tier": "free",
@@ -2811,6 +2854,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": []
+  },
+  {
+    "name": "masonry-grid",
+    "title": "MasonryGrid",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/masonry-grid.tsx",
+    "import": "@/registry/ui/masonry-grid",
+    "deps": [],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A masonry layout that keeps source order: a CSS grid with tiny rows where"
   },
   {
     "name": "mention-input",
@@ -3337,6 +3392,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "editors"
     ],
     "usage": "<PasswordInput id=\"pw\" aria-label=\"Password\" />"
+  },
+  {
+    "name": "password-strength",
+    "title": "PasswordStrength",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/password-strength.tsx",
+    "import": "@/registry/ui/password-strength",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [
+      "password-input"
+    ],
+    "galleries": [],
+    "description": "A password field with a four segment strength meter and a live checklist"
   },
   {
     "name": "payment-method-card",
@@ -4307,6 +4378,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "signature-pad",
+    "title": "SignaturePad",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/signature-pad.tsx",
+    "import": "@/registry/ui/signature-pad",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A signature field drawn with pointer events on a canvas: smooth"
+  },
+  {
     "name": "skeleton",
     "title": "Skeleton",
     "tier": "free",
@@ -4410,6 +4497,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": []
+  },
+  {
+    "name": "sortable-list",
+    "title": "SortableList",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/sortable-list.tsx",
+    "import": "@/registry/ui/sortable-list",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A drag to reorder list built on Motion's Reorder: grab the handle to"
   },
   {
     "name": "source-card",
@@ -6203,6 +6305,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<AgencyPortfolio />"
   },
   {
+    "name": "animated-beam",
+    "title": "AnimatedBeam",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/animated-beam.tsx",
+    "import": "@/registry/premium/animated-beam",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Light that travels along curved paths between elements: sources on the"
+  },
+  {
     "name": "animated-feature-row",
     "title": "AnimatedFeatureRow",
     "tier": "premium",
@@ -6217,6 +6334,35 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-heroes"
     ],
     "usage": "<AnimatedFeatureRow features={[\n  { title: \"Motion\", description: \"Framer Motion with reduced-motion respect.\" },\n  { title: \"Hairline\", description: \"Same tokens as the free kit.\" },\n  { title: \"Premium\", description: \"Launch-ready sections.\" },\n]} />"
+  },
+  {
+    "name": "animated-list",
+    "title": "AnimatedList",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/animated-list.tsx",
+    "import": "@/registry/premium/animated-list",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A live feed where new items drop in at the top with a spring and older"
+  },
+  {
+    "name": "animated-tabs",
+    "title": "AnimatedTabs",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/animated-tabs.tsx",
+    "import": "@/registry/premium/animated-tabs",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Tabs with a pill that slides between triggers and panels that cross"
   },
   {
     "name": "before-after-wipe",
@@ -6250,6 +6396,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-templates"
     ],
     "usage": "<BlogHome />"
+  },
+  {
+    "name": "border-beam",
+    "title": "BorderBeam",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/border-beam.tsx",
+    "import": "@/registry/premium/border-beam",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A short beam of light that travels around the border of any box. Wrap a"
   },
   {
     "name": "brand-kit-page",
@@ -6391,6 +6551,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<CommandWaitlist />"
   },
   {
+    "name": "confetti-button",
+    "title": "ConfettiButton",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/confetti-button.tsx",
+    "import": "@/registry/premium/confetti-button",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A button that bursts confetti from itself on click: a few dozen paper"
+  },
+  {
     "name": "contact-sales",
     "title": "ContactSales",
     "tier": "premium",
@@ -6467,6 +6642,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<DeviceFrameStack />"
   },
   {
+    "name": "dock",
+    "title": "Dock",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/dock.tsx",
+    "import": "@/registry/premium/dock",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A macOS style dock: icons swell as the pointer passes over them and ease"
+  },
+  {
     "name": "docs-marketing",
     "title": "DocsMarketing",
     "tier": "premium",
@@ -6488,6 +6678,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-templates"
     ],
     "usage": "<DocsMarketing />"
+  },
+  {
+    "name": "dot-pattern",
+    "title": "DotPattern",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/dot-pattern.tsx",
+    "import": "@/registry/premium/dot-pattern",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A background of dots or grid lines drawn as one SVG pattern, faded at the"
   },
   {
     "name": "email-receipt",
@@ -6630,6 +6834,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "showcase"
     ],
     "usage": "<FreePremiumCompare />"
+  },
+  {
+    "name": "gradient-text",
+    "title": "GradientText",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/gradient-text.tsx",
+    "import": "@/registry/premium/gradient-text",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Headline text filled with a slowly drifting gradient built from the accent"
   },
   {
     "name": "grid-reveal",
@@ -7060,6 +7278,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<OrbitLogoCluster />"
   },
   {
+    "name": "orbiting-circles",
+    "title": "OrbitingCircles",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/orbiting-circles.tsx",
+    "import": "@/registry/premium/orbiting-circles",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Icons orbiting a centre on hairline rings, for \"works with everything\""
+  },
+  {
     "name": "parallax-panel",
     "title": "ParallaxPanel",
     "tier": "premium",
@@ -7280,6 +7513,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "shimmer-button",
+    "title": "ShimmerButton",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/shimmer-button.tsx",
+    "import": "@/registry/premium/shimmer-button",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A call to action with a slow band of light that sweeps across the face,"
+  },
+  {
     "name": "soft-stack",
     "title": "SoftStack",
     "tier": "premium",
@@ -7294,6 +7542,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-motion"
     ],
     "usage": "<SoftStack />"
+  },
+  {
+    "name": "sparkles-text",
+    "title": "SparklesText",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/sparkles-text.tsx",
+    "import": "@/registry/premium/sparkles-text",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Text with small four point stars that twinkle around it, placed at"
   },
   {
     "name": "split-proof-panel",
@@ -7421,6 +7683,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<TestimonialCarousel items={[\n  { quote: \"The premium heroes actually feel designed.\", name: \"Sam Rivera\", role: \"Founder\" },\n  { quote: \"We shipped a launch page in an afternoon.\", name: \"Lee Park\", role: \"Design Eng\" },\n  { quote: \"Free kit for product, Premium for marketing.\", name: \"Ava Chen\", role: \"PM\" },\n]} />"
   },
   {
+    "name": "text-reveal",
+    "title": "TextReveal",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/text-reveal.tsx",
+    "import": "@/registry/premium/text-reveal",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A paragraph that lights up word by word as it scrolls through the"
+  },
+  {
     "name": "text-scramble",
     "title": "TextScramble",
     "tier": "premium",
@@ -7435,6 +7711,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-motion"
     ],
     "usage": "<TextScramble />"
+  },
+  {
+    "name": "typing-text",
+    "title": "TypingText",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/typing-text.tsx",
+    "import": "@/registry/premium/typing-text",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A typewriter that types a phrase, holds, deletes and moves to the next,"
   },
   {
     "name": "typographic-marquee",
@@ -7491,5 +7781,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-motion"
     ],
     "usage": "<WaveformHero />"
+  },
+  {
+    "name": "word-rotate",
+    "title": "WordRotate",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/word-rotate.tsx",
+    "import": "@/registry/premium/word-rotate",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Cycles through a list of words in place: the old word lifts and blurs out,"
   }
 ]

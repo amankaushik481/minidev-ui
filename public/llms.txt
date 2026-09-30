@@ -1,6 +1,6 @@
 # MiniDev UI
 
-> 485 free, MIT-licensed React + Tailwind v4 components for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Hairline design language: 1px structure, semantic OKLCH tokens, light + dark from one token set.
+> 506 free, MIT-licensed React + Tailwind v4 components for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Hairline design language: 1px structure, semantic OKLCH tokens, light + dark from one token set.
 
 ## Install
 
@@ -23,3 +23,135 @@
 - [All components](https://ui.minidev.pro/gallery)
 - [Full index for LLMs](https://ui.minidev.pro/llms-full.txt)
 - [Registry index](https://ui.minidev.pro/r/registry.json)
+- [Templates (live demos)](https://ui.minidev.pro/templates)
+
+## Components by category
+
+- [React form components](https://ui.minidev.pro/components/forms)
+- [React button components](https://ui.minidev.pro/components/buttons)
+- [React data table components](https://ui.minidev.pro/components/data-tables)
+- [React chart components](https://ui.minidev.pro/components/charts)
+- [React navigation components](https://ui.minidev.pro/components/navigation)
+- [React dialog, drawer and popover components](https://ui.minidev.pro/components/overlays)
+- [React alerts, toasts and empty states](https://ui.minidev.pro/components/feedback)
+- [AI chat UI components for React](https://ui.minidev.pro/components/ai-chat)
+- [React login and signup components](https://ui.minidev.pro/components/auth)
+- [React pricing and billing components](https://ui.minidev.pro/components/billing)
+- [React settings page components](https://ui.minidev.pro/components/settings)
+- [React dashboard components](https://ui.minidev.pro/components/dashboard)
+- [Landing page sections for React and Tailwind](https://ui.minidev.pro/components/marketing)
+- [Animated React components](https://ui.minidev.pro/components/animation)
+- [React e-commerce components](https://ui.minidev.pro/components/ecommerce)
+- [Developer tool UI components for React](https://ui.minidev.pro/components/developer-tools)
+- [React email templates](https://ui.minidev.pro/components/email)
+- [React layout components](https://ui.minidev.pro/components/layout)
+- [React media and upload components](https://ui.minidev.pro/components/media)
+- [React kanban, timeline and workflow components](https://ui.minidev.pro/components/workflow)
+
+## Guides
+
+- [AI chat UI in React: streaming messages, tool calls and reasoning](https://ui.minidev.pro/guides/ai-chat-ui-react): Build an AI chat UI in React: stream tokens with a ReadableStream reader, render reasoning and tool calls, auto scroll, stop and retry. Works with any provider.
+- [Realistic CSS shadows that follow a light source](https://ui.minidev.pro/guides/css-shadows-light-source): Build realistic CSS box shadows from layered, tinted shadows, drive their direction with CSS variables, and move one light source with a small pointer script.
+- [The best free shadcn/ui component libraries in 2026](https://ui.minidev.pro/guides/free-shadcn-component-libraries): Ten free shadcn/ui compatible component libraries compared: what each is best at, license notes, primitives and links, so you can pick the right mix.
+- [Glassmorphism in Tailwind CSS v4: frosted glass that stays readable](https://ui.minidev.pro/guides/glassmorphism-tailwind-css): Build frosted glass in Tailwind CSS v4 with backdrop-blur and translucent fills, keep text readable, control the cost of backdrop-filter and add fallbacks.
+- [Build a billing page in Next.js with Stripe](https://ui.minidev.pro/guides/nextjs-billing-page-stripe): Build a SaaS billing page in Next.js with Stripe: plans, usage, invoices, payment methods and cancellation, loaded on the server and kept in sync by webhooks.
+- [Dark mode in Next.js without the flash](https://ui.minidev.pro/guides/nextjs-dark-mode-no-flash): Fix the dark mode flash in Next.js with a blocking head script, suppressHydrationWarning, a Tailwind v4 dark variant, system preference and theme-color.
+- [Build a landing page in Next.js with shadcn-compatible blocks](https://ui.minidev.pro/guides/nextjs-landing-page): Build a Next.js landing page from free shadcn-compatible blocks: section order, copy that converts, performance, and metadata and structured data for SEO.
+- [Build a SaaS dashboard in Next.js with free components](https://ui.minidev.pro/guides/nextjs-saas-dashboard): Build a SaaS dashboard in Next.js App Router with free React components: app shell, sidebar nav, KPI cards, charts, a data table, and empty and loading states.
+- [Toast notifications in Next.js: when and how](https://ui.minidev.pro/guides/nextjs-toast-notifications): Add toast notifications to Next.js: mount one Toaster, call toast() from client components and after server actions, add undo, and keep toasts accessible.
+- [OKLCH colors in Tailwind CSS v4: a theme that works in light and dark](https://ui.minidev.pro/guides/oklch-colors-tailwind-v4): Build a Tailwind CSS v4 color theme in OKLCH: semantic tokens with @theme inline, dark mode by redefining variables, and contrast checks you can run in code.
+- [Add a Cmd+K command palette to your React app](https://ui.minidev.pro/guides/react-command-palette): Add a Cmd+K command palette to React or Next.js: a global shortcut, grouped commands, fuzzy search, recent items, router navigation and combobox accessibility.
+- [Build a React data table with TanStack Table and Tailwind](https://ui.minidev.pro/guides/react-data-table-tanstack): Build a React data table with TanStack Table v8 and Tailwind: sorting, search, filters, pagination, row selection, bulk actions and column visibility.
+- [File upload in React: dropzone, progress and previews](https://ui.minidev.pro/guides/react-file-upload-dropzone): Build file upload in React with a drag and drop dropzone, accept rules, real upload progress, presigned S3 URLs, cancel and retry, and image previews.
+- [Build a kanban board in React with drag and drop](https://ui.minidev.pro/guides/react-kanban-board-drag-drop): Build a React kanban board with drag and drop using dnd-kit: sortable cards, moves between columns, keyboard dragging, announcements and optimistic updates.
+- [OTP input in React: paste, autofill and accessibility](https://ui.minidev.pro/guides/react-otp-input): Build a React OTP input that handles paste, SMS autofill, WebOTP and screen readers, with validation, a resend timer and a two-factor verify form in Tailwind.
+- [Build a SaaS pricing page in React and Tailwind](https://ui.minidev.pro/guides/react-pricing-page): Build a React pricing page with Tailwind: plan data, a monthly and yearly toggle with animated prices, a featured plan, a comparison table, FAQ and a11y.
+- [Build a split-flap display (Solari board) in React](https://ui.minidev.pro/guides/react-split-flap-display): Build a split-flap departure board in React: character cycling, two-half flaps with rotateX and perspective, column stagger, reduced motion and screen readers.
+- [Design a SaaS settings page that scales](https://ui.minidev.pro/guides/saas-settings-page): Design a SaaS settings page in React that scales: information architecture, autosave vs explicit save, team roles, API keys and safe destructive actions.
+- [How to install components from a custom shadcn registry](https://ui.minidev.pro/guides/shadcn-custom-registry): Install shadcn components from any registry URL: what the item JSON contains, how registryDependencies resolve, components.json setup and common fixes.
+- [Build a collapsible sidebar layout for a SaaS app](https://ui.minidev.pro/guides/shadcn-sidebar-layout): Build a collapsible React sidebar layout in Next.js: active links with usePathname, a Cmd+B shortcut, collapsed state saved in a cookie and a mobile drawer.
+- [Migrating a component library to Tailwind CSS v4](https://ui.minidev.pro/guides/tailwind-v4-migration): Migrate a component library to Tailwind CSS v4: CSS-first config with @theme, the upgrade tool, renamed utilities, border and ring defaults, and OKLCH tokens.
+
+## Installation
+
+- [All frameworks](https://ui.minidev.pro/docs/installation)
+- [Install MiniDev UI in Astro (React islands)](https://ui.minidev.pro/docs/installation/astro)
+- [Install MiniDev UI in Next.js](https://ui.minidev.pro/docs/installation/nextjs)
+- [Install MiniDev UI in React Router (framework mode)](https://ui.minidev.pro/docs/installation/react-router)
+- [Install MiniDev UI in TanStack Start](https://ui.minidev.pro/docs/installation/tanstack-start)
+- [Install MiniDev UI in React with Vite](https://ui.minidev.pro/docs/installation/vite)
+
+## Glossary
+
+- [:focus-visible](https://ui.minidev.pro/glossary/focus-visible): :focus-visible is a CSS pseudo-class that matches a focused element only when the browser decides focus should be shown, typically during keyboard use.
+- [Accordion](https://ui.minidev.pro/glossary/accordion): An accordion is a vertical stack of headings that each expand or collapse a section of content, so users reveal only the parts they need.
+- [ARIA](https://ui.minidev.pro/glossary/aria): ARIA (Accessible Rich Internet Applications) is a W3C set of HTML attributes that tells assistive technology what custom UI elements are and their state.
+- [backdrop-filter (CSS)](https://ui.minidev.pro/glossary/backdrop-filter): backdrop-filter is a CSS property that applies filters such as blur or saturate to whatever is rendered behind an element, the basis of frosted glass UI.
+- [Base UI](https://ui.minidev.pro/glossary/base-ui): Base UI is an open source library of unstyled, accessible React components from the team behind Radix, Floating UI and Material UI.
+- [Bento grid](https://ui.minidev.pro/glossary/bento-grid): A bento grid is a layout of rectangular tiles in different sizes on one shared grid, used to show several features or stats at once, like a bento box.
+- [Breadcrumbs](https://ui.minidev.pro/glossary/breadcrumbs): Breadcrumbs are a row of links showing where the current page sits in a site's hierarchy, letting users jump back to any parent level.
+- [Combobox](https://ui.minidev.pro/glossary/combobox): A combobox is an input paired with a popup list of options, where typing filters the list and the user picks a value with the mouse or keyboard.
+- [Command palette](https://ui.minidev.pro/glossary/command-palette): A command palette is a searchable modal, usually opened with Cmd+K or Ctrl+K, that lets users run actions and jump to pages by typing.
+- [Component library](https://ui.minidev.pro/glossary/component-library): A component library is a collection of reusable, tested UI components, such as buttons, inputs and dialogs, that teams assemble interfaces from.
+- [CSS variables (custom properties)](https://ui.minidev.pro/glossary/css-variables): CSS variables, or custom properties, are author-defined properties named with two leading dashes whose values you reuse with var() and that inherit.
+- [Dark mode](https://ui.minidev.pro/glossary/dark-mode): Dark mode is a color scheme that renders light text on dark surfaces, chosen by the user or taken from the operating system's preference.
+- [Data table](https://ui.minidev.pro/glossary/data-table): A data table is an interactive grid of records with columns you can sort, filter, paginate and select, built for scanning and acting on structured data.
+- [Design system](https://ui.minidev.pro/glossary/design-system): A design system is the shared set of principles, tokens, components and guidelines a team uses to build consistent products at scale.
+- [Design tokens](https://ui.minidev.pro/glossary/design-tokens): Design tokens are named, platform-agnostic values for design decisions such as colors, spacing, type and shadows, shared between design and code.
+- [Empty state](https://ui.minidev.pro/glossary/empty-state): An empty state is what a screen shows when there is no data to display yet, explaining why it is empty and offering the next useful action.
+- [FOUC (flash of unstyled content)](https://ui.minidev.pro/glossary/fouc): FOUC (flash of unstyled content) is when a browser briefly paints a page before its styles apply, so users see raw or wrong-looking content flicker.
+- [Glassmorphism](https://ui.minidev.pro/glossary/glassmorphism): Glassmorphism is a UI style that draws panels as frosted glass: a translucent fill, a background blur from backdrop-filter, and a thin light edge.
+- [Headless components](https://ui.minidev.pro/glossary/headless-components): Headless components provide behavior, state and accessibility for UI widgets without any styles, so you supply all of the visual design yourself.
+- [Hero section](https://ui.minidev.pro/glossary/hero-section): A hero section is the first full-width block of a landing page, stating what the product does and offering one primary action above the fold.
+- [Hydration (React)](https://ui.minidev.pro/glossary/hydration): Hydration is the process where React attaches event handlers and state to HTML rendered on the server, making the static markup interactive.
+- [Infinite scroll](https://ui.minidev.pro/glossary/infinite-scroll): Infinite scroll loads the next batch of content automatically as the user nears the end of a list, instead of asking them to click to another page.
+- [Kanban board](https://ui.minidev.pro/glossary/kanban-board): A kanban board shows work items as cards in columns that represent stages, so moving a card to another column changes its status.
+- [Micro-interactions](https://ui.minidev.pro/glossary/micro-interactions): Micro-interactions are small, single-purpose moments of feedback, like a toggle sliding or a copy icon becoming a check, that confirm what just happened.
+- [Modal dialog](https://ui.minidev.pro/glossary/modal-dialog): A modal dialog is a window layered over the page that blocks interaction with everything behind it until the user completes or dismisses it.
+- [Neumorphism](https://ui.minidev.pro/glossary/neumorphism): Neumorphism is a soft UI style where elements look extruded from or pressed into the background, using paired light and dark shadows on one color.
+- [OKLCH](https://ui.minidev.pro/glossary/oklch): OKLCH is a CSS color space that describes colors by perceptual lightness, chroma and hue, so equal numeric steps look like equal visual steps.
+- [Optimistic UI](https://ui.minidev.pro/glossary/optimistic-ui): Optimistic UI updates the interface immediately as if an action succeeded, then syncs with the server and rolls back if the request fails.
+- [Pagination](https://ui.minidev.pro/glossary/pagination): Pagination splits a long set of results into numbered pages with controls to move between them, so each view loads a fixed, predictable amount.
+- [prefers-reduced-motion](https://ui.minidev.pro/glossary/prefers-reduced-motion): prefers-reduced-motion is a CSS media feature that reports whether the user has asked the operating system to minimize nonessential animation.
+- [Radix UI](https://ui.minidev.pro/glossary/radix-ui): Radix UI is an open source library of unstyled, accessible React primitives, widely known as the original foundation of shadcn/ui.
+- [React Server Components](https://ui.minidev.pro/glossary/react-server-components): React Server Components render only on the server and send their output, not their code, to the browser, which cuts the JavaScript users download.
+- [Semantic tokens](https://ui.minidev.pro/glossary/semantic-tokens): Semantic tokens are design tokens named for their purpose, such as fg-muted or danger, rather than their value, so themes can change values safely.
+- [shadcn registry](https://ui.minidev.pro/glossary/shadcn-registry): A shadcn registry is a set of JSON files describing components and their dependencies that the shadcn CLI can install directly into a project.
+- [shadcn/ui](https://ui.minidev.pro/glossary/shadcn-ui): shadcn/ui is an open source collection of React and Tailwind CSS components that you copy into your project with a CLI instead of installing a package.
+- [Skeleton screen](https://ui.minidev.pro/glossary/skeleton-screen): A skeleton screen is a placeholder layout of gray shapes that mirrors a page's structure while its content loads, instead of a blank screen or spinner.
+- [Split-flap display](https://ui.minidev.pro/glossary/split-flap-display): A split-flap display shows characters on hinged flaps that flip in sequence to change, like a train station departure board, often recreated in CSS.
+- [Stepper (multi-step form)](https://ui.minidev.pro/glossary/stepper): A stepper splits a long form or process into ordered steps and shows progress through them, with one step's fields visible at a time.
+- [Tailwind CSS v4](https://ui.minidev.pro/glossary/tailwind-css-v4): Tailwind CSS v4 is the fourth major version of the utility-first CSS framework, with a faster engine and configuration written in CSS instead of JavaScript.
+- [Toast notification](https://ui.minidev.pro/glossary/toast-notification): A toast is a brief, non-modal message that appears at the edge of the screen to confirm an action or report status, then dismisses itself.
+- [Tooltip](https://ui.minidev.pro/glossary/tooltip): A tooltip is a small text label that appears when a control is hovered or focused, describing it briefly without taking space in the layout.
+- [WCAG color contrast](https://ui.minidev.pro/glossary/wcag-contrast): WCAG color contrast is the minimum luminance ratio between text or UI and its background: 4.5:1 for body text, 3:1 for large text and UI parts at AA.
+
+## Free tools
+
+- [Box shadow generator](https://ui.minidev.pro/tools/box-shadow-generator)
+- [Glassmorphism generator](https://ui.minidev.pro/tools/glassmorphism-generator)
+- [OKLCH palette generator](https://ui.minidev.pro/tools/oklch-palette-generator)
+- [Brand kit generator](https://ui.minidev.pro/tools/brand-kit-generator)
+- [shadcn theme generator](https://ui.minidev.pro/tools/shadcn-theme-generator)
+- [Hex to OKLCH converter](https://ui.minidev.pro/tools/hex-to-oklch)
+- [Contrast checker](https://ui.minidev.pro/tools/contrast-checker)
+- [Fluid type calculator](https://ui.minidev.pro/tools/fluid-type-calculator)
+- [Mesh gradient generator](https://ui.minidev.pro/tools/mesh-gradient-generator)
+- [Noise texture generator](https://ui.minidev.pro/tools/noise-texture-generator)
+
+## Comparisons
+
+- [MiniDev UI vs Aceternity UI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-aceternity-ui)
+- [MiniDev UI vs Chakra UI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-chakra-ui)
+- [MiniDev UI vs coss ui (formerly Origin UI): which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-coss-ui)
+- [MiniDev UI vs daisyUI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-daisyui)
+- [MiniDev UI vs Flowbite: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-flowbite)
+- [MiniDev UI vs HeroUI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-heroui)
+- [MiniDev UI vs Magic UI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-magic-ui)
+- [MiniDev UI vs Mantine: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-mantine)
+- [MiniDev UI vs shadcn/ui: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-shadcn-ui)
+- [MiniDev UI vs Tailwind Plus: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-tailwind-plus)
+
+## Studio
+
+- [MiniDev](https://minidev.pro): the studio behind MiniDev UI. Designs and builds MVPs, web apps, mobile apps and websites, starting with a free 48 hour prototype. Contact: aman@minidev.pro.
