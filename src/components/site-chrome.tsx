@@ -158,6 +158,7 @@ const FOOTER = [
     title: "Library",
     links: [
       { href: "/docs", label: "Getting started" },
+      { href: "/docs/installation", label: "Installation" },
       { href: "/gallery", label: "Component gallery" },
       { href: "/components", label: "Browse by category" },
       { href: "/gallery/blocks", label: "Blocks" },
@@ -183,9 +184,12 @@ const FOOTER = [
     title: "Learn",
     links: [
       { href: "/guides", label: "Guides" },
+      { href: "/glossary", label: "Glossary" },
+      { href: "/changelog", label: "Changelog" },
       { href: "/tools", label: "Free tools" },
       { href: "/tools/box-shadow-generator", label: "Box shadow generator" },
-      { href: "/tools/oklch-palette-generator", label: "OKLCH palette generator" },
+      { href: "/tools/shadcn-theme-generator", label: "shadcn theme generator" },
+      { href: "/tools/contrast-checker", label: "Contrast checker" },
       { href: "/compare", label: "Compare libraries" },
       { href: "/brand", label: "Brand kit" },
       { href: "/llms.txt", label: "llms.txt" },

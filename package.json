@@ -13,7 +13,8 @@
     "audit": "node tools/audit.mjs",
     "prepare:npm": "node tools/prepare-npm.mjs",
     "prepublishOnly": "node -e \"console.error(\"Publish from npm-pack/: cd npm-pack && npm publish\"); process.exit(1)\"",
-    "craft": "node tools/craft-check.mjs"
+    "craft": "node tools/craft-check.mjs",
+    "indexnow": "node tools/indexnow.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

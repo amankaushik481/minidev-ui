@@ -15,7 +15,7 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "Commercial license; see the Tailwind Plus license page for what it allows" },
     {
       feature: "Scope",
-      minidev: "About 495 items: roughly 370 UI components, 82 motion components, 43 blocks and pages",
+      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
       other: "A large library of UI blocks for marketing, application UI and ecommerce",
     },
     {
@@ -56,7 +56,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed React library of about 495 items, published as a shadcn-compatible registry and as the npm package `minidev-ui-kit`. It is built on Base UI, Tailwind CSS v4 and motion, and it concentrates on product UI: data tables, billing, settings, dashboards, command palettes and AI chat, plus full-page blocks and motion components.",
+      text: "MiniDev UI is a free, MIT licensed React library of over 500 items, published as a shadcn-compatible registry and as the npm package `minidev-ui-kit`. It is built on Base UI, Tailwind CSS v4 and motion, and it concentrates on product UI: data tables, billing, settings, dashboards, command palettes and AI chat, plus full-page blocks and motion components.",
     },
     { type: "h2", text: "Where Tailwind Plus shines", id: "where-tailwind-plus-shines" },
     {

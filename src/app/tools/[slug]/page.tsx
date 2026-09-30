@@ -8,6 +8,12 @@ import { ShadowGenerator } from "@/components/tools/shadow-generator"
 import { GlassGenerator } from "@/components/tools/glass-generator"
 import { PaletteGenerator } from "@/components/tools/palette-generator"
 import { BrandKitGenerator } from "@/components/tools/brand-kit-generator"
+import { ThemeGenerator } from "@/components/tools/theme-generator"
+import { ColorConverter } from "@/components/tools/color-converter"
+import { ContrastChecker } from "@/components/tools/contrast-checker"
+import { FluidTypeCalculator } from "@/components/tools/fluid-type"
+import { MeshGradient } from "@/components/tools/mesh-gradient"
+import { NoiseGenerator } from "@/components/tools/noise-generator"
 import { abs, breadcrumbLd, faqLd, graph, meta, webAppLd } from "@/lib/seo"
 
 type Params = { params: Promise<{ slug: string }> }
@@ -29,6 +35,12 @@ const UI: Record<string, () => React.ReactElement> = {
   "glassmorphism-generator": GlassGenerator,
   "oklch-palette-generator": PaletteGenerator,
   "brand-kit-generator": BrandKitGenerator,
+  "shadcn-theme-generator": ThemeGenerator,
+  "hex-to-oklch": ColorConverter,
+  "contrast-checker": ContrastChecker,
+  "fluid-type-calculator": FluidTypeCalculator,
+  "mesh-gradient-generator": MeshGradient,
+  "noise-texture-generator": NoiseGenerator,
 }
 
 export default async function ToolPage({ params }: Params) {

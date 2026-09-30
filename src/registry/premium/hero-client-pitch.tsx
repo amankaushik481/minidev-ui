@@ -8,7 +8,7 @@ import { Button } from "@/registry/ui/button"
 function HeroClientPitch({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   const stats: [string, string][] = [
-    ["490+", "components"],
+    ["500+", "components"],
     ["2", "themes"],
     ["AA", "contrast"],
   ]

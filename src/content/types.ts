@@ -84,3 +84,16 @@ export type Comparison = {
   /** Public sources used for claims about the other library. */
   sources: { label: string; url: string }[]
 }
+
+export type GlossaryTerm = {
+  slug: string
+  term: string
+  /** One sentence definition, under 160 characters. Used as meta description and the answer box. */
+  short: string
+  /** 300-600 words of real explanation. */
+  body: Block[]
+  /** Registry names of MiniDev components that implement or relate to the term. */
+  related: string[]
+  /** Other glossary slugs. */
+  see: string[]
+}
