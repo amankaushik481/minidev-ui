@@ -4500,6 +4500,22 @@
       ]
     },
     {
+      "name": "split-flap",
+      "type": "registry:ui",
+      "title": "Split flap",
+      "description": "Pad or cut to this many cells.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/split-flap.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "split-pane",
       "type": "registry:ui",
       "title": "Split pane",
@@ -5591,6 +5607,25 @@
       ]
     },
     {
+      "name": "bento-live",
+      "type": "registry:component",
+      "title": "Bento live",
+      "description": "Column span on large screens (of 6).",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/number-roll.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/bento-live.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "billing-page",
       "type": "registry:component",
       "title": "Billing page",
@@ -5677,6 +5712,22 @@
       ]
     },
     {
+      "name": "cta-band",
+      "type": "registry:component",
+      "title": "Cta band",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/blocks/cta-band.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dashboard-home",
       "type": "registry:component",
       "title": "Dashboard home",
@@ -5691,6 +5742,22 @@
       "files": [
         {
           "path": "src/registry/blocks/dashboard-home.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "device-frame",
+      "type": "registry:component",
+      "title": "Device frame",
+      "description": "Browser only.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/blocks/device-frame.tsx",
           "type": "registry:ui"
         }
       ]
@@ -5756,6 +5823,21 @@
       ]
     },
     {
+      "name": "faq-section",
+      "type": "registry:component",
+      "title": "Faq section",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/blocks/faq-section.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "feature-flags",
       "type": "registry:component",
       "title": "Feature flags",
@@ -5768,6 +5850,25 @@
       "files": [
         {
           "path": "src/registry/blocks/feature-flags.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "floating-nav",
+      "type": "registry:component",
+      "title": "Floating nav",
+      "description": "Sticky inside a scroll container instead of the viewport.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/floating-nav.tsx",
           "type": "registry:ui"
         }
       ]
@@ -5786,6 +5887,25 @@
       "files": [
         {
           "path": "src/registry/blocks/form-wizard.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hero-spotlight",
+      "type": "registry:component",
+      "title": "Hero spotlight",
+      "description": "Second line of the title, lit by the cursor.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/hero-spotlight.tsx",
           "type": "registry:ui"
         }
       ]
@@ -5909,6 +6029,26 @@
       ]
     },
     {
+      "name": "pricing-plans",
+      "type": "registry:component",
+      "title": "Pricing plans",
+      "description": "Discount badge on the yearly option.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/number-roll.json",
+        "https://ui.minidev.pro/r/segmented-control.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/blocks/pricing-plans.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "project-detail",
       "type": "registry:component",
       "title": "Project detail",
@@ -5981,6 +6121,22 @@
       ]
     },
     {
+      "name": "scroll-story",
+      "type": "registry:component",
+      "title": "Scroll story",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/blocks/scroll-story.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "search-results-page",
       "type": "registry:component",
       "title": "Search results page",
@@ -6030,6 +6186,19 @@
       "files": [
         {
           "path": "src/registry/blocks/sign-in-page.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "social-proof-wall",
+      "type": "registry:component",
+      "title": "Social proof wall",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/blocks/social-proof-wall.tsx",
           "type": "registry:ui"
         }
       ]
@@ -6788,6 +6957,19 @@
       "files": [
         {
           "path": "src/registry/premium/launch-countdown.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "light-field",
+      "type": "registry:component",
+      "title": "Light field",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/light-field.tsx",
           "type": "registry:ui"
         }
       ]
