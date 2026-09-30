@@ -1,10 +1,10 @@
 "use client"
 import * as React from "react"
 import Link from "next/link"
+import { CATEGORIES } from "@/content/categories"
 import { ArrowRightIcon, ArrowUpRightIcon, BotIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SITE } from "@/lib/site"
-import { GALLERY_ENTRIES } from "@/lib/gallery-catalog"
 import { Button } from "@/registry/ui/button"
 import { CodeBlock } from "@/registry/ui/code-block"
 import { SectionHead } from "@/components/landing/bento"
@@ -111,35 +111,34 @@ export function InstallSection() {
 
 /* ── Category index ──────────────────────────────────────────────────────── */
 
-const PICKS = [
-  "ai", "ai-studio", "data-table", "charts", "billing", "auth", "settings", "navigation",
-  "overlays", "feedback", "commerce", "workflow", "engineering", "email", "editors", "marketing-sections",
-]
-
 export function CategoryIndex() {
-  const entries = PICKS.map((slug) => GALLERY_ENTRIES.find((e) => e.slug === slug)).filter(Boolean) as typeof GALLERY_ENTRIES
+  const blurb = (d: string) => {
+    const tail = d.split(": ").slice(1).join(": ") || d
+    const first = tail.split(/(?<=\.)\s/)[0].replace(/\.$/, "")
+    return first.charAt(0).toUpperCase() + first.slice(1)
+  }
   return (
     <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 sm:pb-32 lg:px-8">
       <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
         <SectionHead align="left" eyebrow="Index" title="Everything, one hairline apart." />
-        <Button variant="outline" render={<Link href="/gallery" />}>
-          All {GALLERY_ENTRIES.length} galleries <ArrowRightIcon />
+        <Button variant="outline" render={<Link href="/components" />}>
+          Browse all {CATEGORIES.length} categories <ArrowRightIcon />
         </Button>
       </div>
       <ul className="grid gap-px border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-        {entries.map((e, i) => (
-          <li key={e.slug} className="bg-bg">
+        {CATEGORIES.map((c, i) => (
+          <li key={c.id} className="bg-bg">
             <Link
-              href={`/gallery/${e.slug}`}
+              href={`/components/${c.id}`}
               className="group flex h-full items-start gap-4 px-1 py-5 outline-none transition-colors duration-[140ms] hover:bg-surface focus-visible:bg-sunken sm:px-5"
             >
               <span className="mt-0.5 font-mono text-[11px] text-fg-subtle tabular-nums">{String(i + 1).padStart(2, "0")}</span>
               <span className="min-w-0 flex-1">
                 <span className="flex items-center gap-1.5 text-[0.9375rem] font-medium tracking-[-0.01em] text-fg">
-                  {e.label}
+                  {c.h1.charAt(0).toUpperCase() + c.h1.slice(1)}
                   <ArrowUpRightIcon className="size-3.5 -translate-x-1 text-fg-subtle opacity-0 transition-[opacity,transform] duration-200 ease-hairline group-hover:translate-x-0 group-hover:opacity-100" />
                 </span>
-                <span className="mt-1 block text-[0.8125rem] leading-[1.5] text-fg-muted">{e.description}</span>
+                <span className="mt-1 line-clamp-2 block text-[0.8125rem] leading-[1.5] text-fg-muted">{blurb(c.description)}</span>
               </span>
             </Link>
           </li>

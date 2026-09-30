@@ -8,6 +8,7 @@ import { SITE } from "@/lib/site"
 import { SiteFooter, SiteHeader } from "@/components/site-chrome"
 import { Button } from "@/registry/ui/button"
 import { FaqSection } from "@/registry/blocks/faq-section"
+import { STUDIO_FAQ } from "@/content/pages"
 
 /* Edit prices here. These are the numbers the studio page shows. */
 const PACKAGES = [
@@ -235,13 +236,7 @@ export default function StudioPage() {
               Anything else? Book a <a className="font-medium text-fg underline decoration-border-strong underline-offset-4" href={SITE.studio.call} target="_blank" rel="noreferrer">30 minute call</a>.
             </>
           }
-          items={[
-            { q: "Is the prototype really free?", a: "Yes. You get a clickable prototype of your idea within 48 hours and you keep the link, whether or not we work together." },
-            { q: "How do payments work?", a: "A small deposit to start, then the rest in milestones tied to demos you can click. You never pay for work you have not seen." },
-            { q: "Who owns the code?", a: "You do, from the first commit. The repository, hosting and domain are set up in your accounts." },
-            { q: "Can you take over an app someone else started?", a: "Yes. That is the Rescue package. We review the code in 48 hours and tell you honestly whether to fix it or rebuild parts of it." },
-            { q: "What happens after launch?", a: "30 days of free fixes, then an optional monthly retainer for new features, updates and support." },
-          ]}
+          items={STUDIO_FAQ}
         />
       </main>
       <SiteFooter />
