@@ -20,7 +20,7 @@ EVERY COMPONENT MUST:
 
 AFTER EVERY BATCH:
 - Run `npm run audit`. Fix every failure. Never weaken a rule to pass.
-- Composite the gallery screenshot next to refs/ and look at it
+- Look at the gallery screenshot in light and dark before moving on
 - Only then move to the next batch
 
 NEVER:

@@ -1,0 +1,18 @@
+name: Component request
+description: Suggest a component, block or template
+labels: [component request]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Component
+      description: What is it called? For example "image cropper"
+    validations:
+      required: true
+  - type: textarea
+    id: use
+    attributes:
+      label: Where would you use it?
+      description: The screen or product you are building, and links to examples you like.
+    validations:
+      required: true

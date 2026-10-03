@@ -1,0 +1,23 @@
+name: Bug report
+description: Something is broken or looks wrong
+labels: [bug]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: The component name or docs URL, for example https://ui.minidev.pro/docs/multi-select
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead. Screenshots help.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Setup
+      description: Framework and versions, for example Next.js 16, React 19, Tailwind 4.1, Chrome

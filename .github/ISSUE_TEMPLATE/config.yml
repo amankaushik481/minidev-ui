@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Docs
+    url: https://ui.minidev.pro/docs
+    about: Installation, every component, API references
+  - name: Hire MiniDev
+    url: https://ui.minidev.pro/studio
+    about: Need a full product built with this kit?

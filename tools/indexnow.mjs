@@ -21,5 +21,8 @@ for (let i = 0; i < urls.length; i += 10000) {
     headers: { "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify({ host: HOST, key: KEY, keyLocation: `https://${HOST}/${KEY}.txt`, urlList: urls.slice(i, i + 10000) }),
   })
-  console.log(`IndexNow: ${res.status} for ${Math.min(10000, urls.length - i)} URLs`)
+  const body = (await res.text()).trim()
+  console.log(`IndexNow: ${res.status} for ${Math.min(10000, urls.length - i)} URLs${body ? `\n${body}` : ""}`)
+  if (res.status === 403)
+    console.log(`403 means the engine could not confirm the key. Check https://${HOST}/${KEY}.txt loads and shows only the key, wait for the deploy to finish, then run again.`)
 }

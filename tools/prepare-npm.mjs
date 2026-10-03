@@ -46,6 +46,7 @@ await cp(path.join(root, "DESIGN.md"), path.join(out, "DESIGN.md"))
 await cp(path.join(root, "src/styles/minidev.css"), path.join(out, "styles.css"))
 await cp(path.join(root, "registry.json"), path.join(out, "registry.json"))
 await cp(path.join(root, "llms.txt"), path.join(out, "llms.txt"))
+await cp(path.join(root, "LICENSE"), path.join(out, "LICENSE"))
 
 const files = await walk(out)
 for (const f of files) {
@@ -56,12 +57,12 @@ for (const f of files) {
 
 const pkg = {
   name: "minidev-ui-kit",
-  version: "0.2.0",
-  description: "MiniDev UI: free React + Tailwind components drawn to a hairline standard",
+  version: "0.3.0",
+  description: "500+ free React and Tailwind CSS v4 components, blocks and motion components. shadcn-compatible, built on Base UI. MIT.",
   license: "MIT",
   type: "module",
   sideEffects: ["*.css"],
-  files: ["ui", "premium", "blocks", "utils.ts", "styles.css", "DESIGN.md", "registry.json", "llms.txt", "README.md"],
+  files: ["ui", "premium", "blocks", "utils.ts", "styles.css", "DESIGN.md", "registry.json", "llms.txt", "README.md", "LICENSE"],
   exports: {
     "./package.json": "./package.json",
     "./utils": "./utils.ts",
@@ -85,7 +86,7 @@ const pkg = {
     motion: { optional: true },
     "@base-ui/react": { optional: false }
   },
-  keywords: ["react", "tailwind", "ui", "components", "minidev", "hairline"],
+  keywords: ["react", "react-components", "tailwind", "tailwindcss", "tailwindcss-v4", "shadcn", "shadcn-ui", "base-ui", "nextjs", "ui", "ui-kit", "component-library", "design-system", "motion", "animation", "dashboard", "data-table", "minidev"],
   repository: { type: "git", url: "git+https://github.com/amankaushik481/minidev-ui.git" },
   bugs: { url: "https://github.com/amankaushik481/minidev-ui/issues" },
   homepage: "https://ui.minidev.pro"
@@ -96,12 +97,18 @@ await writeFile(
   path.join(out, "README.md"),
   `# minidev-ui-kit
 
-Free React + Tailwind v4 components drawn to a hairline standard. MIT.
+500+ free React components, blocks and motion components for real product screens: data tables, billing, settings, dashboards, command palettes and AI chat. Tailwind CSS v4, Base UI, shadcn-compatible. MIT.
+
+- Website and docs: https://ui.minidev.pro
+- Every component: https://ui.minidev.pro/components
+- Source: https://github.com/amankaushik481/minidev-ui
+
+Prefer one component at a time? Use the shadcn CLI: \`npx shadcn@latest add https://ui.minidev.pro/r/multi-select.json\`
 
 ## Install
 
 \`\`\`bash
-npm i minidev-ui-kit @base-ui/react class-variance-authority clsx tailwind-merge lucide-react
+npm i minidev-ui-kit @base-ui/react class-variance-authority clsx tailwind-merge lucide-react motion
 \`\`\`
 
 \`\`\`css

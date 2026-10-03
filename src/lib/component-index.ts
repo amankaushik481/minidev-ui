@@ -390,6 +390,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<Autocomplete options={items.map(i=>i.label)} placeholder=\"Framework\" aria-label=\"Framework\" />"
   },
   {
+    "name": "avatar-group",
+    "title": "AvatarGroup",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/avatar-group.tsx",
+    "import": "@/registry/ui/avatar-group",
+    "deps": [
+      "@base-ui/react"
+    ],
+    "registryDeps": [
+      "popover",
+      "tooltip"
+    ],
+    "galleries": [],
+    "description": "Shown under the name in the tooltip and overflow list."
+  },
+  {
     "name": "avatar-upload",
     "title": "AvatarUpload",
     "tier": "free",
@@ -1395,6 +1412,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<CreditBalance balance=\"1,240\" />"
   },
   {
+    "name": "credit-card-input",
+    "title": "CreditCardInput",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/credit-card-input.tsx",
+    "import": "@/registry/ui/credit-card-input",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "input"
+    ],
+    "galleries": [],
+    "description": "Luhn (mod 10) checksum, the check digit rule every major card number follows."
+  },
+  {
     "name": "cta-banner",
     "title": "CtaBanner",
     "tier": "free",
@@ -1847,6 +1881,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<ErrorState className=\"max-w-sm\" onRetry={()=>{}} />"
   },
   {
+    "name": "event-calendar",
+    "title": "EventCalendar",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/event-calendar.tsx",
+    "import": "@/registry/ui/event-calendar",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [
+      "button",
+      "segmented-control"
+    ],
+    "galleries": [],
+    "description": "A week and day event scheduler with overlap layout, an all-day row, a current time line and click to create."
+  },
+  {
     "name": "expandable-row",
     "title": "ExpandableRow",
     "tier": "free",
@@ -2008,6 +2059,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "file-tree",
+    "title": "FileTree",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/file-tree.tsx",
+    "import": "@/registry/ui/file-tree",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A code editor style file explorer with file icons, git status, a filter field and full tree keyboard support."
+  },
+  {
     "name": "filter-bar",
     "title": "FilterBar",
     "tier": "free",
@@ -2036,6 +2102,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": []
+  },
+  {
+    "name": "floating-label-input",
+    "title": "FloatingLabelInput",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/floating-label-input.tsx",
+    "import": "@/registry/ui/floating-label-input",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "Return an error message, or nothing when valid. Runs on submit and after the first error."
   },
   {
     "name": "footer-mega",
@@ -2252,6 +2335,25 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "icon-button"
     ],
     "usage": "<IconButton aria-label=\"Search\" variant=\"default\"><SearchIcon /></IconButton>"
+  },
+  {
+    "name": "image-cropper",
+    "title": "ImageCropper",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/image-cropper.tsx",
+    "import": "@/registry/ui/image-cropper",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button",
+      "segmented-control",
+      "slider"
+    ],
+    "galleries": [],
+    "description": "Left edge in source pixels, measured on the image after `rotation`."
   },
   {
     "name": "image-gallery",
@@ -2854,6 +2956,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": []
+  },
+  {
+    "name": "masked-input",
+    "title": "MaskedInput",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/masked-input.tsx",
+    "import": "@/registry/ui/masked-input",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [
+      "input"
+    ],
+    "galleries": [],
+    "description": "Formats a value with a mask, e.g. applyMask(\"(999) 999-9999\", \"5550102030\") gives \"(555) 010-2030\"."
   },
   {
     "name": "masonry-grid",
@@ -3484,6 +3602,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<PhoneInput aria-label=\"Phone\" />"
   },
   {
+    "name": "pie-chart",
+    "title": "PieChart",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/pie-chart.tsx",
+    "import": "@/registry/ui/pie-chart",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "An SVG pie chart with leader line labels, a legend and slices that pull out on hover or focus."
+  },
+  {
     "name": "pinned-message",
     "title": "PinnedMessage",
     "tier": "free",
@@ -3806,6 +3938,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "charts"
     ],
     "usage": "<RadarChart labels={[\"Speed\",\"A11y\",\"DX\",\"Motion\",\"Tokens\"]} values={[0.8,0.95,0.75,0.7,0.9]} />"
+  },
+  {
+    "name": "radial-chart",
+    "title": "RadialChart",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/radial-chart.tsx",
+    "import": "@/registry/ui/radial-chart",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [
+      "segmented-control"
+    ],
+    "galleries": [],
+    "description": "A radial bar chart of concentric progress rings with a legend, a rolling centre total and spring animated values."
   },
   {
     "name": "radio-group",
@@ -6800,6 +6948,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<FilmstripScrub />"
   },
   {
+    "name": "flickering-grid",
+    "title": "FlickeringGrid",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/flickering-grid.tsx",
+    "import": "@/registry/premium/flickering-grid",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A canvas grid of small squares whose brightness flickers at random behind your content, like a board of quiet signals."
+  },
+  {
     "name": "flip-stat-board",
     "title": "FlipStatBoard",
     "tier": "premium",
@@ -7208,6 +7373,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<MaskedGradientHeadline />"
   },
   {
+    "name": "meteors",
+    "title": "Meteors",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/meteors.tsx",
+    "import": "@/registry/premium/meteors",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "Meteor streaks with fading tails that fall diagonally behind your content at random intervals."
+  },
+  {
     "name": "metric-ticker-board",
     "title": "MetricTickerBoard",
     "tier": "premium",
@@ -7304,6 +7486,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": []
+  },
+  {
+    "name": "particles",
+    "title": "Particles",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/particles.tsx",
+    "import": "@/registry/premium/particles",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A canvas particle field that drifts behind your content and parts around the pointer, or gathers toward it."
   },
   {
     "name": "pin-scroll-gallery",
@@ -7446,6 +7645,40 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-templates"
     ],
     "usage": "<ProductTour steps={[\n  { title: \"Install free kit\", body: \"Add Hairline primitives from the registry.\" },\n  { title: \"Compose product UI\", body: \"Dashboards, AI, billing — all free.\" },\n  { title: \"Drop Premium moments\", body: \"Heroes and templates when launch needs wow.\" },\n]} />"
+  },
+  {
+    "name": "retro-grid",
+    "title": "RetroGrid",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/retro-grid.tsx",
+    "import": "@/registry/premium/retro-grid",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A retro perspective grid floor that recedes to a glowing horizon and scrolls slowly toward you."
+  },
+  {
+    "name": "ripple",
+    "title": "Ripple",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/ripple.tsx",
+    "import": "@/registry/premium/ripple",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "Concentric rings behind your content with a soft pulse that travels outward ring by ring, like a sonar ping."
   },
   {
     "name": "saas-landing",

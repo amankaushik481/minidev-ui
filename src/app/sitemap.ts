@@ -12,7 +12,7 @@ import { BRAND_SLUGS } from "@/lib/seo-routes"
 import { SITE } from "@/lib/site"
 
 /** Bump when the component set changes; used as lastModified for library pages. */
-const LIBRARY_UPDATED = new Date("2026-09-30")
+const LIBRARY_UPDATED = new Date("2026-10-02")
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const u = (path: string) => `${SITE.url}${path}`
