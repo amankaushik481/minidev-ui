@@ -3,6 +3,17 @@ export type Release = { version: string; date: string; title: string; items: { t
 
 export const CHANGELOG: Release[] = [
   {
+    version: "0.5",
+    date: "2026-10-02",
+    title: "Open source, 14 components, cropper and event calendar",
+    items: [
+      { text: "The source is now public on GitHub under MIT, with contributing guides and issue templates.", href: "https://github.com/amankaushik481/minidev-ui" },
+      { text: "New form and data components: image cropper, credit card input, masked input, floating label input, avatar group, file tree, event calendar, pie chart, radial chart.", href: "/docs/event-calendar" },
+      { text: "New backgrounds: meteors, retro grid, ripple, particles, flickering grid.", href: "/components/animation" },
+      { text: "Component pages now lead with React, Tailwind and shadcn/ui in their titles, and every registry item carries a description." },
+    ],
+  },
+  {
     version: "0.4",
     date: "2026-09-30",
     title: "API tables, 11 components, 6 tools, glossary",

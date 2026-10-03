@@ -5,8 +5,8 @@ import "./globals.css";
 import { TooltipProvider } from "@/registry/ui/tooltip";
 import { BlueprintLayer } from "@/components/blueprint/blueprint"
 import { LightRoot } from "@/components/light-root"
-import Script from "next/script"
 import { JsonLd } from "@/components/seo/json-ld"
+import { SiteAnalytics } from "@/components/site-analytics"
 import { SITE } from "@/lib/site"
 import { graph, libraryLd, organizationLd, websiteLd } from "@/lib/seo"
 
@@ -95,16 +95,7 @@ export default function RootLayout({
         </div>
         <BlueprintLayer />
         <LightRoot />
-        {/* Analytics are opt-in: set one of these env vars on the host to switch them on. */}
-        {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ? (
-          <Script defer data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.outbound-links.js" strategy="afterInteractive" />
-        ) : null}
-        {process.env.NEXT_PUBLIC_GA_ID ? (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} strategy="afterInteractive" />
-            <Script id="ga4" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GA_ID}');`}</Script>
-          </>
-        ) : null}
+        <SiteAnalytics />
       </body>
     </html>
   );

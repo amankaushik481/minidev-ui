@@ -2,7 +2,7 @@
 export const SITE = {
   name: "MiniDev UI",
   url: "https://ui.minidev.pro",
-  version: "0.4",
+  version: "0.5",
   /** Rounded component count used in copy. Keep in step with the registry. */
   countLabel: "500+",
   npm: "https://www.npmjs.com/package/minidev-ui-kit",
@@ -17,7 +17,7 @@ export const SITE = {
     call: "https://cal.com/minidev.pro/30min",
   },
   /** Set to a public repo URL to show the GitHub link in the header. */
-  github: null as string | null,
+  github: "https://github.com/amankaushik481/minidev-ui" as string | null,
 } as const
 
 export const NAV = [

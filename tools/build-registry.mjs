@@ -180,13 +180,15 @@ async function main() {
   await mkdir(outDir, { recursive: true })
 
   // 1. Registry items
+  const content = await readContentMeta()
+  const describe = (it) => content.seo[it.name] ?? it.description
   for (const it of items) {
     const json = {
       $schema: "https://ui.shadcn.com/schema/registry-item.json",
       name: it.name,
       type: it.kind === "ui" ? "registry:ui" : "registry:component",
       title: words(it.name),
-      ...(it.description ? { description: it.description } : {}),
+      ...(describe(it) ? { description: describe(it) } : {}),
       dependencies: it.deps,
       registryDependencies: [...it.registryDeps.map((d) => `${SITE}/r/${d}.json`), ...(it.src.includes("@/lib/utils") ? ["utils"] : [])],
       files: [{ path: `registry/${it.dir}/${it.name}.tsx`, type: "registry:ui", target: `components/ui/${it.name}.tsx`, content: shadcnContent(it.src) }],
@@ -203,7 +205,7 @@ async function main() {
       name: it.name,
       type: it.kind === "ui" ? "registry:ui" : "registry:component",
       title: words(it.name),
-      ...(it.description ? { description: it.description } : {}),
+      ...(describe(it) ? { description: describe(it) } : {}),
       dependencies: it.deps,
       registryDependencies: it.registryDeps.map((d) => `${SITE}/r/${d}.json`),
       files: [{ path: it.path, type: "registry:ui" }],
@@ -287,7 +289,6 @@ ${items.map((it) => `  ${JSON.stringify(it.name)}: () => import(${JSON.stringify
 - Numbers are tabular (tabular-nums). Headings use negative tracking; body text does not.
 - Dark mode: add the \`dark\` class to <html>. Components never branch on theme.
 `
-  const content = await readContentMeta()
   const list = (k) =>
     items
       .filter((i) => i.kind === k)

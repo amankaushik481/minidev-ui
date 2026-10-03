@@ -26,15 +26,19 @@ export function docsMeta(name: string): Metadata {
   const e = COMPONENT_INDEX.find((c) => c.name === name)
   if (!e) return { title: "Component not found", robots: { index: false } }
   const c = componentCopy(e)
-  const suffix = e.kind === "block" ? "Block" : e.kind === "premium" ? "Animated Component" : "Component"
-  // e.g. "Pricing Table: React Component for Tailwind" (the template adds the brand)
-  const title = `${c.name}: React ${suffix} for Tailwind`
+  // Lead with the component name, then the words people add when they search for it:
+  // "shadcn multi select", "react multi select component", "tailwind multi select".
+  // e.g. "Multi Select Component for React, Tailwind and shadcn/ui" (the template adds the brand)
+  const title =
+    e.kind === "premium"
+      ? `${c.name}: Animated React Component for shadcn/ui`
+      : `${c.name} ${e.kind === "block" ? "Block" : "Component"} for React, Tailwind and shadcn/ui`
   return meta({
     title,
     description: c.description,
     path: `/docs/${e.name}`,
     image: `/docs/${e.name}/opengraph-image`,
-    keywords: [...c.keywords, `${c.name.toLowerCase()} react`, `${c.name.toLowerCase()} tailwind`, "shadcn"],
+    keywords: [...c.keywords, `${c.name.toLowerCase()} react`, `${c.name.toLowerCase()} tailwind`, `shadcn ${c.name.toLowerCase()}`],
   })
 }
 
