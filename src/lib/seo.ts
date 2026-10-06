@@ -73,7 +73,7 @@ export const organizationLd = () => ({
   name: SITE.studio.name,
   legalName: "AK Tech",
   url: SITE.studio.url,
-  logo: abs("/apple-icon.png"),
+  logo: abs("/icons/icon-512.png"),
   email: SITE.studio.email,
   description: "MiniDev is a product studio that designs and builds MVPs, apps and websites.",
   sameAs: [SITE.url, SITE.npm, ...(SITE.github ? [SITE.github] : [])],

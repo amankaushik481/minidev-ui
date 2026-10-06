@@ -28,6 +28,19 @@ export const metadata: Metadata = {
   },
   description: `${SITE.countLabel} free React and Tailwind CSS v4 components, landing page blocks and templates. shadcn-compatible, copy and own the code, light and dark, MIT licensed.`,
   applicationName: SITE.name,
+  // Google shows a favicon when the page links a square icon whose size is a multiple of 48px
+  // (or an SVG) and /favicon.ico is reachable. Files live in /public so the URLs never change.
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icons/icon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icons/icon-96.png", sizes: "96x96", type: "image/png" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   authors: [{ name: "MiniDev", url: SITE.studio.url }],
   creator: "MiniDev",
   publisher: "MiniDev",
