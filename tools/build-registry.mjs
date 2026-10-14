@@ -65,7 +65,8 @@ async function readContentMeta() {
     for (const m of src.matchAll(/slug:\s*"([a-z0-9-]+)",\s*\n\s*term:\s*"([^"]+)",\s*\n\s*short:\s*\n?\s*"((?:[^"\\]|\\.)*)"/g)) glossary.push({ slug: m[1], term: m[2], short: m[3] })
   }
   glossary.sort((a, b) => a.term.localeCompare(b.term))
-  return { seo, guides: await docs("guides"), compare: await docs("compare"), installs: await docs("install"), cats, tools, glossary }
+  const blocks = [...(await readFile(path.join(root, "src/content/blocks.ts"), "utf8").catch(() => "")).matchAll(/slug:\s*"([a-z-]+)",\s*\n\s*name:\s*"([^"]+)",\s*\n\s*title:\s*"([^"]+)"/g)].map((m) => ({ slug: m[1], name: m[2], title: m[3] }))
+  return { seo, guides: await docs("guides"), compare: await docs("compare"), installs: await docs("install"), cats, tools, glossary, blocks }
 }
 
 async function collect() {
@@ -309,6 +310,10 @@ ${items.map((it) => `  ${JSON.stringify(it.name)}: () => import(${JSON.stringify
 ## Components by category
 
 ${content.cats.map((c) => `- [${c.h1}](${SITE}/components/${c.id})`).join("\n")}
+
+## Blocks by page section
+
+${content.blocks.map((b) => `- [${b.title}](${SITE}/blocks/${b.slug})`).join("\n")}
 
 ## Guides
 

@@ -74,7 +74,7 @@ function Stage({ children, dark, onDark, onReset }: { children: React.ReactNode;
   )
 }
 
-export function ComponentDocs({ name, api }: { name: string; /** Server-rendered API reference. */ api?: React.ReactNode }) {
+export function ComponentDocs({ name, api, learn }: { name: string; /** Server-rendered API reference. */ api?: React.ReactNode; /** Server-rendered cross links (guides, glossary, block hubs). */ learn?: React.ReactNode }) {
   const params = { name }
   const i = COMPONENT_INDEX.findIndex((c) => c.name === params.name)
   const entry = COMPONENT_INDEX[i]
@@ -308,6 +308,8 @@ export function ComponentDocs({ name, api }: { name: string; /** Server-rendered
             ) : null}
           </section>
         ) : null}
+
+        {learn}
 
         <nav aria-label="Pagination" className="mt-16 grid gap-3 border-t border-border pt-8 sm:grid-cols-2">
           {prev ? (

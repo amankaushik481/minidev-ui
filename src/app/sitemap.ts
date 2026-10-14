@@ -6,13 +6,14 @@ import { GUIDES } from "@/content/guides"
 import { COMPARISONS } from "@/content/compare"
 import { TOOLS } from "@/content/tools"
 import { GLOSSARY } from "@/content/glossary"
+import { BLOCK_TYPES } from "@/content/blocks"
 import { INSTALLS } from "@/content/install"
 import { TEMPLATE_SEO } from "@/content/pages"
 import { BRAND_SLUGS } from "@/lib/seo-routes"
 import { SITE } from "@/lib/site"
 
 /** Bump when the component set changes; used as lastModified for library pages. */
-const LIBRARY_UPDATED = new Date("2026-10-02")
+const LIBRARY_UPDATED = new Date("2026-10-14")
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const u = (path: string) => `${SITE.url}${path}`
@@ -32,6 +33,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/glossary", 0.7, "monthly"),
     page("/changelog", 0.5, "weekly"),
     page("/docs/installation", 0.8, "monthly"),
+    page("/blocks", 0.9),
+    ...BLOCK_TYPES.map((b) => page(`/blocks/${b.slug}`, 0.8)),
+    page("/about", 0.5, "monthly"),
+    page("/sitemap", 0.3, "monthly"),
     ...INSTALLS.map((g) => page(`/docs/installation/${g.slug}`, 0.8, "monthly", new Date(g.updated ?? g.date))),
     ...GLOSSARY.map((t) => page(`/glossary/${t.slug}`, 0.6, "monthly")),
     ...CATEGORIES.map((c) => page(`/components/${c.id}`, 0.8)),

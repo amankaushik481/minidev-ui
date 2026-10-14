@@ -83,7 +83,7 @@ export function SiteHeader({ solid }: { solid?: boolean }) {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative rounded-md px-2.5 py-1.5 text-[0.8125rem] font-medium outline-none transition-colors duration-[70ms]",
+                  "relative rounded-md px-2.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap outline-none transition-colors duration-[70ms]",
                   "focus-visible:ring-2 focus-visible:ring-accent",
                   active ? "text-fg" : "text-fg-muted hover:text-fg"
                 )}
@@ -161,7 +161,7 @@ const FOOTER = [
       { href: "/docs/installation", label: "Installation" },
       { href: "/gallery", label: "Component gallery" },
       { href: "/components", label: "Browse by category" },
-      { href: "/gallery/blocks", label: "Blocks" },
+      { href: "/blocks", label: "Blocks by section" },
       { href: "/gallery/premium-motion", label: "Motion" },
       { href: "/templates", label: "Templates" },
       { href: "/playground", label: "Theme playground" },
@@ -176,8 +176,9 @@ const FOOTER = [
       { href: "/components/ai-chat", label: "AI chat UI" },
       { href: "/components/billing", label: "Pricing and billing" },
       { href: "/components/dashboard", label: "Dashboards" },
-      { href: "/components/marketing", label: "Landing page blocks" },
-      { href: "/components/auth", label: "Login and signup" },
+      { href: "/blocks/hero-sections", label: "Hero sections" },
+      { href: "/blocks/pricing-sections", label: "Pricing sections" },
+      { href: "/blocks/login-pages", label: "Login and signup" },
     ],
   },
   {
@@ -190,7 +191,9 @@ const FOOTER = [
       { href: "/tools/box-shadow-generator", label: "Box shadow generator" },
       { href: "/tools/shadcn-theme-generator", label: "shadcn theme generator" },
       { href: "/tools/contrast-checker", label: "Contrast checker" },
+      { href: "/tools/svg-to-jsx", label: "SVG to JSX" },
       { href: "/compare", label: "Compare libraries" },
+      { href: "/about", label: "About" },
       { href: "/brand", label: "Brand kit" },
       { href: "/llms.txt", label: "llms.txt" },
       { href: SITE.npm, label: "npm package", external: true },

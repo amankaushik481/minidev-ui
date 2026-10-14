@@ -2,7 +2,7 @@
 export const SITE = {
   name: "MiniDev UI",
   url: "https://ui.minidev.pro",
-  version: "0.5",
+  version: "0.6",
   /** Rounded component count used in copy. Keep in step with the registry. */
   countLabel: "500+",
   npm: "https://www.npmjs.com/package/minidev-ui-kit",
@@ -23,7 +23,7 @@ export const SITE = {
 export const NAV = [
   { href: "/docs", label: "Docs" },
   { href: "/gallery", label: "Components" },
-  { href: "/gallery/blocks", label: "Blocks" },
+  { href: "/blocks", label: "Blocks" },
   { href: "/tools", label: "Tools" },
   { href: "/templates", label: "Templates" },
   { href: "/studio", label: "Hire us" },

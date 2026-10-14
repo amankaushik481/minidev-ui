@@ -5,7 +5,7 @@
 **500+ free React components, blocks and templates for real product screens.**<br/>
 Tailwind CSS v4, Base UI, motion. shadcn-compatible. MIT.
 
-[Website](https://ui.minidev.pro) · [Docs](https://ui.minidev.pro/docs) · [Components](https://ui.minidev.pro/components) · [Templates](https://ui.minidev.pro/templates) · [Free tools](https://ui.minidev.pro/tools) · [llms.txt](https://ui.minidev.pro/llms.txt)
+[Website](https://ui.minidev.pro) · [Docs](https://ui.minidev.pro/docs) · [Components](https://ui.minidev.pro/components) · [Blocks](https://ui.minidev.pro/blocks) · [Templates](https://ui.minidev.pro/templates) · [Free tools](https://ui.minidev.pro/tools) · [Guides](https://ui.minidev.pro/guides) · [llms.txt](https://ui.minidev.pro/llms.txt)
 
 [![npm](https://img.shields.io/npm/v/minidev-ui-kit?color=6d5bff&label=minidev-ui-kit)](https://www.npmjs.com/package/minidev-ui-kit)
 [![license](https://img.shields.io/badge/license-MIT-111114)](./LICENSE)
@@ -22,11 +22,11 @@ Tailwind CSS v4, Base UI, motion. shadcn-compatible. MIT.
 
 Most kits stop at buttons and cards. MiniDev UI covers the screens a product actually lives in after launch: data tables, billing and invoices, settings, dashboards, command palettes, notification centers and AI chat.
 
-- **Product screens, not just primitives.** Multi select, date range picker, stepper, timeline, tree view, kanban, OTP input, phone input, signature pad, file dropzone and hundreds more.
+- **Product screens, not just primitives.** Multi select, date range picker, stepper, timeline, file tree, kanban, Gantt chart, org chart, QR code, OTP input, signature pad, image cropper, virtual list and hundreds more.
 - **Lit, not flat.** One light source crosses the page and every shadow follows it. Switch the whole kit between four materials (hairline, glass, metal, paper) with one attribute.
 - **Accessible by default.** Built on [Base UI](https://base-ui.com) for focus, keyboard and ARIA. Every component works with the keyboard and with reduced motion.
 - **You own the code.** Each component is one file that lands in your repo. No runtime lock-in.
-- **Typed API reference** on every docs page, generated from the source.
+- **Every page previews live.** All 548 components render with sample data on their docs page, with a typed API reference generated from the source.
 - **Ready for AI agents.** [llms.txt](https://ui.minidev.pro/llms.txt) and [llms-full.txt](https://ui.minidev.pro/llms-full.txt) describe every component.
 
 ## Install
@@ -65,18 +65,18 @@ With Next.js, add `transpilePackages: ["minidev-ui-kit"]` to `next.config`.
 |---|---|
 | [Forms](https://ui.minidev.pro/components/forms) | multi select, combobox, date range picker, OTP, masked input, floating label input, password strength, signature pad |
 | [Data tables](https://ui.minidev.pro/components/data-tables) | sortable data table, row selection, pagination, column filters |
-| [Charts](https://ui.minidev.pro/components/charts) | area, bar, pie, donut, radial, sparkline, chart cards |
+| [Charts](https://ui.minidev.pro/components/charts) | area, bar, line, pie, donut, radial, treemap, sankey, funnel, Gantt, sparklines |
 | [Dashboard](https://ui.minidev.pro/components/dashboard) | event calendar, stat cards, activity feed, onboarding checklist |
 | [Billing](https://ui.minidev.pro/components/billing) | pricing tables, credit card input, plan cards, invoices, usage meters |
 | [Settings](https://ui.minidev.pro/components/settings) | profile, team, API keys, notifications, danger zone |
 | [AI chat](https://ui.minidev.pro/components/ai-chat) | chat thread, prompt input, streaming message, model picker |
 | [Navigation](https://ui.minidev.pro/components/navigation) | sidebar, command palette, tabs, breadcrumbs, stepper |
 | [Feedback](https://ui.minidev.pro/components/feedback) | toast, notification center, empty states, skeletons |
-| [Animation](https://ui.minidev.pro/components/animation) | meteors, particles, retro grid, ripple, shimmer button, border beam, dock, text reveal |
+| [Animation](https://ui.minidev.pro/components/animation) | aurora, lamp, globe, meteors, particles, retro grid, tilt card, shine border, terminal, text effects |
 | [Media and dev tools](https://ui.minidev.pro/components/media) | image cropper, image gallery, file tree, code block, audio player |
 | [Marketing](https://ui.minidev.pro/components/marketing) | heroes, feature grids, bento grid, testimonials, FAQ, CTA |
 
-Plus [20 categories](https://ui.minidev.pro/components) in total, [8 full templates](https://ui.minidev.pro/templates) with brand kits, and [free design tools](https://ui.minidev.pro/tools) (shadcn theme generator, contrast checker, OKLCH palette, box shadow, mesh gradient).
+Plus [20 categories](https://ui.minidev.pro/components), [15 block types](https://ui.minidev.pro/blocks) (hero, pricing, features, testimonials, FAQ, footers, navbars, login, dashboards), [8 full templates](https://ui.minidev.pro/templates) with brand kits, [19 free tools](https://ui.minidev.pro/tools) (shadcn theme generator, SVG to JSX, CSS to Tailwind, JSON to TypeScript, contrast checker, gradients, favicons) and [30+ guides](https://ui.minidev.pro/guides).
 
 ## Run the site locally
 

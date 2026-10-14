@@ -3,6 +3,19 @@ export type Release = { version: string; date: string; title: string; items: { t
 
 export const CHANGELOG: Release[] = [
   {
+    version: "0.6",
+    date: "2026-10-14",
+    title: "Every page previews live, 28 components, 9 tools, blocks by section",
+    items: [
+      { text: "88 components that needed props now ship sample data, so every docs page shows a working preview: multi select, data table, kanban, pricing table, every chart, every overlay.", href: "/docs/multi-select" },
+      { text: "New components: QR code with its own encoder, Gantt chart, org chart, table of contents, virtual list, audio recorder, treemap, sankey and funnel charts, markdown editor, keyboard shortcuts dialog, resizable panels and JSON viewer rebuilt.", href: "/docs/qr-code" },
+      { text: "New motion: aurora background, lamp effect, wavy background, globe, tracing beam, background boxes, tilt card, morphing text, hyper text, blur fade, shine border, scroll progress, terminal, browser and phone mockups, icon cloud, scratch to reveal, animated tooltip.", href: "/components/animation" },
+      { text: "Blocks by section: hero sections, pricing, features, testimonials, FAQ, CTA, footers, navbars, logo clouds, stats, login pages, dashboards, settings, landing pages and empty states, each rendered live.", href: "/blocks" },
+      { text: "Nine new tools: SVG to JSX, HTML to JSX, CSS to Tailwind v4, JSON to TypeScript, CSS gradient generator, SVG blob and wave generators, px to rem converter, favicon generator.", href: "/tools" },
+      { text: "Ten new guides, 40 new glossary terms (82 total), an About page and a Learn more section on every component page.", href: "/guides" },
+    ],
+  },
+  {
     version: "0.5",
     date: "2026-10-02",
     title: "Open source, 14 components, cropper and event calendar",

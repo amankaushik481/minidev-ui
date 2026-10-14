@@ -66,6 +66,19 @@ export function meta(m: MetaInput): Metadata {
 
 const ORG_ID = `${SITE.studio.url}/#organization`
 const SITE_ID = `${SITE.url}/#website`
+export const PERSON_ID = `${SITE.url}/about#aman`
+
+/** The person who writes the guides and maintains the kit. Linked from every article for E-E-A-T. */
+export const personLd = () => ({
+  "@type": "Person",
+  "@id": PERSON_ID,
+  name: "Aman Kaushik",
+  url: abs("/about"),
+  jobTitle: "Founder and lead engineer, MiniDev",
+  worksFor: { "@id": ORG_ID },
+  knowsAbout: ["React", "Next.js", "Tailwind CSS", "design systems", "accessibility", "MVP development"],
+  sameAs: [SITE.studio.url, ...(SITE.github ? [SITE.github] : [])],
+})
 
 export const organizationLd = () => ({
   "@type": "Organization",
@@ -77,6 +90,7 @@ export const organizationLd = () => ({
   email: SITE.studio.email,
   description: "MiniDev is a product studio that designs and builds MVPs, apps and websites.",
   sameAs: [SITE.url, SITE.npm, ...(SITE.github ? [SITE.github] : [])],
+  founder: { "@id": PERSON_ID },
 })
 
 export const websiteLd = () => ({
@@ -162,7 +176,7 @@ export function articleLd(a: { title: string; description: string; path: string;
     mainEntityOfPage: abs(a.path),
     datePublished: a.date,
     dateModified: a.updated ?? a.date,
-    author: { "@id": ORG_ID },
+    author: { "@id": PERSON_ID },
     publisher: { "@id": ORG_ID },
     image: abs(`${a.path}/opengraph-image`),
     keywords: a.keywords?.join(", "),

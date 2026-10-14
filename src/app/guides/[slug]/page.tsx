@@ -46,7 +46,7 @@ export default async function GuidePage({ params }: Params) {
           <p className="mt-4 text-[1.125rem] leading-[1.65] text-fg-muted">{g.description}</p>
           <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[12px] text-fg-subtle">
             <span>
-              By <Link href="/studio" className="text-fg-muted hover:text-fg">MiniDev</Link>
+              By <Link href="/about" rel="author" className="text-fg-muted hover:text-fg">Aman Kaushik</Link>, MiniDev
             </span>
             <span aria-hidden>·</span>
             <time dateTime={g.updated ?? g.date}>{fmt(g.updated ?? g.date)}</time>

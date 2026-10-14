@@ -8,7 +8,7 @@ import { LightRoot } from "@/components/light-root"
 import { JsonLd } from "@/components/seo/json-ld"
 import { SiteAnalytics } from "@/components/site-analytics"
 import { SITE } from "@/lib/site"
-import { graph, libraryLd, organizationLd, websiteLd } from "@/lib/seo"
+import { graph, libraryLd, organizationLd, personLd, websiteLd } from "@/lib/seo"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -99,7 +99,7 @@ export default function RootLayout({
         />
         <link rel="alternate" type="application/rss+xml" title="MiniDev UI guides" href="/guides/rss.xml" />
         <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
-        <JsonLd data={graph(organizationLd(), websiteLd(), libraryLd())} />
+        <JsonLd data={graph(organizationLd(), personLd(), websiteLd(), libraryLd())} />
       </head>
       <body className="flex min-h-full w-full min-w-0 flex-col overflow-x-clip bg-bg text-fg">
         {/* min-w-0: flex items default to min-width:auto and marquees/w-max would expand the page */}
