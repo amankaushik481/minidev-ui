@@ -18,6 +18,11 @@ import { SvgToJsx } from "@/components/tools/svg-to-jsx"
 import { HtmlToJsx } from "@/components/tools/html-to-jsx"
 import { CssToTailwind } from "@/components/tools/css-to-tailwind"
 import { JsonToTypescript } from "@/components/tools/json-to-typescript"
+import { GradientGenerator } from "@/components/tools/gradient-generator"
+import { BlobGenerator } from "@/components/tools/blob-generator"
+import { WaveGenerator } from "@/components/tools/wave-generator"
+import { PxToRem } from "@/components/tools/px-to-rem"
+import { FaviconGenerator } from "@/components/tools/favicon-generator"
 import { abs, breadcrumbLd, faqLd, graph, meta, webAppLd } from "@/lib/seo"
 
 type Params = { params: Promise<{ slug: string }> }
@@ -49,6 +54,11 @@ const UI: Record<string, () => React.ReactElement> = {
   "html-to-jsx": HtmlToJsx,
   "css-to-tailwind": CssToTailwind,
   "json-to-typescript": JsonToTypescript,
+  "css-gradient-generator": GradientGenerator,
+  "svg-blob-generator": BlobGenerator,
+  "svg-wave-generator": WaveGenerator,
+  "px-to-rem-converter": PxToRem,
+  "favicon-generator": FaviconGenerator,
 }
 
 export default async function ToolPage({ params }: Params) {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRightIcon, BlendIcon, BracesIcon, CodeXmlIcon, ContrastIcon, LayersIcon, PaletteIcon, PipetteIcon, SparklesIcon, SunIcon, SwatchBookIcon, TypeIcon, VectorSquareIcon, WavesIcon, WindIcon } from "lucide-react"
+import { AppWindowIcon, ArrowRightIcon, AudioWaveformIcon, BlendIcon, BracesIcon, CodeXmlIcon, ContrastIcon, LayersIcon, PaintbrushIcon, PaletteIcon, PipetteIcon, RulerIcon, ShapesIcon, SparklesIcon, SunIcon, SwatchBookIcon, TypeIcon, VectorSquareIcon, WavesIcon, WindIcon } from "lucide-react"
 import { TOOLS } from "@/content/tools"
 import { PAGE_SEO } from "@/content/pages"
 import { ContentShell, Crumbs, StudioNote } from "@/components/seo/prose"
@@ -9,7 +9,7 @@ import { breadcrumbLd, graph, itemListLd, meta } from "@/lib/seo"
 
 export const metadata: Metadata = meta({ ...PAGE_SEO.tools, path: "/tools" })
 
-const ICONS: Record<string, typeof SunIcon> = { "box-shadow-generator": SunIcon, "glassmorphism-generator": LayersIcon, "oklch-palette-generator": PaletteIcon, "brand-kit-generator": SparklesIcon, "shadcn-theme-generator": SwatchBookIcon, "hex-to-oklch": PipetteIcon, "contrast-checker": ContrastIcon, "fluid-type-calculator": TypeIcon, "mesh-gradient-generator": BlendIcon, "noise-texture-generator": WavesIcon, "svg-to-jsx": VectorSquareIcon, "html-to-jsx": CodeXmlIcon, "css-to-tailwind": WindIcon, "json-to-typescript": BracesIcon }
+const ICONS: Record<string, typeof SunIcon> = { "box-shadow-generator": SunIcon, "glassmorphism-generator": LayersIcon, "oklch-palette-generator": PaletteIcon, "brand-kit-generator": SparklesIcon, "shadcn-theme-generator": SwatchBookIcon, "hex-to-oklch": PipetteIcon, "contrast-checker": ContrastIcon, "fluid-type-calculator": TypeIcon, "mesh-gradient-generator": BlendIcon, "noise-texture-generator": WavesIcon, "svg-to-jsx": VectorSquareIcon, "html-to-jsx": CodeXmlIcon, "css-to-tailwind": WindIcon, "json-to-typescript": BracesIcon, "css-gradient-generator": PaintbrushIcon, "svg-blob-generator": ShapesIcon, "svg-wave-generator": AudioWaveformIcon, "px-to-rem-converter": RulerIcon, "favicon-generator": AppWindowIcon }
 
 export default function ToolsIndex() {
   return (

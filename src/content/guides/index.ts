@@ -20,10 +20,21 @@ import settings from "./saas-settings-page"
 import toasts from "./nextjs-toast-notifications"
 import tw4 from "./tailwind-v4-migration"
 import upload from "./react-file-upload-dropzone"
+import dateRange from "./react-date-range-picker"
+import wizard from "./react-onboarding-wizard"
+import charts from "./react-charts-tailwind"
+import tour from "./react-product-tour"
+import panels from "./react-resizable-panels"
+import gantt from "./react-gantt-chart"
+import qr from "./react-qr-code"
+import states from "./react-empty-states-skeletons"
+import heroes from "./tailwind-hero-section-examples"
+import modal from "./react-accessible-modal"
 
 export const GUIDES: Guide[] = [
   roundup, landing, dashboard, dataTable, aiChat, pricing, billing, sidebar, settings, cmdk,
   kanban, otp, upload, toasts, shadcnRegistry, tw4, darkMode, oklch, glass, shadows, splitFlap,
+  dateRange, wizard, charts, tour, panels, gantt, qr, states, heroes, modal,
 ]
 
 export const guideBySlug = (slug: string) => GUIDES.find((g) => g.slug === slug)
