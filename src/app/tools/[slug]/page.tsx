@@ -14,6 +14,10 @@ import { ContrastChecker } from "@/components/tools/contrast-checker"
 import { FluidTypeCalculator } from "@/components/tools/fluid-type"
 import { MeshGradient } from "@/components/tools/mesh-gradient"
 import { NoiseGenerator } from "@/components/tools/noise-generator"
+import { SvgToJsx } from "@/components/tools/svg-to-jsx"
+import { HtmlToJsx } from "@/components/tools/html-to-jsx"
+import { CssToTailwind } from "@/components/tools/css-to-tailwind"
+import { JsonToTypescript } from "@/components/tools/json-to-typescript"
 import { abs, breadcrumbLd, faqLd, graph, meta, webAppLd } from "@/lib/seo"
 
 type Params = { params: Promise<{ slug: string }> }
@@ -41,6 +45,10 @@ const UI: Record<string, () => React.ReactElement> = {
   "fluid-type-calculator": FluidTypeCalculator,
   "mesh-gradient-generator": MeshGradient,
   "noise-texture-generator": NoiseGenerator,
+  "svg-to-jsx": SvgToJsx,
+  "html-to-jsx": HtmlToJsx,
+  "css-to-tailwind": CssToTailwind,
+  "json-to-typescript": JsonToTypescript,
 }
 
 export default async function ToolPage({ params }: Params) {
