@@ -4,21 +4,35 @@ import { ChevronsUpDownIcon, CheckIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Popover, PopoverContent, PopoverTrigger } from "@/registry/ui/popover"
 
+/** OrgSwitcher — a popover list of organizations with the current one checked and its plan beside it. */
+
 type Org = { id: string; name: string; plan?: string }
 
-function OrgSwitcher({
-  orgs,
-  value,
-  onChange,
-  className,
-}: {
-  orgs: Org[]
+// Organizations Maya Chen belongs to in Lumen.
+const SAMPLE_ORGS: Org[] = [
+  { id: "northwind", name: "Northwind", plan: "Business" },
+  { id: "halcyon", name: "Halcyon Studio", plan: "Pro" },
+  { id: "maya", name: "Maya Chen", plan: "Free" },
+]
+
+type OrgSwitcherProps = {
+  orgs?: Org[]
+  /** Controlled organization id. Omit it and the switcher keeps its own selection. */
   value?: string
   onChange?: (id: string) => void
   className?: string
-}) {
+}
+
+function OrgSwitcher({
+  orgs = SAMPLE_ORGS,
+  value,
+  onChange,
+  className,
+}: OrgSwitcherProps) {
   const [open, setOpen] = React.useState(false)
-  const current = orgs.find((o) => o.id === value) ?? orgs[0]
+  const [internal, setInternal] = React.useState<string | undefined>(undefined)
+  const selectedId = value ?? internal
+  const current = orgs.find((o) => o.id === selectedId) ?? orgs[0]
   return (
     <div data-slot="org-switcher">
       <Popover open={open} onOpenChange={setOpen}>
@@ -39,7 +53,11 @@ function OrgSwitcher({
             key={o.id}
             type="button"
             className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-sm hover:bg-sunken"
-            onClick={() => { onChange?.(o.id); setOpen(false) }}
+            onClick={() => {
+              if (value === undefined) setInternal(o.id)
+              onChange?.(o.id)
+              setOpen(false)
+            }}
           >
             <CheckIcon className={cn("size-4", o.id === current?.id ? "opacity-100 text-accent" : "opacity-0")} />
             <span className="min-w-0 flex-1 truncate">{o.name}</span>
@@ -52,3 +70,4 @@ function OrgSwitcher({
   )
 }
 export { OrgSwitcher }
+export type { OrgSwitcherProps, Org }

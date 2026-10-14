@@ -4,20 +4,37 @@ import { CheckIcon, ChevronsUpDownIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Popover, PopoverContent, PopoverTrigger } from "@/registry/ui/popover"
 
+/** MultiSelect — a popover list with check marks and removable chips for the chosen items. */
+
 type Item = { value: string; label: string }
 
+// Reviewers who can approve an invoice in Lumen.
+const SAMPLE_ITEMS: Item[] = [
+  { value: "maya-chen", label: "Maya Chen" },
+  { value: "theo-okafor", label: "Theo Okafor" },
+  { value: "priya-raman", label: "Priya Raman" },
+  { value: "sam-lowe", label: "Sam Lowe" },
+  { value: "ada-novak", label: "Ada Novak" },
+  { value: "jonas-weber", label: "Jonas Weber" },
+]
+// Preselected only for the built-in demo data.
+const SAMPLE_SELECTED = ["maya-chen", "priya-raman"]
+
 type MultiSelectProps = {
-  items: Item[]
+  items?: Item[]
+  /** Controlled selection. */
   value?: string[]
+  /** Initial selection when uncontrolled. */
+  defaultValue?: string[]
   onChange?: (value: string[]) => void
   placeholder?: string
   disabled?: boolean
   className?: string
 }
 
-function MultiSelect({ items, value, onChange, placeholder = "Select…", disabled, className }: MultiSelectProps) {
+function MultiSelect({ items = SAMPLE_ITEMS, value, defaultValue, onChange, placeholder = "Select…", disabled, className }: MultiSelectProps) {
   const [open, setOpen] = React.useState(false)
-  const [internal, setInternal] = React.useState<string[]>([])
+  const [internal, setInternal] = React.useState<string[]>(() => defaultValue ?? (items === SAMPLE_ITEMS ? SAMPLE_SELECTED : []))
   const selected = value ?? internal
   const setSelected = (next: string[]) => {
     if (value === undefined) setInternal(next)
@@ -79,3 +96,4 @@ function MultiSelect({ items, value, onChange, placeholder = "Select…", disabl
   )
 }
 export { MultiSelect }
+export type { MultiSelectProps, Item as MultiSelectItem }

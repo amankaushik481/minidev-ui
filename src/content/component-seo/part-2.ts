@@ -81,11 +81,6 @@ export const PART_2: Record<string, ComponentSeo> = {
     category: "auth",
     keywords: ["react reset password form", "tailwind change password", "shadcn reset password"],
   },
-  "resizable-panels": {
-    description: "Two resizable panels split by a draggable divider, clamped between 20 and 80 percent. The divider is a focusable separator that also moves with arrow keys.",
-    category: "layout",
-    keywords: ["react resizable panels", "shadcn resizable", "draggable split view"],
-  },
   "resource-quota-grid": {
     description: "Responsive grid of quota cards, one per resource, each with a labelled usage bar showing used over max. Useful for infra limits like builds, storage and seats.",
     category: "dashboard",

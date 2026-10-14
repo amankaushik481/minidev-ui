@@ -2,15 +2,23 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function ChartTooltipCard({
-  title,
-  rows,
-  className,
-}: {
-  title: string
-  rows: { label: string; value: string }[]
+type TooltipRow = { label: string; value: string }
+
+type ChartTooltipCardProps = {
+  title?: string
+  rows?: TooltipRow[]
   className?: string
-}) {
+}
+
+const SAMPLE_ROWS: TooltipRow[] = [
+  { label: "Revenue", value: "$48,200" },
+  { label: "Collected", value: "$41,650" },
+  { label: "Outstanding", value: "$6,550" },
+  { label: "Invoices", value: "36" },
+]
+
+/** A small raised card for chart hover details: a title and label-value rows with tabular numbers. */
+function ChartTooltipCard({ title = "March 2026", rows = SAMPLE_ROWS, className }: ChartTooltipCardProps) {
   return (
     <div
       data-slot="chart-tooltip-card"
@@ -33,3 +41,4 @@ function ChartTooltipCard({
   )
 }
 export { ChartTooltipCard }
+export type { ChartTooltipCardProps, TooltipRow as ChartTooltipRow }

@@ -3,8 +3,9 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { inputVariants } from "@/registry/ui/input"
 
+/** A text field that suggests matching options as you type, with the first eight matches in a listbox. */
 type AutocompleteProps = {
-  options: string[]
+  options?: string[]
   value?: string
   onChange?: (value: string) => void
   placeholder?: string
@@ -14,7 +15,20 @@ type AutocompleteProps = {
   "aria-label"?: string
 }
 
-function Autocomplete({ options, value, onChange, placeholder, disabled, className, id, ...a11y }: AutocompleteProps) {
+const SAMPLE_OPTIONS = [
+  "Northwind Traders",
+  "Northstar Logistics",
+  "Acme Industries",
+  "Blue Harbor Co.",
+  "Cobalt Systems",
+  "Granite Peak Outfitters",
+  "Helix Biotech",
+  "Juniper Studio",
+  "Meridian Freight",
+  "Summit Dental Group",
+]
+
+function Autocomplete({ options = SAMPLE_OPTIONS, value, onChange, placeholder = "Search…", disabled, className, id, ...a11y }: AutocompleteProps) {
   const [open, setOpen] = React.useState(false)
   const [internal, setInternal] = React.useState("")
   const listId = React.useId()
@@ -69,3 +83,4 @@ function Autocomplete({ options, value, onChange, placeholder, disabled, classNa
   )
 }
 export { Autocomplete }
+export type { AutocompleteProps }

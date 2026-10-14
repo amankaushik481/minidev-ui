@@ -3,9 +3,37 @@
 import * as React from "react"
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover"
 import { cn } from "@/lib/utils"
+import { Button } from "@/registry/ui/button"
 
-function Popover({ ...props }: PopoverPrimitive.Root.Props) {
-  return <PopoverPrimitive.Root data-slot="popover" {...props} />
+/** Popover — a floating panel anchored to its trigger, built on Base UI; without children it shows a demo trigger and panel. */
+
+function Popover({ children, ...props }: PopoverPrimitive.Root.Props) {
+  return (
+    <PopoverPrimitive.Root data-slot="popover" {...props}>
+      {children ?? <PopoverDemo />}
+    </PopoverPrimitive.Root>
+  )
+}
+
+// What the zero-prop docs preview renders: a share panel from Lumen.
+function PopoverDemo() {
+  return (
+    <>
+      <PopoverTrigger render={<Button variant="outline" />}>Share report</PopoverTrigger>
+      <PopoverContent align="start">
+        <PopoverHeader>
+          <PopoverTitle>Share Q3 revenue</PopoverTitle>
+          <PopoverDescription>Anyone at Northwind with the link can view. Editing stays with finance.</PopoverDescription>
+        </PopoverHeader>
+        <div className="flex items-center gap-2">
+          <span className="flex h-8 min-w-0 flex-1 items-center truncate rounded-lg border border-border bg-sunken px-2.5 font-mono text-xs text-fg-muted">
+            lumen.app/r/q3-revenue
+          </span>
+          <Button size="sm">Copy link</Button>
+        </div>
+      </PopoverContent>
+    </>
+  )
 }
 
 function PopoverTrigger({ ...props }: PopoverPrimitive.Trigger.Props) {

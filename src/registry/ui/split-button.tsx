@@ -11,20 +11,31 @@ import {
 } from "@/registry/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
 
+/** A primary action with an attached chevron that opens a menu of related actions. */
+type SplitButtonItem = { label: string; onSelect?: () => void; destructive?: boolean }
+
 type SplitButtonProps = {
-  label: React.ReactNode
+  /** The primary action's label. */
+  label?: React.ReactNode
   onPrimaryClick?: () => void
   disabled?: boolean
   className?: string
-  items: { label: string; onSelect?: () => void; destructive?: boolean }[]
+  /** Secondary actions in the menu; the menu matches the button's width. */
+  items?: SplitButtonItem[]
 }
 
+const SAMPLE_ITEMS: SplitButtonItem[] = [
+  { label: "Save draft" },
+  { label: "Save and close" },
+  { label: "Discard", destructive: true },
+]
+
 function SplitButton({
-  label,
+  label = "Save invoice",
   onPrimaryClick,
   disabled,
   className,
-  items,
+  items = SAMPLE_ITEMS,
 }: SplitButtonProps) {
   const ref = React.useRef<HTMLDivElement>(null)
   const [menuMinWidth, setMenuMinWidth] = React.useState<number>()
@@ -89,3 +100,4 @@ function SplitButton({
 }
 
 export { SplitButton }
+export type { SplitButtonProps, SplitButtonItem }

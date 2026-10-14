@@ -4,9 +4,23 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
+/** PricingMotion — pricing tiers that rise into view one after another as they scroll in. */
+
 type Plan = { name: string; price: string; blurb: string; featured?: boolean; features: string[] }
 
-function PricingMotion({ plans, className }: { plans: Plan[]; className?: string }) {
+// Lumen pricing tiers.
+const SAMPLE_PLANS: Plan[] = [
+  { name: "Starter", price: "$0", blurb: "For a founder sending the first invoices", features: ["5 invoices a month", "1 seat", "Email support"] },
+  { name: "Pro", price: "$49", blurb: "For finance teams that close every month", featured: true, features: ["Unlimited invoices", "Up to 10 seats", "Bank sync and reconciliation", "Priority support"] },
+  { name: "Business", price: "$149", blurb: "For companies with audit requirements", features: ["Everything in Pro", "Unlimited seats", "SSO and audit log", "Dedicated manager"] },
+]
+
+type PricingMotionProps = {
+  plans?: Plan[]
+  className?: string
+}
+
+function PricingMotion({ plans = SAMPLE_PLANS, className }: PricingMotionProps) {
   const reduce = useReducedMotion()
   return (
     <div data-slot="pricing-motion" data-tier="premium" className={cn("grid gap-4 md:grid-cols-3", className)}>
@@ -39,3 +53,4 @@ function PricingMotion({ plans, className }: { plans: Plan[]; className?: string
   )
 }
 export { PricingMotion }
+export type { PricingMotionProps, Plan as PricingMotionPlan }

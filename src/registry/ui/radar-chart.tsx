@@ -2,17 +2,27 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function RadarChart({
-  labels,
-  values,
-  className,
-  label = "Radar chart",
-}: {
-  labels: string[]
-  values: number[]
+/** RadarChart — a filled polygon over concentric rings, one axis per label. */
+
+// Lumen vendor scorecard: each axis is a 0 to 1 score.
+const SAMPLE_LABELS = ["Uptime", "Speed", "Cost", "Support", "Docs", "Privacy"]
+const SAMPLE_VALUES = [0.92, 0.78, 0.64, 0.86, 0.7, 0.95]
+
+type RadarChartProps = {
+  /** One axis per label, drawn clockwise from the top. */
+  labels?: string[]
+  /** One value per label, from 0 to 1. */
+  values?: number[]
   className?: string
   label?: string
-}) {
+}
+
+function RadarChart({
+  labels = SAMPLE_LABELS,
+  values = SAMPLE_VALUES,
+  className,
+  label = "Radar chart",
+}: RadarChartProps) {
   const n = labels.length
   const cx = 80
   const cy = 80
@@ -48,3 +58,4 @@ function RadarChart({
   )
 }
 export { RadarChart }
+export type { RadarChartProps }

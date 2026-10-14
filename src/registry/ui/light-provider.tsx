@@ -3,6 +3,8 @@ import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
+/** The page's single light source: it follows the pointer, drifts when idle, and every shadow and sheen in the kit falls away from it. */
+
 /*
  * Light & Material.
  *
@@ -15,80 +17,140 @@ import { cn } from "@/lib/utils"
  *
  * Materials are a data attribute: <html data-material="glass"> or on any
  * subtree. hairline (default) · glass · metal · paper.
+ *
+ * Mount it once, near the root. A second provider on the same page does not
+ * start a second light: it renders its children, or, with no children, a
+ * small panel that shows the light at work (what the docs preview shows).
  */
 
 type Material = "hairline" | "glass" | "metal" | "paper"
 const MATERIALS: Material[] = ["hairline", "glass", "metal", "paper"]
 
-function LightProvider({ idle = true }: { /** Drift when the pointer is idle or absent. */ idle?: boolean }) {
+/* Number of providers currently running the light. Only the first one does. */
+let lights = 0
+
+type LightProviderProps = {
+  /** Drift when the pointer is idle or absent. */
+  idle?: boolean
+  /** Rendered as-is. Without children the root provider renders nothing visible. */
+  children?: React.ReactNode
+}
+
+function LightProvider({ idle = true, children }: LightProviderProps) {
   const reduce = useReducedMotion()
+  const [secondary, setSecondary] = React.useState(false)
   React.useEffect(() => {
-    const root = document.documentElement
-    if (reduce) return
-    let tx = window.innerWidth * 0.3
-    let ty = -window.innerHeight * 0.1
-    let cx = tx
-    let cy = ty
-    let last = performance.now()
-    let lastMove = 0
-    let raf = 0
-    let lastWrite = ""
-    const coarse = window.matchMedia("(pointer: coarse)").matches
-
-    const write = () => {
-      const w = window.innerWidth
-      const h = window.innerHeight
-      const sx = Math.max(-1, Math.min(1, (w / 2 - cx) / (w / 2)))
-      const sy = Math.max(-1, Math.min(1, (h / 2 - cy) / (h / 2)))
-      const la = (Math.atan2(-sx, sy) * 180) / Math.PI // toward the light
-      const key = `${Math.round(cx)}|${Math.round(cy)}`
-      if (key === lastWrite) return
-      lastWrite = key
-      root.style.setProperty("--lx", `${Math.round(cx)}px`)
-      root.style.setProperty("--ly", `${Math.round(cy)}px`)
-      root.style.setProperty("--sx", sx.toFixed(3))
-      root.style.setProperty("--sy", sy.toFixed(3))
-      root.style.setProperty("--la", `${Math.round(la)}deg`)
+    if (lights > 0) {
+      setSecondary(true)
+      return
     }
-
-    const tick = (now: number) => {
-      const dt = Math.min(64, now - last)
-      last = now
-      if (idle && (coarse || now - lastMove > 5000)) {
-        const t = now / 1000
-        tx = window.innerWidth * (0.5 + 0.34 * Math.cos(t * 0.32))
-        ty = window.innerHeight * (0.28 + 0.26 * Math.sin(t * 0.32))
-      }
-      const k = 1 - Math.pow(0.001, dt / 1000) // frame-rate independent ease
-      cx += (tx - cx) * Math.min(1, k * 1.6)
-      cy += (ty - cy) * Math.min(1, k * 1.6)
-      write()
-      raf = requestAnimationFrame(tick)
-    }
-
-    const move = (e: PointerEvent) => {
-      if (e.pointerType === "touch") return
-      tx = e.clientX
-      ty = e.clientY
-      lastMove = performance.now()
-    }
-    const vis = () => {
-      cancelAnimationFrame(raf)
-      if (!document.hidden) {
-        last = performance.now()
-        raf = requestAnimationFrame(tick)
-      }
-    }
-    window.addEventListener("pointermove", move, { passive: true })
-    document.addEventListener("visibilitychange", vis)
-    raf = requestAnimationFrame(tick)
+    lights++
+    const stop = reduce ? undefined : runLight(idle)
     return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener("pointermove", move)
-      document.removeEventListener("visibilitychange", vis)
+      lights--
+      stop?.()
     }
   }, [reduce, idle])
-  return null
+  if (children !== undefined) return <>{children}</>
+  if (secondary) return <LightDemo />
+  return <span data-slot="light-provider" hidden />
+}
+
+/* Starts the light loop on <html>. Returns a function that stops it. */
+function runLight(idle: boolean) {
+  const root = document.documentElement
+  let tx = window.innerWidth * 0.3
+  let ty = -window.innerHeight * 0.1
+  let cx = tx
+  let cy = ty
+  let last = performance.now()
+  let lastMove = 0
+  let raf = 0
+  let lastWrite = ""
+  const coarse = window.matchMedia("(pointer: coarse)").matches
+
+  const write = () => {
+    const w = window.innerWidth
+    const h = window.innerHeight
+    const sx = Math.max(-1, Math.min(1, (w / 2 - cx) / (w / 2)))
+    const sy = Math.max(-1, Math.min(1, (h / 2 - cy) / (h / 2)))
+    const la = (Math.atan2(-sx, sy) * 180) / Math.PI // toward the light
+    const key = `${Math.round(cx)}|${Math.round(cy)}`
+    if (key === lastWrite) return
+    lastWrite = key
+    root.style.setProperty("--lx", `${Math.round(cx)}px`)
+    root.style.setProperty("--ly", `${Math.round(cy)}px`)
+    root.style.setProperty("--sx", sx.toFixed(3))
+    root.style.setProperty("--sy", sy.toFixed(3))
+    root.style.setProperty("--la", `${Math.round(la)}deg`)
+  }
+
+  const tick = (now: number) => {
+    const dt = Math.min(64, now - last)
+    last = now
+    if (idle && (coarse || now - lastMove > 5000)) {
+      const t = now / 1000
+      tx = window.innerWidth * (0.5 + 0.34 * Math.cos(t * 0.32))
+      ty = window.innerHeight * (0.28 + 0.26 * Math.sin(t * 0.32))
+    }
+    const k = 1 - Math.pow(0.001, dt / 1000) // frame-rate independent ease
+    cx += (tx - cx) * Math.min(1, k * 1.6)
+    cy += (ty - cy) * Math.min(1, k * 1.6)
+    write()
+    raf = requestAnimationFrame(tick)
+  }
+
+  const move = (e: PointerEvent) => {
+    if (e.pointerType === "touch") return
+    tx = e.clientX
+    ty = e.clientY
+    lastMove = performance.now()
+  }
+  const vis = () => {
+    cancelAnimationFrame(raf)
+    if (!document.hidden) {
+      last = performance.now()
+      raf = requestAnimationFrame(tick)
+    }
+  }
+  window.addEventListener("pointermove", move, { passive: true })
+  document.addEventListener("visibilitychange", vis)
+  raf = requestAnimationFrame(tick)
+  return () => {
+    cancelAnimationFrame(raf)
+    window.removeEventListener("pointermove", move)
+    document.removeEventListener("visibilitychange", vis)
+  }
+}
+
+/* ── demo panel (a second provider with no children) ───────────────────── */
+const TILES: { label: string; className: string }[] = [
+  { label: "Card", className: "rounded-xl bg-surface text-fg-muted shadow-raised" },
+  { label: "Key", className: "rounded-lg border border-border bg-surface text-fg-muted shadow-key" },
+  { label: "Button", className: "rounded-xl bg-ink text-on-ink shadow-ink" },
+  { label: "Menu", className: "rounded-xl border border-border bg-raised text-fg-muted shadow-overlay" },
+]
+
+function LightDemo() {
+  return (
+    <div data-slot="light-provider" className="w-full max-w-md rounded-2xl border border-border bg-surface p-5 shadow-raised">
+      <p className="text-sm font-medium text-fg">One light, every shadow</p>
+      <p className="mt-1 text-xs leading-[1.6] text-fg-muted">
+        Move the pointer. The light follows it, drifts when you stop, and each surface casts its shadow away from it.
+      </p>
+      <div className="mt-4 grid grid-cols-4 gap-3">
+        {TILES.map((t) => (
+          <div key={t.label} className={cn("grid h-16 place-items-center text-xs font-medium", t.className)}>
+            {t.label}
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <span className="text-xs text-fg-muted">Material</span>
+        <MaterialSwitcher size="sm" />
+      </div>
+    </div>
+  )
 }
 
 /* ── material store (reads and writes <html data-material>) ───────────── */
@@ -213,4 +275,4 @@ function MaterialSwitcher({ size = "default", labels = true, className }: { size
 }
 
 export { LightProvider, MaterialSwitcher, useMaterial, MATERIALS }
-export type { Material }
+export type { Material, LightProviderProps }

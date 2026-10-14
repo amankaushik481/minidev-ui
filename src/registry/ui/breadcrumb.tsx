@@ -2,7 +2,23 @@
 import * as React from "react"
 import { ChevronRightIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
-function Breadcrumb({ items, className }: { items: { label: string; href?: string }[]; className?: string }) {
+
+type Crumb = { label: string; href?: string }
+
+type BreadcrumbProps = {
+  items?: Crumb[]
+  className?: string
+}
+
+const SAMPLE_ITEMS: Crumb[] = [
+  { label: "Lumen", href: "#" },
+  { label: "Customers", href: "#" },
+  { label: "Northwind", href: "#" },
+  { label: "INV-2041" },
+]
+
+/** A navigation trail of links with chevron separators; the last item is the current page. */
+function Breadcrumb({ items = SAMPLE_ITEMS, className }: BreadcrumbProps) {
   return (
     <nav aria-label="Breadcrumb" data-slot="breadcrumb" className={cn("flex items-center gap-1 text-sm", className)}>
       {items.map((item, i) => (
@@ -19,3 +35,4 @@ function Breadcrumb({ items, className }: { items: { label: string; href?: strin
   )
 }
 export { Breadcrumb }
+export type { BreadcrumbProps, Crumb as BreadcrumbItem }

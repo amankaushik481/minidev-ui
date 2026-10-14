@@ -6,13 +6,48 @@ import { Badge } from "@/registry/ui/badge"
 
 type Entry = { version: string; date: string; title: string; items: string[]; tag?: "New" | "Fix" | "Premium" }
 
-function ChangelogMotion({
-  entries,
-  className,
-}: {
-  entries: Entry[]
+type ChangelogMotionProps = {
+  entries?: Entry[]
   className?: string
-}) {
+}
+
+const SAMPLE_ENTRIES: Entry[] = [
+  {
+    version: "v2.4.0",
+    date: "Oct 8, 2026",
+    title: "Approvals and audit trail",
+    tag: "New",
+    items: [
+      "Refunds and credits over $1,000 now route to an approver",
+      "Every approval decision is logged with actor and timestamp",
+      "Audit trail export to CSV from the Settings page",
+    ],
+  },
+  {
+    version: "v2.3.2",
+    date: "Sep 24, 2026",
+    title: "Invoice reminders",
+    tag: "Fix",
+    items: [
+      "Reminders no longer send after a partial payment lands",
+      "Fixed timezone drift on due dates for customers in Europe",
+    ],
+  },
+  {
+    version: "v2.3.0",
+    date: "Sep 9, 2026",
+    title: "Multi-currency ledger",
+    tag: "Premium",
+    items: [
+      "Bill in one currency and report in another with locked rates",
+      "Month end reconciliation view with per-currency totals",
+      "Northwind-style parent and child accounts",
+    ],
+  },
+]
+
+/** A vertical release timeline whose entries slide in as they scroll into view, with version, date and tag per release. */
+function ChangelogMotion({ entries = SAMPLE_ENTRIES, className }: ChangelogMotionProps) {
   const reduce = useReducedMotion()
   return (
     <div data-slot="changelog-motion" data-tier="premium" className={cn("mx-auto max-w-2xl space-y-10", className)}>
@@ -49,3 +84,4 @@ function ChangelogMotion({
   )
 }
 export { ChangelogMotion }
+export type { ChangelogMotionProps, Entry as ChangelogEntry }

@@ -2,13 +2,23 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function ChartLegend({
-  items,
-  className,
-}: {
-  items: { label: string; color?: string }[]
+type LegendItem = { label: string; color?: string }
+
+/** A row of colour swatches and series names to sit under a chart. */
+type ChartLegendProps = {
+  /** Series to list. Colors fall back to accent, success, warning and danger in turn. */
+  items?: LegendItem[]
   className?: string
-}) {
+}
+
+const SAMPLE_ITEMS: LegendItem[] = [
+  { label: "Revenue" },
+  { label: "Collected" },
+  { label: "Outstanding" },
+  { label: "Refunded" },
+]
+
+function ChartLegend({ items = SAMPLE_ITEMS, className }: ChartLegendProps) {
   const fallback = ["var(--accent)", "var(--success)", "var(--warning)", "var(--danger)"]
   return (
     <ul data-slot="chart-legend" className={cn("flex flex-wrap gap-3", className)}>
@@ -22,3 +32,4 @@ function ChartLegend({
   )
 }
 export { ChartLegend }
+export type { ChartLegendProps, LegendItem as ChartLegendItem }

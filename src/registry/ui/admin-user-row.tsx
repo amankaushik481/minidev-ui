@@ -7,19 +7,23 @@ import { PermissionChip } from "@/registry/ui/permission-chip"
 import { IconButton } from "@/registry/ui/icon-button"
 import { StatusDot } from "@/registry/ui/status-dot"
 
+/** One member row for an admin user list: avatar with presence, name, email, permission level and an actions menu. */
+type AdminUserRowProps = {
+  name?: string
+  email?: string
+  role?: "admin" | "write" | "read"
+  /** Presence dot: true for online, false for offline, omit to hide. */
+  online?: boolean
+  className?: string
+}
+
 function AdminUserRow({
-  name,
-  email,
+  name = "Maya Chen",
+  email = "maya.chen@northwind.com",
   role = "read",
   online,
   className,
-}: {
-  name: string
-  email: string
-  role?: "admin" | "write" | "read"
-  online?: boolean
-  className?: string
-}) {
+}: AdminUserRowProps) {
   return (
     <div data-slot="admin-user-row" className={cn("flex items-center gap-3 border-b border-border px-3 py-2.5", className)}>
       <div className="relative">
@@ -40,3 +44,4 @@ function AdminUserRow({
   )
 }
 export { AdminUserRow }
+export type { AdminUserRowProps }

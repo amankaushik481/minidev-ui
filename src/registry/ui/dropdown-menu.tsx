@@ -3,10 +3,63 @@
 import * as React from "react"
 import { Menu as MenuPrimitive } from "@base-ui/react/menu"
 import { cn } from "@/lib/utils"
-import { ChevronRightIcon, CheckIcon } from "lucide-react"
+import { buttonVariants } from "@/registry/ui/button"
+import { ChevronDownIcon, ChevronRightIcon, CheckIcon } from "lucide-react"
 
-function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
-  return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />
+/** A menu that opens from a trigger: items with shortcuts, labels, separators, checkbox and radio items, and nested submenus. */
+function DropdownMenu({ children, ...props }: MenuPrimitive.Root.Props) {
+  return (
+    <MenuPrimitive.Root data-slot="dropdown-menu" {...props}>
+      {children ?? <SampleMenu />}
+    </MenuPrimitive.Root>
+  )
+}
+
+/* Rendered when <DropdownMenu /> has no children: an account menu for Lumen. */
+function SampleMenu() {
+  const [notify, setNotify] = React.useState(true)
+  const [workspace, setWorkspace] = React.useState("northwind")
+  return (
+    <>
+      <DropdownMenuTrigger className={cn(buttonVariants({ variant: "outline" }), "gap-2")}>
+        Maya Chen
+        <ChevronDownIcon className="size-3.5 text-fg-muted" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="min-w-56">
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>maya@northwind.io</DropdownMenuLabel>
+          <DropdownMenuItem>
+            Profile
+            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            Billing
+            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            Settings
+            <DropdownMenuShortcut>⌘,</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuCheckboxItem checked={notify} onCheckedChange={setNotify}>
+          Email notifications
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>Switch workspace</DropdownMenuSubTrigger>
+          <DropdownMenuSubContent>
+            <DropdownMenuRadioGroup value={workspace} onValueChange={(v) => setWorkspace(String(v))}>
+              <DropdownMenuRadioItem value="northwind">Northwind</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="lumen">Lumen Labs</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="personal">Personal</DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem variant="destructive">Log out</DropdownMenuItem>
+      </DropdownMenuContent>
+    </>
+  )
 }
 
 function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {

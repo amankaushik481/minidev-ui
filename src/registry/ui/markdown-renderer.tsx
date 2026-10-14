@@ -2,7 +2,31 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function MarkdownRenderer({ content, className }: { content: string; className?: string }) {
+/** MarkdownRenderer — paragraphs and fenced code blocks from a markdown string, with no parser dependency. */
+
+// A note from the Lumen developer docs: paragraphs and one fenced code block.
+const SAMPLE_CONTENT = `Lumen sends a webhook the moment an invoice is paid. Verify the signature header, then mark the order as settled in your own system.
+
+\`\`\`json
+{
+  "event": "invoice.paid",
+  "invoice": "INV-2041",
+  "customer": "Northwind",
+  "amount": 12400,
+  "currency": "USD",
+  "paid_at": "2026-10-14T09:42:00Z"
+}
+\`\`\`
+
+Deliveries retry with exponential backoff for 24 hours. Return a 2xx within five seconds or the attempt is marked failed and queued again.`
+
+type MarkdownRendererProps = {
+  /** Markdown source. Paragraphs and fenced code blocks are rendered; other syntax is shown as plain text. */
+  content?: string
+  className?: string
+}
+
+function MarkdownRenderer({ content = SAMPLE_CONTENT, className }: MarkdownRendererProps) {
   const parts = content.split(/```[\w]*\n?/)
   return (
     <div data-slot="markdown-renderer" className={cn("space-y-3 text-sm leading-[1.55] text-fg", className)}>
@@ -22,3 +46,4 @@ function MarkdownRenderer({ content, className }: { content: string; className?:
   )
 }
 export { MarkdownRenderer }
+export type { MarkdownRendererProps }

@@ -1,8 +1,10 @@
 "use client"
 
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
+import { Button } from "@/registry/ui/button"
 import { cn } from "@/lib/utils"
 
+/** An ink label with an arrow that appears on hover and keyboard focus, built on Base UI. */
 function TooltipProvider({
   delay = 0,
   ...props
@@ -16,8 +18,17 @@ function TooltipProvider({
   )
 }
 
-function Tooltip({ ...props }: TooltipPrimitive.Root.Props) {
-  return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+function Tooltip({ children, ...props }: TooltipPrimitive.Root.Props) {
+  return (
+    <TooltipPrimitive.Root data-slot="tooltip" {...props}>
+      {children ?? (
+        <>
+          <TooltipTrigger render={<Button variant="outline" />}>Archive invoice</TooltipTrigger>
+          <TooltipContent>Moves INV-2041 to the archive. Undo for 30 days.</TooltipContent>
+        </>
+      )}
+    </TooltipPrimitive.Root>
+  )
 }
 
 function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {

@@ -7,9 +7,13 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/registry/ui/popover"
 
 type Item = { value: string; label: string }
 
+/** A button that opens a filterable list of options in a popover; uncontrolled unless a value is passed. */
 type ComboboxProps = {
-  items: Item[]
+  items?: Item[]
+  /** Controlled selection. Leave undefined for an uncontrolled combobox. */
   value?: string
+  /** Initial selection for the uncontrolled combobox. */
+  defaultValue?: string
   onChange?: (value: string) => void
   placeholder?: string
   disabled?: boolean
@@ -17,10 +21,22 @@ type ComboboxProps = {
   emptyText?: string
 }
 
-function Combobox({ items, value, onChange, placeholder = "Select…", disabled, className, emptyText = "No results" }: ComboboxProps) {
+const SAMPLE_ITEMS: Item[] = [
+  { value: "northwind", label: "Northwind Traders" },
+  { value: "acme", label: "Acme Industries" },
+  { value: "blue-harbor", label: "Blue Harbor Co." },
+  { value: "cobalt", label: "Cobalt Systems" },
+  { value: "helix", label: "Helix Biotech" },
+  { value: "juniper", label: "Juniper Studio" },
+  { value: "meridian", label: "Meridian Freight" },
+]
+
+function Combobox({ items = SAMPLE_ITEMS, value, defaultValue, onChange, placeholder = "Select…", disabled, className, emptyText = "No results" }: ComboboxProps) {
   const [open, setOpen] = React.useState(false)
   const [query, setQuery] = React.useState("")
-  const selected = items.find((i) => i.value === value)
+  const [inner, setInner] = React.useState(defaultValue)
+  const current = value ?? inner
+  const selected = items.find((i) => i.value === current)
   const filtered = items.filter((i) => i.label.toLowerCase().includes(query.toLowerCase()))
   return (
     <div data-slot="combobox">
@@ -58,11 +74,16 @@ function Combobox({ items, value, onChange, placeholder = "Select…", disabled,
                 className={cn(
                   "flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-sm",
                   "transition-[background-color] duration-[70ms] hover:bg-sunken",
-                  item.value === value && "bg-sunken"
+                  item.value === current && "bg-sunken"
                 )}
-                onClick={() => { onChange?.(item.value); setOpen(false); setQuery("") }}
+                onClick={() => {
+                  if (value === undefined) setInner(item.value)
+                  onChange?.(item.value)
+                  setOpen(false)
+                  setQuery("")
+                }}
               >
-                <CheckIcon className={cn("size-4", item.value === value ? "opacity-100 text-accent" : "opacity-0")} />
+                <CheckIcon className={cn("size-4", item.value === current ? "opacity-100 text-accent" : "opacity-0")} />
                 {item.label}
               </button>
             ))
@@ -74,3 +95,4 @@ function Combobox({ items, value, onChange, placeholder = "Select…", disabled,
   )
 }
 export { Combobox }
+export type { ComboboxProps, Item as ComboboxItem }

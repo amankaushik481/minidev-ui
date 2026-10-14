@@ -4,13 +4,27 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
-function ProductTour({
-  steps,
-  className,
-}: {
-  steps: { title: string; body: string }[]
+/** ProductTour — a step list beside a stage that fades to the selected step, with Back and Next. */
+
+type TourStep = { title: string; body: string }
+
+// Onboarding steps for a new Lumen workspace.
+const SAMPLE_STEPS: TourStep[] = [
+  { title: "Connect your bank", body: "Link Northwind's accounts once. Transactions sync every hour and match to invoices automatically." },
+  { title: "Send your first invoice", body: "Pick a customer, add line items and Lumen handles the numbering, tax and reminders." },
+  { title: "Invite the team", body: "Add Maya, Theo and Priya with roles, so approvals and payouts never wait on one person." },
+  { title: "Close the month", body: "Reconcile in one pass, export to your ledger and lock the period." },
+]
+
+type ProductTourProps = {
+  steps?: TourStep[]
   className?: string
-}) {
+}
+
+function ProductTour({
+  steps = SAMPLE_STEPS,
+  className,
+}: ProductTourProps) {
   const reduce = useReducedMotion()
   const [active, setActive] = React.useState(0)
   return (
@@ -20,6 +34,7 @@ function ProductTour({
           <button
             key={s.title}
             type="button"
+            aria-current={i === active ? "step" : undefined}
             onClick={() => setActive(i)}
             className={cn(
               "w-full rounded-xl border px-4 py-3 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent",
@@ -51,3 +66,4 @@ function ProductTour({
   )
 }
 export { ProductTour }
+export type { ProductTourProps, TourStep }

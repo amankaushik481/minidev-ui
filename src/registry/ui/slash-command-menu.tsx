@@ -2,19 +2,33 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
+/** A floating list of slash commands filtered by what the user has typed after the slash. */
 type Item = { id: string; label: string; hint?: string }
 
-function SlashCommandMenu({
-  items,
-  query = "",
-  onSelect,
-  className,
-}: {
-  items: Item[]
+type SlashCommandMenuProps = {
+  /** Commands to offer. Defaults to Lumen's composer commands. */
+  items?: Item[]
+  /** The text typed after the slash; filters the list. */
   query?: string
   onSelect?: (item: Item) => void
   className?: string
-}) {
+}
+
+const SAMPLE_ITEMS: Item[] = [
+  { id: "invoice", label: "invoice", hint: "Create an invoice" },
+  { id: "customer", label: "customer", hint: "Add a customer" },
+  { id: "remind", label: "remind", hint: "Send a payment reminder" },
+  { id: "note", label: "note", hint: "Attach an internal note" },
+  { id: "deploy", label: "deploy", hint: "Trigger a deploy" },
+  { id: "status", label: "status", hint: "Check system status" },
+]
+
+function SlashCommandMenu({
+  items = SAMPLE_ITEMS,
+  query = "",
+  onSelect,
+  className,
+}: SlashCommandMenuProps) {
   const filtered = items.filter((i) => i.label.toLowerCase().includes(query.toLowerCase()))
   return (
     <div
@@ -35,6 +49,7 @@ function SlashCommandMenu({
             key={item.id}
             type="button"
             role="option"
+            aria-selected={false}
             className="flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 text-left text-sm hover:bg-sunken outline-none focus-visible:ring-2 focus-visible:ring-accent"
             onClick={() => onSelect?.(item)}
           >
@@ -47,3 +62,4 @@ function SlashCommandMenu({
   )
 }
 export { SlashCommandMenu }
+export type { SlashCommandMenuProps }

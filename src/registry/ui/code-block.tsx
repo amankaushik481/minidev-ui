@@ -3,10 +3,7 @@ import * as React from "react"
 import { CheckIcon, CopyIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/**
- * CodeBlock — an ink well in both themes. Lightweight token colouring
- * (strings, keywords, JSX tags, comments) with zero dependencies.
- */
+/** An ink-well code block in both themes, with lightweight token colouring (strings, keywords, JSX tags, comments) and a copy button. */
 const KEYWORDS = new Set([
   "import", "from", "export", "default", "function", "return", "const", "let", "var",
   "if", "else", "await", "async", "new", "type", "interface", "extends", "as", "npm",
@@ -35,19 +32,35 @@ function highlight(code: string) {
   return out
 }
 
-function CodeBlock({
-  code,
-  language = "tsx",
-  filename,
-  className,
-  showLineNumbers = false,
-}: {
-  code: string
+const SAMPLE_CODE = `import { lumen } from "@/lib/lumen"
+
+// Create an invoice for Northwind and send it
+export async function POST(req: Request) {
+  const { customerId, amount } = await req.json()
+  const invoice = await lumen.invoices.create({
+    customerId,
+    amount: Math.round(amount * 100), // cents
+    dueInDays: 30,
+  })
+  return Response.json({ id: invoice.id, status: "open" })
+}
+`
+
+type CodeBlockProps = {
+  code?: string
   language?: string
   filename?: string
   className?: string
   showLineNumbers?: boolean
-}) {
+}
+
+function CodeBlock({
+  code = SAMPLE_CODE,
+  language = "tsx",
+  filename,
+  className,
+  showLineNumbers = false,
+}: CodeBlockProps) {
   const [copied, setCopied] = React.useState(false)
   const lines = React.useMemo(() => code.replace(/\n$/, "").split("\n"), [code])
   return (
@@ -97,3 +110,4 @@ function CodeBlock({
   )
 }
 export { CodeBlock }
+export type { CodeBlockProps }

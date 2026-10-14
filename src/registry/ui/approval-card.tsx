@@ -4,25 +4,28 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 import { Avatar, AvatarFallback } from "@/registry/ui/avatar"
 
-function ApprovalCard({
-  title,
-  requester,
-  summary,
-  onApprove,
-  onReject,
-  className,
-}: {
-  title: string
-  requester: string
+type ApprovalCardProps = {
+  title?: string
+  requester?: string
   summary?: string
   onApprove?: () => void
   onReject?: () => void
   className?: string
-}) {
+}
+
+/** A request card with the requester, a summary and approve or reject actions. */
+function ApprovalCard({
+  title = "Refund $1,240 on INV-2041",
+  requester = "Theo Okafor",
+  summary,
+  onApprove,
+  onReject,
+  className,
+}: ApprovalCardProps) {
   return (
     <div
       data-slot="approval-card"
-      className={cn("rounded-xl border border-border bg-surface p-4", className)}
+      className={cn("w-full max-w-md rounded-xl border border-border bg-surface p-4", className)}
     >
       <div className="flex items-start gap-3">
         <Avatar className="size-9">
@@ -42,3 +45,4 @@ function ApprovalCard({
   )
 }
 export { ApprovalCard }
+export type { ApprovalCardProps }

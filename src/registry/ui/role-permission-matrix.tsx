@@ -1,17 +1,26 @@
 "use client"
 import { Checkbox } from "@/registry/ui/checkbox"
 import { cn } from "@/lib/utils"
-function RolePermissionMatrix({
-  roles,
-  permissions,
-  className,
-}: {
-  roles: string[]
-  permissions: string[]
+
+/** A permissions table with one checkbox per role and capability, for workspace access settings. */
+type RolePermissionMatrixProps = {
+  /** Column headers. Defaults to Lumen's three workspace roles. */
+  roles?: string[]
+  /** Row labels, one per capability. */
+  permissions?: string[]
   className?: string
-}) {
+}
+
+const SAMPLE_ROLES = ["Owner", "Admin", "Member"]
+const SAMPLE_PERMISSIONS = ["Read", "Comment", "Edit", "Delete", "Invite members", "Manage billing"]
+
+function RolePermissionMatrix({
+  roles = SAMPLE_ROLES,
+  permissions = SAMPLE_PERMISSIONS,
+  className,
+}: RolePermissionMatrixProps) {
   return (
-    <div data-slot="role-permission-matrix" className={cn("overflow-x-auto rounded-xl border border-border", className)}>
+    <div data-slot="role-permission-matrix" className={cn("w-full max-w-xl overflow-x-auto rounded-xl border border-border bg-surface", className)}>
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-border bg-sunken">
@@ -40,3 +49,4 @@ function RolePermissionMatrix({
   )
 }
 export { RolePermissionMatrix }
+export type { RolePermissionMatrixProps }

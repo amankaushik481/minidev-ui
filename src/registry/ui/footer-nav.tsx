@@ -2,20 +2,36 @@
 import { cn } from "@/lib/utils"
 import { Link } from "@/registry/ui/link"
 
-function FooterNav({
-  links,
-  className,
-  brand = "MiniDev",
-}: {
-  links: { label: string; href: string }[]
+/** A one-line site footer: brand on the left, a row of quiet links on the right. */
+type FooterLink = { label: string; href: string }
+
+const SAMPLE_LINKS: FooterLink[] = [
+  { label: "Docs", href: "#docs" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "Changelog", href: "#changelog" },
+  { label: "Status", href: "#status" },
+  { label: "Privacy", href: "#privacy" },
+  { label: "Terms", href: "#terms" },
+]
+
+type FooterNavProps = {
+  /** Links in the footer nav. Defaults to a typical set for Lumen. */
+  links?: FooterLink[]
   className?: string
+  /** Brand name on the left. */
   brand?: string
-}) {
+}
+
+function FooterNav({
+  links = SAMPLE_LINKS,
+  className,
+  brand = "Lumen",
+}: FooterNavProps) {
   return (
     <footer
       data-slot="footer-nav"
       className={cn(
-        "flex flex-wrap items-center justify-between gap-4 border-t border-border py-6 text-sm",
+        "flex w-full flex-wrap items-center justify-between gap-4 border-t border-border py-6 text-sm",
         className
       )}
     >
@@ -31,3 +47,4 @@ function FooterNav({
   )
 }
 export { FooterNav }
+export type { FooterNavProps, FooterLink }

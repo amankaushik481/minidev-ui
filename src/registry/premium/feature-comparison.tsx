@@ -5,15 +5,30 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
+/** A free versus premium feature table whose rows fade in as they scroll into view, with a pair of plan buttons below. */
 type Row = { feature: string; free: boolean | string; premium: boolean | string }
 
-function FeatureComparison({
-  rows,
-  className,
-}: {
-  rows: Row[]
+const SAMPLE_ROWS: Row[] = [
+  { feature: "Invoices per month", free: "50", premium: "Unlimited" },
+  { feature: "Team seats", free: "2", premium: "Unlimited" },
+  { feature: "Multi-currency billing", free: false, premium: true },
+  { feature: "Automated payment reminders", free: true, premium: true },
+  { feature: "Custom invoice domains", free: false, premium: true },
+  { feature: "Audit log and SSO", free: false, premium: true },
+  { feature: "API access", free: false, premium: true },
+  { feature: "Support", free: "Community", premium: "Priority, 4h" },
+]
+
+type FeatureComparisonProps = {
+  /** One row per feature. A boolean renders a check or a dash, a string renders as text. */
+  rows?: Row[]
   className?: string
-}) {
+}
+
+function FeatureComparison({
+  rows = SAMPLE_ROWS,
+  className,
+}: FeatureComparisonProps) {
   const reduce = useReducedMotion()
   const cell = (v: boolean | string) => {
     if (typeof v === "string") return <span className="text-sm text-fg">{v}</span>
@@ -52,3 +67,4 @@ function FeatureComparison({
   )
 }
 export { FeatureComparison }
+export type { FeatureComparisonProps, Row as FeatureComparisonRow }

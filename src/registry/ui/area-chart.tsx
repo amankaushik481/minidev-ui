@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** Monotone cubic interpolation — smooth without overshooting the data. */
+// Monotone cubic interpolation: smooth without overshooting the data.
 function smoothPath(pts: readonly (readonly [number, number])[]) {
   if (pts.length < 2) return pts.length ? `M${pts[0][0]},${pts[0][1]}` : ""
   const n = pts.length
@@ -31,20 +31,13 @@ const TONES = {
   neutral: "text-fg-muted",
 } as const
 
-/**
- * AreaChart — smooth line, hairline grid, gradient wash. Strokes stay 1.5px at
- * any size (non-scaling), and an optional highlight pins a value.
- */
-function AreaChart({
-  data,
-  className,
-  label = "Area chart",
-  grid = true,
-  smooth = true,
-  highlight,
-  tone = "accent",
-}: {
-  data: number[]
+// Twelve weeks of Lumen revenue, in thousands.
+const SAMPLE_DATA = [18, 22, 21, 27, 31, 29, 36, 40, 38, 45, 52, 49]
+
+/** A smooth area chart with a hairline grid and gradient wash; strokes stay 1.5px at any size and a highlight can pin one value. */
+type AreaChartProps = {
+  /** Series values, left to right. */
+  data?: number[]
   className?: string
   label?: string
   grid?: boolean
@@ -52,7 +45,17 @@ function AreaChart({
   /** Index of a point to mark with a dot and a hairline crosshair. */
   highlight?: number
   tone?: keyof typeof TONES
-}) {
+}
+
+function AreaChart({
+  data = SAMPLE_DATA,
+  className,
+  label = "Area chart",
+  grid = true,
+  smooth = true,
+  highlight,
+  tone = "accent",
+}: AreaChartProps) {
   const id = React.useId().replace(/:/g, "")
   const max = Math.max(...data, 1)
   const min = Math.min(...data, 0)
@@ -96,3 +99,4 @@ function AreaChart({
   )
 }
 export { AreaChart, smoothPath }
+export type { AreaChartProps }

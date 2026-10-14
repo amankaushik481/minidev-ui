@@ -231,11 +231,6 @@ export const PART_1: Record<string, ComponentSeo> = {
     category: "auth",
     keywords: ["join workspace form", "invite code input react", "team onboarding join card"],
   },
-  "json-viewer": {
-    description: "Pretty prints any JavaScript value as indented JSON in a scrollable monospace block, falling back to a string if it cannot serialize. For React debug panels.",
-    category: "developer-tools",
-    keywords: ["react json viewer", "pretty print json component", "json display tailwind"],
-  },
   "kanban-board": {
     description: "A horizontally scrolling Kanban board built from column data: each column shows its title, a card count and stacked cards with a title and optional meta line.",
     category: "workflow",

@@ -4,9 +4,10 @@ import { PART_1 } from "./part-1"
 import { PART_2 } from "./part-2"
 import { PART_3 } from "./part-3"
 import { PART_4 } from "./part-4"
+import { PART_5 } from "./part-5"
 
 /** Hand-written description, category and search phrases for every registry item. */
-export const COMPONENT_SEO: Record<string, ComponentSeo> = { ...PART_0, ...PART_1, ...PART_2, ...PART_3, ...PART_4 }
+export const COMPONENT_SEO: Record<string, ComponentSeo> = { ...PART_0, ...PART_1, ...PART_2, ...PART_3, ...PART_4, ...PART_5 }
 
 export function componentSeo(name: string): ComponentSeo | undefined {
   return COMPONENT_SEO[name]

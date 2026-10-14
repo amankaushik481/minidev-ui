@@ -4,6 +4,8 @@ import { ArrowDownIcon, ArrowUpIcon, ChevronsUpDownIcon, XIcon } from "lucide-re
 import { cn } from "@/lib/utils"
 import { Checkbox } from "@/registry/ui/checkbox"
 
+/** A product data table: sortable headers, row selection with a bulk bar, hover row actions, sticky header, density and skeleton loading. */
+
 /*
  * GOLD STANDARD COMPONENT.
  * A table that feels like a product, not a spreadsheet: sortable headers with
@@ -27,9 +29,66 @@ export type Column<T> = {
 type Sort = { id: string; dir: "asc" | "desc" } | null
 type Density = "compact" | "default" | "comfortable"
 
+/* Sample rows: Lumen invoices. Used when `columns` and `data` are omitted. */
+type Invoice = { id: string; customer: string; email: string; amount: number; status: "paid" | "pending" | "overdue" | "refunded"; issued: string }
+
+const INVOICES: Invoice[] = [
+  { id: "INV-2041", customer: "Northwind Labs", email: "billing@northwind.io", amount: 12400, status: "paid", issued: "2026-09-24" },
+  { id: "INV-2040", customer: "Acme Robotics", email: "ap@acme.dev", amount: 3890, status: "pending", issued: "2026-09-22" },
+  { id: "INV-2039", customer: "Globex", email: "finance@globex.com", amount: 890, status: "overdue", issued: "2026-09-12" },
+  { id: "INV-2038", customer: "Initech", email: "peter@initech.co", amount: 5200, status: "paid", issued: "2026-09-10" },
+  { id: "INV-2037", customer: "Umbrella Health", email: "ops@umbrella.health", amount: 21750, status: "paid", issued: "2026-09-08" },
+  { id: "INV-2036", customer: "Hooli", email: "gavin@hooli.xyz", amount: 1450, status: "refunded", issued: "2026-09-03" },
+  { id: "INV-2035", customer: "Stark Industrial", email: "pepper@stark.io", amount: 9980, status: "pending", issued: "2026-08-29" },
+  { id: "INV-2034", customer: "Wayne Freight", email: "lucius@wayne.co", amount: 6300, status: "paid", issued: "2026-08-27" },
+]
+
+const STATUS_DOT: Record<Invoice["status"], string> = { paid: "bg-success", pending: "bg-warning", overdue: "bg-danger", refunded: "bg-fg-subtle" }
+const money = (n: number) => n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 })
+const day = (s: string) => new Date(s + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })
+
+const INVOICE_COLUMNS: Column<Invoice>[] = [
+  {
+    id: "customer",
+    header: "Customer",
+    sortValue: (r) => r.customer,
+    cell: (r) => (
+      <div className="flex min-w-0 items-center gap-2.5">
+        <span className="grid size-7 shrink-0 place-items-center rounded-full border border-border bg-sunken text-[11px] font-medium text-fg-muted">
+          {r.customer.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+        </span>
+        <div className="min-w-0">
+          <p className="truncate font-medium text-fg">{r.customer}</p>
+          <p className="truncate text-xs text-fg-subtle">{r.email}</p>
+        </div>
+      </div>
+    ),
+  },
+  { id: "id", header: "Invoice", sortValue: (r) => r.id, cell: (r) => <span className="font-mono text-xs text-fg-muted">{r.id}</span> },
+  {
+    id: "status",
+    header: "Status",
+    sortValue: (r) => r.status,
+    cell: (r) => (
+      <span className="inline-flex items-center gap-1.5 capitalize">
+        <span aria-hidden className={cn("size-1.5 rounded-full", STATUS_DOT[r.status])} />
+        {r.status}
+      </span>
+    ),
+  },
+  { id: "issued", header: "Issued", sortValue: (r) => r.issued, cell: (r) => <span className="text-fg-muted">{day(r.issued)}</span> },
+  { id: "amount", header: "Amount", align: "right", sortValue: (r) => r.amount, cell: (r) => <span className="font-medium">{money(r.amount)}</span> },
+]
+
+/* The samples again, typed so they can be the defaults of the generic signature for any T. */
+const SAMPLE_COLUMNS = INVOICE_COLUMNS as Column<unknown>[]
+const SAMPLE_ROWS = INVOICES as never[]
+
 type DataTableProps<T> = {
-  columns: Column<T>[]
-  data: T[]
+  /** Column definitions. Defaults, with `data`, to a Lumen invoice table. */
+  columns?: Column<T>[]
+  /** Rows. Defaults, with `columns`, to eight sample invoices. */
+  data?: T[]
   getRowId?: (row: T, index: number) => string
   /** Adds a checkbox column. */
   selectable?: boolean
@@ -62,9 +121,9 @@ function compare(a: unknown, b: unknown) {
   return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: "base" })
 }
 
-function DataTable<T>({
-  columns,
-  data,
+function DataTable<T = Invoice>({
+  columns = SAMPLE_COLUMNS,
+  data = SAMPLE_ROWS,
   getRowId = (_r, i) => String(i),
   selectable,
   selected: selectedProp,

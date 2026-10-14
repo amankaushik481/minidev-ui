@@ -2,12 +2,23 @@
 import * as React from "react"
 import { AlertDialog as AD } from "@base-ui/react/alert-dialog"
 import { cn } from "@/lib/utils"
+import { Button } from "@/registry/ui/button"
 
-function AlertDialog(props: React.ComponentProps<typeof AD.Root>) {
-  return <AD.Root data-slot="alert-dialog" {...props} />
+type AlertDialogProps = React.ComponentProps<typeof AD.Root>
+
+/** A modal confirmation for destructive or irreversible actions; renders a demo trigger and content when given no children. */
+function AlertDialog({ children, ...props }: AlertDialogProps) {
+  return (
+    <AD.Root data-slot="alert-dialog" {...props}>
+      {children ?? <AlertDialogDemo />}
+    </AD.Root>
+  )
 }
 function AlertDialogTrigger(props: React.ComponentProps<typeof AD.Trigger>) {
   return <AD.Trigger data-slot="alert-dialog-trigger" {...props} />
+}
+function AlertDialogClose(props: React.ComponentProps<typeof AD.Close>) {
+  return <AD.Close data-slot="alert-dialog-close" {...props} />
 }
 function AlertDialogContent({ className, children, ...props }: React.ComponentProps<typeof AD.Popup>) {
   return (
@@ -36,4 +47,24 @@ function AlertDialogDescription({ className, ...props }: React.ComponentProps<ty
 function AlertDialogActions({ className, ...props }: React.ComponentProps<"div">) {
   return <div className={cn("mt-5 flex justify-end gap-2", className)} {...props} />
 }
-export { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogActions }
+
+/** Default trigger and content shown when `AlertDialog` is rendered without children. */
+function AlertDialogDemo() {
+  return (
+    <>
+      <AlertDialogTrigger render={<Button variant="outline" />}>Delete invoice</AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogTitle>Delete invoice INV-2041?</AlertDialogTitle>
+        <AlertDialogDescription>
+          This removes the $12,400 invoice for Northwind and its payment history from Lumen. This cannot be undone.
+        </AlertDialogDescription>
+        <AlertDialogActions>
+          <AlertDialogClose render={<Button variant="outline" />}>Cancel</AlertDialogClose>
+          <AlertDialogClose render={<Button variant="destructive" />}>Delete invoice</AlertDialogClose>
+        </AlertDialogActions>
+      </AlertDialogContent>
+    </>
+  )
+}
+export { AlertDialog, AlertDialogTrigger, AlertDialogClose, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogActions }
+export type { AlertDialogProps }

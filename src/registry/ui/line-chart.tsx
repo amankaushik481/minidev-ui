@@ -3,20 +3,31 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { smoothPath } from "@/registry/ui/area-chart"
 
+/** LineChart — multiple smooth series on a hairline grid, with end-point dots. */
+
 const COLORS = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)", "var(--chart-5)"]
 
-/** LineChart — multiple smooth series on a hairline grid, with end-point dots. */
-function LineChart({
-  series,
-  className,
-  label = "Line chart",
-  grid = true,
-}: {
-  series: number[][]
+// Lumen MRR by month ($k): total, expansion, churn.
+const SAMPLE_SERIES: number[][] = [
+  [12, 14, 13, 17, 19, 18, 23, 26, 25, 30, 33, 36],
+  [4, 5, 6, 6, 8, 9, 9, 11, 12, 14, 15, 17],
+  [6, 6, 5, 6, 5, 5, 4, 5, 4, 4, 3, 3],
+]
+
+type LineChartProps = {
+  /** One array of values per series; all series share the x axis. */
+  series?: number[][]
   className?: string
   label?: string
   grid?: boolean
-}) {
+}
+
+function LineChart({
+  series = SAMPLE_SERIES,
+  className,
+  label = "Line chart",
+  grid = true,
+}: LineChartProps) {
   const flat = series.flat()
   const max = Math.max(...flat, 1)
   const min = Math.min(...flat, 0)
@@ -53,3 +64,4 @@ function LineChart({
   )
 }
 export { LineChart }
+export type { LineChartProps }
