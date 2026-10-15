@@ -57,8 +57,8 @@ for (const f of files) {
 
 const pkg = {
   name: "minidev-ui-kit",
-  version: "0.4.0",
-  description: "548 free React and Tailwind CSS v4 components, blocks and motion components. shadcn-compatible, built on Base UI. MIT.",
+  version: "0.6.0",
+  description: "548 free React and Tailwind CSS v4 components, blocks and motion pieces. shadcn-compatible, built on Base UI. MIT.",
   license: "MIT",
   type: "module",
   sideEffects: ["*.css"],
