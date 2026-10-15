@@ -97,7 +97,7 @@ const comparison: Comparison = {
       type: "p",
       text: "If you are moving screens from HeroUI to MiniDev UI, go one route at a time. Event props differ because HeroUI follows React Aria conventions (for example `onPress` on buttons) while MiniDev components use standard DOM props such as `onClick`. Compound components like `Card.Header` map to named exports in MiniDev, such as `CardHeader` and `CardContent`. Data-heavy screens are the easiest place to start, since a MiniDev block often replaces a hand-assembled page.",
     },
-    { type: "code", lang: "bash", code: "npx shadcn@latest add https://ui.minidev.pro/r/billing-page.json" },
+    { type: "code", lang: "bash", code: "npx shadcn@latest add @minidev/billing-page" },
     {
       type: "callout",
       tone: "note",

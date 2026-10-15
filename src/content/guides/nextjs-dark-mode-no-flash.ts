@@ -208,7 +208,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/theme-picker.json",
+      code: "npx shadcn@latest add @minidev/theme-picker",
     },
   ],
   faq: [

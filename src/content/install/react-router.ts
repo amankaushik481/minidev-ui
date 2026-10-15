@@ -17,7 +17,7 @@ const guide: Guide = {
   body: [
     {
       type: "p",
-      text: "To add MiniDev UI to React Router in framework mode, create the app with `create-react-router` (it already configures Tailwind CSS v4 and the `~/*` alias), run `npx shadcn@latest init`, and import the MiniDev tokens stylesheet after Tailwind in `app/app.css`. Then add components with `npx shadcn@latest add https://ui.minidev.pro/r/button.json` and import them from `~/components/ui`.",
+      text: "To add MiniDev UI to React Router in framework mode, create the app with `create-react-router` (it already configures Tailwind CSS v4 and the `~/*` alias), run `npx shadcn@latest init`, and import the MiniDev tokens stylesheet after Tailwind in `app/app.css`. Then add components with `npx shadcn@latest add @minidev/button` and import them from `~/components/ui`.",
     },
 
     { type: "h2", text: "Step 1: Create the app", id: "create-the-project" },
@@ -134,8 +134,8 @@ export default defineConfig({
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/button.json
-npx shadcn@latest add https://ui.minidev.pro/r/pricing-plans.json`,
+      code: `npx shadcn@latest add @minidev/button
+npx shadcn@latest add @minidev/pricing-plans`,
     },
     {
       type: "p",

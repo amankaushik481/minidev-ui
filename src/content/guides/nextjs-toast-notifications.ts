@@ -24,7 +24,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/toast.json",
+      code: "npx shadcn@latest add @minidev/toast",
     },
     {
       type: "p",
@@ -185,7 +185,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/toast.json https://ui.minidev.pro/r/inline-alert.json https://ui.minidev.pro/r/banner.json https://ui.minidev.pro/r/callout.json",
+      code: "npx shadcn@latest add @minidev/toast @minidev/inline-alert @minidev/banner @minidev/callout",
     },
   ],
   faq: [

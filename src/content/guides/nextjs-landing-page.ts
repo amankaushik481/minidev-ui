@@ -58,7 +58,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/floating-nav.json https://ui.minidev.pro/r/hero-spotlight.json https://ui.minidev.pro/r/bento-live.json https://ui.minidev.pro/r/scroll-story.json\nnpx shadcn@latest add https://ui.minidev.pro/r/social-proof-wall.json https://ui.minidev.pro/r/pricing-plans.json https://ui.minidev.pro/r/faq-section.json https://ui.minidev.pro/r/cta-band.json https://ui.minidev.pro/r/light-provider.json",
+      code: "npx shadcn@latest add @minidev/floating-nav @minidev/hero-spotlight @minidev/bento-live @minidev/scroll-story\nnpx shadcn@latest add @minidev/social-proof-wall @minidev/pricing-plans @minidev/faq-section @minidev/cta-band @minidev/light-provider",
     },
     {
       type: "p",

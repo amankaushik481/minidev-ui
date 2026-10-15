@@ -28,7 +28,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npm i @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities\n\nnpx shadcn@latest add https://ui.minidev.pro/r/kanban-column.json\nnpx shadcn@latest add https://ui.minidev.pro/r/issue-card.json\nnpx shadcn@latest add https://ui.minidev.pro/r/due-date-chip.json\nnpx shadcn@latest add https://ui.minidev.pro/r/priority-picker.json\nnpx shadcn@latest add https://ui.minidev.pro/r/assign-picker.json",
+      code: "npm i @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities\n\nnpx shadcn@latest add @minidev/kanban-column\nnpx shadcn@latest add @minidev/issue-card\nnpx shadcn@latest add @minidev/due-date-chip\nnpx shadcn@latest add @minidev/priority-picker\nnpx shadcn@latest add @minidev/assign-picker",
     },
     {
       type: "p",

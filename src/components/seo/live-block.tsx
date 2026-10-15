@@ -100,7 +100,7 @@ export function LiveBlock({ name, priority = false }: { name: string; priority?:
         </div>
         <p className="mt-1.5 line-clamp-3 text-[0.875rem] leading-[1.6] text-fg-muted">{copy.description}</p>
         <div className="mt-4 flex items-center justify-between gap-3">
-          <code className="truncate font-mono text-[11px] text-fg-subtle">npx shadcn@latest add ui.minidev.pro/r/{entry.name}.json</code>
+          <code className="truncate font-mono text-[11px] text-fg-subtle">npx shadcn@latest add @minidev/{entry.name}</code>
           <Link href={`/docs/${entry.name}`} className="inline-flex shrink-0 items-center gap-1 text-[0.8125rem] font-medium text-fg">
             Code <ArrowRightIcon className="size-3.5 transition-transform group-hover:translate-x-0.5" />
           </Link>

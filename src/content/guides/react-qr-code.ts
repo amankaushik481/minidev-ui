@@ -43,7 +43,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/qr-code.json\nnpx shadcn@latest add https://ui.minidev.pro/r/dialog.json\nnpx shadcn@latest add https://ui.minidev.pro/r/button.json",
+      code: "npx shadcn@latest add @minidev/qr-code\nnpx shadcn@latest add @minidev/dialog\nnpx shadcn@latest add @minidev/button",
     },
     {
       type: "code",

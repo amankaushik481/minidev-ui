@@ -7,6 +7,8 @@ export const SITE = {
   countLabel: "500+",
   npm: "https://www.npmjs.com/package/minidev-ui-kit",
   npmPackage: "minidev-ui-kit",
+  /** Namespace in the shadcn registry directory: `npx shadcn@latest add @minidev/button`. */
+  registry: "@minidev",
   /** The studio behind the library — every page funnels here quietly. */
   studio: {
     name: "MiniDev",

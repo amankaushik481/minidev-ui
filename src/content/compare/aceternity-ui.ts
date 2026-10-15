@@ -89,7 +89,7 @@ const comparison: Comparison = {
       type: "p",
       text: "Add MiniDev items one file at a time:",
     },
-    { type: "code", lang: "bash", code: "npx shadcn@latest add https://ui.minidev.pro/r/pricing-page.json" },
+    { type: "code", lang: "bash", code: "npx shadcn@latest add @minidev/pricing-page" },
     {
       type: "p",
       text: "Then import the tokens after Tailwind in your global CSS with `@import \"minidev-ui-kit/styles.css\";`, or copy `styles.css` from any docs page if you are not using the npm package. MiniDev motion pieces depend on the `motion` package; if you already use Framer Motion for Aceternity effects, check that both resolve to compatible versions so you do not ship two animation runtimes.",

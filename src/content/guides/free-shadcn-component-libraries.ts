@@ -173,7 +173,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "# from the official registry\nnpx shadcn@latest add dialog\n\n# from any other registry, by URL\nnpx shadcn@latest add https://ui.minidev.pro/r/data-table.json",
+      code: "# from the official registry\nnpx shadcn@latest add dialog\n\n# from any other registry, by URL\nnpx shadcn@latest add @minidev/data-table",
     },
     {
       type: "p",

@@ -85,7 +85,7 @@ const comparison: Comparison = {
       text: "Magic UI components read the standard shadcn/ui variables. The MiniDev stylesheet maps those names (`--background`, `--foreground`, `--primary`, `--muted` and others) to MiniDev tokens, so Magic UI pieces generally pick up your MiniDev theme and dark mode. One name differs in meaning: MiniDev's `accent` is the brand violet, where shadcn/ui treats `accent` as a subtle fill, so review any component that uses it.",
     },
     { type: "h2", text: "Install notes", id: "install-notes" },
-    { type: "code", lang: "bash", code: "npx shadcn@latest add https://ui.minidev.pro/r/settings-page.json" },
+    { type: "code", lang: "bash", code: "npx shadcn@latest add @minidev/settings-page" },
     {
       type: "p",
       text: "After adding MiniDev items, import the tokens after Tailwind in your global CSS with `@import \"minidev-ui-kit/styles.css\";`, or copy `styles.css` from any component's docs page. Magic UI components are added with the shadcn CLI as described in [their docs](https://magicui.design). Both libraries put the source in your repo, so you can edit anything after install.",

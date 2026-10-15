@@ -142,7 +142,17 @@ export function ComponentDocs({ name, api, learn }: { name: string; /** Server-r
   )
 
   const install = [
-    { label: "shadcn CLI", content: <CodeBlock language="bash" code={`npx shadcn@latest add ${SITE.url}/r/${entry.name}.json`} /> },
+    {
+      label: "shadcn CLI",
+      content: (
+        <div className="space-y-3">
+          <CodeBlock language="bash" code={`npx shadcn@latest add ${SITE.registry}/${entry.name}`} />
+          <p className="text-[12.5px] leading-[1.6] text-fg-muted">
+            MiniDev UI is in the shadcn registry directory, so the short form works with no setup. Older CLI versions can use the full URL: <code className="font-mono text-[11.5px] text-fg">npx shadcn@latest add {SITE.url}/r/{entry.name}.json</code>
+          </p>
+        </div>
+      ),
+    },
     {
       label: "npm",
       content: (

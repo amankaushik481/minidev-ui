@@ -85,7 +85,7 @@ const comparison: Comparison = {
       text: "If you already own Tailwind Plus, you can use MiniDev UI for the parts it does not cover, such as AI chat surfaces, invoice screens or motion sections. Both are plain Tailwind classes in the end. The main adjustment is color: Tailwind Plus blocks typically use palette classes like `bg-white` and `text-gray-900`, while MiniDev uses semantic tokens like `bg-surface` and `text-fg`. Swapping palette classes for tokens in the blocks you use keeps light and dark mode consistent.",
     },
     { type: "h2", text: "Install and migration notes", id: "install-and-migration-notes" },
-    { type: "code", lang: "bash", code: "npx shadcn@latest add https://ui.minidev.pro/r/pricing-plans.json" },
+    { type: "code", lang: "bash", code: "npx shadcn@latest add @minidev/pricing-plans" },
     {
       type: "p",
       text: "Then import the tokens after Tailwind with `@import \"minidev-ui-kit/styles.css\";`. If your project uses Headless UI components from Tailwind Plus, they can sit next to MiniDev's Base UI components; both are headless and style free, so the only cost is carrying two primitive libraries.",

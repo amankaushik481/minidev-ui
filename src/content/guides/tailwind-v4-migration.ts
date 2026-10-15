@@ -227,7 +227,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/button.json\nnpm i minidev-ui-kit",
+      code: "npx shadcn@latest add @minidev/button\nnpm i minidev-ui-kit",
     },
   ],
   faq: [

@@ -186,7 +186,7 @@ export function InfoPopover() {
       {
         type: "code",
         lang: "bash",
-        code: `npx shadcn@latest add https://ui.minidev.pro/r/popover.json`,
+        code: `npx shadcn@latest add @minidev/popover`,
       },
       { type: "component", name: "popover" },
     ],
@@ -244,7 +244,7 @@ export function InfoPopover() {
       {
         type: "code",
         lang: "bash",
-        code: `npx shadcn@latest add https://ui.minidev.pro/r/button.json`,
+        code: `npx shadcn@latest add @minidev/button`,
       },
       {
         type: "p",
@@ -1051,7 +1051,7 @@ export default async function PricingPage() {
         type: "code",
         lang: "bash",
         code: `# by URL
-npx shadcn@latest add https://ui.minidev.pro/r/badge.json
+npx shadcn@latest add @minidev/badge
 
 # or register a namespace once in components.json:
 #   "registries": { "@minidev": "https://ui.minidev.pro/r/{name}.json" }

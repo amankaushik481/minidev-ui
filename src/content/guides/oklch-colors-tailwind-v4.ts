@@ -303,8 +303,8 @@ contrast([0.45, 0.012, 266], [0.985, 0.0015, 264]) // 7.13, fg-muted on bg`,
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/theme-picker.json
-npx shadcn@latest add https://ui.minidev.pro/r/button.json`,
+      code: `npx shadcn@latest add @minidev/theme-picker
+npx shadcn@latest add @minidev/button`,
     },
   ],
   faq: [

@@ -132,8 +132,8 @@ export default defineConfig({
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/button.json
-npx shadcn@latest add https://ui.minidev.pro/r/pricing-plans.json`,
+      code: `npx shadcn@latest add @minidev/button
+npx shadcn@latest add @minidev/pricing-plans`,
     },
     {
       type: "p",

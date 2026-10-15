@@ -85,7 +85,7 @@ const comparison: Comparison = {
       text: "The MiniDev stylesheet maps the common shadcn/ui token names to its own tokens, which helps components from other shadcn-style libraries follow the MiniDev theme. One difference to review: MiniDev's `accent` is the brand violet rather than a subtle fill.",
     },
     { type: "h2", text: "Install and migration notes", id: "install-and-migration-notes" },
-    { type: "code", lang: "bash", code: "npx shadcn@latest add https://ui.minidev.pro/r/sign-in-page.json" },
+    { type: "code", lang: "bash", code: "npx shadcn@latest add @minidev/sign-in-page" },
     {
       type: "p",
       text: "Then import the tokens after Tailwind with `@import \"minidev-ui-kit/styles.css\";`. If you have older Origin UI components in your project that were built on Radix, they keep working as they are; moving to either coss ui or MiniDev UI means moving those pieces to Base UI, which you can do one component at a time.",

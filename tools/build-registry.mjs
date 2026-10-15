@@ -278,7 +278,7 @@ ${items.map((it) => `  ${JSON.stringify(it.name)}: () => import(${JSON.stringify
 ## Install
 
 - npm: \`${install}\` then \`import { Button } from "minidev-ui-kit/ui/button"\` (Next.js: add \`transpilePackages: ["minidev-ui-kit"]\`)
-- shadcn CLI, one file at a time: \`npx shadcn@latest add ${SITE}/r/<name>.json\`
+- shadcn CLI, one file at a time: \`npx shadcn@latest add @minidev/<name>\` (MiniDev UI is in the shadcn registry directory; the long form \`npx shadcn@latest add ${SITE}/r/<name>.json\` also works)
 - Or copy the single source file into your repo. Every component is one file.
 
 ## Rules for generating code with MiniDev UI
@@ -295,7 +295,7 @@ ${items.map((it) => `  ${JSON.stringify(it.name)}: () => import(${JSON.stringify
       .filter((i) => i.kind === k)
       .map((i) => {
         const d = content.seo[i.name] ?? i.description
-        return `- [${i.title}](${SITE}/docs/${i.name}): \`npx shadcn@latest add ${SITE}/r/${i.name}.json\`${d ? `. ${d}` : ""}`
+        return `- [${i.title}](${SITE}/docs/${i.name}): \`npx shadcn@latest add @minidev/${i.name}\`${d ? `. ${d}` : ""}`
       })
       .join("\n")
   const short = `${header}

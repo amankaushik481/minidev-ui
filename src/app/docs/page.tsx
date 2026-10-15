@@ -155,7 +155,7 @@ export default function DocsPage() {
                 content: (
                   <div className="space-y-3">
                     <p className="text-[0.8125rem] text-fg-muted">Every component is a registry item. The CLI copies the file and installs its dependencies.</p>
-                    <CodeBlock language="bash" code={`npx shadcn@latest add ${SITE.url}/r/button.json`} />
+                    <CodeBlock language="bash" code={`npx shadcn@latest add ${SITE.registry}/button`} />
                   </div>
                 ),
               },

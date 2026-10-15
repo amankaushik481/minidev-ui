@@ -11,7 +11,7 @@ const guide: Guide = {
   body: [
     {
       type: "p",
-      text: "The shadcn CLI installs from any URL that returns a registry item JSON: `npx shadcn@latest add https://ui.minidev.pro/r/button.json`. It downloads the item, installs its npm packages, follows its `registryDependencies` to fetch other items, and writes the source files into your project with imports rewritten to your aliases. All you need is a `components.json` at the project root, which `npx shadcn@latest init` creates.",
+      text: "The shadcn CLI installs from any URL that returns a registry item JSON: `npx shadcn@latest add @minidev/button`. It downloads the item, installs its npm packages, follows its `registryDependencies` to fetch other items, and writes the source files into your project with imports rewritten to your aliases. All you need is a `components.json` at the project root, which `npx shadcn@latest init` creates.",
     },
 
     { type: "h2", text: "How shadcn add installs from a URL", id: "how-add-from-url-works" },
@@ -23,7 +23,7 @@ const guide: Guide = {
       type: "code",
       lang: "bash",
       code: `# one item
-npx shadcn@latest add https://ui.minidev.pro/r/button.json
+npx shadcn@latest add @minidev/button
 
 # several items in one run
 npx shadcn@latest add \\
@@ -207,7 +207,7 @@ npx shadcn@latest add \\
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/pricing-plans.json`,
+      code: `npx shadcn@latest add @minidev/pricing-plans`,
     },
     {
       type: "code",
@@ -277,8 +277,8 @@ export default function PricingPage() {
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/button.json
-npx shadcn@latest add https://ui.minidev.pro/r/pricing-plans.json`,
+      code: `npx shadcn@latest add @minidev/button
+npx shadcn@latest add @minidev/pricing-plans`,
     },
   ],
   faq: [

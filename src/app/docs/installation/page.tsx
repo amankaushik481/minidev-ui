@@ -24,7 +24,7 @@ export default function InstallIndex() {
           MiniDev UI works anywhere React and Tailwind CSS v4 run. Pick your framework for exact steps, or use the one line below if your project already uses the shadcn CLI.
         </p>
         <div className="mt-8">
-          <CodeBlock language="bash" code="npx shadcn@latest add https://ui.minidev.pro/r/button.json" />
+          <CodeBlock language="bash" code="npx shadcn@latest add @minidev/button" />
         </div>
         <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {INSTALLS.map((g) => (

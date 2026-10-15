@@ -40,7 +40,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/hero.json\nnpx shadcn@latest add https://ui.minidev.pro/r/hero-spotlight.json\nnpx shadcn@latest add https://ui.minidev.pro/r/hero-aurora.json\nnpx shadcn@latest add https://ui.minidev.pro/r/hero-editorial-split.json\nnpx shadcn@latest add https://ui.minidev.pro/r/hero-kinetic-type.json\nnpx shadcn@latest add https://ui.minidev.pro/r/hero-typed-headline.json\nnpx shadcn@latest add https://ui.minidev.pro/r/hero-marquee-brands.json\nnpx shadcn@latest add https://ui.minidev.pro/r/hero-gradient-mesh.json",
+      code: "npx shadcn@latest add @minidev/hero\nnpx shadcn@latest add @minidev/hero-spotlight\nnpx shadcn@latest add @minidev/hero-aurora\nnpx shadcn@latest add @minidev/hero-editorial-split\nnpx shadcn@latest add @minidev/hero-kinetic-type\nnpx shadcn@latest add @minidev/hero-typed-headline\nnpx shadcn@latest add @minidev/hero-marquee-brands\nnpx shadcn@latest add @minidev/hero-gradient-mesh",
     },
     {
       type: "p",

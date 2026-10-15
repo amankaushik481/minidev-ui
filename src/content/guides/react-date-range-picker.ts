@@ -28,7 +28,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/date-range-picker.json\nnpx shadcn@latest add https://ui.minidev.pro/r/popover.json\nnpx shadcn@latest add https://ui.minidev.pro/r/button.json",
+      code: "npx shadcn@latest add @minidev/date-range-picker\nnpx shadcn@latest add @minidev/popover\nnpx shadcn@latest add @minidev/button",
     },
     {
       type: "p",

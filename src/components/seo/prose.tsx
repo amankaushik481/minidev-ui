@@ -68,7 +68,7 @@ export function ComponentCard({ name }: { name: string }) {
           <span className="rounded-md border border-border bg-sunken px-1.5 py-px font-mono text-[10.5px] text-fg-muted">{e.kind === "block" ? "block" : e.kind === "premium" ? "motion" : "ui"}</span>
         </span>
         <span className="mt-1 block text-[0.8125rem] leading-[1.55] text-fg-muted">{c.description}</span>
-        <span className="mt-3 block truncate font-mono text-[11.5px] text-fg-subtle">npx shadcn@latest add ui.minidev.pro/r/{e.name}.json</span>
+        <span className="mt-3 block truncate font-mono text-[11.5px] text-fg-subtle">npx shadcn@latest add @minidev/{e.name}</span>
       </span>
       <ArrowRightIcon className="mt-1 size-4 shrink-0 text-fg-subtle transition-transform group-hover:translate-x-0.5" />
     </Link>

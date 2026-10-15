@@ -207,7 +207,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/settings-layout.json https://ui.minidev.pro/r/team-member-row.json https://ui.minidev.pro/r/delete-account-confirm.json\nnpx shadcn@latest add https://ui.minidev.pro/r/<name>.json",
+      code: "npx shadcn@latest add @minidev/settings-layout @minidev/team-member-row @minidev/delete-account-confirm\nnpx shadcn@latest add https://ui.minidev.pro/r/<name>.json",
     },
   ],
   faq: [

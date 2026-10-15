@@ -47,7 +47,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/otp-input.json\nnpx shadcn@latest add https://ui.minidev.pro/r/auth-card.json\nnpx shadcn@latest add https://ui.minidev.pro/r/button.json",
+      code: "npx shadcn@latest add @minidev/otp-input\nnpx shadcn@latest add @minidev/auth-card\nnpx shadcn@latest add @minidev/button",
     },
     {
       type: "p",

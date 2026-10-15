@@ -106,7 +106,7 @@ const comparison: Comparison = {
       type: "p",
       text: "When moving from Mantine to MiniDev UI, migrate a route at a time. Mantine's `MantineProvider`, theme object and hooks do not carry over, so map your theme colors to MiniDev's semantic tokens first. Mantine hooks are standalone, so `@mantine/hooks` can stay in the project while you replace components. Form and date logic usually needs the most attention, since MiniDev UI provides the input components and a form wizard but not a separate form state library.",
     },
-    { type: "code", lang: "bash", code: "npx shadcn@latest add https://ui.minidev.pro/r/settings-page.json" },
+    { type: "code", lang: "bash", code: "npx shadcn@latest add @minidev/settings-page" },
     { type: "h2", text: "Which to pick", id: "which-to-pick" },
     {
       type: "list",

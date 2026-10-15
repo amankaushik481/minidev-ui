@@ -33,7 +33,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/file-dropzone.json https://ui.minidev.pro/r/image-upload.json https://ui.minidev.pro/r/file-list.json https://ui.minidev.pro/r/progress.json",
+      code: "npx shadcn@latest add @minidev/file-dropzone @minidev/image-upload @minidev/file-list @minidev/progress",
     },
 
     { type: "h2", text: "Accept rules, size limits and multiple files", id: "accept-rules" },

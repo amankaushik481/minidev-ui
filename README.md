@@ -34,10 +34,10 @@ Most kits stop at buttons and cards. MiniDev UI covers the screens a product act
 ### One component with the shadcn CLI
 
 ```bash
-npx shadcn@latest add https://ui.minidev.pro/r/multi-select.json
+npx shadcn@latest add @minidev/multi-select
 ```
 
-The source lands in `components/ui/`. Every component page shows its own command. Framework guides: [Next.js](https://ui.minidev.pro/docs/installation/nextjs), [Vite](https://ui.minidev.pro/docs/installation/vite), [React Router](https://ui.minidev.pro/docs/installation/react-router), [Astro](https://ui.minidev.pro/docs/installation/astro), [TanStack Start](https://ui.minidev.pro/docs/installation/tanstack-start).
+MiniDev UI is listed in the [shadcn registry directory](https://ui.shadcn.com/docs/directory), so the `@minidev/` form needs no setup. The long form `npx shadcn@latest add https://ui.minidev.pro/r/multi-select.json` also works. The source lands in `components/ui/`. Every component page shows its own command. Framework guides: [Next.js](https://ui.minidev.pro/docs/installation/nextjs), [Vite](https://ui.minidev.pro/docs/installation/vite), [React Router](https://ui.minidev.pro/docs/installation/react-router), [Astro](https://ui.minidev.pro/docs/installation/astro), [TanStack Start](https://ui.minidev.pro/docs/installation/tanstack-start).
 
 ### The whole kit from npm
 

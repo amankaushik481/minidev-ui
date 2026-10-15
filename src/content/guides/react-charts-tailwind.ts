@@ -43,7 +43,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/area-chart.json\nnpx shadcn@latest add https://ui.minidev.pro/r/line-chart.json\nnpx shadcn@latest add https://ui.minidev.pro/r/bar-chart.json\nnpx shadcn@latest add https://ui.minidev.pro/r/pie-chart.json\nnpx shadcn@latest add https://ui.minidev.pro/r/radial-chart.json\nnpx shadcn@latest add https://ui.minidev.pro/r/sparkline-set.json\nnpx shadcn@latest add https://ui.minidev.pro/r/chart-legend.json\nnpx shadcn@latest add https://ui.minidev.pro/r/chart-card.json",
+      code: "npx shadcn@latest add @minidev/area-chart\nnpx shadcn@latest add @minidev/line-chart\nnpx shadcn@latest add @minidev/bar-chart\nnpx shadcn@latest add @minidev/pie-chart\nnpx shadcn@latest add @minidev/radial-chart\nnpx shadcn@latest add @minidev/sparkline-set\nnpx shadcn@latest add @minidev/chart-legend\nnpx shadcn@latest add @minidev/chart-card",
     },
     {
       type: "p",

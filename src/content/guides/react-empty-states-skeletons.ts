@@ -93,7 +93,7 @@ export function InvoiceList({ q, filtered, onClearFilters, onCreate }: { q: Quer
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/skeleton.json\nnpx shadcn@latest add https://ui.minidev.pro/r/empty-state.json\nnpx shadcn@latest add https://ui.minidev.pro/r/error-state.json\nnpx shadcn@latest add https://ui.minidev.pro/r/spinner.json\nnpx shadcn@latest add https://ui.minidev.pro/r/loading-overlay.json\nnpx shadcn@latest add https://ui.minidev.pro/r/toast.json",
+      code: "npx shadcn@latest add @minidev/skeleton\nnpx shadcn@latest add @minidev/empty-state\nnpx shadcn@latest add @minidev/error-state\nnpx shadcn@latest add @minidev/spinner\nnpx shadcn@latest add @minidev/loading-overlay\nnpx shadcn@latest add @minidev/toast",
     },
     {
       type: "p",

@@ -17,7 +17,7 @@ const guide: Guide = {
   body: [
     {
       type: "p",
-      text: "To add MiniDev UI to Next.js, start from an App Router project with Tailwind CSS v4, run `npx shadcn@latest init`, import the MiniDev tokens stylesheet after Tailwind, then add components with `npx shadcn@latest add https://ui.minidev.pro/r/button.json`. The files land in your repo as source you own. If you would rather keep them in a dependency, install `minidev-ui-kit` from npm instead.",
+      text: "To add MiniDev UI to Next.js, start from an App Router project with Tailwind CSS v4, run `npx shadcn@latest init`, import the MiniDev tokens stylesheet after Tailwind, then add components with `npx shadcn@latest add @minidev/button`. The files land in your repo as source you own. If you would rather keep them in a dependency, install `minidev-ui-kit` from npm instead.",
     },
 
     { type: "h2", text: "Step 1: Create a Next.js app", id: "create-the-project" },
@@ -122,7 +122,7 @@ export default config`,
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/button.json`,
+      code: `npx shadcn@latest add @minidev/button`,
     },
     {
       type: "p",
@@ -131,7 +131,7 @@ export default config`,
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/pricing-plans.json`,
+      code: `npx shadcn@latest add @minidev/pricing-plans`,
     },
     {
       type: "p",

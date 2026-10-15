@@ -60,7 +60,7 @@ export const PLAN: GanttTask[] = [
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/gantt-chart.json\nnpx shadcn@latest add https://ui.minidev.pro/r/data-table.json\nnpx shadcn@latest add https://ui.minidev.pro/r/timeline.json",
+      code: "npx shadcn@latest add @minidev/gantt-chart\nnpx shadcn@latest add @minidev/data-table\nnpx shadcn@latest add @minidev/timeline",
     },
     {
       type: "p",

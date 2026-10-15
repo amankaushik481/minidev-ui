@@ -102,7 +102,7 @@ const comparison: Comparison = {
       type: "p",
       text: "When migrating from Chakra to MiniDev UI, start by mapping your semantic tokens (colors, radii, shadows) to MiniDev's tokens so both look the same during the transition. Then move a route at a time. Style props become Tailwind classes, for example `px={4}` becomes `px-4`, and recipe variants map to component variants. Data-heavy screens are a good first step, since a MiniDev block often replaces a page assembled from many smaller parts.",
     },
-    { type: "code", lang: "bash", code: "npx shadcn@latest add https://ui.minidev.pro/r/data-table.json" },
+    { type: "code", lang: "bash", code: "npx shadcn@latest add @minidev/data-table" },
     {
       type: "callout",
       tone: "note",

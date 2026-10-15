@@ -83,7 +83,7 @@ export const validators: Record<StepId, (d: WizardData) => Errors> = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/step-progress.json\nnpx shadcn@latest add https://ui.minidev.pro/r/form-field.json\nnpx shadcn@latest add https://ui.minidev.pro/r/input.json\nnpx shadcn@latest add https://ui.minidev.pro/r/button.json\nnpx shadcn@latest add https://ui.minidev.pro/r/onboarding-checklist.json",
+      code: "npx shadcn@latest add @minidev/step-progress\nnpx shadcn@latest add @minidev/form-field\nnpx shadcn@latest add @minidev/input\nnpx shadcn@latest add @minidev/button\nnpx shadcn@latest add @minidev/onboarding-checklist",
     },
     {
       type: "p",

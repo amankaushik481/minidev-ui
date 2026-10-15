@@ -37,7 +37,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/app-shell.json\nnpx shadcn@latest add https://ui.minidev.pro/r/sidebar.json\nnpx shadcn@latest add https://ui.minidev.pro/r/collapsible-sidebar.json\nnpx shadcn@latest add https://ui.minidev.pro/r/sidebar-section.json\nnpx shadcn@latest add https://ui.minidev.pro/r/nested-nav.json\nnpx shadcn@latest add https://ui.minidev.pro/r/topbar.json\nnpx shadcn@latest add https://ui.minidev.pro/r/mobile-nav-drawer.json\nnpx shadcn@latest add https://ui.minidev.pro/r/org-switcher.json",
+      code: "npx shadcn@latest add @minidev/app-shell\nnpx shadcn@latest add @minidev/sidebar\nnpx shadcn@latest add @minidev/collapsible-sidebar\nnpx shadcn@latest add @minidev/sidebar-section\nnpx shadcn@latest add @minidev/nested-nav\nnpx shadcn@latest add @minidev/topbar\nnpx shadcn@latest add @minidev/mobile-nav-drawer\nnpx shadcn@latest add @minidev/org-switcher",
     },
     {
       type: "p",

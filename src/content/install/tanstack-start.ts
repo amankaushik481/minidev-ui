@@ -17,7 +17,7 @@ const guide: Guide = {
   body: [
     {
       type: "p",
-      text: "To add MiniDev UI to TanStack Start, create the app with Tailwind CSS v4 and the `@/*` alias, run `npx shadcn@latest init`, and import the MiniDev tokens stylesheet after Tailwind in the CSS file your root route links. Then add components with `npx shadcn@latest add https://ui.minidev.pro/r/button.json` and use them in any route.",
+      text: "To add MiniDev UI to TanStack Start, create the app with Tailwind CSS v4 and the `@/*` alias, run `npx shadcn@latest init`, and import the MiniDev tokens stylesheet after Tailwind in the CSS file your root route links. Then add components with `npx shadcn@latest add @minidev/button` and use them in any route.",
     },
 
     { type: "h2", text: "Step 1: Create the app", id: "create-the-project" },
@@ -134,8 +134,8 @@ export const Route = createRootRoute({
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/button.json
-npx shadcn@latest add https://ui.minidev.pro/r/pricing-plans.json`,
+      code: `npx shadcn@latest add @minidev/button
+npx shadcn@latest add @minidev/pricing-plans`,
     },
     {
       type: "p",

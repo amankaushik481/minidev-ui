@@ -113,7 +113,7 @@ const comparison: Comparison = {
       type: "p",
       text: "In a React app, avoid running the Flowbite script and React components against the same elements. Moving from Flowbite to MiniDev UI works best one route at a time: replace interactive pieces such as dropdowns, modals and date pickers first, since those move from data attribute wiring to React state, then swap static sections for MiniDev blocks where one fits.",
     },
-    { type: "code", lang: "bash", code: "npx shadcn@latest add https://ui.minidev.pro/r/admin-console.json" },
+    { type: "code", lang: "bash", code: "npx shadcn@latest add @minidev/admin-console" },
     {
       type: "callout",
       tone: "note",

@@ -28,7 +28,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/command-palette.json\nnpx shadcn@latest add https://ui.minidev.pro/r/command-item.json\nnpx shadcn@latest add https://ui.minidev.pro/r/kbd.json\nnpx shadcn@latest add https://ui.minidev.pro/r/shortcut-cheat-sheet.json",
+      code: "npx shadcn@latest add @minidev/command-palette\nnpx shadcn@latest add @minidev/command-item\nnpx shadcn@latest add @minidev/kbd\nnpx shadcn@latest add @minidev/shortcut-cheat-sheet",
     },
     {
       type: "p",

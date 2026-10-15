@@ -286,7 +286,7 @@ export function Departure({ gate }: { gate: string }) {
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/split-flap.json`,
+      code: `npx shadcn@latest add @minidev/split-flap`,
     },
   ],
   faq: [

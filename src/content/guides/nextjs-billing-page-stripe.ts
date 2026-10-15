@@ -67,7 +67,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/plan-card.json https://ui.minidev.pro/r/usage-meter.json https://ui.minidev.pro/r/invoice-list.json\nnpx shadcn@latest add https://ui.minidev.pro/r/payment-method-card.json https://ui.minidev.pro/r/credit-balance.json https://ui.minidev.pro/r/cancel-flow.json https://ui.minidev.pro/r/downgrade-warning.json\nnpm i stripe",
+      code: "npx shadcn@latest add @minidev/plan-card @minidev/usage-meter @minidev/invoice-list\nnpx shadcn@latest add @minidev/payment-method-card @minidev/credit-balance @minidev/cancel-flow @minidev/downgrade-warning\nnpm i stripe",
     },
     {
       type: "p",

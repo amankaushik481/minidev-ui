@@ -37,7 +37,7 @@ export const BLOCK_TYPES: BlockType[] = [
     items: ["hero-split-showcase", "hero-editorial-split", "hero-kinetic-type", "hero-aurora", "hero-gradient-mesh", "hero-bento", "hero-typed-headline", "hero-poster-type", "hero-marquee-brands", "hero-client-pitch", "hero-spotlight", "waitlist-hero", "waveform-hero", "hero"],
     category: "marketing",
     faq: [
-      { q: "How do I use one of these hero sections in Next.js?", a: "Run the install command shown on the block page, for example npx shadcn@latest add https://ui.minidev.pro/r/hero-split-showcase.json. The file lands in components/ui, you import it in app/page.tsx and replace the sample copy with yours." },
+      { q: "How do I use one of these hero sections in Next.js?", a: "Run the install command shown on the block page, for example npx shadcn@latest add @minidev/hero-split-showcase. The file lands in components/ui, you import it in app/page.tsx and replace the sample copy with yours." },
       { q: "Do the animated heroes hurt page speed?", a: "The motion heroes use CSS and the motion library, pause when they leave the viewport and go still with prefers-reduced-motion. Keep one animated hero per page and lazy load heavy sections below it." },
       { q: "Can I change the colors?", a: "Yes. Every block reads semantic tokens such as --accent and --surface from your CSS, so changing the theme in globals.css restyles all of them. The shadcn theme generator in Tools builds a palette for you." },
     ],

@@ -58,7 +58,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/app-shell.json https://ui.minidev.pro/r/sidebar-section.json https://ui.minidev.pro/r/topbar.json https://ui.minidev.pro/r/page-header.json\nnpx shadcn@latest add https://ui.minidev.pro/r/kpi-row.json https://ui.minidev.pro/r/stat-card.json https://ui.minidev.pro/r/chart-card.json https://ui.minidev.pro/r/area-chart.json\nnpx shadcn@latest add https://ui.minidev.pro/r/data-table.json https://ui.minidev.pro/r/activity-feed.json https://ui.minidev.pro/r/empty-table.json https://ui.minidev.pro/r/loading-table.json https://ui.minidev.pro/r/retry-block.json",
+      code: "npx shadcn@latest add @minidev/app-shell @minidev/sidebar-section @minidev/topbar @minidev/page-header\nnpx shadcn@latest add @minidev/kpi-row @minidev/stat-card @minidev/chart-card @minidev/area-chart\nnpx shadcn@latest add @minidev/data-table @minidev/activity-feed @minidev/empty-table @minidev/loading-table @minidev/retry-block",
     },
 
     { type: "h2", text: "The app shell layout", id: "app-shell" },

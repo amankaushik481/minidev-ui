@@ -109,7 +109,7 @@ const comparison: Comparison = {
       type: "p",
       text: "Moving a React app from daisyUI to MiniDev UI usually starts with the interactive parts. Replace hand-wired modals, dropdowns and tabs with MiniDev components, since those gain the most from Base UI behavior. Static pieces such as badges, cards and alerts can move later, or stay on daisyUI classes for a while.",
     },
-    { type: "code", lang: "bash", code: "npx shadcn@latest add https://ui.minidev.pro/r/command-palette.json" },
+    { type: "code", lang: "bash", code: "npx shadcn@latest add @minidev/command-palette" },
     {
       type: "callout",
       tone: "note",

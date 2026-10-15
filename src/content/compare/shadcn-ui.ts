@@ -91,7 +91,7 @@ const comparison: Comparison = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/data-table.json\nnpx shadcn@latest add https://ui.minidev.pro/r/settings-page.json",
+      code: "npx shadcn@latest add @minidev/data-table\nnpx shadcn@latest add @minidev/settings-page",
     },
     {
       type: "p",

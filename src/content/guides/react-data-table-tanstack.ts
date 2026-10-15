@@ -57,7 +57,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npm i @tanstack/react-table\n\nnpx shadcn@latest add https://ui.minidev.pro/r/data-table.json\nnpx shadcn@latest add https://ui.minidev.pro/r/sortable-header.json\nnpx shadcn@latest add https://ui.minidev.pro/r/table-toolbar.json\nnpx shadcn@latest add https://ui.minidev.pro/r/table-pagination.json\nnpx shadcn@latest add https://ui.minidev.pro/r/row-selection.json\nnpx shadcn@latest add https://ui.minidev.pro/r/bulk-actions-bar.json\nnpx shadcn@latest add https://ui.minidev.pro/r/column-visibility-menu.json\nnpx shadcn@latest add https://ui.minidev.pro/r/empty-table.json\nnpx shadcn@latest add https://ui.minidev.pro/r/loading-table.json",
+      code: "npm i @tanstack/react-table\n\nnpx shadcn@latest add @minidev/data-table\nnpx shadcn@latest add @minidev/sortable-header\nnpx shadcn@latest add @minidev/table-toolbar\nnpx shadcn@latest add @minidev/table-pagination\nnpx shadcn@latest add @minidev/row-selection\nnpx shadcn@latest add @minidev/bulk-actions-bar\nnpx shadcn@latest add @minidev/column-visibility-menu\nnpx shadcn@latest add @minidev/empty-table\nnpx shadcn@latest add @minidev/loading-table",
     },
     {
       type: "p",

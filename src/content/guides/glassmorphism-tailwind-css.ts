@@ -250,8 +250,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/light-provider.json
-npx shadcn@latest add https://ui.minidev.pro/r/popover.json`,
+      code: `npx shadcn@latest add @minidev/light-provider
+npx shadcn@latest add @minidev/popover`,
     },
   ],
   faq: [

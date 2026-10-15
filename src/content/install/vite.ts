@@ -17,7 +17,7 @@ const guide: Guide = {
   body: [
     {
       type: "p",
-      text: "To add MiniDev UI to a React app built with Vite, install Tailwind CSS v4 with the `@tailwindcss/vite` plugin, set the `@/*` path alias in both `tsconfig` files and `vite.config.ts`, run `npx shadcn@latest init`, and import the MiniDev tokens stylesheet after Tailwind. After that, `npx shadcn@latest add https://ui.minidev.pro/r/button.json` copies any component into `src/components/ui`.",
+      text: "To add MiniDev UI to a React app built with Vite, install Tailwind CSS v4 with the `@tailwindcss/vite` plugin, set the `@/*` path alias in both `tsconfig` files and `vite.config.ts`, run `npx shadcn@latest init`, and import the MiniDev tokens stylesheet after Tailwind. After that, `npx shadcn@latest add @minidev/button` copies any component into `src/components/ui`.",
     },
 
     { type: "h2", text: "Step 1: Create a React app", id: "create-the-project" },
@@ -157,8 +157,8 @@ export default defineConfig({
     {
       type: "code",
       lang: "bash",
-      code: `npx shadcn@latest add https://ui.minidev.pro/r/button.json
-npx shadcn@latest add https://ui.minidev.pro/r/pricing-plans.json`,
+      code: `npx shadcn@latest add @minidev/button
+npx shadcn@latest add @minidev/pricing-plans`,
     },
     {
       type: "p",

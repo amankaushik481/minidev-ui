@@ -58,7 +58,7 @@ export function ShippingFaq() {
       },
       {
         type: "p",
-        text: "Install it with `npx shadcn@latest add https://ui.minidev.pro/r/accordion.json`. For a ready FAQ section, [FaqList](/docs/faq-list) builds on the same primitive. More layout primitives live in the [layout category](/components/layout).",
+        text: "Install it with `npx shadcn@latest add @minidev/accordion`. For a ready FAQ section, [FaqList](/docs/faq-list) builds on the same primitive. More layout primitives live in the [layout category](/components/layout).",
       },
       { type: "component", name: "accordion" },
       { type: "component", name: "faq-list" },

@@ -51,7 +51,7 @@ const guide: Guide = {
     {
       type: "code",
       lang: "bash",
-      code: "npx shadcn@latest add https://ui.minidev.pro/r/chat-thread.json https://ui.minidev.pro/r/prompt-input.json https://ui.minidev.pro/r/reasoning-block.json https://ui.minidev.pro/r/tool-call-card.json https://ui.minidev.pro/r/stop-generating.json https://ui.minidev.pro/r/suggestion-chips.json https://ui.minidev.pro/r/model-picker.json https://ui.minidev.pro/r/retry-block.json",
+      code: "npx shadcn@latest add @minidev/chat-thread @minidev/prompt-input @minidev/reasoning-block @minidev/tool-call-card @minidev/stop-generating @minidev/suggestion-chips @minidev/model-picker @minidev/retry-block",
     },
     {
       type: "p",
@@ -241,7 +241,7 @@ const guide: Guide = {
     },
     {
       q: "Can I build a ChatGPT style UI with shadcn components?",
-      a: "Yes. MiniDev UI is a shadcn-compatible registry, so `npx shadcn@latest add https://ui.minidev.pro/r/chat-thread.json` installs the thread, bubble and cursor into your project alongside any shadcn components you already use.",
+      a: "Yes. MiniDev UI is a shadcn-compatible registry, so `npx shadcn@latest add @minidev/chat-thread` installs the thread, bubble and cursor into your project alongside any shadcn components you already use.",
     },
   ],
 }
