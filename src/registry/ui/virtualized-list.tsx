@@ -1,17 +1,31 @@
 "use client"
 import * as React from "react"
 import { cn } from "@/lib/utils"
+const SAMPLE_CUSTOMERS = ["Northwind Traders", "Halcyon Health", "Fathom Analytics", "Meridian Labs", "Quill & Co", "Tessel Robotics"]
+
+/** Renders a sample invoice row; replace it with your own `renderItem`. */
+function sampleRow(index: number) {
+  return (
+    <div className="flex h-10 items-center justify-between border-b border-border px-3 text-[13px]">
+      <span className="font-mono text-fg-muted">INV-{String(10000 - index).padStart(5, "0")}</span>
+      <span className="text-fg">{SAMPLE_CUSTOMERS[index % SAMPLE_CUSTOMERS.length]}</span>
+      <span className="tabular-nums text-fg-muted">${((index * 7919) % 9000 + 450).toLocaleString("en-US")}</span>
+    </div>
+  )
+}
+
+/** A fixed-row-height windowed list that renders only the rows in view. Defaults to a 10,000 row sample. */
 function VirtualizedList({
-  count,
+  count = 10000,
   itemHeight = 40,
   height = 320,
-  renderItem,
+  renderItem = sampleRow,
   className,
 }: {
-  count: number
+  count?: number
   itemHeight?: number
   height?: number
-  renderItem: (index: number) => React.ReactNode
+  renderItem?: (index: number) => React.ReactNode
   className?: string
 }) {
   const ref = React.useRef<HTMLDivElement>(null)
@@ -23,7 +37,7 @@ function VirtualizedList({
     <div
       ref={ref}
       data-slot="virtualized-list"
-      className={cn("overflow-auto rounded-xl border border-border", className)}
+      className={cn("w-full max-w-md overflow-auto rounded-xl border border-border bg-surface", className)}
       style={{ height }}
       onScroll={(e) => setScrollTop((e.target as HTMLDivElement).scrollTop)}
     >

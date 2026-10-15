@@ -3,13 +3,14 @@ import * as React from "react"
 import { useInView, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
+/** A number that counts up from zero when it scrolls into view, for stats sections. */
 function StatsCounter({
-  value,
-  label,
+  value = 12400,
+  label = "invoices paid this month",
   className,
 }: {
-  value: number
-  label: string
+  value?: number
+  label?: string
   className?: string
 }) {
   const ref = React.useRef<HTMLDivElement>(null)
@@ -30,7 +31,7 @@ function StatsCounter({
   }, [inView, value, reduce])
   return (
     <div ref={ref} data-slot="stats-counter" data-tier="premium" className={cn("rounded-xl border border-border bg-surface p-4 text-center shadow-highlight", className)}>
-      <p className="text-3xl font-medium tracking-[-0.022em] tabular-nums text-fg" aria-label={`${value} ${label}`}>{n}</p>
+      <p className="text-3xl font-medium tracking-[-0.022em] tabular-nums text-fg" aria-label={`${value.toLocaleString("en-US")} ${label}`}>{n.toLocaleString("en-US")}</p>
       <p className="mt-1 text-xs text-fg-muted">{label}</p>
     </div>
   )

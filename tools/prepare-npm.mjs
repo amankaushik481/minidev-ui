@@ -57,8 +57,8 @@ for (const f of files) {
 
 const pkg = {
   name: "minidev-ui-kit",
-  version: "0.3.0",
-  description: "500+ free React and Tailwind CSS v4 components, blocks and motion components. shadcn-compatible, built on Base UI. MIT.",
+  version: "0.4.0",
+  description: "548 free React and Tailwind CSS v4 components, blocks and motion components. shadcn-compatible, built on Base UI. MIT.",
   license: "MIT",
   type: "module",
   sideEffects: ["*.css"],
@@ -97,13 +97,13 @@ await writeFile(
   path.join(out, "README.md"),
   `# minidev-ui-kit
 
-500+ free React components, blocks and motion components for real product screens: data tables, billing, settings, dashboards, command palettes and AI chat. Tailwind CSS v4, Base UI, shadcn-compatible. MIT.
+548 free React components, blocks and motion components for real product screens: data tables, billing, settings, dashboards, command palettes and AI chat. Tailwind CSS v4, Base UI, shadcn-compatible. MIT.
 
 - Website and docs: https://ui.minidev.pro
 - Every component: https://ui.minidev.pro/components
 - Source: https://github.com/amankaushik481/minidev-ui
 
-Prefer one component at a time? Use the shadcn CLI: \`npx shadcn@latest add https://ui.minidev.pro/r/multi-select.json\`
+Prefer one component at a time? Use the shadcn CLI: \`npx shadcn@latest add @minidev/multi-select\` (MiniDev UI is in the shadcn registry directory).
 
 ## Install
 
