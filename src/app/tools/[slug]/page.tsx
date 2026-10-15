@@ -36,7 +36,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const t = toolBySlug((await params).slug)
   if (!t) return {}
-  return meta({ title: t.title, description: t.description, path: `/tools/${t.slug}`, image: `/tools/${t.slug}/opengraph-image`, keywords: t.keywords })
+  return meta({ title: t.title, description: t.description, path: `/tools/${t.slug}`, image: `/og/tools/${t.slug}.jpg`, keywords: t.keywords })
 }
 
 const UI: Record<string, () => React.ReactElement> = {

@@ -23,7 +23,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const b = blockTypeBySlug((await params).type)
   if (!b) return {}
-  return meta({ title: b.title, description: b.description, path: `/blocks/${b.slug}`, image: `/blocks/${b.slug}/opengraph-image`, keywords: b.keywords })
+  return meta({ title: b.title, description: b.description, path: `/blocks/${b.slug}`, image: `/og/blocks/${b.slug}.jpg`, keywords: b.keywords })
 }
 
 export default async function BlockTypePage({ params }: Params) {
