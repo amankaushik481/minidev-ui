@@ -5,6 +5,8 @@ import { notFound } from "next/navigation"
 import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon, MoonIcon, PackageIcon, RotateCcwIcon, SparklesIcon, SunIcon } from "lucide-react"
 import { COMPONENT_INDEX } from "@/lib/component-index"
 import { REGISTRY_LOADERS } from "@/lib/registry-loaders"
+import { EXAMPLE_LOADERS } from "@/lib/example-loaders"
+import type { Example } from "@/registry/examples/types"
 import { getPlaygroundDemos } from "@/lib/playground-demos"
 import { GALLERY_ENTRIES } from "@/lib/gallery-catalog"
 import { SITE } from "@/lib/site"
@@ -37,6 +39,45 @@ function useModule(name: string) {
     }
   }, [name])
   return mod
+}
+
+function useExamples(name: string) {
+  const [ex, setEx] = React.useState<Example[] | null>(null)
+  React.useEffect(() => {
+    let live = true
+    setEx(null)
+    const load = EXAMPLE_LOADERS[name]
+    if (!load) { setEx([]); return }
+    load().then((m) => live && setEx(m.examples)).catch(() => live && setEx([]))
+    return () => {
+      live = false
+    }
+  }, [name])
+  return ex
+}
+
+function ExampleCard({ ex, dark }: { ex: Example; dark: boolean }) {
+  const [showCode, setShowCode] = React.useState(false)
+  return (
+    <div className={cn("overflow-hidden rounded-2xl border border-border shadow-raised", dark && "dark")}>
+      <div className="relative min-h-[200px] bg-bg text-fg">
+        <div aria-hidden className="pointer-events-none absolute inset-0 bg-dots [--grid-size:14px] [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_85%)]" />
+        <div className="relative flex min-h-[200px] w-full min-w-0 flex-wrap items-center justify-center gap-4 overflow-x-auto p-6 sm:p-10">
+          <PreviewBoundary fallback={<p className="text-[13px] text-fg-subtle">This example could not render.</p>}>{ex.node}</PreviewBoundary>
+        </div>
+      </div>
+      <div className="flex items-start justify-between gap-4 border-t border-border bg-surface px-4 py-3">
+        <div>
+          <h3 className="text-[0.9375rem] font-medium text-fg">{ex.title}</h3>
+          {ex.description ? <p className="mt-0.5 text-[0.8125rem] leading-[1.55] text-fg-muted">{ex.description}</p> : null}
+        </div>
+        <button type="button" onClick={() => setShowCode((v) => !v)} aria-expanded={showCode} className="shrink-0 rounded-md border border-border bg-bg px-2.5 py-1 text-[12.5px] font-medium text-fg shadow-key outline-none hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
+          {showCode ? "Hide code" : "Code"}
+        </button>
+      </div>
+      {showCode ? <div className="border-t border-border"><CodeBlock language="tsx" code={ex.code} className="rounded-none border-0" /></div> : null}
+    </div>
+  )
 }
 
 function useSource(name: string) {
@@ -79,6 +120,7 @@ export function ComponentDocs({ name, api, learn }: { name: string; /** Server-r
   const i = COMPONENT_INDEX.findIndex((c) => c.name === params.name)
   const entry = COMPONENT_INDEX[i]
   const mod = useModule(params.name)
+  const examples = useExamples(params.name)
   const src = useSource(params.name)
   const [dark, setDark] = React.useState(false)
   const [nonce, setNonce] = React.useState(0)
@@ -180,7 +222,7 @@ export function ComponentDocs({ name, api, learn }: { name: string; /** Server-r
     { id: "usage", label: "Usage" },
     ...(api ? [{ id: "api", label: "API reference" }] : []),
     ...(entry.registryDeps.length || entry.deps.length ? [{ id: "dependencies", label: "Dependencies" }] : []),
-    ...(galleries.length ? [{ id: "examples", label: "Examples" }] : []),
+    ...(galleries.length || (examples && examples.length) ? [{ id: "examples", label: "Examples" }] : []),
     ...(related.length ? [{ id: "related", label: "Related" }] : []),
   ]
 
@@ -283,9 +325,17 @@ export function ComponentDocs({ name, api, learn }: { name: string; /** Server-r
           </section>
         ) : null}
 
-        {galleries.length ? (
+        {galleries.length || (examples && examples.length) ? (
           <section className="mt-14 space-y-5">
             <DocsH2 id="examples">Examples</DocsH2>
+            {examples && examples.length ? (
+              <div className="space-y-5">
+                {examples.map((ex) => (
+                  <ExampleCard key={ex.title} ex={ex} dark={dark} />
+                ))}
+              </div>
+            ) : null}
+            {galleries.length ? (
             <div className="grid gap-2 sm:grid-cols-2">
               {galleries.map((g) => (
                 <Link key={g.slug} href={`/gallery/${g.slug}`} className="group flex items-center justify-between rounded-xl border border-border bg-surface px-4 py-3 shadow-raised outline-none transition-[border-color] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
@@ -297,6 +347,7 @@ export function ComponentDocs({ name, api, learn }: { name: string; /** Server-r
                 </Link>
               ))}
             </div>
+            ) : null}
           </section>
         ) : null}
 

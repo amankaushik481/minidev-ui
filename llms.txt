@@ -5,7 +5,7 @@
 ## Install
 
 - npm: `npm i minidev-ui-kit` then `import { Button } from "minidev-ui-kit/ui/button"` (Next.js: add `transpilePackages: ["minidev-ui-kit"]`)
-- shadcn CLI, one file at a time: `npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`
+- shadcn CLI, one file at a time: `npx shadcn@latest add @minidev/<name>` (MiniDev UI is in the shadcn registry directory; the long form `npx shadcn@latest add https://ui.minidev.pro/r/<name>.json` also works)
 - Or copy the single source file into your repo. Every component is one file.
 
 ## Rules for generating code with MiniDev UI

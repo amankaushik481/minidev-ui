@@ -5884,7 +5884,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/virtualized-list",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "Renders a sample invoice row; replace it with your own `renderItem`."
   },
   {
     "name": "visually-hidden",
@@ -8312,6 +8313,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
+    "description": "A number that counts up from zero when it scrolls into view, for stats sections.",
     "usage": "<StatsCounter value={400} label=\"Components+\" />"
   },
   {

@@ -64,3 +64,4 @@ node_modules/
 /internal/
 /fixtures/
 /Claude outputs/
+/src/lib/example-loaders.ts
