@@ -69,7 +69,13 @@
 ## Guides
 
 - [AI chat UI in React: streaming messages, tool calls and reasoning](https://ui.minidev.pro/guides/ai-chat-ui-react): Build an AI chat UI in React: stream tokens with a ReadableStream reader, render reasoning and tool calls, auto scroll, stop and retry. Works with any provider.
+- [Best free React UI libraries in 2026, compared honestly](https://ui.minidev.pro/guides/best-free-react-ui-libraries-2026): Nine free React UI libraries compared: shadcn/ui, Material UI, Mantine, Chakra UI, Ant Design, HeroUI, Radix, Base UI and MiniDev UI, with licenses and limits.
+- [Best React animation libraries and motion component kits](https://ui.minidev.pro/guides/best-react-animation-libraries): Motion, GSAP, React Spring and AutoAnimate compared with five motion component kits: Magic UI, Aceternity, Animate UI, Motion Primitives and MiniDev UI.
+- [Best React chart libraries, and when you do not need one](https://ui.minidev.pro/guides/best-react-chart-libraries): Recharts, shadcn/ui charts, Chart.js, ECharts, Nivo, visx, Victory, Tremor and plain SVG compared, with licenses, limits and when a chart library is not needed.
+- [Best shadcn/ui blocks, registries and block collections](https://ui.minidev.pro/guides/best-shadcn-blocks-and-registries): Nine shadcn/ui block collections compared: official blocks, Tailark, Launch UI, Kibo UI, coss ui, MiniDev UI, Cult UI, blocks.so and 21st.dev, with licenses.
+- [Best Tailwind CSS component libraries, free and paid](https://ui.minidev.pro/guides/best-tailwind-component-libraries): Nine Tailwind CSS component libraries compared, free and paid: Tailwind Plus, shadcn/ui, daisyUI, Flowbite, Preline, HeroUI, HyperUI and MiniDev UI, with costs.
 - [Realistic CSS shadows that follow a light source](https://ui.minidev.pro/guides/css-shadows-light-source): Build realistic CSS box shadows from layered, tinted shadows, drive their direction with CSS variables, and move one light source with a small pointer script.
+- [Free Next.js SaaS templates and starter kits worth using](https://ui.minidev.pro/guides/free-nextjs-saas-templates): Eight free Next.js SaaS starters compared: the official SaaS Starter, next-forge, BoxyHQ, ixartz, the Stripe starter, create-t3-app, next-enterprise and more.
 - [The best free shadcn/ui component libraries in 2026](https://ui.minidev.pro/guides/free-shadcn-component-libraries): Ten free shadcn/ui compatible component libraries compared: what each is best at, license notes, primitives and links, so you can pick the right mix.
 - [Glassmorphism in Tailwind CSS v4: frosted glass that stays readable](https://ui.minidev.pro/guides/glassmorphism-tailwind-css): Build frosted glass in Tailwind CSS v4 with backdrop-blur and translucent fills, keep text readable, control the cost of backdrop-filter and add fallbacks.
 - [Build a billing page in Next.js with Stripe](https://ui.minidev.pro/guides/nextjs-billing-page-stripe): Build a SaaS billing page in Next.js with Stripe: plans, usage, invoices, payment methods and cancellation, loaded on the server and kept in sync by webhooks.
@@ -219,15 +225,23 @@
 ## Comparisons
 
 - [MiniDev UI vs Aceternity UI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-aceternity-ui)
+- [MiniDev UI vs Ant Design: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-ant-design)
 - [MiniDev UI vs Chakra UI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-chakra-ui)
 - [MiniDev UI vs coss ui (formerly Origin UI): which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-coss-ui)
 - [MiniDev UI vs daisyUI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-daisyui)
 - [MiniDev UI vs Flowbite: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-flowbite)
+- [MiniDev UI vs Headless UI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-headless-ui)
 - [MiniDev UI vs HeroUI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-heroui)
 - [MiniDev UI vs Magic UI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-magic-ui)
 - [MiniDev UI vs Mantine: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-mantine)
+- [MiniDev UI vs Material UI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-material-ui)
+- [MiniDev UI vs Park UI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-park-ui)
+- [MiniDev UI vs Preline UI: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-preline-ui)
+- [MiniDev UI vs Radix Themes: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-radix-themes)
 - [MiniDev UI vs shadcn/ui: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-shadcn-ui)
 - [MiniDev UI vs Tailwind Plus: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-tailwind-plus)
+- [MiniDev UI vs Tremor: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-tremor)
+- [MiniDev UI vs Untitled UI React: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-untitled-ui)
 
 ## Studio
 
