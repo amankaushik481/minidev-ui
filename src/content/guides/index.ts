@@ -30,11 +30,18 @@ import qr from "./react-qr-code"
 import states from "./react-empty-states-skeletons"
 import heroes from "./tailwind-hero-section-examples"
 import modal from "./react-accessible-modal"
+import reactUiLibs from "./best-free-react-ui-libraries-2026"
+import tailwindLibs from "./best-tailwind-component-libraries"
+import animationLibs from "./best-react-animation-libraries"
+import chartLibs from "./best-react-chart-libraries"
+import saasTemplates from "./free-nextjs-saas-templates"
+import shadcnBlocks from "./best-shadcn-blocks-and-registries"
 
 export const GUIDES: Guide[] = [
   roundup, landing, dashboard, dataTable, aiChat, pricing, billing, sidebar, settings, cmdk,
   kanban, otp, upload, toasts, shadcnRegistry, tw4, darkMode, oklch, glass, shadows, splitFlap,
   dateRange, wizard, charts, tour, panels, gantt, qr, states, heroes, modal,
+  reactUiLibs, tailwindLibs, animationLibs, chartLibs, saasTemplates, shadcnBlocks,
 ]
 
 export const guideBySlug = (slug: string) => GUIDES.find((g) => g.slug === slug)

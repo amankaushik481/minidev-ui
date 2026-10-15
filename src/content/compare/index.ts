@@ -9,7 +9,15 @@ import mantine from "./mantine"
 import daisyui from "./daisyui"
 import flowbite from "./flowbite"
 import chakra from "./chakra-ui"
+import materialUi from "./material-ui"
+import antDesign from "./ant-design"
+import radixThemes from "./radix-themes"
+import tremor from "./tremor"
+import preline from "./preline-ui"
+import parkUi from "./park-ui"
+import untitledUi from "./untitled-ui"
+import headlessUi from "./headless-ui"
 
-export const COMPARISONS: Comparison[] = [shadcn, aceternity, magic, tailwindPlus, heroui, mantine, daisyui, flowbite, chakra, coss]
+export const COMPARISONS: Comparison[] = [shadcn, aceternity, magic, tailwindPlus, heroui, mantine, daisyui, flowbite, chakra, coss, materialUi, antDesign, radixThemes, tremor, preline, parkUi, untitledUi, headlessUi]
 
 export const comparisonBySlug = (slug: string) => COMPARISONS.find((c) => c.slug === slug)

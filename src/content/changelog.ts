@@ -13,6 +13,8 @@ export const CHANGELOG: Release[] = [
       { text: "Blocks by section: hero sections, pricing, features, testimonials, FAQ, CTA, footers, navbars, logo clouds, stats, login pages, dashboards, settings, landing pages and empty states, each rendered live.", href: "/blocks" },
       { text: "Nine new tools: SVG to JSX, HTML to JSX, CSS to Tailwind v4, JSON to TypeScript, CSS gradient generator, SVG blob and wave generators, px to rem converter, favicon generator.", href: "/tools" },
       { text: "Ten new guides, 40 new glossary terms (82 total), an About page and a Learn more section on every component page.", href: "/guides" },
+      { text: "Live examples with code on the 72 most used component pages, eight more comparisons (Material UI, Ant Design, Radix Themes, Tremor, Preline, Park UI, Untitled UI, Headless UI) and six roundups of the best free libraries, templates and chart kits.", href: "/docs/multi-select#examples" },
+      { text: "Install with `npx shadcn@latest add @minidev/<name>`: MiniDev UI is in the shadcn registry directory.", href: "/docs/installation" },
     ],
   },
   {
