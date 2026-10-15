@@ -152,7 +152,9 @@
       "dependencies": [
         "@base-ui/react"
       ],
-      "registryDependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/alert-dialog.tsx",
@@ -317,6 +319,23 @@
       "files": [
         {
           "path": "src/registry/ui/audio-player.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "audio-recorder",
+      "type": "registry:ui",
+      "title": "Audio recorder",
+      "description": "A microphone recorder with start, pause and stop, an elapsed timer, live waveform bars, playback with a progress bar and a download button.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/audio-recorder.tsx",
           "type": "registry:ui"
         }
       ]
@@ -1148,8 +1167,11 @@
       "type": "registry:ui",
       "title": "Command dialog",
       "description": "Command dialog that opens the command palette in a modal from a list of commands with labels and handlers. Wire it to a Cmd K shortcut in your React app.",
-      "dependencies": [],
+      "dependencies": [
+        "lucide-react"
+      ],
       "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
         "https://ui.minidev.pro/r/command-palette.json"
       ],
       "files": [
@@ -1182,7 +1204,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "https://ui.minidev.pro/r/dialog.json"
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/dialog.json",
+        "https://ui.minidev.pro/r/kbd.json"
       ],
       "files": [
         {
@@ -1733,6 +1757,7 @@
       "description": "Bottom drawer that slides a sheet up from the screen edge with a titled header, close button and scrolling body, capped at 80% of the viewport height.",
       "dependencies": [],
       "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
         "https://ui.minidev.pro/r/sheet.json"
       ],
       "files": [
@@ -1751,7 +1776,9 @@
         "@base-ui/react",
         "lucide-react"
       ],
-      "registryDependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/dropdown-menu.tsx",
@@ -2089,7 +2116,9 @@
       "type": "registry:ui",
       "title": "Feature grid",
       "description": "A responsive grid of feature cards, one to three columns wide, each with an optional icon, a title and a short description. Built with React and Tailwind.",
-      "dependencies": [],
+      "dependencies": [
+        "lucide-react"
+      ],
       "registryDependencies": [],
       "files": [
         {
@@ -2317,6 +2346,24 @@
       ]
     },
     {
+      "name": "funnel-chart",
+      "type": "registry:ui",
+      "title": "Funnel chart",
+      "description": "A funnel chart with stage bars laid out horizontally or vertically, conversion rates and drop-off between stages, an optional comparison series and bars that spring to new values when the data changes.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/segmented-control.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/funnel-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "funnel-steps",
       "type": "registry:ui",
       "title": "Funnel steps",
@@ -2326,6 +2373,22 @@
       "files": [
         {
           "path": "src/registry/ui/funnel-steps.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "gantt-chart",
+      "type": "registry:ui",
+      "title": "Gantt chart",
+      "description": "A project timeline with day and week scales, a today line, progress fills, dependency arrows, a sticky task column and focusable bars.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/segmented-control.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/gantt-chart.tsx",
           "type": "registry:ui"
         }
       ]
@@ -2847,8 +2910,10 @@
       "name": "json-viewer",
       "type": "registry:ui",
       "title": "Json viewer",
-      "description": "Pretty prints any JavaScript value as indented JSON in a scrollable monospace block, falling back to a string if it cannot serialize. For React debug panels.",
-      "dependencies": [],
+      "description": "A collapsible JSON tree with syntax colours, item counts, copy value and copy path on hover, search highlighting and full keyboard navigation.",
+      "dependencies": [
+        "lucide-react"
+      ],
       "registryDependencies": [],
       "files": [
         {
@@ -2897,6 +2962,27 @@
       "files": [
         {
           "path": "src/registry/ui/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "keyboard-shortcuts",
+      "type": "registry:ui",
+      "title": "Keyboard shortcuts",
+      "description": "A keyboard shortcuts cheat sheet in a dialog, opened with the ? key or a trigger button, with search and the right modifier glyphs for the viewer's platform.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/dialog.json",
+        "https://ui.minidev.pro/r/input.json",
+        "https://ui.minidev.pro/r/kbd.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/keyboard-shortcuts.tsx",
           "type": "registry:ui"
         }
       ]
@@ -3088,7 +3174,9 @@
       "type": "registry:ui",
       "title": "Logo cloud",
       "description": "A centered, wrapping row of customer or partner logos with names in muted text and an optional mark each. Adds social proof to a Tailwind landing page.",
-      "dependencies": [],
+      "dependencies": [
+        "lucide-react"
+      ],
       "registryDependencies": [],
       "files": [
         {
@@ -3112,6 +3200,24 @@
       "files": [
         {
           "path": "src/registry/ui/magic-link-form.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "markdown-editor",
+      "type": "registry:ui",
+      "title": "Markdown editor",
+      "description": "A markdown editor with a toolbar that wraps the selection, Cmd/Ctrl+B and I shortcuts, write, split and preview modes, a live preview rendered without innerHTML, and a word count.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/segmented-control.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/markdown-editor.tsx",
           "type": "registry:ui"
         }
       ]
@@ -3295,7 +3401,9 @@
       "title": "Mobile action sheet",
       "description": "An iOS style action sheet that rises from the bottom with a list of actions, destructive items in red, a Cancel button and a backdrop that dismisses on tap.",
       "dependencies": [],
-      "registryDependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/mobile-action-sheet.tsx",
@@ -3660,6 +3768,23 @@
       ]
     },
     {
+      "name": "org-chart",
+      "type": "registry:ui",
+      "title": "Org chart",
+      "description": "A collapsible organisation chart with connector lines, initials avatars, team colours, per node counts and arrow key navigation.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/org-chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "org-switcher",
       "type": "registry:ui",
       "title": "Org switcher",
@@ -3910,7 +4035,9 @@
       "dependencies": [
         "@base-ui/react"
       ],
-      "registryDependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/popover.tsx",
@@ -4136,6 +4263,24 @@
       "files": [
         {
           "path": "src/registry/ui/publish-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "qr-code",
+      "type": "registry:ui",
+      "title": "Qr code",
+      "description": "A dependency free QR code rendered as crisp SVG, with error correction levels, a logo well and a one click SVG download.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/qr-code.tsx",
           "type": "registry:ui"
         }
       ]
@@ -4398,8 +4543,10 @@
       "name": "resizable-panels",
       "type": "registry:ui",
       "title": "Resizable panels",
-      "description": "Two resizable panels split by a draggable divider, clamped between 20 and 80 percent. The divider is a focusable separator that also moves with arrow keys.",
-      "dependencies": [],
+      "description": "Split panes with draggable, keyboard operable handles, min and max sizes, snap to collapse and nested groups in either direction.",
+      "dependencies": [
+        "lucide-react"
+      ],
       "registryDependencies": [],
       "files": [
         {
@@ -4524,6 +4671,20 @@
       "files": [
         {
           "path": "src/registry/ui/row-selection.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sankey-chart",
+      "type": "registry:ui",
+      "title": "Sankey chart",
+      "description": "An SVG sankey diagram that lays nodes out in columns computed from the links, draws curved ribbons, labels nodes with values, highlights a node's flows on hover or focus, and includes a hidden table.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/sankey-chart.tsx",
           "type": "registry:ui"
         }
       ]
@@ -4761,7 +4922,9 @@
       "dependencies": [
         "lucide-react"
       ],
-      "registryDependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/sheet.tsx",
@@ -5389,6 +5552,22 @@
       ]
     },
     {
+      "name": "table-of-contents",
+      "type": "registry:ui",
+      "title": "Table of contents",
+      "description": "A sticky table of contents that spies on headings while you scroll, with a marker that glides to the active item and smooth scroll on click.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/table-of-contents.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "table-pagination",
       "type": "registry:ui",
       "title": "Table pagination",
@@ -5757,7 +5936,9 @@
       "dependencies": [
         "@base-ui/react"
       ],
-      "registryDependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/ui/tooltip.tsx",
@@ -5805,6 +5986,20 @@
       "files": [
         {
           "path": "src/registry/ui/tree-view.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "treemap-chart",
+      "type": "registry:ui",
+      "title": "Treemap chart",
+      "description": "A squarified SVG treemap with one level of grouping, labels that hide in small cells, hover and keyboard focus with a value tooltip, and a hidden data table.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/treemap-chart.tsx",
           "type": "registry:ui"
         }
       ]
@@ -5995,6 +6190,22 @@
       "files": [
         {
           "path": "src/registry/ui/video-player-chrome.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "virtual-list",
+      "type": "registry:ui",
+      "title": "Virtual list",
+      "description": "A windowed list that renders only the rows in view, with fixed or measured row heights, overscan, keyboard row navigation and scroll to index.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/virtual-list.tsx",
           "type": "registry:ui"
         }
       ]
@@ -7042,6 +7253,60 @@
       ]
     },
     {
+      "name": "animated-tooltip",
+      "type": "registry:component",
+      "title": "Animated tooltip",
+      "description": "A row of overlapping avatars where hovering or focusing one pops up a name and role card that leans and slides with the pointer.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/animated-tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "aurora-background",
+      "type": "registry:component",
+      "title": "Aurora background",
+      "description": "Soft northern-lights curtains that drift and sway across the panel behind your content.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/premium/aurora-background.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "background-boxes",
+      "type": "registry:component",
+      "title": "Background boxes",
+      "description": "A skewed grid of hairline boxes behind your content where the box under the pointer lights up in colour and fades out behind it.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/premium/background-boxes.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "before-after-wipe",
       "type": "registry:component",
       "title": "Before after wipe",
@@ -7070,6 +7335,23 @@
       "files": [
         {
           "path": "src/registry/premium/blog-home.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "blur-fade",
+      "type": "registry:component",
+      "title": "Blur fade",
+      "description": "Reveals its children as they scroll into view, rising out of a soft blur and settling into focus on a spring.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/blur-fade.tsx",
           "type": "registry:ui"
         }
       ]
@@ -7108,6 +7390,22 @@
       "files": [
         {
           "path": "src/registry/premium/brand-kit-page.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "browser-mockup",
+      "type": "registry:component",
+      "title": "Browser mockup",
+      "description": "A browser window frame with traffic lights, back and forward buttons, an address bar and optional tabs, wrapping your screenshot or any children.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/browser-mockup.tsx",
           "type": "registry:ui"
         }
       ]
@@ -7541,6 +7839,25 @@
       ]
     },
     {
+      "name": "globe",
+      "type": "registry:component",
+      "title": "Globe",
+      "description": "A dotted globe drawn on a plain canvas, no WebGL, that turns on its own and spins under your finger.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/premium/globe.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "gradient-text",
       "type": "registry:component",
       "title": "Gradient text",
@@ -7773,6 +8090,39 @@
       ]
     },
     {
+      "name": "hyper-text",
+      "type": "registry:component",
+      "title": "Hyper text",
+      "description": "Text that decodes itself: every character cycles through random glyphs and locks into place from left to right.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/hyper-text.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-cloud",
+      "type": "registry:component",
+      "title": "Icon cloud",
+      "description": "A sphere of icons that turns slowly in 3D, scales and fades with depth, and can be dragged to spin with inertia.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/icon-cloud.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "investor-update",
       "type": "registry:component",
       "title": "Investor update",
@@ -7789,6 +8139,25 @@
       "files": [
         {
           "path": "src/registry/premium/investor-update.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "lamp-effect",
+      "type": "registry:component",
+      "title": "Lamp effect",
+      "description": "A glowing strip light at the top of a dark panel that switches on and widens to light the headline beneath it.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/premium/lamp-effect.tsx",
           "type": "registry:ui"
         }
       ]
@@ -7961,6 +8330,22 @@
       "files": [
         {
           "path": "src/registry/premium/morph-price.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "morphing-text",
+      "type": "registry:component",
+      "title": "Morphing text",
+      "description": "A headline that cycles through phrases by melting each one into the next with a blur and crossfade on two stacked layers.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/morphing-text.tsx",
           "type": "registry:ui"
         }
       ]
@@ -8255,6 +8640,23 @@
       ]
     },
     {
+      "name": "scratch-to-reveal",
+      "type": "registry:component",
+      "title": "Scratch to reveal",
+      "description": "A scratch card: a foil you rub away with the pointer or a finger to reveal what is underneath, which clears itself once enough is gone.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/scratch-to-reveal.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "scroll-chapter-story",
       "type": "registry:component",
       "title": "Scroll chapter story",
@@ -8282,6 +8684,22 @@
       "files": [
         {
           "path": "src/registry/premium/scroll-progress-rail.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-progress",
+      "type": "registry:component",
+      "title": "Scroll progress",
+      "description": "Reading progress as a thin bar that fills along the top edge and a ring with the percent inside, for the page or any scrollable element.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/scroll-progress.tsx",
           "type": "registry:ui"
         }
       ]
@@ -8315,6 +8733,25 @@
       "files": [
         {
           "path": "src/registry/premium/shimmer-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "shine-border",
+      "type": "registry:component",
+      "title": "Shine border",
+      "description": "A card whose border is a band of coloured light sweeping around it, masked to the border ring so the content is untouched.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/premium/shine-border.tsx",
           "type": "registry:ui"
         }
       ]
@@ -8459,6 +8896,23 @@
       ]
     },
     {
+      "name": "terminal",
+      "type": "registry:component",
+      "title": "Terminal",
+      "description": "An animated terminal window that types each command and prints its output line by line, with a blinking cursor and a replay button.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/terminal.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "testimonial-carousel",
       "type": "registry:component",
       "title": "Testimonial carousel",
@@ -8504,6 +8958,41 @@
       "files": [
         {
           "path": "src/registry/premium/text-scramble.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tilt-card",
+      "type": "registry:component",
+      "title": "Tilt card",
+      "description": "A card that tilts toward the pointer in 3D, with a sliding glare and parallax children, and springs flat when the pointer leaves.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/premium/tilt-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tracing-beam",
+      "type": "registry:component",
+      "title": "Tracing beam",
+      "description": "A vertical beam beside long content that grows as you scroll, with a glowing tip and a node that lights for each entry.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/premium/tracing-beam.tsx",
           "type": "registry:ui"
         }
       ]
@@ -8574,6 +9063,25 @@
       "files": [
         {
           "path": "src/registry/premium/waveform-hero.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "wavy-background",
+      "type": "registry:component",
+      "title": "Wavy background",
+      "description": "Layered canvas waves that roll across the bottom of the panel behind your content, each at its own pace.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/premium/wavy-background.tsx",
           "type": "registry:ui"
         }
       ]

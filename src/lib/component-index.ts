@@ -61,6 +61,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feeds"
     ],
+    "description": "A compact feed of who did what, with avatars and timestamps, for dashboards and detail panes.",
     "usage": "<ActivityFeed className=\"w-full max-w-md\" items={[\n  { id: \"1\", user: \"Aman\", action: \"opened a PR\", time: \"1m\" },\n  { id: \"2\", user: \"Jordan\", action: \"commented on design\", time: \"12m\" },\n]} />"
   },
   {
@@ -92,6 +93,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "admin"
     ],
+    "description": "A row of admin KPIs with label, value and a delta, four up on desktop.",
     "usage": "<AdminStatStrip\n  stats={[\n    { label: \"Seats\", value: \"42\", delta: 8 },\n    { label: \"Active\", value: \"128\", delta: 3.2 },\n    { label: \"Errors\", value: \"0.4%\", delta: -12 },\n  ]}\n/>"
   },
   {
@@ -110,7 +112,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "permission-chip",
       "status-dot"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "One member row for an admin user list: avatar with presence, name, email, permission level and an actions menu."
   },
   {
     "name": "agent-trace",
@@ -159,8 +162,11 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [
       "@base-ui/react"
     ],
-    "registryDeps": [],
-    "galleries": []
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A modal confirmation for destructive or irreversible actions; renders a demo trigger and content when given no children."
   },
   {
     "name": "announcement-bar",
@@ -222,6 +228,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
+    "description": "A request card with the requester, a summary and approve or reject actions.",
     "usage": "<ApprovalCard title=\"Merge release notes\" requester=\"Mina\" summary=\"Ready for docs review.\" />"
   },
   {
@@ -236,7 +243,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
-    "description": "Monotone cubic interpolation — smooth without overshooting the data.",
+    "description": "A smooth area chart with a hairline grid and gradient wash; strokes stay 1.5px at any size and a highlight can pin one value.",
     "usage": "<AreaChart data={[12,18,15,28,22,36,30,42]} />"
   },
   {
@@ -284,6 +291,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
+    "description": "A list of teammates to assign something to; one option is highlighted and keyboard focusable.",
     "usage": "<AssignPicker value={assignee} onChange={setAssignee} people={[{ id: \"1\", name: \"Aman\" }, { id: \"2\", name: \"Mina\" }]} />"
   },
   {
@@ -315,6 +323,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "audio-recorder",
+    "title": "AudioRecorder",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/audio-recorder.tsx",
+    "import": "@/registry/ui/audio-recorder",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A microphone recorder with start, pause and stop, an elapsed timer, live waveform bars, playback with a progress bar and a download button."
+  },
+  {
     "name": "audit-filter-bar",
     "title": "AuditFilterBar",
     "tier": "free",
@@ -344,7 +367,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "avatar",
       "relative-time"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "One line of an audit log: who did what to which record, with a relative timestamp."
   },
   {
     "name": "audit-trail",
@@ -357,7 +381,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "audit-log-entry"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A bordered list of audit log entries, newest first, each with a relative timestamp."
   },
   {
     "name": "auth-card",
@@ -387,6 +412,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "combobox"
     ],
+    "description": "A text field that suggests matching options as you type, with the first eight matches in a listbox.",
     "usage": "<Autocomplete options={items.map(i=>i.label)} placeholder=\"Framework\" aria-label=\"Framework\" />"
   },
   {
@@ -507,7 +533,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
-    "description": "Rounded-top bars on a hairline baseline. Hovering one bar dims",
+    "description": "Rounded-top bars on a hairline baseline; hovering one bar dims its siblings and surfaces the value, and the peak is marked by default.",
     "usage": "<BarChart data={[{label:\"Mon\",value:12},{label:\"Tue\",value:18},{label:\"Wed\",value:9},{label:\"Thu\",value:22},{label:\"Fri\",value:16}]} />"
   },
   {
@@ -583,6 +609,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "shells"
     ],
+    "description": "A navigation trail of links with chevron separators; the last item is the current page.",
     "usage": "<Breadcrumb items={[{label:\"App\"},{label:\"Users\"},{label:\"Jordan\"}]} />"
   },
   {
@@ -683,7 +710,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/calendar-agenda",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A day's events as a simple time and title list, with optional meta under each entry."
   },
   {
     "name": "calendar-month",
@@ -841,6 +869,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
+    "description": "A row of colour swatches and series names to sit under a chart.",
     "usage": "<ChartLegend items={[{ label: \"Free\" }, { label: \"Premium\" }, { label: \"Studio\" }]} />"
   },
   {
@@ -855,6 +884,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
+    "description": "A small raised card for chart hover details: a title and label-value rows with tabular numbers.",
     "usage": "<ChartTooltipCard title=\"Sep 14\" rows={[{ label: \"Views\", value: \"12.4k\" }, { label: \"Signups\", value: \"318\" }]} />"
   },
   {
@@ -943,6 +973,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-extra"
     ],
+    "description": "A row of pill-shaped radio chips for picking one filter, uncontrolled unless a value is passed.",
     "usage": "<ChipFilter value={chip} onChange={setChip} options={[{ value: \"all\", label: \"All\" }, { value: \"mine\", label: \"Mine\" }, { value: \"open\", label: \"Open\" }]} />"
   },
   {
@@ -1001,7 +1032,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai"
     ],
-    "description": "An ink well in both themes. Lightweight token colouring",
+    "description": "An ink-well code block in both themes, with lightweight token colouring (strings, keywords, JSX tags, comments) and a copy button.",
     "usage": "<CodeBlock className=\"max-w-lg\" code={demoCode} />"
   },
   {
@@ -1073,7 +1104,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "dropdown-menu"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A \"Columns\" button that opens a checklist of table columns to show or hide; uncontrolled unless `visible` is passed."
   },
   {
     "name": "combobox",
@@ -1092,6 +1124,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "combobox"
     ],
+    "description": "A button that opens a filterable list of options in a popover; uncontrolled unless a value is passed.",
     "usage": "<Combobox items={items} value={c} onChange={setC} />"
   },
   {
@@ -1101,11 +1134,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/command-dialog.tsx",
     "import": "@/registry/ui/command-dialog",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [
+      "button",
       "command-palette"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A command palette in a dialog; uncontrolled with its own \"Search commands\" trigger unless `open` is passed."
   },
   {
     "name": "command-item",
@@ -1129,11 +1166,14 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [
-      "dialog"
+      "button",
+      "dialog",
+      "kbd"
     ],
     "galleries": [
       "shells"
     ],
+    "description": "A searchable command dialog: type to filter, pick a command, opened from a trigger button or ⌘K.",
     "usage": "<CommandPalette open={cmd} onOpenChange={setCmd} commands={[{id:\"1\",label:\"Go to users\"},{id:\"2\",label:\"Open settings\"},{id:\"3\",label:\"Invite member\"}]} />"
   },
   {
@@ -1167,6 +1207,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
+    "description": "A vertical thread of comments, each with an avatar, author, time and body.",
     "usage": "<CommentThread comments={[{ id: \"1\", author: \"Aman\", body: \"Looks good — ship it.\", time: \"2h ago\" }]} />"
   },
   {
@@ -1196,7 +1237,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A feature-by-plan matrix: one row per feature, a check, a dash or a value per plan."
   },
   {
     "name": "confirm-destructive",
@@ -1306,6 +1348,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai-studio"
     ],
+    "description": "A chat app's conversation list: a new-chat button on top, then titled threads with their last activity.",
     "usage": "<ConversationSidebar\n  activeId={active}\n  onSelect={setActive}\n  onNew={() => {}}\n  items={[\n    { id: \"1\", title: \"Hairline audit plan\", updatedAt: new Date(Date.now() - 3600000).toISOString() },\n    { id: \"2\", title: \"Premium hero copy\", updatedAt: new Date(Date.now() - 86400000).toISOString() },\n  ]}\n/>"
   },
   {
@@ -1492,7 +1535,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-table"
     ],
-    "description": "Enables sorting on this column. Return the value to compare.",
+    "description": "A product data table: sortable headers, row selection with a bulk bar, hover row actions, sticky header, density and skeleton loading.",
     "usage": "<DataTable\n  data={filtered}\n  columns={[\n    { id: \"name\", header: \"Name\", sortValue: (r) => r.name, cell: (r) => r.name },\n    { id: \"plan\", header: \"Plan\", cell: (r) => r.plan },\n    { id: \"status\", header: \"Status\", cell: (r) => (\n      <StatusBadge tone={r.status === \"active\" ? \"success\" : r.status === \"past_due\" ? \"danger\" : \"warning\"}>{r.status}</StatusBadge>\n    ) },\n  ]}\n/>"
   },
   {
@@ -1572,6 +1615,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feeds"
     ],
+    "description": "Label and value pairs in a two-column grid, for record details like a customer or an invoice.",
     "usage": "<DescriptionList className=\"max-w-lg\" items={[\n  { label: \"Workspace\", value: \"MiniDev\" },\n  { label: \"Plan\", value: \"Agency\" },\n  { label: \"Region\", value: \"us-east-1\" },\n  { label: \"Status\", value: <span className=\"inline-flex items-center gap-2\"><StatusDot tone=\"success\" /> Healthy</span> },\n]} />"
   },
   {
@@ -1641,9 +1685,11 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/drawer",
     "deps": [],
     "registryDeps": [
+      "button",
       "sheet"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A bottom sheet for quick actions and mobile forms: a Sheet that slides up from the bottom edge."
   },
   {
     "name": "dropdown-menu",
@@ -1656,10 +1702,13 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "@base-ui/react",
       "lucide-react"
     ],
-    "registryDeps": [],
+    "registryDeps": [
+      "button"
+    ],
     "galleries": [
       "dropdown-menu"
     ],
+    "description": "A menu that opens from a trigger: items with shortcuts, labels, separators, checkbox and radio items, and nested submenus.",
     "usage": "<DropdownMenu>\n  <DropdownMenuTrigger className={cn(buttonVariants({ variant: \"outline\" }))}>\n    Open menu\n  </DropdownMenuTrigger>\n  <DropdownMenuContent align=\"start\" className=\"min-w-52\">\n    <DropdownMenuGroup>\n      <DropdownMenuLabel>Account</DropdownMenuLabel>\n      <DropdownMenuItem>\n        Profile\n        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuItem>Billing</DropdownMenuItem>\n    </DropdownMenuGroup>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem variant=\"destructive\">Sign out</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
   },
   {
@@ -1938,6 +1987,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-extra"
     ],
+    "description": "A titled group of checkbox facets with result counts, for a filter sidebar.",
     "usage": "<FacetFilter title=\"Status\" value={facets} onChange={setFacets} options={[{ value: \"open\", label: \"Open\", count: 12 }, { value: \"done\", label: \"Done\", count: 40 }]} />"
   },
   {
@@ -1954,6 +2004,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing"
     ],
+    "description": "Frequently asked questions as an accordion: one question per row, the answer unfolds beneath it.",
     "usage": "<FaqList items={[{ q: \"Is it free?\", a: \"Yes — free React + Tailwind registry.\" }, { q: \"Dark mode?\", a: \"Tokenized light and dark.\" }]} />"
   },
   {
@@ -1980,11 +2031,14 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/feature-grid.tsx",
     "import": "@/registry/ui/feature-grid",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [],
     "galleries": [
       "marketing"
     ],
+    "description": "A responsive grid of feature cards, each with an optional icon, a title and a short description.",
     "usage": "<FeatureGrid features={[{ title: \"Fast\", description: \"Ship UI without reinventing tokens.\" }, { title: \"Accessible\", description: \"Audit-gated screenshots and axe.\" }, { title: \"Composable\", description: \"Primitives that stack cleanly.\" }]} />"
   },
   {
@@ -2028,7 +2082,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "file-row"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A stack of file rows with name, metadata and an optional download action."
   },
   {
     "name": "file-reference",
@@ -2134,6 +2189,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing-sections"
     ],
+    "description": "A multi-column site footer: brand and tagline on the left, titled link columns across the rest.",
     "usage": "<FooterMega\n  columns={[\n    { title: \"Product\", links: [{ label: \"Gallery\", href: \"#\" }, { label: \"Docs\", href: \"#\" }] },\n    { title: \"Company\", links: [{ label: \"Blog\", href: \"#\" }, { label: \"Careers\", href: \"#\" }] },\n    { title: \"Legal\", links: [{ label: \"Privacy\", href: \"#\" }, { label: \"Terms\", href: \"#\" }] },\n  ]}\n/>"
   },
   {
@@ -2147,7 +2203,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "link"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A one-line site footer: brand on the left, a row of quiet links on the right."
   },
   {
     "name": "forgot-password-form",
@@ -2184,6 +2241,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<FormField id=\"email\" label=\"Email\"><Input id=\"email\" type=\"email\" placeholder=\"you@company.com\" /></FormField>"
   },
   {
+    "name": "funnel-chart",
+    "title": "FunnelChart",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/funnel-chart.tsx",
+    "import": "@/registry/ui/funnel-chart",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [
+      "segmented-control"
+    ],
+    "galleries": [],
+    "description": "A funnel chart with stage bars laid out horizontally or vertically, conversion rates and drop-off between stages, an optional comparison series and bars that spring to new values when the data changes."
+  },
+  {
     "name": "funnel-steps",
     "title": "FunnelSteps",
     "tier": "free",
@@ -2195,7 +2268,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-extra"
     ],
+    "description": "A conversion funnel as stacked bars: each step's bar is sized against the first step's count.",
     "usage": "<FunnelSteps steps={[{ label: \"Visited\", value: 1200 }, { label: \"Signed up\", value: 420 }, { label: \"Activated\", value: 210 }]} />"
+  },
+  {
+    "name": "gantt-chart",
+    "title": "GanttChart",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/gantt-chart.tsx",
+    "import": "@/registry/ui/gantt-chart",
+    "deps": [],
+    "registryDeps": [
+      "segmented-control"
+    ],
+    "galleries": [],
+    "description": "A project timeline with day and week scales, a today line, progress fills, dependency arrows, a sticky task column and focusable bars."
   },
   {
     "name": "gantt-row",
@@ -2305,6 +2393,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
+    "description": "Labelled horizontal bars scaled to the largest value, for ranking categories at a glance.",
     "usage": "<HorizontalBarChart data={[{label:\"Design\",value:42},{label:\"Eng\",value:68},{label:\"Growth\",value:35}]} />"
   },
   {
@@ -2366,7 +2455,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "aspect-ratio"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A square-tile image grid, two columns on phones and three from the small breakpoint up."
   },
   {
     "name": "image-lightbox",
@@ -2595,7 +2685,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "status-badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "One invoice as a card: number, date and status on top, line items below, total at the foot."
   },
   {
     "name": "invoice-list",
@@ -2611,6 +2702,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "billing"
     ],
+    "description": "A compact list of invoices: number and date on the left, amount and status badge on the right.",
     "usage": "<InvoiceList className=\"w-full max-w-md\" items={[\n  { id: \"INV-104\", date: \"Sep 1, 2026\", amount: \"$29.00\", status: \"paid\" },\n  { id: \"INV-105\", date: \"Oct 1, 2026\", amount: \"$29.00\", status: \"open\" },\n]} />"
   },
   {
@@ -2681,11 +2773,14 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/json-viewer.tsx",
     "import": "@/registry/ui/json-viewer",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [],
     "galleries": [
       "system"
     ],
+    "description": "A collapsible JSON tree with syntax colours, item counts, copy value and copy path on hover, search highlighting and full keyboard navigation.",
     "usage": "<JsonViewer value={{ name: \"minidev-ui\", items: 300 }} />"
   },
   {
@@ -2700,6 +2795,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feeds"
     ],
+    "description": "Columns of cards in a horizontally scrolling board, each column headed by its title and card count.",
     "usage": "<KanbanBoard columns={[\n  { id: \"todo\", title: \"Todo\", cards: [{ id: \"a\", title: \"Multi-select polish\", meta: \"Batch A\" }] },\n  { id: \"doing\", title: \"Doing\", cards: [{ id: \"b\", title: \"Data table\", meta: \"Batch B\" }] },\n  { id: \"done\", title: \"Done\", cards: [{ id: \"c\", title: \"Dropdown fix\", meta: \"Shipped\" }] },\n]} />"
   },
   {
@@ -2729,6 +2825,25 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "description": "A physical keycap: surface, hairline, 1px key edge.",
     "usage": "<Kbd>⌘</Kbd>"
+  },
+  {
+    "name": "keyboard-shortcuts",
+    "title": "KeyboardShortcuts",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/keyboard-shortcuts.tsx",
+    "import": "@/registry/ui/keyboard-shortcuts",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [
+      "button",
+      "dialog",
+      "input",
+      "kbd"
+    ],
+    "galleries": [],
+    "description": "A keyboard shortcuts cheat sheet in a dialog, opened with the ? key or a trigger button, with search and the right modifier glyphs for the viewer's platform."
   },
   {
     "name": "kpi-row",
@@ -2808,7 +2923,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Drift when the pointer is idle or absent."
+    "description": "The page's single light source: it follows the pointer, drifts when idle, and every shadow and sheen in the kit falls away from it."
   },
   {
     "name": "line-chart",
@@ -2915,9 +3030,12 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/logo-cloud.tsx",
     "import": "@/registry/ui/logo-cloud",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A wrapping, centred row of customer names and marks for social proof."
   },
   {
     "name": "magic-link-form",
@@ -2936,6 +3054,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "markdown-editor",
+    "title": "MarkdownEditor",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/markdown-editor.tsx",
+    "import": "@/registry/ui/markdown-editor",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [
+      "segmented-control"
+    ],
+    "galleries": [],
+    "description": "A markdown editor with a toolbar that wraps the selection, Cmd/Ctrl+B and I shortcuts, write, split and preview modes, a live preview rendered without innerHTML, and a word count."
+  },
+  {
     "name": "markdown-renderer",
     "title": "MarkdownRenderer",
     "tier": "free",
@@ -2944,7 +3078,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/markdown-renderer",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "Paragraphs and fenced code blocks from a markdown string, with no parser dependency."
   },
   {
     "name": "marquee",
@@ -3098,8 +3233,11 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "path": "src/registry/ui/mobile-action-sheet.tsx",
     "import": "@/registry/ui/mobile-action-sheet",
     "deps": [],
-    "registryDeps": [],
-    "galleries": []
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A bottom sheet of full-width actions with a cancel row, for phone-sized screens."
   },
   {
     "name": "mobile-nav-drawer",
@@ -3130,6 +3268,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai-studio"
     ],
+    "description": "A compact table of AI models by latency, cost and quality, with latency colour coded.",
     "usage": "<ModelCompare rows={[\n  { name: \"Fast\", latencyMs: 420, cost: \"$0.002\", quality: \"Good\" },\n  { name: \"Pro\", latencyMs: 980, cost: \"$0.01\", quality: \"Great\" },\n  { name: \"Max\", latencyMs: 1800, cost: \"$0.04\", quality: \"Best\" },\n]} />"
   },
   {
@@ -3146,6 +3285,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai"
     ],
+    "description": "A select for choosing an AI model, controlled or uncontrolled.",
     "usage": "<ModelPicker\n  models={[\n    { id: \"gpt\", label: \"GPT\" },\n    { id: \"sonnet\", label: \"Sonnet\" },\n    { id: \"opus\", label: \"Opus\" },\n  ]}\n  value=\"sonnet\"\n/>"
   },
   {
@@ -3179,6 +3319,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "combobox"
     ],
+    "description": "A popover list with check marks and removable chips for the chosen items.",
     "usage": "<MultiSelect items={items} value={m} onChange={setM} />"
   },
   {
@@ -3225,7 +3366,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A collapsible tree of navigation groups that indents with depth."
   },
   {
     "name": "newsletter-signup",
@@ -3305,7 +3447,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "relative-time"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "One row of a notification list: title, body, relative time and an unread dot."
   },
   {
     "name": "notification-preferences",
@@ -3426,7 +3569,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "commerce"
     ],
+    "description": "Label and value lines above a separator and a bold total, for checkout and invoices.",
     "usage": "<OrderSummary lines={[{ label: \"Subtotal\", value: \"$49.00\" }, { label: \"Tax\", value: \"$3.92\" }]} total=\"$52.92\" />"
+  },
+  {
+    "name": "org-chart",
+    "title": "OrgChart",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/org-chart.tsx",
+    "import": "@/registry/ui/org-chart",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A collapsible organisation chart with connector lines, initials avatars, team colours, per node counts and arrow key navigation."
   },
   {
     "name": "org-switcher",
@@ -3444,6 +3603,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "admin"
     ],
+    "description": "A popover list of organizations with the current one checked and its plan beside it.",
     "usage": "<OrgSwitcher\n  value={org}\n  onChange={setOrg}\n  orgs={[\n    { id: \"1\", name: \"Acme\", plan: \"Studio\" },\n    { id: \"2\", name: \"MiniDev\", plan: \"Premium\" },\n  ]}\n/>"
   },
   {
@@ -3639,7 +3799,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A pricing tier with price per period, feature list and a call to action; highlighted tiers get the accent ring."
   },
   {
     "name": "plan-comparison",
@@ -3664,8 +3825,11 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [
       "@base-ui/react"
     ],
-    "registryDeps": [],
-    "galleries": []
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A floating panel anchored to its trigger, built on Base UI; without children it shows a demo trigger and panel."
   },
   {
     "name": "presence-dot",
@@ -3706,6 +3870,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "billing"
     ],
+    "description": "Three PlanCards in a responsive grid, one of them highlighted.",
     "usage": "<PricingTable className=\"w-full\" plans={[\n  { name: \"Free\", price: \"$0\", features: [\"10 components\",\"Community\"], cta: \"Start\" },\n  { name: \"Pro\", price: \"$29\", features: [\"All components\",\"Priority\"], highlighted: true },\n  { name: \"Team\", price: \"$99\", features: [\"Seats\",\"SSO\",\"Audit\"] },\n]} />"
   },
   {
@@ -3846,6 +4011,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai-studio"
     ],
+    "description": "A searchable list of saved prompts, each a card with a title, tag and two-line preview.",
     "usage": "<PromptLibrary\n  prompts={[\n    { id: \"1\", title: \"Critique UI\", body: \"Review this screen for Hairline violations.\", tag: \"Design\" },\n    { id: \"2\", title: \"Write changelog\", body: \"Summarize commits as a customer-facing changelog.\", tag: \"Docs\" },\n  ]}\n/>"
   },
   {
@@ -3878,6 +4044,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "engineering"
     ],
     "usage": "<PublishBar />"
+  },
+  {
+    "name": "qr-code",
+    "title": "QrCode",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/qr-code.tsx",
+    "import": "@/registry/ui/qr-code",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A dependency free QR code rendered as crisp SVG, with error correction levels, a logo well and a one click SVG download."
   },
   {
     "name": "quantity-stepper",
@@ -3923,6 +4105,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "commerce"
     ],
+    "description": "A labelled usage meter that reads \"used / max\" and fills to the percentage.",
     "usage": "<QuotaBar label=\"API calls\" used={7200} max={10000} />"
   },
   {
@@ -3937,6 +4120,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
+    "description": "A filled polygon over concentric rings, one axis per label.",
     "usage": "<RadarChart labels={[\"Speed\",\"A11y\",\"DX\",\"Motion\",\"Tokens\"]} values={[0.8,0.95,0.75,0.7,0.9]} />"
   },
   {
@@ -4016,6 +4200,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
+    "description": "Emoji reaction pills with counts; the ones you pressed get the accent border.",
     "usage": "<ReactionBar reactions={[{ emoji: \"👍\", count: 3, active: true }, { emoji: \"🎉\", count: 1 }]} />"
   },
   {
@@ -4058,7 +4243,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/receipt",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A monospaced receipt card with an id, itemised lines and a ruled total."
   },
   {
     "name": "regenerate-bar",
@@ -4098,7 +4284,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/relative-time",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A time element that reads \"3h ago\" and carries the exact ISO timestamp for machines."
   },
   {
     "name": "reset-password-form",
@@ -4123,11 +4310,14 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/resizable-panels.tsx",
     "import": "@/registry/ui/resizable-panels",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [],
     "galleries": [
       "navigation"
     ],
+    "description": "Split panes with draggable, keyboard operable handles, min and max sizes, snap to collapse and nested groups in either direction.",
     "usage": "<ResizablePanels left={<p className=\"text-sm text-fg-muted\">Left pane</p>} right={<p className=\"text-sm text-fg-muted\">Right pane</p>} />"
   },
   {
@@ -4144,6 +4334,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "admin"
     ],
+    "description": "A responsive grid of quota cards, one bar per metered resource, for plan and usage pages.",
     "usage": "<ResourceQuotaGrid\n  items={[\n    { label: \"Seats\", used: 42, max: 50 },\n    { label: \"API\", used: 820000, max: 1000000 },\n    { label: \"Storage\", used: 18, max: 100 },\n  ]}\n/>"
   },
   {
@@ -4206,7 +4397,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "checkbox"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A permissions table with one checkbox per role and capability, for workspace access settings."
   },
   {
     "name": "role-picker",
@@ -4234,6 +4426,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "checkbox"
     ],
     "galleries": []
+  },
+  {
+    "name": "sankey-chart",
+    "title": "SankeyChart",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/sankey-chart.tsx",
+    "import": "@/registry/ui/sankey-chart",
+    "deps": [],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "An SVG sankey diagram that lays nodes out in columns computed from the links, draws curved ribbons, labels nodes with values, highlights a node's flows on hover or focus, and includes a hidden table."
   },
   {
     "name": "saved-views",
@@ -4307,7 +4511,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "search-input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A search field with a result list underneath, for global search and quick lookups."
   },
   {
     "name": "seat-manager",
@@ -4422,7 +4627,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A list of signed-in devices with a revoke action on every session except the current one."
   },
   {
     "name": "settings-layout",
@@ -4448,8 +4654,11 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [
       "lucide-react"
     ],
-    "registryDeps": [],
-    "galleries": []
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A side panel that slides over the page from any edge, with a scrim, a title bar and a close button."
   },
   {
     "name": "shipping-address",
@@ -4582,6 +4791,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
+    "description": "A floating list of slash commands filtered by what the user has typed after the slash.",
     "usage": "<SlashCommandMenu items={[{ id: \"table\", label: \"table\", hint: \"Insert table\" }, { id: \"ai\", label: \"ai\", hint: \"Ask AI\" }]} />"
   },
   {
@@ -4631,6 +4841,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing"
     ],
+    "description": "A stack of up to five customer avatars beside a short trust line, for hero and signup sections.",
     "usage": "<SocialProof countLabel=\"2,400+ teams building with MiniDev\" people={[{ name: \"Ada\" }, { name: \"Lin\" }, { name: \"Kai\" }, { name: \"Noa\" }]} />"
   },
   {
@@ -4692,6 +4903,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
+    "description": "A grid of KPI cards, each with a value, a delta and a small area sparkline, for dashboard overviews.",
     "usage": "<SparklineSet items={[\n  { label: \"Revenue\", value: \"$48.2k\", delta: 12.4, data: [12,18,15,28,22,36,30,42] },\n  { label: \"Signups\", value: \"1,204\", delta: 4.1, data: [8,10,9,14,13,18,16,20] },\n  { label: \"Churn\", value: \"2.1%\", delta: -0.4, data: [6,5,7,4,5,3,4,3] },\n]} />"
   },
   {
@@ -4726,6 +4938,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "dropdown-menu",
       "split-button"
     ],
+    "description": "A primary action with an attached chevron that opens a menu of related actions.",
     "usage": "<SplitButton\n  label=\"Save\"\n  items={[\n    { label: \"Save draft\" },\n    { label: \"Save and close\" },\n    { label: \"Discard\", destructive: true },\n  ]}\n/>"
   },
   {
@@ -4825,6 +5038,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
+    "description": "Vertical bars stacked by series, with a legend, for comparing revenue mix across periods.",
     "usage": "<StackedBarChart\n  seriesLabels={[\"New\", \"Returning\"]}\n  data={[\n    { label: \"W1\", values: [12, 8] },\n    { label: \"W2\", values: [15, 10] },\n    { label: \"W3\", values: [9, 14] },\n    { label: \"W4\", values: [18, 11] },\n  ]}\n/>"
   },
   {
@@ -4853,7 +5067,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "area-chart"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A KPI card with a big number, a coloured delta and a trend sparkline bleeding off the bottom edge."
   },
   {
     "name": "stats-strip",
@@ -4867,6 +5082,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing"
     ],
+    "description": "A hairline-divided row of headline numbers, for landing pages and report headers.",
     "usage": "<StatsStrip stats={[{ label: \"Uptime\", value: \"99.99%\" }, { label: \"Latency\", value: \"42ms\" }, { label: \"Regions\", value: \"12\" }, { label: \"NPS\", value: \"72\" }]} />"
   },
   {
@@ -4911,7 +5127,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/step-progress",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A row of labelled segments that fill as a multi-step flow advances, for onboarding and checkout."
   },
   {
     "name": "stepper",
@@ -5038,6 +5255,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "description": "Hairline track with a raised thumb that leans on press, then springs across.",
     "usage": "<Switch aria-label=\"Off\" />"
+  },
+  {
+    "name": "table-of-contents",
+    "title": "TableOfContents",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/table-of-contents.tsx",
+    "import": "@/registry/ui/table-of-contents",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A sticky table of contents that spies on headings while you scroll, with a marker that glides to the active item and smooth scroll on click."
   },
   {
     "name": "table-pagination",
@@ -5174,6 +5405,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing"
     ],
+    "description": "A quote card with the customer's avatar, name and role, for landing pages and case studies.",
     "usage": "<Testimonial quote=\"Finally a kit that doesn’t look like every other dashboard.\" name=\"Jordan Lee\" role=\"Design Eng\" />"
   },
   {
@@ -5259,6 +5491,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feeds"
     ],
+    "description": "A vertical list of dated events on a hairline, for activity feeds and audit logs.",
     "usage": "<Timeline className=\"max-w-md\" items={[\n  { title: \"Deployed v0.1\", description: \"Batch A shipped\", time: \"2h ago\" },\n  { title: \"Audit green\", description: \"All gallery routes passed\", time: \"3h ago\" },\n  { title: \"Scaffold\", description: \"Next + shadcn\", time: \"5h ago\" },\n]} />"
   },
   {
@@ -5288,7 +5521,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/toc",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "An indented table of contents for a docs page, with the current section highlighted."
   },
   {
     "name": "toggle-group",
@@ -5385,6 +5619,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai-studio"
     ],
+    "description": "A collapsed-chrome panel showing an AI tool call's name, status and JSON output.",
     "usage": "<ToolResultPanel name=\"generate_hero\" output={'{\\n  \"variant\": \"aurora\",\\n  \"cta\": [\"Start free\", \"See Premium\"]\\n}'} />"
   },
   {
@@ -5397,8 +5632,11 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [
       "@base-ui/react"
     ],
-    "registryDeps": [],
-    "galleries": []
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "An ink label with an arrow that appears on hover and keyboard focus, built on Base UI."
   },
   {
     "name": "topbar",
@@ -5441,7 +5679,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feeds"
     ],
+    "description": "A collapsible tree of nested nodes, open by default, for file browsers and org charts.",
     "usage": "<TreeView className=\"max-w-sm rounded-xl border border-border p-2\" nodes={[\n  { id: \"app\", label: \"app\", children: [\n    { id: \"gallery\", label: \"gallery\" },\n    { id: \"docs\", label: \"docs\" },\n  ]},\n  { id: \"registry\", label: \"registry\", children: [\n    { id: \"ui\", label: \"ui\" },\n    { id: \"blocks\", label: \"blocks\" },\n  ]},\n]} />"
+  },
+  {
+    "name": "treemap-chart",
+    "title": "TreemapChart",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/treemap-chart.tsx",
+    "import": "@/registry/ui/treemap-chart",
+    "deps": [],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A squarified SVG treemap with one level of grouping, labels that hide in small cells, hover and keyboard focus with a value tooltip, and a hidden data table."
   },
   {
     "name": "trial-banner",
@@ -5536,7 +5787,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/usage-breakdown",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A stack of labelled usage bars, each showing used against limit, for plan and billing pages."
   },
   {
     "name": "usage-meter",
@@ -5567,7 +5819,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "avatar"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A pill with an avatar and a name, optionally removable, for assignee pickers and share lists."
   },
   {
     "name": "version-badge",
@@ -5590,7 +5843,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/vertical-tabs",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A left-hand tab list with the active panel beside it, for settings pages."
   },
   {
     "name": "video-player-chrome",
@@ -5606,6 +5860,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "icon-button"
     ],
     "galleries": []
+  },
+  {
+    "name": "virtual-list",
+    "title": "VirtualList",
+    "tier": "free",
+    "kind": "ui",
+    "path": "src/registry/ui/virtual-list.tsx",
+    "import": "@/registry/ui/virtual-list",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A windowed list that renders only the rows in view, with fixed or measured row heights, overscan, keyboard row navigation and scroll to index."
   },
   {
     "name": "virtualized-list",
@@ -6481,6 +6749,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
+    "description": "Three feature cards that rise into view one after another as the row scrolls on screen.",
     "usage": "<AnimatedFeatureRow features={[\n  { title: \"Motion\", description: \"Framer Motion with reduced-motion respect.\" },\n  { title: \"Hairline\", description: \"Same tokens as the free kit.\" },\n  { title: \"Premium\", description: \"Launch-ready sections.\" },\n]} />"
   },
   {
@@ -6511,6 +6780,54 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [],
     "galleries": [],
     "description": "Tabs with a pill that slides between triggers and panels that cross"
+  },
+  {
+    "name": "animated-tooltip",
+    "title": "AnimatedTooltip",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/animated-tooltip.tsx",
+    "import": "@/registry/premium/animated-tooltip",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A row of overlapping avatars where hovering or focusing one pops up a name and role card that leans and slides with the pointer."
+  },
+  {
+    "name": "aurora-background",
+    "title": "AuroraBackground",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/aurora-background.tsx",
+    "import": "@/registry/premium/aurora-background",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "Soft northern-lights curtains that drift and sway across the panel behind your content."
+  },
+  {
+    "name": "background-boxes",
+    "title": "BackgroundBoxes",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/background-boxes.tsx",
+    "import": "@/registry/premium/background-boxes",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A skewed grid of hairline boxes behind your content where the box under the pointer lights up in colour and fades out behind it."
   },
   {
     "name": "before-after-wipe",
@@ -6544,6 +6861,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-templates"
     ],
     "usage": "<BlogHome />"
+  },
+  {
+    "name": "blur-fade",
+    "title": "BlurFade",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/blur-fade.tsx",
+    "import": "@/registry/premium/blur-fade",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Reveals its children as they scroll into view, rising out of a soft blur and settling into focus on a spring."
   },
   {
     "name": "border-beam",
@@ -6580,6 +6912,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-templates"
     ],
     "usage": "<BrandKitPage />"
+  },
+  {
+    "name": "browser-mockup",
+    "title": "BrowserMockup",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/browser-mockup.tsx",
+    "import": "@/registry/premium/browser-mockup",
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A browser window frame with traffic lights, back and forward buttons, an address bar and optional tabs, wrapping your screenshot or any children."
   },
   {
     "name": "card-tilt",
@@ -6652,6 +6998,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
+    "description": "A vertical release timeline whose entries slide in as they scroll into view, with version, date and tag per release.",
     "usage": "<ChangelogMotion entries={[\n  { version: \"v0.6.0\", date: \"Sep 14\", title: \"Premium elevation\", tag: \"Premium\", items: [\"Kinetic type\", \"Sticky story\", \"Launch kit\"] },\n  { version: \"v0.5.0\", date: \"Sep 14\", title: \"Email + admin + page kits\", tag: \"Premium\", items: [\"Email templates\", \"Admin console\", \"Pricing / careers / blog\"] },\n  { version: \"v0.4.0\", date: \"Sep 14\", title: \"Premium templates\", tag: \"Premium\", items: [\"SaaS landing\", \"Docs marketing\", \"Changelog motion\"] },\n]} />"
   },
   {
@@ -6931,6 +7278,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
+    "description": "A free versus premium feature table whose rows fade in as they scroll into view, with a pair of plan buttons below.",
     "usage": "<FeatureComparison rows={[\n  { feature: \"UI primitives\", free: true, premium: true },\n  { feature: \"Kinetic motion\", free: false, premium: true },\n  { feature: \"Launch kits\", free: false, premium: true },\n  { feature: \"Email kits\", free: false, premium: true },\n  { feature: \"Seats\", free: \"1\", premium: \"Unlimited\" },\n]} />"
   },
   {
@@ -6999,6 +7347,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "showcase"
     ],
     "usage": "<FreePremiumCompare />"
+  },
+  {
+    "name": "globe",
+    "title": "Globe",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/globe.tsx",
+    "import": "@/registry/premium/globe",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A dotted globe drawn on a plain canvas, no WebGL, that turns on its own and spins under your finger."
   },
   {
     "name": "gradient-text",
@@ -7234,6 +7599,35 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<HorizontalProductRail />"
   },
   {
+    "name": "hyper-text",
+    "title": "HyperText",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/hyper-text.tsx",
+    "import": "@/registry/premium/hyper-text",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Text that decodes itself: every character cycles through random glyphs and locks into place from left to right."
+  },
+  {
+    "name": "icon-cloud",
+    "title": "IconCloud",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/icon-cloud.tsx",
+    "import": "@/registry/premium/icon-cloud",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A sphere of icons that turns slowly in 3D, scales and fades with depth, and can be dragged to spin with inertia."
+  },
+  {
     "name": "investor-update",
     "title": "InvestorUpdate",
     "tier": "premium",
@@ -7253,6 +7647,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-templates"
     ],
     "usage": "<InvestorUpdate />"
+  },
+  {
+    "name": "lamp-effect",
+    "title": "LampEffect",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/lamp-effect.tsx",
+    "import": "@/registry/premium/lamp-effect",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A glowing strip light at the top of a dark panel that switches on and widens to light the headline beneath it."
   },
   {
     "name": "launch-countdown",
@@ -7425,6 +7836,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<MorphPrice />"
   },
   {
+    "name": "morphing-text",
+    "title": "MorphingText",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/morphing-text.tsx",
+    "import": "@/registry/premium/morphing-text",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A headline that cycles through phrases by melting each one into the next with a blur and crossfade on two stacked layers."
+  },
+  {
     "name": "onboarding-motion",
     "title": "OnboardingMotion",
     "tier": "premium",
@@ -7557,6 +7982,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
+    "description": "Pricing tiers that rise into view one after another as they scroll in.",
     "usage": "<PricingMotion plans={[\n  { name: \"Free\", price: \"$0\", blurb: \"Primitives forever\", features: [\"MIT components\", \"Galleries\", \"Audit gate\"] },\n  { name: \"Pro\", price: \"$49\", blurb: \"For product teams\", featured: true, features: [\"Premium heroes\", \"Motion blocks\", \"Priority updates\"] },\n  { name: \"Team\", price: \"$149\", blurb: \"Shared seats\", features: [\"Everything in Pro\", \"Seat management\", \"Support\"] },\n]} />"
   },
   {
@@ -7644,6 +8070,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
+    "description": "A step list beside a stage that fades to the selected step, with Back and Next.",
     "usage": "<ProductTour steps={[\n  { title: \"Install free kit\", body: \"Add Hairline primitives from the registry.\" },\n  { title: \"Compose product UI\", body: \"Dashboards, AI, billing — all free.\" },\n  { title: \"Drop Premium moments\", body: \"Heroes and templates when launch needs wow.\" },\n]} />"
   },
   {
@@ -7704,6 +8131,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<SaasLanding />"
   },
   {
+    "name": "scratch-to-reveal",
+    "title": "ScratchToReveal",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/scratch-to-reveal.tsx",
+    "import": "@/registry/premium/scratch-to-reveal",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A scratch card: a foil you rub away with the pointer or a finger to reveal what is underneath, which clears itself once enough is gone."
+  },
+  {
     "name": "scroll-chapter-story",
     "title": "ScrollChapterStory",
     "tier": "premium",
@@ -7733,6 +8175,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": []
   },
   {
+    "name": "scroll-progress",
+    "title": "ScrollProgress",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/scroll-progress.tsx",
+    "import": "@/registry/premium/scroll-progress",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "Reading progress as a thin bar that fills along the top edge and a ring with the percent inside, for the page or any scrollable element."
+  },
+  {
     "name": "scroll-reveal",
     "title": "ScrollReveal",
     "tier": "premium",
@@ -7759,6 +8215,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [],
     "galleries": [],
     "description": "A call to action with a slow band of light that sweeps across the face,"
+  },
+  {
+    "name": "shine-border",
+    "title": "ShineBorder",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/shine-border.tsx",
+    "import": "@/registry/premium/shine-border",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A card whose border is a band of coloured light sweeping around it, masked to the border ring so the content is untouched."
   },
   {
     "name": "soft-stack",
@@ -7898,6 +8371,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "usage": "<StickyFeatureStory />"
   },
   {
+    "name": "terminal",
+    "title": "Terminal",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/terminal.tsx",
+    "import": "@/registry/premium/terminal",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "An animated terminal window that types each command and prints its output line by line, with a blinking cursor and a replay button."
+  },
+  {
     "name": "testimonial-carousel",
     "title": "TestimonialCarousel",
     "tier": "premium",
@@ -7944,6 +8432,37 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-motion"
     ],
     "usage": "<TextScramble />"
+  },
+  {
+    "name": "tilt-card",
+    "title": "TiltCard",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/tilt-card.tsx",
+    "import": "@/registry/premium/tilt-card",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A card that tilts toward the pointer in 3D, with a sliding glare and parallax children, and springs flat when the pointer leaves."
+  },
+  {
+    "name": "tracing-beam",
+    "title": "TracingBeam",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/tracing-beam.tsx",
+    "import": "@/registry/premium/tracing-beam",
+    "deps": [
+      "motion"
+    ],
+    "registryDeps": [],
+    "galleries": [],
+    "description": "A vertical beam beside long content that grows as you scroll, with a glowing tip and a node that lights for each entry."
   },
   {
     "name": "typing-text",
@@ -8014,6 +8533,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-motion"
     ],
     "usage": "<WaveformHero />"
+  },
+  {
+    "name": "wavy-background",
+    "title": "WavyBackground",
+    "tier": "premium",
+    "kind": "premium",
+    "path": "src/registry/premium/wavy-background.tsx",
+    "import": "@/registry/premium/wavy-background",
+    "deps": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "Layered canvas waves that roll across the bottom of the panel behind your content, each at its own pace."
   },
   {
     "name": "word-rotate",
