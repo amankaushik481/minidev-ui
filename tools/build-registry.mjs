@@ -66,7 +66,7 @@ async function readContentMeta() {
   }
   glossary.sort((a, b) => a.term.localeCompare(b.term))
   const blocks = [...(await readFile(path.join(root, "src/content/blocks.ts"), "utf8").catch(() => "")).matchAll(/slug:\s*"([a-z-]+)",\s*\n\s*name:\s*"([^"]+)",\s*\n\s*title:\s*"([^"]+)"/g)].map((m) => ({ slug: m[1], name: m[2], title: m[3] }))
-  return { seo, guides: await docs("guides"), compare: await docs("compare"), installs: await docs("install"), cats, tools, glossary, blocks }
+  return { seo, guides: await docs("guides"), compare: await docs("compare"), matchups: await docs("matchups"), alternatives: await docs("alternatives"), installs: await docs("install"), cats, tools, glossary, blocks }
 }
 
 async function collect() {
@@ -349,6 +349,15 @@ ${content.tools.map((t) => `- [${t.name}](${SITE}/tools/${t.slug})`).join("\n")}
 ## Comparisons
 
 ${content.compare.map((c) => `- [${c.title}](${SITE}/compare/${c.slug})`).join("\n")}
+
+## Head to head
+
+${content.matchups.map((m) => `- [${m.title}](${SITE}/compare/${m.slug})${m.description ? `: ${m.description}` : ""}`).join("\n")}
+
+## Alternatives
+
+- [Alternatives to popular React UI libraries](${SITE}/alternatives)
+${content.alternatives.map((a) => `- [${a.title}](${SITE}/alternatives/${a.slug})${a.description ? `: ${a.description}` : ""}`).join("\n")}
 
 ## Studio
 

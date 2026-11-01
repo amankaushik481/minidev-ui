@@ -24,7 +24,7 @@ export const COUNTS = {
 }
 
 export function InstallPill({ className }: { className?: string }) {
-  const cmd = `npm i ${SITE.npmPackage}`
+  const cmd = `npx shadcn add ${SITE.registry}/button`
   const [copied, setCopied] = React.useState(false)
   return (
     <button

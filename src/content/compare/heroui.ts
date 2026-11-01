@@ -7,12 +7,12 @@ const comparison: Comparison = {
   title: "MiniDev UI vs HeroUI: which should you use?",
   description:
     "MiniDev UI vs HeroUI (formerly NextUI): two free React and Tailwind CSS v4 libraries. Compare primitives, install model, theming, blocks and paid tiers.",
-  checked: "2026-09-30",
+  checked: "2026-11-01",
   summary:
-    "HeroUI, previously NextUI, is a polished, MIT licensed React component library built on React Aria and Tailwind CSS v4, installed as npm packages, with a paid HeroUI Pro tier for extra components, templates and design systems. MiniDev UI is also free and MIT, but it is a shadcn-compatible registry that copies source into your repo, built on Base UI, with a wide set of product screens, motion components and full pages at no cost. Pick HeroUI if you want a versioned package with strong accessibility and a React Native sibling. Pick MiniDev UI if you want to own the code and start from finished application screens.",
+    "HeroUI, previously NextUI, is a polished, Apache 2.0 licensed React component library built on React Aria and Tailwind CSS v4, installed as npm packages, with a paid HeroUI Pro tier for extra components, templates and design systems. MiniDev UI is also free and MIT, but it is a shadcn-compatible registry that copies source into your repo, built on Base UI, with a wide set of product screens, motion components and full pages at no cost. Pick HeroUI if you want a versioned package with strong accessibility and a React Native sibling. Pick MiniDev UI if you want to own the code and start from finished application screens.",
   rows: [
     { feature: "Price", minidev: "Free, everything", other: "Free open source library; paid HeroUI Pro for extra components, blocks, templates and design systems" },
-    { feature: "License", minidev: "MIT", other: "MIT for the open source library; HeroUI Pro is sold under its own license terms" },
+    { feature: "License", minidev: "MIT", other: "Apache 2.0 for the open source library (version 3; version 2 was MIT); HeroUI Pro is sold under its own license terms" },
     {
       feature: "Scope",
       minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
@@ -120,7 +120,7 @@ const comparison: Comparison = {
     },
     {
       q: "Is HeroUI free?",
-      a: "The open source library is free and MIT licensed. HeroUI Pro, which adds components, blocks, templates and design systems, is paid. MiniDev UI has no paid tier.",
+      a: "The open source library is free and Apache 2.0 licensed. HeroUI Pro, which adds components, blocks, templates and design systems, is paid. MiniDev UI has no paid tier.",
     },
     {
       q: "Which is better for accessibility?",
@@ -134,7 +134,7 @@ const comparison: Comparison = {
   sources: [
     { label: "HeroUI home", url: "https://www.heroui.com/" },
     { label: "HeroUI on GitHub", url: "https://github.com/heroui-inc/heroui" },
-    { label: "HeroUI license", url: "https://github.com/heroui-inc/heroui/blob/main/LICENSE" },
+    { label: "HeroUI license (version 3, Apache 2.0, checked November 1, 2026)", url: "https://github.com/heroui-inc/heroui/blob/v3/LICENSE" },
     { label: "HeroUI quick start", url: "https://www.heroui.com/docs/react/getting-started/quick-start" },
     { label: "HeroUI theming", url: "https://www.heroui.com/docs/react/getting-started/theming" },
     { label: "HeroUI animation", url: "https://www.heroui.com/docs/react/getting-started/animation" },

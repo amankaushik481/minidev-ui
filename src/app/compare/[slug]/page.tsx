@@ -2,29 +2,56 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { COMPARISONS, comparisonBySlug } from "@/content/compare"
+import { MATCHUPS, matchupBySlug } from "@/content/matchups"
+import { libraryById, libraryIdOf, relatedLinks } from "@/content/libraries"
+import type { Comparison } from "@/content/types"
 import { Blocks, ContentShell, Crumbs, FaqList, Inline, StudioNote } from "@/components/seo/prose"
 import { JsonLd } from "@/components/seo/json-ld"
+import { LinkChips } from "@/components/seo/compare-parts"
+import { MatchupView } from "@/components/seo/matchup-view"
 import { abs, breadcrumbLd, faqLd, graph, meta } from "@/lib/seo"
+
+/*
+ * One route, two kinds of page. The slug is looked up in the comparisons
+ * first ("minidev-ui-vs-<x>", MiniDev UI against one library), then in the
+ * head to head matchups ("<a>-vs-<b>", two other libraries). No matchup slug
+ * starts with "minidev-ui-vs-", so the two sets never overlap. Anything else
+ * is a 404, and dynamicParams = false keeps the route to these slugs.
+ */
 
 type Params = { params: Promise<{ slug: string }> }
 
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return COMPARISONS.map((c) => ({ slug: c.slug }))
+  return [...COMPARISONS, ...MATCHUPS].map((p) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const c = comparisonBySlug((await params).slug)
-  if (!c) return {}
-  return meta({ title: c.title, description: c.description, path: `/compare/${c.slug}`, image: `/compare/${c.slug}/opengraph-image`, keywords: [`${c.other.toLowerCase()} alternative`, `minidev ui vs ${c.other.toLowerCase()}`, `${c.other.toLowerCase()} vs`] })
+  const slug = (await params).slug
+  const c = comparisonBySlug(slug)
+  if (c) return meta({ title: c.title, description: c.description, path: `/compare/${c.slug}`, image: `/compare/${c.slug}/opengraph-image`, keywords: [`${c.other.toLowerCase()} alternative`, `minidev ui vs ${c.other.toLowerCase()}`, `${c.other.toLowerCase()} vs`] })
+  const m = matchupBySlug(slug)
+  if (!m) return {}
+  const a = libraryById(m.a).name.toLowerCase()
+  const b = libraryById(m.b).name.toLowerCase()
+  // Matchups have no social card of their own: without `image`, meta() uses the
+  // site default, and setting it here also keeps this segment's comparison card off them.
+  return meta({ title: m.title, description: m.description, path: `/compare/${m.slug}`, keywords: [`${a} vs ${b}`, `${b} vs ${a}`, `${a} or ${b}`] })
 }
 
 const fmt = (d: string) => new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })
 
 export default async function ComparePage({ params }: Params) {
-  const c = comparisonBySlug((await params).slug)
-  if (!c) notFound()
+  const slug = (await params).slug
+  const c = comparisonBySlug(slug)
+  if (c) return <ComparisonView c={c} />
+  const m = matchupBySlug(slug)
+  if (m) return <MatchupView m={m} />
+  notFound()
+}
+
+function ComparisonView({ c }: { c: Comparison }) {
   const path = `/compare/${c.slug}`
   const others = COMPARISONS.filter((x) => x.slug !== c.slug)
   return (
@@ -85,6 +112,7 @@ export default async function ComparePage({ params }: Params) {
           <p className="mt-4 text-[0.8125rem] leading-[1.6] text-fg-subtle">{c.other} is a trademark of its owner. This page is our own summary, checked on {fmt(c.checked)}. Pricing and features change, so confirm on their site.</p>
         </section>
         <StudioNote />
+        <LinkChips title="Head to head and alternatives" links={relatedLinks(libraryIdOf(c.slug))} />
         <section className="mt-14">
           <h2 className="text-[1.125rem] font-medium text-fg">Other comparisons</h2>
           <div className="mt-3 flex flex-wrap gap-2">

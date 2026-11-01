@@ -85,6 +85,92 @@ export type Comparison = {
   sources: { label: string; url: string }[]
 }
 
+/**
+ * A library that has a MiniDev UI comparison page, named by the part of that
+ * page's slug after `minidev-ui-vs-`. Matchups and alternatives pages refer to
+ * libraries by this id; names and sites come from the comparison data.
+ */
+export type LibraryId =
+  | "shadcn-ui"
+  | "aceternity-ui"
+  | "magic-ui"
+  | "tailwind-plus"
+  | "heroui"
+  | "mantine"
+  | "daisyui"
+  | "flowbite"
+  | "chakra-ui"
+  | "coss-ui"
+  | "material-ui"
+  | "ant-design"
+  | "radix-themes"
+  | "tremor"
+  | "preline-ui"
+  | "park-ui"
+  | "untitled-ui"
+  | "headless-ui"
+
+/**
+ * Two other libraries head to head, served at /compare/<a>-vs-<b> by the same
+ * route as the comparisons. Facts come only from the two comparison files (or
+ * from the official site, cited in `sources`).
+ */
+export type Matchup = {
+  slug: `${LibraryId}-vs-${LibraryId}`
+  /** Under 47 characters, so the full title with the site suffix stays under 60. */
+  title: string
+  /** 120-160 characters. */
+  description: string
+  a: LibraryId
+  b: LibraryId
+  /** ISO date: the older `checked` date of the two comparisons the facts come from. */
+  checked: string
+  /** The answer first: one or two sentences on how the two differ. */
+  verdict: string
+  /** Completes "Pick <a> if ...". */
+  pickA: string
+  /** Completes "Pick <b> if ...". */
+  pickB: string
+  rows: { feature: string; a: string; b: string }[]
+  /** What each one is, where each shines and the trade-offs. */
+  body: Block[]
+  /** One or two short paragraphs on where MiniDev UI fits, linking both comparison pages. */
+  minidev: string[]
+  faq: Faq[]
+  sources: { label: string; url: string }[]
+}
+
+/** One option on an alternatives page. */
+export type Alternative = {
+  id: LibraryId | "minidev-ui"
+  /** What it is, in one or two sentences. */
+  what: string
+  /** Price and license, short enough for a table cell. */
+  price: string
+  /** Styling approach. */
+  styling: string
+  bestFor: string
+}
+
+/** "Alternatives to X", served at /alternatives/<slug>. */
+export type AlternativesPage = {
+  slug: LibraryId
+  /** Under 47 characters, so the full title with the site suffix stays under 60. */
+  title: string
+  /** 120-160 characters. */
+  description: string
+  /** ISO date: the oldest `checked` date among the libraries on the page. */
+  checked: string
+  /** The answer first: what the best alternative is, and for whom. */
+  intro: string
+  /** In order of how well each fits; MiniDev UI goes where it honestly fits. */
+  items: Alternative[]
+  /** Closing guidance, such as how to choose. */
+  body?: Block[]
+  faq: Faq[]
+  sources: { label: string; url: string }[]
+}
+
 export type GlossaryTerm = {
   slug: string
   term: string

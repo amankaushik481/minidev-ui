@@ -243,6 +243,29 @@
 - [MiniDev UI vs Tremor: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-tremor)
 - [MiniDev UI vs Untitled UI React: which should you use?](https://ui.minidev.pro/compare/minidev-ui-vs-untitled-ui)
 
+## Head to head
+
+- [Aceternity UI vs Magic UI: which to use?](https://ui.minidev.pro/compare/aceternity-ui-vs-magic-ui): Aceternity UI vs Magic UI: two animated React component libraries for landing pages. Compare effects, price, license, install, theming and paid templates.
+- [Chakra UI vs Material UI (MUI): which to use?](https://ui.minidev.pro/compare/chakra-ui-vs-material-ui): Chakra UI vs Material UI (MUI): style props on Ark UI against Material Design with paid MUI X. Both are MIT npm libraries on Emotion; compare theming and scope.
+- [daisyUI vs Flowbite: which to use?](https://ui.minidev.pro/compare/daisyui-vs-flowbite): daisyUI vs Flowbite: a CSS-only Tailwind plugin with 35 themes against Tailwind components with a JavaScript layer, a React library and a Pro tier. Both MIT.
+- [HeroUI (NextUI) vs shadcn/ui: which to use?](https://ui.minidev.pro/compare/heroui-vs-shadcn-ui): HeroUI (formerly NextUI) vs shadcn/ui: a React Aria npm package for Tailwind v4 against source you copy into your repo. Compare install, theming and paid tiers.
+- [Mantine vs Material UI (MUI): which to use?](https://ui.minidev.pro/compare/mantine-vs-material-ui): Mantine vs Material UI (MUI): plain CSS, 100+ components and 70+ hooks with no paid tier, against Material Design on Emotion with paid MUI X. When each fits.
+- [Material UI (MUI) vs Ant Design: which to use?](https://ui.minidev.pro/compare/material-ui-vs-ant-design): Material UI vs Ant Design (antd): two MIT React libraries from npm. Material Design on Emotion with paid MUI X, or an enterprise system themed with CSS-in-JS.
+- [shadcn/ui vs Chakra UI: which to use?](https://ui.minidev.pro/compare/shadcn-ui-vs-chakra-ui): shadcn/ui vs Chakra UI: Tailwind source you copy into your repo against style props on Ark UI and Emotion. Compare install, theming, blocks and paid tiers.
+- [shadcn/ui vs Mantine: which to use?](https://ui.minidev.pro/compare/shadcn-ui-vs-mantine): shadcn/ui vs Mantine: Tailwind components you copy into your repo against a full React library with plain CSS, 70+ hooks, forms and dates. Both MIT and free.
+- [shadcn/ui vs Material UI (MUI): which to use?](https://ui.minidev.pro/compare/shadcn-ui-vs-material-ui): shadcn/ui vs Material UI (MUI): Tailwind source you own against a Material Design npm package on Emotion with paid MUI X tiers. When to pick each one.
+- [Tailwind Plus vs shadcn/ui: which to use?](https://ui.minidev.pro/compare/tailwind-plus-vs-shadcn-ui): Tailwind Plus (formerly Tailwind UI) vs shadcn/ui: paid official blocks and templates for React, Vue and HTML against free MIT React components you own.
+
+## Alternatives
+
+- [Alternatives to popular React UI libraries](https://ui.minidev.pro/alternatives)
+- [Aceternity UI alternatives: 7 options compared](https://ui.minidev.pro/alternatives/aceternity-ui): The best Aceternity UI alternatives for animated React components and landing pages: Magic UI, MiniDev UI, Tailwind Plus, Preline UI and more, with prices.
+- [Chakra UI alternatives: 8 options compared](https://ui.minidev.pro/alternatives/chakra-ui): The best Chakra UI alternatives: Mantine, Park UI, Material UI, shadcn/ui, Radix Themes, HeroUI, Ant Design and MiniDev UI, with price, license and styling.
+- [Magic UI alternatives: 7 options compared](https://ui.minidev.pro/alternatives/magic-ui): The best Magic UI alternatives for animated React components and landing pages: Aceternity UI, MiniDev UI, shadcn/ui, Tailwind Plus and more, with prices.
+- [Material UI alternatives: 7 options compared](https://ui.minidev.pro/alternatives/material-ui): The best Material UI (MUI) alternatives: Ant Design, Mantine, Chakra UI, shadcn/ui, Radix Themes, HeroUI and MiniDev UI, with price, license and styling.
+- [shadcn/ui alternatives: 9 options compared](https://ui.minidev.pro/alternatives/shadcn-ui): The best shadcn/ui alternatives: HeroUI, Mantine, Radix Themes, Chakra UI, Material UI, daisyUI and more, with price, license, styling and who each one suits.
+- [Tailwind Plus alternatives: 8 options compared](https://ui.minidev.pro/alternatives/tailwind-plus): Free and paid alternatives to Tailwind Plus (formerly Tailwind UI): Preline UI, Flowbite, shadcn/ui, Untitled UI React, daisyUI and more, compared on price.
+
 ## Studio
 
 - [MiniDev](https://minidev.pro): the studio behind MiniDev UI. Designs and builds MVPs, web apps, mobile apps and websites, starting with a free 48 hour prototype. Contact: aman@minidev.pro.

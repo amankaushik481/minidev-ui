@@ -4,6 +4,8 @@ import { GALLERY_ENTRIES } from "@/lib/gallery-catalog"
 import { CATEGORIES } from "@/content/categories"
 import { GUIDES } from "@/content/guides"
 import { COMPARISONS } from "@/content/compare"
+import { MATCHUPS } from "@/content/matchups"
+import { ALTERNATIVES } from "@/content/alternatives"
 import { TOOLS } from "@/content/tools"
 import { GLOSSARY } from "@/content/glossary"
 import { BLOCK_TYPES } from "@/content/blocks"
@@ -18,6 +20,8 @@ const LIBRARY_UPDATED = new Date("2026-10-14")
 export default function sitemap(): MetadataRoute.Sitemap {
   const u = (path: string) => `${SITE.url}${path}`
   const page = (path: string, priority: number, changeFrequency: "daily" | "weekly" | "monthly" = "weekly", lastModified = LIBRARY_UPDATED) => ({ url: u(path), lastModified, changeFrequency, priority })
+  // The alternatives index changes when any of its pages is re-checked.
+  const alternativesChecked = new Date(ALTERNATIVES.map((p) => p.checked).reduce((x, y) => (x > y ? x : y)))
   return [
     page("", 1, "weekly"),
     page("/docs", 0.9),
@@ -26,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/templates", 0.9),
     page("/guides", 0.8),
     page("/compare", 0.6, "monthly"),
+    page("/alternatives", 0.6, "monthly", alternativesChecked),
     page("/tools", 0.8),
     page("/studio", 0.8, "monthly"),
     page("/showcase", 0.5, "monthly"),
@@ -46,6 +51,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...GALLERY_ENTRIES.map((g) => page(`/gallery/${g.slug}`, 0.5, "monthly")),
     ...GUIDES.map((g) => page(`/guides/${g.slug}`, 0.7, "monthly", new Date(g.updated ?? g.date))),
     ...COMPARISONS.map((c) => page(`/compare/${c.slug}`, 0.6, "monthly", new Date(c.checked))),
+    ...MATCHUPS.map((m) => page(`/compare/${m.slug}`, 0.6, "monthly", new Date(m.checked))),
+    ...ALTERNATIVES.map((p) => page(`/alternatives/${p.slug}`, 0.6, "monthly", new Date(p.checked))),
     ...TOOLS.map((t) => page(`/tools/${t.slug}`, 0.8, "monthly")),
   ]
 }
