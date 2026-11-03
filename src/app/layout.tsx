@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { GeistMono, GeistSans } from "@/fonts/geist";
 import "./globals.css";
 import { TooltipProvider } from "@/registry/ui/tooltip";
 import { BlueprintLayer } from "@/components/blueprint/blueprint"

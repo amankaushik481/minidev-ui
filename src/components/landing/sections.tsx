@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import { SITE } from "@/lib/site"
 import { Button } from "@/registry/ui/button"
 import { CodeBlock } from "@/registry/ui/code-block"
-import { SectionHead } from "@/components/landing/bento"
+import { SectionHead } from "@/components/landing/section-head"
 import { COUNTS, InstallPill } from "@/components/landing/hero"
 
 /* ── Proof strip ─────────────────────────────────────────────────────────── */
@@ -130,6 +130,7 @@ export function CategoryIndex() {
           <li key={c.id} className="bg-bg">
             <Link
               href={`/components/${c.id}`}
+              prefetch={false}
               className="group flex h-full items-start gap-4 px-1 py-5 outline-none transition-colors duration-[140ms] hover:bg-surface focus-visible:bg-sunken sm:px-5"
             >
               <span className="mt-0.5 font-mono text-[11px] text-fg-subtle tabular-nums">{String(i + 1).padStart(2, "0")}</span>

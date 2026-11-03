@@ -6,7 +6,10 @@ import { GUIDES } from "@/content/guides"
 import { GLOSSARY } from "@/content/glossary"
 import { BLOCK_TYPES } from "@/content/blocks"
 import { PropsTable } from "@/components/seo/props-table"
-import { ComponentDocs } from "./client"
+import { ComponentDocs, type DocsData } from "./client"
+import { GALLERY_ENTRIES } from "@/lib/gallery-catalog"
+import { componentCopy } from "@/lib/seo-routes"
+import { componentsInCategory } from "@/content/component-seo"
 
 /** Cross links computed on the server: guides that use the component, glossary terms that explain it, block hubs that list it. */
 function LearnMore({ name }: { name: string }) {
@@ -47,5 +50,34 @@ export default async function ComponentDocsPage({ params }: { params: Promise<{ 
   const { name } = await params
   const entry = COMPONENT_INDEX.find((c) => c.name === name)
   if (!entry) notFound()
-  return <ComponentDocs name={name} api={<PropsTable name={entry.name} title={entry.title} />} learn={<LearnMore name={name} />} />
+  return <ComponentDocs data={docsData(entry)} api={<PropsTable name={entry.name} title={entry.title} />} learn={<LearnMore name={name} />} />
+}
+
+/** The slice of the index and SEO copy the docs page needs, computed here so the full data never reaches the browser. */
+function docsData(entry: (typeof COMPONENT_INDEX)[number]): DocsData {
+  const i = COMPONENT_INDEX.indexOf(entry)
+  const lite = (c?: (typeof COMPONENT_INDEX)[number]) => (c ? { name: c.name, title: c.title } : null)
+  const copy = componentCopy(entry)
+  const related = copy.category
+    ? componentsInCategory(copy.category.id)
+        .filter((n) => n !== entry.name)
+        .map((n) => COMPONENT_INDEX.find((c) => c.name === n))
+        .filter((c): c is (typeof COMPONENT_INDEX)[number] => Boolean(c))
+        .sort((a, b) => Number(b.kind === entry.kind) - Number(a.kind === entry.kind))
+        .slice(0, 6)
+        .map((c) => ({ name: c.name, title: c.title, description: componentCopy(c).description }))
+    : []
+  return {
+    entry,
+    prev: lite(COMPONENT_INDEX[i - 1]),
+    next: lite(COMPONENT_INDEX[i + 1]),
+    galleries: entry.galleries
+      .map((s) => GALLERY_ENTRIES.find((g) => g.slug === s))
+      .filter((g): g is (typeof GALLERY_ENTRIES)[number] => Boolean(g))
+      .map((g) => ({ slug: g.slug, label: g.label, description: g.description })),
+    description: copy.description,
+    category: copy.category ? { id: copy.category.id, label: copy.category.label, h1: copy.category.h1 } : null,
+    related,
+    depTitles: Object.fromEntries(entry.registryDeps.map((d) => [d, COMPONENT_INDEX.find((c) => c.name === d)?.title ?? d])),
+  }
 }

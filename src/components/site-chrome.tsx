@@ -212,7 +212,8 @@ const FOOTER = [
 
 export function SiteFooter() {
   return (
-    <footer data-slot="site-footer" className="relative overflow-hidden border-t border-border bg-bg">
+    // content-visibility: the browser skips the footer's style and paint work until it nears the viewport
+    <footer data-slot="site-footer" className="relative overflow-hidden border-t border-border bg-bg [contain-intrinsic-size:auto_720px] [content-visibility:auto]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Studio band */}
         <div className="grid gap-6 border-b border-border py-12 md:grid-cols-[1fr_auto] md:items-center md:py-14">
@@ -252,7 +253,8 @@ export function SiteFooter() {
                         <ArrowUpRightIcon className="size-3 opacity-0 transition-opacity group-hover:opacity-100" />
                       </a>
                     ) : (
-                      <Link href={l.href} className="text-[0.8125rem] text-fg-muted outline-none transition-colors hover:text-fg focus-visible:text-fg">
+                      // prefetch off: a footer full of links would fetch every route the moment it scrolls into view
+                      <Link href={l.href} prefetch={false} className="text-[0.8125rem] text-fg-muted outline-none transition-colors hover:text-fg focus-visible:text-fg">
                         {l.label}
                       </Link>
                     )}

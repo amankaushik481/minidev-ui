@@ -378,8 +378,9 @@ export function Exploded() {
   const transform = useMotionTemplate`translate(-50%, -50%) translateY(${ty}px) scale(${scale}) rotateX(${rx}deg) rotateZ(${rz}deg)`
 
   if (reduce) {
+    // The ref stays attached: useScroll above throws if its target never mounts.
     return (
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section ref={ref} className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto overflow-hidden" style={{ width: W * fit, height: H * fit }}>
           <div style={{ width: W, height: H, transform: `scale(${fit})`, transformOrigin: "top left" }}>
             <LumenMini range={range} setRange={setRange} />

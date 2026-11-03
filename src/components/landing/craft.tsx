@@ -2,7 +2,7 @@
 import * as React from "react"
 import { LoaderCircleIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { SectionHead } from "@/components/landing/bento"
+import { SectionHead } from "@/components/landing/section-head"
 
 function Card({ title, body, children, className }: { title: string; body: string; children: React.ReactNode; className?: string }) {
   return (

@@ -1,21 +1,17 @@
 "use client"
 import * as React from "react"
 import Link from "next/link"
-import { notFound } from "next/navigation"
 import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon, MoonIcon, PackageIcon, RotateCcwIcon, SparklesIcon, SunIcon } from "lucide-react"
-import { COMPONENT_INDEX } from "@/lib/component-index"
+import type { ComponentIndexEntry } from "@/lib/component-index"
 import { REGISTRY_LOADERS } from "@/lib/registry-loaders"
 import { EXAMPLE_LOADERS } from "@/lib/example-loaders"
 import type { Example } from "@/registry/examples/types"
 import { getPlaygroundDemos } from "@/lib/playground-demos"
-import { GALLERY_ENTRIES } from "@/lib/gallery-catalog"
 import { SITE } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import { CodeBlock } from "@/registry/ui/code-block"
 import { Skeleton } from "@/registry/ui/skeleton"
 import { DocsH2, DocsShell, Tabbed, humanize } from "../_components/docs-shell"
-import { componentCopy } from "@/lib/seo-routes"
-import { componentsInCategory } from "@/content/component-seo"
 
 class PreviewBoundary extends React.Component<{ fallback: React.ReactNode; children: React.ReactNode }, { failed: boolean }> {
   state = { failed: false }
@@ -115,10 +111,22 @@ function Stage({ children, dark, onDark, onReset }: { children: React.ReactNode;
   )
 }
 
-export function ComponentDocs({ name, api, learn }: { name: string; /** Server-rendered API reference. */ api?: React.ReactNode; /** Server-rendered cross links (guides, glossary, block hubs). */ learn?: React.ReactNode }) {
-  const params = { name }
-  const i = COMPONENT_INDEX.findIndex((c) => c.name === params.name)
-  const entry = COMPONENT_INDEX[i]
+/** Everything that needs the full component index or the SEO copy is computed on the server and passed in,
+ * so those data files never ship to the browser. */
+export type DocsData = {
+  entry: ComponentIndexEntry
+  prev: { name: string; title: string } | null
+  next: { name: string; title: string } | null
+  galleries: { slug: string; label: string; description: string }[]
+  description: string
+  category: { id: string; label: string; h1: string } | null
+  related: { name: string; title: string; description: string }[]
+  depTitles: Record<string, string>
+}
+
+export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server-rendered API reference. */ api?: React.ReactNode; /** Server-rendered cross links (guides, glossary, block hubs). */ learn?: React.ReactNode }) {
+  const { entry, prev, next, galleries, description, category, related, depTitles } = data
+  const params = { name: entry.name }
   const mod = useModule(params.name)
   const examples = useExamples(params.name)
   const src = useSource(params.name)
@@ -129,24 +137,10 @@ export function ComponentDocs({ name, api, learn }: { name: string; /** Server-r
     setDark(document.documentElement.classList.contains("dark"))
   }, [])
 
-  if (!entry) notFound()
-
-  const prev = COMPONENT_INDEX[i - 1]
-  const next = COMPONENT_INDEX[i + 1]
   const demos = getPlaygroundDemos(entry.name)
   const Comp = mod?.[entry.title] as React.ComponentType | undefined
   const pkgPath = entry.import.replace("@/registry/", `${SITE.npmPackage}/`)
-  const galleries = entry.galleries.map((s) => GALLERY_ENTRIES.find((g) => g.slug === s)).filter(Boolean) as typeof GALLERY_ENTRIES
   const kindLabel = entry.kind === "ui" ? "Component" : entry.kind === "block" ? "Block" : "Motion"
-  const copy = componentCopy(entry)
-  const related = copy.category
-    ? componentsInCategory(copy.category.id)
-        .filter((n) => n !== entry.name)
-        .map((n) => COMPONENT_INDEX.find((c) => c.name === n))
-        .filter((c): c is (typeof COMPONENT_INDEX)[number] => Boolean(c))
-        .sort((a, b) => Number(b.kind === entry.kind) - Number(a.kind === entry.kind))
-        .slice(0, 6)
-    : []
 
   const fallback = (
     <div className="max-w-sm text-center">
@@ -232,8 +226,8 @@ export function ComponentDocs({ name, api, learn }: { name: string; /** Server-r
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-fg-subtle">
           <Link href="/docs" className="hover:text-fg">Docs</Link>
           <span>/</span>
-          {copy.category ? (
-            <Link href={`/components/${copy.category.id}`} className="hover:text-fg">{copy.category.label}</Link>
+          {category ? (
+            <Link href={`/components/${category.id}`} className="hover:text-fg">{category.label}</Link>
           ) : (
             <span>{kindLabel === "Component" ? "Components" : kindLabel === "Block" ? "Blocks" : "Motion"}</span>
           )}
@@ -249,7 +243,7 @@ export function ComponentDocs({ name, api, learn }: { name: string; /** Server-r
           ) : null}
         </div>
         <p className="mt-3 max-w-2xl text-[1.0625rem] leading-[1.65] text-fg-muted">
-          {copy.description}
+          {description}
         </p>
         <div className="mt-5 flex flex-wrap items-center gap-2 text-xs">
           <span className="rounded-md border border-border bg-surface px-2 py-1 font-mono text-fg-muted shadow-xs">{entry.path}</span>
@@ -317,7 +311,7 @@ export function ComponentDocs({ name, api, learn }: { name: string; /** Server-r
                 <p className="text-[0.8125rem] font-medium text-fg">Built from</p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {entry.registryDeps.length ? entry.registryDeps.map((d) => (
-                    <Link key={d} href={`/docs/${d}`} className="rounded-md border border-border bg-surface px-2 py-0.5 text-[12px] font-medium text-fg shadow-key hover:border-border-strong">{humanize(COMPONENT_INDEX.find((c) => c.name === d)?.title ?? d)}</Link>
+                    <Link key={d} href={`/docs/${d}`} className="rounded-md border border-border bg-surface px-2 py-0.5 text-[12px] font-medium text-fg shadow-key hover:border-border-strong">{humanize(depTitles[d] ?? d)}</Link>
                   )) : <span className="text-[0.8125rem] text-fg-muted">No other MiniDev files</span>}
                 </div>
               </div>
@@ -353,18 +347,18 @@ export function ComponentDocs({ name, api, learn }: { name: string; /** Server-r
 
         {related.length ? (
           <section className="mt-14 space-y-5">
-            <DocsH2 id="related">Related {copy.category ? copy.category.label.toLowerCase() : ""} components</DocsH2>
+            <DocsH2 id="related">Related {category ? category.label.toLowerCase() : ""} components</DocsH2>
             <div className="grid gap-2 sm:grid-cols-2">
               {related.map((r) => (
                 <Link key={r.name} href={`/docs/${r.name}`} className="group rounded-xl border border-border bg-surface px-4 py-3 shadow-raised outline-none transition-[border-color] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
                   <span className="block text-[0.875rem] font-medium text-fg">{humanize(r.title)}</span>
-                  <span className="mt-0.5 line-clamp-2 block text-xs leading-[1.5] text-fg-muted">{componentCopy(r).description}</span>
+                  <span className="mt-0.5 line-clamp-2 block text-xs leading-[1.5] text-fg-muted">{r.description}</span>
                 </Link>
               ))}
             </div>
-            {copy.category ? (
-              <Link href={`/components/${copy.category.id}`} className="inline-flex items-center gap-1 text-[0.8125rem] font-medium text-fg hover:underline">
-                All {copy.category.h1.replace(/^React /, "")} <ArrowRightIcon className="size-3.5" />
+            {category ? (
+              <Link href={`/components/${category.id}`} className="inline-flex items-center gap-1 text-[0.8125rem] font-medium text-fg hover:underline">
+                All {category.h1.replace(/^React /, "")} <ArrowRightIcon className="size-3.5" />
               </Link>
             ) : null}
           </section>

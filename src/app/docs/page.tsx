@@ -2,7 +2,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { ArrowRightIcon, BotIcon, FileTextIcon, PackageIcon, TerminalSquareIcon } from "lucide-react"
-import { COMPONENT_INDEX } from "@/lib/component-index"
+import { COMPONENT_LITE } from "@/lib/component-lite"
 import { SITE } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
@@ -25,7 +25,7 @@ const TOC = [
   { id: "principles", label: "Principles" },
 ]
 
-const count = (k: string) => COMPONENT_INDEX.filter((c) => c.kind === k).length
+const count = (k: string) => COMPONENT_LITE.filter((c) => c.kind === k).length
 
 const HUES = [
   { h: 283, name: "Violet" },
@@ -105,7 +105,7 @@ function ThemeLab() {
 }
 
 export default function DocsPage() {
-  const pick = (names: string[]) => names.map((n) => COMPONENT_INDEX.find((c) => c.name === n)).filter(Boolean) as typeof COMPONENT_INDEX
+  const pick = (names: string[]) => names.map((n) => COMPONENT_LITE.find((c) => c.name === n)).filter(Boolean) as typeof COMPONENT_LITE
   const start = pick(["button", "input", "data-table", "dialog", "chat-thread", "pricing-table"])
   return (
     <DocsShell toc={TOC}>
@@ -114,7 +114,7 @@ export default function DocsPage() {
           <p className="font-mono text-[11px] tracking-[0.08em] text-accent-fg uppercase">Getting started</p>
           <h1 className="mt-3 text-4xl font-medium tracking-[-0.035em] text-fg sm:text-5xl">Get started with MiniDev UI</h1>
           <p className="mt-5 text-[1.0625rem] leading-[1.7] text-fg-muted">
-            MiniDev UI is a free collection of {COMPONENT_INDEX.length} React components for the parts of a product people spend their day in: tables,
+            MiniDev UI is a free collection of {COMPONENT_LITE.length} React components for the parts of a product people spend their day in: tables,
             forms, billing, settings, dashboards and AI chat. They are built on Tailwind CSS v4 and Base UI, drawn to one design language, and
             shipped as single files you own.
           </p>

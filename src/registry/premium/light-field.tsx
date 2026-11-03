@@ -5,10 +5,12 @@ import { cn } from "@/lib/utils"
 /*
  * LightField: a living background drawn by a small WebGL shader. Colour
  * silk made of warped noise drifts slowly, the cursor carries a soft light
- * through it, and fine grain keeps it from looking digital. It renders at
- * half resolution, sleeps when off screen or in a background tab, and draws
- * a single still frame for reduced motion. Glass surfaces placed over it
- * frost it beautifully.
+ * through it, and fine grain keeps it from looking digital. It starts when
+ * the browser is idle, compiles its shader off the main thread where the GPU
+ * allows, renders at half resolution and 30 fps, fades in on its first frame,
+ * sleeps when off screen or in a background tab, stays empty without a real
+ * GPU (put a still behind it), and draws a single still frame for reduced
+ * motion. Glass surfaces placed over it frost it beautifully.
  */
 
 const VERT = `attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`
@@ -45,25 +47,85 @@ type Palette = { c1: [number, number, number]; c2: [number, number, number]; c3:
 const LIGHT: Palette = { c1: [0.66, 0.54, 1.0], c2: [0.55, 0.78, 1.0], c3: [1.0, 0.7, 0.86] }
 const DARK: Palette = { c1: [0.42, 0.22, 0.95], c2: [0.1, 0.4, 0.9], c3: [0.8, 0.2, 0.6] }
 
-type LightFieldProps = { className?: string; palette?: { light?: Palette; dark?: Palette } }
+type LightFieldProps = {
+  className?: string
+  palette?: { light?: Palette; dark?: Palette }
+  /** Frames per second. The silk drifts slowly, so 30 looks the same as 60 for half the GPU work. */
+  fps?: number
+  /** Render scale in CSS pixels. The field is soft, so 0.5 (scaled up by the browser) is indistinguishable from full size. */
+  resolution?: number
+}
 
-function LightField({ className, palette }: LightFieldProps) {
+type IdleWindow = Window & {
+  requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
+  cancelIdleCallback?: (id: number) => void
+}
+
+function LightField({ className, palette, fps = 30, resolution = 0.5 }: LightFieldProps) {
   const ref = React.useRef<HTMLCanvasElement>(null)
   React.useEffect(() => {
     const canvas = ref.current
     if (!canvas) return
-    const gl = canvas.getContext("webgl", { antialias: false, premultipliedAlpha: false, powerPreference: "low-power" })
-    if (!gl) return
-    const sh = (type: number, src: string) => {
-      const s = gl.createShader(type)!
-      gl.shaderSource(s, src)
-      gl.compileShader(s)
-      return s
+    let stop: (() => void) | undefined
+    let cancelled = false
+    // Start when the browser is idle: compiling the shader never competes with the first paint.
+    const w = window as IdleWindow
+    const idle = w.requestIdleCallback ? w.requestIdleCallback(() => start(), { timeout: 1500 }) : window.setTimeout(() => start(), 300)
+    function start() {
+      if (cancelled || !canvas) return
+      stop = run(canvas, palette, fps, resolution)
     }
-    const prog = gl.createProgram()!
-    gl.attachShader(prog, sh(gl.VERTEX_SHADER, VERT))
-    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FRAG))
-    gl.linkProgram(prog)
+    return () => {
+      cancelled = true
+      if (w.cancelIdleCallback) w.cancelIdleCallback(idle)
+      else window.clearTimeout(idle)
+      stop?.()
+    }
+  }, [palette, fps, resolution])
+  return (
+    <canvas
+      ref={ref}
+      data-slot="light-field"
+      aria-hidden
+      className={cn("block size-full opacity-0 transition-opacity duration-700 ease-out data-[ready]:opacity-100", className)}
+    />
+  )
+}
+
+/* Sets up WebGL on the canvas and runs the loop. Returns a function that stops it. */
+function run(canvas: HTMLCanvasElement, palette: LightFieldProps["palette"], fps: number, resolution: number) {
+  const gl = canvas.getContext("webgl", { antialias: false, premultipliedAlpha: false, powerPreference: "low-power", failIfMajorPerformanceCaveat: true })
+  if (!gl) return
+  // A software renderer (no usable GPU) would draw this shader on the CPU: leave the canvas empty instead.
+  const info = gl.getExtension("WEBGL_debug_renderer_info")
+  const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : ""
+  if (/swiftshader|llvmpipe|software|basic render/i.test(renderer)) return
+  const sh = (type: number, src: string) => {
+    const s = gl.createShader(type)!
+    gl.shaderSource(s, src)
+    gl.compileShader(s)
+    return s
+  }
+  const prog = gl.createProgram()!
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, VERT))
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FRAG))
+  gl.linkProgram(prog)
+
+  let raf = 0
+  let dead = false
+  const cleanups: (() => void)[] = []
+  // With KHR_parallel_shader_compile the driver compiles off the main thread; poll until it is done.
+  const parallel = gl.getExtension("KHR_parallel_shader_compile") as { COMPLETION_STATUS_KHR: number } | null
+  const whenLinked = (cb: () => void) => {
+    if (dead) return
+    if (parallel && !gl.getProgramParameter(prog, parallel.COMPLETION_STATUS_KHR)) {
+      raf = requestAnimationFrame(() => whenLinked(cb))
+      return
+    }
+    cb()
+  }
+
+  whenLinked(() => {
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return
     gl.useProgram(prog)
     const buf = gl.createBuffer()
@@ -76,17 +138,18 @@ function LightField({ className, palette }: LightFieldProps) {
     const uR = U("r"), uT = U("t"), uM = U("m"), uD = U("dk"), u1 = U("c1"), u2 = U("c2"), u3 = U("c3")
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    let raf = 0
+    const frame = 1000 / Math.max(1, fps)
     let visible = true
     const start = performance.now()
+    let lastDraw = -Infinity
     const mouse = { x: 0.3, y: 0.7, tx: 0.3, ty: 0.7 }
     let dark = document.documentElement.classList.contains("dark") ? 1 : 0
 
     const resize = () => {
-      const scale = Math.min(window.devicePixelRatio || 1, 2) * 0.5
-      canvas.width = Math.max(1, Math.floor(canvas.clientWidth * scale))
-      canvas.height = Math.max(1, Math.floor(canvas.clientHeight * scale))
+      canvas.width = Math.max(1, Math.floor(canvas.clientWidth * resolution))
+      canvas.height = Math.max(1, Math.floor(canvas.clientHeight * resolution))
       gl.viewport(0, 0, canvas.width, canvas.height)
+      lastDraw = -Infinity
     }
     const setPalette = () => {
       const pal = dark ? (palette?.dark ?? DARK) : (palette?.light ?? LIGHT)
@@ -96,15 +159,19 @@ function LightField({ className, palette }: LightFieldProps) {
       gl.uniform1f(uD, dark)
     }
     const draw = (now: number) => {
-      mouse.x += (mouse.tx - mouse.x) * 0.06
-      mouse.y += (mouse.ty - mouse.y) * 0.06
+      // Frame-rate independent easing toward the pointer.
+      const k = 1 - Math.pow(0.94, Math.min(100, now - lastDraw) / 16.7)
+      mouse.x += (mouse.tx - mouse.x) * k
+      mouse.y += (mouse.ty - mouse.y) * k
       gl.uniform2f(uR, canvas.width, canvas.height)
       gl.uniform1f(uT, reduce ? 12 : (now - start) / 1000)
       gl.uniform2f(uM, mouse.x, mouse.y)
       gl.drawArrays(gl.TRIANGLES, 0, 6)
+      lastDraw = now
+      if (!canvas.hasAttribute("data-ready")) canvas.setAttribute("data-ready", "")
     }
     const loop = (now: number) => {
-      draw(now)
+      if (now - lastDraw >= frame - 1) draw(now)
       if (visible && !document.hidden && !reduce) raf = requestAnimationFrame(loop)
     }
     const kick = () => {
@@ -123,6 +190,7 @@ function LightField({ className, palette }: LightFieldProps) {
     const mo = new MutationObserver(() => {
       dark = document.documentElement.classList.contains("dark") ? 1 : 0
       setPalette()
+      lastDraw = -Infinity
       kick()
     })
     const ro = new ResizeObserver(() => {
@@ -137,16 +205,20 @@ function LightField({ className, palette }: LightFieldProps) {
     window.addEventListener("pointermove", move, { passive: true })
     document.addEventListener("visibilitychange", kick)
     kick()
-    return () => {
-      cancelAnimationFrame(raf)
+    cleanups.push(() => {
       io.disconnect()
       ro.disconnect()
       mo.disconnect()
       window.removeEventListener("pointermove", move)
       document.removeEventListener("visibilitychange", kick)
-    }
-  }, [palette])
-  return <canvas ref={ref} data-slot="light-field" aria-hidden className={cn("block size-full", className)} />
+    })
+  })
+
+  return () => {
+    dead = true
+    cancelAnimationFrame(raf)
+    cleanups.forEach((f) => f())
+  }
 }
 
 export { LightField }

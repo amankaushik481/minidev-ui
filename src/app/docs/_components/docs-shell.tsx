@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { SearchIcon, SparklesIcon } from "lucide-react"
 import { SiteFooter, SiteHeader } from "@/components/site-chrome"
-import { COMPONENT_INDEX } from "@/lib/component-index"
+import { COMPONENT_LITE } from "@/lib/component-lite"
 import { cn } from "@/lib/utils"
 
 const GUIDES = [
@@ -55,7 +55,7 @@ function Sidebar() {
           </div>
         ) : null}
         {GROUPS.map((g) => {
-          const list = COMPONENT_INDEX.filter((c) => c.kind === g.kind && (!t || c.name.includes(t) || c.title.toLowerCase().includes(t)))
+          const list = COMPONENT_LITE.filter((c) => c.kind === g.kind && (!t || c.name.includes(t) || c.title.toLowerCase().includes(t)))
           if (!list.length) return null
           return (
             <div key={g.kind} className="mb-6">

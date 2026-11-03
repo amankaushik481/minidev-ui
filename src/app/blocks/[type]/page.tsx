@@ -9,7 +9,7 @@ import { LiveBlock } from "@/components/seo/live-block"
 import { JsonLd } from "@/components/seo/json-ld"
 import { COMPONENT_INDEX } from "@/lib/component-index"
 import { breadcrumbLd, faqLd, graph, itemListLd, meta } from "@/lib/seo"
-import { humanTitle } from "@/lib/seo-routes"
+import { componentCopy, humanTitle } from "@/lib/seo-routes"
 import { SITE } from "@/lib/site"
 
 type Params = { params: Promise<{ type: string }> }
@@ -61,7 +61,7 @@ export default async function BlockTypePage({ params }: Params) {
 
         <section className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
           {entries.map((e, i) => (
-            <LiveBlock key={e.name} name={e.name} priority={i < 2} />
+            <LiveBlock key={e.name} name={e.name} title={e.title} kind={e.kind} description={componentCopy(e).description} priority={i < 2} />
           ))}
         </section>
 

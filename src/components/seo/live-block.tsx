@@ -3,8 +3,6 @@ import * as React from "react"
 import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 import { REGISTRY_LOADERS } from "@/lib/registry-loaders"
-import { COMPONENT_INDEX } from "@/lib/component-index"
-import { componentCopy, humanTitle } from "@/lib/seo-routes"
 import { cn } from "@/lib/utils"
 
 class Boundary extends React.Component<{ fallback: React.ReactNode; children: React.ReactNode }, { failed: boolean }> {
@@ -26,8 +24,9 @@ const MAX_H = 760
  * A real, scaled-down render of a registry block, loaded when it scrolls into view, with a link to its docs page.
  * Used by the block hubs so the SEO pages show the actual component instead of a drawing of it.
  */
-export function LiveBlock({ name, priority = false }: { name: string; priority?: boolean }) {
-  const entry = COMPONENT_INDEX.find((c) => c.name === name)
+/** Everything that comes from the component index or the SEO copy is passed in by the server page, so neither ships to the browser. */
+export function LiveBlock({ name, title: rawTitle, kind, description, priority = false }: { name: string; title: string; kind: "ui" | "block" | "premium"; description: string; priority?: boolean }) {
+  const entry = { name, title: rawTitle, kind }
   const ref = React.useRef<HTMLDivElement>(null)
   const [scale, setScale] = React.useState(0.3)
   const [near, setNear] = React.useState(priority)
@@ -69,10 +68,8 @@ export function LiveBlock({ name, priority = false }: { name: string; priority?:
     }
   }, [near, name, mod])
 
-  if (!entry) return null
   const Comp = mod?.[entry.title] as React.ComponentType | undefined
-  const copy = componentCopy(entry)
-  const title = humanTitle(entry.title)
+  const title = rawTitle.replace(/([a-z0-9])([A-Z])/g, "$1 $2")
   const fallback = <div className="grid h-full place-items-center text-[14px] text-fg-subtle">Open the page to see it live</div>
 
   return (
@@ -98,7 +95,7 @@ export function LiveBlock({ name, priority = false }: { name: string; priority?:
           </h3>
           <span className="shrink-0 rounded-md border border-border bg-bg px-1.5 py-0.5 font-mono text-[10px] text-fg-subtle uppercase">{entry.kind === "premium" ? "motion" : entry.kind}</span>
         </div>
-        <p className="mt-1.5 line-clamp-3 text-[0.875rem] leading-[1.6] text-fg-muted">{copy.description}</p>
+        <p className="mt-1.5 line-clamp-3 text-[0.875rem] leading-[1.6] text-fg-muted">{description}</p>
         <div className="mt-4 flex items-center justify-between gap-3">
           <code className="truncate font-mono text-[11px] text-fg-subtle">npx shadcn@latest add @minidev/{entry.name}</code>
           <Link href={`/docs/${entry.name}`} className="inline-flex shrink-0 items-center gap-1 text-[0.8125rem] font-medium text-fg">

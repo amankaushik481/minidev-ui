@@ -1,6 +1,5 @@
 "use client"
 import * as React from "react"
-import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 /** The page's single light source: it follows the pointer, drifts when idle, and every shadow and sheen in the kit falls away from it. */
@@ -25,6 +24,19 @@ import { cn } from "@/lib/utils"
 
 type Material = "hairline" | "glass" | "metal" | "paper"
 const MATERIALS: Material[] = ["hairline", "glass", "metal", "paper"]
+
+/* prefers-reduced-motion, live. */
+function useReducedMotion() {
+  return React.useSyncExternalStore(
+    (f) => {
+      const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
+      mq.addEventListener("change", f)
+      return () => mq.removeEventListener("change", f)
+    },
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    () => false
+  )
+}
 
 /* Number of providers currently running the light. Only the first one does. */
 let lights = 0
@@ -56,7 +68,15 @@ function LightProvider({ idle = true, children }: LightProviderProps) {
   return <span data-slot="light-provider" hidden />
 }
 
-/* Starts the light loop on <html>. Returns a function that stops it. */
+/* Starts the light loop on <html>. Returns a function that stops it.
+ *
+ * Every shadow and sheen reads these variables, so each write restyles the
+ * visible page. To keep that cheap: values are rounded (steps far below what
+ * the eye can see) and written only when a rounded value changes, at most 30
+ * times a second while following the pointer; nothing is written while the
+ * page scrolls. The idle drift starts only after the visitor's first input
+ * (a page nobody has touched yet stays still and costs nothing), writes 10
+ * times a second (6 on phones), and rests after 30 s without any input. */
 function runLight(idle: boolean) {
   const root = document.documentElement
   let tx = window.innerWidth * 0.3
@@ -65,9 +85,16 @@ function runLight(idle: boolean) {
   let cy = ty
   let last = performance.now()
   let lastMove = 0
+  let lastInput = performance.now()
+  let lastWriteAt = 0
+  let driftFrom = Infinity
   let raf = 0
   let lastWrite = ""
+  let scrolling = 0
   const coarse = window.matchMedia("(pointer: coarse)").matches
+  const FOLLOW_MS = 33
+  const DRIFT_MS = coarse ? 160 : 100
+  const REST_MS = 30000
 
   const write = () => {
     const w = window.innerWidth
@@ -75,20 +102,31 @@ function runLight(idle: boolean) {
     const sx = Math.max(-1, Math.min(1, (w / 2 - cx) / (w / 2)))
     const sy = Math.max(-1, Math.min(1, (h / 2 - cy) / (h / 2)))
     const la = (Math.atan2(-sx, sy) * 180) / Math.PI // toward the light
-    const key = `${Math.round(cx)}|${Math.round(cy)}`
+    // 4px light steps and 1/64 shadow steps: a 28px shadow moves under half a pixel per step.
+    const lx = Math.round(cx / 4) * 4
+    const ly = Math.round(cy / 4) * 4
+    const qx = Math.round(sx * 64) / 64
+    const qy = Math.round(sy * 64) / 64
+    const key = `${lx}|${ly}|${qx}|${qy}`
     if (key === lastWrite) return
     lastWrite = key
-    root.style.setProperty("--lx", `${Math.round(cx)}px`)
-    root.style.setProperty("--ly", `${Math.round(cy)}px`)
-    root.style.setProperty("--sx", sx.toFixed(3))
-    root.style.setProperty("--sy", sy.toFixed(3))
+    root.style.setProperty("--lx", `${lx}px`)
+    root.style.setProperty("--ly", `${ly}px`)
+    root.style.setProperty("--sx", qx.toFixed(4))
+    root.style.setProperty("--sy", qy.toFixed(4))
     root.style.setProperty("--la", `${Math.round(la)}deg`)
   }
 
   const tick = (now: number) => {
     const dt = Math.min(64, now - last)
     last = now
-    if (idle && (coarse || now - lastMove > 5000)) {
+    const drifting = idle && now >= driftFrom && (coarse || now - lastMove > 5000)
+    // Nobody has touched the page for a while: let the light rest until they do.
+    if (drifting && now - lastInput > REST_MS) {
+      raf = 0
+      return
+    }
+    if (drifting) {
       const t = now / 1000
       tx = window.innerWidth * (0.5 + 0.34 * Math.cos(t * 0.32))
       ty = window.innerHeight * (0.28 + 0.26 * Math.sin(t * 0.32))
@@ -96,29 +134,64 @@ function runLight(idle: boolean) {
     const k = 1 - Math.pow(0.001, dt / 1000) // frame-rate independent ease
     cx += (tx - cx) * Math.min(1, k * 1.6)
     cy += (ty - cy) * Math.min(1, k * 1.6)
-    write()
+    if (!scrolling && now - lastWriteAt >= (drifting ? DRIFT_MS : FOLLOW_MS)) {
+      lastWriteAt = now
+      write()
+    }
+    // No drift (or not armed yet): sleep once the light has caught up with the pointer.
+    if ((!idle || driftFrom === Infinity) && !scrolling && Math.abs(tx - cx) < 0.5 && Math.abs(ty - cy) < 0.5) {
+      raf = 0
+      return
+    }
     raf = requestAnimationFrame(tick)
+  }
+  const wake = () => {
+    if (raf || document.hidden) return
+    last = performance.now()
+    raf = requestAnimationFrame(tick)
+  }
+  // Any input: arms the drift the first time, keeps it awake after that.
+  const input = () => {
+    lastInput = performance.now()
+    if (driftFrom === Infinity) driftFrom = lastInput + 1500
+    wake()
   }
 
   const move = (e: PointerEvent) => {
+    input()
     if (e.pointerType === "touch") return
     tx = e.clientX
     ty = e.clientY
-    lastMove = performance.now()
+    lastMove = lastInput
+  }
+  const scroll = () => {
+    input()
+    clearTimeout(scrolling)
+    scrolling = window.setTimeout(() => {
+      scrolling = 0
+      wake()
+    }, 140)
   }
   const vis = () => {
     cancelAnimationFrame(raf)
-    if (!document.hidden) {
-      last = performance.now()
-      raf = requestAnimationFrame(tick)
-    }
+    raf = 0
+    wake()
   }
   window.addEventListener("pointermove", move, { passive: true })
+  window.addEventListener("pointerdown", input, { passive: true })
+  window.addEventListener("keydown", input, { passive: true })
+  window.addEventListener("scroll", scroll, { passive: true, capture: true })
+  window.addEventListener("resize", wake)
   document.addEventListener("visibilitychange", vis)
   raf = requestAnimationFrame(tick)
   return () => {
     cancelAnimationFrame(raf)
+    clearTimeout(scrolling)
     window.removeEventListener("pointermove", move)
+    window.removeEventListener("pointerdown", input)
+    window.removeEventListener("keydown", input)
+    window.removeEventListener("scroll", scroll, { capture: true })
+    window.removeEventListener("resize", wake)
     document.removeEventListener("visibilitychange", vis)
   }
 }
@@ -213,10 +286,29 @@ const LABEL: Record<Material, string> = { hairline: "Hairline", glass: "Glass", 
 function MaterialSwitcher({ size = "default", labels = true, className }: { size?: "sm" | "default" | "lg"; labels?: boolean; className?: string }) {
   const { material, setMaterial } = useMaterial()
   const reduce = useReducedMotion()
-  const id = React.useId()
   const refs = React.useRef<(HTMLButtonElement | null)[]>([])
+  const pill = React.useRef<HTMLSpanElement | null>(null)
+  const from = React.useRef<DOMRect | null>(null)
+  // The pill lives in the selected button. When the selection changes, it glides
+  // from where the old pill was (FLIP with the Web Animations API).
+  React.useLayoutEffect(() => {
+    const el = pill.current
+    const old = from.current
+    from.current = null
+    if (!el || !old || reduce || typeof el.animate !== "function") return
+    const now = el.getBoundingClientRect()
+    if (Math.abs(old.left - now.left) < 1 && Math.abs(old.width - now.width) < 1) return
+    el.animate(
+      [
+        { left: `${old.left - now.left}px`, right: `${now.right - old.right}px` },
+        { left: "0px", right: "0px" },
+      ],
+      { duration: 420, easing: "cubic-bezier(0.3, 1.25, 0.5, 1)" }
+    )
+  }, [material, reduce])
   const h = size === "lg" ? "h-11 p-1" : size === "sm" ? "h-8 p-[3px]" : "h-9 p-[3px]"
   const pick = (m: Material, el?: HTMLElement | null) => {
+    if (m !== material && pill.current) from.current = pill.current.getBoundingClientRect()
     const r = el?.getBoundingClientRect()
     setMaterial(m, r ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : undefined)
   }
@@ -258,11 +350,10 @@ function MaterialSwitcher({ size = "default", labels = true, className }: { size
             )}
           >
             {on ? (
-              <motion.span
-                layoutId={`${id}-mat`}
+              <span
+                ref={pill}
                 aria-hidden
                 className="absolute inset-0 -z-10 rounded-full bg-raised shadow-[0_1px_2px_0_oklch(0_0_0/0.1),0_0_0_1px_var(--border),inset_0_1px_0_0_var(--highlight)]"
-                transition={reduce ? { duration: 0 } : { type: "spring", bounce: 0.18, duration: 0.42 }}
               />
             ) : null}
             <span aria-hidden className={cn("size-4 shrink-0 rounded-full", size === "lg" && "size-5", SWATCH[m])} />

@@ -92,3 +92,37 @@ html, body {
   --accent: oklch(0.76 0.11 215); --accent-hover: oklch(0.82 0.1 215); --accent-fg: oklch(0.82 0.09 215);
   --accent-soft: oklch(0.76 0.11 215 / 0.14); --accent-line: oklch(0.76 0.11 215 / 0.36); --on-accent: oklch(0.17 0.03 215);
 }
+
+/* Landing hero entrance. Pure CSS, so the hero paints before any JavaScript
+   loads. The headline and intro only slide, never fade: they are the LCP. */
+@keyframes hero-rise { from { opacity: 0; transform: translateY(12px); } }
+@keyframes hero-lift { from { transform: translateY(12px); } }
+@keyframes hero-float { from { opacity: 0; transform: translateY(24px); } }
+.hero-rise { animation: hero-rise 0.7s cubic-bezier(0.2, 0, 0, 1) both; }
+.hero-lift { animation: hero-lift 0.7s cubic-bezier(0.2, 0, 0, 1) both; }
+.hero-float { animation: hero-float 0.9s cubic-bezier(0.2, 0, 0, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise, .hero-lift, .hero-float { animation: none; }
+}
+
+/* A still CSS version of the hero's WebGL light field. It shows on the first
+   paint; the live field fades in over it once the browser is idle. */
+.hero-silk {
+  /* 64x56 frames of the field itself; the browser's smooth upscaling does the rest. */
+  background: url("data:image/webp;base64,UklGRi4BAABXRUJQVlA4ICIBAAAQCQCdASpAADgAPmEsj0WkIqEWCq5kQAYEsrYQrCdLdEBMk3r+TxeyrPRF/dlloSR1VIdnTbvbwIa+u9gGFzrvICgvi0mv81vkC4mIs++36IAA/vxKAQvqA53suPRoPWAyaDR7bJR+9RDjy4hyMKaq07PYdfDrmG090DT7EgidxIldBfGKlJV98DWH/HK4DNRoKY2JCPALse4cn+5m0Dr/oivrAw+FTsz+2VHC1ATXmS+cb+/E1RZTMWzeNJY/EmDmtFrWhyw/HTgyMCYM7hdj/fwxXaJq0Vl98V973wv/a7DWHI6MigyOFUf0zZK6UQbCDpSdpwWI2WRH+EMu9GtSH2vvwIYqgMlI0kVv5jGtWfOjBX7nzqhXBbwj7wpk/wsAAA==") center / 100% 100% no-repeat;
+}
+.dark .hero-silk { background-image: url("data:image/webp;base64,UklGRnYBAABXRUJQVlA4IGoBAACwCQCdASpAADgAPmEmj0UkKqEY+c5IqAYEoAt+s9xdyE673BA5cLfcB87bpwG84gIN8E2GQlC3s5feSGZp4r8E6Wo5IJ5U0GmsynX0twMfX75zFQDJgAD+9fc05Ccmpz6qm4Bpbfuiy7U0Q3thniNaoAwcVNwhSv7Mhjl0MC4cx04VWYFrodRflZN9DvFme8hA1CyUHusibwEtQozV8sptetoAvI+Hp5QkhNl+M1SjsqjZc1Sk4dMJS3unDvxYZUQDt6EbU2aVwU8Gq8KFoydijuwCp/ZOS+hK/9Iw0Q7T9F54AXVCErD98wogDQLIS/3oIiULKvVAhoiv5Sul2Xiv/6/KErh3p9hKRWQ5F22q0fwkOm2gVUSRVDDb/VNU3+vCY//4SMfWAa9TPbbVA2SLTvLEICy3Wld3IX9/7XnscFZis463G3X1R2oIwu29SgaUlkT8Va4s073Ek4XZue5Z5Cm/PbJFRfPgAA=="); }
+
+/* Below-the-fold landing sections: the browser skips their style, layout and
+   paint until they come near the viewport. The sizes are measured estimates;
+   "auto" remembers the real size once a section has rendered. */
+.cv-section { content-visibility: auto; contain-intrinsic-size: auto var(--cv-sm, 1600px); }
+@media (min-width: 1024px) {
+  .cv-section { contain-intrinsic-size: auto var(--cv-lg, 1000px); }
+}
+.cv-hold { min-height: var(--cv-sm, 1600px); }
+@media (min-width: 1024px) {
+  .cv-hold { min-height: var(--cv-lg, 1000px); }
+}
+/* A section that went live after its server HTML had already played its entrance must not play it again. */
+[data-live] .hero-float { animation: none; }

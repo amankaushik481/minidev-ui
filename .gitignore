@@ -65,3 +65,4 @@ node_modules/
 /fixtures/
 /Claude outputs/
 /src/lib/example-loaders.ts
+/src/lib/component-lite.ts

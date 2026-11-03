@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowUpRightIcon, SearchIcon, SparklesIcon, XIcon } from "lucide-react"
 import { SiteFooter, SiteHeader } from "@/components/site-chrome"
 import { FEATURED_SLUGS, GALLERY_CATEGORIES, GALLERY_ENTRIES, type GalleryEntry } from "@/lib/gallery-catalog"
-import { COMPONENT_INDEX } from "@/lib/component-index"
+import { COMPONENT_COUNTS } from "@/lib/component-lite"
 import { cn } from "@/lib/utils"
 import { Kbd } from "@/registry/ui/kbd"
 import { GalleryPreview } from "./_components/previews"
@@ -57,7 +57,7 @@ export default function GalleryIndex() {
         <section className="relative isolate overflow-hidden border-b border-border">
           <div aria-hidden className="absolute inset-0 -z-10 bg-grid [--grid-size:40px] [mask-image:linear-gradient(to_bottom,black,transparent)]" />
           <div className="mx-auto max-w-7xl px-4 pt-14 pb-10 sm:px-6 sm:pt-20 lg:px-8">
-            <p className="font-mono text-[11px] tracking-[0.08em] text-accent-fg uppercase">{COMPONENT_INDEX.length} components · {GALLERY_ENTRIES.length} galleries</p>
+            <p className="font-mono text-[11px] tracking-[0.08em] text-accent-fg uppercase">{COMPONENT_COUNTS.total} components · {GALLERY_ENTRIES.length} galleries</p>
             <h1 className="mt-3 text-4xl font-medium tracking-[-0.04em] sm:text-6xl sm:leading-[1]">Components</h1>
             <p className="mt-4 max-w-xl text-[1.0625rem] leading-[1.6] text-fg-muted">
               Every gallery renders the real component in every state. Open one, find the variant you need, copy the file.

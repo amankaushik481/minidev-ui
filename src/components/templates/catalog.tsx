@@ -1,6 +1,3 @@
-"use client"
-import * as React from "react"
-
 export const TEMPLATES = [
   { slug: "lumen", name: "Lumen", kind: "AI SaaS", material: "Glass", blurb: "An AI analyst for finance teams. Live product in the hero, live bento, scroll story, pricing that rolls.", tags: ["SaaS", "AI", "Dashboard"] },
   { slug: "ponte", name: "Ponte", kind: "Fintech app", material: "Metal", blurb: "Money home in 12 seconds. A working transfer app in a phone, live rates, an honest fee calculator.", tags: ["Fintech", "Mobile", "Payments"] },
@@ -12,33 +9,42 @@ export const TEMPLATES = [
   { slug: "cadence", name: "Cadence", kind: "Coaching platform", material: "Hairline", blurb: "Your practice, fully booked. A real booking widget with packages and payments, courses and reminders.", tags: ["Creators", "Booking", "Courses"] },
 ]
 
+/*
+ * The template's first screen as a still (public/templates/previews, captured at
+ * 1440x900 in both themes). It used to be a live iframe, which loaded each
+ * template's whole app on the main thread; a 20 KB WebP looks the same.
+ */
 export function LivePreview({ slug }: { slug: string }) {
-  const ref = React.useRef<HTMLDivElement>(null)
-  const [scale, setScale] = React.useState(0.35)
-  const [show, setShow] = React.useState(false)
-  React.useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const ro = new ResizeObserver(() => setScale(el.clientWidth / 1440))
-    ro.observe(el)
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && setShow(true), { rootMargin: "200px" })
-    io.observe(el)
-    return () => { ro.disconnect(); io.disconnect() }
-  }, [])
+  const name = TEMPLATES.find((t) => t.slug === slug)?.name ?? slug
+  const src = (theme: "light" | "dark", w: number) => `/templates/previews/${slug}-${theme}-${w}.webp`
+  const set = (theme: "light" | "dark") => `${src(theme, 480)} 480w, ${src(theme, 960)} 960w`
+  const sizes = "(min-width: 1024px) 400px, 92vw"
   return (
-    <div ref={ref} className="relative aspect-[1440/900] overflow-hidden rounded-t-[22px] border-b border-border bg-sunken">
-      {show ? (
-        <iframe
-          src={`/templates/${slug}`}
-          title={`${slug} template preview`}
-          tabIndex={-1}
-          loading="lazy"
-          className="pointer-events-none absolute top-0 left-0 origin-top-left border-0"
-          style={{ width: 1440, height: 900, transform: `scale(${scale})` }}
-        />
-      ) : null}
-      <div className="absolute inset-0" aria-hidden />
+    <div className="relative aspect-[1440/900] overflow-hidden rounded-t-[22px] border-b border-border bg-sunken">
+      {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP, nothing for the image optimizer to do */}
+      <img
+        src={src("light", 960)}
+        srcSet={set("light")}
+        sizes={sizes}
+        alt={`${name} template, first screen`}
+        width={1440}
+        height={900}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 size-full object-cover object-top dark:hidden"
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP, nothing for the image optimizer to do */}
+      <img
+        src={src("dark", 960)}
+        srcSet={set("dark")}
+        sizes={sizes}
+        alt={`${name} template, first screen`}
+        width={1440}
+        height={900}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 hidden size-full object-cover object-top dark:block"
+      />
     </div>
   )
 }
-
