@@ -5,6 +5,7 @@ import type { Block, Faq } from "@/content/types"
 import { COMPONENT_INDEX } from "@/lib/component-index"
 import { componentCopy } from "@/lib/seo-routes"
 import { cn } from "@/lib/utils"
+import { GuideExample } from "@/components/seo/guide-example"
 import { CodeBlock } from "@/registry/ui/code-block"
 import { SiteFooter, SiteHeader } from "@/components/site-chrome"
 
@@ -96,7 +97,7 @@ export function Blocks({ blocks }: { blocks: Block[] }) {
             )
           case "h3":
             return (
-              <h3 key={i} className="pt-3 text-[1.1875rem] font-medium tracking-[-0.02em] text-fg">
+              <h3 key={i} id={b.id} className="scroll-mt-24 pt-3 text-[1.1875rem] font-medium tracking-[-0.02em] text-fg">
                 {b.text}
               </h3>
             )
@@ -128,6 +129,27 @@ export function Blocks({ blocks }: { blocks: Block[] }) {
           }
           case "component":
             return <ComponentCard key={i} name={b.name} />
+          case "example": {
+            const e = COMPONENT_INDEX.find((c) => c.name === b.name)
+            const label = e ? componentCopy(e).name : b.name
+            return <GuideExample key={i} name={b.name} index={b.index} caption={b.caption} label={label} />
+          }
+          case "tldr":
+            return (
+              <aside key={i} aria-label="The short answer" className="rounded-2xl border border-accent-line bg-accent-soft p-5 sm:p-6">
+                <p className="font-mono text-[11px] tracking-[0.08em] text-accent-fg uppercase">The short answer</p>
+                <ul className="mt-3 space-y-2 text-[1.0625rem] leading-[1.65] text-fg">
+                  {b.items.map((it, j) => (
+                    <li key={j} className="flex gap-2.5">
+                      <span aria-hidden className="mt-[0.7em] size-1.5 shrink-0 rounded-full bg-accent" />
+                      <span>
+                        <Inline text={it} />
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            )
           case "table":
             return (
               <div key={i} className="overflow-x-auto rounded-xl border border-border">

@@ -36,8 +36,15 @@ import animationLibs from "./best-react-animation-libraries"
 import chartLibs from "./best-react-chart-libraries"
 import saasTemplates from "./free-nextjs-saas-templates"
 import shadcnBlocks from "./best-shadcn-blocks-and-registries"
+import typesOfCharts from "./types-of-charts"
+import typesOfNav from "./types-of-navigation-menus"
+import typesOfButtons from "./types-of-buttons"
+import typesOfOverlays from "./types-of-modals-and-overlays"
+import typesOfInputs from "./types-of-form-inputs"
+import typesOfFeedback from "./types-of-loading-and-feedback-states"
 
 export const GUIDES: Guide[] = [
+  typesOfCharts, typesOfNav, typesOfButtons, typesOfOverlays, typesOfInputs, typesOfFeedback,
   roundup, landing, dashboard, dataTable, aiChat, pricing, billing, sidebar, settings, cmdk,
   kanban, otp, upload, toasts, shadcnRegistry, tw4, darkMode, oklch, glass, shadows, splitFlap,
   dateRange, wizard, charts, tour, panels, gantt, qr, states, heroes, modal,

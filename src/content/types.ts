@@ -42,13 +42,17 @@ export type ComponentSeo = {
 export type Block =
   | { type: "p"; text: string }
   | { type: "h2"; text: string; id: string }
-  | { type: "h3"; text: string }
+  | { type: "h3"; text: string; id?: string }
   | { type: "code"; lang: "tsx" | "ts" | "bash" | "css" | "json" | "html"; code: string; filename?: string }
   | { type: "list"; items: string[]; ordered?: boolean }
   | { type: "callout"; text: string; tone?: "note" | "tip" | "warning" }
   /** Renders a linked card for a MiniDev component (by registry name). */
   | { type: "component"; name: string }
   | { type: "table"; head: string[]; rows: string[][] }
+  /** "The short answer" box: 2-4 lines that answer the page's question outright. Goes first. */
+  | { type: "tldr"; items: string[] }
+  /** A live, clickable example of a component (its docs example by index), loaded when it scrolls near. */
+  | { type: "example"; name: string; index?: number; caption?: string }
 
 export type Faq = { q: string; a: string }
 

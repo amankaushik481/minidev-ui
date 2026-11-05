@@ -8,6 +8,7 @@ export function readingMinutes(body: Block[], faq: Faq[] = []) {
     if (b.type === "code") code += b.code.split(/\s+/).length
     else if (b.type === "list") words += b.items.join(" ").split(/\s+/).length
     else if (b.type === "table") words += b.rows.flat().join(" ").split(/\s+/).length
+    else if (b.type === "tldr") words += b.items.join(" ").split(/\s+/).length
     else if ("text" in b) words += b.text.split(/\s+/).length
   }
   words += faq.map((f) => f.q + " " + f.a).join(" ").split(/\s+/).length
