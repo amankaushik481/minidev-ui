@@ -6,7 +6,25 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/registry/ui/button"
 import { ChevronDownIcon, ChevronRightIcon, CheckIcon } from "lucide-react"
 
-/** A menu that opens from a trigger: items with shortcuts, labels, separators, checkbox and radio items, and nested submenus. */
+/**
+ * DropdownMenu — a menu that opens from a trigger: items with shortcuts, labels, separators, checkbox and radio items, and nested submenus.
+ *
+ * Built on Base UI Menu: arrow keys move, typeahead jumps, Escape closes and
+ * focus returns to the trigger. Use for action menus on a button. For a
+ * right-click menu use `ContextMenu`; for an app menu bar use `Menubar`; to
+ * pick one value in a form use `Select`; for searchable commands use
+ * `CommandPalette`. With no children it renders a sample account menu.
+ *
+ * @example
+ * <DropdownMenu>
+ *   <DropdownMenuTrigger render={<Button variant="outline" />}>Options</DropdownMenuTrigger>
+ *   <DropdownMenuContent>
+ *     <DropdownMenuItem onClick={edit}>Edit<DropdownMenuShortcut>⌘E</DropdownMenuShortcut></DropdownMenuItem>
+ *     <DropdownMenuSeparator />
+ *     <DropdownMenuItem variant="destructive" onClick={remove}>Delete</DropdownMenuItem>
+ *   </DropdownMenuContent>
+ * </DropdownMenu>
+ */
 function DropdownMenu({ children, ...props }: MenuPrimitive.Root.Props) {
   return (
     <MenuPrimitive.Root data-slot="dropdown-menu" {...props}>
@@ -147,7 +165,9 @@ function DropdownMenuItem({
   variant = "default",
   ...props
 }: MenuPrimitive.Item.Props & {
+  /** Indent to line up with items that have a leading icon or indicator. */
   inset?: boolean
+  /** "destructive" tints the item danger for delete and leave actions. */
   variant?: "default" | "destructive"
 }) {
   return (

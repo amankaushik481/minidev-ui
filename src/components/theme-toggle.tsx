@@ -3,15 +3,14 @@ import * as React from "react"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+function subscribe(onChange: () => void) {
+  const mo = new MutationObserver(onChange)
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
+  return () => mo.disconnect()
+}
+
 export function useTheme() {
-  const [dark, setDark] = React.useState(false)
-  React.useEffect(() => {
-    const el = document.documentElement
-    setDark(el.classList.contains("dark"))
-    const mo = new MutationObserver(() => setDark(el.classList.contains("dark")))
-    mo.observe(el, { attributes: true, attributeFilter: ["class"] })
-    return () => mo.disconnect()
-  }, [])
+  const dark = React.useSyncExternalStore(subscribe, () => document.documentElement.classList.contains("dark"), () => false)
   const set = React.useCallback((next: boolean) => {
     const el = document.documentElement
     // Suppress transitions for one frame so the swap is instant everywhere.
@@ -29,7 +28,8 @@ export function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       onClick={toggle}
-      aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
+      aria-label="Dark theme"
+      aria-pressed={dark}
       className={cn(
         "relative inline-flex size-8 items-center justify-center rounded-lg text-fg-muted outline-none",
         "transition-[color,background-color] duration-[70ms] hover:bg-sunken hover:text-fg",
@@ -37,8 +37,9 @@ export function ThemeToggle({ className }: { className?: string }) {
         className
       )}
     >
-      <SunIcon className={cn("absolute size-4 transition-[transform,opacity] duration-200 ease-hairline", dark ? "scale-50 rotate-90 opacity-0" : "scale-100 rotate-0 opacity-100")} />
-      <MoonIcon className={cn("absolute size-4 transition-[transform,opacity] duration-200 ease-hairline", dark ? "scale-100 rotate-0 opacity-100" : "scale-50 -rotate-90 opacity-0")} />
+      {/* Icons follow the html.dark class set before paint, not React state, so the first frame is already right. */}
+      <SunIcon aria-hidden className="absolute size-4 scale-100 rotate-0 opacity-100 transition-[transform,opacity] duration-200 ease-hairline dark:scale-50 dark:rotate-90 dark:opacity-0" />
+      <MoonIcon aria-hidden className="absolute size-4 scale-50 -rotate-90 opacity-0 transition-[transform,opacity] duration-200 ease-hairline dark:scale-100 dark:rotate-0 dark:opacity-100" />
     </button>
   )
 }

@@ -2,7 +2,14 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** A squarified SVG treemap with one level of grouping, labels that hide in small cells, hover and keyboard focus with a value tooltip, and a hidden data table. */
+/**
+ * A squarified SVG treemap with one level of grouping, labels that hide in small cells, hover and keyboard focus with a value tooltip, and a hidden data table.
+ *
+ * Use it for part-to-whole with many parts (revenue by product and plan, disk usage). Use `PieChart` or `DonutChart` for five parts or fewer, and `StackedBarChart` to compare wholes over time. Width follows the container; set `height`.
+ *
+ * @example
+ * <TreemapChart title="Revenue by product" data={[{ label: "Payments", children: [{ label: "Enterprise", value: 48200 }, { label: "Scale", value: 31600 }] }, { label: "Add-ons", value: 4100 }]} />
+ */
 type TreemapLeaf = {
   label: string
   value: number
@@ -28,8 +35,10 @@ type TreemapChartProps = {
   caption?: string
   /** Chart height in px. The width follows the container. */
   height?: number
-  /** Formats values in the tooltip, labels and table. */
+  /** Formats values in the tooltip, labels and table. Defaults to compact USD ("$48.2K"). */
   format?: (value: number) => string
+  /** Name of the measure in the tooltip, e.g. "Revenue", "Storage", "Users". */
+  valueLabel?: string
   /** Hide labels in cells narrower or shorter than this, in px. */
   minLabelSize?: number
   className?: string
@@ -164,6 +173,7 @@ function TreemapChart({
   caption = "October, by plan",
   height = 320,
   format = defaultFormat,
+  valueLabel = "Revenue",
   minLabelSize = 44,
   className,
 }: TreemapChartProps) {
@@ -227,6 +237,7 @@ function TreemapChart({
     refs.current[n]?.focus()
   }
 
+  const tabIdx = focusIdx < cells.length ? focusIdx : 0
   const pct = (n: number) => `${(n * 100).toFixed(n < 0.1 ? 1 : 0)}%`
   const cur = active != null ? cells[active] : null
   const tipLeft = cur ? Math.max(84, Math.min(width - 84, cur.rect.x + cur.rect.w / 2)) : 0
@@ -305,7 +316,7 @@ function TreemapChart({
                   rx={4}
                   role="img"
                   aria-label={`${c.group ? `${c.group}, ` : ""}${c.label}: ${format(c.value)}, ${pct(c.share)} of total`}
-                  tabIndex={i === focusIdx ? 0 : -1}
+                  tabIndex={i === tabIdx ? 0 : -1}
                   stroke={on ? "var(--fg)" : "var(--surface)"}
                   strokeWidth={on ? 1.5 : 2}
                   style={{ fill: `color-mix(in oklch, ${c.color} ${c.strength}%, var(--surface))` }}
@@ -339,8 +350,9 @@ function TreemapChart({
         </svg>
 
         {cur ? (
+          // Visual only: the focused cell's aria-label already carries the same numbers.
           <div
-            role="status"
+            aria-hidden
             data-slot="treemap-chart-tooltip"
             className={cn(
               "pointer-events-none absolute z-10 min-w-40 -translate-x-1/2 rounded-lg border border-border bg-raised p-2.5 shadow-lg",
@@ -354,7 +366,7 @@ function TreemapChart({
             </p>
             <ul className="mt-1.5 space-y-1 text-xs">
               <li className="flex justify-between gap-4">
-                <span className="text-fg-muted">Revenue</span>
+                <span className="text-fg-muted">{valueLabel}</span>
                 <span className="text-fg tabular-nums">{format(cur.value)}</span>
               </li>
               <li className="flex justify-between gap-4">

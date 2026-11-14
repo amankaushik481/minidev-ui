@@ -9,6 +9,13 @@ import { cn } from "@/lib/utils"
  * into focus. It holds the tallest phrase's height so nothing below it
  * jumps, pauses off screen, and shows the first phrase for reduced motion.
  * Screen readers get the whole list once.
+ *
+ * Use it for one hero headline that cycles a few phrases. Reach for
+ * WordRotate to swap a single word inside a sentence, TypingText for a
+ * typewriter, and TextScramble for a one-off decode.
+ *
+ * @example
+ * <MorphingText words={["Invoices that close themselves", "Books that balance themselves"]} interval={3000} />
  */
 type MorphingTextProps = {
   words?: string[]

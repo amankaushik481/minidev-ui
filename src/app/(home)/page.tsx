@@ -14,6 +14,8 @@ export default function Home() {
       <SiteHeader />
       <main className="min-w-0">
         <Hero />
+        {/* shortcut: agents sm/lg are estimates, not measured; re-measure at 390 and 1280 when the copy settles */}
+        <LazySection id="agents" sm={1480} lg={760} />
         <LazySection id="templates" sm={1455} lg={782} />
         <LazySection id="materials" sm={2577} lg={990} />
         <LazySection id="exploded" sm={3882} lg={4140} />

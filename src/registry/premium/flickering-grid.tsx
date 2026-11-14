@@ -10,6 +10,15 @@ import { Button } from "@/registry/ui/button"
  * Colour comes from the accent token and an optional radial mask fades the
  * edges. The canvas is sharp on high density screens, resizes with its box,
  * sleeps off screen and draws one still frame for reduced motion.
+ *
+ * Use it as a calm, living hero or status backdrop; children render on top.
+ * For a pointer-reactive backdrop use BackgroundBoxes, for a still pattern
+ * use DotPattern.
+ *
+ * @example
+ * <FlickeringGrid squareSize={4} gap={6} maxOpacity={0.3} className="h-[420px]">
+ *   <h1 className="text-4xl text-fg">All systems normal</h1>
+ * </FlickeringGrid>
  */
 type FlickeringGridProps = {
   /** Side of one square in pixels. */

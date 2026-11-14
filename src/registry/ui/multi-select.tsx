@@ -4,9 +4,30 @@ import { CheckIcon, ChevronsUpDownIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Popover, PopoverContent, PopoverTrigger } from "@/registry/ui/popover"
 
-/** MultiSelect — a popover list with check marks and removable chips for the chosen items. */
+/**
+ * MultiSelect — a popover list with check marks and removable chips for the chosen items.
+ *
+ * Each option is a toggle button (aria-pressed), so Tab and Space/Enter work without a
+ * custom keyboard model; chips under the trigger remove an item in one click and are
+ * labelled "Remove <name>". Use it for 2 to ~20 options; for long or searchable
+ * lists use Combobox, for free-form entry use TagsInput.
+ *
+ * @example
+ * const [reviewers, setReviewers] = React.useState<string[]>([])
+ * <MultiSelect
+ *   aria-label="Reviewers"
+ *   items={[{ value: "maya", label: "Maya Chen" }, { value: "theo", label: "Theo Okafor" }]}
+ *   value={reviewers}
+ *   onChange={setReviewers}
+ * />
+ */
 
-type Item = { value: string; label: string }
+type Item = {
+  /** Stored in the selection array. */
+  value: string
+  /** Text in the list, the trigger and the chip. */
+  label: string
+}
 
 // Reviewers who can approve an invoice in Lumen.
 const SAMPLE_ITEMS: Item[] = [
@@ -21,18 +42,33 @@ const SAMPLE_ITEMS: Item[] = [
 const SAMPLE_SELECTED = ["maya-chen", "priya-raman"]
 
 type MultiSelectProps = {
+  /** Options in display order. */
   items?: Item[]
   /** Controlled selection. */
   value?: string[]
   /** Initial selection when uncontrolled. */
   defaultValue?: string[]
+  /** Fires with the full new selection after every toggle or chip removal. */
   onChange?: (value: string[]) => void
+  /** Trigger text when nothing is selected. */
   placeholder?: string
   disabled?: boolean
+  /** Accessible name for the trigger, e.g. "Reviewers". The current selection is read after it. */
+  "aria-label"?: string
+  /** Classes for the trigger button. */
   className?: string
 }
 
-function MultiSelect({ items = SAMPLE_ITEMS, value, defaultValue, onChange, placeholder = "Select…", disabled, className }: MultiSelectProps) {
+function MultiSelect({
+  items = SAMPLE_ITEMS,
+  value,
+  defaultValue,
+  onChange,
+  placeholder = "Select…",
+  disabled,
+  "aria-label": ariaLabel,
+  className,
+}: MultiSelectProps) {
   const [open, setOpen] = React.useState(false)
   const [internal, setInternal] = React.useState<string[]>(() => defaultValue ?? (items === SAMPLE_ITEMS ? SAMPLE_SELECTED : []))
   const selected = value ?? internal
@@ -46,7 +82,7 @@ function MultiSelect({ items = SAMPLE_ITEMS, value, defaultValue, onChange, plac
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger
           disabled={disabled}
-          aria-label={placeholder}
+          aria-label={ariaLabel ? `${ariaLabel}: ${labels.length ? labels.map((l) => l.label).join(", ") : placeholder}` : undefined}
           className={cn(
             "flex min-h-9 w-72 items-center justify-between gap-2 rounded-lg border border-border bg-surface px-3 py-1.5 text-left text-sm",
             "shadow-highlight outline-none hover:border-fg-subtle",
@@ -67,10 +103,11 @@ function MultiSelect({ items = SAMPLE_ITEMS, value, defaultValue, onChange, plac
               <button
                 key={item.value}
                 type="button"
-                className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-sm hover:bg-sunken"
+                aria-pressed={on}
+                className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-sm outline-none transition-[background-color] duration-[70ms] hover:bg-sunken focus-visible:bg-sunken focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
                 onClick={() => setSelected(on ? selected.filter((v) => v !== item.value) : [...selected, item.value])}
               >
-                <CheckIcon className={cn("size-4", on ? "opacity-100 text-accent" : "opacity-0")} />
+                <CheckIcon aria-hidden className={cn("size-4", on ? "opacity-100 text-accent" : "opacity-0")} />
                 {item.label}
               </button>
             )
@@ -83,7 +120,9 @@ function MultiSelect({ items = SAMPLE_ITEMS, value, defaultValue, onChange, plac
             <button
               key={l.value}
               type="button"
-              className="inline-flex h-6 items-center gap-1 rounded-md border border-border bg-sunken px-2 text-xs text-fg"
+              disabled={disabled}
+              aria-label={`Remove ${l.label}`}
+              className="inline-flex h-6 items-center gap-1 rounded-md border border-border bg-sunken px-2 text-xs text-fg outline-none transition-[border-color] duration-[70ms] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50"
               onClick={() => setSelected(selected.filter((v) => v !== l.value))}
             >
               {l.label}

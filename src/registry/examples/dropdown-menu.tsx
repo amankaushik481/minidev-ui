@@ -67,7 +67,7 @@ export const examples: Example[] = [
     description: "An icon trigger inside a row, items with icons and shortcuts, a submenu for moving, and a destructive item last.",
     code: `<div className="flex w-full max-w-sm items-center justify-between gap-3 rounded-xl border border-border bg-surface px-3 py-2 shadow-raised">
   <div className="min-w-0">
-    <p className="truncate text-sm font-medium text-fg">INV-2041 · Northwind Labs</p>
+    <p className="truncate text-sm font-medium text-fg">INV-2041 · Northwind Traders</p>
     <p className="truncate text-xs text-fg-muted">$12,400.00 · due Oct 24</p>
   </div>
   <DropdownMenu>
@@ -106,7 +106,7 @@ export const examples: Example[] = [
     node: (
       <div className="flex w-full max-w-sm items-center justify-between gap-3 rounded-xl border border-border bg-surface px-3 py-2 shadow-raised">
         <div className="min-w-0">
-          <p className="truncate text-sm font-medium text-fg">INV-2041 · Northwind Labs</p>
+          <p className="truncate text-sm font-medium text-fg">INV-2041 · Northwind Traders</p>
           <p className="truncate text-xs text-fg-muted">$12,400.00 · due Oct 24</p>
         </div>
         <DropdownMenu>

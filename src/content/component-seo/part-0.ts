@@ -579,7 +579,7 @@ export const PART_0: Record<string, ComponentSeo> = {
   "empty-state": {
     description: "Dashed empty state panel with an icon slot, title, description and an optional call to action button. Use it for first run screens and empty lists in React.",
     category: "feedback",
-    keywords: ["react empty state", "tailwind empty state", "no data placeholder"],
+    keywords: ["shadcn empty state", "react empty state", "tailwind empty state", "no data placeholder"],
   },
   "empty-table": {
     description: "Empty table placeholder with a dashed border, a No data yet title, helper text and an optional button to create the first row. For React tables.",

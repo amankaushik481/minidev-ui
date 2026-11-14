@@ -8,15 +8,24 @@ import { Input } from "@/registry/ui/input"
 import { Kbd, KbdGroup } from "@/registry/ui/kbd"
 
 /**
- * A keyboard shortcuts cheat sheet in a dialog, opened with the ? key or a trigger button, with search and the right modifier glyphs for the viewer's platform.
+ * KeyboardShortcuts — a searchable shortcuts cheat sheet in a dialog, opened with the ? key or a trigger button, showing the right modifier glyphs for the viewer's platform.
+ *
  * Shortcuts are grouped, filtered as you type, and written once with
  * portable names (mod, shift, alt, enter) that render as ⌘ ⇧ ⌥ ↵ on a Mac
- * and Ctrl, Shift, Alt, Enter elsewhere. The platform is read after mount,
- * so server and client markup match.
+ * and Ctrl, Shift, Alt, Enter elsewhere; screen readers hear the key names.
+ * The platform is read after mount, so server and client markup match.
+ * For a static, always-visible list use ShortcutCheatSheet; for one key
+ * inline use Kbd.
+ *
+ * @example
+ * <KeyboardShortcuts
+ *   groups={[{ title: "Invoices", shortcuts: [{ keys: ["mod", "enter"], label: "Send invoice" }, { keys: ["N"], label: "New invoice" }] }]}
+ * />
  */
 type KeyboardShortcut = {
   /** Keys pressed together. Use mod for Command or Control, plus shift, alt, ctrl, enter, esc, tab, backspace, space, up, down, left, right. */
   keys: string[]
+  /** What the shortcut does. */
   label: string
 }
 
@@ -26,7 +35,9 @@ type KeyboardShortcutGroup = {
 }
 
 type KeyboardShortcutsProps = {
+  /** Shortcut groups, shown as titled columns. Defaults to a sample invoicing app. */
   groups?: KeyboardShortcutGroup[]
+  /** Dialog title. */
   title?: string
   /** Key that opens the sheet from anywhere on the page, outside text fields. Empty disables it. */
   hotkey?: string
@@ -35,6 +46,7 @@ type KeyboardShortcutsProps = {
   onOpenChange?: (open: boolean) => void
   /** Render the built-in trigger button. */
   showTrigger?: boolean
+  /** Text of the built-in trigger button. */
   triggerLabel?: string
   className?: string
 }
@@ -74,12 +86,27 @@ const SAMPLE_GROUPS: KeyboardShortcutGroup[] = [
 
 const MAC: Record<string, string> = { mod: "⌘", shift: "⇧", alt: "⌥", ctrl: "⌃", enter: "↵", backspace: "⌫", esc: "Esc", tab: "⇥", space: "Space", up: "↑", down: "↓", left: "←", right: "→" }
 const OTHER: Record<string, string> = { mod: "Ctrl", shift: "Shift", alt: "Alt", ctrl: "Ctrl", enter: "Enter", backspace: "Backspace", esc: "Esc", tab: "Tab", space: "Space", up: "↑", down: "↓", left: "←", right: "→" }
+/** Key names read by screen readers, since the glyphs are hidden from them. */
+const SPOKEN_MAC: Record<string, string> = { mod: "Command", alt: "Option", ctrl: "Control", enter: "Return" }
+const SPOKEN: Record<string, string> = { mod: "Control", shift: "Shift", alt: "Alt", ctrl: "Control", enter: "Enter", backspace: "Backspace", esc: "Escape", tab: "Tab", space: "Space", up: "Up arrow", down: "Down arrow", left: "Left arrow", right: "Right arrow", "/": "Slash", "?": "Question mark" }
+function spoken(key: string, mac: boolean) {
+  const k = key.toLowerCase()
+  return (mac && SPOKEN_MAC[k]) || SPOKEN[k] || key
+}
+
 /** Words a search should also match, so "command" finds ⌘ shortcuts on a Mac. */
 const ALIASES: Record<string, string> = { mod: "command cmd control ctrl", shift: "shift", alt: "alt option", ctrl: "control ctrl", enter: "enter return", backspace: "backspace delete", esc: "escape", tab: "tab" }
 
 function keyLabel(key: string, mac: boolean) {
   const k = key.toLowerCase()
   return (mac ? MAC : OTHER)[k] ?? key
+}
+
+const noSubscribe = () => () => {}
+function isMacPlatform() {
+  const nav = navigator as Navigator & { userAgentData?: { platform?: string } }
+  const platform = nav.userAgentData?.platform ?? nav.platform ?? nav.userAgent
+  return /mac|iphone|ipad|ipod/i.test(platform)
 }
 
 function isTypingTarget(el: EventTarget | null) {
@@ -100,7 +127,8 @@ function KeyboardShortcuts({
   const id = React.useId()
   const [inner, setInner] = React.useState(false)
   const [query, setQuery] = React.useState("")
-  const [mac, setMac] = React.useState(false)
+  // false on the server and during hydration, the real platform after: markup matches, no effect needed.
+  const mac = React.useSyncExternalStore(noSubscribe, isMacPlatform, () => false)
   const isOpen = open ?? inner
   const setOpen = React.useCallback(
     (next: boolean) => {
@@ -109,12 +137,6 @@ function KeyboardShortcuts({
     },
     [open, onOpenChange]
   )
-
-  React.useEffect(() => {
-    const nav = navigator as Navigator & { userAgentData?: { platform?: string } }
-    const platform = nav.userAgentData?.platform ?? nav.platform ?? nav.userAgent
-    setMac(/mac|iphone|ipad|ipod/i.test(platform))
-  }, [])
 
   React.useEffect(() => {
     if (!hotkey) return
@@ -130,9 +152,12 @@ function KeyboardShortcuts({
     return () => document.removeEventListener("keydown", onKey)
   }, [hotkey, setOpen])
 
-  React.useEffect(() => {
+  // Clear the search when the sheet closes, during render rather than in an effect.
+  const [wasOpen, setWasOpen] = React.useState(isOpen)
+  if (wasOpen !== isOpen) {
+    setWasOpen(isOpen)
     if (!isOpen) setQuery("")
-  }, [isOpen])
+  }
 
   const q = query.trim().toLowerCase()
   const visible = groups
@@ -196,7 +221,8 @@ function KeyboardShortcuts({
                       {g.shortcuts.map((s) => (
                         <li key={s.label} className="flex h-9 items-center justify-between gap-4">
                           <span className="truncate text-sm text-fg">{s.label}</span>
-                          <KbdGroup aria-label={s.keys.map((k) => keyLabel(k, mac)).join(" ")}>
+                          <span className="sr-only">{s.keys.map((k) => spoken(k, mac)).join(" ")}</span>
+                          <KbdGroup aria-hidden>
                             {s.keys.map((k, i) => (
                               <Kbd key={`${k}-${i}`} aria-hidden>
                                 {keyLabel(k, mac)}

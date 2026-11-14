@@ -5,6 +5,18 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
+/**
+ * A pitch hero whose headline rises word by word out of a mask, ending on a gradient line, with two link buttons and a row of three stats.
+ *
+ * Words are separated by real spaces, so the h1 reads as one sentence to
+ * screen readers and search engines. Reduced motion shows everything in
+ * place. The buttons link to /showcase and /gallery; edit them for your
+ * routes. Use it to open a client or agency pitch (see ClientPitchKit); for
+ * a quieter product hero use HeroAurora.
+ *
+ * @example
+ * <HeroClientPitch />
+ */
 function HeroClientPitch({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   const stats: [string, string][] = [
@@ -22,7 +34,7 @@ function HeroClientPitch({ className }: { className?: string }) {
       )}
     >
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,color-mix(in_oklch,var(--accent)_55%,transparent),transparent)]" />
-      <div aria-hidden className="pointer-events-none absolute -right-20 top-10 hidden size-72 rounded-full bg-accent/10 sm:block" />
+      <div aria-hidden className="pointer-events-none absolute -right-20 top-10 hidden size-72 rounded-full bg-accent-soft sm:block" />
       <div className="relative mx-auto max-w-4xl">
         <motion.p
           initial={reduce ? false : { y: 10 }}
@@ -33,16 +45,18 @@ function HeroClientPitch({ className }: { className?: string }) {
         </motion.p>
         <h1 className="mt-4 text-[clamp(1.75rem,4.2vw+1rem,3.75rem)] font-medium leading-[1.08] tracking-[-0.028em] text-fg sm:leading-[1.05] sm:tracking-[-0.034em]">
           {["Interfaces", "that", "look"].map((w, i) => (
-            <span key={w} className="inline-block overflow-hidden align-bottom">
-              <motion.span
-                className="inline-block pr-[0.28em]"
-                initial={reduce ? false : { y: "110%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.55, delay: 0.05 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {w}
-              </motion.span>
-            </span>
+            <React.Fragment key={w}>
+              <span className="inline-block overflow-hidden align-bottom">
+                <motion.span
+                  className="inline-block"
+                  initial={reduce ? false : { y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.55, delay: 0.05 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {w}
+                </motion.span>
+              </span>{" "}
+            </React.Fragment>
           ))}
           <span className="block overflow-hidden">
             <motion.span

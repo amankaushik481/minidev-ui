@@ -1,42 +1,47 @@
-"use client"
-import * as React from "react"
 import Link from "next/link"
-import { motion, useReducedMotion } from "motion/react"
 import { ArrowRightIcon, ArrowUpRightIcon } from "lucide-react"
 import { SiteFooter, SiteHeader } from "@/components/site-chrome"
+import { JsonLd } from "@/components/seo/json-ld"
+import { PAGE_SEO } from "@/content/pages"
 import { Button } from "@/registry/ui/button"
 import { LivePreview, TEMPLATES } from "@/components/templates/catalog"
+import { breadcrumbLd, graph, itemListLd } from "@/lib/seo"
+import { SITE } from "@/lib/site"
 
+// No entrance animation: the cards are the page, so they render visible from the first paint.
 export default function TemplatesIndex() {
-  const reduce = useReducedMotion()
   return (
     <div className="min-h-full bg-bg text-fg">
+      <JsonLd
+        data={graph(
+          { "@type": "CollectionPage", name: PAGE_SEO.templates.title, description: PAGE_SEO.templates.description, url: `${SITE.url}/templates` },
+          itemListLd(TEMPLATES.map((t) => ({ name: `${t.name}: ${t.kind} template`, path: `/templates/${t.slug}` })), "Templates"),
+          breadcrumbLd([{ name: "MiniDev UI", path: "/" }, { name: "Templates", path: "/templates" }]),
+        )}
+      />
       <SiteHeader />
       <main>
         <section className="relative isolate overflow-hidden">
           <div aria-hidden className="light-spot absolute inset-0 -z-10" />
           <div className="mx-auto max-w-7xl px-4 pt-16 pb-10 sm:px-6 sm:pt-24 lg:px-8">
-            <motion.div initial={reduce ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.2, 0, 0, 1] }} className="max-w-3xl">
+            <div className="max-w-3xl">
               <p className="font-mono text-[11px] tracking-[0.08em] text-accent-fg uppercase">Templates</p>
-              <h1 className="mt-3 text-5xl leading-[1] font-medium tracking-[-0.05em] text-balance sm:text-7xl">
+              <h1 className="mt-3 text-[2.5rem] leading-[1] font-medium tracking-[-0.05em] text-balance sm:text-7xl">
                 Whole products,
                 <br />
                 <span className="text-lit">not just pages.</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-[1.6] text-fg-muted">
-                Each template is a real product story with working UI inside it. Open one, click around, switch the material. When it looks like your idea, we build the real thing.
+                Free React and Tailwind CSS landing page templates. Each one is a real product story with working UI inside it, built from MiniDev UI components and blocks you can install one by one. Open one, click around, switch the material.
               </p>
-            </motion.div>
+            </div>
           </div>
         </section>
-        <section className="mx-auto grid max-w-7xl gap-6 px-4 pb-24 sm:px-6 lg:grid-cols-3 lg:px-8">
-          {TEMPLATES.map((t, i) => (
-            <motion.article
+        <section aria-label="Templates" className="mx-auto grid max-w-7xl gap-6 px-4 pb-24 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
+          {TEMPLATES.map((t) => (
+            <article
               key={t.slug}
-              initial={reduce ? false : { opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 + i * 0.08, ease: [0.2, 0, 0, 1] }}
-              className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-raised transition-[translate,box-shadow] duration-300 ease-hairline hover:-translate-y-1 hover:shadow-lg"
+              className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-raised transition-[translate,box-shadow] duration-300 ease-hairline hover:-translate-y-1 hover:shadow-lg motion-reduce:hover:translate-y-0"
             >
               <LivePreview slug={t.slug} />
               <div className="flex flex-1 flex-col p-6">
@@ -46,8 +51,8 @@ export default function TemplatesIndex() {
                 </div>
                 <p className="mt-0.5 text-[13px] text-accent-fg">{t.kind}</p>
                 <p className="mt-3 flex-1 text-[14px] leading-[1.6] text-fg-muted">{t.blurb}</p>
-                <div className="mt-5 flex items-center justify-between">
-                  <div className="flex gap-1.5">
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-y-3">
+                  <div className="flex flex-wrap gap-1.5">
                     {t.tags.map((g) => (
                       <span key={g} className="rounded-md bg-sunken px-2 py-0.5 text-[11px] text-fg-muted">{g}</span>
                     ))}
@@ -60,8 +65,8 @@ export default function TemplatesIndex() {
                   </span>
                 </div>
               </div>
-              <Link href={`/templates/${t.slug}`} className="absolute inset-0 rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label={`Open the ${t.name} template`} />
-            </motion.article>
+              <Link href={`/templates/${t.slug}`} className="absolute inset-0 rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset" aria-label={`Open the ${t.name} template, ${t.kind}`} />
+            </article>
           ))}
         </section>
         <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">

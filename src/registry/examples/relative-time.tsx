@@ -31,17 +31,17 @@ export const examples: Example[] = [
   },
   {
     title: "In a list row",
-    description: "Set the size and color with className so the time matches the row it sits in.",
+    description: "Set the size and colour with className so the time matches its row; live re-renders once a minute so an open feed never goes stale.",
     code: `<ul className="w-full max-w-sm divide-y divide-border rounded-xl border border-border bg-surface">
   <li className="flex items-center gap-3 px-3 py-2.5">
     <Avatar size="sm"><AvatarFallback>MC</AvatarFallback></Avatar>
     <p className="min-w-0 flex-1 truncate text-sm text-fg"><span className="font-medium">Maya Chen</span> paid INV-2041</p>
-    <RelativeTime date={minutesAgo(4)} className="text-[11px] text-fg-subtle" />
+    <RelativeTime date={minutesAgo(4)} live className="text-[11px] text-fg-subtle" />
   </li>
   <li className="flex items-center gap-3 px-3 py-2.5">
     <Avatar size="sm"><AvatarFallback>TO</AvatarFallback></Avatar>
     <p className="min-w-0 flex-1 truncate text-sm text-fg"><span className="font-medium">Theo Okafor</span> deployed lumen-web</p>
-    <RelativeTime date={minutesAgo(95)} className="text-[11px] text-fg-subtle" />
+    <RelativeTime date={minutesAgo(95)} live className="text-[11px] text-fg-subtle" />
   </li>
 </ul>`,
     node: (
@@ -49,12 +49,12 @@ export const examples: Example[] = [
         <li className="flex items-center gap-3 px-3 py-2.5">
           <Avatar size="sm"><AvatarFallback>MC</AvatarFallback></Avatar>
           <p className="min-w-0 flex-1 truncate text-sm text-fg"><span className="font-medium">Maya Chen</span> paid INV-2041</p>
-          <RelativeTime date={minutesAgo(4)} className="text-[11px] text-fg-subtle" />
+          <RelativeTime date={minutesAgo(4)} live className="text-[11px] text-fg-subtle" />
         </li>
         <li className="flex items-center gap-3 px-3 py-2.5">
           <Avatar size="sm"><AvatarFallback>TO</AvatarFallback></Avatar>
           <p className="min-w-0 flex-1 truncate text-sm text-fg"><span className="font-medium">Theo Okafor</span> deployed lumen-web</p>
-          <RelativeTime date={minutesAgo(95)} className="text-[11px] text-fg-subtle" />
+          <RelativeTime date={minutesAgo(95)} live className="text-[11px] text-fg-subtle" />
         </li>
       </ul>
     ),

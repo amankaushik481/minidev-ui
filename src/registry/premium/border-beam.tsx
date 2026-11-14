@@ -4,10 +4,18 @@ import { useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 /**
- * A short beam of light that travels around the border of any box. Wrap a
- * card, input or pricing tier with it to mark the one thing that matters.
- * The beam is a rotating conic gradient masked to the border ring, so the
- * content inside is untouched.
+ * A short beam of light that travels around the border of any box to mark the one thing that matters.
+ *
+ * Wrap a card, input or pricing tier with it. The beam is a rotating conic
+ * gradient masked to the border ring, so the content inside is untouched; it
+ * animates transform only and holds still for reduced motion. Set `radius` to
+ * match the child's corner radius. For light flowing between elements use
+ * AnimatedBeam; for a static highlight use a `border-accent` ring.
+ *
+ * @example
+ * <BorderBeam radius={12} duration={8}>
+ *   <Card className="w-80">…</Card>
+ * </BorderBeam>
  */
 type BorderBeamProps = {
   children?: React.ReactNode
@@ -15,8 +23,9 @@ type BorderBeamProps = {
   duration?: number
   /** Border width in pixels. */
   width?: number
-  /** Beam length, as a fraction of the lap. */
+  /** Beam length, as a fraction of the lap, 0 to 1. */
   length?: number
+  /** Corner radius in pixels; match the wrapped element. */
   radius?: number
   className?: string
 }
@@ -26,6 +35,7 @@ function BorderBeam({ children, duration = 6, width = 1.5, length = 0.18, radius
   const deg = Math.round(length * 360)
   return (
     <div data-slot="border-beam" className={cn("relative isolate w-fit max-w-full", className)} style={{ borderRadius: radius }}>
+      {/* The spinner is centred by Tailwind's `translate` property, so the keyframes rotate only. */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 z-10"
@@ -51,7 +61,7 @@ function BorderBeam({ children, duration = 6, width = 1.5, length = 0.18, radius
           <p className="mt-2 text-sm leading-[1.6] text-fg-muted">Everything in Starter, plus unlimited projects and priority support.</p>
         </div>
       )}
-      <style>{`@keyframes border-beam-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}`}</style>
+      <style>{`@keyframes border-beam-spin{to{transform:rotate(360deg)}}`}</style>
     </div>
   )
 }

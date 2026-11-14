@@ -122,7 +122,7 @@ export const examples: Example[] = [
     code: `<div className="flex w-full max-w-sm items-center justify-between gap-3 rounded-xl border border-border bg-surface px-3 py-2 shadow-raised">
   <div className="min-w-0">
     <p className="truncate text-sm font-medium text-fg">Sam Lowe</p>
-    <p className="truncate text-xs text-fg-muted">sam@northwind.io · Finance</p>
+    <p className="truncate text-xs text-fg-muted">sam@northwind.example · Finance</p>
   </div>
   <AlertDialog>
     <AlertDialogTrigger render={<Button variant="ghost" size="icon-sm" aria-label="Remove Sam Lowe" />}>
@@ -142,7 +142,7 @@ export const examples: Example[] = [
       <div className="flex w-full max-w-sm items-center justify-between gap-3 rounded-xl border border-border bg-surface px-3 py-2 shadow-raised">
         <div className="min-w-0">
           <p className="truncate text-sm font-medium text-fg">Sam Lowe</p>
-          <p className="truncate text-xs text-fg-muted">sam@northwind.io · Finance</p>
+          <p className="truncate text-xs text-fg-muted">sam@northwind.example · Finance</p>
         </div>
         <AlertDialog>
           <AlertDialogTrigger render={<Button variant="ghost" size="icon-sm" aria-label="Remove Sam Lowe" />}>

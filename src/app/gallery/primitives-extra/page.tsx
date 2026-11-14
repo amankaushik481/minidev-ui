@@ -8,7 +8,7 @@ import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 export default function Page() {
   return (
-    <GalleryPage title="Accordion / toggle / kbd">
+    <GalleryPage title="Accordion, toggle & kbd">
       <GallerySection title="Accordion">
         <Accordion className="max-w-lg">
           <AccordionItem value="a">

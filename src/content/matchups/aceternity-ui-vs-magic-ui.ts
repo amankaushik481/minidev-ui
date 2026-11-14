@@ -44,7 +44,11 @@ const matchup: Matchup = {
       b: "Uses the shadcn/ui CSS variables plus per-component props for colors and timing",
     },
     { feature: "Dark mode", a: "Yes, on components that support it", b: "Yes, through the shadcn/ui theme" },
-    { feature: "AI tooling", a: "Installable through the shadcn CLI", b: "Official Magic UI MCP server for AI editors" },
+    {
+      feature: "AI tooling",
+      a: "`llms.txt` and `llms-full.txt`; installable through the shadcn CLI",
+      b: "Official Magic UI MCP server for AI editors",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -88,7 +92,7 @@ const matchup: Matchup = {
     },
   ],
   minidev: [
-    "MiniDev UI overlaps with both on motion: it includes over 100 motion components built on motion (heroes, pricing, marquees, scroll stories), free under MIT, next to its UI components and full pages. Its center of gravity is product UI, though, so when a single signature effect is the point of the page, Aceternity UI and Magic UI are built for exactly that.",
+    "MiniDev UI overlaps with both on motion: it includes over 100 motion components built on motion (heroes, pricing, marquees, scroll stories), free under MIT, next to its UI components and full pages. Its center of gravity is product UI, though, so when a single signature effect is the point of the page, Aceternity UI and Magic UI are built for exactly that. For AI coding agents it publishes [`llms.txt`](/glossary/llms-txt), a Markdown page per component, [`AGENTS.md`](/glossary/agents-md) rules and an [MCP server](/glossary/mcp); setup is on [Use MiniDev UI with AI agents](/docs/ai).",
     "Where it helps is the app behind the landing page: billing, settings, dashboards and chat that share one token system with its motion sections. See [MiniDev UI vs Aceternity UI](/compare/minidev-ui-vs-aceternity-ui) and [MiniDev UI vs Magic UI](/compare/minidev-ui-vs-magic-ui).",
   ],
   faq: [
@@ -110,7 +114,7 @@ const matchup: Matchup = {
     },
     {
       q: "Do they work with AI coding tools?",
-      a: "Magic UI has an official MCP server that tools like Cursor and Claude can use to search and install components. Aceternity UI installs through the shadcn CLI, which AI tools can run as well.",
+      a: "Magic UI has an official MCP server that tools like Cursor and Claude can use to search and install components. Aceternity UI publishes `llms.txt` and `llms-full.txt` and installs through the shadcn CLI, which AI tools can run as well.",
     },
   ],
   sources: [
@@ -126,6 +130,7 @@ const matchup: Matchup = {
     { label: "Magic UI license (MIT, checked November 1, 2026)", url: "https://github.com/magicuidesign/magicui/blob/main/LICENSE.md" },
     { label: "Magic UI Pro", url: "https://pro.magicui.design/" },
     { label: "Magic UI MCP server", url: "https://github.com/magicuidesign/mcp" },
+    { label: "Aceternity UI llms.txt", url: "https://ui.aceternity.com/llms.txt" },
   ],
 }
 

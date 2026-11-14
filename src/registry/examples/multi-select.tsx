@@ -17,7 +17,7 @@ function ControlledDemo() {
   const [approvers, setApprovers] = React.useState<string[]>(["theo-okafor"])
   return (
     <div className="flex w-72 flex-col gap-3">
-      <MultiSelect value={approvers} onChange={setApprovers} placeholder="Choose approvers" />
+      <MultiSelect value={approvers} onChange={setApprovers} placeholder="Choose approvers" aria-label="Approvers" />
       <div className="flex items-center justify-between gap-3">
         <p className="text-xs text-fg-muted">
           {approvers.length === 0 ? "INV-2041 has no approvers yet" : approvers.length + " of 6 reviewers can approve INV-2041"}
@@ -42,8 +42,8 @@ export const examples: Example[] = [
   { value: "ap-south", label: "Asia Pacific (Mumbai)" },
 ]
 
-<MultiSelect items={REGIONS} defaultValue={["us-east", "eu-west"]} placeholder="Deploy regions" />`,
-    node: <MultiSelect items={REGIONS} defaultValue={["us-east", "eu-west"]} placeholder="Deploy regions" />,
+<MultiSelect items={REGIONS} defaultValue={["us-east", "eu-west"]} placeholder="Deploy regions" aria-label="Deploy regions" />`,
+    node: <MultiSelect items={REGIONS} defaultValue={["us-east", "eu-west"]} placeholder="Deploy regions" aria-label="Deploy regions" />,
   },
   {
     title: "Controlled value",
@@ -52,7 +52,7 @@ export const examples: Example[] = [
   const [approvers, setApprovers] = React.useState<string[]>(["theo-okafor"])
   return (
     <div className="flex w-72 flex-col gap-3">
-      <MultiSelect value={approvers} onChange={setApprovers} placeholder="Choose approvers" />
+      <MultiSelect value={approvers} onChange={setApprovers} placeholder="Choose approvers" aria-label="Approvers" />
       <div className="flex items-center justify-between gap-3">
         <p className="text-xs text-fg-muted">
           {approvers.length === 0 ? "INV-2041 has no approvers yet" : approvers.length + " of 6 reviewers can approve INV-2041"}
@@ -83,7 +83,7 @@ export const examples: Example[] = [
   {
     title: "Disabled",
     description: "The trigger cannot be opened while disabled, so the current selection stays visible as context.",
-    code: `<MultiSelect disabled defaultValue={["priya-raman", "sam-lowe"]} />`,
-    node: <MultiSelect disabled defaultValue={["priya-raman", "sam-lowe"]} />,
+    code: `<MultiSelect disabled defaultValue={["priya-raman", "sam-lowe"]} aria-label="Reviewers" />`,
+    node: <MultiSelect disabled defaultValue={["priya-raman", "sam-lowe"]} aria-label="Reviewers" />,
   },
 ]

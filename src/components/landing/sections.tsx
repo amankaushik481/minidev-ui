@@ -3,7 +3,6 @@ import * as React from "react"
 import Link from "next/link"
 import { CATEGORIES } from "@/content/categories"
 import { ArrowRightIcon, ArrowUpRightIcon, BotIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
 import { SITE } from "@/lib/site"
 import { Button } from "@/registry/ui/button"
 import { CodeBlock } from "@/registry/ui/code-block"
@@ -83,7 +82,10 @@ export function InstallSection() {
               <p className="text-[0.9375rem] font-medium text-fg">Your AI already knows it.</p>
               <p className="mt-1 text-[0.8125rem] leading-[1.6] text-fg-muted">
                 Point Cursor, Claude or any agent at <a href="/llms.txt" className="font-mono text-[12px] text-accent-fg underline decoration-accent-line underline-offset-4 hover:decoration-accent">/llms.txt</a>.
-                Every component and its import, in one file a model can read.
+                Every component and its import, in one file a model can read.{" "}
+                <Link href="/docs/ai" className="font-medium text-fg underline decoration-border-strong underline-offset-4 hover:decoration-fg-subtle">
+                  Set up your agent
+                </Link>
               </p>
             </div>
           </div>

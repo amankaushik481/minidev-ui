@@ -5,8 +5,26 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
-/** A free versus premium feature table whose rows fade in as they scroll into view, with a pair of plan buttons below. */
-type Row = { feature: string; free: boolean | string; premium: boolean | string }
+/**
+ * A free versus premium feature table whose rows fade in as they scroll into view, with a pair of plan buttons below.
+ *
+ * Exposed to assistive tech as a real table (role table, row, columnheader,
+ * rowheader, cell), so each check is read with its feature and plan. A
+ * boolean renders a check or a dash, a string renders as text. Scrolls
+ * sideways on narrow screens. Use it under pricing cards; for the cards
+ * themselves use FreePremiumCompare or a pricing table.
+ *
+ * @example
+ * <FeatureComparison rows={[{ feature: "Team seats", free: "2", premium: "Unlimited" }, { feature: "SSO", free: false, premium: true }]} />
+ */
+type Row = {
+  /** Feature name. Must be unique. */
+  feature: string
+  /** Free plan value: true for a check, false for a dash, or text. */
+  free: boolean | string
+  /** Premium plan value: true for a check, false for a dash, or text. */
+  premium: boolean | string
+}
 
 const SAMPLE_ROWS: Row[] = [
   { feature: "Invoices per month", free: "50", premium: "Unlimited" },
@@ -22,26 +40,29 @@ const SAMPLE_ROWS: Row[] = [
 type FeatureComparisonProps = {
   /** One row per feature. A boolean renders a check or a dash, a string renders as text. */
   rows?: Row[]
+  /** Accessible name of the table. */
+  label?: string
   className?: string
 }
 
 function FeatureComparison({
   rows = SAMPLE_ROWS,
+  label = "Free and Premium features compared",
   className,
 }: FeatureComparisonProps) {
   const reduce = useReducedMotion()
   const cell = (v: boolean | string) => {
     if (typeof v === "string") return <span className="text-sm text-fg">{v}</span>
-    return v ? <CheckIcon className="size-4 text-success" aria-label="Included" /> : <MinusIcon className="size-4 text-fg-subtle" aria-label="Not included" />
+    return v ? <CheckIcon role="img" className="size-4 text-success" aria-label="Included" /> : <MinusIcon role="img" className="size-4 text-fg-subtle" aria-label="Not included" />
   }
   return (
     <div data-slot="feature-comparison" data-tier="premium" className={cn("overflow-hidden rounded-2xl border border-border", className)}>
       <div className="overflow-x-auto">
-        <div className="min-w-[28rem]">
-          <div className="grid grid-cols-3 border-b border-border bg-sunken px-3 py-3 text-[10px] font-medium tracking-[0.01em] text-fg-muted uppercase sm:px-4 sm:text-xs">
-            <span>Feature</span>
-            <span className="text-center">Free</span>
-            <span className="text-center text-accent">Premium</span>
+        <div role="table" aria-label={label} className="min-w-[28rem]">
+          <div role="row" className="grid grid-cols-3 border-b border-border bg-sunken px-3 py-3 text-[10px] font-medium tracking-[0.01em] text-fg-muted uppercase sm:px-4 sm:text-xs">
+            <span role="columnheader">Feature</span>
+            <span role="columnheader" className="text-center">Free</span>
+            <span role="columnheader" className="text-center text-accent-fg">Premium</span>
           </div>
           {rows.map((r, i) => (
             <motion.div
@@ -49,12 +70,13 @@ function FeatureComparison({
               initial={reduce ? false : { opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.03 }}
+              transition={reduce ? { duration: 0 } : { delay: i * 0.03, duration: 0.2, ease: [0.2, 0, 0, 1] }}
+              role="row"
               className="grid grid-cols-3 items-center border-b border-border px-3 py-3 last:border-b-0 sm:px-4"
             >
-              <span className="pr-2 text-sm text-fg">{r.feature}</span>
-              <span className="flex justify-center">{cell(r.free)}</span>
-              <span className="flex justify-center">{cell(r.premium)}</span>
+              <span role="rowheader" className="pr-2 text-sm text-fg">{r.feature}</span>
+              <span role="cell" className="flex justify-center">{cell(r.free)}</span>
+              <span role="cell" className="flex justify-center">{cell(r.premium)}</span>
             </motion.div>
           ))}
         </div>

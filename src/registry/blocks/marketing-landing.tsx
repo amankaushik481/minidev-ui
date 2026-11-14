@@ -1,32 +1,44 @@
 "use client"
-import * as React from "react"
+import { cn } from "@/lib/utils"
+import { CtaBanner } from "@/registry/ui/cta-banner"
+import { FeatureGrid } from "@/registry/ui/feature-grid"
 import { Hero } from "@/registry/ui/hero"
 import { LogoCloud } from "@/registry/ui/logo-cloud"
-import { FeatureGrid } from "@/registry/ui/feature-grid"
-import { CtaBanner } from "@/registry/ui/cta-banner"
 import { StatsStrip } from "@/registry/ui/stats-strip"
 
-function MarketingLanding() {
+/**
+ * MarketingLanding — a plain, fast landing page from free sections: hero, logo cloud, stats, feature grid and a CTA banner.
+ *
+ * Use for a simple product or docs home with no motion budget. For a richer launch page use HeroSpotlight, BentoLive,
+ * PricingPlans, FaqSection and CtaBand together; for premium motion use PremiumLanding or SaasMarketingPage. Logos,
+ * stats and features fall back to each section's Lumen sample data, which is fictional: replace it with your own.
+ *
+ * @example
+ * <MarketingLanding onStart={() => router.push("/signup")} />
+ */
+type MarketingLandingProps = {
+  /** Called by the hero's primary button and the closing banner's button. */
+  onStart?: () => void
+  className?: string
+}
+
+function MarketingLanding({ onStart, className }: MarketingLandingProps) {
   return (
-    <div data-slot="marketing-landing" className="space-y-16 py-10">
+    <div data-slot="marketing-landing" className={cn("space-y-16 py-10", className)}>
       <Hero
-        eyebrow="MiniDev UI"
-        title="Ship product UI that looks intentional"
-        description="Hairline components for dashboards, AI surfaces, billing, and marketing."
-        primaryAction={{ label: "Browse gallery" }}
-        secondaryAction={{ label: "View docs" }}
+        eyebrow="Lumen for finance teams"
+        title="Know what changed in your numbers, and why"
+        description="Lumen watches revenue, churn and refunds around the clock and explains every move in plain English."
+        primaryAction={{ label: "Start free", onClick: onStart }}
+        secondaryAction={{ label: "Book a demo" }}
       />
-      <LogoCloud logos={[{ name: "Acme" }, { name: "Globex" }, { name: "Initech" }, { name: "Umbrella" }]} />
-      <StatsStrip stats={[{ label: "Components", value: "300+" }, { label: "Blocks", value: "30+" }, { label: "A11y", value: "Pass" }, { label: "Themes", value: "2" }]} />
-      <FeatureGrid
-        features={[
-          { title: "Hairline", description: "Structure from 1px borders and highlights." },
-          { title: "Tokens first", description: "Semantic OKLCH colors only." },
-          { title: "Audit gate", description: "Screenshots + axe before ship." },
-        ]}
-      />
-      <CtaBanner title="Ready to compose?" description="Install from the MiniDev registry." action={{ label: "Get started" }} />
+      <LogoCloud />
+      <StatsStrip />
+      <FeatureGrid />
+      <CtaBanner title="Your first digest arrives tomorrow" description="Connect Stripe in two clicks. Free for 14 days, no card." action={{ label: "Start free", onClick: onStart }} />
     </div>
   )
 }
+
 export { MarketingLanding }
+export type { MarketingLandingProps }

@@ -4,17 +4,33 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { CheckIcon, DatabaseIcon, MessageSquareIcon, ZapIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/*
- * ScrollStory: steps on one side, a pinned visual on the other that swaps
- * as each step reaches the middle of the screen. A rail fills with progress.
- * On small screens each step shows its own visual inline.
+/**
+ * ScrollStory — a "how it works" section: numbered steps on one side, a pinned visual on the other that swaps as each step reaches mid-screen, with a filling progress rail.
+ *
+ * Use for a 3–5 step explanation on a landing page. On large screens the visual is sticky; below lg each step shows its
+ * own visual inline, so nothing is lost on mobile. Each `visual` should be a compact panel (a DeviceFrame scaled down,
+ * a card). Swaps are instant under reduced motion. For a static grid of features use BentoLive.
+ *
+ * @example
+ * <ScrollStory steps={[{ kicker: "01 · Connect", title: "Point it at your tools.", body: "Read-only keys.", visual: <MyPanel /> }]} />
  */
-
-type Step = { kicker?: string; title: string; body: string; visual?: React.ReactNode }
+type Step = {
+  /** Small mono line above the step title, e.g. "01 · Connect". */
+  kicker?: string
+  /** Step heading (rendered as h3). Also the React key, so keep it unique. */
+  title: string
+  /** One or two sentences. */
+  body: string
+  /** What the pinned panel shows while this step is active. */
+  visual?: React.ReactNode
+}
 
 type ScrollStoryProps = {
+  /** Small mono label above the title. Empty string hides it. */
   eyebrow?: string
+  /** Section heading (rendered as h2). */
   title?: React.ReactNode
+  /** Steps in order. Defaults to Lumen's connect, learn, tell story. */
   steps?: Step[]
   className?: string
 }
@@ -24,15 +40,15 @@ function Panel({ icon: Icon, label, rows }: { icon: typeof ZapIcon; label: strin
     <div className="w-full max-w-md rounded-2xl border border-border bg-raised p-5 shadow-overlay">
       <div className="flex items-center gap-2.5">
         <span className="grid size-8 place-items-center rounded-lg bg-accent text-on-accent shadow-ink">
-          <Icon className="size-4" />
+          <Icon aria-hidden className="size-4" />
         </span>
         <p className="text-[13.5px] font-medium text-fg">{label}</p>
       </div>
       <ul className="mt-4 space-y-2">
         {rows.map(([a, b], i) => (
-          <li key={a} className="flex animate-[rise-in_400ms_var(--ease-hairline)_both] items-center justify-between rounded-lg bg-sunken px-3 py-2.5 text-[13px]" style={{ animationDelay: `${i * 90}ms` }}>
+          <li key={a} className="flex animate-[rise-in_400ms_var(--ease-hairline)_both] items-center motion-reduce:animate-none justify-between rounded-lg bg-sunken px-3 py-2.5 text-[13px]" style={{ animationDelay: `${i * 90}ms` }}>
             <span className="flex items-center gap-2 text-fg">
-              <CheckIcon className="size-3.5 text-success" strokeWidth={3} />
+              <CheckIcon aria-hidden className="size-3.5 text-success" strokeWidth={3} />
               {a}
             </span>
             <span className="font-mono text-[11.5px] text-fg-muted">{b}</span>
@@ -53,6 +69,7 @@ function ScrollStory({ eyebrow = "How it works", title = "Live in an afternoon."
   const [active, setActive] = React.useState(0)
   const refs = React.useRef<(HTMLDivElement | null)[]>([])
   const reduce = useReducedMotion()
+  const titleId = React.useId()
 
   React.useEffect(() => {
     const io = new IntersectionObserver(
@@ -68,15 +85,15 @@ function ScrollStory({ eyebrow = "How it works", title = "Live in an afternoon."
   }, [steps.length])
 
   return (
-    <section data-slot="scroll-story" className={cn("mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8", className)}>
+    <section data-slot="scroll-story" aria-labelledby={titleId} className={cn("mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8", className)}>
       <div className="max-w-2xl">
         {eyebrow ? <p className="font-mono text-[11px] tracking-[0.08em] text-accent-fg uppercase">{eyebrow}</p> : null}
-        <h2 className="mt-3 text-4xl leading-[1.05] font-medium tracking-[-0.04em] text-balance text-fg sm:text-5xl">{title}</h2>
+        <h2 id={titleId} className="mt-3 text-4xl leading-[1.05] font-medium tracking-[-0.04em] text-balance text-fg sm:text-5xl">{title}</h2>
       </div>
       <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16">
         <div className="relative">
           {/* rail */}
-          <div aria-hidden className="absolute top-2 bottom-2 left-[11px] hidden w-px bg-border lg:block">
+          <div aria-hidden className="absolute top-2 bottom-2 left-3 hidden w-px bg-border lg:block">
             <motion.div
               className="w-full origin-top bg-accent"
               animate={{ height: `${((active + 1) / steps.length) * 100}%` }}
@@ -95,7 +112,7 @@ function ScrollStory({ eyebrow = "How it works", title = "Live in an afternoon."
               <span
                 aria-hidden
                 className={cn(
-                  "absolute top-1/2 left-1.5 hidden size-[11px] -translate-y-1/2 rounded-full border-2 transition-colors duration-300 lg:block",
+                  "absolute top-1/2 left-1.5 hidden size-3 -translate-y-1/2 rounded-full border-2 transition-colors duration-300 motion-reduce:transition-none lg:block",
                   i <= active ? "border-accent bg-accent" : "border-border-strong bg-bg"
                 )}
               />

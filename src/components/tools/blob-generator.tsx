@@ -154,7 +154,8 @@ export function BlobGenerator() {
     a.href = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }))
     a.download = `blob-${o.seed}.svg`
     a.click()
-    URL.revokeObjectURL(a.href)
+    // Revoke after the click is handled; revoking at once can cancel the download in Firefox and Safari.
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000)
   }
   const shuffle = () => set("seed", Math.floor(Math.random() * 100000))
   return (
@@ -172,7 +173,7 @@ export function BlobGenerator() {
             ) : null}
             <path d={d} fill={fill.mode === "gradient" ? `url(#${gid})` : fill.color} />
           </svg>
-          <span className="absolute right-3 bottom-3 rounded-md bg-surface/80 px-2 py-1 font-mono text-[11px] text-fg-muted">seed {o.seed} · {size}×{size}</span>
+          <span className="absolute right-3 bottom-3 rounded-md border border-border bg-surface px-2 py-1 font-mono text-[11px] text-fg-muted tabular-nums">seed {o.seed} · {size}×{size}</span>
         </div>
 
         <div className="space-y-5 self-start rounded-2xl border border-border bg-surface p-5 shadow-raised">

@@ -4,25 +4,32 @@ import { cn } from "@/lib/utils"
 import { StreamingCursor } from "@/registry/ui/streaming-cursor"
 
 /**
- * MessageBubble — user turns sit in a sunken capsule; assistant turns are
- * plain prose (the way the best AI products render them). System is a quiet rule.
+ * MessageBubble — one chat turn: user turns sit in a sunken capsule, assistant turns are plain prose, system turns are a quiet rule.
+ *
+ * Use it for AI chat transcripts. Set `streaming` while tokens arrive to show a
+ * blinking cursor and mark the turn aria-busy. Put MessageActions under assistant
+ * turns; render markdown inside with MarkdownRenderer.
+ *
+ * @example
+ * <MessageBubble role="user">Summarise invoice INV-2041</MessageBubble>
+ * <MessageBubble role="assistant" streaming={isStreaming}>{reply}</MessageBubble>
  */
-function MessageBubble({
-  role = "assistant",
-  streaming,
-  children,
-  className,
-}: {
+type MessageBubbleProps = {
+  /** Who is speaking. "user" aligns right in a capsule; "assistant" is left-aligned prose; "system" is a centred note. */
   role?: "user" | "assistant" | "system"
+  /** Tokens are still arriving: shows a cursor and sets aria-busy. */
   streaming?: boolean
   children: React.ReactNode
   className?: string
-}) {
+}
+
+function MessageBubble({ role = "assistant", streaming, children, className }: MessageBubbleProps) {
   const mine = role === "user"
   return (
     <div
       data-slot="message-bubble"
       data-role={role}
+      aria-busy={streaming || undefined}
       className={cn("flex w-full animate-[rise-in_220ms_var(--ease-hairline)_both]", mine ? "justify-end" : "justify-start", className)}
     >
       <div
@@ -40,3 +47,4 @@ function MessageBubble({
   )
 }
 export { MessageBubble }
+export type { MessageBubbleProps }

@@ -79,13 +79,13 @@ export const examples: Example[] = [
   },
   {
     title: "With form field",
-    description: "FormField gives the swatches a heading and a hint about where the color is used.",
+    description: "FormField gives the swatches a heading and a hint; the swatches are a radio group, not an input, so pass the same text as label to name the group for screen readers.",
     code: `<FormField label="Brand color" description="Used for buttons on your hosted invoice page." className="w-fit">
-  <ColorPicker />
+  <ColorPicker label="Brand color" />
 </FormField>`,
     node: (
       <FormField label="Brand color" description="Used for buttons on your hosted invoice page." className="w-fit">
-        <ColorPicker />
+        <ColorPicker label="Brand color" />
       </FormField>
     ),
   },

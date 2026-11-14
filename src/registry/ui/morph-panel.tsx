@@ -4,28 +4,41 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { CheckIcon, MessageSquareIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/*
- * MorphPanel: the button becomes the thing it opens. One surface stretches
- * from a pill into a panel on a spring, its corners easing from 10 to 16px,
- * while the label blurs out and the form blurs in. No popover, no jump.
- * Default content is a feedback form with a sent state.
+/**
+ * MorphPanel — a button that stretches into the panel it opens on a spring, with a built-in feedback form.
+ *
+ * One surface grows from a pill into a panel, its corners easing from 10 to 16px, while
+ * the label blurs out and the content blurs in. No popover, no jump. Escape and an
+ * outside click close it and focus returns to the trigger; with reduced motion it
+ * swaps instantly. Default content is a feedback form with a sent state; pass a
+ * render function as `children` for your own panel. For a plain anchored panel use
+ * Popover; for a modal use Dialog.
+ *
+ * @example
+ * <MorphPanel label="Feedback" onSubmit={(text) => api.feedback(text)} />
+ * <MorphPanel label="New note" width={300}>{({ close }) => <NoteForm onDone={close} />}</MorphPanel>
  */
 
 type Anchor = "top-left" | "top-right" | "bottom-left" | "bottom-right"
 
 type MorphPanelProps = {
+  /** Trigger text; also the panel's accessible name when it is a string. */
   label?: React.ReactNode
+  /** Icon before the label. */
   icon?: React.ReactNode
   /** Panel width in px. */
   width?: number
   /** Which corner of the trigger the panel grows from. */
   anchor?: Anchor
+  /** Controlled open state. */
   open?: boolean
+  /** Initial open state when uncontrolled. */
   defaultOpen?: boolean
+  /** Fires when the panel opens or closes. */
   onOpenChange?: (open: boolean) => void
-  /** Custom panel. Receives close(). */
+  /** Custom panel as a render function. Receives close(), which also returns focus to the trigger. */
   children?: (api: { close: () => void }) => React.ReactNode
-  /** Called by the default feedback form. */
+  /** Called with the text by the default feedback form. Return a promise to show "Sending…"; reject to let the user retry. */
   onSubmit?: (text: string) => void | Promise<void>
   className?: string
 }
@@ -58,28 +71,34 @@ function MorphPanel({
     onOpenChange?.(v)
   }
   const rootRef = React.useRef<HTMLDivElement>(null)
-  const triggerRef = React.useRef<HTMLButtonElement>(null)
+  // The trigger remounts when the panel closes; autoFocus on that mount returns focus to it.
+  const [refocus, setRefocus] = React.useState(false)
   const t = reduce ? { duration: 0 } : SPRING
 
-  const close = React.useCallback(() => {
+  // Recreated each render so it always sees the latest open/onOpenChange props (a memoised copy went stale).
+  const close = (returnFocus = true) => {
+    setRefocus(returnFocus)
     setOpen(false)
-    requestAnimationFrame(() => triggerRef.current?.focus())
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }
+  const closeRef = React.useRef(close)
+  React.useEffect(() => {
+    closeRef.current = close
+  })
 
-  // Outside click and Escape close the panel.
+  // Outside click (focus stays where the user clicked) and Escape (focus returns) close the panel.
   React.useEffect(() => {
     if (!open) return
     const onDown = (e: PointerEvent) => {
-      if (rootRef.current && !rootRef.current.contains(e.target as Node)) close()
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) closeRef.current(false)
     }
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close()
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && closeRef.current()
     document.addEventListener("pointerdown", onDown)
     document.addEventListener("keydown", onKey)
     return () => {
       document.removeEventListener("pointerdown", onDown)
       document.removeEventListener("keydown", onKey)
     }
-  }, [open, close])
+  }, [open])
 
   return (
     <div ref={rootRef} data-slot="morph-panel" data-state={open ? "open" : "closed"} className={cn("relative inline-block h-9", className)}>
@@ -111,12 +130,12 @@ function MorphPanel({
               role="dialog"
               aria-label={typeof label === "string" ? label : "Panel"}
             >
-              {children ? children({ close }) : <FeedbackForm onSubmit={onSubmit} close={close} />}
+              {children ? children({ close: () => close() }) : <FeedbackForm onSubmit={onSubmit} close={() => close()} />}
             </motion.div>
           ) : (
             <motion.button
               key="trigger"
-              ref={triggerRef}
+              autoFocus={refocus}
               layout="position"
               type="button"
               onClick={() => setOpen(true)}
@@ -143,13 +162,24 @@ function FeedbackForm({ onSubmit, close }: { onSubmit?: (text: string) => void |
   const ref = React.useRef<HTMLTextAreaElement>(null)
   React.useEffect(() => ref.current?.focus(), [])
 
+  // Auto-close after the thank-you; cleared if the panel closes first. The ref keeps
+  // parent re-renders (a new close) from restarting the timer.
+  const closeRef = React.useRef(close)
+  React.useEffect(() => {
+    closeRef.current = close
+  })
+  React.useEffect(() => {
+    if (phase !== "sent") return
+    const id = setTimeout(() => closeRef.current(), 1500)
+    return () => clearTimeout(id)
+  }, [phase])
+
   const send = async () => {
     if (!text.trim() || phase !== "idle") return
     setPhase("sending")
     try {
       await (onSubmit?.(text) ?? new Promise((r) => setTimeout(r, 700)))
       setPhase("sent")
-      setTimeout(close, 1500)
     } catch {
       setPhase("idle")
     }
@@ -159,7 +189,7 @@ function FeedbackForm({ onSubmit, close }: { onSubmit?: (text: string) => void |
     return (
       <div className="grid h-[188px] place-items-center p-6 text-center" aria-live="polite">
         <div>
-          <span className="mx-auto grid size-9 animate-[pop-in_320ms_var(--ease-hairline)_both] place-items-center rounded-full bg-success text-white shadow-ink">
+          <span className="mx-auto grid size-9 animate-[pop-in_320ms_var(--ease-hairline)_both] place-items-center rounded-full bg-success text-on-accent shadow-ink">
             <CheckIcon className="size-4" strokeWidth={2.5} />
           </span>
           <p className="mt-3 text-sm font-medium text-fg">Sent. Thank you.</p>

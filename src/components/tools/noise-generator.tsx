@@ -29,7 +29,8 @@ export function NoiseGenerator() {
     a.href = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }))
     a.download = "noise.svg"
     a.click()
-    URL.revokeObjectURL(a.href)
+    // Revoke after the click is handled; revoking at once can cancel the download in Firefox and Safari.
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000)
   }
   return (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">

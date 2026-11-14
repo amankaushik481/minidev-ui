@@ -26,6 +26,12 @@ const set = (p: Partial<State>) => {
   }
   subs.forEach((f) => f())
 }
+/** True when the event comes from a field the user is typing in. */
+export function isTyping(t: EventTarget | null) {
+  const el = t instanceof Element ? t : null
+  return !!el && (/^(input|textarea|select)$/i.test(el.tagName) || (el instanceof HTMLElement && el.isContentEditable))
+}
+
 /** Current state, for code outside React. */
 export function blueprintState() {
   return state
@@ -49,14 +55,17 @@ const Overlay = React.lazy(() => import("@/components/blueprint/blueprint-overla
 export function BlueprintLayer() {
   const { active } = useBlueprint()
   const [used, setUsed] = React.useState(false)
-  React.useEffect(() => {
-    if (active) setUsed(true)
-  }, [active])
+  if (active && !used) setUsed(true)
 
-  // Hold Alt to peek, Esc to leave.
+  // Hold Alt to peek, Alt+Shift+B to toggle, Esc to leave. Not while typing: on a Mac, Option types characters.
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "Alt" && !e.repeat) set({ peek: true })
+      if (e.code === "KeyB" && e.altKey && e.shiftKey && !e.metaKey && !e.ctrlKey && !isTyping(e.target)) {
+        e.preventDefault()
+        set({ on: !state.on })
+        return
+      }
+      if (e.key === "Alt" && !e.repeat && !isTyping(e.target)) set({ peek: true })
       if (e.key === "Escape" && state.on) set({ on: false })
     }
     const up = (e: KeyboardEvent) => e.key === "Alt" && set({ peek: false })
@@ -89,7 +98,8 @@ export function BlueprintToggle({ className }: { className?: string }) {
       onClick={toggle}
       aria-pressed={on}
       aria-label="Blueprint mode: show every component's spec. Hold Option or Alt to peek."
-      title="Blueprint (hold ⌥ to peek)"
+      aria-keyshortcuts="Alt+Shift+B"
+      title="Blueprint (⌥⇧B, hold ⌥ to peek)"
       className={cn(
         "inline-flex size-8 items-center justify-center rounded-lg outline-none transition-colors duration-[70ms] focus-visible:ring-2 focus-visible:ring-accent",
         on ? "bg-accent text-on-accent shadow-ink" : "text-fg-muted hover:bg-sunken hover:text-fg",

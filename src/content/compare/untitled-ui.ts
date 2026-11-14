@@ -50,8 +50,8 @@ const comparison: Comparison = {
     { feature: "Dark mode", minidev: "Yes, from the same token set", other: "Yes, through design tokens and CSS variables" },
     {
       feature: "AI tooling",
-      minidev: "`llms.txt` and `llms-full.txt`; works with the shadcn MCP server as a registry",
-      other: "Bolt.new integration and setup guides for AI builders",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
+      other: "`llms.txt`, a Markdown file per React docs page, an MCP server for Claude Code and Cursor, and a Bolt.new integration",
     },
   ],
   body: [
@@ -91,6 +91,10 @@ const comparison: Comparison = {
       q: "Can I use both in one project?",
       a: "Yes. Both are Tailwind CSS v4 React components copied into your repo. You would carry React Aria and Base UI together, and Untitled UI defines its theme in `theme.css` while MiniDev UI ships `styles.css`, so check which tokens win in light and dark mode.",
     },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Untitled UI?",
+      a: "Both are well set up. Untitled UI has `llms.txt`, a Markdown file per React docs page and an MCP server. MiniDev UI has the same plus `AGENTS.md` and Cursor rules and a Claude Code skill, and all of it is free and MIT, so an agent never reaches for a component you would have to buy.",
+    },
   ],
   sources: [
     { label: "Untitled UI home", url: "https://www.untitledui.com" },
@@ -99,6 +103,8 @@ const comparison: Comparison = {
     { label: "Untitled UI React components", url: "https://www.untitledui.com/react/components" },
     { label: "Untitled UI pricing", url: "https://www.untitledui.com/pricing" },
     { label: "untitleduico on GitHub", url: "https://github.com/untitleduico" },
+    { label: "Untitled UI llms.txt", url: "https://www.untitledui.com/llms.txt" },
+    { label: "Untitled UI MCP server", url: "https://www.untitledui.com/react/integrations/mcp" },
   ],
 }
 

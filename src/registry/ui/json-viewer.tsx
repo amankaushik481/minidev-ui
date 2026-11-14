@@ -3,7 +3,18 @@ import * as React from "react"
 import { CheckIcon, ChevronRightIcon, CopyIcon, FoldVerticalIcon, Link2Icon, SearchIcon, UnfoldVerticalIcon, XIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/** A collapsible JSON tree with syntax colours, item counts, copy value and copy path on hover, search highlighting and full keyboard navigation. */
+/**
+ * JsonViewer — a collapsible JSON tree with syntax colours, item counts, copy value and copy path, search highlighting and full keyboard navigation.
+ *
+ * Use it for API responses, webhook payloads, tool-call results and debug
+ * panels. For JSON as plain highlighted text use CodeBlock, for tabular
+ * results use SqlResultTable, and for a file hierarchy use FileTree.
+ * Keyboard: arrows walk and fold the tree, Home and End jump, Enter toggles,
+ * C copies the focused value and P copies its path.
+ *
+ * @example
+ * <JsonViewer value={response} title="GET /v1/invoices/inv_8f3a2c" defaultExpandDepth={1} />
+ */
 type JsonViewerProps = {
   /** Any JSON serialisable value. Defaults to a Lumen invoice API response. */
   value?: unknown
@@ -267,6 +278,9 @@ function JsonViewer({
     } else if (key === "Enter" || key === " ") {
       e.preventDefault()
       if (row.count) toggle(row.path)
+    } else if ((key === "c" || key === "p") && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      e.preventDefault()
+      copy(row, key === "c" ? "value" : "path")
     }
   }
 
@@ -343,7 +357,7 @@ function JsonViewer({
       ) : null}
       <div className="max-h-96 overflow-auto p-2">
         {visible.length ? (
-          <div id={treeId} role="tree" aria-label={ariaLabel} onKeyDown={onKeyDown} className="min-w-max outline-none">
+          <div id={treeId} role="tree" aria-label={ariaLabel} aria-describedby={`${treeId}-keys`} onKeyDown={onKeyDown} className="min-w-max outline-none">
             {visible.map((row) => {
               const isOpen = row.count > 0 && open.has(row.path)
               const focused = row.path === tabStop
@@ -412,9 +426,11 @@ function JsonViewer({
                       const done = copied === `${row.path}:${kind}`
                       const Icon = done ? CheckIcon : kind === "value" ? CopyIcon : Link2Icon
                       return (
+                        // Out of the tab order: the tree is one tab stop, and C and P copy from the keyboard.
                         <button
                           key={kind}
                           type="button"
+                          tabIndex={-1}
                           aria-label={done ? "Copied" : kind === "value" ? "Copy value" : `Copy path ${row.path}`}
                           title={done ? "Copied" : kind === "value" ? "Copy value" : `Copy path ${row.path}`}
                           onClick={(e) => {
@@ -440,6 +456,7 @@ function JsonViewer({
           <p className="px-2 py-6 text-center text-[0.8125rem] text-fg-subtle">No keys or values match “{query.trim()}”</p>
         )}
       </div>
+      <p id={`${treeId}-keys`} className="sr-only">Press C to copy a value and P to copy its path.</p>
       <p aria-live="polite" className="sr-only">{copied ? `Copied ${copied.endsWith(":path") ? "path" : "value"}` : ""}</p>
     </div>
   )

@@ -16,7 +16,7 @@ export default function Page() {
   const [page, setPage] = React.useState(1)
   const [cmd, setCmd] = React.useState(false)
   return (
-    <GalleryPage title="Navigation & shells">
+    <GalleryPage title="App shells">
       <GallerySection title="App shell">
         <AppShell className="max-w-4xl"
           sidebar={<Sidebar><div className="px-3 py-3 text-xs font-medium text-fg-muted">MiniDev</div><SidebarNavItem active icon={<HomeIcon className="size-4" />}>Home</SidebarNavItem><SidebarNavItem icon={<UsersIcon className="size-4" />}>Users</SidebarNavItem><SidebarNavItem icon={<SettingsIcon className="size-4" />}>Settings</SidebarNavItem></Sidebar>}

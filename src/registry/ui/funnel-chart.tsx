@@ -4,9 +4,28 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { SegmentedControl } from "@/registry/ui/segmented-control"
 
-/** A funnel chart with stage bars laid out horizontally or vertically, conversion rates and drop-off between stages, an optional comparison series and bars that spring to new values when the data changes. */
+/**
+ * FunnelChart — a funnel chart with stage bars laid out horizontally or vertically, conversion rates and drop-off between stages, an optional comparison series and bars that spring to new values when the data changes.
+ *
+ * Use for signup and checkout funnels. Pass `stages` for one series, or
+ * `datasets` to add a segmented switch between them. Screen readers get a
+ * full data table. For a compact list of bars use `FunnelSteps`; for flows
+ * that branch use `SankeyChart`.
+ *
+ * @example
+ * <FunnelChart
+ *   title="Visitors to paid"
+ *   stages={[
+ *     { label: "Visitors", value: 48200, compare: 44100 },
+ *     { label: "Signed up", value: 12840, compare: 11200 },
+ *     { label: "Paid", value: 1464, compare: 1210 },
+ *   ]}
+ * />
+ */
 type FunnelStage = {
+  /** Stage name. */
   label: string
+  /** Count at this stage. */
   value: number
   /** Value from the comparison period, drawn as a dashed outline. */
   compare?: number
@@ -21,6 +40,7 @@ type FunnelChartProps = {
   datasets?: FunnelDataset[]
   /** "auto" is horizontal when the container is at least 480px wide, vertical below that. */
   orientation?: "horizontal" | "vertical" | "auto"
+  /** Chart title; also the figure's accessible name. */
   title?: string
   /** Legend text for the comparison series. */
   compareLabel?: string

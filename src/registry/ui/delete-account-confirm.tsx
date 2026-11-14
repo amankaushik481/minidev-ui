@@ -5,20 +5,49 @@ import { Input } from "@/registry/ui/input"
 import { Button } from "@/registry/ui/button"
 import { InlineAlert } from "@/registry/ui/inline-alert"
 import { cn } from "@/lib/utils"
-function DeleteAccountConfirm({ className, onConfirm }: { className?: string; onConfirm?: () => void }) {
+
+/**
+ * DeleteAccountConfirm — a type-to-confirm block that keeps the delete button disabled until the phrase matches.
+ *
+ * Use inline on a settings page for irreversible account deletion. For a modal
+ * confirmation use `AlertDialog` or `ConfirmDestructive`; for a group of risky
+ * settings use `DangerZone`.
+ *
+ * @example
+ * <DeleteAccountConfirm onConfirm={() => deleteAccount()} />
+ */
+type DeleteAccountConfirmProps = {
+  /** Called when the phrase matches and the button is pressed. */
+  onConfirm?: () => void
+  /** The exact text the user must type. */
+  confirmText?: string
+  className?: string
+}
+
+function DeleteAccountConfirm({ className, onConfirm, confirmText = "DELETE" }: DeleteAccountConfirmProps) {
   const [text, setText] = React.useState("")
+  const id = React.useId()
+  const ok = text === confirmText
   return (
-    <div data-slot="delete-account-confirm" className={cn("space-y-3", className)}>
+    <form
+      data-slot="delete-account-confirm"
+      className={cn("space-y-3", className)}
+      onSubmit={(e) => {
+        e.preventDefault()
+        if (ok) onConfirm?.()
+      }}
+    >
       <InlineAlert tone="danger" title="Delete account">
-        Type DELETE to confirm. This cannot be undone.
+        Type {confirmText} to confirm. This cannot be undone.
       </InlineAlert>
-      <FormField id="del-confirm" label="Confirmation">
-        <Input id="del-confirm" value={text} onChange={(e) => setText(e.target.value)} />
+      <FormField id={id} label="Confirmation">
+        <Input id={id} value={text} autoComplete="off" spellCheck={false} onChange={(e) => setText(e.target.value)} />
       </FormField>
-      <Button variant="destructive" disabled={text !== "DELETE"} onClick={onConfirm}>
+      <Button type="submit" variant="destructive" disabled={!ok}>
         Delete account
       </Button>
-    </div>
+    </form>
   )
 }
 export { DeleteAccountConfirm }
+export type { DeleteAccountConfirmProps }

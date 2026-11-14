@@ -1,19 +1,51 @@
+"use client"
+import * as React from "react"
 import { AuroraBackground } from "@/registry/premium/aurora-background"
 import { LaunchCountdown } from "@/registry/premium/launch-countdown"
 import type { Example } from "./types"
 
+function CompleteDemo() {
+  const [open, setOpen] = React.useState(false)
+  return (
+    <div className="flex w-full max-w-xl flex-col items-center gap-3">
+      <LaunchCountdown
+        title="Beta invites unlock in"
+        targetOffsetMs={1000 * 12}
+        cta={open ? "Claim your invite" : null}
+        onComplete={() => setOpen(true)}
+        className="w-full"
+      />
+      <p aria-live="polite" className="text-sm text-fg-muted">{open ? "Invites are open. 200 seats left." : "The button appears at zero."}</p>
+    </div>
+  )
+}
+
 export const examples: Example[] = [
   {
     title: "Custom title and target",
-    description: "title is the line above the digits; targetOffsetMs is how far ahead the launch is, here nine days.",
-    code: `<LaunchCountdown title="Lumen 3.0 ships in" targetOffsetMs={1000 * 60 * 60 * 24 * 9} className="w-full" />`,
-    node: <LaunchCountdown title="Lumen 3.0 ships in" targetOffsetMs={1000 * 60 * 60 * 24 * 9} className="w-full" />,
+    description: "title is the line above the digits; targetOffsetMs is how far ahead the launch is, here nine days. For a fixed moment pass target a Date or ISO string instead.",
+    code: `<LaunchCountdown title="Lumen 3.0 ships in" targetOffsetMs={1000 * 60 * 60 * 24 * 9} cta="Get notified" className="w-full" />`,
+    node: <LaunchCountdown title="Lumen 3.0 ships in" targetOffsetMs={1000 * 60 * 60 * 24 * 9} cta="Get notified" className="w-full" />,
   },
   {
-    title: "Short window",
-    description: "Under an hour the days and hours sit at zero and the minutes and seconds carry the urgency.",
-    code: `<LaunchCountdown title="Early access closes in" targetOffsetMs={1000 * 60 * 45} className="w-full max-w-xl" />`,
-    node: <LaunchCountdown title="Early access closes in" targetOffsetMs={1000 * 60 * 45} className="w-full max-w-xl" />,
+    title: "When it hits zero",
+    description: "onComplete fires once at zero; pass cta={null} to hide the button until then and swap it in from state.",
+    code: `function CompleteDemo() {
+  const [open, setOpen] = React.useState(false)
+  return (
+    <div className="flex w-full max-w-xl flex-col items-center gap-3">
+      <LaunchCountdown
+        title="Beta invites unlock in"
+        targetOffsetMs={1000 * 12}
+        cta={open ? "Claim your invite" : null}
+        onComplete={() => setOpen(true)}
+        className="w-full"
+      />
+      <p aria-live="polite" className="text-sm text-fg-muted">{open ? "Invites are open. 200 seats left." : "The button appears at zero."}</p>
+    </div>
+  )
+}`,
+    node: <CompleteDemo />,
   },
   {
     title: "On an aurora",

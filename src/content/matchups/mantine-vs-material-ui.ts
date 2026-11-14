@@ -57,6 +57,11 @@ const matchup: Matchup = {
       a: "CSS transitions, with a Transition component and premade transitions such as fade and scale",
       b: "Transition utilities ship with the core library",
     },
+    {
+      feature: "AI tooling",
+      a: "`llms.txt`, `llms-full.txt`, an experimental `@mantine/mcp-server` and agent skills",
+      b: "`llms.txt` with a Markdown file per component page, and the MUI MCP server (`@mui/mcp`)",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -102,7 +107,7 @@ const matchup: Matchup = {
     },
   ],
   minidev: [
-    "MiniDev UI answers a different brief: a free, MIT licensed shadcn-compatible registry on Base UI and Tailwind CSS v4 that copies source into your repo. If you are weighing Mantine and Material UI because you want to stay off Tailwind, it is not the right tool. If your project is on Tailwind and you want finished screens such as billing, settings and admin pages, read [MiniDev UI vs Mantine](/compare/minidev-ui-vs-mantine) and [MiniDev UI vs Material UI](/compare/minidev-ui-vs-material-ui).",
+    "MiniDev UI answers a different brief: a free, MIT licensed shadcn-compatible registry on Base UI and Tailwind CSS v4 that copies source into your repo. If you are weighing Mantine and Material UI because you want to stay off Tailwind, it is not the right tool. If your project is on Tailwind and you want finished screens such as billing, settings and admin pages, read [MiniDev UI vs Mantine](/compare/minidev-ui-vs-mantine) and [MiniDev UI vs Material UI](/compare/minidev-ui-vs-material-ui). For AI coding agents it publishes [`llms.txt`](/glossary/llms-txt), a Markdown page per component, [`AGENTS.md`](/glossary/agents-md) rules and an [MCP server](/glossary/mcp); setup is on [Use MiniDev UI with AI agents](/docs/ai).",
     "Two links between them are worth knowing. Base UI, the headless layer under MiniDev UI, is published by the MUI organization, and `@mantine/hooks` is a standalone package, so its hooks can live in a MiniDev UI project.",
   ],
   faq: [
@@ -142,6 +147,8 @@ const matchup: Matchup = {
     { label: "Material UI installation", url: "https://mui.com/material-ui/getting-started/installation/" },
     { label: "Material UI all components", url: "https://mui.com/material-ui/all-components/" },
     { label: "Base UI", url: "https://base-ui.com/" },
+    { label: "Material UI llms.txt", url: "https://mui.com/material-ui/llms.txt" },
+    { label: "MUI MCP server", url: "https://mui.com/material-ui/getting-started/mcp/" },
   ],
 }
 

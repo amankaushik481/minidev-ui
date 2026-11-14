@@ -3,9 +3,28 @@ import * as React from "react"
 import { AuditLogEntry } from "@/registry/ui/audit-log-entry"
 import { cn } from "@/lib/utils"
 
-type AuditEntry = { id: string; actor: string; action: string; time: string; target?: string }
+/**
+ * A bordered list of audit log entries, newest first, each with a relative timestamp.
+ *
+ * Use on security and admin pages to show who changed what. Pair it with `AuditFilterBar` above.
+ * Prefer `ActivityFeed` for casual activity, and `DataTable` when the log needs paging and sorting.
+ *
+ * @example
+ * <AuditTrail entries={[{ id: "1", actor: "Maya Chen", action: "approved refund on", target: "INV-2041", time: "2026-11-14T09:12:00Z" }]} />
+ */
+type AuditEntry = {
+  /** Stable key for the row. */
+  id: string
+  /** Who did it. */
+  actor: string
+  /** What they did, written to follow the name. */
+  action: string
+  /** ISO timestamp (or anything `new Date()` parses). */
+  time: string
+  /** The record acted on, emphasised after the action. */
+  target?: string
+}
 
-/** A bordered list of audit log entries, newest first, each with a relative timestamp. */
 type AuditTrailProps = {
   /** Entries to show. Omit for a sample trail with times relative to now. */
   entries?: AuditEntry[]
@@ -21,12 +40,15 @@ const SAMPLE_ROWS: { id: string; actor: string; action: string; target?: string;
   { id: "t5", actor: "Ada Novak", action: "rotated the API key for", target: "Northwind", minutesAgo: 1560 },
 ]
 
+// Floored to the minute so the server and client render the same sample timestamps.
+const flooredNow = () => Math.floor(Date.now() / 60_000) * 60_000
+
 function sampleEntries(now: number): AuditEntry[] {
   return SAMPLE_ROWS.map(({ minutesAgo, ...row }) => ({ ...row, time: new Date(now - minutesAgo * 60_000).toISOString() }))
 }
 
 function AuditTrail({ entries, className }: AuditTrailProps) {
-  const list = React.useMemo(() => entries ?? sampleEntries(Date.now()), [entries])
+  const list = React.useMemo(() => entries ?? sampleEntries(flooredNow()), [entries])
   return (
     <div data-slot="audit-trail" className={cn("w-full max-w-md rounded-xl border border-border px-3", className)}>
       {list.map((e) => (

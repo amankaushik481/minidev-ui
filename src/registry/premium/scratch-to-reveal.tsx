@@ -10,6 +10,15 @@ import { cn } from "@/lib/utils"
  * tracked on a coarse grid, so there is no pixel reading on every move. Past
  * the threshold the rest lifts away on its own and onComplete fires. A Reveal
  * button serves keyboard users, and reduced motion skips the fade.
+ *
+ * Use it for a playful reward, promo code or launch teaser. Reach for
+ * SecretReveal to show a sensitive value behind a click, and BeforeAfterWipe
+ * to compare two images.
+ *
+ * @example
+ * <ScratchToReveal threshold={45} onComplete={() => track("reward_revealed")}>
+ *   <p className="p-8 text-center text-2xl text-fg">20% off Lumen Pro</p>
+ * </ScratchToReveal>
  */
 type ScratchToRevealProps = {
   /** Percent of the foil that must be scratched before the rest clears itself. */
@@ -74,7 +83,7 @@ function ScratchToReveal({
   const last = React.useRef<{ x: number; y: number } | null>(null)
   const [percent, setPercent] = React.useState(0)
   const [complete, setComplete] = React.useState(false)
-  const [gone, setGone] = React.useState(false)
+  const [faded, setGone] = React.useState(false)
   const statusId = React.useId()
 
   const completeRef = React.useRef(onComplete)
@@ -148,7 +157,12 @@ function ScratchToReveal({
     }
   }, [paint, complete])
 
+  const contentRef = React.useRef<HTMLDivElement>(null)
+  const done = React.useRef(false)
+  // Several pointer moves can land before React re-renders, so guard with a ref: onComplete fires exactly once.
   const finish = React.useCallback(() => {
+    if (done.current) return
+    done.current = true
     setComplete(true)
     setPercent(100)
     progressRef.current?.(100)
@@ -156,9 +170,7 @@ function ScratchToReveal({
   }, [])
 
   // Reduced motion skips the fade, so the foil goes straight away.
-  React.useEffect(() => {
-    if (complete && reduce) setGone(true)
-  }, [complete, reduce])
+  const gone = faded || (complete && Boolean(reduce))
 
   const mark = (x: number, y: number) => {
     const g = grid.current
@@ -218,7 +230,7 @@ function ScratchToReveal({
       data-state={gone ? "revealed" : complete ? "revealing" : "covered"}
       className={cn("relative mx-auto w-full max-w-sm overflow-hidden rounded-xl border border-border bg-surface shadow-raised", className)}
     >
-      <div aria-hidden={!complete} inert={!complete} data-slot="scratch-to-reveal-content">
+      <div ref={contentRef} tabIndex={-1} aria-hidden={!complete} inert={!complete} data-slot="scratch-to-reveal-content" className="outline-none">
         {children ?? <SampleReward />}
       </div>
       {!gone ? (
@@ -255,7 +267,7 @@ function ScratchToReveal({
       ) : null}
       {!complete ? (
         <div aria-hidden className="pointer-events-none absolute inset-0 grid place-items-center" style={{ opacity: hintOpacity }}>
-          <span data-slot="scratch-to-reveal-label" className="rounded-full bg-ink/85 px-3 py-1 text-xs font-medium text-on-ink shadow-ink">
+          <span data-slot="scratch-to-reveal-label" className="rounded-full bg-ink px-3 py-1 text-xs font-medium text-on-ink shadow-ink">
             {label}
           </span>
         </div>
@@ -263,7 +275,11 @@ function ScratchToReveal({
       {!complete ? (
         <button
           type="button"
-          onClick={finish}
+          onClick={() => {
+            finish()
+            // The button unmounts; hand focus to the revealed content instead of dropping it on <body>.
+            requestAnimationFrame(() => contentRef.current?.focus())
+          }}
           data-slot="scratch-to-reveal-reveal"
           className="absolute right-3 bottom-3 inline-flex h-7 items-center rounded-md border border-border bg-surface px-2.5 text-xs font-medium text-fg-muted shadow-key outline-none transition-colors duration-[140ms] hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
         >
@@ -271,7 +287,7 @@ function ScratchToReveal({
         </button>
       ) : null}
       <span id={statusId} role="status" aria-live="polite" className="sr-only">
-        {complete ? "Revealed." : percent ? `${percent}% scratched.` : ""}
+        {complete ? "Revealed." : ""}
       </span>
     </div>
   )

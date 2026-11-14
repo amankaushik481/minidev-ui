@@ -3,7 +3,20 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { PlanCard } from "@/registry/ui/plan-card"
 
-/** PricingTable — three PlanCards in a responsive grid, one of them highlighted. */
+/**
+ * PricingTable — three PlanCards in a responsive grid, one of them highlighted.
+ *
+ * Use it for a pricing section with plan tiers side by side. Pair it with PricingToggle for a
+ * monthly / yearly switch. For a single plan use PlanCard directly.
+ *
+ * @example
+ * <PricingTable
+ *   plans={[
+ *     { name: "Starter", price: "$0", features: ["1 seat"], cta: "Start free" },
+ *     { name: "Pro", price: "$49", features: ["10 seats"], highlighted: true },
+ *   ]}
+ * />
+ */
 
 type Plan = React.ComponentProps<typeof PlanCard>
 
@@ -15,7 +28,7 @@ const SAMPLE_PLANS: Plan[] = [
 ]
 
 type PricingTableProps = {
-  /** One entry per tier, each taking PlanCard props. */
+  /** One entry per tier, each taking PlanCard props. Set `highlighted: true` on the recommended one. */
   plans?: Plan[]
   className?: string
 }

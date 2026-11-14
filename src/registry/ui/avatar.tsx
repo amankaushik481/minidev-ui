@@ -4,11 +4,26 @@ import * as React from "react"
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar"
 import { cn } from "@/lib/utils"
 
+/**
+ * A round user picture with an initials fallback while the image loads or if it fails.
+ *
+ * Compose `Avatar` > `AvatarImage` + `AvatarFallback`. Add `AvatarBadge` for a status dot, and wrap
+ * several in this file's `AvatarGroup` for a simple overlapping stack. Prefer the data-driven
+ * `AvatarGroup` from `avatar-group` for tooltips and a "+N" overflow. Give `AvatarImage` an `alt`
+ * with the person's name, or `alt=""` when the name is printed next to it.
+ *
+ * @example
+ * <Avatar size="lg">
+ *   <AvatarImage src="/maya.jpg" alt="Maya Chen" />
+ *   <AvatarFallback>MC</AvatarFallback>
+ * </Avatar>
+ */
 function Avatar({
   className,
   size = "default",
   ...props
 }: AvatarPrimitive.Root.Props & {
+  /** Diameter: sm 24px, default 32px, lg 40px. Override with a `size-*` class for others. */
   size?: "default" | "sm" | "lg"
 }) {
   return (
@@ -24,6 +39,7 @@ function Avatar({
   )
 }
 
+/** The photo. Hidden until it loads; `AvatarFallback` shows meanwhile. */
 function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
   return (
     <AvatarPrimitive.Image
@@ -37,6 +53,7 @@ function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
   )
 }
 
+/** Initials or an icon, shown while the image loads or when it fails. Pass `delay` (ms) to avoid a flash. */
 function AvatarFallback({
   className,
   ...props
@@ -53,12 +70,13 @@ function AvatarFallback({
   )
 }
 
+/** A small dot pinned bottom-right, e.g. presence. Recolour with `bg-success`; give it `aria-label` or sr-only text if it carries meaning. */
 function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       data-slot="avatar-badge"
       className={cn(
-        "absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-accent text-on-ink bg-blend-color ring-2 ring-bg select-none",
+        "absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-accent text-on-accent ring-2 ring-bg select-none",
         "group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden",
         "group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2",
         "group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2",
@@ -69,6 +87,7 @@ function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
   )
 }
 
+/** A plain overlapping stack of `Avatar` children, ringed in the page colour. */
 function AvatarGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -82,6 +101,7 @@ function AvatarGroup({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/** The "+3" circle at the end of an `AvatarGroup`. */
 function AvatarGroupCount({
   className,
   ...props

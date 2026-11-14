@@ -4,12 +4,24 @@ import { useReducedMotion } from "motion/react"
 import { DownloadIcon, MicIcon, PauseIcon, PlayIcon, RotateCcwIcon, SquareIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/** A microphone recorder with start, pause and stop, an elapsed timer, live waveform bars, playback with a progress bar and a download button. */
+/**
+ * A microphone recorder with start, pause and stop, an elapsed timer, live waveform bars, playback with a progress bar and a download button.
+ *
+ * Use to capture a voice note or memo in the browser (MediaRecorder + Web Audio, no dependencies).
+ * Prefer `AudioPlayer` to play existing audio. The finished waveform is a keyboard slider
+ * (Arrow keys seek 1s, Shift 5s, Space plays). Without a microphone or permission it stays idle
+ * with a plain-language hint. You own upload: take the Blob from `onRecorded`.
+ *
+ * @example
+ * <AudioRecorder maxDuration={60} title="Voice note" description="Attach to INV-2041"
+ *   onRecorded={(blob, { duration }) => upload(blob, duration)} />
+ */
 type AudioRecorderProps = {
   /** Longest recording in seconds. Recording stops by itself when it is reached. */
   maxDuration?: number
   /** Called with the finished recording and its object URL. */
   onRecorded?: (blob: Blob, meta: { duration: number; url: string; mimeType: string }) => void
+  /** Heading of the card. */
   title?: string
   /** Shown under the title. */
   description?: string
@@ -27,6 +39,10 @@ const MIMES = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4", "audio/ogg;c
 const SAMPLE_EVERY = 50
 /** Resting bars: a quiet, symmetric shape instead of a flat line. */
 const idle = (n: number) => Array.from({ length: n }, (_, i) => 0.1 + 0.16 * (0.5 + 0.5 * Math.sin(i * 0.42 + 0.6)) * (0.6 + 0.4 * Math.sin(i * 0.11)))
+
+const noopSubscribe = () => () => {}
+const detectSupport = (): boolean | null =>
+  typeof navigator !== "undefined" && !!navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== "undefined"
 
 const DENIED = "Microphone access was blocked. Allow it in the browser's site settings, then try again."
 const UNSUPPORTED = "Recording needs a browser with microphone support."
@@ -60,12 +76,8 @@ function bin(samples: number[], n: number) {
   return out.map((v) => v / peak)
 }
 
-/**
- * A voice note recorder. The level bars scroll while you speak, and when
- * you stop they settle into the recording's waveform, which becomes the
- * playback scrubber: bars to the left of the playhead are lit. Without a
- * microphone or permission it stays in a calm idle state with a hint.
- */
+// The level bars scroll while you speak; on stop they settle into the recording's waveform,
+// which becomes the playback scrubber: bars left of the playhead are lit.
 function AudioRecorder({
   maxDuration = 120,
   onRecorded,
@@ -77,7 +89,8 @@ function AudioRecorder({
 }: AudioRecorderProps) {
   const reduce = useReducedMotion()
   const [status, setStatus] = React.useState<Status>("idle")
-  const [supported, setSupported] = React.useState<boolean | null>(null)
+  // null on the server and during hydration, then the real answer: no effect, no mismatch.
+  const supported = React.useSyncExternalStore(noopSubscribe, detectSupport, () => null)
   const [hint, setHint] = React.useState<string | null>(null)
   const [elapsed, setElapsed] = React.useState(0)
   const [levels, setLevels] = React.useState<number[]>(() => idle(bars))
@@ -97,10 +110,11 @@ function AudioRecorder({
   const timing = React.useRef({ base: 0, since: 0, lastSample: 0, lastPaint: 0 })
   const audio = React.useRef<HTMLAudioElement>(null)
   const url = React.useRef<string | null>(null)
-
+  // Read the latest callback when a recording finishes, not the one captured when it started.
+  const onRecordedRef = React.useRef(onRecorded)
   React.useEffect(() => {
-    setSupported(typeof navigator !== "undefined" && !!navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== "undefined")
-  }, [])
+    onRecordedRef.current = onRecorded
+  })
 
   const release = React.useCallback(() => {
     cancelAnimationFrame(raf.current)
@@ -138,6 +152,7 @@ function AudioRecorder({
     else release()
   }, [release])
 
+  const loopRef = React.useRef<() => void>(() => {})
   const loop = React.useCallback(() => {
     const a = analyser.current
     const t = timing.current
@@ -165,8 +180,11 @@ function AudioRecorder({
       stop()
       return
     }
-    raf.current = requestAnimationFrame(loop)
+    raf.current = requestAnimationFrame(() => loopRef.current())
   }, [bars, maxDuration, reduce, stop])
+  React.useEffect(() => {
+    loopRef.current = loop
+  }, [loop])
 
   const start = async () => {
     if (status === "recording" || status === "paused") return
@@ -212,7 +230,7 @@ function AudioRecorder({
         setElapsed(timing.current.base)
         setResult({ blob, url: objectUrl, duration, mimeType: type })
         setStatus("done")
-        onRecorded?.(blob, { duration, url: objectUrl, mimeType: type })
+        onRecordedRef.current?.(blob, { duration, url: objectUrl, mimeType: type })
       }
       rec.onerror = () => {
         release()
@@ -414,7 +432,7 @@ function AudioRecorder({
           </>
         ) : null}
       </div>
-      <p id={`${id}-hint`} aria-live="polite" className={cn("mt-3 min-h-[1.55em] text-xs", hint ? "text-fg" : "text-fg-muted")}>
+      <p id={`${id}-hint`} aria-live={status === "recording" && !hint ? "off" : "polite"} className={cn("mt-3 min-h-[1.55em] text-xs", hint ? "text-fg" : "text-fg-muted")}>
           {hint ??
             (status === "recording"
               ? `${clock(remaining)} left`

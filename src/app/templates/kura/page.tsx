@@ -185,10 +185,6 @@ function Hero() {
   const [rows, setRows] = React.useState(BOARDS.Dermatology)
   const [sel, setSel] = React.useState<number | null>(null)
   const [token, setToken] = React.useState(14)
-  React.useEffect(() => {
-    setRows(BOARDS[spec])
-    setSel(null)
-  }, [spec])
   // Waits drift so the board keeps flipping, like the real thing.
   React.useEffect(() => {
     const t = setInterval(() => {
@@ -237,7 +233,7 @@ function Hero() {
                     type="button"
                     role="tab"
                     aria-selected={s === spec}
-                    onClick={() => setSpec(s)}
+                    onClick={() => { setSpec(s); setRows(BOARDS[s]); setSel(null) }}
                     className={cn("rounded-md px-3 py-1.5 font-mono text-[11px] tracking-[0.1em] uppercase outline-none transition-colors duration-[70ms] focus-visible:ring-2 focus-visible:ring-accent", s === spec ? "bg-[oklch(0.86_0.15_85)] text-black" : "bg-white/6 text-white/60 hover:bg-white/10 hover:text-white")}
                   >
                     {s}

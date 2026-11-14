@@ -64,18 +64,18 @@ function ControlledDemo() {
     node: <ControlledDemo />,
   },
   {
-    title: "Scale and disabled",
-    description: "max changes the number of stars; disabled shows a fixed score such as an average.",
+    title: "Scale and read-only",
+    description: "max changes the number of stars; readOnly shows a fixed score, such as an average, that stays readable but cannot be changed.",
     code: `<Rating max={10} defaultValue={7} aria-label="How likely are you to recommend Lumen?" />
 <div className="flex items-center gap-2">
-  <Rating value={4} disabled aria-label="Average rating" />
+  <Rating value={4} readOnly aria-label="Average rating" />
   <span className="text-xs text-fg-muted">4.0 from 128 reviews</span>
 </div>`,
     node: (
       <div className="flex flex-col items-start gap-3">
         <Rating max={10} defaultValue={7} aria-label="How likely are you to recommend Lumen?" />
         <div className="flex items-center gap-2">
-          <Rating value={4} disabled aria-label="Average rating" />
+          <Rating value={4} readOnly aria-label="Average rating" />
           <span className="text-xs text-fg-muted">4.0 from 128 reviews</span>
         </div>
       </div>

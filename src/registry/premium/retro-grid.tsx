@@ -10,6 +10,15 @@ import { Button } from "@/registry/ui/button"
  * Lines are tinted with the accent and fade out before they reach the
  * horizon, so they never shimmer. The floor sits behind the content, ignores
  * the pointer, pauses off screen and holds still for reduced motion.
+ *
+ * Use it behind a launch, deploy or developer-tool hero. Reach for DotPattern
+ * or BackgroundBoxes for a flat grid, and LampEffect when the headline should
+ * be lit rather than grounded.
+ *
+ * @example
+ * <RetroGrid angle={70} cellSize={56}>
+ *   <h2 className="text-4xl font-medium text-fg">Every release, right on schedule</h2>
+ * </RetroGrid>
  */
 type RetroGridProps = {
   /** Tilt of the floor in degrees. Higher is flatter and longer. */

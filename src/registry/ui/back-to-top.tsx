@@ -4,9 +4,16 @@ import { ArrowUpIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 /**
- * A back to top button that appears after the reader scrolls, with a ring
- * that fills as they progress through the page. Scrolls smoothly unless
- * reduced motion is on, then moves focus to the top of the document.
+ * A floating back to top button that appears after the reader scrolls, with a ring that fills as they progress.
+ *
+ * Use on long docs, articles and changelogs. Fixed bottom-right; move it with `className`. Scrolls
+ * smoothly unless reduced motion is on, then moves focus to `<main>` (or the first `<h1>`) so
+ * keyboard users land at the top too. While hidden it is out of the tab order.
+ *
+ * @example
+ * <BackToTop threshold={600} />
+ * // inside a scrolling panel:
+ * <BackToTop target={panelRef} className="absolute" />
  */
 type BackToTopProps = {
   /** Show after this many pixels of scroll. */
@@ -39,23 +46,30 @@ function BackToTop({ threshold = 400, target, className }: BackToTopProps) {
       type="button"
       data-slot="back-to-top"
       aria-label="Back to top"
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
       onClick={() => {
         const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
         const el = target?.current
         ;(el ?? window).scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" })
-        ;(document.querySelector("main, h1") as HTMLElement | null)?.focus?.({ preventScroll: true })
+        const top = (el?.querySelector("h1, h2") ?? document.querySelector("main") ?? document.querySelector("h1")) as HTMLElement | null
+        if (top) {
+          // Headings and <main> are not focusable by default; make them programmatically focusable.
+          if (!top.hasAttribute("tabindex")) top.setAttribute("tabindex", "-1")
+          top.focus({ preventScroll: true })
+        }
       }}
       className={cn(
-        "fixed right-5 bottom-5 z-40 grid size-11 place-items-center rounded-full border border-border bg-raised text-fg shadow-overlay outline-none transition-[opacity,transform] duration-300 focus-visible:ring-2 focus-visible:ring-accent",
-        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0",
+        "fixed right-5 bottom-5 z-40 grid size-11 place-items-center rounded-full border border-border bg-raised text-fg shadow-overlay outline-none transition-[opacity,translate] focus-visible:ring-2 focus-visible:ring-accent",
+        visible ? "translate-y-0 opacity-100 duration-200 ease-hairline" : "pointer-events-none translate-y-3 opacity-0 duration-[160ms] ease-exit",
         className,
       )}
     >
       <svg aria-hidden viewBox="0 0 44 44" className="absolute inset-0 size-full -rotate-90">
-        <circle cx="22" cy="22" r={r} fill="none" stroke="var(--border)" strokeWidth="2" />
-        <circle cx="22" cy="22" r={r} fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - progress)} />
+        <circle cx="22" cy="22" r={r} fill="none" className="stroke-border" strokeWidth="2" />
+        <circle cx="22" cy="22" r={r} fill="none" className="stroke-accent" strokeWidth="2" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - progress)} />
       </svg>
-      <ArrowUpIcon className="relative size-4" />
+      <ArrowUpIcon aria-hidden className="relative size-4" />
     </button>
   )
 }

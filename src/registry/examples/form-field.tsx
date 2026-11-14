@@ -10,7 +10,7 @@ function ValidationDemo() {
   const [email, setEmail] = React.useState("maya@gmail")
   const [touched, setTouched] = React.useState(false)
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  const error = touched && !valid ? "Enter a full email address, like maya@northwind.io." : undefined
+  const error = touched && !valid ? "Enter a full email address, like maya@northwind.example." : undefined
   return (
     <form
       className="flex w-full max-w-xs flex-col gap-4"
@@ -56,7 +56,7 @@ export const examples: Example[] = [
   const [email, setEmail] = React.useState("maya@gmail")
   const [touched, setTouched] = React.useState(false)
   const valid = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)
-  const error = touched && !valid ? "Enter a full email address, like maya@northwind.io." : undefined
+  const error = touched && !valid ? "Enter a full email address, like maya@northwind.example." : undefined
   return (
     <form
       className="flex w-full max-w-xs flex-col gap-4"

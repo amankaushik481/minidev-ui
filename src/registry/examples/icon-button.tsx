@@ -6,12 +6,14 @@ import type { Example } from "./types"
 export const examples: Example[] = [
   {
     title: "Sizes",
-    description: "32, 36 and 44px squares; the icon stays 16px so the hit area grows without the glyph getting heavier.",
-    code: `<IconButton size="icon-sm" aria-label="Add"><PlusIcon /></IconButton>
+    description: "28, 32, 36 and 44px squares; the icon stays 16px so the hit area grows without the glyph getting heavier.",
+    code: `<IconButton size="icon-xs" aria-label="Add"><PlusIcon /></IconButton>
+<IconButton size="icon-sm" aria-label="Add"><PlusIcon /></IconButton>
 <IconButton aria-label="Add"><PlusIcon /></IconButton>
 <IconButton size="icon-lg" aria-label="Add"><PlusIcon /></IconButton>`,
     node: (
       <div className="flex items-center gap-2">
+        <IconButton size="icon-xs" aria-label="Add"><PlusIcon /></IconButton>
         <IconButton size="icon-sm" aria-label="Add"><PlusIcon /></IconButton>
         <IconButton aria-label="Add"><PlusIcon /></IconButton>
         <IconButton size="icon-lg" aria-label="Add"><PlusIcon /></IconButton>

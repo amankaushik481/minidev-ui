@@ -42,8 +42,15 @@ import typesOfButtons from "./types-of-buttons"
 import typesOfOverlays from "./types-of-modals-and-overlays"
 import typesOfInputs from "./types-of-form-inputs"
 import typesOfFeedback from "./types-of-loading-and-feedback-states"
+import aiLibrary from "./best-react-ui-library-for-ai-agents"
+import registryMcp from "./shadcn-registry-mcp-claude-code-cursor"
+import llmsTxt from "./llms-txt-for-component-libraries"
+import agentUi from "./ai-agent-ui-react"
+import agentsMd from "./agents-md-cursor-rules-ui"
+import agentTokens from "./design-tokens-for-ai-agents"
 
 export const GUIDES: Guide[] = [
+  aiLibrary, registryMcp, llmsTxt, agentUi, agentsMd, agentTokens,
   typesOfCharts, typesOfNav, typesOfButtons, typesOfOverlays, typesOfInputs, typesOfFeedback,
   roundup, landing, dashboard, dataTable, aiChat, pricing, billing, sidebar, settings, cmdk,
   kanban, otp, upload, toasts, shadcnRegistry, tw4, darkMode, oklch, glass, shadows, splitFlap,

@@ -14,6 +14,19 @@ import { CursorSpotlightPanel } from "@/registry/premium/cursor-spotlight-panel"
 import { MagneticCta } from "@/registry/premium/magnetic-cta"
 import { HorizontalProductRail } from "@/registry/premium/horizontal-product-rail"
 
+/**
+ * A full product launch page kit: scroll progress rail, kinetic hero with device frames, product rail, sticky feature story, before/after wipe, stats, quotes, spotlight panel, countdown and waitlist.
+ * Every section is a separate Premium component, so you can delete or
+ * reorder sections freely. Copy the file and swap the sample copy and
+ * figures for your own; never ship invented stats or quotes.
+ *
+ * Use it as the skeleton of a launch or "coming soon" page. Reach for
+ * SaasLanding for an evergreen home page, PricingPage for /pricing, and the
+ * individual sections when you only need one.
+ *
+ * @example
+ * <ProductLaunch />
+ */
 function ProductLaunch({ className }: { className?: string }) {
   return (
     <div data-slot="product-launch" data-tier="premium" className={cn("bg-bg", className)}>

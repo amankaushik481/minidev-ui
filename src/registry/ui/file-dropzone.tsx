@@ -3,11 +3,25 @@ import * as React from "react"
 import { ArrowUpIcon, CheckIcon, RotateCwIcon, XIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/*
- * GOLD STANDARD COMPONENT.
- * A drop target with four designed states (rest, hover, drag-accept,
- * drag-reject), a hairline dashed border drawn in SVG so the dashes stay crisp
- * and can march while dragging, and a file list with progress, error, retry.
+/**
+ * FileDropzone — a drag-and-drop upload zone with accept/reject drag states, type and size validation, and a file list with progress, retry and remove.
+ *
+ * Click, Enter or Space opens the file picker; dropping works too. Pass
+ * `upload` to stream progress per file; without it files are listed as done
+ * at once and handed to `onFiles`. For a single avatar use `AvatarUpload`;
+ * for an image with preview and crop use `ImageUpload` or `ImageCropper`;
+ * for listing existing files use `FileList`.
+ *
+ * GOLD STANDARD COMPONENT. Four designed states (rest, hover, drag-accept, drag-reject); the hairline
+ * dashed border is SVG so the dashes stay crisp and march while dragging.
+ *
+ * @example
+ * <FileDropzone
+ *   accept="image/*,.pdf"
+ *   maxSize={10 * 1024 * 1024}
+ *   upload={(file, onProgress) => uploadToS3(file, onProgress)}
+ *   onFiles={(files) => console.log(files)}
+ * />
  */
 
 type UploadStatus = "uploading" | "done" | "error"
@@ -31,15 +45,20 @@ type FileDropzoneProps = {
    * Without it, files are listed as done immediately.
    */
   upload?: (file: File, onProgress: (p: number) => void) => Promise<void>
+  /** Same syntax as <input accept>: MIME types, wildcards and extensions, e.g. "image/*,.pdf". */
   accept?: string
+  /** Allow several files at once. When false, a new file replaces the previous one. */
   multiple?: boolean
-  /** Bytes. */
+  /** Largest accepted file, in bytes. Larger files are listed with an error. */
   maxSize?: number
+  /** Most files the list will hold. Extra files are ignored. */
   maxFiles?: number
   disabled?: boolean
   /** Show the file list under the zone. */
   showList?: boolean
+  /** Main line inside the zone. */
   label?: string
+  /** Secondary line. Defaults to the accepted types and max size. */
   hint?: string
   className?: string
 }
@@ -97,7 +116,9 @@ function FileDropzone({
 
   // Revoke object URLs on unmount.
   const filesRef = React.useRef(files)
-  filesRef.current = files
+  React.useEffect(() => {
+    filesRef.current = files
+  }, [files])
   React.useEffect(() => () => filesRef.current.forEach((f) => f.preview && URL.revokeObjectURL(f.preview)), [])
 
   const patch = (fid: string, p: Partial<UploadFile>) =>
@@ -137,6 +158,8 @@ function FileDropzone({
       }
     })
     if (!next.length) return
+    // Single mode replaces the list, so free the old previews.
+    if (!multiple) filesRef.current.forEach((f) => f.preview && URL.revokeObjectURL(f.preview))
     setFiles((l) => (multiple ? [...l, ...next] : next))
     const ok = next.filter((f) => !f.error)
     if (ok.length) onFiles?.(ok.map((f) => f.file))
@@ -315,7 +338,7 @@ function FileRow({ f, onRemove, onRetry }: { f: UploadFile; onRemove: () => void
         <div className="flex items-center gap-2">
           <p className="truncate text-[0.8125rem] font-medium text-fg">{f.file.name}</p>
           {done ? (
-            <span className="grid size-4 shrink-0 animate-[pop-in_280ms_var(--ease-hairline)_both] place-items-center rounded-full bg-success text-white">
+            <span className="grid size-4 shrink-0 animate-[pop-in_280ms_var(--ease-hairline)_both] place-items-center rounded-full bg-success text-on-accent">
               <CheckIcon className="size-2.5" strokeWidth={3} />
             </span>
           ) : null}

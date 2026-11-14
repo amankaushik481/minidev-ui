@@ -7,12 +7,33 @@ import { FeatureComparison } from "@/registry/premium/feature-comparison"
 import { MagneticCta } from "@/registry/premium/magnetic-cta"
 import { TypographicMarquee } from "@/registry/premium/typographic-marquee"
 
+/**
+ * A complete kinetic pricing section: headline, typographic marquee, a price that rolls between monthly and yearly, a comparison table and a magnetic upgrade button.
+ * It composes MorphPrice, TypographicMarquee, FeatureComparison and
+ * MagneticCta, so each piece keeps its own accessibility and reduced-motion
+ * behaviour. Copy the file and edit the content in place; it is a page
+ * section, not a configurable widget.
+ *
+ * Use it as the pricing section of a launch page. Reach for PricingPage for a
+ * whole page with nav and footer, PricingMotion for plan cards alone, and the
+ * free PricingTable inside product billing.
+ *
+ * @example
+ * <PricingKinetic className="py-16" />
+ */
+const MORPH = { type: "spring", bounce: 0.16, duration: 0.5 } as const
+
 function PricingKinetic({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   return (
     <div data-slot="pricing-kinetic" data-tier="premium" className={cn("space-y-12", className)}>
       <div className="space-y-3 text-center">
-        <motion.h2 initial={reduce ? false : { y: 10 }} animate={{ y: 0 }} className="text-4xl font-medium tracking-[-0.030em] text-fg">
+        <motion.h2
+          initial={reduce ? false : { y: 10 }}
+          whileInView={{ y: 0 }}
+          viewport={{ once: true }}
+          transition={reduce ? { duration: 0 } : MORPH}
+          className="text-4xl font-medium tracking-[-0.030em] text-fg">
           Price the moment
         </motion.h2>
         <p className="text-sm text-fg-muted">Morphing price, comparison, magnetic close.</p>

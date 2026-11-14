@@ -2,8 +2,21 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** A hairline-divided row of headline numbers, for landing pages and report headers. */
-type Stat = { label: string; value: string }
+/**
+ * A hairline-divided row of headline numbers, for landing pages and report headers.
+ *
+ * Marked up as a description list so each value is read with its label. Use real, sourced
+ * figures only. For dashboard metrics with deltas use StatCard; with trend lines, SparklineSet.
+ *
+ * @example
+ * <StatsStrip stats={[{ label: "Components", value: "300+" }, { label: "Dependencies", value: "2" }]} />
+ */
+type Stat = {
+  /** What the number counts. */
+  label: string
+  /** Pre-formatted figure, e.g. "98.2%". */
+  value: string
+}
 
 type StatsStripProps = {
   /** Headline figures, four reads best. Defaults to Lumen's company stats. */
@@ -20,20 +33,21 @@ const SAMPLE_STATS: Stat[] = [
 
 function StatsStrip({ stats = SAMPLE_STATS, className }: StatsStripProps) {
   return (
-    <div
+    <dl
       data-slot="stats-strip"
       className={cn(
         "grid w-full grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4",
         className
       )}
     >
-      {stats.map((s) => (
-        <div key={s.label} className="bg-surface px-4 py-5 text-center">
-          <div className="text-2xl font-medium tracking-[-0.018em] text-fg tabular-nums">{s.value}</div>
-          <div className="mt-1 text-xs text-fg-muted">{s.label}</div>
+      {stats.map((s, i) => (
+        // label first in the DOM so it is read first; flex-col-reverse puts the number on top
+        <div key={`${s.label}-${i}`} className="flex flex-col-reverse bg-surface px-4 py-5 text-center">
+          <dt className="mt-1 text-xs text-fg-muted">{s.label}</dt>
+          <dd className="text-2xl font-medium tracking-[-0.018em] text-fg tabular-nums">{s.value}</dd>
         </div>
       ))}
-    </div>
+    </dl>
   )
 }
 export { StatsStrip }

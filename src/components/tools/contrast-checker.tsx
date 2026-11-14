@@ -5,6 +5,7 @@ import { Input } from "@/registry/ui/input"
 import { Button } from "@/registry/ui/button"
 import { StatusBadge } from "@/registry/ui/status-badge"
 import { contrast, fixContrast, oklchToHex, parseColor } from "@/lib/color"
+import { ShareLink, useShareUrl } from "./share-url"
 
 function Field({ id, label, value, onChange }: { id: string; label: string; value: string; onChange: (v: string) => void }) {
   const o = parseColor(value)
@@ -13,8 +14,9 @@ function Field({ id, label, value, onChange }: { id: string; label: string; valu
       <label htmlFor={id} className="text-[13px] font-medium text-fg">{label}</label>
       <div className="flex gap-2">
         <input type="color" aria-label={`Pick ${label.toLowerCase()}`} value={o ? oklchToHex(o).toLowerCase() : "#000000"} onChange={(e) => onChange(e.target.value.toUpperCase())} className="h-9 w-12 shrink-0 cursor-pointer rounded-md border border-border bg-transparent" />
-        <Input id={id} value={value} onChange={(e) => onChange(e.target.value)} className="font-mono" aria-invalid={!o} />
+        <Input id={id} value={value} onChange={(e) => onChange(e.target.value)} className="font-mono" spellCheck={false} aria-invalid={!o} aria-describedby={o ? undefined : `${id}-err`} />
       </div>
+      {o ? null : <p id={`${id}-err`} className="text-[12.5px] text-danger">Use hex, rgb(), hsl() or oklch(), for example #6B7280.</p>}
     </div>
   )
 }
@@ -35,7 +37,14 @@ export function ContrastChecker() {
   const fh = fo ? oklchToHex(fo) : "#000000"
   const bh = bo ? oklchToHex(bo) : "#FFFFFF"
   const ratio = contrast(fh, bh)
-  const fix = fo && ratio < 4.5 ? fixContrast(fo, bh, 4.5) : null
+  const valid = !!fo && !!bo
+  const fix = valid && ratio < 4.5 ? fixContrast(fo, bh, 4.5) : null
+  const link = useShareUrl({ fg, bg }, (p) => {
+    const f = p.get("fg")
+    const b = p.get("bg")
+    if (f && parseColor(f)) setFg(f)
+    if (b && parseColor(b)) setBg(b)
+  })
   return (
     <div className="space-y-5">
       <div className="grid grid-cols-1 items-end gap-4 rounded-2xl border border-border bg-surface p-5 shadow-raised md:grid-cols-[1fr_auto_1fr]">
@@ -55,12 +64,15 @@ export function ContrastChecker() {
         </div>
         <div className="rounded-2xl border border-border bg-surface p-6 shadow-raised">
           <p className="text-[13px] text-fg-muted">Contrast ratio</p>
-          <p className="mt-1 text-5xl font-semibold tracking-[-0.04em] text-fg tabular-nums" aria-live="polite">{ratio.toFixed(2)}<span className="text-2xl text-fg-muted">:1</span></p>
+          <p className="mt-1 text-5xl font-semibold tracking-[-0.04em] text-fg tabular-nums" aria-live="polite">
+            {valid ? <>{ratio.toFixed(2)}<span className="text-2xl text-fg-muted">:1</span></> : <span className="text-fg-subtle">--</span>}
+          </p>
           <ul className="mt-5 space-y-2">
             {CHECKS.map((c) => (
               <li key={c.label + c.level} className="flex items-center justify-between gap-3 text-[13px]">
-                <span className="text-fg">{c.label} <span className="text-fg-subtle">({c.level}, {c.min}:1)</span></span>
-                <StatusBadge tone={ratio >= c.min ? "success" : "danger"}>{ratio >= c.min ? "Pass" : "Fail"}</StatusBadge>
+                <span className="text-fg">{c.label} <span className="text-fg-subtle tabular-nums">({c.level}, {c.min}:1)</span></span>
+                {/* WCAG compares the unrounded ratio: 4.49 fails AA even though it rounds to 4.5. */}
+                {valid ? <StatusBadge tone={ratio >= c.min ? "success" : "danger"}>{ratio >= c.min ? "Pass" : "Fail"}</StatusBadge> : <StatusBadge tone="neutral">Invalid color</StatusBadge>}
               </li>
             ))}
           </ul>
@@ -73,6 +85,10 @@ export function ContrastChecker() {
               </button>
             </div>
           ) : null}
+          <div className="mt-5 flex items-center justify-between gap-3 border-t border-border pt-4">
+            <p className="text-[12px] text-fg-muted">The link keeps both colors.</p>
+            <ShareLink href={link} />
+          </div>
         </div>
       </div>
     </div>

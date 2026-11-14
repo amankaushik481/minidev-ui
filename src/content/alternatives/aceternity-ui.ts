@@ -18,7 +18,7 @@ const page: AlternativesPage = {
     },
     {
       id: "minidev-ui",
-      what: "A free shadcn-compatible registry with over 100 motion components built on motion (heroes, pricing, marquees, scroll stories), next to UI components and full product pages.",
+      what: "A free shadcn-compatible registry with over 100 motion components built on motion (heroes, pricing, marquees, scroll stories), next to UI components and full product pages. Documented for AI coding agents with `llms.txt`, Markdown docs per component and an MCP server.",
       price: "Free, MIT, no paid tier",
       styling: "Tailwind CSS v4 utilities with semantic OKLCH tokens, so motion pieces follow the theme and dark mode",
       bestFor: "Marketing motion and the product behind it under one token system; its focus is product UI rather than signature effects",
@@ -91,6 +91,10 @@ const page: AlternativesPage = {
     {
       q: "Which alternatives include landing page templates?",
       a: "Tailwind Plus sells downloadable site templates, Preline UI has 5 free templates and 21 with Pro, Magic UI Pro sells templates, and MiniDev UI shows 8 landing page templates as live demos, which are not downloadable as whole apps.",
+    },
+    {
+      q: "Which Aceternity UI alternative works best with AI coding agents?",
+      a: "Magic UI has an official MCP server and `llms.txt`, and shadcn/ui has an MCP server that installs from any registry. MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server, and agents install it with the shadcn CLI they already know, including design rules for motion (spring presets and reduced motion) that keep animated sections consistent. Tailwind Plus and Preline UI had no `llms.txt` at their site roots when checked in November 2026.",
     },
   ],
   sources: [

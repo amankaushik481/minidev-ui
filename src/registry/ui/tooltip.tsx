@@ -4,7 +4,17 @@ import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
 import { Button } from "@/registry/ui/button"
 import { cn } from "@/lib/utils"
 
-/** An ink label with an arrow that appears on hover and keyboard focus, built on Base UI. */
+/**
+ * An ink label with an arrow that appears on hover and keyboard focus, built on Base UI.
+ *
+ * Compose `Tooltip` > `TooltipTrigger` + `TooltipContent`; use `render` to make your own button the trigger. Wrap a toolbar in `TooltipProvider` so neighbouring tooltips open instantly. Tooltips are hints only: never put interactive content or the only copy of important text in one. Use `HoverCard` or `Popover` for rich or clickable content. `<Tooltip />` with no children renders a demo.
+ *
+ * @example
+ * <Tooltip>
+ *   <TooltipTrigger render={<IconButton aria-label="Archive invoice" />}><ArchiveIcon /></TooltipTrigger>
+ *   <TooltipContent side="bottom">Archive <Kbd>E</Kbd></TooltipContent>
+ * </Tooltip>
+ */
 function TooltipProvider({
   delay = 0,
   ...props
@@ -60,7 +70,7 @@ function TooltipContent({
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"
           className={cn(
-            "z-50 inline-flex w-fit max-w-xs origin-(--transform-origin) items-center gap-1.5 rounded-md bg-ink px-2 py-1 text-xs font-medium text-on-ink shadow-md has-data-[slot=kbd]:pr-1.5 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+            "z-50 inline-flex w-fit max-w-xs origin-(--transform-origin) items-center gap-1.5 rounded-md bg-ink px-2 py-1 text-xs font-medium text-on-ink shadow-md has-data-[slot=kbd]:pr-1.5 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm duration-[140ms] ease-hairline data-closed:duration-100 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
             className
           )}
           {...props}

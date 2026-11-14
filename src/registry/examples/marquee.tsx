@@ -28,15 +28,15 @@ export const examples: Example[] = [
   },
   {
     title: "Activity ticker",
-    description: "Short status lines with a badge each make a live feed for a dashboard header.",
-    code: `<Marquee className="w-full max-w-2xl">
+    description: "Short status lines with a badge each make a live feed for a dashboard header; a longer duration slows the loop so each line can be read.",
+    code: `<Marquee duration={45} className="w-full max-w-2xl">
   <span className="flex items-center gap-2"><Badge variant="accent"><CheckIcon /> Paid</Badge> INV-2041, Northwind Traders, $1,840</span>
   <span className="flex items-center gap-2"><Badge variant="outline"><SendIcon /> Sent</Badge> INV-2042, Maya Chen, $620</span>
   <span className="flex items-center gap-2"><Badge variant="destructive"><ClockIcon /> Overdue</Badge> INV-2038, Theo Okafor, $2,415</span>
   <span className="flex items-center gap-2"><Badge variant="accent"><CheckIcon /> Paid</Badge> INV-2037, Priya Raman, $980</span>
 </Marquee>`,
     node: (
-      <Marquee className="w-full max-w-2xl">
+      <Marquee duration={45} className="w-full max-w-2xl">
         <span className="flex items-center gap-2"><Badge variant="accent"><CheckIcon /> Paid</Badge> INV-2041, Northwind Traders, $1,840</span>
         <span className="flex items-center gap-2"><Badge variant="outline"><SendIcon /> Sent</Badge> INV-2042, Maya Chen, $620</span>
         <span className="flex items-center gap-2"><Badge variant="destructive"><ClockIcon /> Overdue</Badge> INV-2038, Theo Okafor, $2,415</span>

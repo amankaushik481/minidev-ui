@@ -5,6 +5,15 @@ import { cn } from "@/lib/utils"
 
 /**
  * Slider - hairline rail, keycap thumb and a value bubble while you drag or tab to it.
+ *
+ * One value, or a range when `defaultValue`/`value` is an array of two. Use Slider for a
+ * continuous or stepped number; use NumberInput when the exact value matters more than
+ * the feel, and Switch for on/off. Always name it with `aria-label` or `aria-labelledby`.
+ *
+ * @example
+ * <Slider aria-label="Volume" defaultValue={40} />
+ * <Slider aria-label="Price" defaultValue={[20, 80]} format={{ style: "currency", currency: "USD" }} marks={[0, 50, 100]} />
+ *
  * Base UI for pointer, keyboard and form behaviour. Hairline rail with
  * an accent fill, a raised keycap thumb whose ring grows on hover, drag and
  * focus, and an ink value bubble that settles in above the thumb while you

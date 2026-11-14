@@ -5,6 +5,26 @@ import { Select as SelectPrimitive } from "@base-ui/react/select"
 import { cn } from "@/lib/utils"
 import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from "lucide-react"
 
+/**
+ * Select — a styled single or multiple choice dropdown on Base UI, with keyboard typeahead and a check on the chosen item.
+ *
+ * Use it for picking one option from five or more in forms and toolbars. For two to four options
+ * shown at once use RadioGroup or SegmentedControl; for searchable lists use a Combobox.
+ * Pass `items` to `Select` so `SelectValue` shows the label, not the raw value. Base UI's
+ * `onValueChange` receives `(value, eventDetails)`. Label the trigger with `aria-label` or a
+ * Label whose `htmlFor` matches the trigger `id`.
+ *
+ * @example
+ * const items = [{ value: "usd", label: "US dollar" }, { value: "eur", label: "Euro" }]
+ * <Select items={items} defaultValue="usd" onValueChange={(v) => setCurrency(v as string)}>
+ *   <SelectTrigger aria-label="Currency" className="w-48">
+ *     <SelectValue placeholder="Pick a currency" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     {items.map((i) => <SelectItem key={i.value} value={i.value}>{i.label}</SelectItem>)}
+ *   </SelectContent>
+ * </Select>
+ */
 const Select = SelectPrimitive.Root
 
 function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
@@ -33,6 +53,7 @@ function SelectTrigger({
   children,
   ...props
 }: SelectPrimitive.Trigger.Props & {
+  /** Trigger height: 32, 36 or 44px, matching Input. */
   size?: "sm" | "default" | "lg"
 }) {
   return (
@@ -140,7 +161,7 @@ function SelectItem({
         "relative flex w-full cursor-default items-center gap-2 rounded-md py-1.5 pr-8 pl-2",
         "text-[0.8125rem] outline-none select-none",
         "transition-[background-color] duration-[70ms]",
-        "focus:bg-sunken focus:text-fg",
+        "focus:bg-sunken focus:text-fg data-highlighted:bg-sunken data-highlighted:text-fg",
         "data-disabled:pointer-events-none data-disabled:opacity-50",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className

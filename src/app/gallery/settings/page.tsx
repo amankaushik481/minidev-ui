@@ -9,7 +9,7 @@ import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 export default function Page() {
   return (
-    <GalleryPage title="Settings & admin">
+    <GalleryPage title="Settings">
       <GallerySection title="Layout">
         <SettingsLayout className="w-full max-w-3xl" nav={<>
           <Button variant="ghost" className="w-full justify-start">Profile</Button>

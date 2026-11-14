@@ -9,6 +9,17 @@ import { TextScramble } from "@/registry/premium/text-scramble"
 import { MorphPrice } from "@/registry/premium/morph-price"
 import { MagneticCta } from "@/registry/premium/magnetic-cta"
 
+/**
+ * A brand kit page that stacks poster type, a type marquee, tilt cards, a scramble line, a reveal grid, a morphing price and a magnetic CTA.
+ *
+ * A showcase composition of premium motion pieces, not a primitive. Use it as
+ * a starting point for a brand or press page and replace sections with your
+ * own; each piece is its own registry item (HeroPosterType, CardTilt,
+ * GridReveal, MorphPrice, MagneticCta …) if you only need one.
+ *
+ * @example
+ * <BrandKitPage />
+ */
 function BrandKitPage({ className }: { className?: string }) {
   return (
     <div data-slot="brand-kit-page" data-tier="premium" className={cn("space-y-16 bg-bg py-8", className)}>

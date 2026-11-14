@@ -60,7 +60,7 @@ const page: AlternativesPage = {
     },
     {
       id: "minidev-ui",
-      what: "A free shadcn-compatible registry of over 500 items on Base UI, Tailwind CSS v4 and motion, with full-page blocks such as billing, settings and admin consoles.",
+      what: "A free shadcn-compatible registry of 548 items on Base UI, Tailwind CSS v4 and motion, with full-page blocks such as billing, settings and admin consoles. Documented for AI coding agents with `llms.txt`, Markdown docs per component and an MCP server.",
       price: "Free, MIT, no paid tier",
       styling: "Tailwind CSS v4 utilities with semantic OKLCH tokens",
       bestFor: "Tailwind projects that want product screens and full pages for free; not a fit if your team wants to keep style props",
@@ -99,6 +99,10 @@ const page: AlternativesPage = {
     {
       q: "Do I have to rewrite my styles to leave Chakra UI?",
       a: "For the Tailwind based options, yes: style props become utility classes, for example `px={4}` becomes `px-4`, and recipe variants map to component variants. Mantine also has style props, though with its own API.",
+    },
+    {
+      q: "Which Chakra UI alternative works best with AI coding agents?",
+      a: "Mantine, Material UI, HeroUI and shadcn/ui all have `llms.txt` and MCP servers, and Ant Design publishes `llms.txt` and Markdown docs. MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server, and agents install it with the shadcn CLI they already know. Park UI and Radix Themes had no `llms.txt` at their site roots when checked in November 2026.",
     },
   ],
   sources: [

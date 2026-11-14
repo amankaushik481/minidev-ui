@@ -4,9 +4,17 @@ import { useInView, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 /**
+ * A typewriter line that types a phrase, holds, deletes it and moves to the next, with a blinking caret.
  * A typewriter that types a phrase, holds, deletes and moves to the next,
  * with a blinking caret. Starts when it scrolls into view, and screen
  * readers get the phrases as plain text instead of the keystrokes.
+ *
+ * Use it for a short hero line that types a few phrases. Reach for WordRotate
+ * to swap one word in a sentence, MorphingText for a softer melt, and
+ * HeroTypedHeadline for a complete typed hero.
+ *
+ * @example
+ * <TypingText phrases={["Send the invoice.", "Get paid on time."]} speed={50} />
  */
 type TypingTextProps = {
   phrases?: string[]
@@ -35,10 +43,11 @@ function TypingText({ phrases = ["Build the MVP.", "Ship it in 30 days.", "Own e
       if (!loop && i === phrases.length - 1) return
       t = window.setTimeout(() => setDeleting(true), hold)
     } else if (deleting && n > 0) t = window.setTimeout(() => setN(n - 1), speed * 0.45)
-    else {
-      setDeleting(false)
-      setI((x) => (x + 1) % phrases.length)
-    }
+    else
+      t = window.setTimeout(() => {
+        setDeleting(false)
+        setI((x) => (x + 1) % phrases.length)
+      }, speed)
     return () => window.clearTimeout(t)
   }, [n, deleting, phrase, speed, hold, loop, i, phrases.length, reduce, inView])
 

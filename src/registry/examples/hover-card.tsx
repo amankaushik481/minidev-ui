@@ -44,8 +44,8 @@ export const examples: Example[] = [
   },
   {
     title: "Record details",
-    description: "A badge as the trigger and a wider card with a definition list of the record behind it.",
-    code: `<HoverCard trigger={<Badge variant="outline">INV-2041</Badge>} className="w-72">
+    description: "A badge rendered as a link is the trigger, so keyboard focus opens the card too; the wider card holds the record behind it.",
+    code: `<HoverCard trigger={<Badge variant="outline" render={<a href="#inv-2041" />}>INV-2041</Badge>} className="w-72">
   <div className="flex items-center justify-between">
     <p className="font-medium text-fg">Invoice INV-2041</p>
     <Badge variant="accent">Open</Badge>
@@ -58,7 +58,7 @@ export const examples: Example[] = [
 </HoverCard>`,
     node: (
       <div className="pb-36">
-        <HoverCard trigger={<Badge variant="outline">INV-2041</Badge>} className="w-72">
+        <HoverCard trigger={<Badge variant="outline" render={<a href="#inv-2041" />}>INV-2041</Badge>} className="w-72">
           <div className="flex items-center justify-between">
             <p className="font-medium text-fg">Invoice INV-2041</p>
             <Badge variant="accent">Open</Badge>

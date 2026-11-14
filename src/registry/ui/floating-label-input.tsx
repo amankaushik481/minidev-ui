@@ -5,11 +5,27 @@ import { CircleAlertIcon, MailIcon, UserIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
+/**
+ * FloatingLabelInput — a text field whose label rests inside the input and floats onto the top border on focus or once filled.
+ *
+ * Pass `label` for one field (input, or textarea with `multiline`). Without
+ * `label` it renders a small sign-up form built from `fields`. The label is a
+ * real <label>; `error` sets aria-invalid and is announced. For a classic
+ * label-above field use `Input` inside `FormField`; for passwords use
+ * `PasswordInput`; for formatted values use `MaskedInput`.
+ *
+ * @example
+ * const [email, setEmail] = React.useState("")
+ * <FloatingLabelInput label="Work email" type="email" value={email} onChange={setEmail} error={emailError} />
+ * <FloatingLabelInput label="Notes" multiline rows={3} />
+ */
 const SNAPPY = { type: "spring", bounce: 0.18, duration: 0.42 } as const
 
 type FloatingLabelField = {
+  /** Form field name and key in the submitted values. */
   name: string
   label: string
+  /** Input type, e.g. "email". */
   type?: string
   multiline?: boolean
   icon?: React.ReactNode
@@ -36,26 +52,25 @@ const FIELDS: FloatingLabelField[] = [
   { name: "message", label: "What will Northwind use Lumen for?", multiline: true, hint: "Optional, a sentence or two is plenty." },
 ]
 
-/**
- * A text field whose label rests inside the input and floats up onto the top
- * border on focus or once filled, on a snappy spring (instant with reduced
- * motion). Input and textarea variants, helper text, an error state wired to
- * aria-invalid and aria-describedby, and an optional leading icon. The label
- * is a real <label> bound to the field. Pass `label` for a single field;
- * without it the component renders a small sign-up form from `fields`.
- */
+/* The label floats on a snappy spring (instant with reduced motion). */
 type FloatingLabelInputProps = {
   /** The field label. When omitted, the `fields` form is rendered instead. */
   label?: string
   /** Render a textarea instead of an input. */
   multiline?: boolean
+  /** Textarea rows when `multiline`. */
   rows?: number
+  /** Input type, e.g. "email", "tel", "url". Ignored when `multiline`. */
   type?: string
+  /** Controlled text. */
   value?: string
+  /** Initial text when uncontrolled. */
   defaultValue?: string
+  /** Called with the new text on every keystroke. */
   onChange?: (value: string) => void
   /** Icon shown at the start of the field (inputs only). */
   icon?: React.ReactNode
+  /** Helper text under the field, linked with aria-describedby. */
   hint?: React.ReactNode
   /** Error message. Marks the field invalid and replaces the hint. */
   error?: React.ReactNode

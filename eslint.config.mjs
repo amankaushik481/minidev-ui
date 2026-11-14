@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated output (gitignored): Netlify bundles, the npm-pack copy, fixture builds.
+    ".netlify/**",
+    "npm-pack/**",
+    "fixtures/**",
   ]),
 ]);
 

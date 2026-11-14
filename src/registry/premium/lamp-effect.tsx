@@ -11,6 +11,15 @@ import { Button } from "@/registry/ui/button"
  * it. On first view the line stretches open and the light follows a beat
  * later, with springs. The panel stays dark in both themes by default so the
  * light has something to fall on; reduced motion shows the lamp already on.
+ *
+ * Use it for one launch or release headline that should feel lit from above.
+ * Reach for CursorSpotlightPanel when the light should follow the pointer,
+ * and RetroGrid or Meteors when the backdrop itself should move.
+ *
+ * @example
+ * <LampEffect width={480} glow={1.2}>
+ *   <h2 className="text-4xl font-medium text-fg">Close the books in minutes</h2>
+ * </LampEffect>
  */
 type LampEffectProps = {
   /** Width of the lamp line in pixels. The light scales with it and never exceeds the panel. */
@@ -22,6 +31,7 @@ type LampEffectProps = {
   /** Keep the panel dark in both themes. Turn off to follow the page theme. */
   dark?: boolean
   className?: string
+  /** Content lit by the lamp. Defaults to a sample Lumen release headline. */
   children?: React.ReactNode
 }
 

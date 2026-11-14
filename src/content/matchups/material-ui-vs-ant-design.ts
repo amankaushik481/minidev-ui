@@ -47,6 +47,11 @@ const matchup: Matchup = {
       a: "React, with `^17.0.0 || ^18.0.0 || ^19.0.0` as peer dependencies",
       b: "React, written in TypeScript; the home page also lists Angular and Vue versions",
     },
+    {
+      feature: "AI tooling",
+      a: "`llms.txt` with a Markdown file per component page, and the MUI MCP server (`@mui/mcp`)",
+      b: "`llms.txt` and `llms-full.txt`, a Markdown file per docs page, a DESIGN.md and a docs page written for coding agents",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -92,7 +97,7 @@ const matchup: Matchup = {
     },
   ],
   minidev: [
-    "MiniDev UI takes a different route from both: a free, MIT licensed shadcn-compatible registry that copies source into your repo, styled with Tailwind CSS v4 instead of CSS-in-JS and built on Base UI, the unstyled library from the MUI organization. It fits teams that want to own the code and start from finished product and marketing screens, such as an admin console, a users table and analytics and settings pages.",
+    "MiniDev UI takes a different route from both: a free, MIT licensed shadcn-compatible registry that copies source into your repo, styled with Tailwind CSS v4 instead of CSS-in-JS and built on Base UI, the unstyled library from the MUI organization. It fits teams that want to own the code and start from finished product and marketing screens, such as an admin console, a users table and analytics and settings pages. For AI coding agents it publishes [`llms.txt`](/glossary/llms-txt), a Markdown page per component, [`AGENTS.md`](/glossary/agents-md) rules and an [MCP server](/glossary/mcp); setup is on [Use MiniDev UI with AI agents](/docs/ai).",
     "It is not a replacement for MUI X's data grid or for Ant Design's deepest data entry components; for large internal systems those two remain the stronger tools. See [MiniDev UI vs Material UI](/compare/minidev-ui-vs-material-ui) and [MiniDev UI vs Ant Design](/compare/minidev-ui-vs-ant-design).",
   ],
   faq: [
@@ -130,6 +135,9 @@ const matchup: Matchup = {
     { label: "Ant Design components overview", url: "https://ant.design/components/overview/" },
     { label: "Ant Design changelog", url: "https://ant.design/changelog" },
     { label: "Ant Design license", url: "https://github.com/ant-design/ant-design/blob/master/LICENSE" },
+    { label: "Material UI llms.txt", url: "https://mui.com/material-ui/llms.txt" },
+    { label: "MUI MCP server", url: "https://mui.com/material-ui/getting-started/mcp/" },
+    { label: "Ant Design llms.txt", url: "https://ant.design/llms.txt" },
   ],
 }
 

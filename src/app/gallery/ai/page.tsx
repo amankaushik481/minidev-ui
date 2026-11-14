@@ -22,7 +22,7 @@ export default function Page() {
   const [prompt, setPrompt] = React.useState("")
   const [thumb, setThumb] = React.useState<"up" | "down" | null>(null)
   return (
-    <GalleryPage title="AI surfaces">
+    <GalleryPage title="AI chat">
       <GallerySection title="Thread">
         <div className="w-full max-w-xl space-y-3">
           <ChatThread

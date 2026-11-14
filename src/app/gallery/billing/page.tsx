@@ -7,7 +7,7 @@ import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 export default function Page() {
   return (
-    <GalleryPage title="Billing & commerce">
+    <GalleryPage title="Billing">
       <GallerySection title="Pricing">
         <PricingTable className="w-full" plans={[
           { name: "Free", price: "$0", features: ["10 components","Community"], cta: "Start" },

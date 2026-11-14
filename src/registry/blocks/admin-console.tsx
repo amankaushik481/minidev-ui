@@ -1,5 +1,6 @@
 "use client"
 import * as React from "react"
+import { cn } from "@/lib/utils"
 import { OrgSwitcher } from "@/registry/ui/org-switcher"
 import { ImpersonationBanner } from "@/registry/ui/impersonation-banner"
 import { AdminStatStrip } from "@/registry/ui/admin-stat-strip"
@@ -12,20 +13,34 @@ import { BulkUserImport } from "@/registry/ui/bulk-user-import"
 import { PageHeader } from "@/registry/ui/page-header"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/ui/tabs"
 
-function AdminConsole() {
+/**
+ * AdminConsole — a workspace admin area: impersonation banner, org switcher, KPIs, then tabs for users, security, quotas and import.
+ *
+ * Use as the full admin screen of a B2B app. Every panel is a registry component (AdminUserRow, AuditFilterBar,
+ * SsoProviderCard, IpAllowlist, ResourceQuotaGrid, BulkUserImport), so drop tabs you do not need. For a lighter
+ * landing page use AdminOverview; for a searchable member table use UsersTablePage.
+ *
+ * @example
+ * <AdminConsole />
+ */
+type AdminConsoleProps = {
+  className?: string
+}
+
+function AdminConsole({ className }: AdminConsoleProps) {
   const [org, setOrg] = React.useState("1")
   const [sso, setSso] = React.useState(true)
   return (
-    <div data-slot="admin-console" className="space-y-6">
-      <ImpersonationBanner user="casey@acme.com" />
+    <div data-slot="admin-console" className={cn("space-y-6", className)}>
+      <ImpersonationBanner user="tom@halcyon.co" />
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <PageHeader title="Admin" description="Users, security, and quotas" className="mb-0 border-0 pb-0" />
+        <PageHeader title="Admin" description="Users, security and quotas for your organization." className="mb-0 border-0 pb-0" />
         <OrgSwitcher
           value={org}
           onChange={setOrg}
           orgs={[
-            { id: "1", name: "Acme", plan: "Studio" },
-            { id: "2", name: "MiniDev", plan: "Premium" },
+            { id: "1", name: "Halcyon Health", plan: "Scale" },
+            { id: "2", name: "Northwind Traders", plan: "Team" },
           ]}
         />
       </div>
@@ -45,14 +60,14 @@ function AdminConsole() {
           <TabsTrigger value="import">Import</TabsTrigger>
         </TabsList>
         <TabsContent value="users" className="rounded-xl border border-border bg-surface">
-          <AdminUserRow name="Aman Kaushik" email="aman@minidev.pro" role="admin" online />
-          <AdminUserRow name="Casey Lee" email="casey@acme.com" role="write" online={false} />
-          <AdminUserRow name="Riley Ng" email="riley@acme.com" role="read" online />
+          <AdminUserRow name="Priya Raman" email="priya@halcyon.co" role="admin" online />
+          <AdminUserRow name="Tom Lindqvist" email="tom@halcyon.co" role="write" online={false} />
+          <AdminUserRow name="Sofia Marín" email="sofia@halcyon.co" role="read" online />
         </TabsContent>
         <TabsContent value="security" className="space-y-4">
           <AuditFilterBar />
           <div className="grid gap-4 lg:grid-cols-2">
-            <SsoProviderCard name="SAML" description="Enterprise identity provider" enabled={sso} configured onEnabledChange={setSso} />
+            <SsoProviderCard name="SAML" description="Okta single sign-on for every member." enabled={sso} configured onEnabledChange={setSso} />
             <IpAllowlist />
           </div>
         </TabsContent>
@@ -74,3 +89,4 @@ function AdminConsole() {
   )
 }
 export { AdminConsole }
+export type { AdminConsoleProps }

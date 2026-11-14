@@ -22,7 +22,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             isAccessibleForFree: true,
             creator: { "@id": "https://minidev.pro/#organization" },
           },
-          breadcrumbLd([{ name: "Templates", path: "/templates" }, { name: t.title.split(":")[0], path: "/templates/ponte" }]),
+          breadcrumbLd([{ name: "MiniDev UI", path: "/" }, { name: "Templates", path: "/templates" }, { name: t.title.split(":")[0], path: "/templates/ponte" }]),
         )}
       />
       {children}

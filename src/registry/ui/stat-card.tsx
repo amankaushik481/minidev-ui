@@ -10,7 +10,33 @@ function deltaTone(delta: React.ReactNode) {
   return "neutral"
 }
 
-/** StatCard — label, a big tabular value, and a delta chip that colours itself. */
+/**
+ * StatCard — label, a big tabular value, and a delta chip that colours itself.
+ *
+ * The delta tone comes from its leading sign: "+", "▲" read as up (success), "-", "−", "▼" as
+ * down (danger); set `invertDelta` where down is good. For a value with a trend line use
+ * StatSparkline; for several numbers in one row use StatsStrip.
+ *
+ * @example
+ * <StatCard label="MRR" value="$48,200" delta="+8.2%" footnote="vs last month" />
+ * <StatCard label="p95 latency" value="182 ms" delta="-12%" invertDelta />
+ */
+type StatCardProps = {
+  /** Metric name. */
+  label: React.ReactNode
+  /** Pre-formatted value, e.g. "$48,200". */
+  value: React.ReactNode
+  /** Change as a signed string, e.g. "+8.2%" or "−3". */
+  delta?: React.ReactNode
+  /** Small icon before the label. */
+  icon?: React.ReactNode
+  /** Muted line under the value, e.g. "vs last month". */
+  footnote?: React.ReactNode
+  /** For metrics where down is good (churn, latency). */
+  invertDelta?: boolean
+  className?: string
+}
+
 function StatCard({
   label,
   value,
@@ -19,22 +45,13 @@ function StatCard({
   footnote,
   invertDelta,
   className,
-}: {
-  label: React.ReactNode
-  value: React.ReactNode
-  delta?: React.ReactNode
-  icon?: React.ReactNode
-  footnote?: React.ReactNode
-  /** For metrics where down is good (churn, latency). */
-  invertDelta?: boolean
-  className?: string
-}) {
+}: StatCardProps) {
   let tone = deltaTone(delta)
   if (invertDelta && tone !== "neutral") tone = tone === "up" ? "down" : "up"
   return (
     <div data-slot="stat-card" className={cn("rounded-xl border border-border bg-surface p-4 shadow-raised", className)}>
-      <div className="flex items-center gap-2 text-[0.8125rem] text-fg-muted">
-        {icon ? <span className="text-fg-subtle [&_svg]:size-3.5">{icon}</span> : null}
+      <div className="flex items-center gap-2 text-sm text-fg-muted">
+        {icon ? <span aria-hidden className="text-fg-subtle [&_svg]:size-3.5">{icon}</span> : null}
         <span className="truncate">{label}</span>
       </div>
       <div className="mt-2.5 flex items-baseline gap-2">
@@ -42,7 +59,7 @@ function StatCard({
         {delta ? (
           <span
             className={cn(
-              "rounded-md px-1.5 py-0.5 text-[11px] font-medium tabular-nums",
+              "rounded-md px-1.5 py-0.5 text-2xs font-medium tabular-nums",
               tone === "up" && "bg-success/10 text-success",
               tone === "down" && "bg-danger/10 text-danger",
               tone === "neutral" && "bg-sunken text-fg-muted"
@@ -57,3 +74,4 @@ function StatCard({
   )
 }
 export { StatCard }
+export type { StatCardProps }

@@ -4,8 +4,25 @@ import { cn } from "@/lib/utils"
 import { AreaChart } from "@/registry/ui/area-chart"
 import { MetricDelta } from "@/registry/ui/metric-delta"
 
-/** A grid of KPI cards, each with a value, a delta and a small area sparkline, for dashboard overviews. */
-type SparklineItem = { label: string; value: string; delta: number; data: number[] }
+/**
+ * A grid of KPI cards, each with a value, a delta and a small area sparkline, for dashboard overviews.
+ *
+ * Use it for 2 to 6 headline metrics. For one metric use StatSparkline or StatCard; for a single
+ * flat row of numbers without charts use StatsStrip.
+ *
+ * @example
+ * <SparklineSet items={[{ label: "Revenue", value: "$12,400", delta: 8.2, data: [4, 6, 5, 8, 9] }]} />
+ */
+type SparklineItem = {
+  /** Metric name; also labels the chart for screen readers. */
+  label: string
+  /** Pre-formatted current value, e.g. "$128,400". */
+  value: string
+  /** Percent change; positive renders as up (good). */
+  delta: number
+  /** Series for the sparkline, oldest first. */
+  data: number[]
+}
 
 type SparklineSetProps = {
   /** One card per metric. Defaults to Lumen's revenue, customer and churn trends. */
@@ -24,7 +41,7 @@ function SparklineSet({ items = SAMPLE_ITEMS, className }: SparklineSetProps) {
   return (
     <div data-slot="sparkline-set" className={cn("grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-3", className)}>
       {items.map((item) => (
-        <div key={item.label} className="rounded-xl border border-border bg-surface p-3">
+        <div key={item.label} className="rounded-xl border border-border bg-surface p-3 shadow-highlight">
           <div className="flex items-center justify-between gap-2">
             <span className="text-xs text-fg-muted">{item.label}</span>
             <MetricDelta value={item.delta} />

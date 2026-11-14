@@ -2,7 +2,16 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** Columns of cards in a horizontally scrolling board, each column headed by its title and card count. */
+/**
+ * KanbanBoard — columns of cards in a horizontally scrolling board, each column headed by its title and card count.
+ *
+ * Use it to show work by stage from plain data. It is read-only; to compose
+ * your own columns with custom cards use KanbanColumn and IssueCard, and for
+ * reordering within one list use SortableList.
+ *
+ * @example
+ * <KanbanBoard columns={[{ id: "todo", title: "To do", cards: [{ id: "1", title: "Export payouts", meta: "LUM-418" }] }]} />
+ */
 type KanbanCard = { id: string; title: string; meta?: string }
 type KanbanColumn = { id: string; title: string; cards: KanbanCard[] }
 
@@ -46,23 +55,27 @@ type KanbanBoardProps = {
 }
 
 function KanbanBoard({ columns = SAMPLE_COLUMNS, className }: KanbanBoardProps) {
+  const id = React.useId()
   return (
     <div data-slot="kanban-board" className={cn("flex w-full gap-3 overflow-x-auto pb-2", className)}>
-      {columns.map((col) => (
-        <div key={col.id} className="w-64 shrink-0 rounded-xl border border-border bg-sunken p-2">
+      {columns.map((col, ci) => (
+        <section key={col.id} aria-labelledby={`${id}-c${ci}`} className="w-64 shrink-0 rounded-xl border border-border bg-sunken p-2">
           <div className="mb-2 flex items-center justify-between px-1">
-            <h3 className="text-xs font-medium tracking-[0.01em] text-fg-muted">{col.title}</h3>
-            <span className="text-xs tabular-nums text-fg-subtle">{col.cards.length}</span>
+            <h3 id={`${id}-c${ci}`} className="text-xs font-medium tracking-[0.01em] text-fg-muted">{col.title}</h3>
+            <span className="text-xs tabular-nums text-fg-subtle">
+              {col.cards.length}
+              <span className="sr-only"> {col.cards.length === 1 ? "card" : "cards"}</span>
+            </span>
           </div>
-          <div className="space-y-2">
+          <ul className="space-y-2">
             {col.cards.map((card) => (
-              <div key={card.id} className="rounded-lg border border-border bg-surface p-3 shadow-highlight">
+              <li key={card.id} className="rounded-lg border border-border bg-surface p-3 shadow-highlight">
                 <p className="text-sm text-fg">{card.title}</p>
                 {card.meta ? <p className="mt-1 text-xs text-fg-muted">{card.meta}</p> : null}
-              </div>
+              </li>
             ))}
-          </div>
-        </div>
+          </ul>
+        </section>
       ))}
     </div>
   )

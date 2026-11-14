@@ -15,12 +15,12 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "Apache 2.0 for the open source library (version 3; version 2 was MIT); HeroUI Pro is sold under its own license terms" },
     {
       feature: "Scope",
-      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
+      minidev: "548 items: 397 UI components, 108 motion components, 43 blocks and pages",
       other: "Core components for buttons, forms, date and time, color, overlays, navigation and data display; a separate HeroUI Native library for React Native",
     },
     {
       feature: "Blocks and templates",
-      minidev: "About 43 blocks and pages; 8 landing page templates shown as live demos, with brand kits",
+      minidev: "43 blocks and pages; 8 landing page templates shown as live demos, with brand kits",
       other: "Full-page templates (dashboards, CRM, mail, chat, finance) and installable blocks in HeroUI Pro (paid)",
     },
     {
@@ -37,7 +37,7 @@ const comparison: Comparison = {
     { feature: "Tailwind usage", minidev: "Tailwind CSS v4", other: "Tailwind CSS v4 is required (React 19 as well)" },
     {
       feature: "Install",
-      minidev: "`npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or npm `minidev-ui-kit`",
+      minidev: "`npx shadcn@latest add @minidev/<name>`, or npm `minidev-ui-kit`",
       other: "`npm i @heroui/styles @heroui/react`, then `@import \"@heroui/styles\";` after Tailwind in your CSS",
     },
     {
@@ -52,7 +52,7 @@ const comparison: Comparison = {
     },
     {
       feature: "AI tooling",
-      minidev: "`llms.txt` and `llms-full.txt`; shadcn MCP compatible",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
       other: "`llms.txt`, the `@heroui/react-mcp` MCP server and agent skills; HeroUI Pro adds its own AI skills and MCPs",
     },
   ],
@@ -64,7 +64,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 items built on Base UI, Tailwind CSS v4 and motion. Instead of importing from a package, you add items with the shadcn CLI and the source lands in your project. The focus is product work: data tables, billing and invoice screens, settings layouts, command palettes, notification centers and AI chat, plus about 43 full-page blocks and 86 motion components, all drawing from one set of semantic tokens.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of 548 items built on Base UI, Tailwind CSS v4 and motion. Instead of importing from a package, you add items with the shadcn CLI and the source lands in your project. The focus is product work: data tables, billing and invoice screens, settings layouts, command palettes, notification centers and AI chat, plus 43 full-page blocks and 108 motion components, all drawing from one set of semantic tokens.",
     },
     { type: "h2", text: "Where HeroUI shines", id: "where-heroui-shines" },
     {
@@ -84,7 +84,7 @@ const comparison: Comparison = {
         "**You own the code.** Every component is a file in your repo, so changing markup or behavior is an edit, not an override.",
         "**Finished product screens for free.** Billing, settings, sign in, admin consoles and chat pages are part of the MIT registry, with no paid tier.",
         "**A visual system.** One light source drives shadows across the page, and a `data-material` attribute switches between hairline, glass, metal and paper.",
-        "**Motion included.** About 86 motion components built on motion sit next to the UI components and share the same tokens.",
+        "**Motion included.** 108 motion components built on motion sit next to the UI components and share the same tokens.",
       ],
     },
     { type: "component", name: "billing-page" },
@@ -129,6 +129,10 @@ const comparison: Comparison = {
     {
       q: "Can I copy HeroUI components into my repo like shadcn/ui?",
       a: "HeroUI is installed as npm packages, so the component source stays in `node_modules` and you customize it through classes and CSS variables. MiniDev UI copies source into your project through the shadcn CLI.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or HeroUI?",
+      a: "Both are well set up. HeroUI has `llms.txt`, an MCP server (`@heroui/react-mcp`) and agent skills. MiniDev UI has `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server. The difference is the output: HeroUI code imports from a package, MiniDev code lands as source the agent can read and edit.",
     },
   ],
   sources: [

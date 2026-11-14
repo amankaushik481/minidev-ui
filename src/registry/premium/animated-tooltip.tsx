@@ -5,13 +5,21 @@ import { cn } from "@/lib/utils"
 
 /**
  * A row of overlapping avatars where hovering or focusing one pops up a name and role card that leans and slides with the pointer.
+ *
  * The card rises on a spring, tilts a few degrees toward the pointer as it
  * crosses the face, and settles back when it leaves. Keyboard focus opens
- * the same card centred; Escape closes it. Reduced motion shows and hides
- * the card instantly with no tilt.
+ * the same card centred; Escape closes it; a tap toggles it on touch.
+ * Reduced motion shows and hides the card instantly with no tilt. Use it for
+ * team, contributor or "who's online" rows; for a tooltip on any trigger use
+ * Tooltip, and for a plain stacked row use AvatarGroup.
+ *
+ * @example
+ * <AnimatedTooltip people={[{ name: "Maya Chen", role: "Founder", src: "/maya.jpg" }, { name: "Theo Okafor", role: "Engineering" }]} />
  */
 type AnimatedTooltipPerson = {
+  /** Full name; initials and the accessible name come from it. */
   name: string
+  /** Second line of the card, e.g. a job title. */
   role: string
   /** Avatar image. Initials are shown without one. */
   src?: string
@@ -20,6 +28,7 @@ type AnimatedTooltipPerson = {
 }
 
 type AnimatedTooltipProps = {
+  /** People to show, left to right. Defaults to a five-person sample team. */
   people?: AnimatedTooltipPerson[]
   /** Avatar diameter in pixels. */
   size?: number
@@ -61,6 +70,8 @@ function AnimatedTooltip({ people, size = 44, defaultActive, onSelect, className
   const x = useMotionValue(0)
   const rotate = useSpring(useTransform(x, [-0.5, 0.5], [-9, 9]), LEAN)
   const shift = useSpring(useTransform(x, [-0.5, 0.5], [-12, 12]), LEAN)
+  // Pointer type and open state at pointerdown, so a tap can toggle without fighting the focus that opened it.
+  const down = React.useRef<{ type: string; open: boolean } | null>(null)
 
   return (
     <div data-slot="animated-tooltip" data-tier="premium" className={cn("mx-auto flex w-fit items-center", className)}>
@@ -76,6 +87,8 @@ function AnimatedTooltip({ people, size = 44, defaultActive, onSelect, className
                     key="card"
                     id={tipId}
                     role="tooltip"
+                    // The button's aria-label already carries name and role; do not read them twice.
+                    aria-hidden
                     data-slot="animated-tooltip-card"
                     initial={reduce ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.85 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -94,7 +107,6 @@ function AnimatedTooltip({ people, size = 44, defaultActive, onSelect, className
             <motion.button
               type="button"
               aria-label={`${p.name}, ${p.role}`}
-              aria-describedby={open ? tipId : undefined}
               data-slot="animated-tooltip-avatar"
               data-state={open ? "open" : "closed"}
               onPointerEnter={(e) => {
@@ -118,8 +130,14 @@ function AnimatedTooltip({ people, size = 44, defaultActive, onSelect, className
               onKeyDown={(e) => {
                 if (e.key === "Escape") setActive(null)
               }}
+              onPointerDown={(e) => {
+                down.current = { type: e.pointerType, open: active === i }
+              }}
               onClick={() => {
-                setActive((a) => (a === i ? null : i))
+                const d = down.current
+                down.current = null
+                // Touch and pen toggle; mouse and keyboard keep the card open while hovered or focused.
+                setActive(d && d.type !== "mouse" && d.open ? null : i)
                 onSelect?.(p, i)
               }}
               whileHover={reduce ? undefined : { scale: 1.1 }}

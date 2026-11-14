@@ -2,8 +2,21 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** Label and value pairs in a two-column grid, for record details like a customer or an invoice. */
-type DescriptionItem = { label: React.ReactNode; value: React.ReactNode }
+/**
+ * DescriptionList — label and value pairs in a two-column grid, for record details like a customer or an invoice.
+ *
+ * Renders a semantic <dl>. Use for read-only record details. For editable
+ * settings use `FormField` rows; for tabular data with many records use `Table`.
+ *
+ * @example
+ * <DescriptionList items={[{ label: "Plan", value: "Growth" }, { label: "Seats", value: 12 }]} />
+ */
+type DescriptionItem = {
+  /** Term, rendered in a <dt>. */
+  label: React.ReactNode
+  /** Detail, rendered in a <dd>. */
+  value: React.ReactNode
+}
 
 const SAMPLE_ITEMS: DescriptionItem[] = [
   { label: "Customer", value: "Northwind Labs" },

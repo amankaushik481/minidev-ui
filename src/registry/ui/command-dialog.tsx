@@ -1,16 +1,25 @@
 "use client"
 import * as React from "react"
 import { SearchIcon } from "lucide-react"
-import { CommandPalette } from "@/registry/ui/command-palette"
+import { CommandPalette, type CommandPaletteCommand as Command } from "@/registry/ui/command-palette"
 import { Button } from "@/registry/ui/button"
 
-type Command = { id: string; label: string; onSelect?: () => void }
-
-/** A command palette in a dialog; uncontrolled with its own "Search commands" trigger unless `open` is passed. */
+/**
+ * A command palette in a dialog; uncontrolled with its own "Search commands" trigger unless `open` is passed.
+ *
+ * A thin wrapper over CommandPalette with a plain outline trigger and no ⌘K listener. Prefer CommandPalette directly when you want
+ * the ⌘K shortcut or a custom trigger. Commands take `id`, `label`, optional `keywords`, `shortcut` and `onSelect`.
+ *
+ * @example
+ * const [open, setOpen] = React.useState(false)
+ * <CommandDialog open={open} onOpenChange={setOpen} commands={[{ id: "new", label: "New invoice", onSelect: createInvoice }]} />
+ */
 type CommandDialogProps = {
   /** Controlled open state. Leave undefined to get a built-in trigger button and internal state. */
   open?: boolean
+  /** Called with the next open state. */
   onOpenChange?: (o: boolean) => void
+  /** Commands to search; same shape as CommandPalette's. */
   commands?: Command[]
 }
 
@@ -35,7 +44,7 @@ function CommandDialog({ open, onOpenChange, commands = SAMPLE_COMMANDS }: Comma
     <div data-slot="command-dialog">
       {uncontrolled ? (
         <Button type="button" variant="outline" onClick={() => setOpen(true)} aria-haspopup="dialog" aria-expanded={isOpen}>
-          <SearchIcon />
+          <SearchIcon aria-hidden />
           Search commands
         </Button>
       ) : null}

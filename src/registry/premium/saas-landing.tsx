@@ -10,6 +10,19 @@ import { CtaGlow } from "@/registry/premium/cta-glow"
 import { StatsCounter } from "@/registry/premium/stats-counter"
 import { FaqList } from "@/registry/ui/faq-list"
 
+/**
+ * A complete SaaS landing page kit: aurora hero, moving logo wall, stats, feature row, pricing cards, testimonial carousel, FAQ and a glowing CTA.
+ * Every section is a separate kit component with its own accessibility and
+ * reduced-motion handling, so you can delete or reorder sections freely.
+ * Copy the file and replace the sample copy, logos and figures with your
+ * own; never ship invented customers, stats or testimonials.
+ *
+ * Use it as the home page of a SaaS product. Reach for ProductLaunch for a
+ * launch or waitlist page, and PricingPage for /pricing.
+ *
+ * @example
+ * <SaasLanding />
+ */
 function SaasLanding({ className }: { className?: string }) {
   return (
     <div data-slot="saas-landing" data-tier="premium" className={cn("space-y-20 py-6", className)}>

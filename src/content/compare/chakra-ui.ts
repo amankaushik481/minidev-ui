@@ -19,12 +19,12 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "MIT for the library; Chakra UI Pro has its own terms" },
     {
       feature: "Scope",
-      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
+      minidev: "548 items: 397 UI components, 108 motion components, 43 blocks and pages",
       other: "A broad set of accessible React components, plus CLI snippets: ready compositions copied into `components/ui`",
     },
     {
       feature: "Blocks and templates",
-      minidev: "About 43 blocks and pages; 8 landing page templates shown as live demos, with brand kits",
+      minidev: "43 blocks and pages; 8 landing page templates shown as live demos, with brand kits",
       other: "Chakra UI Pro blocks for application, marketing and e-commerce, added with `chakra blocks add` and a Pro API key; templates also in Pro",
     },
     {
@@ -41,7 +41,7 @@ const comparison: Comparison = {
     { feature: "Tailwind usage", minidev: "Tailwind CSS v4", other: "Not used; styling goes through Chakra's own system" },
     {
       feature: "Install",
-      minidev: "`npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or npm `minidev-ui-kit`",
+      minidev: "`npx shadcn@latest add @minidev/<name>`, or npm `minidev-ui-kit`",
       other: "`npm i @chakra-ui/react @emotion/react`, `npx @chakra-ui/cli snippet add`, then wrap the app in the generated `Provider`",
     },
     {
@@ -56,7 +56,7 @@ const comparison: Comparison = {
     },
     {
       feature: "AI tooling",
-      minidev: "`llms.txt` and `llms-full.txt`; shadcn MCP compatible",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
       other: "`llms.txt`, AI rules and skills, and the `@chakra-ui/react-mcp` MCP server (template tools need a Pro license)",
     },
   ],
@@ -68,7 +68,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 items built on Base UI, Tailwind CSS v4 and motion. You add items with the shadcn CLI and the source lands in your repo. Its focus is product screens: data tables, billing and invoice pages, settings, command palettes, notification centers and AI chat, plus about 43 full-page blocks and 86 motion components under one token system.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of 548 items built on Base UI, Tailwind CSS v4 and motion. You add items with the shadcn CLI and the source lands in your repo. Its focus is product screens: data tables, billing and invoice pages, settings, command palettes, notification centers and AI chat, plus 43 full-page blocks and 108 motion components under one token system.",
     },
     { type: "h2", text: "Where Chakra UI shines", id: "where-chakra-ui-shines" },
     {
@@ -89,7 +89,7 @@ const comparison: Comparison = {
         "**No paid tier.** Full-page blocks such as billing, settings and admin consoles are free under MIT.",
         "**You own the code.** Every component is a file in your repo, styled with plain Tailwind classes and no runtime styling engine.",
         "**A visual system.** One light source drives shadows, and a `data-material` attribute switches between hairline, glass, metal and paper.",
-        "**Motion included.** About 86 motion components built on motion share the same tokens as the UI.",
+        "**Motion included.** 108 motion components built on motion share the same tokens as the UI.",
       ],
     },
     { type: "component", name: "data-table" },
@@ -134,6 +134,10 @@ const comparison: Comparison = {
     {
       q: "Do I need a provider for either library?",
       a: "Chakra UI needs its `Provider` at the root of your app, which also sets up color mode. Most MiniDev UI components need only the token stylesheet; an optional `LightProvider` adds the moving light source that shadows follow.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Chakra UI?",
+      a: "Both are well set up. Chakra UI has `llms.txt`, AI rules and skills and an MCP server whose template tools need a Pro license. MiniDev UI has `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and an MCP server, all free.",
     },
   ],
   sources: [

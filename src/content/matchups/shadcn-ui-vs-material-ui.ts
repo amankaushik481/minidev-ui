@@ -57,6 +57,11 @@ const matchup: Matchup = {
       a: "The code lives in your repo, with no runtime dependency on the shadcn/ui site after install",
       b: "New versions arrive through npm",
     },
+    {
+      feature: "AI tooling",
+      a: "`llms.txt` and an official MCP server for browsing and installing from registries",
+      b: "`llms.txt` with a Markdown file per component page, and the MUI MCP server (`@mui/mcp`)",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -102,7 +107,7 @@ const matchup: Matchup = {
     },
   ],
   minidev: [
-    "MiniDev UI sits on the shadcn/ui side of this choice. It is a free, MIT licensed shadcn-compatible registry built on Base UI and Tailwind CSS v4, so you add items with the same CLI and the source lands in your repo. It adds finished product screens on top of the shadcn/ui model: billing, settings, analytics and admin pages, data tables, AI chat and motion components, under one token system. See [MiniDev UI vs shadcn/ui](/compare/minidev-ui-vs-shadcn-ui).",
+    "MiniDev UI sits on the shadcn/ui side of this choice. It is a free, MIT licensed shadcn-compatible registry built on Base UI and Tailwind CSS v4, so you add items with the same CLI and the source lands in your repo. It adds finished product screens on top of the shadcn/ui model: billing, settings, analytics and admin pages, data tables, AI chat and motion components, under one token system. See [MiniDev UI vs shadcn/ui](/compare/minidev-ui-vs-shadcn-ui). For AI coding agents it publishes [`llms.txt`](/glossary/llms-txt), a Markdown page per component, [`AGENTS.md`](/glossary/agents-md) rules and an [MCP server](/glossary/mcp); setup is on [Use MiniDev UI with AI agents](/docs/ai).",
     "It does not replace MUI X. Its data table covers sorting, selection and bulk actions, not a virtualized grid with row grouping or pivoting. If Material Design or that grid is why you are looking at Material UI, start there; [MiniDev UI vs Material UI](/compare/minidev-ui-vs-material-ui) has the details.",
   ],
   faq: [
@@ -139,6 +144,8 @@ const matchup: Matchup = {
     { label: "Material UI all components", url: "https://mui.com/material-ui/all-components/" },
     { label: "MUI templates", url: "https://mui.com/templates/" },
     { label: "Base UI", url: "https://base-ui.com/" },
+    { label: "Material UI llms.txt", url: "https://mui.com/material-ui/llms.txt" },
+    { label: "MUI MCP server", url: "https://mui.com/material-ui/getting-started/mcp/" },
   ],
 }
 

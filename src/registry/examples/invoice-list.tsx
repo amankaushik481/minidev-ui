@@ -27,7 +27,8 @@ export const examples: Example[] = [
   {
     title: "In a card with a header",
     description: "Drop the list's own border and radius so it sits flush inside a Card that carries the title and a view all action.",
-    code: `<Card className="w-full max-w-md">
+    code: `// northwind is the list from the "Custom invoices" example.
+<Card className="w-full max-w-md">
   <CardHeader>
     <CardTitle>Northwind Traders</CardTitle>
     <CardDescription>4 invoices this quarter, $12,400.00 outstanding.</CardDescription>

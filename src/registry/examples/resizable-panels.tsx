@@ -29,6 +29,28 @@ function ControlledSplit() {
   )
 }
 
+function CollapsibleDemo() {
+  const [collapsed, setCollapsed] = React.useState(false)
+  return (
+    <div className="flex w-full max-w-2xl flex-col gap-2">
+      <ResizablePanels className="h-48 rounded-xl border border-border bg-surface">
+        <ResizablePanel defaultSize={25} minSize={15} maxSize={40} collapsible collapsedSize={0} onCollapse={setCollapsed}>
+          <nav aria-label="Workspace" className="flex h-full flex-col gap-1 bg-sunken p-2 text-sm">
+            <span className="truncate rounded-md bg-surface px-2 py-1 font-medium text-fg shadow-key">Invoices</span>
+            <span className="truncate px-2 py-1 text-fg-muted">Customers</span>
+            <span className="truncate px-2 py-1 text-fg-muted">Reports</span>
+          </nav>
+        </ResizablePanel>
+        <ResizableHandle withGrip aria-label="Resize sidebar" />
+        <ResizablePanel minSize={40}>
+          <div className="flex h-full items-center justify-center text-sm text-fg-muted">Main content</div>
+        </ResizablePanel>
+      </ResizablePanels>
+      <p aria-live="polite" className="text-xs text-fg-muted">{collapsed ? "Sidebar hidden. Focus the handle and press Enter to bring it back." : "Drag the handle far left to hide the sidebar."}</p>
+    </div>
+  )
+}
+
 export const examples: Example[] = [
   {
     title: "Two panel shorthand",
@@ -74,24 +96,14 @@ export const examples: Example[] = [
   },
   {
     title: "Collapsible sidebar",
-    description: "Drag the sidebar well below minSize and it snaps shut; Enter on the handle toggles it.",
-    code: `<ResizablePanels className="h-48 w-full max-w-2xl rounded-xl border border-border bg-surface">
-  <ResizablePanel defaultSize={25} minSize={15} maxSize={40} collapsible collapsedSize={0}>
-    <nav className="flex h-full flex-col gap-1 bg-sunken p-2 text-sm">
-      <span className="truncate rounded-md bg-surface px-2 py-1 font-medium text-fg shadow-key">Invoices</span>
-      <span className="truncate px-2 py-1 text-fg-muted">Customers</span>
-      <span className="truncate px-2 py-1 text-fg-muted">Reports</span>
-    </nav>
-  </ResizablePanel>
-  <ResizableHandle withGrip aria-label="Resize sidebar" />
-  <ResizablePanel minSize={40}>
-    <div className="flex h-full items-center justify-center text-sm text-fg-muted">Main content</div>
-  </ResizablePanel>
-</ResizablePanels>`,
-    node: (
-      <ResizablePanels className="h-48 w-full max-w-2xl rounded-xl border border-border bg-surface">
-        <ResizablePanel defaultSize={25} minSize={15} maxSize={40} collapsible collapsedSize={0}>
-          <nav className="flex h-full flex-col gap-1 bg-sunken p-2 text-sm">
+    description: "Drag the sidebar well below minSize and it snaps shut; Enter on the handle toggles it, and onCollapse tells you which way it went.",
+    code: `function CollapsibleDemo() {
+  const [collapsed, setCollapsed] = React.useState(false)
+  return (
+    <div className="flex w-full max-w-2xl flex-col gap-2">
+      <ResizablePanels className="h-48 rounded-xl border border-border bg-surface">
+        <ResizablePanel defaultSize={25} minSize={15} maxSize={40} collapsible collapsedSize={0} onCollapse={setCollapsed}>
+          <nav aria-label="Workspace" className="flex h-full flex-col gap-1 bg-sunken p-2 text-sm">
             <span className="truncate rounded-md bg-surface px-2 py-1 font-medium text-fg shadow-key">Invoices</span>
             <span className="truncate px-2 py-1 text-fg-muted">Customers</span>
             <span className="truncate px-2 py-1 text-fg-muted">Reports</span>
@@ -102,7 +114,11 @@ export const examples: Example[] = [
           <div className="flex h-full items-center justify-center text-sm text-fg-muted">Main content</div>
         </ResizablePanel>
       </ResizablePanels>
-    ),
+      <p aria-live="polite" className="text-xs text-fg-muted">{collapsed ? "Sidebar hidden. Focus the handle and press Enter to bring it back." : "Drag the handle far left to hide the sidebar."}</p>
+    </div>
+  )
+}`,
+    node: <CollapsibleDemo />,
   },
   {
     title: "Vertical split",

@@ -14,6 +14,14 @@ import { Button } from "@/registry/ui/button"
  * the cascade; the canvas is sharp on high density screens, sleeps off screen
  * and draws one still frame for reduced motion. Content ignores the pointer
  * where it is empty, so the globe stays draggable beside it.
+ *
+ * Use it for "global reach" or "where your users are" sections. For a
+ * lighter decorative sphere of logos use IconCloud.
+ *
+ * @example
+ * <Globe markers={[{ lat: 51.51, lng: -0.13, label: "London" }, { lat: 40.71, lng: -74.0, label: "New York" }]} speed={4}>
+ *   <h2 className="text-3xl text-fg">Settled locally, everywhere</h2>
+ * </Globe>
  */
 type GlobeMarker = {
   /** Latitude in degrees, north positive. */

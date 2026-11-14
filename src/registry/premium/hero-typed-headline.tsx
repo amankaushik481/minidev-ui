@@ -4,16 +4,44 @@ import { motion, useReducedMotion, AnimatePresence } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
+/**
+ * A centred hero whose headline ends in a word that rotates through a list ("Ship beautiful dashboards", "… AI apps"), sliding up as each one swaps.
+ *
+ * Screen readers and search engines get one stable sentence listing every
+ * word; the rotating word is hidden from them. Rotation pauses while the
+ * pointer is over the headline and stops for reduced motion, which shows the
+ * first word. Use it to name several audiences or use cases in one line; for
+ * multi-line kinetic type use HeroKineticType.
+ *
+ * @example
+ * <HeroTypedHeadline prefix="Invoice" words={["freelancers", "agencies", "studios"]} />
+ */
+type HeroTypedHeadlineProps = {
+  /** Fixed start of the headline. */
+  prefix?: string
+  /** Words that rotate at the end of the headline. */
+  words?: string[]
+  /** Milliseconds each word stays. */
+  interval?: number
+  className?: string
+}
+
 const WORDS = ["dashboards", "AI apps", "billing flows", "marketing sites"]
 
-function HeroTypedHeadline({ className }: { className?: string }) {
+function listOf(words: string[]) {
+  return words.length < 2 ? words.join("") : `${words.slice(0, -1).join(", ")} and ${words[words.length - 1]}`
+}
+
+function HeroTypedHeadline({ prefix = "Ship beautiful", words = WORDS, interval = 2200, className }: HeroTypedHeadlineProps) {
   const reduce = useReducedMotion()
   const [index, setIndex] = React.useState(0)
+  const [held, setHeld] = React.useState(false)
   React.useEffect(() => {
-    if (reduce) return
-    const id = setInterval(() => setIndex((i) => (i + 1) % WORDS.length), 2200)
-    return () => clearInterval(id)
-  }, [reduce])
+    if (reduce || held || words.length < 2) return
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % words.length), interval)
+    return () => window.clearInterval(id)
+  }, [reduce, held, words.length, interval])
+  const word = words[index % Math.max(1, words.length)] ?? ""
   return (
     <section
       data-slot="hero-typed-headline"
@@ -24,19 +52,24 @@ function HeroTypedHeadline({ className }: { className?: string }) {
       )}
     >
       <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">Introducing Lumen 2.0</p>
-      <h1 className="mx-auto mt-3 max-w-3xl text-[clamp(1.5rem,3.2vw+0.9rem,3rem)] font-medium tracking-[-0.028em] text-fg">
-        Ship beautiful{" "}
-        <span className="relative inline-flex h-[1.2em] min-w-[9ch] max-w-full items-baseline justify-center overflow-hidden align-baseline text-accent sm:min-w-[12ch]">
+      <h1
+        onPointerEnter={() => setHeld(true)}
+        onPointerLeave={() => setHeld(false)}
+        className="mx-auto mt-3 max-w-3xl text-[clamp(1.5rem,3.2vw+0.9rem,3rem)] font-medium tracking-[-0.028em] text-balance text-fg"
+      >
+        <span className="sr-only">{`${prefix} ${listOf(words)}`}</span>
+        <span aria-hidden>{prefix} </span>
+        <span aria-hidden className="relative inline-flex h-[1.2em] min-w-[9ch] max-w-full items-baseline justify-center overflow-hidden align-baseline text-accent-fg sm:min-w-[12ch]">
           <AnimatePresence mode="wait">
             <motion.span
-              key={WORDS[index]}
+              key={word}
               initial={reduce ? false : { y: 16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={reduce ? undefined : { y: -16, opacity: 0 }}
-              transition={{ duration: 0.28 }}
+              exit={reduce ? undefined : { y: -16, opacity: 0, transition: { duration: 0.16, ease: [0.3, 0, 0.8, 0.15] } }}
+              transition={{ duration: 0.24, ease: [0.2, 0, 0, 1] }}
               className="absolute inset-x-0 whitespace-nowrap"
             >
-              {WORDS[index]}
+              {word}
             </motion.span>
           </AnimatePresence>
         </span>
@@ -52,3 +85,4 @@ function HeroTypedHeadline({ className }: { className?: string }) {
   )
 }
 export { HeroTypedHeadline }
+export type { HeroTypedHeadlineProps }

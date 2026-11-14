@@ -45,8 +45,8 @@ const comparison: Comparison = {
     },
     {
       feature: "AI tooling",
-      minidev: "`llms.txt` and `llms-full.txt`; works with the shadcn MCP server as a registry",
-      other: "A docs page written for coding agents, linked from the home page",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
+      other: "`llms.txt` and `llms-full.txt`, a Markdown file per docs page, a DESIGN.md for its design language, and a docs page written for coding agents",
     },
   ],
   body: [
@@ -86,6 +86,10 @@ const comparison: Comparison = {
       q: "Which is better for admin dashboards?",
       a: "Ant Design has deeper data entry and data display components and the Ant Design Pro scaffold, which suits large internal systems. MiniDev UI offers an admin console, users table, analytics and settings pages as ready blocks and is the lighter choice when you want Tailwind and your own look.",
     },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Ant Design?",
+      a: "Both are well set up. Ant Design publishes `llms.txt`, `llms-full.txt`, Markdown docs and a guide for coding agents. MiniDev UI publishes the same kinds of files plus `AGENTS.md` and Cursor rules, a Claude Code skill and an MCP server.",
+    },
   ],
   sources: [
     { label: "Ant Design home", url: "https://ant.design" },
@@ -94,6 +98,7 @@ const comparison: Comparison = {
     { label: "Ant Design FAQ", url: "https://ant.design/docs/react/faq" },
     { label: "ant-design/ant-design on GitHub", url: "https://github.com/ant-design/ant-design" },
     { label: "Ant Design license", url: "https://github.com/ant-design/ant-design/blob/master/LICENSE" },
+    { label: "Ant Design llms.txt", url: "https://ant.design/llms.txt" },
   ],
 }
 

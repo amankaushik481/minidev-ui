@@ -1,10 +1,11 @@
 "use client"
 import * as React from "react"
 import { createPortal } from "react-dom"
+import { useRouter } from "next/navigation"
 import { RulerIcon } from "lucide-react"
 import { COMPONENT_LITE } from "@/lib/component-lite"
 import { SITE } from "@/lib/site"
-import { blueprintState, useBlueprint } from "@/components/blueprint/blueprint"
+import { blueprintState, isTyping, useBlueprint } from "@/components/blueprint/blueprint"
 
 /* The heavy half of Blueprint mode: measuring, the spec overlay and its keys. Split out so it loads only when someone turns the mode on. */
 
@@ -36,14 +37,15 @@ const TOKEN_RX: [string, RegExp][] = [
   ["Motion", /^(?:ease-hairline|ease-spring|ease-exit|duration-.+)$/],
 ]
 
-function measure(el: HTMLElement): Spec {
+// Element, not HTMLElement: icons and charts carry data-slot on SVG nodes too.
+function measure(el: Element): Spec {
   const r = el.getBoundingClientRect()
   const cs = getComputedStyle(el)
   const slot = el.getAttribute("data-slot") || el.tagName.toLowerCase()
-  const parentEl = el.parentElement?.closest("[data-slot]") as HTMLElement | null
+  const parentEl = el.parentElement?.closest("[data-slot]") ?? null
   const parentSlot = parentEl?.getAttribute("data-slot") ?? undefined
   let component: string | undefined
-  for (let n: HTMLElement | null = el; n; n = n.parentElement?.closest("[data-slot]") as HTMLElement | null) {
+  for (let n: Element | null = el; n; n = n.parentElement?.closest("[data-slot]") ?? null) {
     const s = n.getAttribute("data-slot")
     if (s && KNOWN.has(s)) {
       component = s
@@ -67,7 +69,7 @@ function measure(el: HTMLElement): Spec {
   const gaps: Box[] = []
   if (/flex|grid/.test(cs.display) && (px(cs.columnGap) > 0 || px(cs.rowGap) > 0)) {
     const kids = Array.from(el.children)
-      .map((k) => (k as HTMLElement).getBoundingClientRect())
+      .map((k) => k.getBoundingClientRect())
       .filter((k) => k.width > 0 && k.height > 0)
       .slice(0, 32)
     for (let i = 0; i < kids.length - 1; i++) {
@@ -124,7 +126,7 @@ function Dim({ x, y, len, vertical, label, tone = "accent" }: { x: number; y: nu
         </>
       ) : null}
       <span
-        className="absolute rounded-[4px] px-1 py-px font-mono text-[10px] leading-3.5 font-medium whitespace-nowrap text-white tabular-nums shadow-sm"
+        className="absolute rounded-[4px] px-1 py-px font-mono text-[10px] leading-3.5 font-medium whitespace-nowrap text-on-accent tabular-nums shadow-sm"
         style={{
           background: c,
           ...(vertical ? { left: 6, top: "50%", transform: "translateY(-50%)" } : { left: "50%", top: -9, transform: "translate(-50%,-50%)" }),
@@ -143,7 +145,7 @@ function Overlay({ spec, copied }: { spec: Spec; copied: boolean }) {
   const cardW = 264
   const right = r.x + r.w + 48 + cardW < vw - 8
   const cardX = right ? r.x + r.w + 48 : Math.max(8, r.x - cardW - 24)
-  const cardY = Math.min(Math.max(8, r.y), vh - 300)
+  const cardY = Math.max(8, Math.min(r.y, vh - 300))
   const p = spec.parent
   return (
     <>
@@ -235,20 +237,14 @@ function Overlay({ spec, copied }: { spec: Spec; copied: boolean }) {
   )
 }
 
-function isTyping(t: EventTarget | null) {
-  const el = t as HTMLElement | null
-  return !!el && (/input|textarea|select/i.test(el.tagName) || el.isContentEditable)
-}
-
 /** Loaded on first use by BlueprintLayer. Measures what is under the pointer and draws its spec. */
 export default function BlueprintOverlay() {
   const { active } = useBlueprint()
   const [spec, setSpec] = React.useState<Spec | null>(null)
   const [copied, setCopied] = React.useState(false)
-  const target = React.useRef<HTMLElement | null>(null)
+  const target = React.useRef<Element | null>(null)
   const frame = React.useRef(0)
-  const [mounted, setMounted] = React.useState(false)
-  React.useEffect(() => setMounted(true), [])
+  const router = useRouter()
 
   // C copies the install command, D opens the docs, for the component under the pointer.
   React.useEffect(() => {
@@ -259,25 +255,25 @@ export default function BlueprintOverlay() {
       if (!comp) return
       if (e.code === "KeyC") {
         e.preventDefault()
-        navigator.clipboard?.writeText(`npx shadcn@latest add ${SITE.url}/r/${comp}.json`).catch(() => {})
-        setCopied(true)
-        setTimeout(() => setCopied(false), 1400)
+        navigator.clipboard
+          ?.writeText(`npx shadcn@latest add ${SITE.url}/r/${comp}.json`)
+          .then(() => {
+            setCopied(true)
+            setTimeout(() => setCopied(false), 1400)
+          })
+          .catch(() => {})
       }
       if (e.code === "KeyD") {
         e.preventDefault()
-        window.location.href = `/docs/${comp}`
+        router.push(`/docs/${comp}`)
       }
     }
     window.addEventListener("keydown", down)
     return () => window.removeEventListener("keydown", down)
-  }, [])
+  }, [router])
 
   React.useEffect(() => {
-    if (!active) {
-      setSpec(null)
-      target.current = null
-      return
-    }
+    if (!active) return
     const remeasure = () => {
       cancelAnimationFrame(frame.current)
       frame.current = requestAnimationFrame(() => {
@@ -285,37 +281,50 @@ export default function BlueprintOverlay() {
         setSpec(el && el.isConnected ? measure(el) : null)
       })
     }
-    const move = (e: PointerEvent) => {
-      const el = (e.target as HTMLElement | null)?.closest?.("[data-slot]") as HTMLElement | null
+    const pick = (t: EventTarget | null) => {
+      const el = t instanceof Element ? t.closest("[data-slot]") : null
       if (el?.closest("[data-blueprint-ignore]")) return
       if (el !== target.current) {
         target.current = el
         remeasure()
       }
     }
-    // Pick up whatever is under the pointer right now.
+    const move = (e: PointerEvent) => pick(e.target)
+    // Keyboard users get the spec of whatever has focus.
+    const focus = (e: FocusEvent) => pick(e.target)
+    if (document.activeElement && document.activeElement !== document.body) pick(document.activeElement)
     window.addEventListener("pointermove", move, { passive: true })
+    window.addEventListener("focusin", focus)
     window.addEventListener("scroll", remeasure, { passive: true, capture: true })
     window.addEventListener("resize", remeasure)
     return () => {
       window.removeEventListener("pointermove", move)
+      window.removeEventListener("focusin", focus)
       window.removeEventListener("scroll", remeasure, { capture: true })
       window.removeEventListener("resize", remeasure)
       cancelAnimationFrame(frame.current)
+      target.current = null
+      setSpec(null)
     }
   }, [active])
 
-  if (!mounted || !active) return null
+  // Only ever mounted on the client, after the mode is first turned on.
+  if (!active || typeof document === "undefined") return null
   return createPortal(
-    <div data-blueprint-ignore aria-hidden className="pointer-events-none fixed inset-0 z-[200]">
-      {spec ? <Overlay spec={spec} copied={copied} /> : null}
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 animate-[rise-in_200ms_var(--ease-hairline)_both] items-center gap-3 rounded-full border border-border bg-raised py-1.5 pr-4 pl-1.5 text-[12px] text-fg-muted shadow-overlay">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 font-medium text-on-accent">
-          <RulerIcon className="size-3.5" /> Blueprint
-        </span>
-        <span className="hidden sm:inline">Hover anything to read its spec</span>
-        <span className="hidden text-fg-subtle sm:inline">·</span>
-        <span>{blueprintState().on ? "Esc to exit" : "Release ⌥ to exit"}</span>
+    <div data-blueprint-ignore className="pointer-events-none fixed inset-0 z-[200]">
+      <p role="status" className="sr-only">
+        {copied ? "Install command copied" : spec?.component ? `${spec.component}: ${Math.round(spec.rect.w)} by ${Math.round(spec.rect.h)}. Press C to copy its install command, D to open its docs.` : ""}
+      </p>
+      <div aria-hidden>
+        {spec ? <Overlay spec={spec} copied={copied} /> : null}
+        <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 animate-[rise-in_200ms_var(--ease-hairline)_both] items-center gap-3 rounded-full border border-border bg-raised py-1.5 pr-4 pl-1.5 text-[12px] text-fg-muted shadow-overlay">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 font-medium text-on-accent">
+            <RulerIcon className="size-3.5" /> Blueprint
+          </span>
+          <span className="hidden sm:inline">Hover or focus anything to read its spec</span>
+          <span className="hidden text-fg-subtle sm:inline">·</span>
+          <span>{blueprintState().on ? "Esc to exit" : "Release ⌥ to exit"}</span>
+        </div>
       </div>
     </div>,
     document.body

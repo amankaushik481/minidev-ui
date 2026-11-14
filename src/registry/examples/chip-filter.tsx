@@ -23,7 +23,7 @@ function InvoiceFilterDemo() {
   const [status, setStatus] = React.useState("all")
   const rows = status === "all" ? INVOICES : INVOICES.filter((i) => i.status === status)
   return (
-    <div className="flex w-80 flex-col gap-3">
+    <div className="flex w-full max-w-xs flex-col gap-3">
       <ChipFilter
         options={[
           { value: "all", label: "All" },
@@ -75,7 +75,7 @@ function InvoiceFilterDemo() {
   const [status, setStatus] = React.useState("all")
   const rows = status === "all" ? INVOICES : INVOICES.filter((i) => i.status === status)
   return (
-    <div className="flex w-80 flex-col gap-3">
+    <div className="flex w-full max-w-xs flex-col gap-3">
       <ChipFilter
         options={[
           { value: "all", label: "All" },

@@ -3,16 +3,27 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 /**
- * A masonry layout that keeps source order: a CSS grid with tiny rows where
- * each item spans as many rows as its measured height. Items flow left to
- * right, so keyboard and screen reader order match what you see, and the
- * column count follows the container width.
+ * MasonryGrid — a masonry layout that keeps source order, for cards of uneven height.
+ *
+ * A CSS grid with tiny rows where each item spans as many rows as its measured
+ * height. Items flow left to right, so keyboard and screen reader order match
+ * what you see, and the column count follows the container width. Use it for
+ * galleries, notes and testimonials; for equal-height cards use a plain grid.
+ * Each child is measured, so pass one element per item (no fragments).
+ *
+ * @example
+ * <MasonryGrid minColumnWidth={220} gap={16}>
+ *   {posts.map((p) => <PostCard key={p.id} post={p} />)}
+ * </MasonryGrid>
  */
 type MasonryGridProps = {
+  /** One element per tile. Keyed children keep their measured height when reordered. */
   children?: React.ReactNode
   /** Minimum column width in pixels. */
   minColumnWidth?: number
+  /** Gap between tiles in pixels, both directions. Keep it on the 4px grid. */
   gap?: number
+  /** Classes for the grid. */
   className?: string
 }
 
@@ -54,7 +65,7 @@ function MasonryGrid({ children, minColumnWidth = 180, gap = 12, className }: Ma
       style={{ gridTemplateColumns: `repeat(auto-fill, minmax(min(${minColumnWidth}px, 100%), 1fr))`, gridAutoRows: ROW, columnGap: gap, rowGap: gap }}
     >
       {items.map((it, i) => (
-        <Item key={i} gap={gap}>
+        <Item key={React.isValidElement(it) && it.key != null ? it.key : i} gap={gap}>
           {it}
         </Item>
       ))}

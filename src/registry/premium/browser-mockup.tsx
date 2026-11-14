@@ -29,6 +29,15 @@ import { cn } from "@/lib/utils"
  * follow light, dark and every material. With no content, the browser shows
  * a Lumen dashboard made of plain divs, with a phone over its corner on wide
  * screens and below it on narrow ones.
+ *
+ * Use it to frame product screenshots on landing pages, docs and changelogs.
+ * For several tilted frames at once use DeviceFrameStack.
+ *
+ * @example
+ * <BrowserMockup url="https://app.acme.com/billing" src="/billing.png" alt="Billing page" />
+ *
+ * @example
+ * <PhoneMockup width={260}><MyMobileScreen /></PhoneMockup>
  */
 type BrowserMockupProps = {
   /** Address shown in the URL bar. */

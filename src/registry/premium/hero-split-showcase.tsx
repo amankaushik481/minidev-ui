@@ -5,6 +5,20 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/registry/ui/card"
 
+/**
+ * A split hero: headline, copy and two buttons on the left, a revenue card whose bars grow in on the right.
+ *
+ * Bars grow with a transform (scaleY) on the data spring, so nothing
+ * reflows; the chart is one image to screen readers. Reduced motion shows
+ * the final chart. Use it when the hero should show a live-looking product
+ * surface; for a framed screenshot use BrowserMockup inside your own hero.
+ *
+ * @example
+ * <HeroSplitShowcase />
+ */
+const BARS = [40, 55, 48, 70, 62, 88, 76]
+const DATA = { type: "spring", bounce: 0.12, duration: 0.7 } as const
+
 function HeroSplitShowcase({
   className,
 }: {
@@ -25,6 +39,7 @@ function HeroSplitShowcase({
         <motion.h1
           initial={reduce ? false : { opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
+          transition={reduce ? { duration: 0 } : { type: "spring", bounce: 0.16, duration: 0.5 }}
           className="text-[clamp(1.75rem,3vw+1rem,2.5rem)] font-medium tracking-[-0.026em] text-fg"
         >
           Product UI with a pulse
@@ -40,10 +55,10 @@ function HeroSplitShowcase({
       <motion.div
         initial={reduce ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.5 }}
+        transition={reduce ? { duration: 0 } : { delay: 0.1, duration: 0.5, ease: [0.2, 0, 0, 1] }}
         className="relative min-w-0"
       >
-        <div className="absolute -inset-2 rounded-2xl bg-accent/10 sm:-inset-3" aria-hidden />
+        <div className="absolute -inset-2 rounded-2xl bg-accent-soft sm:-inset-3" aria-hidden />
         <Card className="relative overflow-hidden shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center justify-between gap-2">
@@ -52,14 +67,15 @@ function HeroSplitShowcase({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex h-28 items-end gap-1.5">
-              {[40, 55, 48, 70, 62, 88, 76].map((h, i) => (
+            <div role="img" aria-label="Weekly revenue, rising 18.2% over seven weeks" className="flex h-28 items-end gap-1.5">
+              {BARS.map((h, i) => (
                 <motion.div
                   key={i}
-                  className="flex-1 rounded-sm bg-accent/80"
-                  initial={reduce ? false : { height: 8 }}
-                  animate={{ height: h }}
-                  transition={{ delay: 0.15 + i * 0.04, duration: 0.45 }}
+                  className="flex-1 origin-bottom rounded-sm bg-accent"
+                  style={{ height: h }}
+                  initial={reduce ? false : { scaleY: 8 / h }}
+                  animate={{ scaleY: 1 }}
+                  transition={reduce ? { duration: 0 } : { ...DATA, delay: 0.15 + i * 0.04 }}
                 />
               ))}
             </div>

@@ -10,6 +10,21 @@ import { cn } from "@/lib/utils"
  * Base UI for roving focus and panels. The active tab carries one
  * indicator per list (a raised thumb, or a 2px accent underline for `line`)
  * that glides between tabs on a spring, the way segmented-control does.
+ *
+ * Keyboard per WAI-ARIA tabs: Arrow keys move between tabs, Home/End jump, Tab moves into the
+ * panel. Use Tabs to switch between panels of content in place; use SegmentedControl for a
+ * compact value picker without panels, and links (not tabs) when each view has its own URL.
+ * Every TabsTrigger `value` needs a TabsContent with the same `value`.
+ *
+ * @example
+ * <Tabs defaultValue="overview">
+ *   <TabsList variant="line">
+ *     <TabsTrigger value="overview">Overview</TabsTrigger>
+ *     <TabsTrigger value="invoices" badge={12}>Invoices</TabsTrigger>
+ *   </TabsList>
+ *   <TabsContent value="overview">…</TabsContent>
+ *   <TabsContent value="invoices">…</TabsContent>
+ * </Tabs>
  */
 
 type Variant = "default" | "line"
@@ -80,7 +95,7 @@ function TabsTrigger({ className, badge, children, ...props }: TabsTriggerProps)
     <TabsPrimitive.Tab
       data-slot="tabs-trigger"
       className={cn(
-        "group/tab relative inline-flex h-full flex-1 cursor-pointer items-center justify-center gap-1.5 text-[0.8125rem] font-medium whitespace-nowrap outline-none select-none",
+        "group/tab relative inline-flex h-full flex-1 cursor-pointer items-center justify-center gap-1.5 text-sm font-medium whitespace-nowrap outline-none select-none",
         "transition-[color] duration-[70ms] ease-hairline",
         "text-fg-muted hover:text-fg data-active:text-fg",
         "disabled:cursor-not-allowed disabled:opacity-45 data-disabled:cursor-not-allowed data-disabled:opacity-45",
@@ -111,7 +126,7 @@ function TabsTrigger({ className, badge, children, ...props }: TabsTriggerProps)
           {badge != null ? (
             <span
               className={cn(
-                "rounded-full px-1.5 font-mono text-[10px] leading-4 tabular-nums transition-colors duration-[70ms]",
+                "rounded-full px-1.5 font-mono text-2xs leading-4 tabular-nums transition-colors duration-[70ms]",
                 state.active ? "bg-accent-soft text-accent-fg" : "bg-fg/5 text-fg-subtle"
               )}
             >

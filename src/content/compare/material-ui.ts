@@ -61,6 +61,11 @@ const comparison: Comparison = {
       minidev: "motion (the Framer Motion successor) for the 108 motion components; CSS for core components",
       other: "Transition utilities ship with the core library",
     },
+    {
+      feature: "AI tooling",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
+      other: "`llms.txt` with a Markdown file per component page, and the MUI MCP server (`@mui/mcp`)",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -99,6 +104,10 @@ const comparison: Comparison = {
       q: "What is the link between Base UI and Material UI?",
       a: "Base UI is an unstyled component library published by the MUI organization; its site describes it as from the creators of Radix, Floating UI and Material UI. MiniDev UI uses Base UI for behavior and accessibility and adds its own styling on top.",
     },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Material UI?",
+      a: "Both are well set up. Material UI publishes `llms.txt` with a Markdown file per component and the MUI MCP server, and agents have seen a lot of MUI code. MiniDev UI publishes the same kinds of files plus `AGENTS.md` rules, a Claude Code skill and its own MCP server. The difference is the output: MUI code uses `sx` and theme objects, MiniDev code uses Tailwind utilities and semantic tokens.",
+    },
   ],
   sources: [
     { label: "MUI home", url: "https://mui.com" },
@@ -109,6 +118,8 @@ const comparison: Comparison = {
     { label: "MUI templates", url: "https://mui.com/templates/" },
     { label: "MUI on GitHub", url: "https://github.com/mui" },
     { label: "Base UI", url: "https://base-ui.com/" },
+    { label: "Material UI llms.txt", url: "https://mui.com/material-ui/llms.txt" },
+    { label: "MUI MCP server", url: "https://mui.com/material-ui/getting-started/mcp/" },
   ],
 }
 

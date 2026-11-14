@@ -57,11 +57,14 @@ function PrototypeForm() {
         {sent ? (
           <motion.div key="done" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="grid min-h-[420px] place-items-center text-center">
             <div>
-              <span className="mx-auto grid size-12 animate-[pop-in_320ms_var(--ease-hairline)_both] place-items-center rounded-full bg-success text-white shadow-ink">
+              <span className="mx-auto grid size-12 animate-[pop-in_320ms_var(--ease-hairline)_both] place-items-center rounded-full bg-success text-on-accent shadow-ink">
                 <CheckIcon className="size-5" strokeWidth={3} />
               </span>
               <p className="mt-4 text-xl font-medium tracking-[-0.02em] text-fg">Got it, {data.name.split(" ")[0] || "thanks"}.</p>
-              <p className="mx-auto mt-2 max-w-sm text-[14.5px] text-fg-muted">Your email app opened with the details. Send it and your prototype arrives within 48 hours.</p>
+              <p role="status" className="mx-auto mt-2 max-w-sm text-[14.5px] text-fg-muted">
+                Your email app opened with the details. Send it and your prototype arrives within 48 hours. Nothing opened? Write to{" "}
+                <a href={`mailto:${SITE.studio.email}`} className="font-medium text-fg underline decoration-border-strong underline-offset-4">{SITE.studio.email}</a>.
+              </p>
               <Button variant="outline" className="mt-6" render={<a href={SITE.studio.call} target="_blank" rel="noreferrer" />}>
                 Or book a 30 minute call
               </Button>
@@ -84,8 +87,8 @@ function PrototypeForm() {
               <h2 className="mt-1 text-2xl font-medium tracking-[-0.03em] text-fg">Get your prototype in 48 hours</h2>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              <input required value={data.name} onChange={set("name")} placeholder="Your name" aria-label="Your name" className={field} />
-              <input required type="email" value={data.email} onChange={set("email")} placeholder="you@company.com" aria-label="Email" className={field} />
+              <input required name="name" autoComplete="name" value={data.name} onChange={set("name")} placeholder="Your name" aria-label="Your name" className={field} />
+              <input required type="email" name="email" autoComplete="email" value={data.email} onChange={set("email")} placeholder="you@company.com" aria-label="Email" className={field} />
             </div>
             <textarea required value={data.idea} onChange={set("idea")} rows={5} placeholder="What are you building? Who is it for, and what should it do first?" aria-label="Your idea" className={cn(field, "resize-none leading-[1.55]")} />
             <div className="grid gap-3 sm:grid-cols-2">
@@ -134,15 +137,15 @@ export default function StudioPage() {
               <motion.p {...rise(0.16)} className="mt-6 max-w-lg text-lg leading-[1.6] text-fg-muted">
                 The same people who made this kit build MVPs, apps and websites for founders. Fixed price, weekly demos, your code. Start with a free prototype of your idea.
               </motion.p>
-              <motion.dl {...rise(0.24)} className="mt-10 grid max-w-lg grid-cols-3 gap-6 border-t border-border pt-6">
+              <motion.dl {...rise(0.24)} className="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t sm:gap-6 border-border pt-6">
                 {[
                   ["20+", "products shipped"],
                   ["5 yrs", "building for founders"],
                   ["30 days", "idea to launch"],
                 ].map(([a, b]) => (
-                  <div key={b}>
-                    <dt className="text-3xl font-medium tracking-[-0.04em] text-fg">{a}</dt>
-                    <dd className="mt-0.5 text-[12.5px] text-fg-muted">{b}</dd>
+                  <div key={b} className="flex flex-col-reverse">
+                    <dt className="mt-0.5 text-[12.5px] text-fg-muted">{b}</dt>
+                    <dd className="text-2xl font-medium tracking-[-0.04em] whitespace-nowrap text-fg tabular-nums sm:text-3xl">{a}</dd>
                   </div>
                 ))}
               </motion.dl>

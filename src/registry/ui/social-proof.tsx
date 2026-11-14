@@ -3,7 +3,15 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/registry/ui/avatar"
 
-/** A stack of up to five customer avatars beside a short trust line, for hero and signup sections. */
+/**
+ * A stack of up to five customer avatars beside a short trust line, for hero and signup sections.
+ *
+ * The avatars are decorative; the trust line is what screen readers hear. Only claim numbers you can back up.
+ * For quotes use Testimonial; for a row of logos use LogoCloud.
+ *
+ * @example
+ * <SocialProof countLabel="Used by 40 teams in our beta" people={[{ name: "Maya Chen", src: "/maya.jpg" }]} />
+ */
 type SocialProofProps = {
   /** The trust line shown next to the avatars. */
   countLabel?: string
@@ -34,9 +42,9 @@ function SocialProof({
   const shown = people.slice(0, 5)
   return (
     <div data-slot="social-proof" className={cn("inline-flex items-center gap-3", className)}>
-      <div className="flex -space-x-2">
-        {shown.map((p) => (
-          <Avatar key={p.name} className="size-8 ring-2 ring-bg">
+      <div aria-hidden className="flex -space-x-2">
+        {shown.map((p, i) => (
+          <Avatar key={`${p.name}-${i}`} className="size-8 ring-2 ring-bg">
             {p.src ? <AvatarImage src={p.src} alt="" /> : null}
             <AvatarFallback>{initials(p.name)}</AvatarFallback>
           </Avatar>

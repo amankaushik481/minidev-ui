@@ -102,7 +102,7 @@ const matchup: Matchup = {
     },
   ],
   minidev: [
-    "MiniDev UI is a shadcn-compatible registry on Base UI and Tailwind CSS v4, so it extends the shadcn/ui side rather than offering a third model: same CLI, source in your repo, and a stylesheet that maps the shadcn token names to its own tokens. It adds product screens such as billing, settings, data tables and AI chat, plus full-page blocks and motion components, free under MIT. See [MiniDev UI vs shadcn/ui](/compare/minidev-ui-vs-shadcn-ui).",
+    "MiniDev UI is a shadcn-compatible registry on Base UI and Tailwind CSS v4, so it extends the shadcn/ui side rather than offering a third model: same CLI, source in your repo, and a stylesheet that maps the shadcn token names to its own tokens. It adds product screens such as billing, settings, data tables and AI chat, plus full-page blocks and motion components, free under MIT. See [MiniDev UI vs shadcn/ui](/compare/minidev-ui-vs-shadcn-ui). For AI coding agents it publishes [`llms.txt`](/glossary/llms-txt), a Markdown page per component, [`AGENTS.md`](/glossary/agents-md) rules and an [MCP server](/glossary/mcp); setup is on [Use MiniDev UI with AI agents](/docs/ai).",
     "If your team prefers Chakra's style props, MiniDev UI is not a fit, since it is styled with Tailwind utilities. A Chakra app can still use it for a separate Tailwind surface such as a marketing site, which [MiniDev UI vs Chakra UI](/compare/minidev-ui-vs-chakra-ui) covers.",
   ],
   faq: [

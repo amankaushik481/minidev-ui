@@ -8,33 +8,14 @@ function CharacterLimitDemo() {
   const limit = 240
   const [note, setNote] = React.useState("Priya confirmed the PO number. Ship INV-2041 once finance signs off.")
   const left = limit - note.length
+  const countId = React.useId()
   return (
     <div className="flex w-full max-w-sm flex-col gap-1.5">
-      <Textarea value={note} onChange={(e) => setNote(e.target.value.slice(0, limit))} aria-label="Internal note" />
-      <p className={left < 20 ? "text-right text-xs text-danger tabular-nums" : "text-right text-xs text-fg-muted tabular-nums"}>
+      <Textarea value={note} onChange={(e) => setNote(e.target.value)} maxLength={limit} aria-label="Internal note" aria-describedby={countId} />
+      <p id={countId} className={left < 20 ? "text-right text-xs text-danger tabular-nums" : "text-right text-xs text-fg-muted tabular-nums"}>
         {left} characters left
       </p>
     </div>
-  )
-}
-
-function AutoGrowDemo() {
-  const ref = React.useRef<HTMLTextAreaElement>(null)
-  const fit = () => {
-    const el = ref.current
-    if (!el) return
-    el.style.height = "auto"
-    el.style.height = el.scrollHeight + "px"
-  }
-  return (
-    <Textarea
-      ref={ref}
-      rows={1}
-      onInput={fit}
-      placeholder="Reply to Maya Chen"
-      aria-label="Reply"
-      className="w-full max-w-sm min-h-0 resize-none overflow-hidden"
-    />
   )
 }
 
@@ -55,15 +36,16 @@ export const examples: Example[] = [
   },
   {
     title: "Character limit",
-    description: "Trim the value in onChange and show how much room is left under the field.",
+    description: "Native maxLength stops typing at the limit; link the counter with aria-describedby so screen readers hear how much room is left.",
     code: `function CharacterLimitDemo() {
   const limit = 240
   const [note, setNote] = React.useState("Priya confirmed the PO number. Ship INV-2041 once finance signs off.")
   const left = limit - note.length
+  const countId = React.useId()
   return (
     <div className="flex w-full max-w-sm flex-col gap-1.5">
-      <Textarea value={note} onChange={(e) => setNote(e.target.value.slice(0, limit))} aria-label="Internal note" />
-      <p className={left < 20 ? "text-right text-xs text-danger tabular-nums" : "text-right text-xs text-fg-muted tabular-nums"}>
+      <Textarea value={note} onChange={(e) => setNote(e.target.value)} maxLength={limit} aria-label="Internal note" aria-describedby={countId} />
+      <p id={countId} className={left < 20 ? "text-right text-xs text-danger tabular-nums" : "text-right text-xs text-fg-muted tabular-nums"}>
         {left} characters left
       </p>
     </div>
@@ -73,27 +55,9 @@ export const examples: Example[] = [
   },
   {
     title: "Auto growing",
-    description: "Start at one row and set the height from scrollHeight on every input.",
-    code: `function AutoGrowDemo() {
-  const ref = React.useRef<HTMLTextAreaElement>(null)
-  const fit = () => {
-    const el = ref.current
-    if (!el) return
-    el.style.height = "auto"
-    el.style.height = el.scrollHeight + "px"
-  }
-  return (
-    <Textarea
-      ref={ref}
-      rows={1}
-      onInput={fit}
-      placeholder="Reply to Maya Chen"
-      aria-label="Reply"
-      className="w-full max-w-sm min-h-0 resize-none overflow-hidden"
-    />
-  )
-}`,
-    node: <AutoGrowDemo />,
+    description: "autoResize grows the field with its content up to a cap, using CSS field-sizing; rows sets the starting height.",
+    code: `<Textarea rows={1} autoResize placeholder="Reply to Maya Chen" aria-label="Reply" className="w-full max-w-sm" />`,
+    node: <Textarea rows={1} autoResize placeholder="Reply to Maya Chen" aria-label="Reply" className="w-full max-w-sm" />,
   },
   {
     title: "Disabled and invalid",

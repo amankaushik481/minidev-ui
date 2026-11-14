@@ -52,6 +52,11 @@ const comparison: Comparison = {
       minidev: "MiniDev",
       other: "Tremor Labs; the site announces that Tremor is joining Vercel",
     },
+    {
+      feature: "AI tooling",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
+      other: "No `llms.txt` at the site root when checked in November 2026; components are copied from the docs as source",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -89,6 +94,10 @@ const comparison: Comparison = {
     {
       q: "Can I use Tremor and MiniDev UI together?",
       a: "Yes. Both are React components styled with Tailwind CSS v4 that you copy into your project. Tremor uses Radix UI for its interactive parts and MiniDev UI uses Base UI, so both primitive libraries end up in the bundle if you mix them.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Tremor?",
+      a: "MiniDev UI. When checked in November 2026, Tremor had no `llms.txt` at its site root, so agents work from the HTML docs or from memory. MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server, and an agent installs any item with one shadcn command.",
     },
   ],
   sources: [

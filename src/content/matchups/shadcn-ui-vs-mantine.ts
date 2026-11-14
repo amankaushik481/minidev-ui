@@ -101,7 +101,7 @@ const matchup: Matchup = {
     },
   ],
   minidev: [
-    "MiniDev UI sits on the shadcn/ui side: a free, MIT shadcn-compatible registry on Base UI and Tailwind CSS v4 that installs with the same CLI. It is a way to get closer to Mantine's breadth without leaving Tailwind, with over 500 items including data tables, billing and settings pages, command palettes, notification centers and AI chat.",
+    "MiniDev UI sits on the shadcn/ui side: a free, MIT shadcn-compatible registry on Base UI and Tailwind CSS v4 that installs with the same CLI. It is a way to get closer to Mantine's breadth without leaving Tailwind, with 548 items including data tables, billing and settings pages, command palettes, notification centers and AI chat. For AI coding agents it publishes [`llms.txt`](/glossary/llms-txt), a Markdown page per component, [`AGENTS.md`](/glossary/agents-md) rules and an [MCP server](/glossary/mcp); setup is on [Use MiniDev UI with AI agents](/docs/ai).",
     "It does not include a separate form state library like `@mantine/form`; it provides the input components and a form wizard. Compare it with [shadcn/ui](/compare/minidev-ui-vs-shadcn-ui) and with [Mantine](/compare/minidev-ui-vs-mantine).",
   ],
   faq: [

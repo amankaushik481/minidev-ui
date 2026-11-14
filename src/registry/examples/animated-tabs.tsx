@@ -42,7 +42,8 @@ export const examples: Example[] = [
   {
     title: "Default tab and change handler",
     description: "defaultValue picks the starting tab and onValueChange reports the id, which is enough to sync the tab with the URL.",
-    code: `function TrackedDemo() {
+    code: `// INVOICE_TABS is the list from the "Custom tabs" example.
+function TrackedDemo() {
   const [tab, setTab] = React.useState("items")
   const label = INVOICE_TABS.find((t) => t.id === tab)?.label
   return (

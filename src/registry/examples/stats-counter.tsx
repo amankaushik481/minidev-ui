@@ -34,13 +34,13 @@ export const examples: Example[] = [
   },
   {
     title: "Inside a report card",
-    description: "Left aligned on the sunken surface, a two by two grid of counters makes a quick quarter summary.",
+    description: "Left aligned on the sunken surface, a two by two grid makes a quarter summary; suffix adds a unit and format takes Intl.NumberFormat options for money.",
     code: `<div className="w-full max-w-md rounded-2xl border border-border bg-surface p-5 shadow-raised">
   <p className="text-sm font-medium text-fg">Northwind, Q3 2026</p>
   <div className="mt-4 grid grid-cols-2 gap-3">
     <StatsCounter value={1284} label="invoices sent" className="bg-sunken text-left shadow-none" />
-    <StatsCounter value={1203} label="paid on time" className="bg-sunken text-left shadow-none" />
-    <StatsCounter value={61} label="reminders sent" className="bg-sunken text-left shadow-none" />
+    <StatsCounter value={94} suffix="%" label="paid on time" className="bg-sunken text-left shadow-none" />
+    <StatsCounter value={412800} format={{ style: "currency", currency: "USD", notation: "compact" }} label="collected" className="bg-sunken text-left shadow-none" />
     <StatsCounter value={20} label="still open" className="bg-sunken text-left shadow-none" />
   </div>
 </div>`,
@@ -49,8 +49,8 @@ export const examples: Example[] = [
         <p className="text-sm font-medium text-fg">Northwind, Q3 2026</p>
         <div className="mt-4 grid grid-cols-2 gap-3">
           <StatsCounter value={1284} label="invoices sent" className="bg-sunken text-left shadow-none" />
-          <StatsCounter value={1203} label="paid on time" className="bg-sunken text-left shadow-none" />
-          <StatsCounter value={61} label="reminders sent" className="bg-sunken text-left shadow-none" />
+          <StatsCounter value={94} suffix="%" label="paid on time" className="bg-sunken text-left shadow-none" />
+          <StatsCounter value={412800} format={{ style: "currency", currency: "USD", notation: "compact" }} label="collected" className="bg-sunken text-left shadow-none" />
           <StatsCounter value={20} label="still open" className="bg-sunken text-left shadow-none" />
         </div>
       </div>

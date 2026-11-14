@@ -5,24 +5,48 @@ import { ArrowRightIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
-/*
- * HeroSpotlight: a launch hero. Staggered headline that settles in with a
- * blur, a lit second line that catches the cursor light, two actions, a
- * trust row, and a visual slot that rises last and tilts toward the light.
+/**
+ * HeroSpotlight — a launch hero: a staggered h1 that settles in with a blur, a lit second line, two actions, a proof line and a product visual that rises last.
+ *
+ * Use as the first section of a landing page (it renders the page's h1, so use it once). Pair `visual` with a
+ * DeviceFrame wrapping real UI. Entrance motion is skipped under reduced motion. For a plain hero with no motion use
+ * Hero; for premium backgrounds use HeroAurora. Actions render as links when `href` is set, buttons otherwise.
+ *
+ * @example
+ * <HeroSpotlight
+ *   title="Answers from your data,"
+ *   highlight="before you ask."
+ *   primary={{ label: "Start free", href: "/signup" }}
+ *   visual={<DeviceFrame device="browser"><DashboardHome /></DeviceFrame>}
+ * />
  */
+type HeroAction = {
+  /** Button text. */
+  label: string
+  /** Renders the action as a link to this URL. */
+  href?: string
+  /** Click handler, used when there is no `href`. */
+  onClick?: () => void
+}
 
 type HeroSpotlightProps = {
+  /** Pill above the title with a live dot, e.g. "Now in public beta". */
   eyebrow?: React.ReactNode
+  /** First line of the h1. */
   title?: React.ReactNode
   /** Second line of the title, lit by the cursor. */
   highlight?: React.ReactNode
+  /** Paragraph under the title. */
   description?: React.ReactNode
-  primary?: { label: string; href?: string; onClick?: () => void }
-  secondary?: { label: string; href?: string; onClick?: () => void }
+  /** Main call to action, solid with an arrow. */
+  primary?: HeroAction
+  /** Second call to action, outline. */
+  secondary?: HeroAction
   /** Small proof line under the actions. */
   proof?: React.ReactNode
   /** Product visual (a DeviceFrame, a screenshot, anything). */
   visual?: React.ReactNode
+  /** Text alignment of the copy block. */
   align?: "center" | "left"
   className?: string
 }
@@ -47,11 +71,11 @@ function HeroSpotlight({
       ? {}
       : { initial: { opacity: 0, y: 14, filter: "blur(6px)" }, animate: { opacity: 1, y: 0, filter: "blur(0px)" }, transition: { duration: 0.8, delay: d, ease } }
   const center = align === "center"
-  const act = (a: HeroSpotlightProps["primary"], variant: "default" | "outline") =>
+  const act = (a: HeroAction | undefined, variant: "default" | "outline") =>
     a ? (
       <Button size="lg" variant={variant} onClick={a.onClick} render={a.href ? <a href={a.href} /> : undefined}>
         {a.label}
-        {variant === "default" ? <ArrowRightIcon /> : null}
+        {variant === "default" ? <ArrowRightIcon aria-hidden /> : null}
       </Button>
     ) : null
 
@@ -63,8 +87,8 @@ function HeroSpotlight({
         <div className={cn("max-w-4xl", center && "mx-auto")}>
           {eyebrow ? (
             <motion.p {...rise(0)} className={cn("inline-flex items-center gap-2 rounded-full border border-border bg-surface py-1 pr-3 pl-1.5 text-[12.5px] text-fg-muted shadow-xs")}>
-              <span className="relative flex size-2 items-center justify-center">
-                <span className="absolute inset-0 animate-ping rounded-full bg-accent/50" />
+              <span aria-hidden className="relative flex size-2 items-center justify-center">
+                <span className="absolute inset-0 animate-ping rounded-full bg-accent/50 motion-reduce:hidden" />
                 <span className="relative size-1.5 rounded-full bg-accent" />
               </span>
               {eyebrow}
@@ -114,4 +138,4 @@ function HeroSpotlight({
 }
 
 export { HeroSpotlight }
-export type { HeroSpotlightProps }
+export type { HeroSpotlightProps, HeroAction }

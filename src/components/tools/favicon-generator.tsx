@@ -148,8 +148,8 @@ export function drawIcon(canvas: HTMLCanvasElement, size: number, source: Source
     ctx.fillRect(0, 0, size, size)
   }
   if (source.kind === "letters") {
-    const text = source.mark.text.trim().slice(0, 2) || "A"
-    let px = size * (text.length > 1 ? 0.5 : 0.6)
+    const text = letters(source.mark.text)
+    let px = size * (Array.from(text).length > 1 ? 0.5 : 0.6)
     ctx.font = `${source.mark.weight} ${px}px ${FONTS[source.mark.family]}`
     const w = ctx.measureText(text).width
     if (w > size * 0.82) {
@@ -175,10 +175,14 @@ export function drawIcon(canvas: HTMLCanvasElement, size: number, source: Source
   ctx.drawImage(src, Math.round((size - w) / 2), Math.round((size - h) / 2), w, h)
 }
 
+/** The one or two characters drawn, counted by code point so an emoji is not split in half. */
+export const letters = (t: string) => Array.from(t.trim()).slice(0, 2).join("") || "A"
+
 /** A scalable favicon.svg for a letter mark. Browsers render it with the viewer's system font. */
 export function letterSvg(m: LetterMark, radius: number): string {
-  const text = (m.text.trim().slice(0, 2) || "A").replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" })[c] ?? c)
-  const px = text.length > 1 ? 32 : 38
+  const raw = letters(m.text)
+  const text = raw.replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" })[c] ?? c)
+  const px = Array.from(raw).length > 1 ? 32 : 38
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">\n  <rect width="64" height="64" rx="${Math.round((64 * Math.min(50, Math.max(0, radius))) / 100)}" fill="${m.bg}"/>\n  <text x="32" y="32" dy="0.36em" text-anchor="middle" font-family='${FONTS[m.family]}' font-weight="${m.weight}" font-size="${px}" fill="${m.fg}">${text}</text>\n</svg>`
 }
 
@@ -278,13 +282,12 @@ export function FaviconGenerator() {
 
   const source: Source | null = mode === "Letters" ? { kind: "letters", mark } : image ? { kind: "image", img: image.img, name: image.name, vector: image.vector } : null
   const opts: RenderOptions = { padding, radius, bg: transparent ? null : imageBg }
+  // Without a source the last render is hidden rather than cleared, so no state is set from the effect.
+  const files = source ? outputs : []
+  const icoFile = source ? ico : null
 
   React.useEffect(() => {
-    if (!source) {
-      setOutputs([])
-      setIco(null)
-      return
-    }
+    if (!source) return
     let cancelled = false
     let made: string[] = []
     const t = setTimeout(async () => {
@@ -349,7 +352,7 @@ export function FaviconGenerator() {
   }
 
   const downloadAll = () => {
-    const items = [...outputs.map((o) => ({ url: o.url, name: o.name })), ...(ico ? [{ url: ico.url, name: "favicon.ico" }] : [])]
+    const items = [...files.map((o) => ({ url: o.url, name: o.name })), ...(icoFile ? [{ url: icoFile.url, name: "favicon.ico" }] : [])]
     if (mode === "Letters") items.push({ url: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(letterSvg(mark, radius))}`, name: "favicon.svg" })
     items.forEach((it, i) => {
       setTimeout(() => {
@@ -364,7 +367,7 @@ export function FaviconGenerator() {
   const theme = mode === "Letters" ? mark.bg : transparent ? "#FFFFFF" : imageBg
   const manifest = manifestJson(appName, theme, transparent && mode === "Image" ? "#FFFFFF" : theme)
   const svgText = mode === "Letters" ? letterSvg(mark, radius) : null
-  const small = outputs.find((o) => o.size === 32)
+  const small = files.find((o) => o.size === 32)
 
   return (
     <div className="space-y-5">
@@ -377,13 +380,13 @@ export function FaviconGenerator() {
             </div>
             {mode === "Letters" ? (
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-[auto_1fr]">
-                <div className="grid size-28 place-items-center overflow-hidden" style={{ background: mark.bg, borderRadius: `${radius}%`, color: mark.fg, fontFamily: FONTS[mark.family], fontWeight: mark.weight, fontSize: mark.text.trim().length > 1 ? 56 : 67 }} aria-hidden>
-                  {mark.text.trim().slice(0, 2) || "A"}
+                <div className="grid size-28 place-items-center overflow-hidden" style={{ background: mark.bg, borderRadius: `${radius}%`, color: mark.fg, fontFamily: FONTS[mark.family], fontWeight: mark.weight, fontSize: Array.from(letters(mark.text)).length > 1 ? 56 : 67 }} aria-hidden>
+                  {letters(mark.text)}
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
                     <label htmlFor="fv-text" className="text-[13px] font-medium text-fg">Letters</label>
-                    <Input id="fv-text" value={mark.text} maxLength={2} onChange={(e) => setM("text", e.target.value.slice(0, 2))} className="font-medium" placeholder="Lu" />
+                    <Input id="fv-text" value={mark.text} onChange={(e) => setM("text", Array.from(e.target.value).slice(0, 2).join(""))} className="font-medium" placeholder="Lu" />
                   </div>
                   <div className="space-y-2">
                     <span className="text-[13px] font-medium text-fg">Font</span>
@@ -444,14 +447,14 @@ export function FaviconGenerator() {
           <div className="rounded-2xl border border-border bg-surface p-5 shadow-raised">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <span className="text-[13px] font-medium text-fg">Generated files</span>
-              <Button size="sm" onClick={downloadAll} disabled={!outputs.length}>
+              <Button size="sm" onClick={downloadAll} disabled={!files.length}>
                 <DownloadIcon /> Download all
               </Button>
             </div>
-            {source && !outputs.length ? <p className="mt-3 text-[13px] text-fg-muted">Rendering...</p> : null}
+            {source && !files.length ? <p className="mt-3 text-[13px] text-fg-muted">Rendering...</p> : null}
             {source ? (
               <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                {outputs.map((o) => (
+                {files.map((o) => (
                   <li key={o.name} className="flex flex-col rounded-xl border border-border p-3">
                     <div className="grid h-20 place-items-center rounded-lg" style={{ background: CHECKER }}>
                       <img src={o.url} alt={`${o.size} pixel icon`} width={Math.min(o.size, 64)} height={Math.min(o.size, 64)} style={{ imageRendering: o.size <= 32 ? "pixelated" : "auto" }} />
@@ -463,18 +466,18 @@ export function FaviconGenerator() {
                     </a>
                   </li>
                 ))}
-                {ico ? (
+                {icoFile ? (
                   <li className="flex flex-col rounded-xl border border-accent-line bg-accent-soft/40 p-3">
                     <div className="grid h-20 place-items-center rounded-lg" style={{ background: CHECKER }}>
                       {/* The ICO is decoded by the browser itself, which proves the container is valid. */}
-                      <img key={ico.url} src={ico.url} alt="favicon.ico as the browser decodes it" width={32} height={32} onLoad={() => setIcoState("ok")} onError={() => setIcoState("failed")} />
+                      <img key={icoFile.url} src={icoFile.url} alt="favicon.ico as the browser decodes it" width={32} height={32} onLoad={() => setIcoState("ok")} onError={() => setIcoState("failed")} />
                     </div>
                     <span className="mt-2 truncate font-mono text-[11.5px] text-fg">favicon.ico</span>
-                    <span className="text-[11.5px] text-fg-muted">16, 32 and 48 · {(ico.bytes / 1024).toFixed(1)} KB</span>
+                    <span className="text-[11.5px] text-fg-muted">16, 32 and 48 · {(icoFile.bytes / 1024).toFixed(1)} KB</span>
                     <span className={"mt-1 inline-flex items-center gap-1 text-[11.5px] " + (icoState === "ok" ? "text-success" : icoState === "failed" ? "text-danger" : "text-fg-subtle")} aria-live="polite">
                       {icoState === "ok" ? <><CheckIcon className="size-3" /> Decoded by your browser</> : icoState === "failed" ? "Your browser could not decode it" : "Checking..."}
                     </span>
-                    <a href={ico.url} download="favicon.ico" className="mt-2 inline-flex items-center gap-1 text-[12px] font-medium text-fg underline decoration-border-strong underline-offset-4 hover:decoration-fg">
+                    <a href={icoFile.url} download="favicon.ico" className="mt-2 inline-flex items-center gap-1 text-[12px] font-medium text-fg underline decoration-border-strong underline-offset-4 hover:decoration-fg">
                       <DownloadIcon className="size-3.5" /> Download
                     </a>
                   </li>
@@ -495,7 +498,7 @@ export function FaviconGenerator() {
             ) : (
               <p className="mt-3 text-[13px] text-fg-muted">Upload an image to generate the files.</p>
             )}
-            {mode === "Image" && transparent && outputs.length ? <p className="mt-3 text-[12px] text-fg-muted">iOS fills transparent areas of the Apple touch icon with black. Turn off transparency to give it a background.</p> : null}
+            {mode === "Image" && transparent && files.length ? <p className="mt-3 text-[12px] text-fg-muted">iOS fills transparent areas of the Apple touch icon with black. Turn off transparency to give it a background.</p> : null}
           </div>
         </div>
 

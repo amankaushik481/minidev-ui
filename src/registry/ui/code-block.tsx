@@ -3,7 +3,16 @@ import * as React from "react"
 import { CheckIcon, CopyIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/** An ink-well code block in both themes, with lightweight token colouring (strings, keywords, JSX tags, comments) and a copy button. */
+/**
+ * An ink-well code block in both themes, with lightweight token colouring (strings, keywords, JSX tags, comments) and a copy button.
+ *
+ * Use for static snippets in docs, onboarding and API-key screens. It highlights with a tiny built-in tokenizer (no Shiki/Prism),
+ * so it suits short JS/TS/JSX/shell snippets. For a live editable area use CodeEditorFrame; for a shell session use TerminalWindow;
+ * for a single command with a copy button use CopyButton beside an inline `<code>`.
+ *
+ * @example
+ * <CodeBlock filename="install.sh" language="bash" code={"npx shadcn@latest add https://ui.minidev.pro/r/button.json"} />
+ */
 const KEYWORDS = new Set([
   "import", "from", "export", "default", "function", "return", "const", "let", "var",
   "if", "else", "await", "async", "new", "type", "interface", "extends", "as", "npm",
@@ -47,10 +56,14 @@ export async function POST(req: Request) {
 `
 
 type CodeBlockProps = {
+  /** The source to show and copy. A trailing newline is ignored. */
   code?: string
+  /** Label shown in the header badge, e.g. "tsx", "bash", "json". Does not change highlighting. */
   language?: string
+  /** File name shown in the header. */
   filename?: string
   className?: string
+  /** Prefix each line with its number (not copied). */
   showLineNumbers?: boolean
 }
 
@@ -62,6 +75,8 @@ function CodeBlock({
   showLineNumbers = false,
 }: CodeBlockProps) {
   const [copied, setCopied] = React.useState(false)
+  const timer = React.useRef<ReturnType<typeof setTimeout>>(undefined)
+  React.useEffect(() => () => clearTimeout(timer.current), [])
   const lines = React.useMemo(() => code.replace(/\n$/, "").split("\n"), [code])
   return (
     <div
@@ -75,7 +90,7 @@ function CodeBlock({
       )}
     >
       <div className="flex h-10 items-center justify-between gap-3 border-b border-[var(--code-border)] pr-2 pl-4">
-        <div className="flex min-w-0 items-center gap-2 font-mono text-[11px] text-[color-mix(in_oklch,var(--code-fg)_55%,transparent)]">
+        <div className="flex min-w-0 items-center gap-2 font-mono text-2xs text-[color-mix(in_oklch,var(--code-fg)_55%,transparent)]">
           {filename ? <span className="truncate">{filename}</span> : null}
           <span className="rounded border border-[var(--code-border)] px-1.5 py-px uppercase tracking-[0.06em]">{language}</span>
         </div>
@@ -83,17 +98,29 @@ function CodeBlock({
           type="button"
           aria-label={copied ? "Copied" : "Copy code"}
           onClick={async () => {
-            try { await navigator.clipboard.writeText(code) } catch {}
+            try {
+              await navigator.clipboard.writeText(code)
+            } catch {
+              return // Clipboard blocked (insecure context or denied): do not claim success.
+            }
             setCopied(true)
-            setTimeout(() => setCopied(false), 1400)
+            clearTimeout(timer.current)
+            timer.current = setTimeout(() => setCopied(false), 1400)
           }}
-          className="inline-flex h-7 items-center gap-1.5 rounded-md px-2 text-[11px] font-medium text-[color-mix(in_oklch,var(--code-fg)_65%,transparent)] outline-none transition-[color,background-color] duration-[70ms] hover:bg-white/8 hover:text-[var(--code-fg)] focus-visible:ring-2 focus-visible:ring-accent"
+          className="inline-flex h-7 items-center gap-1.5 rounded-md px-2 text-2xs font-medium text-[color-mix(in_oklch,var(--code-fg)_65%,transparent)] outline-none transition-[color,background-color] duration-[70ms] hover:bg-[color-mix(in_oklch,var(--code-fg)_8%,transparent)] hover:text-[var(--code-fg)] focus-visible:ring-2 focus-visible:ring-accent"
         >
-          {copied ? <CheckIcon className="size-3.5 text-[var(--code-str)]" /> : <CopyIcon className="size-3.5" />}
+          {copied ? <CheckIcon aria-hidden className="size-3.5 text-[var(--code-str)]" /> : <CopyIcon aria-hidden className="size-3.5" />}
           {copied ? "Copied" : "Copy"}
         </button>
+        <span className="sr-only" aria-live="polite">
+          {copied ? "Code copied to clipboard" : ""}
+        </span>
       </div>
-      <pre className="overflow-x-auto py-3.5 font-mono text-[12.5px] leading-[1.7]">
+      <pre
+        tabIndex={0}
+        aria-label={filename ? `${filename} source` : `${language} code`}
+        className="overflow-x-auto py-3.5 font-mono text-xs leading-[1.7] outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+      >
         <code className="grid">
           {lines.map((line, i) => (
             <span key={i} className="px-4">

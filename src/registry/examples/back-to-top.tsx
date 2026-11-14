@@ -19,7 +19,7 @@ const PARAGRAPHS = [
 function PanelDemo() {
   const ref = React.useRef<HTMLDivElement>(null)
   return (
-    <div className="relative w-80">
+    <div className="relative w-full max-w-xs">
       <div ref={ref} className="h-64 overflow-y-auto rounded-2xl border border-border bg-surface">
         <ul className="divide-y divide-border text-sm">
           {ROWS.map((row) => <li key={row} className="px-4 py-2 text-fg">{row}</li>)}
@@ -52,7 +52,7 @@ export const examples: Example[] = [
 function PanelDemo() {
   const ref = React.useRef<HTMLDivElement>(null)
   return (
-    <div className="relative w-80">
+    <div className="relative w-full max-w-xs">
       <div ref={ref} className="h-64 overflow-y-auto rounded-2xl border border-border bg-surface">
         <ul className="divide-y divide-border text-sm">
           {ROWS.map((row) => <li key={row} className="px-4 py-2 text-fg">{row}</li>)}

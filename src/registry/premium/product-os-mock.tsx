@@ -11,19 +11,51 @@ const STEPS = [
   { title: "Agents", detail: "2 running", rows: ["thicken stubs", "premium heroes", "docs DX"] },
 ]
 
-function ProductOsMock({ className }: { className?: string }) {
+/**
+ * A mock product window with a sidebar of workspaces that cycles on its own, each view rising in with its rows and KPI bars.
+ * It auto-advances every few seconds to show the product breathing, pauses
+ * while the pointer or keyboard focus is inside, and stops for good once the
+ * visitor picks a view. Reduced motion never auto-advances and shows every
+ * view in place.
+ *
+ * Use it as a hero visual for a product or platform page. Reach for
+ * BrowserMockup or DeviceFrameStack to frame your own screenshot, and
+ * ProductTour for a guided, visitor-driven walkthrough.
+ *
+ * @example
+ * <ProductOsMock interval={3200} />
+ */
+type ProductOsMockProps = {
+  /** Milliseconds each view stays before the next. */
+  interval?: number
+  className?: string
+}
+
+const MORPH = { type: "spring", bounce: 0.16, duration: 0.5 } as const
+
+function ProductOsMock({ interval = 2800, className }: ProductOsMockProps) {
   const reduce = useReducedMotion()
   const [active, setActive] = React.useState(0)
+  // Hover or focus pauses the cycle; a click hands control to the visitor for good.
+  const [paused, setPaused] = React.useState(false)
+  const [manual, setManual] = React.useState(false)
   React.useEffect(() => {
-    if (reduce) return
-    const id = window.setInterval(() => setActive((v) => (v + 1) % STEPS.length), 2800)
+    if (reduce || paused || manual) return
+    const id = window.setInterval(() => setActive((v) => (v + 1) % STEPS.length), interval)
     return () => window.clearInterval(id)
-  }, [reduce])
+  }, [reduce, paused, manual, interval])
   const step = STEPS[active]
   return (
     <section
       data-slot="product-os-mock"
       data-tier="premium"
+      aria-label="Product preview"
+      onPointerEnter={() => setPaused(true)}
+      onPointerLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setPaused(false)
+      }}
       className={cn(
         "overflow-hidden rounded-2xl border border-border bg-surface shadow-highlight",
         className
@@ -31,9 +63,11 @@ function ProductOsMock({ className }: { className?: string }) {
     >
       <div className="flex items-center justify-between gap-2 border-b border-border px-3 py-3 sm:px-4">
         <div className="flex min-w-0 items-center gap-2">
+          <span aria-hidden className="contents">
           <span className="size-2.5 shrink-0 rounded-full bg-danger/80" />
           <span className="size-2.5 shrink-0 rounded-full bg-warning/80" />
           <span className="size-2.5 shrink-0 rounded-full bg-success/80" />
+          </span>
           <p className="ml-1 truncate font-mono text-[10px] text-fg-muted sm:ml-2 sm:text-xs">
             minidev.os — live product surface
           </p>
@@ -48,14 +82,18 @@ function ProductOsMock({ className }: { className?: string }) {
               <li key={s.title} className="shrink-0 lg:w-full">
                 <button
                   type="button"
-                  onClick={() => setActive(i)}
+                  aria-current={i === active ? "true" : undefined}
+                  onClick={() => {
+                    setManual(true)
+                    setActive(i)
+                  }}
                   className={cn(
                     "flex items-center justify-between rounded-lg px-2.5 py-1.5 text-left text-sm outline-none transition-[background-color] duration-[70ms] focus-visible:ring-2 focus-visible:ring-accent lg:w-full",
                     i === active ? "bg-surface text-fg shadow-highlight" : "text-fg-muted hover:text-fg"
                   )}
                 >
                   {s.title}
-                  {i === active ? <span className="ml-2 size-1.5 rounded-full bg-accent lg:ml-0" /> : null}
+                  {i === active ? <span aria-hidden className="ml-2 size-1.5 rounded-full bg-accent lg:ml-0" /> : null}
                 </button>
               </li>
             ))}
@@ -75,7 +113,7 @@ function ProductOsMock({ className }: { className?: string }) {
                 key={step.title + row}
                 initial={reduce ? false : { y: 8 }}
                 animate={{ y: 0 }}
-                transition={{ delay: i * 0.05, duration: 0.2, ease: [0.2, 0, 0, 1] }}
+                transition={reduce ? { duration: 0 } : { ...MORPH, delay: i * 0.05 }}
                 className="flex items-center justify-between gap-3 rounded-xl border border-border bg-bg px-3 py-2.5 shadow-highlight"
               >
                 <span className="min-w-0 truncate text-sm text-fg">{row}</span>
@@ -90,10 +128,11 @@ function ProductOsMock({ className }: { className?: string }) {
                 <p className="mt-1 text-base font-medium tabular-nums tracking-[-0.018em] text-fg sm:text-xl">{n}%</p>
                 <div className="mt-2 h-1 overflow-hidden rounded-full bg-border">
                   <motion.div
-                    className="h-full bg-accent"
-                    initial={reduce ? false : { width: 0 }}
-                    animate={{ width: `${n}%` }}
-                    transition={{ duration: 0.45, delay: 0.1 + i * 0.05 }}
+                    className="h-full origin-left bg-accent"
+                    style={{ width: `${n}%` }}
+                    initial={reduce ? false : { scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={reduce ? { duration: 0 } : { ...MORPH, delay: 0.1 + i * 0.05 }}
                   />
                 </div>
               </div>
@@ -105,3 +144,4 @@ function ProductOsMock({ className }: { className?: string }) {
   )
 }
 export { ProductOsMock }
+export type { ProductOsMockProps }

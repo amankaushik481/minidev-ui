@@ -404,7 +404,7 @@ export const PART_2: Record<string, ComponentSeo> = {
   "tags-input": {
     description: "React tags input that adds a chip on Enter or comma, skips duplicates, removes the last tag on Backspace and gives each chip a labelled remove button.",
     category: "forms",
-    keywords: ["react tags input", "tag input component", "multi value chip input"],
+    keywords: ["react tags input", "shadcn tags input", "tag input component", "multi value chip input"],
   },
   "tax-fields": {
     description: "Checkout tax fields with country and a monospace VAT or EIN tax ID input in a two-column grid. Drop it into billing address forms for business customers.",

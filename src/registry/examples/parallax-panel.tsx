@@ -20,15 +20,17 @@ export const examples: Example[] = [
   },
   {
     title: "Compact",
-    description: "Tighter padding and a narrower width for a sidebar or a secondary section.",
+    description: "Tighter padding and a narrower width for a sidebar or a secondary section; eyebrow adds the small label above the title.",
     code: `<ParallaxPanel
   className="w-full max-w-md p-6"
+  eyebrow="Spend controls"
   title="Approvals by amount"
   body="Anything under 5,000 routes to Priya. Larger spends wait for Sam."
 />`,
     node: (
       <ParallaxPanel
         className="w-full max-w-md p-6"
+        eyebrow="Spend controls"
         title="Approvals by amount"
         body="Anything under 5,000 routes to Priya. Larger spends wait for Sam."
       />

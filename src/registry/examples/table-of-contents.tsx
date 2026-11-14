@@ -52,7 +52,7 @@ function SelectorDemo() {
         <h3 className="mt-5 text-base font-medium text-fg">Cut-off times</h3>
         <p className="mt-2 text-[0.8125rem] leading-[1.65] text-fg-muted">Batches close at 16:00 in the workspace time zone. Payments that settle later roll into the next run, so totals never change after you have seen them.</p>
         <h2 className="mt-7 text-lg font-medium text-fg">Invoice reminders</h2>
-        <p className="mt-2 text-[0.8125rem] leading-[1.65] text-fg-muted">Reminders now respect the customer's time zone. Northwind's finance team gets theirs at 9:00 Seattle time instead of the middle of the night.</p>
+        <p className="mt-2 text-[0.8125rem] leading-[1.65] text-fg-muted">Reminders now respect the customer’s time zone. Northwind’s finance team gets theirs at 9:00 Seattle time instead of the middle of the night.</p>
         <h2 className="mt-7 text-lg font-medium text-fg">API changes</h2>
         <p className="mt-2 text-[0.8125rem] leading-[1.65] text-fg-muted">GET /v1/payouts returns the schedule that produced each payout. The legacy payout.created webhook is deprecated and stops firing on 1 December.</p>
         <h2 className="mt-7 text-lg font-medium text-fg">Fixes</h2>
@@ -78,7 +78,7 @@ export const examples: Example[] = [
     <h3 className="mt-5 text-base font-medium text-fg">Cut-off times</h3>
     <p className="mt-2 text-[0.8125rem] leading-[1.65] text-fg-muted">Batches close at 16:00 in the workspace time zone. Payments that settle later roll into the next run, so totals never change after you have seen them.</p>
     <h2 className="mt-7 text-lg font-medium text-fg">Invoice reminders</h2>
-    <p className="mt-2 text-[0.8125rem] leading-[1.65] text-fg-muted">Reminders now respect the customer's time zone. Northwind's finance team gets theirs at 9:00 Seattle time instead of the middle of the night.</p>
+    <p className="mt-2 text-[0.8125rem] leading-[1.65] text-fg-muted">Reminders now respect the customer’s time zone. Northwind’s finance team gets theirs at 9:00 Seattle time instead of the middle of the night.</p>
     <h2 className="mt-7 text-lg font-medium text-fg">API changes</h2>
     <p className="mt-2 text-[0.8125rem] leading-[1.65] text-fg-muted">GET /v1/payouts returns the schedule that produced each payout. The legacy payout.created webhook is deprecated and stops firing on 1 December.</p>
     <h2 className="mt-7 text-lg font-medium text-fg">Fixes</h2>

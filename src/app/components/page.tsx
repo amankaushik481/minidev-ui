@@ -10,13 +10,29 @@ import { COMPONENT_INDEX } from "@/lib/component-index"
 import { breadcrumbLd, graph, itemListLd, meta } from "@/lib/seo"
 import { humanTitle } from "@/lib/seo-routes"
 import { SITE } from "@/lib/site"
+import { HubBrowser, type HubCategory } from "./_browse/hub-browser"
+import { AgentNote, type BrowseItem } from "./_browse/install-card"
 
 export const metadata: Metadata = meta({ ...PAGE_SEO.components, path: "/components" })
 
 const title = (name: string) => humanTitle(COMPONENT_INDEX.find((c) => c.name === name)?.title ?? name)
 
+const MORE = [
+  { href: "/blocks", title: "Page sections by type", body: "Hero, pricing, features, FAQ, footers, login pages and dashboards, rendered live." },
+  { href: "/templates", title: "Whole product templates", body: "Complete landing pages for SaaS, fintech, AI agents, healthcare and more, built from these parts." },
+]
+
 export default function ComponentsHub() {
   const cats = CATEGORIES.map((c) => ({ ...c, items: componentsInCategory(c.id) })).sort((a, b) => b.items.length - a.items.length)
+  const label = new Map(CATEGORIES.map((c) => [c.id as string, c.label]))
+  const hub: HubCategory[] = cats.map((c) => ({
+    id: c.id,
+    name: c.h1.replace(/^React /, "").replace(/^./, (m) => m.toUpperCase()),
+    count: c.items.length,
+    samples: c.items.slice(0, 6).map((n) => ({ name: n, title: title(n) })),
+  }))
+  // Name, title and category only: descriptions for every component would triple the page payload.
+  const items: BrowseItem[] = COMPONENT_INDEX.map((e) => ({ name: e.name, title: humanTitle(e.title), kind: e.kind, meta: e.category ? label.get(e.category) : undefined }))
   return (
     <ContentShell>
       <JsonLd
@@ -30,26 +46,24 @@ export default function ComponentsHub() {
         <Crumbs items={[{ name: "MiniDev UI", href: "/" }, { name: "Components" }]} />
         <h1 className="mt-4 max-w-3xl text-4xl leading-[1.02] font-medium tracking-[-0.045em] text-fg sm:text-6xl">React components by category</h1>
         <p className="mt-5 max-w-2xl text-[1.125rem] leading-[1.65] text-fg-muted">
-          {COMPONENT_INDEX.length} free components, blocks and motion effects for React and Tailwind CSS v4. Every one installs as a single file with the shadcn CLI, so you own the code from the first commit.
+          {COMPONENT_INDEX.length} free components, blocks and motion effects for React and Tailwind CSS v4. Every one installs as a single file with one shadcn CLI command, so you own the code from the first commit. Filter the whole set below, or open a category for live demos, guidance and FAQs.
         </p>
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {cats.map((c) => (
-            <Link
-              key={c.id}
-              href={`/components/${c.id}`}
-              className="group flex flex-col rounded-2xl border border-border bg-surface p-6 shadow-raised outline-none transition-[border-color] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent"
-            >
-              <span className="flex items-baseline justify-between gap-3">
-                <span className="text-[1.125rem] font-medium tracking-[-0.02em] text-fg">{c.h1.replace(/^React /, "").replace(/^./, (m) => m.toUpperCase())}</span>
-                <span className="font-mono text-[12px] text-fg-subtle tabular-nums">{c.items.length}</span>
+        <HubBrowser categories={hub} items={items} />
+        <AgentNote />
+
+        <nav aria-labelledby="more-heading" className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <h2 id="more-heading" className="sr-only">
+            More ways to browse
+          </h2>
+          {MORE.map((m) => (
+            <Link key={m.href} href={m.href} className="group rounded-2xl border border-border bg-surface p-6 shadow-raised outline-none transition-[border-color] duration-[70ms] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
+              <span className="flex items-center gap-1.5 text-[1.0625rem] font-medium tracking-[-0.02em] text-fg">
+                {m.title} <ArrowRightIcon className="size-3.5 text-fg-subtle transition-transform duration-[140ms] group-hover:translate-x-0.5" />
               </span>
-              <span className="mt-2 text-[0.875rem] leading-[1.6] text-fg-muted">{c.items.slice(0, 5).map(title).join(", ")}</span>
-              <span className="mt-auto flex items-center gap-1 pt-5 text-[0.8125rem] font-medium text-fg">
-                Browse {c.label.toLowerCase()} <ArrowRightIcon className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
+              <span className="mt-1 block text-[0.875rem] leading-[1.6] text-fg-muted">{m.body}</span>
             </Link>
           ))}
-        </div>
+        </nav>
         <StudioNote />
       </div>
     </ContentShell>

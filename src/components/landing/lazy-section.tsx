@@ -22,6 +22,7 @@ type Mod = { default: React.ComponentType }
 
 const LOADERS = {
   stage: () => import("@/components/landing/hero-stage").then((m): Mod => ({ default: m.StageCards })),
+  agents: () => import("@/components/landing/agents").then((m): Mod => ({ default: m.AgentSection })),
   templates: () => import("@/components/landing/templates-strip").then((m): Mod => ({ default: m.TemplatesStrip })),
   materials: () => import("@/components/landing/materials").then((m): Mod => ({ default: m.Materials })),
   exploded: () => import("@/components/landing/exploded").then((m): Mod => ({ default: m.Exploded })),

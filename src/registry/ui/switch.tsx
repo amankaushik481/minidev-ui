@@ -10,6 +10,15 @@ import { cn } from "@/lib/utils"
  * While pressed the thumb stretches toward where it is about to go. The track only changes colour.
  * 44px hit area via ::after. Pass `label` (+ `description`) for a settings row
  * where the whole row is clickable.
+ *
+ * Use Switch for a setting that applies immediately; use Checkbox for a choice submitted
+ * with a form, and ToggleGroup for picking one of several options. Controlled with
+ * `checked` + `onCheckedChange`, or uncontrolled with `defaultChecked`. Without `label`,
+ * give it an `aria-label`.
+ *
+ * @example
+ * <Switch aria-label="Dark mode" checked={dark} onCheckedChange={setDark} />
+ * <Switch label="Email alerts" description="A digest every morning." defaultChecked />
  */
 
 type Size = "sm" | "default"
@@ -20,11 +29,13 @@ const SIZE: Record<Size, { track: string; thumb: string; rest: number; stretch: 
 }
 
 type SwitchProps = Omit<SwitchPrimitive.Root.Props, "children"> & {
+  /** Track size: 16x28 or 20x36. */
   size?: Size
   /** Shows a spinner in the thumb. Stays focusable but can't be toggled. */
   loading?: boolean
   /** Renders a settings row: label on the left, switch on the right, whole row clickable. */
   label?: React.ReactNode
+  /** Muted helper line under `label`; linked with aria-describedby. */
   description?: React.ReactNode
 }
 
@@ -154,7 +165,7 @@ function Switch({
     >
       <span className={cn("grid min-w-0 gap-0.5", disabled && "opacity-60")}>
         {label != null ? (
-          <span id={`${id}-label`} className="text-[0.8125rem] leading-5 font-medium text-fg">
+          <span id={`${id}-label`} className="text-sm leading-5 font-medium text-fg">
             {label}
           </span>
         ) : null}

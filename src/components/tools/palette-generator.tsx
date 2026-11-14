@@ -7,6 +7,7 @@ import { SegmentedControl } from "@/registry/ui/segmented-control"
 import { CodeBlock } from "@/registry/ui/code-block"
 import { contrast, fmtOklch, hexToOklch, oklchToHex, palette } from "@/lib/color"
 import { Control } from "./shadow-generator"
+import { ShareLink, useShareUrl } from "./share-url"
 
 const num = (v: number | readonly number[]) => (Array.isArray(v) ? v[0] : (v as number))
 
@@ -28,7 +29,7 @@ function Swatch({ step, hex, oklch }: { step: number; hex: string; oklch: string
     >
       <span className="relative flex h-24 items-end justify-between p-2.5" style={{ background: hex, color: best }}>
         <span className="text-[12px] font-semibold">{step}</span>
-        {ok ? <CheckIcon className="size-3.5" /> : <CopyIcon className="size-3.5 opacity-0 group-hover:opacity-80" />}
+        {ok ? <CheckIcon className="size-3.5" /> : <CopyIcon aria-hidden className="size-3.5 opacity-0 group-hover:opacity-80 group-focus-visible:opacity-80" />}
       </span>
       <span className="space-y-0.5 p-2.5 font-mono text-[10.5px] leading-[1.5] text-fg-muted">
         <span className="block text-fg">{hex}</span>
@@ -49,11 +50,21 @@ export function PaletteGenerator() {
   const [hex, setHex] = React.useState("#6D5BFF")
   const [fmt, setFmt] = React.useState<"Tailwind v4" | "CSS vars" | "Hex">("Tailwind v4")
   const steps = palette(hue, chroma)
+  const hexOk = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex.trim())
+  const link = useShareUrl({ h: String(hue), c: String(chroma), name }, (p) => {
+    const h = Number(p.get("h"))
+    const c = Number(p.get("c"))
+    if (p.has("h") && h >= 0 && h < 360) setHue(Math.round(h))
+    if (p.has("c") && c >= 0 && c <= 0.37) setChroma(c)
+    if (p.has("h") || p.has("c")) setHex(oklchToHex({ l: 0.62, c: p.has("c") ? c : 0.2, h: p.has("h") ? h : 262 }))
+    const n = p.get("name")
+    if (n) setName(n.slice(0, 40))
+  })
   const slug = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "brand"
 
   const fromHex = (v: string) => {
     setHex(v)
-    const o = hexToOklch(v)
+    const o = hexToOklch(v.trim())
     if (o && o.c > 0.01) {
       setHue(Math.round(o.h))
       setChroma(+Math.min(0.37, o.c).toFixed(3))
@@ -74,8 +85,9 @@ export function PaletteGenerator() {
           <label htmlFor="pal-hex" className="text-[13px] font-medium text-fg">Start from a hex</label>
           <div className="flex gap-2">
             <input type="color" aria-label="Pick a color" value={/^#[0-9a-f]{6}$/i.test(hex) ? hex : "#6d5bff"} onChange={(e) => fromHex(e.target.value.toUpperCase())} className="h-9 w-12 shrink-0 cursor-pointer rounded-md border border-border bg-transparent" />
-            <Input id="pal-hex" value={hex} onChange={(e) => fromHex(e.target.value)} className="font-mono" />
+            <Input id="pal-hex" value={hex} onChange={(e) => fromHex(e.target.value)} className="font-mono" spellCheck={false} aria-invalid={!hexOk} aria-describedby={hexOk ? undefined : "pal-hex-err"} />
           </div>
+          {hexOk ? null : <p id="pal-hex-err" className="text-[12.5px] text-danger">Enter a 3 or 6 digit hex, like #6D5BFF.</p>}
           <label htmlFor="pal-name" className="block pt-2 text-[13px] font-medium text-fg">Color name</label>
           <Input id="pal-name" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
@@ -96,7 +108,10 @@ export function PaletteGenerator() {
       </div>
 
       <div className="space-y-3">
-        <SegmentedControl size="sm" items={["Tailwind v4", "CSS vars", "Hex"]} value={fmt} onChange={(v) => setFmt(v as typeof fmt)} aria-label="Export format" />
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <SegmentedControl size="sm" items={["Tailwind v4", "CSS vars", "Hex"]} value={fmt} onChange={(v) => setFmt(v as typeof fmt)} aria-label="Export format" />
+          <ShareLink href={link} />
+        </div>
         <CodeBlock language={fmt === "Hex" ? "bash" : "css"} filename={fmt === "Tailwind v4" ? "globals.css" : fmt === "CSS vars" ? "tokens.css" : "palette.txt"} code={code} />
       </div>
     </div>

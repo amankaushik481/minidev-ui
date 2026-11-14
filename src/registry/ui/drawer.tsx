@@ -3,10 +3,25 @@ import * as React from "react"
 import { Button } from "@/registry/ui/button"
 import { Sheet } from "@/registry/ui/sheet"
 
-/** A bottom sheet for quick actions and mobile forms: a Sheet that slides up from the bottom edge. */
+/**
+ * Drawer — a bottom sheet for quick actions and mobile forms: a Sheet that slides up from the bottom edge.
+ *
+ * Uncontrolled, it renders its own trigger button (pass `trigger` to replace
+ * it). Controlled, pass `open` and `onClose` and render your own trigger.
+ * For a side panel use `Sheet`; for a centred modal use `Dialog`; for an iOS
+ * style action list use `MobileActionSheet`.
+ *
+ * @example
+ * const [open, setOpen] = React.useState(false)
+ * <Button onClick={() => setOpen(true)}>Invoice actions</Button>
+ * <Drawer open={open} onClose={() => setOpen(false)} title="Invoice INV-2041">
+ *   ...actions
+ * </Drawer>
+ */
 type DrawerProps = {
   /** Controlled open state. Leave it out and the drawer renders its own "Open drawer" button. */
   open?: boolean
+  /** Called when the drawer asks to close (Escape, scrim click, close button). */
   onClose?: () => void
   /** Edge the drawer slides from. */
   side?: "left" | "right" | "top" | "bottom"

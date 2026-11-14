@@ -131,7 +131,8 @@ export function parseJson(src: string): JsonParse {
   }
   const object = (): Record<string, unknown> => {
     i++
-    const out: Record<string, unknown> = {}
+    // No prototype, so a "__proto__" key is kept as data instead of replacing the prototype.
+    const out: Record<string, unknown> = Object.create(null)
     ws()
     if (peek() === "}") {
       i++
@@ -173,6 +174,7 @@ export function parseJson(src: string): JsonParse {
       const at = Math.min(e.index, n)
       return { ok: false, error: { message: e.message, index: at, ...lineColumn(src, at) } }
     }
+    if (e instanceof RangeError) return { ok: false, error: { message: "The JSON is nested too deeply to convert", index: i, ...lineColumn(src, i) } }
     throw e
   }
 }
@@ -302,7 +304,8 @@ export function emitTypescript(root: Shape, o: TsOptions): string {
   const ref = (s: Shape, hint: string): string => {
     if (s.kind === "array") {
       const inner = unionRef(s.items, singular(hint))
-      const needsParens = s.items.length > 1
+      // `readonly readonly T[][]` is a syntax error, so a readonly inner array needs parens too.
+      const needsParens = s.items.length > 1 || inner.startsWith("readonly ")
       return `${ro ? "readonly " : ""}${needsParens ? `(${inner})` : inner}[]`
     }
     if (s.kind === "object") {
@@ -396,8 +399,13 @@ function countTypes(s: Shape): { types: number; props: number } {
 export function jsonToTypescript(src: string, o: TsOptions): JsonToTsResult {
   const parsed = parseJson(src)
   if (!parsed.ok) return { ts: "", zod: "", error: parsed.error, types: 0, props: 0 }
-  const shape = shapeOf(parsed.value)
-  return { ts: emitTypescript(shape, o), zod: emitZod(shape, o), ...countTypes(shape) }
+  try {
+    const shape = shapeOf(parsed.value)
+    return { ts: emitTypescript(shape, o), zod: emitZod(shape, o), ...countTypes(shape) }
+  } catch (e) {
+    if (!(e instanceof RangeError)) throw e
+    return { ts: "", zod: "", error: { message: "The JSON is nested too deeply to convert", index: 0, line: 1, column: 1 }, types: 0, props: 0 }
+  }
 }
 
 /* ----------------------------------- UI ----------------------------------- */

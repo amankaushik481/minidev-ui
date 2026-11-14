@@ -5,7 +5,20 @@ import { cn } from "@/lib/utils"
 import { Popover, PopoverContent, PopoverTrigger } from "@/registry/ui/popover"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/registry/ui/tooltip"
 
+/**
+ * Overlapping avatars for a team, with name tooltips, a "+N" overflow popover and a "Maya, Theo and 7 others" summary.
+ *
+ * Each avatar is ringed in the surface colour so the stack reads cleanly on cards; hovering or
+ * focusing one lifts it above its neighbours without moving the layout. Initials on token-tinted
+ * backgrounds stand in for missing photos. Data-driven: pass `people`. Prefer the `AvatarGroup`
+ * exported from `avatar` (a plain flex wrapper) when you compose `Avatar` children by hand.
+ *
+ * @example
+ * <AvatarGroup label="Northwind team" max={4} size="sm"
+ *   people={[{ name: "Maya Chen", role: "Head of Finance", src: "/maya.jpg" }, { name: "Theo Okafor" }]} />
+ */
 type AvatarGroupPerson = {
+  /** Full name; initials and the tint are derived from it. */
   name: string
   /** Shown under the name in the tooltip and overflow list. */
   role?: string
@@ -55,18 +68,13 @@ const TEAM: AvatarGroupPerson[] = [
   { name: "Elena Petrova", role: "Accounts payable" },
 ]
 
-/**
- * Overlapping avatars for a team, each ringed in the surface colour so the
- * stack reads cleanly on cards. Hovering or focusing an avatar lifts it above
- * its neighbours without moving the layout and shows a tooltip with the name.
- * Past `max`, a "+N" chip opens a popover listing everyone else. Initials on
- * token-tinted backgrounds stand in for missing photos. Sizes sm, md and lg.
- */
 type AvatarGroupProps = {
+  /** Everyone in the group, in display order. Omit for sample data. */
   people?: AvatarGroupPerson[]
   /** Avatars shown before the "+N" chip. If only one person would overflow, they are shown instead of "+1". */
   max?: number
-  size?: Size
+  /** Avatar diameter: sm 24px, md 32px, lg 40px. */
+  size?: "sm" | "md" | "lg"
   /** Accessible name for the group, also the overflow popover title. */
   label?: string
   /** Show a "Maya, Theo and 7 others" line after the stack. */

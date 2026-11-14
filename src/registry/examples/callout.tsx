@@ -6,13 +6,13 @@ export const examples: Example[] = [
   {
     title: "Tones",
     description: "Info is neutral; success, warning and danger tint the border and wash at low opacity.",
-    code: `<Callout>Invoices are sent from billing@northwind.com by default.</Callout>
+    code: `<Callout>Invoices are sent from billing@northwind.example by default.</Callout>
 <Callout tone="success">Payment of $1,840.00 for INV-2041 was received.</Callout>
 <Callout tone="warning">Your card ending in 4242 expires next month.</Callout>
 <Callout tone="danger">The bank connection was revoked. Reconnect to keep importing.</Callout>`,
     node: (
       <div className="flex w-full max-w-md flex-col gap-3">
-        <Callout>Invoices are sent from billing@northwind.com by default.</Callout>
+        <Callout>Invoices are sent from billing@northwind.example by default.</Callout>
         <Callout tone="success">Payment of $1,840.00 for INV-2041 was received.</Callout>
         <Callout tone="warning">Your card ending in 4242 expires next month.</Callout>
         <Callout tone="danger">The bank connection was revoked. Reconnect to keep importing.</Callout>

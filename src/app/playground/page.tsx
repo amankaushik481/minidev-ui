@@ -72,7 +72,7 @@ function Slider({ label, value, min, max, step, onChange, format, track }: { lab
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="mt-2.5 h-2 w-full cursor-pointer appearance-none rounded-full bg-sunken outline-none [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-border [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-border [&::-moz-range-thumb]:bg-white"
+        className="mt-2.5 h-2 w-full cursor-pointer appearance-none rounded-full bg-sunken outline-none [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-border [&::-webkit-slider-thumb]:bg-raised [&::-webkit-slider-thumb]:shadow-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-border [&::-moz-range-thumb]:bg-raised"
         style={track ? { background: track } : undefined}
       />
     </div>
@@ -106,7 +106,7 @@ export default function Playground() {
               <p className="text-[0.8125rem] font-medium text-fg">Presets</p>
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {PRESETS.map((p) => {
-                  const on = p.t.hue === t.hue && p.t.chroma === t.chroma && p.t.radius === t.radius
+                  const on = p.t.hue === t.hue && p.t.chroma === t.chroma && p.t.radius === t.radius && p.t.tint === t.tint
                   return (
                     <button
                       key={p.name}
@@ -130,9 +130,9 @@ export default function Playground() {
             <Slider label="Neutral tint" value={t.tint} min={0} max={359} step={1} onChange={(tint) => set({ tint })} format={(n) => `${n}°`} />
             <Slider label="Radius" value={t.radius} min={0} max={16} step={1} onChange={(radius) => set({ radius })} format={(n) => `${n}px`} />
             <div className="flex items-center justify-between border-t border-border pt-5">
-              <div className="flex rounded-lg border border-border bg-sunken p-[3px] text-xs font-medium">
+              <div role="group" aria-label="Preview theme" className="flex rounded-lg border border-border bg-sunken p-[3px] text-xs font-medium">
                 {(["Light", "Dark"] as const).map((m) => (
-                  <button key={m} type="button" onClick={() => setDark(m === "Dark")} className={cn("rounded-md px-3 py-1 outline-none focus-visible:ring-2 focus-visible:ring-accent", (m === "Dark") === dark ? "bg-surface text-fg shadow-[0_1px_2px_0_oklch(0_0_0/0.08),0_0_0_1px_var(--border)]" : "text-fg-muted")}>{m}</button>
+                  <button key={m} type="button" aria-pressed={(m === "Dark") === dark} onClick={() => setDark(m === "Dark")} className={cn("rounded-md px-3 py-1 outline-none focus-visible:ring-2 focus-visible:ring-accent", (m === "Dark") === dark ? "bg-surface text-fg shadow-[0_1px_2px_0_oklch(0_0_0/0.08),0_0_0_1px_var(--border)]" : "text-fg-muted")}>{m}</button>
                 ))}
               </div>
               <Button size="sm" variant="ghost" onClick={() => setT(DEFAULT)}><RotateCcwIcon /> Reset</Button>
@@ -140,14 +140,17 @@ export default function Playground() {
             <Button
               className="w-full"
               onClick={async () => {
-                try { await navigator.clipboard.writeText(css) } catch {}
-                setCopied(true)
-                setTimeout(() => setCopied(false), 1500)
+                try {
+                  await navigator.clipboard.writeText(css)
+                  setCopied(true)
+                  setTimeout(() => setCopied(false), 1500)
+                } catch {}
               }}
             >
               {copied ? <CheckIcon /> : <CopyIcon />}
               {copied ? "Copied" : "Copy CSS variables"}
             </Button>
+            <p className="text-[12px] leading-[1.5] text-fg-subtle">Paste it at the end of your global CSS. Components only read tokens, so nothing else needs to change.</p>
           </aside>
 
           <div className="min-w-0 space-y-6">

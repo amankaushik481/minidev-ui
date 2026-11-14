@@ -5,6 +5,21 @@ import { CircleAlertIcon, CreditCardIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { inputVariants } from "@/registry/ui/input"
 
+/**
+ * Card details fields with brand-aware formatting, a Luhn check, auto-advance and inline errors; UI only, never sends card data anywhere.
+ *
+ * The number groups by brand (Visa, Mastercard and Discover 4-4-4-4, Amex 4-6-5), the brand shows as a text badge, expiry formats to
+ * MM / YY and advances on its own, and the CVC expects 4 digits for Amex. Fields carry cc-* autocomplete hints and aria-invalid, and
+ * errors appear once a field is left. It formats and checks input in the browser and does not process, tokenize or transmit payments:
+ * for real payments prefer your provider's hosted fields (Stripe Elements and the like) for PCI scope, and use this for demos,
+ * prototypes or providers that accept raw values. For a saved card use PaymentMethodCard; for a full add-card flow use AddCardForm.
+ *
+ * @example
+ * <CreditCardInput onChange={(card) => setCanPay(card.valid)} showPostalCode={false} />
+ *
+ * `onChange` receives `{ number, expiry, cvc, brand, name, postalCode, valid }`; `luhn(digits)` is exported for your own checks.
+ */
+
 type CardBrand = "visa" | "mastercard" | "amex" | "discover" | "unknown"
 
 type BrandSpec = { brand: CardBrand; label: string; test: RegExp; gaps: number[]; lengths: number[]; cvc: number }
@@ -29,7 +44,7 @@ function group(digits: string, gaps: number[]) {
   return out
 }
 
-/** Luhn (mod 10) checksum, the check digit rule every major card number follows. */
+// Luhn (mod 10) checksum, the check digit rule every major card number follows.
 function luhn(digits: string) {
   let sum = 0
   for (let i = 0; i < digits.length; i++) {
@@ -69,9 +84,13 @@ type CreditCardValue = {
   number: string
   /** "MM/YY", or partial while typing. */
   expiry: string
+  /** 3 digits, or 4 for Amex. */
   cvc: string
+  /** Detected from the number's prefix. */
   brand: CardBrand
+  /** Name on card ("" when `showName` is false). */
   name: string
+  /** Postal code, uppercased ("" when `showPostalCode` is false). */
   postalCode: string
   /** Every shown field is complete and passes its check. */
   valid: boolean
@@ -79,18 +98,10 @@ type CreditCardValue = {
 
 type Field = "name" | "number" | "expiry" | "cvc" | "postal"
 
-/**
- * Card details fields: the number groups by brand (Visa, Mastercard and
- * Discover 4-4-4-4, Amex 4-6-5) and passes a Luhn check, the brand shows as a
- * text badge, expiry formats to MM / YY and advances on its own, and the CVC
- * expects 4 digits for Amex. Fields carry cc-* autocomplete hints and
- * aria-invalid, and errors appear once a field is left. This is UI only: it
- * formats and checks input in the browser and does not process, tokenize or
- * transmit payments. Hand the values to your payment provider's SDK.
- */
 type CreditCardInputProps = {
   /** Called on every edit with the parsed values. */
   onChange?: (value: CreditCardValue) => void
+  /** Initial field values; `number` and `expiry` may include spaces or a slash. */
   defaultValue?: Partial<Pick<CreditCardValue, "number" | "expiry" | "cvc" | "name" | "postalCode">>
   /** Show the name on card field. */
   showName?: boolean
@@ -98,6 +109,7 @@ type CreditCardInputProps = {
   showPostalCode?: boolean
   /** Show the accepted brands, the detected one highlighted. */
   showBrands?: boolean
+  /** Visible label of the card fields group. Defaults to "Card details". */
   label?: string
   /** Helper line shown while there is no error. */
   hint?: React.ReactNode
@@ -157,7 +169,9 @@ function CreditCardInput({
   const valid = order.every((f) => !issues[f])
 
   const latest = React.useRef(onChange)
-  latest.current = onChange
+  React.useLayoutEffect(() => {
+    latest.current = onChange
+  })
   const first = React.useRef(true)
   React.useEffect(() => {
     if (first.current) {

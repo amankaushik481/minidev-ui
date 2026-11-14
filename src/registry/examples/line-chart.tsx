@@ -22,7 +22,7 @@ export const examples: Example[] = [
   },
   {
     title: "With a legend",
-    description: "Series take chart-1 to chart-5 in order, so ChartLegend can name them with the same tokens.",
+    description: "Series take chart-1 to chart-5 in order, so ChartLegend names them with the same tokens; seriesLabels gives screen readers the same names with each latest value.",
     code: `<div className="w-full max-w-md">
   <ChartLegend
     className="mb-3"
@@ -32,7 +32,15 @@ export const examples: Example[] = [
       { label: "Churn", color: "var(--chart-3)" },
     ]}
   />
-  <LineChart label="MRR by month" />
+  <LineChart
+    label="MRR by month, in thousands of dollars"
+    seriesLabels={["Total MRR", "Expansion", "Churn"]}
+    series={[
+      [38, 41, 44, 47, 52, 55, 59, 63],
+      [4, 5, 5, 6, 7, 8, 8, 9],
+      [3, 3, 2, 3, 2, 2, 2, 1],
+    ]}
+  />
 </div>`,
     node: (
       <div className="w-full max-w-md">
@@ -44,7 +52,15 @@ export const examples: Example[] = [
             { label: "Churn", color: "var(--chart-3)" },
           ]}
         />
-        <LineChart label="MRR by month" />
+        <LineChart
+          label="MRR by month, in thousands of dollars"
+          seriesLabels={["Total MRR", "Expansion", "Churn"]}
+          series={[
+            [38, 41, 44, 47, 52, 55, 59, 63],
+            [4, 5, 5, 6, 7, 8, 8, 9],
+            [3, 3, 2, 3, 2, 2, 2, 1],
+          ]}
+        />
       </div>
     ),
   },

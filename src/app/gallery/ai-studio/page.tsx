@@ -12,6 +12,12 @@ import { NotebookCell } from "@/registry/ui/notebook-cell"
 import { InlineCodeDiff } from "@/registry/ui/inline-code-diff"
 import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
+// Computed once at module load: Date.now() during render is impure.
+const CONVERSATIONS = [
+  { id: "1", title: "Hairline audit plan", updatedAt: new Date(Date.now() - 3600000).toISOString() },
+  { id: "2", title: "Premium hero copy", updatedAt: new Date(Date.now() - 86400000).toISOString() },
+]
+
 export default function Page() {
   const [msg, setMsg] = React.useState("")
   const [active, setActive] = React.useState("1")
@@ -23,10 +29,7 @@ export default function Page() {
             activeId={active}
             onSelect={setActive}
             onNew={() => {}}
-            items={[
-              { id: "1", title: "Hairline audit plan", updatedAt: new Date(Date.now() - 3600000).toISOString() },
-              { id: "2", title: "Premium hero copy", updatedAt: new Date(Date.now() - 86400000).toISOString() },
-            ]}
+            items={CONVERSATIONS}
           />
           <div className="flex min-w-0 flex-1 flex-col">
             <div className="flex-1 space-y-3 overflow-auto p-4">

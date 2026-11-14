@@ -16,7 +16,7 @@ function ReactionDemo() {
         <p className="mt-0.5 text-fg-muted">Invoice INV-2041 went out to Northwind this morning.</p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           {Object.entries(counts).map(([emoji, n]) => (
-            <button key={emoji} type="button" onClick={() => react(emoji)} className="inline-flex h-6 items-center gap-1 rounded-full border border-border bg-bg px-2 text-xs text-fg tabular-nums hover:border-border-strong">
+            <button key={emoji} type="button" aria-label={`${emoji} ${n}, add one`} onClick={() => react(emoji)} className="inline-flex h-6 items-center gap-1 rounded-full border border-border bg-bg px-2 text-xs text-fg tabular-nums outline-none hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
               {emoji} {n}
             </button>
           ))}
@@ -55,7 +55,7 @@ export const examples: Example[] = [
         <p className="mt-0.5 text-fg-muted">Invoice INV-2041 went out to Northwind this morning.</p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           {Object.entries(counts).map(([emoji, n]) => (
-            <button key={emoji} type="button" onClick={() => react(emoji)} className="inline-flex h-6 items-center gap-1 rounded-full border border-border bg-bg px-2 text-xs text-fg tabular-nums hover:border-border-strong">
+            <button key={emoji} type="button" aria-label={\`\${emoji} \${n}, add one\`} onClick={() => react(emoji)} className="inline-flex h-6 items-center gap-1 rounded-full border border-border bg-bg px-2 text-xs text-fg tabular-nums outline-none hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
               {emoji} {n}
             </button>
           ))}
@@ -69,9 +69,9 @@ export const examples: Example[] = [
   },
   {
     title: "Custom set",
-    description: "Pass your own emojis; a grid-cols class on className changes the column count to suit a shorter list.",
-    code: `<EmojiPicker emojis={["🙂", "😐", "🙁", "🤩", "😤", "😴", "🤔", "👋"]} className="grid-cols-4" />`,
-    node: <EmojiPicker emojis={["🙂", "😐", "🙁", "🤩", "😤", "😴", "🤔", "👋"]} className="grid-cols-4" />,
+    description: "Pass your own emojis and set columns to suit a shorter list; arrow keys still move through the grid.",
+    code: `<EmojiPicker emojis={["🙂", "😐", "🙁", "🤩", "😤", "😴", "🤔", "👋"]} columns={4} />`,
+    node: <EmojiPicker emojis={["🙂", "😐", "🙁", "🤩", "😤", "😴", "🤔", "👋"]} columns={4} />,
   },
   {
     title: "In a popover",

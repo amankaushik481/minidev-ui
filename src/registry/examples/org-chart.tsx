@@ -34,7 +34,7 @@ function SelectDemo() {
   const [person, setPerson] = React.useState<OrgNode>(engineering)
   return (
     <div className="flex w-full max-w-3xl flex-col gap-3">
-      <OrgChart data={engineering} defaultExpandDepth={1} selectedId={person.id} onSelect={setPerson} />
+      <OrgChart data={engineering} defaultExpandDepth={1} selectedId={person.id} onSelect={setPerson} aria-label="Engineering org chart" />
       <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface px-3 py-2 text-sm">
         <span>
           <span className="font-medium text-fg">{person.name}</span>
@@ -89,7 +89,7 @@ export const examples: Example[] = [
   const [person, setPerson] = React.useState<OrgNode>(engineering)
   return (
     <div className="flex w-full max-w-3xl flex-col gap-3">
-      <OrgChart data={engineering} defaultExpandDepth={1} selectedId={person.id} onSelect={setPerson} />
+      <OrgChart data={engineering} defaultExpandDepth={1} selectedId={person.id} onSelect={setPerson} aria-label="Engineering org chart" />
       <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface px-3 py-2 text-sm">
         <span>
           <span className="font-medium text-fg">{person.name}</span>

@@ -111,7 +111,7 @@ const matchup: Matchup = {
     },
   ],
   minidev: [
-    "MiniDev UI is React only, so it is not an alternative for a Laravel, Rails or plain HTML project; daisyUI or Flowbite is the better tool there. In a React app, MiniDev UI components carry their behavior through Base UI rather than a script or native HTML, and the free MIT registry adds product screens such as billing, settings and admin pages, built for Tailwind CSS v4.",
+    "MiniDev UI is React only, so it is not an alternative for a Laravel, Rails or plain HTML project; daisyUI or Flowbite is the better tool there. In a React app, MiniDev UI components carry their behavior through Base UI rather than a script or native HTML, and the free MIT registry adds product screens such as billing, settings and admin pages, built for Tailwind CSS v4. For AI coding agents it publishes [`llms.txt`](/glossary/llms-txt), a Markdown page per component, [`AGENTS.md`](/glossary/agents-md) rules and an [MCP server](/glossary/mcp); setup is on [Use MiniDev UI with AI agents](/docs/ai).",
     "If you are on React and comparing these two, see [MiniDev UI vs daisyUI](/compare/minidev-ui-vs-daisyui) and [MiniDev UI vs Flowbite](/compare/minidev-ui-vs-flowbite).",
   ],
   faq: [

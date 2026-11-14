@@ -6,7 +6,7 @@ import type { Example } from "./types"
 
 type Customer = { id: string; name: string; plan: "Free" | "Pro" | "Scale"; mrr: number }
 
-const NAMES = ["Northwind", "Acme Robotics", "Globex", "Initech", "Umbrella Health", "Hooli", "Stark Industrial", "Wayne Freight", "Vandelay Imports", "Pied Piper"]
+const NAMES = ["Northwind", "Kestrel", "Hollis & Rowe", "Larkspur", "Meridian Health", "Tidewater", "Brightline", "Copperleaf", "Halcyon Freight", "Fernhill"]
 const SUFFIXES = ["Labs", "Ltd", "GmbH", "Inc", "Co"]
 const PLANS = ["Free", "Pro", "Scale"] as const
 
@@ -52,7 +52,7 @@ function SelectDemo() {
   const [picked, setPicked] = React.useState<string | null>(null)
   return (
     <div className="flex w-full max-w-2xl flex-col gap-3">
-      <VirtualList height={240} title="" showJump={false} showFooter={false} onSelect={(inv) => setPicked(inv.number)} />
+      <VirtualList height={240} title="" aria-label="Invoices" showJump={false} showFooter={false} onSelect={(inv) => setPicked(inv.number)} />
       <p className="text-xs text-fg-muted">{picked ? "Selected " + picked : "Click a row, or focus the list and press Enter."}</p>
     </div>
   )
@@ -64,7 +64,7 @@ export const examples: Example[] = [
     description: "Pass your own items and renderRow; describeRow gives screen readers a plain text version of the active row.",
     code: `type Customer = { id: string; name: string; plan: "Free" | "Pro" | "Scale"; mrr: number }
 
-const NAMES = ["Northwind", "Acme Robotics", "Globex", "Initech", "Umbrella Health", "Hooli", "Stark Industrial", "Wayne Freight", "Vandelay Imports", "Pied Piper"]
+const NAMES = ["Northwind", "Kestrel", "Hollis & Rowe", "Larkspur", "Meridian Health", "Tidewater", "Brightline", "Copperleaf", "Halcyon Freight", "Fernhill"]
 const SUFFIXES = ["Labs", "Ltd", "GmbH", "Inc", "Co"]
 const PLANS = ["Free", "Pro", "Scale"] as const
 
@@ -182,7 +182,7 @@ const notes: Note[] = Array.from({ length: 500 }, (_, i) => ({
   const [picked, setPicked] = React.useState<string | null>(null)
   return (
     <div className="flex w-full max-w-2xl flex-col gap-3">
-      <VirtualList height={240} title="" showJump={false} showFooter={false} onSelect={(inv) => setPicked(inv.number)} />
+      <VirtualList height={240} title="" aria-label="Invoices" showJump={false} showFooter={false} onSelect={(inv) => setPicked(inv.number)} />
       <p className="text-xs text-fg-muted">{picked ? "Selected " + picked : "Click a row, or focus the list and press Enter."}</p>
     </div>
   )

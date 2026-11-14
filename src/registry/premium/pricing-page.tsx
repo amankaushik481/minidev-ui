@@ -9,6 +9,19 @@ import { FaqList } from "@/registry/ui/faq-list"
 import { FooterMega } from "@/registry/ui/footer-mega"
 import { CtaGlow } from "@/registry/premium/cta-glow"
 
+/**
+ * A full pricing page kit: marketing nav, Monthly / Yearly toggle, three plan cards, a feature comparison, FAQ, a closing CTA and a mega footer.
+ * The toggle drives the featured plan's price. Every section is a kit
+ * component with its own keyboard and reduced-motion behaviour. Copy the file
+ * and replace the sample plans, rows and questions with yours.
+ *
+ * Use it as a starting point for /pricing. Reach for PricingKinetic for just
+ * the pricing section, PricingMotion for the plan cards, and the free
+ * PricingTable or PlanComparison inside a product.
+ *
+ * @example
+ * <PricingPage />
+ */
 function PricingPage({ className }: { className?: string }) {
   const [cadence, setCadence] = React.useState<"monthly" | "yearly">("yearly")
   const premiumPrice = cadence === "yearly" ? "$39" : "$49"

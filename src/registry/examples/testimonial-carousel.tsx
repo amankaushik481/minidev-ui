@@ -28,9 +28,11 @@ export const examples: Example[] = [
   },
   {
     title: "Narrow card",
-    description: "In a sidebar width the quote wraps to more lines; keep the quotes short so the card height stays steady.",
+    description: "In a sidebar width the quote wraps to more lines; keep the quotes short so the card height stays steady, and give each one longer with interval.",
     code: `<TestimonialCarousel
   className="w-full max-w-sm"
+  interval={8000}
+  label="Customer quotes"
   items={[
     { quote: "Paid nine days sooner on average.", name: "Sam Lowe", role: "Forma Studio" },
     { quote: "Setup took one afternoon.", name: "Priya Raman", role: "Cadence Labs" },
@@ -39,6 +41,8 @@ export const examples: Example[] = [
     node: (
       <TestimonialCarousel
         className="w-full max-w-sm"
+        interval={8000}
+        label="Customer quotes"
         items={[
           { quote: "Paid nine days sooner on average.", name: "Sam Lowe", role: "Forma Studio" },
           { quote: "Setup took one afternoon.", name: "Priya Raman", role: "Cadence Labs" },

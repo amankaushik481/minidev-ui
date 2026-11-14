@@ -10,7 +10,7 @@ const MORE_INVOICES = ["INV-2038 · Helix Biotech · $4,100.00", "INV-2037 · Me
 function ShowMoreDemo() {
   const [open, setOpen] = React.useState(false)
   return (
-    <div className="w-80 rounded-xl border border-border bg-surface p-2 shadow-raised">
+    <div className="w-full max-w-xs rounded-xl border border-border bg-surface p-2 shadow-raised">
       <ul className="space-y-1 px-3 py-1 text-sm text-fg">
         <li>INV-2041 · Northwind Traders · $12,400.00</li>
         <li>INV-2040 · Summit Dental Group · $1,200.00</li>
@@ -33,7 +33,7 @@ export const examples: Example[] = [
   {
     title: "Expandable section",
     description: "defaultOpen starts it expanded; the trigger carries data-panel-open, so the chevron can rotate with a group class.",
-    code: `<Collapsible defaultOpen className="w-80 rounded-xl border border-border bg-surface shadow-raised">
+    code: `<Collapsible defaultOpen className="w-full max-w-xs rounded-xl border border-border bg-surface shadow-raised">
   <CollapsibleTrigger className="group">
     Payment terms
     <ChevronDownIcon className="size-4 text-fg-muted transition-transform group-data-[panel-open]:rotate-180" />
@@ -43,7 +43,7 @@ export const examples: Example[] = [
   </CollapsiblePanel>
 </Collapsible>`,
     node: (
-      <Collapsible defaultOpen className="w-80 rounded-xl border border-border bg-surface shadow-raised">
+      <Collapsible defaultOpen className="w-full max-w-xs rounded-xl border border-border bg-surface shadow-raised">
         <CollapsibleTrigger className="group">
           Payment terms
           <ChevronDownIcon className="size-4 text-fg-muted transition-transform group-data-[panel-open]:rotate-180" />
@@ -62,7 +62,7 @@ export const examples: Example[] = [
 function ShowMoreDemo() {
   const [open, setOpen] = React.useState(false)
   return (
-    <div className="w-80 rounded-xl border border-border bg-surface p-2 shadow-raised">
+    <div className="w-full max-w-xs rounded-xl border border-border bg-surface p-2 shadow-raised">
       <ul className="space-y-1 px-3 py-1 text-sm text-fg">
         <li>INV-2041 · Northwind Traders · $12,400.00</li>
         <li>INV-2040 · Summit Dental Group · $1,200.00</li>
@@ -85,7 +85,7 @@ function ShowMoreDemo() {
   {
     title: "Stacked sections",
     description: "Several collapsibles in a list behave independently, unlike an accordion where one open closes the others.",
-    code: `<div className="w-80 divide-y divide-border overflow-hidden rounded-xl border border-border bg-surface shadow-raised">
+    code: `<div className="w-full max-w-xs divide-y divide-border overflow-hidden rounded-xl border border-border bg-surface shadow-raised">
   <Collapsible>
     <CollapsibleTrigger className="group rounded-none">
       Billing address
@@ -109,7 +109,7 @@ function ShowMoreDemo() {
   </Collapsible>
 </div>`,
     node: (
-      <div className="w-80 divide-y divide-border overflow-hidden rounded-xl border border-border bg-surface shadow-raised">
+      <div className="w-full max-w-xs divide-y divide-border overflow-hidden rounded-xl border border-border bg-surface shadow-raised">
         <Collapsible>
           <CollapsibleTrigger className="group rounded-none">
             Billing address

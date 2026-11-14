@@ -10,6 +10,15 @@ import { Button } from "@/registry/ui/button"
  * Each meteor takes a fresh path every time it comes round. The streaks sit
  * behind the content, ignore the pointer, pause off screen and hold still for
  * reduced motion.
+ *
+ * Use it behind a dark, quiet hero or release announcement. Reach for
+ * Particles when the backdrop should react to the pointer, and RetroGrid or
+ * Ripple for a steadier geometric backdrop.
+ *
+ * @example
+ * <Meteors count={20} angle={135}>
+ *   <h2 className="text-4xl font-medium text-fg">Invoices that close themselves</h2>
+ * </Meteors>
  */
 type MeteorsProps = {
   /** How many meteors are in flight at once. */
@@ -41,19 +50,6 @@ function Meteors({ count = 16, angle = 140, speed = 1, tail = 110, className, ch
   const dy = Math.sin(rad)
   const travel = box ? Math.hypot(box.w, box.h) + tail * 2 : 0
 
-  // Measure on the client only, so the server renders no meteors and hydration matches.
-  React.useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const ro = new ResizeObserver(([e]) => {
-      const w = Math.round(e.contentRect.width)
-      const h = Math.round(e.contentRect.height)
-      setBox((b) => (b && b.w === w && b.h === h ? b : { w, h }))
-    })
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [])
-
   // A path through a random point of the panel, entering and leaving off screen.
   const place = React.useCallback(
     (w: number, h: number) => {
@@ -65,19 +61,32 @@ function Meteors({ count = 16, angle = 140, speed = 1, tail = 110, className, ch
     [dx, dy, tail]
   )
 
+  // Measure on the client only, so the server renders no meteors and hydration matches.
+  // The observer fires once on observe, then on every size change: each time the field is re-seeded.
   React.useEffect(() => {
-    if (!box) return
+    const el = ref.current
+    if (!el) return
+    let last = ""
     const s = Math.max(0.1, speed)
-    setMeteors(
-      Array.from({ length: Math.max(0, Math.round(count)) }, (_, id) => ({
-        id,
-        ...place(box.w, box.h),
-        duration: (1.4 + Math.random() * 1.8) / FLIGHT / s,
-        delay: Math.random() * 3,
-        glow: 0.55 + Math.random() * 0.45,
-      }))
-    )
-  }, [box, count, speed, place])
+    const ro = new ResizeObserver(([e]) => {
+      const w = Math.round(e.contentRect.width)
+      const h = Math.round(e.contentRect.height)
+      if (`${w}x${h}` === last) return
+      last = `${w}x${h}`
+      setBox({ w, h })
+      setMeteors(
+        Array.from({ length: Math.max(0, Math.round(count)) }, (_, id) => ({
+          id,
+          ...place(w, h),
+          duration: (1.4 + Math.random() * 1.8) / FLIGHT / s,
+          delay: Math.random() * 3,
+          glow: 0.55 + Math.random() * 0.45,
+        }))
+      )
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [count, speed, place])
 
   // Each lap, the meteor re-enters on a fresh path while it is invisible.
   const reroll = (id: number) => {

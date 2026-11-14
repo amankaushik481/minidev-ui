@@ -15,6 +15,7 @@ function ControlledDemo() {
         onChange={setCard}
         autoComplete="cc-number"
         showRaw={false}
+        showComplete
         hint="Try 4242 4242 4242 4242"
       />
       <Button className="self-start" disabled={!card.complete}>
@@ -47,7 +48,7 @@ export const examples: Example[] = [
   },
   {
     title: "Controlled value",
-    description: "onChange gives the masked string, the raw characters and whether every slot is filled; pass the raw value back as value.",
+    description: "onChange gives the masked string, the raw characters and whether every slot is filled; pass the raw value back as value, and showComplete draws a check once the number is whole.",
     code: `function ControlledDemo() {
   const [card, setCard] = React.useState({ masked: "", raw: "", complete: false })
   return (
@@ -59,6 +60,7 @@ export const examples: Example[] = [
         onChange={setCard}
         autoComplete="cc-number"
         showRaw={false}
+        showComplete
         hint="Try 4242 4242 4242 4242"
       />
       <Button className="self-start" disabled={!card.complete}>

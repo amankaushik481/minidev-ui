@@ -2,26 +2,37 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function StreakCalendar({
-  active = [1, 2, 3, 5, 8, 9, 10, 12, 15, 16],
-  className,
-}: {
+/**
+ * A 7-column grid of day tiles, filled in accent on active days, for habit and contribution streaks.
+ *
+ * Days are numbered from 1. Screen readers hear a summary ("17 of 28 days active").
+ * For a year-long contribution graph build rows of HeatmapCell.
+ *
+ * @example
+ * <StreakCalendar active={[1, 2, 3, 5, 8]} days={28} />
+ */
+type StreakCalendarProps = {
+  /** Active day numbers, 1-based. */
   active?: number[]
+  /** How many days to show, in rows of seven. */
+  days?: number
+  /** Heading above the grid. Defaults to "{days}-day streak". */
+  title?: string
   className?: string
-}) {
-  const days = Array.from({ length: 28 }, (_, i) => i + 1)
+}
+
+function StreakCalendar({ active = [1, 2, 3, 5, 8, 9, 10, 12, 15, 16], days = 28, title, className }: StreakCalendarProps) {
+  const on = new Set(active)
+  const count = active.filter((d) => d >= 1 && d <= days).length
   return (
     <div data-slot="streak-calendar" className={cn("space-y-2", className)}>
-      <p className="text-xs font-medium text-fg">28-day streak</p>
-      <div className="grid grid-cols-7 gap-1.5" role="img" aria-label="Activity streak calendar">
-        {days.map((d) => (
+      <p className="text-xs font-medium text-fg">{title ?? `${days}-day streak`}</p>
+      <div className="grid grid-cols-7 gap-1.5" role="img" aria-label={`${count} of ${days} days active`}>
+        {Array.from({ length: days }, (_, i) => i + 1).map((d) => (
           <div
             key={d}
-            className={cn(
-              "aspect-square rounded-md border border-border",
-              active.includes(d) ? "bg-accent border-accent/40" : "bg-sunken"
-            )}
-            title={`Day ${d}`}
+            data-active={on.has(d) || undefined}
+            className={cn("aspect-square rounded-md border", on.has(d) ? "border-accent/40 bg-accent" : "border-border bg-sunken")}
           />
         ))}
       </div>
@@ -29,3 +40,4 @@ function StreakCalendar({
   )
 }
 export { StreakCalendar }
+export type { StreakCalendarProps }

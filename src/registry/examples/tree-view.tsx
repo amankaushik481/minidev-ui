@@ -1,24 +1,27 @@
+"use client"
+import * as React from "react"
 import { TreeView, type TreeNode } from "@/registry/ui/tree-view"
 import type { Example } from "./types"
 
-const org: TreeNode[] = [
+const folders: TreeNode[] = [
   {
-    id: "ceo",
-    label: "Priya Raman, CEO",
+    id: "invoices",
+    label: "Invoices",
     children: [
       {
-        id: "eng",
-        label: "Engineering",
+        id: "2026",
+        label: "2026",
         children: [
-          { id: "theo", label: "Theo Okafor, Platform" },
-          { id: "maya", label: "Maya Chen, Web" },
-          { id: "ada", label: "Ada Novak, Mobile" },
+          { id: "inv-2041", label: "INV-2041 Northwind.pdf" },
+          { id: "inv-2042", label: "INV-2042 Hollis & Rowe.pdf" },
+          { id: "inv-2043", label: "INV-2043 Kestrel Labs.pdf" },
         ],
       },
-      { id: "finance", label: "Finance", children: [{ id: "sam", label: "Sam Lowe, Billing" }] },
-      { id: "design", label: "Design", children: [] },
+      { id: "2025", label: "2025", children: [{ id: "inv-1988", label: "INV-1988 Northwind.pdf" }] },
     ],
   },
+  { id: "receipts", label: "Receipts", children: [{ id: "rcpt-q3", label: "Q3 card receipts.zip" }] },
+  { id: "contracts", label: "Contracts", children: [] },
 ]
 
 const environments: TreeNode[] = [
@@ -28,32 +31,77 @@ const environments: TreeNode[] = [
   { id: "local", label: "local" },
 ]
 
+function SelectionDemo() {
+  const [selected, setSelected] = React.useState<TreeNode | null>(null)
+  return (
+    <div className="grid w-full max-w-lg gap-4 sm:grid-cols-[1fr_12rem]">
+      <TreeView
+        nodes={folders}
+        defaultExpanded={["invoices", "2026"]}
+        selectedId={selected?.id}
+        onSelect={setSelected}
+        aria-label="Documents"
+        className="max-w-none"
+      />
+      <div aria-live="polite" className="rounded-xl border border-border bg-surface p-4 text-sm shadow-xs">
+        <p className="text-xs text-fg-muted">Selected</p>
+        <p className="mt-1 font-medium break-words text-fg">{selected ? selected.label : "Nothing yet"}</p>
+      </div>
+    </div>
+  )
+}
+
 export const examples: Example[] = [
   {
-    title: "Org chart",
-    description: "Any nested data works; a node with an empty children array renders as a leaf.",
-    code: `const org: TreeNode[] = [
+    title: "Folders, partly open",
+    description: "defaultExpanded lists the branch ids open on first render; leave it out and every branch starts open. A node with an empty children array is an empty folder.",
+    code: `const folders: TreeNode[] = [
   {
-    id: "ceo",
-    label: "Priya Raman, CEO",
+    id: "invoices",
+    label: "Invoices",
     children: [
       {
-        id: "eng",
-        label: "Engineering",
+        id: "2026",
+        label: "2026",
         children: [
-          { id: "theo", label: "Theo Okafor, Platform" },
-          { id: "maya", label: "Maya Chen, Web" },
-          { id: "ada", label: "Ada Novak, Mobile" },
+          { id: "inv-2041", label: "INV-2041 Northwind.pdf" },
+          { id: "inv-2042", label: "INV-2042 Hollis & Rowe.pdf" },
+          { id: "inv-2043", label: "INV-2043 Kestrel Labs.pdf" },
         ],
       },
-      { id: "finance", label: "Finance", children: [{ id: "sam", label: "Sam Lowe, Billing" }] },
-      { id: "design", label: "Design", children: [] },
+      { id: "2025", label: "2025", children: [{ id: "inv-1988", label: "INV-1988 Northwind.pdf" }] },
     ],
   },
+  { id: "receipts", label: "Receipts", children: [{ id: "rcpt-q3", label: "Q3 card receipts.zip" }] },
+  { id: "contracts", label: "Contracts", children: [] },
 ]
 
-<TreeView nodes={org} />`,
-    node: <TreeView nodes={org} />,
+<TreeView nodes={folders} defaultExpanded={["invoices"]} aria-label="Documents" />`,
+    node: <TreeView nodes={folders} defaultExpanded={["invoices"]} aria-label="Documents" />,
+  },
+  {
+    title: "Selection drives a panel",
+    description: "Control selectedId and read the whole node from onSelect, which fires on click and on Enter or Space.",
+    code: `function SelectionDemo() {
+  const [selected, setSelected] = React.useState<TreeNode | null>(null)
+  return (
+    <div className="grid w-full max-w-lg gap-4 sm:grid-cols-[1fr_12rem]">
+      <TreeView
+        nodes={folders}
+        defaultExpanded={["invoices", "2026"]}
+        selectedId={selected?.id}
+        onSelect={setSelected}
+        aria-label="Documents"
+        className="max-w-none"
+      />
+      <div aria-live="polite" className="rounded-xl border border-border bg-surface p-4 text-sm shadow-xs">
+        <p className="text-xs text-fg-muted">Selected</p>
+        <p className="mt-1 font-medium break-words text-fg">{selected ? selected.label : "Nothing yet"}</p>
+      </div>
+    </div>
+  )
+}`,
+    node: <SelectionDemo />,
   },
   {
     title: "Leaf nodes only",
@@ -65,20 +113,7 @@ export const examples: Example[] = [
   { id: "local", label: "local" },
 ]
 
-<TreeView nodes={environments} className="max-w-48" />`,
-    node: <TreeView nodes={environments} className="max-w-48" />,
-  },
-  {
-    title: "Full width",
-    description: "The tree caps itself at max-w-xs by default; override it with className to fill a sidebar or a panel.",
-    code: `// org is the node list from the "Org chart" example.
-<div className="w-full max-w-md rounded-xl border border-border bg-surface p-2">
-  <TreeView nodes={org} className="max-w-none" />
-</div>`,
-    node: (
-      <div className="w-full max-w-md rounded-xl border border-border bg-surface p-2">
-        <TreeView nodes={org} className="max-w-none" />
-      </div>
-    ),
+<TreeView nodes={environments} aria-label="Environments" className="max-w-48" />`,
+    node: <TreeView nodes={environments} aria-label="Environments" className="max-w-48" />,
   },
 ]

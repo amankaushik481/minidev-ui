@@ -4,6 +4,20 @@ import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
+/**
+ * A small pill label for status, counts and categories ("Paid", "Beta", "3 new").
+ *
+ * Use next to text or in table cells. Prefer `StatusBadge` for a status with a dot, `TagsInput` for
+ * editable tags, and `Kbd` for keyboard keys. `render={<a href="…" />}` makes it a link (hover
+ * styles turn on automatically). Add an icon with `data-icon="inline-start"` on the svg.
+ *
+ * @example
+ * <Badge variant="accent">Beta</Badge>
+ * <Badge variant="destructive">Overdue</Badge>
+ * <Badge render={<a href="/changelog" />} variant="outline">v2.4</Badge>
+ *
+ * Variants: default (ink), accent, secondary, destructive, outline, ghost, link.
+ */
 const badgeVariants = cva(
   [
     "group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border px-2 text-[11px] font-medium whitespace-nowrap",

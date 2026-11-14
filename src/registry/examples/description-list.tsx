@@ -14,7 +14,7 @@ const INVOICE = [
 const CONTACT = [
   { label: "Name", value: "Theo Okafor" },
   { label: "Role", value: "Accounts payable" },
-  { label: "Email", value: "theo@northwind.io" },
+  { label: "Email", value: "theo@northwind.example" },
   { label: "Phone", value: "+1 (415) 555-0142" },
 ]
 
@@ -49,7 +49,7 @@ export const examples: Example[] = [
     code: `const CONTACT = [
   { label: "Name", value: "Theo Okafor" },
   { label: "Role", value: "Accounts payable" },
-  { label: "Email", value: "theo@northwind.io" },
+  { label: "Email", value: "theo@northwind.example" },
   { label: "Phone", value: "+1 (415) 555-0142" },
 ]
 

@@ -2,8 +2,21 @@
 import { cn } from "@/lib/utils"
 import { Link } from "@/registry/ui/link"
 
-/** A one-line site footer: brand on the left, a row of quiet links on the right. */
-type FooterLink = { label: string; href: string }
+/**
+ * FooterNav — a one-line site footer: brand on the left, a row of quiet links on the right.
+ *
+ * Use for app and docs footers with a handful of links. For a marketing
+ * footer with titled link columns use `FooterMega`.
+ *
+ * @example
+ * <FooterNav brand="Lumen" links={[{ label: "Docs", href: "/docs" }, { label: "Status", href: "https://status.example.com" }]} />
+ */
+type FooterLink = {
+  /** Link text. */
+  label: string
+  /** Destination URL. */
+  href: string
+}
 
 const SAMPLE_LINKS: FooterLink[] = [
   { label: "Docs", href: "#docs" },
@@ -38,7 +51,7 @@ function FooterNav({
       <p className="font-medium text-fg">{brand}</p>
       <nav className="flex flex-wrap gap-4" aria-label="Footer">
         {links.map((l) => (
-          <Link key={l.href} href={l.href} className="text-fg-muted no-underline hover:text-fg hover:underline">
+          <Link key={`${l.label}-${l.href}`} href={l.href} className="text-fg-muted no-underline hover:text-fg hover:underline">
             {l.label}
           </Link>
         ))}

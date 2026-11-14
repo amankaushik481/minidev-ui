@@ -16,6 +16,17 @@ import { StackRevealStory } from "@/registry/premium/stack-reveal-story"
 import { FaqAccordionMotion } from "@/registry/premium/faq-accordion-motion"
 import { MetricTickerBoard } from "@/registry/premium/metric-ticker-board"
 
+/**
+ * A long client pitch page that chains a hero, metrics, a live component rail, product mock, proof, before and after, plans, story, logos, FAQ, testimonials and a final CTA.
+ *
+ * A showcase composition, not a primitive: every section is its own registry
+ * item, so lift the ones you need. Use it to demo a design system or agency
+ * offer end to end; for a shorter landing page start from a single hero such
+ * as HeroClientPitch.
+ *
+ * @example
+ * <ClientPitchKit className="mx-auto max-w-6xl px-6" />
+ */
 function ClientPitchKit({ className }: { className?: string }) {
   return (
     <div

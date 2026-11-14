@@ -6,31 +6,59 @@ import { Button } from "@/registry/ui/button"
 import { NumberRoll } from "@/registry/ui/number-roll"
 import { SegmentedControl } from "@/registry/ui/segmented-control"
 
-/*
- * PricingPlans: plans with a period switch whose prices roll to the new
- * number, a featured plan in ink with a lit top edge, and feature rows that
- * say yes or no plainly. Seats slider optional.
+/**
+ * PricingPlans — a public pricing section: a monthly/yearly switch whose prices roll digit by digit, a featured plan in ink, and plain yes/no feature rows.
+ *
+ * Use on a marketing or /pricing page with two to four plans. Prices are numbers per month; the yearly figure is the
+ * monthly-equivalent price and the "Billed $X yearly" line is derived. A price of 0 reads "Free". For an existing
+ * customer's plan and invoices use BillingPage; for a premium animated variant use PricingMotion. Period is
+ * uncontrolled by default; pass `period` + `onPeriodChange` to control it.
+ *
+ * @example
+ * <PricingPlans
+ *   plans={[{ name: "Team", blurb: "For finance teams", monthly: 49, yearly: 39, cta: "Start trial", featured: true, features: ["Unlimited workspaces"] }]}
+ *   onSelect={(plan, period) => router.push(`/signup?plan=${plan}&period=${period}`)}
+ * />
  */
+type BillingPeriod = "monthly" | "yearly"
 
 type Plan = {
+  /** Plan name; also the React key, so keep it unique. */
   name: string
+  /** One line on who the plan is for. */
   blurb: string
+  /** Price per unit per month on monthly billing. 0 renders "Free". */
   monthly: number
+  /** Monthly-equivalent price on yearly billing. */
   yearly: number
+  /** Button label. */
   cta: string
+  /** Render in ink with the "Most teams pick this" badge. Use on one plan at most. */
   featured?: boolean
+  /** A string is an included feature; `{ label, included: false }` renders as not included. */
   features: (string | { label: string; included: false })[]
 }
 
 type PricingPlansProps = {
+  /** Small mono label above the title. Empty string hides it. */
   eyebrow?: string
+  /** Section heading (rendered as h2). */
   title?: React.ReactNode
   description?: React.ReactNode
+  /** Plans in display order. Defaults to Lumen's Starter, Team and Scale. */
   plans?: Plan[]
+  /** ISO 4217 code used to format prices, e.g. "USD", "EUR". */
   currency?: string
   /** Discount badge on the yearly option. */
   yearlyBadge?: string
-  onSelect?: (plan: string, period: "monthly" | "yearly") => void
+  /** Called with the plan name and the selected period when a plan's button is pressed. */
+  onSelect?: (plan: string, period: BillingPeriod) => void
+  /** Controlled billing period. */
+  period?: BillingPeriod
+  /** Initial billing period when uncontrolled. */
+  defaultPeriod?: BillingPeriod
+  /** Called when the period switch changes. */
+  onPeriodChange?: (period: BillingPeriod) => void
   /** Price suffix, e.g. "/ seat / mo" or "/ mo". */
   unit?: string
   /** Used in "Billed $X per seat yearly". Empty string drops it. */
@@ -54,21 +82,30 @@ function PricingPlans({
   onSelect,
   unit = "/ seat / mo",
   per = "per seat",
+  period: periodProp,
+  defaultPeriod = "yearly",
+  onPeriodChange,
   className,
 }: PricingPlansProps) {
-  const [period, setPeriod] = React.useState<"monthly" | "yearly">("yearly")
+  const [inner, setInner] = React.useState<BillingPeriod>(defaultPeriod)
+  const period = periodProp ?? inner
+  const setPeriod = (p: BillingPeriod) => {
+    if (periodProp === undefined) setInner(p)
+    onPeriodChange?.(p)
+  }
+  const titleId = React.useId()
   const fmt = { style: "currency", currency, maximumFractionDigits: 0 } as Intl.NumberFormatOptions
   return (
-    <section data-slot="pricing-plans" className={cn("mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8", className)}>
+    <section data-slot="pricing-plans" aria-labelledby={titleId} className={cn("mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8", className)}>
       <div className="mx-auto max-w-2xl text-center">
         {eyebrow ? <p className="font-mono text-[11px] tracking-[0.08em] text-accent-fg uppercase">{eyebrow}</p> : null}
-        <h2 className="mt-3 text-4xl leading-[1.05] font-medium tracking-[-0.04em] text-balance text-fg sm:text-5xl">{title}</h2>
+        <h2 id={titleId} className="mt-3 text-4xl leading-[1.05] font-medium tracking-[-0.04em] text-balance text-fg sm:text-5xl">{title}</h2>
         {description ? <p className="mt-4 text-[1.0625rem] leading-[1.65] text-fg-muted">{description}</p> : null}
         <div className="mt-8 flex justify-center">
           <SegmentedControl
             aria-label="Billing period"
             value={period}
-            onChange={(v) => setPeriod(v as "monthly" | "yearly")}
+            onChange={(v) => setPeriod(v as BillingPeriod)}
             options={[
               { value: "monthly", label: "Monthly" },
               { value: "yearly", label: "Yearly", badge: yearlyBadge },
@@ -99,7 +136,7 @@ function PricingPlans({
               <h3 className="text-[15px] font-medium">{p.name}</h3>
               <p className={cn("mt-1 text-[13.5px] leading-[1.5]", p.featured ? "opacity-70" : "text-fg-muted")}>{p.blurb}</p>
               <p className="mt-6 flex items-baseline gap-1.5">
-                <span className="text-[52px] leading-[56px] font-medium tracking-[-0.045em]">
+                <span className="text-[52px] leading-[56px] font-medium tracking-[-0.045em] tabular-nums">
                   {price === 0 ? "Free" : <NumberRoll value={price} format={fmt} />}
                 </span>
                 {price > 0 ? <span className={cn("text-[13px]", p.featured ? "opacity-60" : "text-fg-subtle")}>{unit}</span> : null}
@@ -123,7 +160,7 @@ function PricingPlans({
               >
                 {p.cta}
               </Button>
-              <ul className={cn("mt-7 space-y-3 border-t pt-7 text-[13.5px]", p.featured ? "border-on-ink/15" : "border-border")}>
+              <ul aria-label={`${p.name} features`} className={cn("mt-7 space-y-3 border-t pt-7 text-[13.5px]", p.featured ? "border-on-ink/15" : "border-border")}>
                 {p.features.map((f) => {
                   const inc = typeof f === "string"
                   const label = inc ? f : f.label
@@ -135,7 +172,7 @@ function PricingPlans({
                           inc ? (p.featured ? "bg-accent text-on-accent" : "bg-accent-soft text-accent-fg") : "bg-fg/5"
                         )}
                       >
-                        {inc ? <CheckIcon className="size-3" strokeWidth={3} /> : <MinusIcon className="size-3" />}
+                        {inc ? <CheckIcon aria-hidden className="size-3" strokeWidth={3} /> : <MinusIcon aria-hidden className="size-3" />}
                       </span>
                       {label}
                       {!inc ? <span className="sr-only">(not included)</span> : null}
@@ -152,4 +189,4 @@ function PricingPlans({
 }
 
 export { PricingPlans }
-export type { PricingPlansProps, Plan }
+export type { PricingPlansProps, Plan, BillingPeriod }

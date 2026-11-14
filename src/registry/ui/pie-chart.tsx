@@ -3,15 +3,33 @@ import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
-/** An SVG pie chart with leader line labels, a legend and slices that pull out on hover or focus. */
+/**
+ * PieChart — an SVG pie chart with leader line labels, a legend and slices that pull out on hover or focus.
+ *
+ * Hover or focus a slice and it pulls out on a spring while the readout shows its value
+ * and share. Slices are one tab stop; arrow keys, Home and End move between them, and
+ * a visually hidden table carries the data for screen readers. Labels hide below 320px
+ * wide. Use it for 2 to 6 parts of a whole; for more categories or comparisons over
+ * time use BarChart, for a ring with a centre total use DonutChart.
+ *
+ * @example
+ * <PieChart
+ *   title="Revenue by plan"
+ *   data={[{ label: "Pro", value: 22400 }, { label: "Business", value: 31600 }]}
+ *   format={(n) => `$${n.toLocaleString()}`}
+ * />
+ */
 type PieDatum = {
+  /** Slice name; also its key, so keep labels unique. */
   label: string
+  /** Size of the slice. Negative values count as zero. */
   value: number
   /** Any CSS colour. Defaults to the chart tokens in order. */
   color?: string
 }
 
 type PieChartProps = {
+  /** Slices in clockwise order, starting at the top. */
   data?: PieDatum[]
   /** Heading shown above the chart and used as the accessible name. */
   title?: string
@@ -21,6 +39,7 @@ type PieChartProps = {
   format?: (value: number) => string
   /** Labels outside the slices with leader lines. Hidden automatically when the chart is narrow. */
   showLabels?: boolean
+  /** Legend with values under the chart. */
   showLegend?: boolean
   /** Distance a hovered or focused slice pulls out, in chart units. */
   pullOut?: number
@@ -64,12 +83,6 @@ function spread<T extends { y: number }>(items: T[], gap: number, min: number, m
   return s
 }
 
-/**
- * An SVG pie chart with outside labels on leader lines, a legend and a
- * readout. Hover or focus a slice and it pulls out on a spring while the
- * readout shows its value and share. Slices are keyboard focusable with
- * arrow keys, and a visually hidden table carries the data for screen readers.
- */
 function PieChart({
   data = SAMPLE,
   title = "Revenue by plan",
@@ -105,12 +118,11 @@ function PieChart({
 
   const total = data.reduce((s, d) => s + Math.max(0, d.value), 0)
   const slices = React.useMemo(() => {
-    let a = -Math.PI / 2
+    const shares = data.map((d) => (total ? Math.max(0, d.value) / total : 0))
     return data.map((d, i) => {
-      const share = total ? Math.max(0, d.value) / total : 0
-      const a0 = a
-      const a1 = a + share * Math.PI * 2
-      a = a1
+      const share = shares[i]
+      const a0 = -Math.PI / 2 + shares.slice(0, i).reduce((sum, x) => sum + x, 0) * Math.PI * 2
+      const a1 = a0 + share * Math.PI * 2
       const mid = (a0 + a1) / 2
       return { ...d, i, share, a0, a1, mid, color: d.color ?? COLORS[i % COLORS.length] }
     })
@@ -134,11 +146,17 @@ function PieChart({
   const pct = (share: number) => `${(share * 100).toFixed(share < 0.1 ? 1 : 0)}%`
   const cur = active != null ? slices[active] : null
 
-  const move = (to: number) => {
-    const n = (to + slices.length) % slices.length
+  // Zero-value slices draw no path, so keyboard focus skips them.
+  const drawn = slices.filter((s) => s.share > 0).map((s) => s.i)
+  const move = (from: number, step: number | "first" | "last") => {
+    if (!drawn.length) return
+    const at = drawn.indexOf(from)
+    const k = step === "first" ? 0 : step === "last" ? drawn.length - 1 : (at + step + drawn.length) % drawn.length
+    const n = drawn[k]
     setFocusIdx(n)
     refs.current[n]?.focus()
   }
+  const tabStop = drawn.includes(focusIdx) ? focusIdx : drawn[0]
 
   return (
     <figure
@@ -186,7 +204,7 @@ function PieChart({
                 fill={s.color}
                 role="img"
                 aria-label={`${s.label}: ${format(s.value)}, ${(s.share * 100).toFixed(1)}%`}
-                tabIndex={s.i === focusIdx ? 0 : -1}
+                tabIndex={s.i === tabStop ? 0 : -1}
                 initial={false}
                 animate={{
                   x: active === s.i ? Math.cos(s.mid) * pullOut : 0,
@@ -201,10 +219,10 @@ function PieChart({
                 }}
                 onBlur={() => setActive(null)}
                 onKeyDown={(e) => {
-                  if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); move(s.i + 1) }
-                  if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); move(s.i - 1) }
-                  if (e.key === "Home") { e.preventDefault(); move(0) }
-                  if (e.key === "End") { e.preventDefault(); move(slices.length - 1) }
+                  if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); move(s.i, 1) }
+                  if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); move(s.i, -1) }
+                  if (e.key === "Home") { e.preventDefault(); move(s.i, "first") }
+                  if (e.key === "End") { e.preventDefault(); move(s.i, "last") }
                 }}
                 strokeWidth={2}
                 strokeLinejoin="round"

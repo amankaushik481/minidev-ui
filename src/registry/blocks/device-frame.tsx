@@ -3,20 +3,30 @@ import * as React from "react"
 import { LockIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/*
- * DeviceFrame: a phone or a browser window around live UI. The frame is
- * built from the kit's own surfaces, so it picks up the material and the
- * light like everything else: a lit bezel edge, a glass screen sheen.
+/**
+ * DeviceFrame — a phone or a browser window around live UI, with a lit bezel edge and a glass sheen that follow the light.
+ *
+ * Use in heroes, feature rows and scroll stories to show real product UI instead of a screenshot. The phone is a fixed
+ * 300×630px frame (scale it with a transform class); the browser fills its container width. Children render inside the
+ * screen and stay interactive. For a static image use a plain <img>; for several overlapping devices use the premium
+ * DeviceStack.
+ *
+ * @example
+ * <DeviceFrame device="browser" url="app.lumen.io/revenue"><DashboardHome /></DeviceFrame>
+ * <DeviceFrame device="phone" time="09:41"><NotificationCenter /></DeviceFrame>
  */
-
 type DeviceFrameProps = {
+  /** Which frame to draw. */
   device?: "phone" | "browser"
-  /** Browser only. */
+  /** Address bar text (browser only). Not a link. */
   url?: string
-  /** Phone status bar time. */
+  /** Status bar time (phone only). */
   time?: string
+  /** The UI shown on the screen. Defaults to a placeholder. */
   children?: React.ReactNode
+  /** Classes for the outer frame, e.g. a scale transform. */
   className?: string
+  /** Classes for the screen area that holds `children`. */
   screenClassName?: string
 }
 
@@ -26,7 +36,7 @@ function PhoneFrame({ time = "9:41", children, className, screenClassName }: Dev
       data-slot="device-frame"
       data-device="phone"
       className={cn(
-        "relative mx-auto w-[300px] rounded-[52px] bg-[oklch(0.17_0.006_260)] p-[11px] shadow-lg",
+        "relative mx-auto w-[300px] rounded-[52px] bg-[oklch(0.17_0.006_260)] p-2.5 shadow-lg",
         "shadow-[inset_calc(var(--sx)*-1.5px)_calc(var(--sy)*-1.5px)_0_0_oklch(1_0_0/0.35),inset_0_0_0_1px_oklch(1_0_0/0.08),var(--o12x)_var(--o12y)_40px_-8px_oklch(0_0_0/0.35),var(--o28x)_var(--o28y)_80px_-20px_oklch(0_0_0/0.45)]",
         className
       )}
@@ -45,8 +55,8 @@ function PhoneFrame({ time = "9:41", children, className, screenClassName }: Dev
                 <span key={h} className="w-[3px] rounded-sm bg-current" style={{ height: h }} />
               ))}
             </span>
-            <span className="ml-1 h-[11px] w-[22px] rounded-[3px] border border-current/60 p-[1.5px]">
-              <span className="block h-full w-[70%] rounded-[1px] bg-current" />
+            <span className="ml-1 h-3 w-6 rounded-[4px] border border-current/60 p-0.5">
+              <span className="block h-full w-[70%] rounded-[2px] bg-current" />
             </span>
           </span>
         </div>
@@ -56,7 +66,7 @@ function PhoneFrame({ time = "9:41", children, className, screenClassName }: Dev
           aria-hidden
           className="pointer-events-none absolute inset-0 z-30 rounded-[inherit] bg-[linear-gradient(var(--la),transparent_55%,oklch(1_0_0/0.07)_75%,transparent_90%)]"
         />
-        <span aria-hidden className="absolute bottom-2 left-1/2 z-30 h-[5px] w-32 -translate-x-1/2 rounded-full bg-fg/80" />
+        <span aria-hidden className="absolute bottom-2 left-1/2 z-30 h-1.5 w-32 -translate-x-1/2 rounded-full bg-fg/80" />
       </div>
     </div>
   )
@@ -71,9 +81,9 @@ function BrowserFrame({ url = "app.lumen.io", children, className, screenClassNa
             <span key={i} className="size-3 rounded-full border border-border-strong bg-bg" />
           ))}
         </span>
-        <div className="mx-auto flex h-7 w-full max-w-sm items-center justify-center gap-1.5 rounded-lg border border-border bg-bg px-3 font-mono text-[11.5px] text-fg-muted">
-          <LockIcon className="size-3" />
-          {url}
+        <div className="mx-auto flex h-7 w-full max-w-sm min-w-0 items-center justify-center gap-1.5 rounded-lg border border-border bg-bg px-3 font-mono text-[11.5px] text-fg-muted">
+          <LockIcon aria-hidden className="size-3 shrink-0" />
+          <span className="truncate">{url}</span>
         </div>
         <span className="w-12" aria-hidden />
       </div>

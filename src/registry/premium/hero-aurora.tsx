@@ -4,6 +4,35 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
+/**
+ * A centred hero with two slow-drifting accent glows behind an eyebrow, headline, description and two buttons that rise in on load.
+ *
+ * Every string and both click handlers are props, so it works without
+ * editing the file. The glows drift on transform only and stop for reduced
+ * motion, which also shows the copy in place. Use it for a calm product
+ * launch hero; for the full northern-lights effect behind any content use
+ * AuroraBackground, for an always-dark hero use HeroGradientMesh.
+ *
+ * @example
+ * <HeroAurora title="Close your books every day" primaryLabel="Start free" onPrimary={() => router.push("/signup")} />
+ */
+type HeroAuroraProps = {
+  /** Small line above the headline. */
+  eyebrow?: string
+  /** Headline (rendered as h1). */
+  title?: string
+  description?: string
+  /** Text of the solid button. */
+  primaryLabel?: string
+  /** Text of the outline button. */
+  secondaryLabel?: string
+  onPrimary?: () => void
+  onSecondary?: () => void
+  className?: string
+}
+
+const ENTER = { duration: 0.5, ease: [0.2, 0, 0, 1] } as const
+
 function HeroAurora({
   eyebrow = "Now in public beta",
   title = "Interfaces that feel composed",
@@ -13,16 +42,7 @@ function HeroAurora({
   onPrimary,
   onSecondary,
   className,
-}: {
-  eyebrow?: string
-  title?: string
-  description?: string
-  primaryLabel?: string
-  secondaryLabel?: string
-  onPrimary?: () => void
-  onSecondary?: () => void
-  className?: string
-}) {
+}: HeroAuroraProps) {
   const reduce = useReducedMotion()
   return (
     <section
@@ -47,7 +67,7 @@ function HeroAurora({
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={reduce ? { duration: 0 } : { ...ENTER, duration: 0.4 }}
           className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase"
         >
           {eyebrow}
@@ -55,15 +75,15 @@ function HeroAurora({
         <motion.h1
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.05 }}
-          className="mt-3 text-[clamp(1.75rem,3.5vw+1rem,3rem)] font-medium tracking-[-0.028em] text-fg"
+          transition={reduce ? { duration: 0 } : { ...ENTER, delay: 0.05 }}
+          className="mt-3 text-[clamp(1.75rem,3.5vw+1rem,3rem)] font-medium tracking-[-0.028em] text-balance text-fg"
         >
           {title}
         </motion.h1>
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={reduce ? { duration: 0 } : { ...ENTER, delay: 0.1 }}
           className="mt-4 max-w-xl text-sm leading-[1.55] text-fg-muted sm:text-base"
         >
           {description}
@@ -71,7 +91,7 @@ function HeroAurora({
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.16 }}
+          transition={reduce ? { duration: 0 } : { ...ENTER, delay: 0.16 }}
           className="mt-7 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center"
         >
           <Button className="w-full sm:w-auto" onClick={onPrimary}>{primaryLabel}</Button>
@@ -82,3 +102,4 @@ function HeroAurora({
   )
 }
 export { HeroAurora }
+export type { HeroAuroraProps }

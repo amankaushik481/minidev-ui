@@ -287,11 +287,12 @@ export function isColor(v: string): boolean {
 export function colorClass(prefix: string, raw: string): Conv {
   const v = raw.trim()
   const lv = v.toLowerCase()
-  const kw: Record<string, string> = { transparent: "transparent", currentcolor: "current", inherit: "inherit", white: "white", black: "black" }
+  // Tailwind v4 defines white and black as exactly #fff and #000, so these hexes map to named utilities.
+  const kw: Record<string, string> = { transparent: "transparent", currentcolor: "current", inherit: "inherit", white: "white", black: "black", "#fff": "white", "#ffffff": "white", "#000": "black", "#000000": "black" }
   if (kw[lv]) return ok(`${prefix}-${kw[lv]}`)
   const ref = varRef(v)
   if (ref) return ok(`${prefix}-(${ref})`)
-  if (isColor(lv)) return arb(prefix, lv, "Tailwind v4 colors are OKLCH tokens, so exact hex values stay arbitrary. Map it to a theme color if one matches.")
+  if (isColor(lv)) return arb(prefix, lv, "Tailwind v4 palette colors are OKLCH tokens, so exact values stay arbitrary. Map it to a theme color if one matches.")
   return none(`"${v}" is not a color this tool recognises.`)
 }
 

@@ -75,4 +75,18 @@ export const examples: Example[] = [
     code: `<TimePicker value="17:00" disabled aria-label="Report delivery time" />`,
     node: <TimePicker value="17:00" disabled aria-label="Report delivery time" />,
   },
+  {
+    title: "Sizes",
+    description: "size matches the other fields in the form; defaultValue sets the starting time when you do not need to control it.",
+    code: `<TimePicker size="sm" defaultValue="08:00" aria-label="Digest time" />
+<TimePicker defaultValue="12:30" aria-label="Lunch reminder" />
+<TimePicker size="lg" defaultValue="18:45" aria-label="End of day report" />`,
+    node: (
+      <div className="flex flex-wrap items-center gap-3">
+        <TimePicker size="sm" defaultValue="08:00" aria-label="Digest time" />
+        <TimePicker defaultValue="12:30" aria-label="Lunch reminder" />
+        <TimePicker size="lg" defaultValue="18:45" aria-label="End of day report" />
+      </div>
+    ),
+  },
 ]

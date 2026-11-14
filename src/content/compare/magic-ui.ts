@@ -15,7 +15,7 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "Open source (see LICENSE.md in the repo); Pro has its own terms" },
     {
       feature: "Scope",
-      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
+      minidev: "548 items: 397 UI components, 108 motion components, 43 blocks and pages",
       other: "150+ free animated components and effects: text animations, backgrounds, marquees, device mockups, buttons and more",
     },
     {
@@ -33,7 +33,7 @@ const comparison: Comparison = {
     { feature: "Tailwind version", minidev: "Tailwind CSS v4", other: "Tailwind CSS; follows the shadcn/ui setup, check docs for version notes" },
     {
       feature: "Install",
-      minidev: "`npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or npm `minidev-ui-kit`",
+      minidev: "`npx shadcn@latest add @minidev/<name>`, or npm `minidev-ui-kit`",
       other: "shadcn CLI, or copy and paste",
     },
     {
@@ -42,7 +42,11 @@ const comparison: Comparison = {
       other: "Uses the shadcn/ui CSS variables plus per-component props for colors and timing",
     },
     { feature: "Dark mode", minidev: "Yes, from the same token set", other: "Yes, through the shadcn/ui theme" },
-    { feature: "AI tooling", minidev: "`llms.txt` and `llms-full.txt`; shadcn MCP compatible", other: "Official Magic UI MCP server for AI editors" },
+    {
+      feature: "AI tooling",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
+      other: "Official Magic UI MCP server for AI editors",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -52,7 +56,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 items built on Base UI, Tailwind CSS v4 and motion. Its focus is the product: data tables, billing and invoice screens, settings layouts, command palettes, notification centers and AI chat surfaces, along with full-page blocks and about 86 motion components. All of it draws from one set of semantic tokens.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of 548 items built on Base UI, Tailwind CSS v4 and motion. Its focus is the product: data tables, billing and invoice screens, settings layouts, command palettes, notification centers and AI chat surfaces, along with full-page blocks and 108 motion components. All of it draws from one set of semantic tokens.",
     },
     { type: "h2", text: "Where Magic UI shines", id: "where-magic-ui-shines" },
     {
@@ -71,7 +75,7 @@ const comparison: Comparison = {
         "**Application screens.** Tables, forms, overlays, charts, billing, auth, settings and AI chat, built on accessible Base UI primitives.",
         "**No paid tier.** Blocks, motion pieces and full pages are all MIT.",
         "**A visual system.** One light source drives shadows across the page, and a `data-material` attribute switches between hairline, glass, metal and paper.",
-        "**Full pages.** About 43 blocks, from a sign in page to an admin console, so you start with a working screen.",
+        "**Full pages.** 43 blocks, from a sign in page to an admin console, so you start with a working screen.",
       ],
     },
     { type: "component", name: "data-table" },
@@ -121,6 +125,10 @@ const comparison: Comparison = {
     {
       q: "Can AI coding tools install both?",
       a: "Yes. Magic UI has an official MCP server. MiniDev UI publishes `llms.txt` and a shadcn registry that the shadcn MCP server and CLI can read.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Magic UI?",
+      a: "Both have an MCP server and `llms.txt`, and both install through the shadcn CLI. MiniDev UI also publishes a Markdown page per component, design rules in `AGENTS.md` and Cursor rules, and a Claude Code skill.",
     },
   ],
   sources: [

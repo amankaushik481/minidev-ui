@@ -139,14 +139,14 @@ function RecentInvoices() {
         <Button size="xs" variant="ghost">View all</Button>
       </div>
       {INVOICES.map((r) => (
-        <div key={r.who} className="grid h-12 grid-cols-[1.5fr_1fr_auto_7rem] items-center gap-4 border-b border-border/70 px-5 text-[12.5px] transition-colors last:border-0 hover:bg-sunken/50">
-          <span className="flex items-center gap-2.5 text-fg">
-            <span className="grid size-7 place-items-center rounded-lg border border-border bg-sunken text-[10px] font-semibold text-fg-muted">{r.ini}</span>
-            {r.who}
+        <div key={r.who} className="grid h-12 grid-cols-[minmax(0,1fr)_auto_5.5rem] items-center gap-3 sm:grid-cols-[1.5fr_1fr_auto_7rem] sm:gap-4 border-b border-border/70 px-5 text-[12.5px] transition-colors last:border-0 hover:bg-sunken/50">
+          <span className="flex min-w-0 items-center gap-2.5 text-fg">
+            <span className="grid size-7 shrink-0 place-items-center rounded-lg border border-border bg-sunken text-[10px] font-semibold text-fg-muted">{r.ini}</span>
+            <span className="truncate">{r.who}</span>
           </span>
           <span className="hidden text-fg-muted sm:block">{r.plan}</span>
           <StatusBadge tone={r.tone}>{r.status}</StatusBadge>
-          <span className="text-right font-mono text-fg">{r.amt}</span>
+          <span className="text-right font-mono text-fg tabular-nums">{r.amt}</span>
         </div>
       ))}
     </section>
@@ -176,12 +176,12 @@ function Customers() {
     <div className="space-y-5">
       <Header crumb="Lumen / Customers" title="Customers" actions={<><Button size="sm" variant="outline">Import</Button><Button size="sm"><PlusIcon /> Add customer</Button></>} />
       <div className="flex flex-wrap items-center gap-2">
-        <div className="relative w-64">
+        <div className="relative w-full sm:w-64">
           <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-fg-subtle" />
           <Input size="sm" placeholder="Search customers" className="pl-8" aria-label="Search customers" />
         </div>
         {["Status: Any", "Plan: Any", "Region"].map((f, i) => (
-          <button key={f} type="button" className={cn("inline-flex h-8 items-center gap-1 rounded-lg border px-2.5 text-xs font-medium", i === 0 ? "border-accent-line bg-accent-soft text-accent-fg" : "border-dashed border-border text-fg-muted hover:text-fg")}>
+          <button key={f} type="button" aria-pressed={i === 0} className={cn("inline-flex h-8 items-center gap-1 rounded-lg border px-2.5 text-xs font-medium outline-none focus-visible:ring-2 focus-visible:ring-accent", i === 0 ? "border-accent-line bg-accent-soft text-accent-fg" : "border-dashed border-border text-fg-muted hover:text-fg")}>
             {i === 0 ? null : <PlusIcon className="size-3" />}{f}
           </button>
         ))}
@@ -215,11 +215,11 @@ function Billing() {
           <Panel title="Invoices">
             <div className="-mx-5 -mb-5 divide-y divide-border border-t border-border">
               {[["INV-2041", "Sep 1, 2026", "$1,176.00", "success", "Paid"], ["INV-1988", "Aug 1, 2026", "$1,176.00", "success", "Paid"], ["INV-1930", "Jul 1, 2026", "$980.00", "success", "Paid"], ["INV-1877", "Jun 1, 2026", "$980.00", "danger", "Refunded"]].map(([id, d, a, t, s]) => (
-                <div key={id} className="grid grid-cols-[1fr_1fr_auto_auto] items-center gap-4 px-5 py-3 text-[12.5px]">
+                <div key={id} className="grid grid-cols-[1fr_auto_auto] items-center gap-3 px-5 py-3 text-[12.5px] sm:grid-cols-[1fr_1fr_auto_auto] sm:gap-4">
                   <span className="font-mono text-fg">{id}</span>
-                  <span className="text-fg-muted">{d}</span>
+                  <span className="hidden text-fg-muted sm:block">{d}</span>
                   <StatusBadge tone={t as "success" | "danger"}>{s}</StatusBadge>
-                  <span className="w-20 text-right font-mono text-fg">{a}</span>
+                  <span className="w-20 text-right font-mono text-fg tabular-nums">{a}</span>
                 </div>
               ))}
             </div>
@@ -303,21 +303,21 @@ export function LumenApp({ className }: { className?: string }) {
     </nav>
   )
   return (
-    <div className={cn("flex h-[820px] flex-col overflow-hidden rounded-[18px] border border-border bg-bg shadow-lg", className)}>
+    <div role="region" aria-label="Lumen, a demo app built from MiniDev UI" className={cn("flex h-[760px] flex-col overflow-hidden rounded-[18px] border border-border bg-bg shadow-lg sm:h-[820px]", className)}>
       <div className="flex h-11 shrink-0 items-center gap-3 border-b border-border bg-surface px-4">
-        <div className="hidden gap-1.5 sm:flex">
+        <div aria-hidden className="hidden gap-1.5 sm:flex">
           <span className="size-2.5 rounded-full bg-[oklch(0.72_0.17_25)]" /><span className="size-2.5 rounded-full bg-[oklch(0.82_0.15_85)]" /><span className="size-2.5 rounded-full bg-[oklch(0.74_0.16_150)]" />
         </div>
-        <button type="button" className="grid size-7 place-items-center rounded-md text-fg-muted hover:bg-sunken md:hidden" aria-label={menu ? "Close navigation" : "Open navigation"} onClick={() => setMenu((m) => !m)}>
+        <button type="button" className="grid size-8 place-items-center rounded-md text-fg-muted outline-none hover:bg-sunken focus-visible:ring-2 focus-visible:ring-accent md:hidden" aria-label={menu ? "Close navigation" : "Open navigation"} aria-expanded={menu} aria-controls="lumen-nav" onClick={() => setMenu((m) => !m)}>
           {menu ? <XIcon className="size-4" /> : <MenuIcon className="size-4" />}
         </button>
-        <div className="mx-auto flex h-6 max-w-72 flex-1 items-center justify-center gap-1.5 rounded-md border border-border bg-sunken px-2 text-[11px] text-fg-subtle">
-          <span className="size-1.5 rounded-full bg-success" /> app.lumen.dev/{screen}
+        <div aria-hidden className="mx-auto flex h-6 max-w-72 min-w-0 flex-1 items-center justify-center gap-1.5 truncate rounded-md border border-border bg-sunken px-2 text-[11px] text-fg-subtle">
+          <span className="size-1.5 shrink-0 rounded-full bg-success" /> app.lumen.dev/{screen}
         </div>
-        <BellIcon className="size-4 text-fg-subtle" />
+        <BellIcon aria-hidden className="size-4 shrink-0 text-fg-subtle" />
       </div>
       <div className="relative flex min-h-0 flex-1">
-        <aside className={cn("w-[232px] shrink-0 flex-col gap-4 border-r border-border bg-surface p-3", menu ? "absolute inset-y-0 left-0 z-20 flex shadow-overlay" : "hidden md:flex")}>
+        <aside id="lumen-nav" onKeyDown={(e) => e.key === "Escape" && menu && setMenu(false)} className={cn("w-[232px] shrink-0 flex-col gap-4 border-r border-border bg-surface p-3", menu ? "absolute inset-y-0 left-0 z-20 flex shadow-overlay" : "hidden md:flex")}>
           <div className="flex items-center gap-2 rounded-lg px-1.5 py-1">
             <span className="grid size-7 place-items-center rounded-lg bg-ink text-[11px] font-semibold text-on-ink shadow-ink">L</span>
             <div className="min-w-0 flex-1">
@@ -333,9 +333,9 @@ export function LumenApp({ className }: { className?: string }) {
             <p className="mt-2 text-[11px] text-fg-subtle">Resets in 9 days</p>
           </div>
         </aside>
-        <main key={screen} className="min-w-0 flex-1 animate-[rise-in_220ms_var(--ease-hairline)_both] overflow-y-auto p-5 sm:p-7">
+        <div key={screen} id="lumen-screen" className="min-w-0 flex-1 animate-[rise-in_220ms_var(--ease-hairline)_both] overflow-y-auto p-4 sm:p-7">
           <Body />
-        </main>
+        </div>
       </div>
     </div>
   )

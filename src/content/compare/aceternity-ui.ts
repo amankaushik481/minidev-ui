@@ -15,7 +15,7 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "Paid plans allow commercial use; see their license page for the free and paid terms" },
     {
       feature: "Scope",
-      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
+      minidev: "548 items: 397 UI components, 108 motion components, 43 blocks and pages",
       other: "Animated components and effects (backgrounds, cards, text, 3D and scroll effects), plus premium blocks",
     },
     {
@@ -33,7 +33,7 @@ const comparison: Comparison = {
     { feature: "Tailwind version", minidev: "Tailwind CSS v4", other: "Tailwind CSS; check each component's setup notes for version specifics" },
     {
       feature: "Install",
-      minidev: "`npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or npm `minidev-ui-kit`",
+      minidev: "`npx shadcn@latest add @minidev/<name>`, or npm `minidev-ui-kit`",
       other: "Copy and paste, or the shadcn CLI (see their CLI docs)",
     },
     {
@@ -42,7 +42,11 @@ const comparison: Comparison = {
       other: "Per-component Tailwind classes; many effects use their own colors and gradients",
     },
     { feature: "Dark mode", minidev: "Yes, every component, from one token set", other: "Yes, on components that support it" },
-    { feature: "AI tooling", minidev: "`llms.txt` and `llms-full.txt`; shadcn MCP compatible", other: "Installable through the shadcn CLI; check their docs for AI tooling" },
+    {
+      feature: "AI tooling",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
+      other: "`llms.txt` and `llms-full.txt`; installable through the shadcn CLI",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -52,7 +56,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 items. Most of them are the screens a product team builds after launch: data tables, invoice lists, billing and settings pages, command palettes, notification centers, AI chat threads and prompt inputs. About 86 motion components cover the marketing side, and everything shares one set of semantic tokens so the app and the site match.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of 548 items. Most of them are the screens a product team builds after launch: data tables, invoice lists, billing and settings pages, command palettes, notification centers, AI chat threads and prompt inputs. 108 motion components cover the marketing side, and everything shares one set of semantic tokens so the app and the site match.",
     },
     { type: "h2", text: "Where Aceternity UI shines", id: "where-aceternity-ui-shines" },
     {
@@ -121,6 +125,10 @@ const comparison: Comparison = {
       q: "Can I use Aceternity UI effects inside a MiniDev UI project?",
       a: "Yes. Both install through the shadcn CLI and use Tailwind. Replace hard coded colors in the effect with MiniDev tokens so it follows your theme and dark mode.",
     },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Aceternity UI?",
+      a: "MiniDev UI ships more for agents. Aceternity UI publishes `llms.txt` and `llms-full.txt`; MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server. Both install through the shadcn CLI, so an agent can add either by name.",
+    },
   ],
   sources: [
     { label: "Aceternity UI home", url: "https://ui.aceternity.com/" },
@@ -131,6 +139,7 @@ const comparison: Comparison = {
     { label: "Aceternity UI license", url: "https://ui.aceternity.com/licence" },
     { label: "Aceternity UI CLI docs", url: "https://ui.aceternity.com/docs/cli" },
     { label: "Aceternity UI: Tailwind CSS and Framer Motion components", url: "https://ui.aceternity.com/amazing-tailwindcss-and-framer-motion-components" },
+    { label: "Aceternity UI llms.txt", url: "https://ui.aceternity.com/llms.txt" },
   ],
 }
 

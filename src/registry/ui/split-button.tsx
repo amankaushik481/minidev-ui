@@ -11,14 +11,40 @@ import {
 } from "@/registry/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
 
-/** A primary action with an attached chevron that opens a menu of related actions. */
-type SplitButtonItem = { label: string; onSelect?: () => void; destructive?: boolean }
+/**
+ * A primary action with an attached chevron that opens a menu of related actions.
+ *
+ * Use it when one action is the obvious default and two to five close variants sit behind it
+ * ("Save" / "Save draft", "Merge" / "Squash and merge"). For unrelated actions use DropdownMenu
+ * on its own; for a single action use Button.
+ *
+ * @example
+ * <SplitButton
+ *   label="Merge"
+ *   onPrimaryClick={merge}
+ *   items={[{ label: "Squash and merge", onSelect: squash }, { label: "Close pull request", destructive: true, onSelect: close }]}
+ * />
+ */
+type SplitButtonItem = {
+  /** Menu item text. */
+  label: string
+  /** Called when the item is chosen. */
+  onSelect?: () => void
+  /** Renders the item in the danger tone. */
+  destructive?: boolean
+  /** Shows the item but blocks it. */
+  disabled?: boolean
+}
 
 type SplitButtonProps = {
   /** The primary action's label. */
   label?: React.ReactNode
+  /** Called by the primary (left) button. */
   onPrimaryClick?: () => void
+  /** Disables both halves. */
   disabled?: boolean
+  /** Accessible name for the chevron that opens the menu. */
+  menuLabel?: string
   className?: string
   /** Secondary actions in the menu; the menu matches the button's width. */
   items?: SplitButtonItem[]
@@ -34,6 +60,7 @@ function SplitButton({
   label = "Save invoice",
   onPrimaryClick,
   disabled,
+  menuLabel = "More actions",
   className,
   items = SAMPLE_ITEMS,
 }: SplitButtonProps) {
@@ -74,9 +101,9 @@ function SplitButton({
             "hover:border-fg-subtle focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
             "active:translate-y-[0.5px] disabled:opacity-50"
           )}
-          aria-label="More actions"
+          aria-label={menuLabel}
         >
-          <ChevronDownIcon className="size-4" />
+          <ChevronDownIcon className="size-4" aria-hidden />
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
@@ -84,9 +111,10 @@ function SplitButton({
           className="min-w-44"
           style={menuMinWidth ? { minWidth: menuMinWidth } : undefined}
         >
-          {items.map((item) => (
+          {items.map((item, i) => (
             <DropdownMenuItem
-              key={item.label}
+              key={`${item.label}-${i}`}
+              disabled={item.disabled}
               variant={item.destructive ? "destructive" : "default"}
               onClick={item.onSelect}
             >

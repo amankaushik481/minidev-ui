@@ -13,7 +13,7 @@ const loadCustomers = (page: number) =>
       const items = NAMES.map((name, i) => ({
         id: "cus_" + (page * 8 + i + 1),
         name,
-        email: name.toLowerCase().replace(" ", ".") + "@northwind.io",
+        email: name.toLowerCase().replace(" ", ".") + "@northwind.example",
       }))
       resolve({ items, hasMore: page < 2 })
     }, 600),
@@ -46,7 +46,7 @@ const loadCustomers = (page: number) =>
       const items = NAMES.map((name, i) => ({
         id: "cus_" + (page * 8 + i + 1),
         name,
-        email: name.toLowerCase().replace(" ", ".") + "@northwind.io",
+        email: name.toLowerCase().replace(" ", ".") + "@northwind.example",
       }))
       resolve({ items, hasMore: page < 2 })
     }, 600),

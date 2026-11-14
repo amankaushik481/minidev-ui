@@ -8,6 +8,16 @@ import { EmailFooter } from "@/registry/ui/email-footer"
 import { EmailCard } from "@/registry/ui/email-card"
 import { EmailButton } from "@/registry/ui/email-button"
 
+/**
+ * A welcome email preview: brand header, a "You are in" message, a primary button, a quick-start card and a footer, inside an email client frame.
+ *
+ * Built from the Email* primitives, which use email-safe layout. Use it as a
+ * starting point for onboarding emails; for a payment confirmation use
+ * EmailReceipt.
+ *
+ * @example
+ * <EmailWelcome />
+ */
 function EmailWelcome({ className }: { className?: string }) {
   return (
     <div data-slot="email-welcome" data-tier="premium" className={cn(className)}>

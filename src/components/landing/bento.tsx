@@ -171,7 +171,7 @@ const ROWS = [
 export function DataDemo() {
   const [sel, setSel] = React.useState<Set<string>>(new Set(["c2"]))
   const all = sel.size === ROWS.length
-  const toggle = (id: string) => setSel((s) => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n })
+  const toggle = (id: string) => setSel((s) => { const n = new Set(s); if (n.has(id)) n.delete(id); else n.add(id); return n })
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-xs">
       <div className="flex h-11 items-center gap-3 border-b border-border px-3">
@@ -319,14 +319,13 @@ export function CommandDemo() {
   const [q, setQ] = React.useState("")
   const [active, setActive] = React.useState(0)
   const list = CMDS.filter((c) => c.label.toLowerCase().includes(q.toLowerCase()))
-  React.useEffect(() => setActive(0), [q])
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-raised shadow-overlay">
       <div className="flex h-11 items-center gap-2.5 border-b border-border px-3">
         <SearchIcon className="size-4 text-fg-subtle" />
         <input
           value={q}
-          onChange={(e) => setQ(e.target.value)}
+          onChange={(e) => { setQ(e.target.value); setActive(0) }}
           onKeyDown={(e) => {
             if (e.key === "ArrowDown") { e.preventDefault(); setActive((a) => Math.min(list.length - 1, a + 1)) }
             if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => Math.max(0, a - 1)) }

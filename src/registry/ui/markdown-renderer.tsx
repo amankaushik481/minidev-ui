@@ -2,7 +2,16 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** MarkdownRenderer — paragraphs and fenced code blocks from a markdown string, with no parser dependency. */
+/**
+ * MarkdownRenderer — paragraphs and fenced code blocks from a markdown string, with no parser dependency.
+ *
+ * Use it for short, trusted text such as AI replies, changelog notes or webhook docs where pulling in a
+ * full markdown parser is overkill. It never renders HTML, so the content is safe to show as is.
+ * For rich markdown (lists, links, tables) bring a real parser; for a single code sample use CodeBlock.
+ *
+ * @example
+ * <MarkdownRenderer content={"Install it:\n\n```bash\nnpx shadcn add button\n```"} />
+ */
 
 // A note from the Lumen developer docs: paragraphs and one fenced code block.
 const SAMPLE_CONTENT = `Lumen sends a webhook the moment an invoice is paid. Verify the signature header, then mark the order as settled in your own system.
@@ -23,6 +32,7 @@ Deliveries retry with exponential backoff for 24 hours. Return a 2xx within five
 type MarkdownRendererProps = {
   /** Markdown source. Paragraphs and fenced code blocks are rendered; other syntax is shown as plain text. */
   content?: string
+  /** Classes for the root wrapper. */
   className?: string
 }
 
@@ -32,7 +42,8 @@ function MarkdownRenderer({ content = SAMPLE_CONTENT, className }: MarkdownRende
     <div data-slot="markdown-renderer" className={cn("space-y-3 text-sm leading-[1.55] text-fg", className)}>
       {parts.map((part, i) =>
         i % 2 === 1 ? (
-          <pre key={i} className="overflow-auto rounded-lg border border-border bg-sunken p-3 text-xs">
+          // tabIndex lets keyboard users scroll a wide code block.
+          <pre key={i} tabIndex={0} className="overflow-auto rounded-lg border border-border bg-sunken p-3 text-xs outline-none focus-visible:ring-2 focus-visible:ring-accent">
             <code>{part.replace(/\n$/, "")}</code>
           </pre>
         ) : (

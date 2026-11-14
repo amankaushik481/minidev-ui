@@ -3,23 +3,40 @@ import { BarChart3Icon, BellIcon, LockIcon, SparklesIcon, UsersIcon, ZapIcon, ty
 import { cn } from "@/lib/utils"
 
 /**
- * A responsive bento grid: tiles of different spans on a six column grid
- * that collapse to one column on phones. Each tile has an icon, title,
- * copy and an optional visual slot. Server component friendly, no motion.
+ * A responsive bento grid: feature tiles of different spans on a six column grid that collapse to one column on phones.
+ *
+ * Use on landing pages to show four to seven product features. Each tile has an icon, title, copy
+ * and an optional `visual`; tiles with `href` become links. Prefer `FeatureGrid` for equal tiles.
+ * Server component friendly, no motion, no client JavaScript.
+ *
+ * @example
+ * <BentoGrid items={[
+ *   { title: "Real time analytics", description: "Charts update as events arrive.", icon: BarChart3Icon, span: 4, rows: 2 },
+ *   { title: "Instant alerts", description: "Get pinged when a metric crosses a line.", icon: BellIcon, span: 2 },
+ * ]} />
  */
 type BentoItem = {
+  /** Tile heading (an `h3`). */
   title: string
+  /** One or two sentences under the title. */
   description: string
+  /** A lucide-react icon component (not an element). Defaults to a sparkle. */
   icon?: LucideIcon
   /** Column span on large screens, out of 6. */
   span?: 2 | 3 | 4 | 6
   /** Row span on large screens. */
   rows?: 1 | 2
+  /** Custom art under the copy. Two-row tiles without one get a small bar chart. */
   visual?: React.ReactNode
+  /** Makes the whole tile a link. */
   href?: string
 }
 
-type BentoGridProps = { items?: BentoItem[]; className?: string }
+type BentoGridProps = {
+  /** Tiles in reading order. Omit for sample data. */
+  items?: BentoItem[]
+  className?: string
+}
 
 const SPAN = { 2: "lg:col-span-2", 3: "lg:col-span-3", 4: "lg:col-span-4", 6: "lg:col-span-6" }
 
@@ -39,18 +56,18 @@ function BentoGrid({ items = DEMO, className }: BentoGridProps) {
         const Tag = it.href ? "a" : "div"
         return (
           <Tag
-            key={it.title}
+            key={`${it.title}-${i}`}
             {...(it.href ? { href: it.href } : {})}
             className={cn(
               "group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface p-6 shadow-raised outline-none",
-              it.href && "transition-[border-color] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent",
+              it.href && "transition-[border-color] duration-[70ms] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent",
               SPAN[it.span ?? 2],
               it.rows === 2 && "lg:row-span-2",
               i === 0 && "sm:col-span-2",
             )}
           >
             <span className="grid size-9 place-items-center rounded-xl bg-accent-soft text-accent-fg">
-              <Icon className="size-[18px]" strokeWidth={1.75} />
+              <Icon aria-hidden className="size-[18px]" strokeWidth={1.75} />
             </span>
             <h3 className="mt-4 text-base font-medium tracking-[-0.02em] text-fg">{it.title}</h3>
             <p className="mt-1.5 max-w-sm text-sm leading-[1.6] text-fg-muted">{it.description}</p>

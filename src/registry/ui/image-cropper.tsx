@@ -7,6 +7,21 @@ import { Button } from "@/registry/ui/button"
 import { SegmentedControl } from "@/registry/ui/segmented-control"
 import { Slider } from "@/registry/ui/slider"
 
+/**
+ * ImageCropper — crop an image inside a frame: drag to pan, zoom with the slider, wheel or pinch, pick an aspect, mask to a circle and rotate in 90° steps.
+ *
+ * Use it before uploading a cover, avatar or product photo. onCrop reports the
+ * crop in source pixels; getCroppedBlob(src, rect, opts) renders it to a Blob
+ * for upload. For picking a file without framing use ImageUpload, and for a
+ * round avatar picker use AvatarUpload. Keyboard: arrows pan (Shift for bigger
+ * steps), + and - zoom, R rotates, 0 resets.
+ *
+ * @example
+ * const [rect, setRect] = React.useState<CropRect | null>(null)
+ * <ImageCropper src={url} aspects={["1:1", "16:9"]} onCrop={(r) => setRect(r)} />
+ * const blob = await getCroppedBlob(url, rect!, { type: "image/webp", width: 1200 })
+ */
+
 const SNAPPY = { type: "spring", bounce: 0.18, duration: 0.42 } as const
 const MORPH = { type: "spring", bounce: 0.16, duration: 0.5 } as const
 const RELEASE = { type: "spring", stiffness: 400, damping: 40 } as const
@@ -23,12 +38,15 @@ type CropRect = {
 }
 
 type CropOptions = {
+  /** Override the rect's rotation, in degrees clockwise. */
   rotation?: number
   /** Clip to an ellipse (a circle for square crops). Use a PNG or WebP type to keep the corners transparent. */
   circle?: boolean
   /** Output width in pixels. Height follows the crop's aspect. Defaults to the crop's own width. */
   width?: number
+  /** Output MIME type, for example "image/png", "image/webp" or "image/jpeg". Defaults to PNG. */
   type?: string
+  /** 0 to 1, for lossy types. Defaults to 0.92. */
   quality?: number
 }
 
@@ -163,8 +181,11 @@ function ImageCropper({
   const [mode, setMode] = React.useState<Mode>("snappy")
   const [active, setActive] = React.useState(false)
   const [busy, setBusy] = React.useState(false)
+  const [problem, setProblem] = React.useState<"load" | "export" | null>(null)
   const viewRef = React.useRef(view)
-  viewRef.current = view
+  React.useLayoutEffect(() => {
+    viewRef.current = view
+  })
 
   React.useEffect(() => {
     const el = stageRef.current
@@ -176,11 +197,16 @@ function ImageCropper({
 
   React.useEffect(() => {
     let alive = true
+    // Reset on a new src before it loads; the setters batch with the commit.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setNatural(null)
+    setProblem(null)
     setViewState({ fx: 0.5, fy: 0.5, zoom: 1, rot: 0 })
     loadImage(src)
       .then((img) => alive && setNatural({ w: img.naturalWidth || 1, h: img.naturalHeight || 1 }))
-      .catch(() => alive && setNatural(null))
+      .catch(() => {
+        if (alive) setProblem("load")
+      })
     return () => {
       alive = false
     }
@@ -198,7 +224,9 @@ function ImageCropper({
   const eh = natural ? (turned ? natural.w : natural.h) : 1
   const base = cw && natural ? Math.max(cw / ew, ch / eh) : 1
   const geo = React.useRef({ ew, eh, base, cw, ch })
-  geo.current = { ew, eh, base, cw, ch }
+  React.useLayoutEffect(() => {
+    geo.current = { ew, eh, base, cw, ch }
+  })
 
   // Keep the point under the frame centre inside the bounds that let the image cover the frame.
   const bound = React.useCallback((v: View, elastic = false): View => {
@@ -223,6 +251,8 @@ function ImageCropper({
 
   // Re-clamp when the frame or image geometry changes (aspect, mask, resize, rotation).
   React.useEffect(() => {
+    // Geometry comes from a measured width, so the clamp has to follow the commit.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setViewState((v) => bound(v))
   }, [cw, ch, ew, eh, bound])
 
@@ -379,7 +409,9 @@ function ImageCropper({
     : null
 
   const latest = React.useRef(onCrop)
-  latest.current = onCrop
+  React.useLayoutEffect(() => {
+    latest.current = onCrop
+  })
   const key = rect ? `${rect.x},${rect.y},${rect.width},${rect.height},${rect.rotation},${circle},${effAspect}` : ""
   const [settled, setSettled] = React.useState<CropRect | null>(null)
   React.useEffect(() => {
@@ -408,6 +440,7 @@ function ImageCropper({
   const exportPng = async () => {
     if (!rect) return
     setBusy(true)
+    setProblem(null)
     try {
       const blob = await getCroppedBlob(src, rect, { circle, type: "image/png" })
       const url = URL.createObjectURL(blob)
@@ -416,6 +449,9 @@ function ImageCropper({
       link.download = fileName
       link.click()
       window.setTimeout(() => URL.revokeObjectURL(url), 1000)
+    } catch {
+      // Usually a remote image served without CORS headers, which taints the canvas.
+      setProblem("export")
     } finally {
       setBusy(false)
     }
@@ -483,7 +519,9 @@ function ImageCropper({
               </motion.div>
             </>
           ) : (
-            <span className="absolute inset-0 grid place-items-center text-xs text-fg-subtle">Loading image</span>
+            <span role={problem === "load" ? "alert" : undefined} className="absolute inset-0 grid place-items-center text-xs text-fg-subtle">
+              {problem === "load" ? "Could not load the image" : "Loading image"}
+            </span>
           )}
         </div>
         <p id={`${uid}-help`} className="sr-only">
@@ -583,6 +621,11 @@ function ImageCropper({
             <Button type="button" size="sm" variant="outline" onClick={exportPng} disabled={!rect || busy} className="w-fit">
               <DownloadIcon className="size-3.5" /> {busy ? "Exporting" : "Export PNG"}
             </Button>
+            {problem === "export" ? (
+              <p role="alert" className="text-xs text-danger">
+                Export failed. Remote images need CORS headers.
+              </p>
+            ) : null}
           </div>
         </div>
       ) : null}

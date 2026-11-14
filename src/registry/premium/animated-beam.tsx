@@ -5,20 +5,36 @@ import { BotIcon, DatabaseIcon, FileTextIcon, MailIcon, MessageSquareIcon, UserI
 import { cn } from "@/lib/utils"
 
 /**
- * Light that travels along curved paths between elements: sources on the
- * left flow into a hub, the hub flows out to a result. Paths are measured
- * from the real DOM, so the diagram reflows with its container. Use the
- * `Beam` primitive to connect any two refs in your own layout.
+ * Light that travels along curved paths between elements, showing data flowing from sources into a hub and out to a result.
+ *
+ * Paths are measured from the real DOM, so the diagram reflows with its
+ * container. `AnimatedBeam` is a ready-made "inputs → hub → output" diagram;
+ * `Beam` is the primitive that connects any two refs in your own layout.
+ * Use it for integration and pipeline diagrams; for a lit box outline use
+ * BorderBeam instead. Reduced motion keeps the static path and drops the light.
+ *
+ * @example
+ * <AnimatedBeam hub={{ icon: BotIcon, label: "Agent" }} output={{ icon: UserIcon, label: "Customer" }} />
+ *
+ * @example
+ * // Your own layout: the container must be position: relative.
+ * <div ref={box} className="relative">… <Beam container={box} from={a} to={b} curvature={-24} /></div>
  */
 
 type BeamProps = {
+  /** The positioned ancestor both ends live in; the SVG is drawn over it. */
   container: React.RefObject<HTMLElement | null>
+  /** Element the beam starts from (its centre). */
   from: React.RefObject<HTMLElement | null>
+  /** Element the beam ends at (its centre). */
   to: React.RefObject<HTMLElement | null>
-  /** Vertical bend of the curve, in pixels. */
+  /** Vertical bend of the curve, in pixels. Negative bends up. */
   curvature?: number
+  /** Seconds for one pulse to travel the path. */
   duration?: number
+  /** Seconds before the first pulse, to stagger several beams. */
   delay?: number
+  /** Run the pulse from `to` back to `from`. */
   reverse?: boolean
 }
 
@@ -81,8 +97,11 @@ function Beam({ container, from, to, curvature = 0, duration = 3, delay = 0, rev
 type Node = { icon: LucideIcon; label: string }
 
 type AnimatedBeamProps = {
+  /** Sources on the left, each joined to the hub by a beam. Labels must be unique. */
   inputs?: Node[]
+  /** The centre node, drawn larger in ink. */
   hub?: Node
+  /** The node on the right that the hub flows into. */
   output?: Node
   className?: string
 }
@@ -113,19 +132,19 @@ function AnimatedBeam({
   const box = React.useRef<HTMLDivElement>(null)
   const hubRef = React.useRef<HTMLDivElement>(null)
   const outRef = React.useRef<HTMLDivElement>(null)
-  const refs = React.useRef<React.RefObject<HTMLDivElement | null>[]>([])
-  refs.current = inputs.map((_, i) => refs.current[i] ?? React.createRef<HTMLDivElement>())
+  // One stable ref object per input slot; a new array only when the count changes.
+  const refs = React.useMemo(() => Array.from({ length: inputs.length }, () => React.createRef<HTMLDivElement>()), [inputs.length])
   return (
     <div data-slot="animated-beam" ref={box} className={cn("relative flex w-full max-w-xl items-center justify-between px-2 py-4", className)}>
       <div className="flex flex-col gap-5">
         {inputs.map((n, i) => (
-          <NodeView key={n.label} n={n} r={refs.current[i]} />
+          <NodeView key={n.label} n={n} r={refs[i]} />
         ))}
       </div>
       <NodeView n={hub} r={hubRef} big />
       <NodeView n={output} r={outRef} />
       {inputs.map((n, i) => (
-        <Beam key={n.label} container={box} from={refs.current[i]} to={hubRef} curvature={(i - (inputs.length - 1) / 2) * -18} delay={i * 0.35} />
+        <Beam key={n.label} container={box} from={refs[i]} to={hubRef} curvature={(i - (inputs.length - 1) / 2) * -18} delay={i * 0.35} />
       ))}
       <Beam container={box} from={hubRef} to={outRef} duration={2.4} delay={0.8} />
       <span className="sr-only">{`${inputs.map((n) => n.label).join(", ")} flow into ${hub.label}, which responds to ${output.label}.`}</span>
@@ -134,4 +153,4 @@ function AnimatedBeam({
 }
 
 export { AnimatedBeam, Beam }
-export type { AnimatedBeamProps, BeamProps }
+export type { AnimatedBeamProps, BeamProps, Node as AnimatedBeamNode }

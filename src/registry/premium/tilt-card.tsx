@@ -10,6 +10,15 @@ import { Button } from "@/registry/ui/button"
  * The glare moves across the face like light on a foil print. Children
  * marked `data-depth` float at their own parallax rate. Touch scrolls
  * straight through it; reduced motion keeps it flat.
+ *
+ * Use it for a showcase card, a pricing hero or a product shot. Reach for
+ * CardTilt for a simpler tilt without glare or depth, and ShineBorder to draw
+ * the eye without motion.
+ *
+ * @example
+ * <TiltCard maxTilt={10}>
+ *   <div className="rounded-xl bg-surface p-6"><h3 data-depth="1">Lumen Pro</h3></div>
+ * </TiltCard>
  */
 type TiltCardProps = {
   children?: React.ReactNode

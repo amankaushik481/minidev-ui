@@ -42,6 +42,15 @@ import { cn } from "@/lib/utils"
  * take token colours. The sphere turns on its own, keeps spinning after a
  * flick, pauses off screen and holds still for reduced motion. Arrow keys
  * turn it when it has focus.
+ *
+ * Use it for "works with everything" integration and stack sections. Items
+ * are decorative (hidden from screen readers), so say what they are in nearby
+ * text. For a world map of places use Globe.
+ *
+ * @example
+ * <IconCloud size={360} speed={0.8}>
+ *   {logos.map((Logo) => <Logo key={Logo.name} className="size-6" />)}
+ * </IconCloud>
  */
 type IconCloudProps = {
   /** Items to place on the sphere. Defaults to 30 lucide icons. */

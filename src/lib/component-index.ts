@@ -13,6 +13,14 @@ export type ComponentIndexEntry = {
   description?: string
   /** A real usage snippet lifted from the gallery. */
   usage?: string
+  /** Category id from src/content/component-seo. */
+  category?: string
+  /** Components named in this one's JSDoc, and those that name it. */
+  related?: string[]
+  /** When-to-use prose from the component's JSDoc (after the summary line). */
+  guide?: string
+  /** @example blocks from the component's JSDoc. */
+  examples?: string[]
 }
 
 export const COMPONENT_INDEX: ComponentIndexEntry[] = [
@@ -31,7 +39,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "primitives-extra"
     ],
-    "usage": "<Accordion className=\"max-w-lg\">\n  <AccordionItem value=\"a\">\n    <AccordionTrigger>What is MiniDev UI?</AccordionTrigger>\n    <AccordionPanel>A Hairline shadcn registry for MiniDev products.</AccordionPanel>\n  </AccordionItem>\n  <AccordionItem value=\"b\">\n    <AccordionTrigger>Does it use Geist?</AccordionTrigger>\n    <AccordionPanel>Yes — Geist Sans and Mono, self-hosted.</AccordionPanel>\n  </AccordionItem>\n</Accordion>"
+    "description": "Stacked disclosure sections: each item has a header button that shows or hides its panel.",
+    "usage": "<Accordion className=\"max-w-lg\">\n  <AccordionItem value=\"a\">\n    <AccordionTrigger>What is MiniDev UI?</AccordionTrigger>\n    <AccordionPanel>A Hairline shadcn registry for MiniDev products.</AccordionPanel>\n  </AccordionItem>\n  <AccordionItem value=\"b\">\n    <AccordionTrigger>Does it use Geist?</AccordionTrigger>\n    <AccordionPanel>Yes — Geist Sans and Mono, self-hosted.</AccordionPanel>\n  </AccordionItem>\n</Accordion>",
+    "category": "layout",
+    "related": [
+      "tabs",
+      "collapsible",
+      "expandable-row",
+      "faq-list",
+      "faq-section",
+      "faq-accordion-motion"
+    ],
+    "guide": "Use for FAQs, settings groups and long detail pages where readers scan headings first. Prefer `Tabs` when exactly one view is shown at a time and all are peers, and `Collapsible` for a single show/hide region. Built on Base UI: full keyboard support (Enter/Space toggle, focus moves with Tab), `aria-expanded`/`aria-controls` wired for you.\n\nKey props (on `Accordion`): `value` / `defaultValue` (array of open item values), `onValueChange`, `multiple` (allow several open at once), `disabled`.",
+    "examples": [
+      "<Accordion defaultValue={[\"billing\"]}>\n  <AccordionItem value=\"billing\">\n    <AccordionTrigger>How does billing work?</AccordionTrigger>\n    <AccordionPanel>Invoices go out on the 1st of each month.</AccordionPanel>\n  </AccordionItem>\n</Accordion>"
+    ]
   },
   {
     "name": "account-setup-progress",
@@ -44,7 +66,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "progress"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An onboarding checklist summary: a labelled progress bar with \"2/4\" steps and the next step.",
+    "category": "dashboard",
+    "related": [
+      "stepper",
+      "progress"
+    ],
+    "guide": "Use at the top of a dashboard or settings page while setup is incomplete. Prefer `Stepper` when the user moves through the steps in place, and `Progress` alone for non-setup progress.",
+    "examples": [
+      "<AccountSetupProgress stepsDone={3} stepsTotal={5} next=\"Invite your team\" />"
+    ]
   },
   {
     "name": "activity-feed",
@@ -62,7 +94,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "feeds"
     ],
     "description": "A compact feed of who did what, with avatars and timestamps, for dashboards and detail panes.",
-    "usage": "<ActivityFeed className=\"w-full max-w-md\" items={[\n  { id: \"1\", user: \"Aman\", action: \"opened a PR\", time: \"1m\" },\n  { id: \"2\", user: \"Jordan\", action: \"commented on design\", time: \"12m\" },\n]} />"
+    "usage": "<ActivityFeed className=\"w-full max-w-md\" items={[\n  { id: \"1\", user: \"Aman\", action: \"opened a PR\", time: \"1m\" },\n  { id: \"2\", user: \"Jordan\", action: \"commented on design\", time: \"12m\" },\n]} />",
+    "category": "dashboard",
+    "related": [
+      "audit-trail",
+      "timeline",
+      "audit-log-entry",
+      "comment-thread",
+      "admin-overview",
+      "dashboard-home",
+      "notification-center",
+      "project-detail"
+    ],
+    "guide": "Use for a short \"recent activity\" card. Prefer `AuditTrail` for compliance logs with exact timestamps, and `Timeline` for a dated sequence of milestones. Renders as a list for screen readers.",
+    "examples": [
+      "<ActivityFeed items={[{ id: \"1\", user: \"Maya Chen\", action: \"paid invoice INV-2041\", time: \"2m ago\" }]} />"
+    ]
   },
   {
     "name": "add-card-form",
@@ -77,7 +124,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "form-field",
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A payment card form: card number, expiry and CVC with the right autofill hints, and a save button.",
+    "category": "billing",
+    "related": [
+      "credit-card-input"
+    ],
+    "guide": "Use in billing settings or checkout when you collect card details yourself. If you use a hosted payment element (Stripe Elements and similar), render that instead and keep only the layout. Field ids are generated, so several forms can share a page.\n\nFields are submitted as `cc-number`, `cc-exp` and `cc-csc` in the FormData.",
+    "examples": [
+      "<AddCardForm onSubmit={(data) => saveCard(Object.fromEntries(data))} />"
+    ]
   },
   {
     "name": "admin-stat-strip",
@@ -93,8 +149,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "admin"
     ],
-    "description": "A row of admin KPIs with label, value and a delta, four up on desktop.",
-    "usage": "<AdminStatStrip\n  stats={[\n    { label: \"Seats\", value: \"42\", delta: 8 },\n    { label: \"Active\", value: \"128\", delta: 3.2 },\n    { label: \"Errors\", value: \"0.4%\", delta: -12 },\n  ]}\n/>"
+    "description": "A row of admin KPIs with label, value and a percentage delta, four up on desktop.",
+    "usage": "<AdminStatStrip\n  stats={[\n    { label: \"Seats\", value: \"42\", delta: 8 },\n    { label: \"Active\", value: \"128\", delta: 3.2 },\n    { label: \"Errors\", value: \"0.4%\", delta: -12 },\n  ]}\n/>",
+    "category": "dashboard",
+    "related": [
+      "stat-card",
+      "admin-overview"
+    ],
+    "guide": "Use at the top of an admin or analytics page. Prefer `StatCard` for a single, larger KPI with a sparkline. Marked up as a description list (label → value) so screen readers pair them.",
+    "examples": [
+      "<AdminStatStrip stats={[{ label: \"MRR\", value: \"$48,200\", delta: 8 }, { label: \"Churn\", value: \"2.1%\", delta: -3 }]} />"
+    ]
   },
   {
     "name": "admin-user-row",
@@ -113,7 +178,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "status-dot"
     ],
     "galleries": [],
-    "description": "One member row for an admin user list: avatar with presence, name, email, permission level and an actions menu."
+    "description": "One member row for an admin user list: avatar with presence, name, email, permission level and an actions menu.",
+    "category": "settings",
+    "related": [
+      "stack",
+      "data-table",
+      "dropdown-menu",
+      "team-member-row",
+      "admin-console"
+    ],
+    "guide": "Stack rows inside a bordered container for a members table. Prefer `DataTable` when you need sorting, selection or many columns. Put a `DropdownMenu` in `actions` for real row actions.",
+    "examples": [
+      "<AdminUserRow name=\"Theo Okafor\" email=\"theo@northwind.com\" role=\"write\" online\n  actions={<DropdownMenu>…</DropdownMenu>} />"
+    ]
   },
   {
     "name": "agent-trace",
@@ -129,8 +206,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "new"
     ],
-    "description": "E.g. \"1.2s\"",
-    "usage": "<AgentTrace\n  steps={STEPS.map((s, i) => ({ id: String(i), name: s.name, duration: s.duration, detail: s.detail, status: i < k ? \"done\" : i === k ? \"running\" : \"pending\" }))}\n  meta={k >= STEPS.length ? \"4 tools · 3.8s · $0.006\" : \"running…\"}\n/>"
+    "description": "An AI agent run as a timeline of tool calls and steps.",
+    "usage": "<AgentTrace\n  steps={STEPS.map((s, i) => ({ id: String(i), name: s.name, duration: s.duration, detail: s.detail, status: i < k ? \"done\" : i === k ? \"running\" : \"pending\" }))}\n  meta={k >= STEPS.length ? \"4 tools · 3.8s · $0.006\" : \"running…\"}\n/>",
+    "category": "ai-chat",
+    "related": [
+      "tool-call-card",
+      "build-pipeline",
+      "trace-waterfall"
+    ],
+    "guide": "A hairline rail connects the steps; the running step spins, finished steps report their time, and steps with `detail` fold out (arguments, output, errors). Use it to show what an agent did. Prefer `ToolCallCard` for a single call, and `BuildPipeline` for CI stages in a row. Each step announces its status to screen readers; details are disclosure buttons.",
+    "examples": [
+      "<AgentTrace\n  meta=\"3 tools · 2.4s\"\n  steps={[\n    { id: \"1\", name: \"search_invoices\", status: \"done\", duration: \"0.8s\", detail: '{ \"customer\": \"Northwind\" }' },\n    { id: \"2\", name: \"draft_email\", status: \"running\" },\n    { id: \"3\", name: \"send_email\", status: \"pending\" },\n  ]}\n/>"
+    ]
   },
   {
     "name": "ai-composer",
@@ -150,7 +237,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai-studio"
     ],
-    "usage": "<AiComposer\n  value={msg}\n  onChange={setMsg}\n  suggestions={[\"Improve contrast\", \"Add FAQ\", \"Write changelog\"]}\n  onSubmit={() => setMsg(\"\")}\n/>"
+    "description": "A chat input for AI apps: multiline prompt, suggestion chips, model picker, attach, and a send button that becomes stop while streaming.",
+    "usage": "<AiComposer\n  value={msg}\n  onChange={setMsg}\n  suggestions={[\"Improve contrast\", \"Add FAQ\", \"Write changelog\"]}\n  onSubmit={() => setMsg(\"\")}\n/>",
+    "category": "ai-chat",
+    "related": [
+      "prompt-input",
+      "textarea",
+      "chat-thread",
+      "comment-composer",
+      "stop-generating",
+      "chat-page"
+    ],
+    "guide": "Use as the input of a chat or assistant panel. Prefer `PromptInput` for a single-line prompt without the model picker, and `Textarea` for plain forms. Enter sends, Shift+Enter adds a line, and Enter during IME composition is left alone. Works controlled (`value` + `onChange`) or uncontrolled (`defaultValue`; it clears itself after `onSubmit`).",
+    "examples": [
+      "const [msg, setMsg] = React.useState(\"\")\n<AiComposer value={msg} onChange={setMsg} onSubmit={(text) => { send(text); setMsg(\"\") }}\n  streaming={isStreaming} onStop={stop} suggestions={[\"Summarize INV-2041\"]} />"
+    ]
   },
   {
     "name": "alert-dialog",
@@ -166,7 +267,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A modal confirmation for destructive or irreversible actions; renders a demo trigger and content when given no children."
+    "description": "A modal confirmation for destructive or irreversible actions; renders a demo trigger and content when given no children.",
+    "category": "overlays",
+    "related": [
+      "dialog",
+      "approval-card",
+      "cancel-flow",
+      "confirm-destructive",
+      "cookie-banner",
+      "delete-account-confirm",
+      "downgrade-warning",
+      "workflow-board"
+    ],
+    "guide": "Use when the user must confirm before something cannot be undone (delete, revoke, cancel plan). Unlike `Dialog`, it cannot be dismissed by clicking outside, and screen readers announce it as an alert dialog. Focus is trapped inside and returns to the trigger on close; Escape cancels. Always give it an `AlertDialogTitle` and `AlertDialogDescription`.\n\nKey props (on `AlertDialog`): `open` / `defaultOpen`, `onOpenChange(open)`.",
+    "examples": [
+      "<AlertDialog>\n  <AlertDialogTrigger render={<Button variant=\"outline\" />}>Delete invoice</AlertDialogTrigger>\n  <AlertDialogContent>\n    <AlertDialogTitle>Delete invoice INV-2041?</AlertDialogTitle>\n    <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>\n    <AlertDialogActions>\n      <AlertDialogClose render={<Button variant=\"outline\" />}>Cancel</AlertDialogClose>\n      <AlertDialogClose render={<Button variant=\"destructive\" />} onClick={remove}>Delete</AlertDialogClose>\n    </AlertDialogActions>\n  </AlertDialogContent>\n</AlertDialog>"
+    ]
   },
   {
     "name": "announcement-bar",
@@ -178,8 +294,26 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [
       "lucide-react"
     ],
-    "registryDeps": [],
-    "galleries": []
+    "registryDeps": [
+      "icon-button"
+    ],
+    "galleries": [],
+    "description": "A full-width strip above the site header for one short announcement (launch, sale, maintenance).",
+    "category": "marketing",
+    "related": [
+      "banner",
+      "callout",
+      "cookie-banner",
+      "cta-banner",
+      "impersonation-banner",
+      "incident-banner",
+      "inline-alert",
+      "trial-banner"
+    ],
+    "guide": "Use for site-wide news on marketing pages. Prefer `Banner` for in-app notices with tones and an action, and `Callout` for notes inside content. Exposed as a labelled region; the dismiss button only renders when `onDismiss` is given (persist the dismissal yourself).",
+    "examples": [
+      "<AnnouncementBar onDismiss={() => setHidden(true)}>\n  Lumen 2.4 is out. <a href=\"/changelog\">See what's new</a>\n</AnnouncementBar>"
+    ]
   },
   {
     "name": "api-key-list",
@@ -196,7 +330,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "settings"
     ],
-    "usage": "<ApiKeyList keys={[{ id: \"1\", name: \"Production\", preview: \"md_live_••••1234\" }]} />"
+    "description": "A card listing API keys by name with a masked preview, creation date, and create and rotate actions.",
+    "usage": "<ApiKeyList keys={[{ id: \"1\", name: \"Production\", preview: \"md_live_••••1234\" }]} />",
+    "category": "developer-tools",
+    "related": [
+      "create-api-key",
+      "secret-reveal",
+      "data-table",
+      "ip-allowlist",
+      "session-list",
+      "webhook-list",
+      "api-docs-page"
+    ],
+    "guide": "Use on a developer settings page. Never pass full secrets: show a masked `preview` and reveal a new key once, in a dialog, after `onCreate`. Prefer `CreateApiKey` or `SecretReveal` for the one-time reveal and `DataTable` for large key inventories with scopes and last-used columns.",
+    "examples": [
+      "<ApiKeyList\n  keys={[{ id: \"k1\", name: \"Production\", preview: \"md_live_••••8f2a\", created: \"Aug 12\" }]}\n  onCreate={openCreateDialog}\n  onRotate={(key) => rotate(key.id)}\n/>"
+    ]
   },
   {
     "name": "app-shell",
@@ -211,7 +360,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "blocks",
       "shells"
     ],
-    "usage": "<AppShell className=\"max-w-5xl\" sidebar={<Sidebar><div className=\"p-3 text-xs font-medium text-fg-muted\">MiniDev</div><SidebarNavItem active>Overview</SidebarNavItem><SidebarNavItem>Projects</SidebarNavItem></Sidebar>} topbar={<Topbar left={<span className=\"text-sm text-fg\">Dashboard</span>} />}>\n  <DashboardHome />\n</AppShell>"
+    "description": "A product layout frame: optional sidebar on the left (from md up), optional top bar, and a scrolling content area.",
+    "usage": "<AppShell className=\"max-w-5xl\" sidebar={<Sidebar><div className=\"p-3 text-xs font-medium text-fg-muted\">MiniDev</div><SidebarNavItem active>Overview</SidebarNavItem><SidebarNavItem>Projects</SidebarNavItem></Sidebar>} topbar={<Topbar left={<span className=\"text-sm text-fg\">Dashboard</span>} />}>\n  <DashboardHome />\n</AppShell>",
+    "category": "layout",
+    "related": [
+      "sidebar",
+      "topbar",
+      "sheet",
+      "collapsible-sidebar"
+    ],
+    "guide": "Use as the outer frame of an app page or an app preview. Prefer `Sidebar` for the navigation itself (pass it as `sidebar`) and `Topbar` for the header. Below md the sidebar is hidden, so also render a mobile menu (for example a `Sheet`) inside `topbar`.",
+    "examples": [
+      "<AppShell sidebar={<Sidebar />} topbar={<Topbar />} sidebarLabel=\"Workspace\">\n  <PageHeader title=\"Invoices\" />\n</AppShell>"
+    ]
   },
   {
     "name": "approval-card",
@@ -229,7 +390,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "workflow"
     ],
     "description": "A request card with the requester, a summary and approve or reject actions.",
-    "usage": "<ApprovalCard title=\"Merge release notes\" requester=\"Mina\" summary=\"Ready for docs review.\" />"
+    "usage": "<ApprovalCard title=\"Merge release notes\" requester=\"Mina\" summary=\"Ready for docs review.\" />",
+    "category": "workflow",
+    "related": [
+      "alert-dialog",
+      "workflow-board"
+    ],
+    "guide": "Use for human-in-the-loop steps: refunds, access requests, an agent asking permission before a tool call. Prefer `AlertDialog` when the decision must block the page. The card is an `article` named by its title, so a stack of requests reads as separate items.",
+    "examples": [
+      "<ApprovalCard title=\"Refund $1,240 on INV-2041\" requester=\"Theo Okafor\"\n  summary=\"Customer was double charged in October.\" onApprove={approve} onReject={reject} />"
+    ]
   },
   {
     "name": "area-chart",
@@ -244,7 +414,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "charts"
     ],
     "description": "A smooth area chart with a hairline grid and gradient wash; strokes stay 1.5px at any size and a highlight can pin one value.",
-    "usage": "<AreaChart data={[12,18,15,28,22,36,30,42]} />"
+    "usage": "<AreaChart data={[12,18,15,28,22,36,30,42]} />",
+    "category": "charts",
+    "related": [
+      "interactive-area-chart",
+      "line-chart",
+      "bar-chart",
+      "chart-card",
+      "horizontal-bar-chart",
+      "stacked-bar-chart"
+    ],
+    "guide": "Use for a single trend over time in a card or KPI tile (no axes, no tooltip). Prefer `InteractiveAreaChart` for hover tooltips and axes, `LineChart` for several series, and `BarChart` for discrete periods. Screen readers get `label` plus a summary (count, first, last, peak). It fills its container: size it with `className` (default `h-32 w-full`).",
+    "examples": [
+      "<AreaChart data={[18, 22, 27, 31, 36, 45, 52]} label=\"Weekly revenue, $k\" tone=\"success\" highlight={6} />"
+    ]
   },
   {
     "name": "artifact-preview",
@@ -261,7 +444,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "icon-button"
     ],
     "galleries": [],
-    "usage": "<ArtifactPreview title=\"preview.tsx\" copyValue=\" console.log(1)\">{\" \"}<pre className=\"font-mono text-xs text-fg\">const ok = true</pre></ArtifactPreview>"
+    "description": "A framed preview of something an AI produced (a snippet, a chart, a draft) with a title bar, copy and expand actions.",
+    "usage": "<ArtifactPreview title=\"preview.tsx\" copyValue=\" console.log(1)\">{\" \"}<pre className=\"font-mono text-xs text-fg\">const ok = true</pre></ArtifactPreview>",
+    "category": "ai-chat",
+    "related": [
+      "code-block",
+      "tool-result-panel"
+    ],
+    "guide": "Use inside a chat thread to show a generated artifact inline. Prefer `CodeBlock` for code that needs syntax highlighting and line numbers, and `ToolResultPanel` for raw tool output. The copy button only appears with `copyValue`, the expand button only with `onExpand`.",
+    "examples": [
+      "<ArtifactPreview title=\"pricing-table.tsx\" copyValue={source} onExpand={() => setOpen(true)}>\n  <PricingTable />\n</ArtifactPreview>"
+    ]
   },
   {
     "name": "aspect-ratio",
@@ -275,7 +468,13 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "layout"
     ],
-    "usage": "<AspectRatio ratio={16/9} className=\"rounded-xl border border-border bg-sunken\" />"
+    "description": "A box that keeps a fixed width-to-height ratio, for images, video and embeds.",
+    "usage": "<AspectRatio ratio={16/9} className=\"rounded-xl border border-border bg-sunken\" />",
+    "category": "layout",
+    "guide": "Children should fill it absolutely (`absolute inset-0 size-full object-cover`). Uses the native CSS `aspect-ratio`, so it works in server components and needs no JavaScript.",
+    "examples": [
+      "<AspectRatio ratio={16 / 9} className=\"rounded-xl bg-sunken\">\n  <img src=\"/cover.jpg\" alt=\"\" className=\"absolute inset-0 size-full object-cover\" />\n</AspectRatio>"
+    ]
   },
   {
     "name": "assign-picker",
@@ -291,8 +490,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
-    "description": "A list of teammates to assign something to; one option is highlighted and keyboard focusable.",
-    "usage": "<AssignPicker value={assignee} onChange={setAssignee} people={[{ id: \"1\", name: \"Aman\" }, { id: \"2\", name: \"Mina\" }]} />"
+    "description": "A list of teammates to assign something to, with the current assignee highlighted.",
+    "usage": "<AssignPicker value={assignee} onChange={setAssignee} people={[{ id: \"1\", name: \"Aman\" }, { id: \"2\", name: \"Mina\" }]} />",
+    "category": "workflow",
+    "related": [
+      "combobox"
+    ],
+    "guide": "Use inline in a popover or side panel to pick one owner for a task, ticket or invoice. Prefer `Combobox` when the team is long enough to need search. Follows the WAI-ARIA listbox pattern: one Tab stop, Arrow Up/Down and Home/End move, Enter or Space (or click) selects.",
+    "examples": [
+      "const [assignee, setAssignee] = React.useState(\"theo\")\n<AssignPicker value={assignee} onChange={setAssignee}\n  people={[{ id: \"maya\", name: \"Maya Chen\" }, { id: \"theo\", name: \"Theo Okafor\" }]} />"
+    ]
   },
   {
     "name": "attachment-chip",
@@ -305,7 +512,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A small chip for one attached file, with an optional remove button.",
+    "category": "ai-chat",
+    "related": [
+      "file-dropzone",
+      "prompt-input-attachments",
+      "context-pill",
+      "file-row",
+      "user-chip"
+    ],
+    "guide": "Use in a composer or form to list files the user has attached. Prefer `FileDropzone` for picking and uploading files, and `PromptInputAttachments` for the AI prompt input. The remove button only renders with `onRemove` and is named \"Remove <file name>\".",
+    "examples": [
+      "<AttachmentChip name=\"INV-2041.pdf\" meta=\"240 KB\" onRemove={() => remove(file)} />"
+    ]
   },
   {
     "name": "audio-player",
@@ -320,7 +540,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "icon-button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A compact, controlled audio row: play/pause button, title, subtitle and a progress bar.",
+    "category": "media",
+    "related": [
+      "audio-recorder",
+      "video-player-chrome",
+      "waveform-hero"
+    ],
+    "guide": "It renders no `<audio>` element: you own playback and pass `playing` and `progress`. Use it for podcast lists, voice notes and call recordings. Prefer `AudioRecorder` to capture audio, and `VideoPlayerChrome` for video.",
+    "examples": [
+      "const ref = React.useRef<HTMLAudioElement>(null)\n<audio ref={ref} src={url} onTimeUpdate={(e) => setPct((e.currentTarget.currentTime / e.currentTarget.duration) * 100)} />\n<AudioPlayer title=\"Northwind kickoff\" subtitle=\"12 min\" playing={playing}\n  progress={pct} onToggle={() => (playing ? ref.current?.pause() : ref.current?.play())} />"
+    ]
   },
   {
     "name": "audio-recorder",
@@ -335,7 +566,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A microphone recorder with start, pause and stop, an elapsed timer, live waveform bars, playback with a progress bar and a download button."
+    "description": "A microphone recorder with start, pause and stop, an elapsed timer, live waveform bars, playback with a progress bar and a download button.",
+    "category": "media",
+    "related": [
+      "audio-player"
+    ],
+    "guide": "Use to capture a voice note or memo in the browser (MediaRecorder + Web Audio, no dependencies). Prefer `AudioPlayer` to play existing audio. The finished waveform is a keyboard slider (Arrow keys seek 1s, Shift 5s, Space plays). Without a microphone or permission it stays idle with a plain-language hint. You own upload: take the Blob from `onRecorded`.",
+    "examples": [
+      "<AudioRecorder maxDuration={60} title=\"Voice note\" description=\"Attach to INV-2041\"\n  onRecorded={(blob, { duration }) => upload(blob, duration)} />"
+    ]
   },
   {
     "name": "audit-filter-bar",
@@ -353,7 +592,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "admin"
     ],
-    "usage": "<AuditFilterBar />"
+    "description": "A filter toolbar for an audit log: free-text search, an actor chip filter and a date range.",
+    "usage": "<AuditFilterBar />",
+    "category": "data-tables",
+    "related": [
+      "audit-trail",
+      "data-table",
+      "table-toolbar",
+      "facet-filter",
+      "filter-bar",
+      "admin-console"
+    ],
+    "guide": "Put it above `AuditTrail` or an audit `DataTable`. Prefer `TableToolbar` for generic tables and `FacetFilter` when several filters can be on at once. Every control works uncontrolled; read the values through the `on*Change` callbacks, or control the actor with `actor` + `onActorChange`.",
+    "examples": [
+      "<AuditFilterBar\n  onSearchChange={setQuery}\n  onActorChange={setActor}\n  onRangeChange={(r) => setRange(r)}\n/>"
+    ]
   },
   {
     "name": "audit-log-entry",
@@ -368,7 +621,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "relative-time"
     ],
     "galleries": [],
-    "description": "One line of an audit log: who did what to which record, with a relative timestamp."
+    "description": "One line of an audit log: who did what to which record, with a relative timestamp.",
+    "category": "data-tables",
+    "related": [
+      "audit-trail",
+      "activity-feed",
+      "logs-viewer"
+    ],
+    "guide": "Use for a single event; stack several in `AuditTrail`. Prefer `ActivityFeed` for casual \"recent activity\" without exact times. The timestamp is a `<time datetime>` for machines.",
+    "examples": [
+      "<AuditLogEntry actor=\"Maya Chen\" action=\"approved refund on\" target=\"INV-2041\" date=\"2026-11-14T09:12:00Z\" />"
+    ]
   },
   {
     "name": "audit-trail",
@@ -382,7 +645,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "audit-log-entry"
     ],
     "galleries": [],
-    "description": "A bordered list of audit log entries, newest first, each with a relative timestamp."
+    "description": "A bordered list of audit log entries, newest first, each with a relative timestamp.",
+    "category": "data-tables",
+    "related": [
+      "audit-filter-bar",
+      "activity-feed",
+      "data-table",
+      "audit-log-entry",
+      "comment-thread",
+      "timeline"
+    ],
+    "guide": "Use on security and admin pages to show who changed what. Pair it with `AuditFilterBar` above. Prefer `ActivityFeed` for casual activity, and `DataTable` when the log needs paging and sorting.",
+    "examples": [
+      "<AuditTrail entries={[{ id: \"1\", actor: \"Maya Chen\", action: \"approved refund on\", target: \"INV-2041\", time: \"2026-11-14T09:12:00Z\" }]} />"
+    ]
   },
   {
     "name": "auth-card",
@@ -396,7 +672,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "auth"
     ],
-    "usage": "<AuthCard title=\"Sign in\" footer={<>No account? <a className=\"text-accent underline underline-offset-2\" href=\"#\">Sign up</a></>}>\n  <SocialAuthRow />\n  <FormField id=\"email\" label=\"Email\"><Input id=\"email\" type=\"email\" placeholder=\"you@company.com\" /></FormField>\n  <FormField id=\"password\" label=\"Password\"><Input id=\"password\" type=\"password\" /></FormField>\n  <Button className=\"w-full\">Continue</Button>\n</AuthCard>"
+    "description": "A centred card frame for sign in, sign up and password reset forms: title, description, body and footer.",
+    "usage": "<AuthCard title=\"Sign in\" footer={<>No account? <a className=\"text-accent underline underline-offset-2\" href=\"#\">Sign up</a></>}>\n  <SocialAuthRow />\n  <FormField id=\"email\" label=\"Email\"><Input id=\"email\" type=\"email\" placeholder=\"you@company.com\" /></FormField>\n  <FormField id=\"password\" label=\"Password\"><Input id=\"password\" type=\"password\" /></FormField>\n  <Button className=\"w-full\">Continue</Button>\n</AuthCard>",
+    "category": "auth",
+    "related": [
+      "form-field",
+      "button",
+      "card",
+      "magic-link-form",
+      "sign-up-form",
+      "social-auth-row",
+      "sign-in-page"
+    ],
+    "guide": "It is layout only; put your `FormField`s and `Button`s inside. Use `footer` for the switch link (\"No account? Sign up\"). Prefer `Card` for anything that is not an auth screen. The card is a section named by its title.",
+    "examples": [
+      "<AuthCard title=\"Sign in to Lumen\" description=\"Use your work email.\" footer={<a href=\"/signup\">Create an account</a>}>\n  <FormField id=\"email\" label=\"Email\"><Input id=\"email\" type=\"email\" autoComplete=\"email\" /></FormField>\n  <Button type=\"submit\" className=\"w-full\">Continue</Button>\n</AuthCard>"
+    ]
   },
   {
     "name": "autocomplete",
@@ -413,7 +704,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "combobox"
     ],
     "description": "A text field that suggests matching options as you type, with the first eight matches in a listbox.",
-    "usage": "<Autocomplete options={items.map(i=>i.label)} placeholder=\"Framework\" aria-label=\"Framework\" />"
+    "usage": "<Autocomplete options={items.map(i=>i.label)} placeholder=\"Framework\" aria-label=\"Framework\" />",
+    "category": "forms",
+    "related": [
+      "combobox",
+      "select"
+    ],
+    "guide": "Free text is allowed: the value is whatever is typed, and picking a suggestion fills it in. Use for \"type or pick\" fields (customer, city, tag). Prefer `Combobox` when the value must be one of the options, and `Select` for a short fixed list. Follows the WAI-ARIA combobox pattern: Arrow Down/Up move through suggestions, Enter picks, Escape closes, focus stays in the input.",
+    "examples": [
+      "const [customer, setCustomer] = React.useState(\"\")\n<Autocomplete options={[\"Northwind Traders\", \"Acme Industries\"]} value={customer}\n  onChange={setCustomer} placeholder=\"Bill to\" aria-label=\"Customer\" />"
+    ]
   },
   {
     "name": "avatar-group",
@@ -430,7 +730,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "tooltip"
     ],
     "galleries": [],
-    "description": "Shown under the name in the tooltip and overflow list."
+    "description": "Overlapping avatars for a team, with name tooltips, a \"+N\" overflow popover and a \"Maya, Theo and 7 others\" summary.",
+    "category": "layout",
+    "related": [
+      "avatar",
+      "live-cursors-bar",
+      "user-chip",
+      "animated-tooltip"
+    ],
+    "guide": "Each avatar is ringed in the surface colour so the stack reads cleanly on cards; hovering or focusing one lifts it above its neighbours without moving the layout. Initials on token-tinted backgrounds stand in for missing photos. Data-driven: pass `people`. Prefer the `AvatarGroup` exported from `avatar` (a plain flex wrapper) when you compose `Avatar` children by hand.",
+    "examples": [
+      "<AvatarGroup label=\"Northwind team\" max={4} size=\"sm\"\n  people={[{ name: \"Maya Chen\", role: \"Head of Finance\", src: \"/maya.jpg\" }, { name: \"Theo Okafor\" }]} />"
+    ]
   },
   {
     "name": "avatar-upload",
@@ -444,7 +755,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "avatar",
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A profile photo picker: the current avatar with an Upload button that opens the file chooser and previews the pick.",
+    "category": "settings",
+    "related": [
+      "image-upload",
+      "file-dropzone",
+      "image-cropper"
+    ],
+    "guide": "Use in profile and team settings. It previews locally and hands you the `File`; uploading is yours. Prefer `ImageUpload` for larger images with drag and drop, and `FileDropzone` for any file.",
+    "examples": [
+      "<AvatarUpload name=\"Maya Chen\" src={user.avatarUrl} onChange={(file) => uploadAvatar(file)} />"
+    ]
   },
   {
     "name": "avatar",
@@ -458,7 +780,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "usage": "<Avatar><AvatarFallback>AK</AvatarFallback></Avatar>"
+    "description": "A round user picture with an initials fallback while the image loads or if it fails.",
+    "usage": "<Avatar><AvatarFallback>AK</AvatarFallback></Avatar>",
+    "category": "media",
+    "related": [
+      "avatar-group"
+    ],
+    "guide": "Compose `Avatar` > `AvatarImage` + `AvatarFallback`. Add `AvatarBadge` for a status dot, and wrap several in this file's `AvatarGroup` for a simple overlapping stack. Prefer the data-driven `AvatarGroup` from `avatar-group` for tooltips and a \"+N\" overflow. Give `AvatarImage` an `alt` with the person's name, or `alt=\"\"` when the name is printed next to it.",
+    "examples": [
+      "<Avatar size=\"lg\">\n  <AvatarImage src=\"/maya.jpg\" alt=\"Maya Chen\" />\n  <AvatarFallback>MC</AvatarFallback>\n</Avatar>"
+    ]
   },
   {
     "name": "back-link",
@@ -472,7 +803,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "usage": "<BackLink href=\"/gallery\">Gallery</BackLink>"
+    "description": "A quiet \"← Back\" link to the parent page, placed above a page title.",
+    "usage": "<BackLink href=\"/gallery\">Gallery</BackLink>",
+    "category": "navigation",
+    "related": [
+      "breadcrumb",
+      "link"
+    ],
+    "guide": "Use on detail pages (\"← Invoices\"). Prefer `Breadcrumb` when the hierarchy is deeper than one level. It is a real link (`<a href>`), so it works without JavaScript and opens in a new tab; for Next.js client navigation pass `onClick` with `router.push`, or wrap your own `Link`. The arrow nudges left on hover.",
+    "examples": [
+      "<BackLink href=\"/invoices\">Invoices</BackLink>"
+    ]
   },
   {
     "name": "back-to-top",
@@ -486,7 +827,12 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A back to top button that appears after the reader scrolls, with a ring"
+    "description": "A floating back to top button that appears after the reader scrolls, with a ring that fills as they progress.",
+    "category": "navigation",
+    "guide": "Use on long docs, articles and changelogs. Fixed bottom-right; move it with `className`. Scrolls smoothly unless reduced motion is on, then moves focus to `<main>` (or the first `<h1>`) so keyboard users land at the top too. While hidden it is out of the tab order.",
+    "examples": [
+      "<BackToTop threshold={600} />\n// inside a scrolling panel:\n<BackToTop target={panelRef} className=\"absolute\" />"
+    ]
   },
   {
     "name": "badge",
@@ -501,7 +847,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "usage": "<Badge>Default</Badge>"
+    "description": "A small pill label for status, counts and categories (\"Paid\", \"Beta\", \"3 new\").",
+    "usage": "<Badge>Default</Badge>",
+    "category": "feedback",
+    "related": [
+      "status-badge",
+      "tags-input",
+      "kbd",
+      "permission-chip",
+      "version-badge"
+    ],
+    "guide": "Use next to text or in table cells. Prefer `StatusBadge` for a status with a dot, `TagsInput` for editable tags, and `Kbd` for keyboard keys. `render={<a href=\"…\" />}` makes it a link (hover styles turn on automatically). Add an icon with `data-icon=\"inline-start\"` on the svg.\n\nVariants: default (ink), accent, secondary, destructive, outline, ghost, link.",
+    "examples": [
+      "<Badge variant=\"accent\">Beta</Badge>\n<Badge variant=\"destructive\">Overdue</Badge>\n<Badge render={<a href=\"/changelog\" />} variant=\"outline\">v2.4</Badge>"
+    ]
   },
   {
     "name": "banner",
@@ -519,7 +878,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "overlays"
     ],
-    "usage": "<Banner className=\"w-full max-w-xl\" action={<Button size=\"sm\" variant=\"outline\">Upgrade</Button>}>Your trial ends in 5 days.</Banner>"
+    "description": "A full-width, tinted notice bar for in-app messages, with an optional action and dismiss button.",
+    "usage": "<Banner className=\"w-full max-w-xl\" action={<Button size=\"sm\" variant=\"outline\">Upgrade</Button>}>Your trial ends in 5 days.</Banner>",
+    "category": "feedback",
+    "related": [
+      "announcement-bar",
+      "inline-alert",
+      "callout",
+      "toast",
+      "cta-banner",
+      "pinned-message"
+    ],
+    "guide": "Use at the top of an app or a page section for state the user should know about (trial ending, degraded service, unpaid invoice). Prefer `AnnouncementBar` for marketing news, `InlineAlert` or `Callout` inside content, and `Toast` for transient feedback. It is a polite live region, so a banner that appears later is announced. `danger` uses `role=\"alert\"` and interrupts.",
+    "examples": [
+      "<Banner tone=\"warning\" action={<Button size=\"sm\" variant=\"outline\">Update card</Button>} onDismiss={hide}>\n  Your card ending 4242 expires this month.\n</Banner>"
+    ]
   },
   {
     "name": "bar-chart",
@@ -534,7 +907,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "charts"
     ],
     "description": "Rounded-top bars on a hairline baseline; hovering one bar dims its siblings and surfaces the value, and the peak is marked by default.",
-    "usage": "<BarChart data={[{label:\"Mon\",value:12},{label:\"Tue\",value:18},{label:\"Wed\",value:9},{label:\"Thu\",value:22},{label:\"Fri\",value:16}]} />"
+    "usage": "<BarChart data={[{label:\"Mon\",value:12},{label:\"Tue\",value:18},{label:\"Wed\",value:9},{label:\"Thu\",value:22},{label:\"Fri\",value:16}]} />",
+    "category": "charts",
+    "related": [
+      "stacked-bar-chart",
+      "horizontal-bar-chart",
+      "area-chart",
+      "chart-card",
+      "pie-chart",
+      "dashboard-home",
+      "report-builder"
+    ],
+    "guide": "Use for one value per period or category (monthly revenue, signups per day). Prefer `StackedBarChart` for parts of a whole, `HorizontalBarChart` for long category names, and `AreaChart` for a continuous trend. Screen readers get `label` followed by every label and value. Size it with `className` (default `h-40 w-full`).",
+    "examples": [
+      "<BarChart label=\"Revenue by month\" format={(n) => `$${(n / 1000).toFixed(1)}k`}\n  data={[{ label: \"Sep\", value: 56100 }, { label: \"Oct\", value: 61400 }]} />"
+    ]
   },
   {
     "name": "bento-grid",
@@ -548,7 +935,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A responsive bento grid: tiles of different spans on a six column grid"
+    "description": "A responsive bento grid: feature tiles of different spans on a six column grid that collapse to one column on phones.",
+    "category": "marketing",
+    "related": [
+      "feature-grid"
+    ],
+    "guide": "Use on landing pages to show four to seven product features. Each tile has an icon, title, copy and an optional `visual`; tiles with `href` become links. Prefer `FeatureGrid` for equal tiles. Server component friendly, no motion, no client JavaScript.",
+    "examples": [
+      "<BentoGrid items={[\n  { title: \"Real time analytics\", description: \"Charts update as events arrive.\", icon: BarChart3Icon, span: 4, rows: 2 },\n  { title: \"Instant alerts\", description: \"Get pinged when a metric crosses a line.\", icon: BellIcon, span: 2 },\n]} />"
+    ]
   },
   {
     "name": "billing-address",
@@ -563,7 +958,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "input",
       "textarea"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "Billing address fields (street, city, state, postal code) with browser autofill hints, for checkout and billing settings.",
+    "category": "billing",
+    "related": [
+      "shipping-address",
+      "tax-fields"
+    ],
+    "guide": "Drop it inside your own `<form>`; it renders fields only, no submit button. Field names are `address`, `city`, `state` and `postal-code`, so `new FormData(form)` reads them directly. Ids are generated, so it can appear twice on a page (billing and shipping) with different `section`s.",
+    "examples": [
+      "<form onSubmit={save}>\n  <BillingAddress section=\"billing\" />\n  <Button type=\"submit\">Save</Button>\n</form>"
+    ]
   },
   {
     "name": "blog-card",
@@ -580,7 +985,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing-sections"
     ],
-    "usage": "<BlogCard tag=\"Design\" title=\"Why Hairline beats blur\" excerpt=\"Borders and highlights, not soft shadows everywhere.\" date={new Date().toISOString()} />"
+    "description": "A linked article card: cover image, tag, relative date, title and a two-line excerpt.",
+    "usage": "<BlogCard tag=\"Design\" title=\"Why Hairline beats blur\" excerpt=\"Borders and highlights, not soft shadows everywhere.\" date={new Date().toISOString()} />",
+    "category": "marketing",
+    "related": [
+      "card",
+      "blog-home"
+    ],
+    "guide": "Use in blog indexes, changelogs and \"related posts\". The whole card is one link, so do not nest other links or buttons inside. Prefer `Card` for non-link content. Without `image` the 16:9 slot shows a sunken placeholder, so grids stay aligned.",
+    "examples": [
+      "<BlogCard href=\"/blog/close-books-faster\" title=\"Close the books in two days\"\n  excerpt=\"How Northwind cut month-end from a week to two days.\" image=\"/covers/close.jpg\"\n  tag=\"Finance\" date=\"2026-11-02\" />"
+    ]
   },
   {
     "name": "breadcrumb-ellipsis",
@@ -593,7 +1008,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A \"…\" marker for collapsed middle levels in a breadcrumb trail.",
+    "category": "navigation",
+    "related": [
+      "dropdown-menu",
+      "breadcrumb"
+    ],
+    "guide": "Decorative by default (hidden from screen readers). To let people open the hidden levels, wrap it in a `DropdownMenuTrigger` and give that trigger `aria-label=\"Show more pages\"`.",
+    "examples": [
+      "<BreadcrumbEllipsis />"
+    ]
   },
   {
     "name": "breadcrumb",
@@ -610,7 +1035,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "shells"
     ],
     "description": "A navigation trail of links with chevron separators; the last item is the current page.",
-    "usage": "<Breadcrumb items={[{label:\"App\"},{label:\"Users\"},{label:\"Jordan\"}]} />"
+    "usage": "<Breadcrumb items={[{label:\"App\"},{label:\"Users\"},{label:\"Jordan\"}]} />",
+    "category": "navigation",
+    "related": [
+      "back-link",
+      "breadcrumb-ellipsis"
+    ],
+    "guide": "Use at the top of nested pages (Customers › Northwind › INV-2041). Prefer `BackLink` when there is only one level to go back. Follows the WAI-ARIA breadcrumb pattern: a labelled `nav` with an ordered list, separators hidden from screen readers, and `aria-current=\"page\"` on the last item. Long trails wrap; pass `BreadcrumbEllipsis` yourself if you collapse the middle.",
+    "examples": [
+      "<Breadcrumb items={[{ label: \"Customers\", href: \"/customers\" }, { label: \"Northwind\", href: \"/customers/northwind\" }, { label: \"INV-2041\" }]} />"
+    ]
   },
   {
     "name": "build-pipeline",
@@ -624,7 +1058,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "usage": "<BuildPipeline />"
+    "description": "CI/CD stages in a row (Install → Typecheck → Test → Deploy), each with a status icon.",
+    "usage": "<BuildPipeline />",
+    "category": "developer-tools",
+    "related": [
+      "agent-trace",
+      "stepper",
+      "check-run-list",
+      "engineering-console",
+      "logs-viewer"
+    ],
+    "guide": "Use on deploy and PR pages for a glanceable pipeline. Prefer `AgentTrace` for a vertical log with details, and `Stepper` for a user-driven multi-step flow. Wraps on narrow screens; each stage announces its status, and the running stage is marked `aria-current=\"step\"`.",
+    "examples": [
+      "<BuildPipeline stages={[\n  { name: \"Install\", status: \"success\" },\n  { name: \"Test\", status: \"running\" },\n  { name: \"Deploy\", status: \"pending\" },\n]} />"
+    ]
   },
   {
     "name": "bulk-actions-bar",
@@ -640,7 +1087,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-extra"
     ],
-    "usage": "<BulkActionsBar count={3} onClear={() => {}}>\n  <Button size=\"sm\" variant=\"outline\">Archive</Button>\n  <Button size=\"sm\" variant=\"outline\" className=\"text-danger border-danger/40\">Delete</Button>\n</BulkActionsBar>"
+    "description": "A floating bar that appears when table rows are selected: \"3 selected\", your action buttons and Clear.",
+    "usage": "<BulkActionsBar count={3} onClear={() => {}}>\n  <Button size=\"sm\" variant=\"outline\">Archive</Button>\n  <Button size=\"sm\" variant=\"outline\" className=\"text-danger border-danger/40\">Delete</Button>\n</BulkActionsBar>",
+    "category": "data-tables",
+    "related": [
+      "data-table"
+    ],
+    "guide": "Render it under a selectable `DataTable` or list and pass the selection size as `count`; it renders nothing at 0. Sticky to the bottom of its scroll container. The count is a live region, so changes are announced; the bar itself is a labelled region.",
+    "examples": [
+      "<BulkActionsBar count={selected.length} onClear={() => setSelected([])}>\n  <Button size=\"sm\" variant=\"outline\">Export</Button>\n  <Button size=\"sm\" variant=\"destructive\">Delete</Button>\n</BulkActionsBar>"
+    ]
   },
   {
     "name": "bulk-user-import",
@@ -658,7 +1114,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "admin"
     ],
-    "usage": "<BulkUserImport />"
+    "description": "A CSV import panel for inviting many users: format note, CSV dropzone and an Import button.",
+    "usage": "<BulkUserImport />",
+    "category": "settings",
+    "related": [
+      "file-dropzone",
+      "invite-members",
+      "admin-console"
+    ],
+    "guide": "Use in admin \"Members\" pages. Parsing and inviting are yours: `onImport` gets the dropped files when the user presses Import. Prefer `FileDropzone` alone for generic uploads.",
+    "examples": [
+      "<BulkUserImport onImport={async (files) => invite(await parseCsv(files[0]))} />"
+    ]
   },
   {
     "name": "button-group",
@@ -672,7 +1139,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "button-group"
     ],
-    "usage": "<ButtonGroup>\n  <Button variant=\"outline\">Left</Button>\n  <Button variant=\"outline\">Center</Button>\n  <Button variant=\"outline\">Right</Button>\n</ButtonGroup>"
+    "description": "Joins adjacent `Button`s into one segmented control with shared borders (Day | Week | Month, Copy | ▾).",
+    "usage": "<ButtonGroup>\n  <Button variant=\"outline\">Left</Button>\n  <Button variant=\"outline\">Center</Button>\n  <Button variant=\"outline\">Right</Button>\n</ButtonGroup>",
+    "category": "buttons",
+    "related": [
+      "button",
+      "segmented-control",
+      "toggle-group"
+    ],
+    "guide": "Use for a few related actions that belong together. Prefer `SegmentedControl` or `ToggleGroup` when exactly one option is selected. Works best with `variant=\"outline\"` buttons. Give the group an `aria-label` so screen readers announce what the buttons are for.",
+    "examples": [
+      "<ButtonGroup aria-label=\"Invoice actions\">\n  <Button variant=\"outline\">Send</Button>\n  <Button variant=\"outline\">Download</Button>\n  <Button variant=\"outline\">Void</Button>\n</ButtonGroup>"
+    ]
   },
   {
     "name": "button",
@@ -698,8 +1176,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "settings",
       "shells"
     ],
-    "description": "The Hairline keycap.",
-    "usage": "<Button className=\"w-full\">Continue</Button>"
+    "description": "The Hairline keycap: the kit's one button, in eight variants and nine sizes.",
+    "usage": "<Button className=\"w-full\">Continue</Button>",
+    "category": "buttons",
+    "related": [
+      "icon-button",
+      "link",
+      "auth-card",
+      "button-group",
+      "copy-button",
+      "email-button",
+      "floating-action-button",
+      "split-button"
+    ],
+    "guide": "Use `default` (ink) for the primary action, `outline` for secondary, `ghost` in toolbars, `destructive` for irreversible actions, `accent` at most once per screen, `link` for inline text actions. For an icon-only button use `IconButton` (it requires `aria-label`). To render a link that looks like a button, pass `render={<a href=\"/pricing\" />}` (or a Next.js `<Link />`); `nativeButton` is set for you. Disable with `disabled`; Base UI keeps it focusable when you also pass `focusableWhenDisabled`.\n\nSolid variants carry an inner top highlight and bottom edge (shadow-ink), outline a 1px key edge (shadow-key). Hover changes one property, press sinks 0.5px, nothing shifts layout.\n\nSizes: xs 28px, sm 32px, default 36px, lg 44px, xl 48px; icon, icon-xs, icon-sm, icon-lg are square.",
+    "examples": [
+      "<Button>Save invoice</Button>\n<Button variant=\"outline\" size=\"sm\"><DownloadIcon /> Export</Button>\n<Button render={<a href=\"/pricing\" />} variant=\"accent\" size=\"lg\">See pricing</Button>"
+    ]
   },
   {
     "name": "calendar-agenda",
@@ -711,7 +1204,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "A day's events as a simple time and title list, with optional meta under each entry."
+    "description": "A day's events as a simple time and title list, with optional meta under each entry.",
+    "category": "dashboard",
+    "related": [
+      "event-calendar",
+      "calendar-month"
+    ],
+    "guide": "Use in a sidebar or dashboard card for \"Today\". Prefer `EventCalendar` for a week or month view with event blocks, and `CalendarMonth` to pick a date. Marked up as a list; times are `<time>`.",
+    "examples": [
+      "<CalendarAgenda items={[{ id: \"1\", time: \"09:00\", title: \"Finance standup\", meta: \"15 min\" }]} />"
+    ]
   },
   {
     "name": "calendar-month",
@@ -722,7 +1224,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/calendar-month",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A single month grid for picking a day, with real weekday alignment and full keyboard support.",
+    "category": "forms",
+    "related": [
+      "popover",
+      "date-picker",
+      "date-range-picker",
+      "event-calendar",
+      "calendar-agenda"
+    ],
+    "guide": "Use inline or inside a `Popover` to pick a date. Prefer `DatePicker` for a form field with a native picker, `DateRangePicker` for from/to, and `EventCalendar` to show events. Selection is controlled: pass `selected` and `onSelect`. Keyboard: one Tab stop; Arrow keys move by day or week, Home/End jump to the first/last day, Enter or Space selects. Each day is announced with its full date, and the selected day is `aria-pressed`.",
+    "examples": [
+      "const [day, setDay] = React.useState<number>()\n<CalendarMonth month={new Date(2026, 10, 1)} selected={day} onSelect={setDay} />"
+    ]
   },
   {
     "name": "callout",
@@ -736,7 +1251,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "layout"
     ],
-    "usage": "<Callout title=\"Note\" tone=\"info\">Semantic callout using Hairline borders.</Callout>"
+    "description": "A tinted note inside content: optional title and body, in info, success, warning or danger.",
+    "usage": "<Callout title=\"Note\" tone=\"info\">Semantic callout using Hairline borders.</Callout>",
+    "category": "feedback",
+    "related": [
+      "banner",
+      "inline-alert",
+      "toast",
+      "announcement-bar",
+      "incident-banner",
+      "merge-box",
+      "pinned-message",
+      "well"
+    ],
+    "guide": "Use in docs, forms and settings to point out something the reader should know. Prefer `Banner` for page-level notices, `InlineAlert` for form errors and status with an icon, and `Toast` for transient feedback. It is a static `role=\"note\"`, not a live region.",
+    "examples": [
+      "<Callout tone=\"warning\" title=\"Invoices are final\">Sent invoices cannot be edited, only voided.</Callout>"
+    ]
   },
   {
     "name": "cancel-flow",
@@ -749,7 +1280,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A two-step subscription cancel flow: ask why (one reason), then confirm.",
+    "category": "billing",
+    "related": [
+      "dialog",
+      "alert-dialog",
+      "downgrade-warning"
+    ],
+    "guide": "Use in billing settings behind a \"Cancel plan\" button, or inside a `Dialog`. Prefer `AlertDialog` for a one-step confirmation. Reasons are a labelled radio group, Continue is disabled until one is chosen, and focus moves to each new step's heading.",
+    "examples": [
+      "<CancelFlow planName=\"Scale\" onConfirm={(reason) => cancelSubscription({ reason })} />"
+    ]
   },
   {
     "name": "card",
@@ -763,7 +1305,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "navigation"
     ],
-    "usage": "<Card key={n}><CardHeader><CardTitle>Slide {n}</CardTitle></CardHeader><CardContent className=\"text-sm text-fg-muted\">Carousel card content.</CardContent></Card>"
+    "description": "The basic raised surface: a bordered, rounded panel with optional header, content and footer slots.",
+    "usage": "<Card key={n}><CardHeader><CardTitle>Slide {n}</CardTitle></CardHeader><CardContent className=\"text-sm text-fg-muted\">Carousel card content.</CardContent></Card>",
+    "category": "layout",
+    "related": [
+      "stat-card",
+      "blog-card",
+      "auth-card",
+      "credit-card-input",
+      "email-card",
+      "hover-card",
+      "inset",
+      "product-card"
+    ],
+    "guide": "Compose `Card` > `CardHeader` (`CardTitle`, `CardDescription`, `CardAction`) + `CardContent` + `CardFooter`. Spacing comes from one `--card-spacing` variable, so `size=\"sm\"` tightens every slot at once. A first child `<img>` bleeds to the edges. Use it for any grouped content; prefer `StatCard` for a single KPI and `BlogCard` for a linked article. Server component friendly.",
+    "examples": [
+      "<Card>\n  <CardHeader>\n    <CardTitle>Northwind</CardTitle>\n    <CardDescription>Customer since 2023</CardDescription>\n    <CardAction><Button size=\"sm\" variant=\"outline\">Edit</Button></CardAction>\n  </CardHeader>\n  <CardContent>Open balance: $12,400</CardContent>\n  <CardFooter><Button size=\"sm\">Send invoice</Button></CardFooter>\n</Card>"
+    ]
   },
   {
     "name": "carousel",
@@ -781,7 +1339,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "navigation"
     ],
-    "usage": "<Carousel>\n  {[1,2,3,4].map((n) => (\n    <Card key={n}><CardHeader><CardTitle>Slide {n}</CardTitle></CardHeader><CardContent className=\"text-sm text-fg-muted\">Carousel card content.</CardContent></Card>\n  ))}\n</Carousel>"
+    "description": "A horizontal, scroll-snapping row of slides with previous/next buttons.",
+    "usage": "<Carousel>\n  {[1,2,3,4].map((n) => (\n    <Card key={n}><CardHeader><CardTitle>Slide {n}</CardTitle></CardHeader><CardContent className=\"text-sm text-fg-muted\">Carousel card content.</CardContent></Card>\n  ))}\n</Carousel>",
+    "category": "media",
+    "related": [
+      "marquee",
+      "image-gallery",
+      "image-lightbox"
+    ],
+    "guide": "Use for testimonials, product shots or cards that do not fit in one row. Shows about 1.2 slides on phones, 2 on tablets and 3 on desktop; touch users swipe natively. Prefer `Marquee` for an auto-scrolling logo strip. Follows the WAI-ARIA carousel pattern: a labelled region, each slide a group named \"2 of 6\", Arrow Left/Right scroll when the track is focused, buttons disable at the ends, and scrolling is instant under reduced motion.",
+    "examples": [
+      "<Carousel label=\"Customer stories\">\n  {stories.map((s) => <StoryCard key={s.id} {...s} />)}\n</Carousel>"
+    ]
   },
   {
     "name": "cart-line-item",
@@ -800,7 +1369,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "commerce"
     ],
-    "usage": "<CartLineItem title=\"Studio seat\" price=\"$49.00\" quantity={qty} onQuantityChange={setQty} onRemove={() => {}} />"
+    "description": "One product row in a cart or order summary: title, price, a quantity stepper and remove.",
+    "usage": "<CartLineItem title=\"Studio seat\" price=\"$49.00\" quantity={qty} onQuantityChange={setQty} onRemove={() => {}} />",
+    "category": "ecommerce",
+    "related": [
+      "stack"
+    ],
+    "guide": "Stack rows inside a cart drawer or checkout. Quantity is controlled: pass `quantity` and update it in `onQuantityChange`. The stepper is a group named \"Quantity for <title>\" so its +/- buttons make sense to screen readers; the remove button only renders with `onRemove`.",
+    "examples": [
+      "<CartLineItem title=\"Lumen Pro, annual\" price=\"$480.00\" quantity={qty}\n  onQuantityChange={setQty} onRemove={() => remove(id)} />"
+    ]
   },
   {
     "name": "case-study-card",
@@ -816,7 +1394,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing-sections"
     ],
-    "usage": "<CaseStudyCard company=\"Acme\" title=\"Cut design QA time in half\" result=\"52%\" delta={52} />"
+    "description": "A customer-story card: company eyebrow, headline, one big result figure and an optional delta chip.",
+    "usage": "<CaseStudyCard company=\"Acme\" title=\"Cut design QA time in half\" result=\"52%\" delta={52} />",
+    "category": "marketing",
+    "related": [
+      "stat-card",
+      "testimonial"
+    ],
+    "guide": "Use on marketing and customers pages, one outcome per card. For a live dashboard number use StatCard; for a quote use Testimonial. Only show results the customer has approved; never invent figures.",
+    "examples": [
+      "<CaseStudyCard company=\"Northwind\" title=\"Month-end close in two days\" result=\"2 days\" delta={-60} />"
+    ]
   },
   {
     "name": "center",
@@ -827,7 +1415,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/center",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A layout primitive that centres its children horizontally and vertically in a narrow, text-centred column.",
+    "category": "layout",
+    "related": [
+      "container",
+      "cluster",
+      "stack"
+    ],
+    "guide": "Use for empty states, auth screens and single-message pages. For a page-width wrapper use Container; for a row of items use Cluster; for a vertical list use Stack.",
+    "examples": [
+      "<Center className=\"min-h-80\"><EmptyState title=\"No invoices yet\" /></Center>"
+    ]
   },
   {
     "name": "character-count",
@@ -841,7 +1440,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<CharacterCount value={12} max={140} />"
+    "description": "A \"42/280\" counter for a text field that turns red past the limit and tells screen readers only when the limit is near.",
+    "usage": "<CharacterCount value={12} max={140} />",
+    "category": "forms",
+    "related": [
+      "textarea",
+      "input"
+    ],
+    "guide": "Place it under a Textarea or Input and point the field's `aria-describedby` at its `id`. It does not block typing; pair it with the field's `maxLength` if you need a hard cap.",
+    "examples": [
+      "const [text, setText] = React.useState(\"\")\n<Textarea value={text} onChange={(e) => setText(e.target.value)} aria-describedby=\"bio-count\" />\n<CharacterCount id=\"bio-count\" value={text.length} max={280} />"
+    ]
   },
   {
     "name": "chart-card",
@@ -855,7 +1464,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "stats"
     ],
-    "usage": "<ChartCard className=\"w-full max-w-xl\" title=\"Signups\" description=\"Last 14 days\">\n  <div className=\"flex h-40 items-end gap-1\">\n    {[40,55,48,70,62,80,75,90,88,95,92,100,110,120].map((h,i)=>(\n      <div key={i} className=\"flex-1 rounded-sm bg-accent/80\" style={{ height: `${h/1.4}%` }} />\n    ))}\n  </div>\n</ChartCard>"
+    "description": "A raised card that frames a chart with a title, an optional description and an optional header action.",
+    "usage": "<ChartCard className=\"w-full max-w-xl\" title=\"Signups\" description=\"Last 14 days\">\n  <div className=\"flex h-40 items-end gap-1\">\n    {[40,55,48,70,62,80,75,90,88,95,92,100,110,120].map((h,i)=>(\n      <div key={i} className=\"flex-1 rounded-sm bg-accent/80\" style={{ height: `${h/1.4}%` }} />\n    ))}\n  </div>\n</ChartCard>",
+    "category": "charts",
+    "related": [
+      "area-chart",
+      "bar-chart",
+      "line-chart",
+      "stat-sparkline",
+      "chart-legend",
+      "dashboard-home",
+      "report-builder"
+    ],
+    "guide": "Wrap AreaChart, BarChart, LineChart and friends in it so every chart on a dashboard shares one header style. The title labels the region for screen readers. For a single KPI with a sparkline use StatSparkline.",
+    "examples": [
+      "<ChartCard title=\"Revenue\" description=\"Last 12 weeks\" action={<Button size=\"sm\" variant=\"ghost\">Export</Button>}>\n  <AreaChart data={weekly} />\n</ChartCard>"
+    ]
   },
   {
     "name": "chart-legend",
@@ -870,7 +1494,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "charts"
     ],
     "description": "A row of colour swatches and series names to sit under a chart.",
-    "usage": "<ChartLegend items={[{ label: \"Free\" }, { label: \"Premium\" }, { label: \"Studio\" }]} />"
+    "usage": "<ChartLegend items={[{ label: \"Free\" }, { label: \"Premium\" }, { label: \"Studio\" }]} />",
+    "category": "charts",
+    "related": [
+      "chart-card",
+      "line-chart"
+    ],
+    "guide": "Pass the same colours your chart uses so the key matches. Swatches are decorative; the label carries the meaning. Use inside ChartCard below the chart.",
+    "examples": [
+      "<ChartLegend items={[{ label: \"Revenue\", color: \"var(--accent)\" }, { label: \"Refunds\", color: \"var(--danger)\" }]} />"
+    ]
   },
   {
     "name": "chart-tooltip-card",
@@ -885,7 +1518,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "charts"
     ],
     "description": "A small raised card for chart hover details: a title and label-value rows with tabular numbers.",
-    "usage": "<ChartTooltipCard title=\"Sep 14\" rows={[{ label: \"Views\", value: \"12.4k\" }, { label: \"Signups\", value: \"318\" }]} />"
+    "usage": "<ChartTooltipCard title=\"Sep 14\" rows={[{ label: \"Views\", value: \"12.4k\" }, { label: \"Signups\", value: \"318\" }]} />",
+    "category": "charts",
+    "related": [
+      "tooltip"
+    ],
+    "guide": "Render it inside your chart's hover layer, positioned at the pointer. It is a polite live region, so screen readers hear the values as the hovered point changes. For a tooltip on a button or icon use Tooltip instead.",
+    "examples": [
+      "<ChartTooltipCard title=\"Week 12\" rows={[{ label: \"Revenue\", value: \"$49,000\" }, { label: \"Refunds\", value: \"$1,200\" }]} />"
+    ]
   },
   {
     "name": "chat-thread",
@@ -902,7 +1543,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "ai",
       "ai-studio"
     ],
-    "usage": "<ChatThread\n  messages={[\n    { id: \"1\", role: \"user\", content: \"Build a pricing table\" },\n    {\n      id: \"2\",\n      role: \"assistant\",\n      content: (\n        <>\n          Sure — here is a starter. <CitationChip className=\"ml-1\">1</CitationChip>\n        </>\n      ),\n    },\n    { id: \"3\", role: \"assistant\", content: \"Streaming response…\", streaming: true },\n  ]}\n/>"
+    "description": "A scrolling chat transcript of MessageBubbles that sticks to the newest message unless the reader has scrolled up.",
+    "usage": "<ChatThread\n  messages={[\n    { id: \"1\", role: \"user\", content: \"Build a pricing table\" },\n    {\n      id: \"2\",\n      role: \"assistant\",\n      content: (\n        <>\n          Sure — here is a starter. <CitationChip className=\"ml-1\">1</CitationChip>\n        </>\n      ),\n    },\n    { id: \"3\", role: \"assistant\", content: \"Streaming response…\", streaming: true },\n  ]}\n/>",
+    "category": "ai-chat",
+    "related": [
+      "prompt-input",
+      "ai-composer",
+      "comment-thread",
+      "conversation-sidebar",
+      "chat-page"
+    ],
+    "guide": "Use for AI chat and support threads. Give it a fixed height (e.g. `className=\"h-96\"`) so it scrolls. It is a `role=\"log\"` region, so screen readers hear new messages politely. Pair with PromptInput or AiComposer below it.",
+    "examples": [
+      "<ChatThread\n  className=\"h-96\"\n  messages={[\n    { id: \"1\", role: \"user\", content: \"Summarise INV-2041\" },\n    { id: \"2\", role: \"assistant\", content: \"Northwind owes $12,400, due Friday.\", streaming: true },\n  ]}\n/>"
+    ]
   },
   {
     "name": "check-run-list",
@@ -916,7 +1570,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "usage": "<CheckRunList />"
+    "description": "A compact list of CI checks (build, lint, e2e) with a status icon and word for each.",
+    "usage": "<CheckRunList />",
+    "category": "developer-tools",
+    "related": [
+      "build-pipeline",
+      "commit-row",
+      "engineering-console"
+    ],
+    "guide": "Use on pull request, deploy and release screens. For a multi-stage pipeline with arrows use BuildPipeline. Status is always spelled out in text, never colour alone.",
+    "examples": [
+      "<CheckRunList runs={[{ name: \"build\", status: \"success\" }, { name: \"e2e\", status: \"running\" }]} />"
+    ]
   },
   {
     "name": "checkbox-group",
@@ -930,7 +1595,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "checkbox"
     ],
-    "usage": "<CheckboxGroup>\n  <div className=\"flex items-center gap-2\"><Checkbox id=\"g1\" /><Label htmlFor=\"g1\">Email</Label></div>\n  <div className=\"flex items-center gap-2\"><Checkbox id=\"g2\" defaultChecked /><Label htmlFor=\"g2\">SMS</Label></div>\n  <div className=\"flex items-center gap-2\"><Checkbox id=\"g3\" /><Label htmlFor=\"g3\">Push</Label></div>\n</CheckboxGroup>"
+    "description": "A labelled group that stacks related Checkboxes, so screen readers announce the group name before each option.",
+    "usage": "<CheckboxGroup>\n  <div className=\"flex items-center gap-2\"><Checkbox id=\"g1\" /><Label htmlFor=\"g1\">Email</Label></div>\n  <div className=\"flex items-center gap-2\"><Checkbox id=\"g2\" defaultChecked /><Label htmlFor=\"g2\">SMS</Label></div>\n  <div className=\"flex items-center gap-2\"><Checkbox id=\"g3\" /><Label htmlFor=\"g3\">Push</Label></div>\n</CheckboxGroup>",
+    "category": "forms",
+    "related": [
+      "radio-group",
+      "chip-filter",
+      "checkbox"
+    ],
+    "guide": "Use for \"pick any\" choices (notification channels, permissions). For \"pick one\" use RadioGroup; for filters as chips use ChipFilter. Give it a `label` (visible) or an `aria-label`.",
+    "examples": [
+      "<CheckboxGroup label=\"Email me about\">\n  <Label className=\"flex items-center gap-2\"><Checkbox name=\"notify\" value=\"invoices\" defaultChecked /> Paid invoices</Label>\n  <Label className=\"flex items-center gap-2\"><Checkbox name=\"notify\" value=\"reports\" /> Weekly reports</Label>\n</CheckboxGroup>"
+    ]
   },
   {
     "name": "checkbox",
@@ -946,7 +1622,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "checkbox"
     ],
-    "usage": "<Checkbox id=\"c1\" />"
+    "description": "An accessible checkbox built on Base UI: 16px box, 44px touch target, accent fill when checked, a dash when indeterminate.",
+    "usage": "<Checkbox id=\"c1\" />",
+    "category": "forms",
+    "related": [
+      "checkbox-group",
+      "switch",
+      "label",
+      "row-selection"
+    ],
+    "guide": "Use for independent on/off choices and multi-select lists; wrap several in CheckboxGroup. For a setting that applies immediately use Switch. Controlled with `checked` + `onCheckedChange(checked: boolean)`, or uncontrolled with `defaultChecked`. Pass `name` and `value` to submit with a form. Label it with a wrapping `<Label>` or `aria-label`; set `aria-invalid` to show the error state.",
+    "examples": [
+      "<Label className=\"flex items-center gap-2\"><Checkbox name=\"terms\" required /> I accept the terms</Label>\n<Checkbox checked={all} indeterminate={some} onCheckedChange={toggleAll} aria-label=\"Select all rows\" />"
+    ]
   },
   {
     "name": "checkout-summary",
@@ -959,7 +1647,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A compact checkout panel: line items, a total and one pay button.",
+    "category": "ecommerce",
+    "related": [
+      "credit-card-input",
+      "order-summary",
+      "coupon-input",
+      "invoice-detail"
+    ],
+    "guide": "Use beside a payment form (CreditCardInput) at the last step of checkout. For a full order breakdown with tax and discounts use OrderSummary. Prices are pre-formatted strings, so format money with Intl.NumberFormat before passing it in.",
+    "examples": [
+      "<CheckoutSummary\n  items={[{ name: \"Pro · monthly\", price: \"$49\" }]}\n  total=\"$49\"\n  onPay={submit}\n  payLabel=\"Pay $49\"\n/>"
+    ]
   },
   {
     "name": "chip-filter",
@@ -974,7 +1674,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "data-extra"
     ],
     "description": "A row of pill-shaped radio chips for picking one filter, uncontrolled unless a value is passed.",
-    "usage": "<ChipFilter value={chip} onChange={setChip} options={[{ value: \"all\", label: \"All\" }, { value: \"mine\", label: \"Mine\" }, { value: \"open\", label: \"Open\" }]} />"
+    "usage": "<ChipFilter value={chip} onChange={setChip} options={[{ value: \"all\", label: \"All\" }, { value: \"mine\", label: \"Mine\" }, { value: \"open\", label: \"Open\" }]} />",
+    "category": "forms",
+    "related": [
+      "select",
+      "facet-filter",
+      "segmented-control",
+      "tabs",
+      "checkbox-group",
+      "context-chip",
+      "filter-bar",
+      "query-builder"
+    ],
+    "guide": "Use above a list or table to switch between a few status filters (\"All\", \"Paid\", \"Overdue\"). For many options use Select; for toggling several filters at once use FacetFilter; for switching views use SegmentedControl or Tabs. Keyboard: Tab enters the group, arrow keys move and select, Home/End jump to the ends.",
+    "examples": [
+      "const [status, setStatus] = React.useState(\"all\")\n<ChipFilter label=\"Invoice status\" options={[{ value: \"all\", label: \"All\" }, { value: \"paid\", label: \"Paid\" }]} value={status} onChange={setStatus} />"
+    ]
   },
   {
     "name": "choice-card",
@@ -988,7 +1703,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "choice-card"
     ],
-    "usage": "<ChoiceCard title=\"Personal\" description=\"For solo founders\" icon={<UserIcon />} selected={v===\"personal\"} onClick={() => setV(\"personal\")} />"
+    "description": "A large selectable card button with an optional icon, a title and a description.",
+    "usage": "<ChoiceCard title=\"Personal\" description=\"For solo founders\" icon={<UserIcon />} selected={v===\"personal\"} onClick={() => setV(\"personal\")} />",
+    "category": "forms",
+    "related": [
+      "radio-group",
+      "segmented-control",
+      "plan-card"
+    ],
+    "guide": "Use for onboarding and plan or workspace-type choices where each option needs a sentence of explanation. Pass `selected` to make it a toggle button (`aria-pressed`); wrap a set in a `role=\"group\"` with an `aria-label`. For compact single choice use RadioGroup or SegmentedControl; for pricing use PlanCard.",
+    "examples": [
+      "<div role=\"group\" aria-label=\"Workspace type\" className=\"grid gap-2\">\n  <ChoiceCard title=\"Personal\" description=\"Just you.\" selected={type === \"solo\"} onClick={() => setType(\"solo\")} />\n  <ChoiceCard title=\"Team\" description=\"Invite up to 10 people.\" selected={type === \"team\"} onClick={() => setType(\"team\")} />\n</div>"
+    ]
   },
   {
     "name": "citation-chip",
@@ -1002,7 +1728,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai"
     ],
-    "usage": "<CitationChip className=\"ml-1\">1</CitationChip>"
+    "description": "A small inline chip that cites a source in an AI answer: an optional numbered index plus the source name.",
+    "usage": "<CitationChip className=\"ml-1\">1</CitationChip>",
+    "category": "ai-chat",
+    "related": [
+      "source-card",
+      "context-pill",
+      "file-reference",
+      "link-preview"
+    ],
+    "guide": "Place it inline after the sentence it supports. It renders a button (open a SourceCard or side panel in `onClick`), or a link when `href` is set. For a full source preview use SourceCard; for attached files in a prompt use ContextPill.",
+    "examples": [
+      "<p>Refunds settle in 5-10 days <CitationChip index={1} href=\"https://docs.stripe.com/refunds\">Stripe docs</CitationChip></p>"
+    ]
   },
   {
     "name": "cluster",
@@ -1016,7 +1754,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "layout"
     ],
-    "usage": "<Cluster gap={2}>\n  <span className=\"rounded-md border border-border px-2 py-1 text-xs\">One</span>\n  <span className=\"rounded-md border border-border px-2 py-1 text-xs\">Two</span>\n  <span className=\"rounded-md border border-border px-2 py-1 text-xs\">Three</span>\n</Cluster>"
+    "description": "A layout primitive that lays children out in a wrapping row with an even gap, like tags, buttons or badges.",
+    "usage": "<Cluster gap={2}>\n  <span className=\"rounded-md border border-border px-2 py-1 text-xs\">One</span>\n  <span className=\"rounded-md border border-border px-2 py-1 text-xs\">Two</span>\n  <span className=\"rounded-md border border-border px-2 py-1 text-xs\">Three</span>\n</Cluster>",
+    "category": "layout",
+    "related": [
+      "stack",
+      "center",
+      "container"
+    ],
+    "guide": "Use for horizontal groups that should wrap on narrow screens. For a vertical list use Stack; for centring use Center; for page width use Container. `gap` is in 4px steps, so `gap={2}` is 8px.",
+    "examples": [
+      "<Cluster gap={2} justify=\"end\"><Button variant=\"ghost\">Cancel</Button><Button>Save</Button></Cluster>"
+    ]
   },
   {
     "name": "code-block",
@@ -1033,7 +1782,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "ai"
     ],
     "description": "An ink-well code block in both themes, with lightweight token colouring (strings, keywords, JSX tags, comments) and a copy button.",
-    "usage": "<CodeBlock className=\"max-w-lg\" code={demoCode} />"
+    "usage": "<CodeBlock className=\"max-w-lg\" code={demoCode} />",
+    "category": "developer-tools",
+    "related": [
+      "code-editor-frame",
+      "terminal-window",
+      "copy-button",
+      "artifact-preview",
+      "diff-view",
+      "json-viewer",
+      "markdown-renderer",
+      "notebook-cell"
+    ],
+    "guide": "Use for static snippets in docs, onboarding and API-key screens. It highlights with a tiny built-in tokenizer (no Shiki/Prism), so it suits short JS/TS/JSX/shell snippets. For a live editable area use CodeEditorFrame; for a shell session use TerminalWindow; for a single command with a copy button use CopyButton beside an inline `<code>`.",
+    "examples": [
+      "<CodeBlock filename=\"install.sh\" language=\"bash\" code={\"npx shadcn@latest add https://ui.minidev.pro/r/button.json\"} />"
+    ]
   },
   {
     "name": "code-editor-frame",
@@ -1047,7 +1811,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "system"
     ],
-    "usage": "<CodeEditorFrame filename=\"button.tsx\">{`export function Button() {\\n  return <button />\\n}`}</CodeEditorFrame>"
+    "description": "A neutral editor chrome: a file-name tab bar over a monospace body that hosts your own editor or code.",
+    "usage": "<CodeEditorFrame filename=\"button.tsx\">{`export function Button() {\\n  return <button />\\n}`}</CodeEditorFrame>",
+    "category": "developer-tools",
+    "related": [
+      "code-block",
+      "window-chrome"
+    ],
+    "guide": "Wrap a `<textarea>`, CodeMirror or Monaco in it so the editor matches the kit. For read-only highlighted snippets with a copy button use CodeBlock; for a whole window with traffic lights use WindowChrome.",
+    "examples": [
+      "<CodeEditorFrame filename=\"schema.sql\" actions={<Button size=\"xs\" variant=\"ghost\">Run</Button>}>\n  <textarea aria-label=\"SQL\" className=\"w-full resize-none bg-transparent outline-none\" rows={8} />\n</CodeEditorFrame>"
+    ]
   },
   {
     "name": "collapsible-sidebar",
@@ -1063,7 +1837,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "sidebar"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A Sidebar with a built-in collapse toggle on its edge that shrinks it to an icon rail.",
+    "category": "navigation",
+    "related": [
+      "sidebar",
+      "app-shell",
+      "mobile-nav-drawer",
+      "conversation-sidebar"
+    ],
+    "guide": "Use as the left rail of an app shell. Uncontrolled by default; pass `collapsed` + `onCollapsedChange` to persist the state. Put SidebarNavItem children inside; their labels truncate when collapsed. For a full layout use AppShell; on mobile use MobileNavDrawer.",
+    "examples": [
+      "<CollapsibleSidebar>\n  <SidebarNavItem icon={<HomeIcon />} active>Home</SidebarNavItem>\n  <SidebarNavItem icon={<ReceiptIcon />}>Invoices</SidebarNavItem>\n</CollapsibleSidebar>"
+    ]
   },
   {
     "name": "collapsible",
@@ -1076,7 +1862,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "@base-ui/react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A single show-and-hide section built on Base UI: a full-width trigger button and a panel it opens.",
+    "category": "layout",
+    "related": [
+      "accordion",
+      "expandable-row",
+      "reasoning-block"
+    ],
+    "guide": "Use for one optional block (advanced settings, an address, \"show more\"). For a stack of sections use Accordion; for a table row that expands use ExpandableRow. The trigger gets `aria-expanded` and `aria-controls` automatically.\n\nKey props (on `Collapsible`): `open` / `defaultOpen`, `onOpenChange(open)`, `disabled`. Style the open state with `data-panel-open` on the trigger (e.g. rotate a chevron with `group-data-[panel-open]:rotate-180`).",
+    "examples": [
+      "<Collapsible defaultOpen>\n  <CollapsibleTrigger className=\"group\">Advanced <ChevronDownIcon className=\"size-4 transition-transform group-data-[panel-open]:rotate-180\" /></CollapsibleTrigger>\n  <CollapsiblePanel>Webhook retries, idempotency keys and rate limits.</CollapsiblePanel>\n</Collapsible>"
+    ]
   },
   {
     "name": "color-picker",
@@ -1090,7 +1887,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "color-picker"
     ],
-    "usage": "<ColorPicker />"
+    "description": "A row of colour swatches that works as a radio group: pick one colour, get its CSS colour string back.",
+    "usage": "<ColorPicker />",
+    "category": "forms",
+    "related": [
+      "theme-picker"
+    ],
+    "guide": "Use for labels, tags, calendars and brand accents where a fixed palette beats a free picker. Uncontrolled unless `value` is passed. Each swatch has a spoken name (\"Violet\"), so pass `{ value, label }` objects for custom palettes. Keyboard: Tab enters the group, arrow keys move and select, Home/End jump to the ends. For a theme switcher use ThemePicker.",
+    "examples": [
+      "const [color, setColor] = React.useState(\"oklch(0.52 0.12 150)\")\n<ColorPicker label=\"Label colour\" value={color} onChange={setColor} />"
+    ]
   },
   {
     "name": "column-visibility-menu",
@@ -1099,13 +1905,25 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/column-visibility-menu.tsx",
     "import": "@/registry/ui/column-visibility-menu",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [
       "button",
       "dropdown-menu"
     ],
     "galleries": [],
-    "description": "A \"Columns\" button that opens a checklist of table columns to show or hide; uncontrolled unless `visible` is passed."
+    "description": "A \"Columns\" button that opens a checklist of table columns to show or hide; uncontrolled unless `visible` is passed.",
+    "category": "data-tables",
+    "related": [
+      "table-toolbar",
+      "data-table",
+      "saved-views"
+    ],
+    "guide": "Put it in a TableToolbar above a DataTable, then filter your DataTable `columns` by the visible ids. Ids always come back in column order. For a full saved-view system use SavedViews.",
+    "examples": [
+      "const [visible, setVisible] = React.useState(columns.map((c) => c.id))\n<ColumnVisibilityMenu columns={columns.map((c) => ({ id: c.id, label: String(c.header) }))} visible={visible} onChange={setVisible} />\n<DataTable columns={columns.filter((c) => visible.includes(c.id))} data={rows} />"
+    ]
   },
   {
     "name": "combobox",
@@ -1115,17 +1933,29 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "path": "src/registry/ui/combobox.tsx",
     "import": "@/registry/ui/combobox",
     "deps": [
+      "@base-ui/react",
       "lucide-react"
     ],
-    "registryDeps": [
-      "button",
-      "popover"
-    ],
+    "registryDeps": [],
     "galleries": [
       "combobox"
     ],
-    "description": "A button that opens a filterable list of options in a popover; uncontrolled unless a value is passed.",
-    "usage": "<Combobox items={items} value={c} onChange={setC} />"
+    "description": "A select-style button that opens a searchable list: type to filter, arrow keys to move, Enter to pick. Built on Base UI Combobox.",
+    "usage": "<Combobox items={items} value={c} onChange={setC} />",
+    "category": "forms",
+    "related": [
+      "select",
+      "multi-select",
+      "autocomplete",
+      "label",
+      "form-field",
+      "assign-picker",
+      "language-picker"
+    ],
+    "guide": "Use when a single choice has more than about 7 options (customers, assignees, countries). For a short fixed list use Select; for several choices use MultiSelect; for free text with suggestions use Autocomplete. Uncontrolled unless `value` is passed. Label it with FormField (pass the same `id` to both) or `aria-label`.",
+    "examples": [
+      "const [customer, setCustomer] = React.useState(\"northwind\")\n<FormField id=\"customer\" label=\"Customer\">\n  <Combobox id=\"customer\" items={[{ value: \"northwind\", label: \"Northwind Traders\" }]} value={customer} onChange={setCustomer} />\n</FormField>"
+    ]
   },
   {
     "name": "command-dialog",
@@ -1142,7 +1972,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "command-palette"
     ],
     "galleries": [],
-    "description": "A command palette in a dialog; uncontrolled with its own \"Search commands\" trigger unless `open` is passed."
+    "description": "A command palette in a dialog; uncontrolled with its own \"Search commands\" trigger unless `open` is passed.",
+    "category": "overlays",
+    "related": [
+      "command-palette",
+      "command-item",
+      "command-center"
+    ],
+    "guide": "A thin wrapper over CommandPalette with a plain outline trigger and no ⌘K listener. Prefer CommandPalette directly when you want the ⌘K shortcut or a custom trigger. Commands take `id`, `label`, optional `keywords`, `shortcut` and `onSelect`.",
+    "examples": [
+      "const [open, setOpen] = React.useState(false)\n<CommandDialog open={open} onOpenChange={setOpen} commands={[{ id: \"new\", label: \"New invoice\", onSelect: createInvoice }]} />"
+    ]
   },
   {
     "name": "command-item",
@@ -1153,7 +1993,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/command-item",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "One row of a command list: an optional icon, a label and an optional keyboard shortcut hint.",
+    "category": "navigation",
+    "related": [
+      "command-palette",
+      "command-dialog",
+      "slash-command-menu"
+    ],
+    "guide": "Use to build your own command or action list. For a ready-made searchable palette use CommandPalette (or CommandDialog for a trigger + dialog); for \"/\" commands in an editor use SlashCommandMenu. `active` marks the keyboard-highlighted row.",
+    "examples": [
+      "<CommandItem icon={<FilePlusIcon />} shortcut=\"⌘N\" onSelect={createInvoice}>New invoice</CommandItem>"
+    ]
   },
   {
     "name": "command-palette",
@@ -1173,8 +2024,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "shells"
     ],
-    "description": "A searchable command dialog: type to filter, pick a command, opened from a trigger button or ⌘K.",
-    "usage": "<CommandPalette open={cmd} onOpenChange={setCmd} commands={[{id:\"1\",label:\"Go to users\"},{id:\"2\",label:\"Open settings\"},{id:\"3\",label:\"Invite member\"}]} />"
+    "description": "A searchable command dialog: type to filter, arrow keys to move, Enter to run, opened from a trigger button or ⌘K / Ctrl+K.",
+    "usage": "<CommandPalette open={cmd} onOpenChange={setCmd} commands={[{id:\"1\",label:\"Go to users\"},{id:\"2\",label:\"Open settings\"},{id:\"3\",label:\"Invite member\"}]} />",
+    "category": "navigation",
+    "related": [
+      "command-dialog",
+      "command-item",
+      "slash-command-menu",
+      "dropdown-menu",
+      "search-input",
+      "search-with-results",
+      "shortcut-cheat-sheet",
+      "command-center"
+    ],
+    "guide": "Use as the app-wide \"do anything\" launcher. Uncontrolled it renders its own trigger and listens for ⌘K; pass `open` + `onOpenChange` to launch it from your own button or shortcut. For a ready trigger-plus-dialog pair use CommandDialog; for one row use CommandItem; for \"/\" commands inside an editor use SlashCommandMenu. Follows the APG combobox-with-listbox pattern.",
+    "examples": [
+      "<CommandPalette\n  commands={[\n    { id: \"new-invoice\", label: \"Create invoice\", shortcut: \"⌘N\", onSelect: () => router.push(\"/invoices/new\") },\n    { id: \"theme\", label: \"Toggle dark mode\", keywords: [\"theme\", \"light\"], onSelect: toggleTheme },\n  ]}\n/>"
+    ]
   },
   {
     "name": "comment-composer",
@@ -1191,7 +2057,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
-    "usage": "<CommentComposer />"
+    "description": "A comment box: a textarea and a submit button that stays disabled until there is text. ⌘/Ctrl+Enter submits.",
+    "usage": "<CommentComposer />",
+    "category": "forms",
+    "related": [
+      "comment-thread",
+      "prompt-input",
+      "ai-composer",
+      "mention-input"
+    ],
+    "guide": "Use under a CommentThread or on an issue, invoice or review page. For an AI chat input use PromptInput or AiComposer; for @mentions use MentionInput. It clears itself after `onSubmit` and hands you the trimmed text.",
+    "examples": [
+      "<CommentComposer onSubmit={(text) => addComment({ body: text })} submitLabel=\"Reply\" />"
+    ]
   },
   {
     "name": "comment-thread",
@@ -1208,7 +2086,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "workflow"
     ],
     "description": "A vertical thread of comments, each with an avatar, author, time and body.",
-    "usage": "<CommentThread comments={[{ id: \"1\", author: \"Aman\", body: \"Looks good — ship it.\", time: \"2h ago\" }]} />"
+    "usage": "<CommentThread comments={[{ id: \"1\", author: \"Aman\", body: \"Looks good — ship it.\", time: \"2h ago\" }]} />",
+    "category": "workflow",
+    "related": [
+      "comment-composer",
+      "chat-thread",
+      "activity-feed",
+      "audit-trail"
+    ],
+    "guide": "Use on issues, invoices, reviews and docs. Pair with CommentComposer underneath to add replies. For chat between a person and an AI use ChatThread; for a system event log use ActivityFeed or AuditTrail.",
+    "examples": [
+      "<CommentThread comments={[{ id: \"c1\", author: \"Maya Chen\", body: \"Sent the reminder.\", time: \"2h ago\" }]} />"
+    ]
   },
   {
     "name": "commit-row",
@@ -1224,7 +2113,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "relative-time"
     ],
     "galleries": [],
-    "usage": "<CommitRow />"
+    "description": "One git commit as a list row: author avatar, message, author and relative time, the short SHA and a copy button.",
+    "usage": "<CommitRow />",
+    "category": "developer-tools",
+    "related": [
+      "stack",
+      "check-run-list",
+      "diff-view",
+      "engineering-console"
+    ],
+    "guide": "Stack several inside a bordered container for a commit history on deploy, release or PR screens. For CI status per commit add a CheckRunList; for a code change view use DiffView.",
+    "examples": [
+      "<CommitRow sha=\"f90e1ab\" message=\"Fix invoice rounding\" author=\"Maya Chen\" date=\"2026-11-12T09:30:00Z\" />"
+    ]
   },
   {
     "name": "comparison-table",
@@ -1238,7 +2139,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A feature-by-plan matrix: one row per feature, a check, a dash or a value per plan."
+    "description": "A feature-by-plan matrix: one row per feature, a check, a dash or a value per plan.",
+    "category": "billing",
+    "related": [
+      "pricing-table",
+      "plan-card",
+      "model-compare"
+    ],
+    "guide": "Use under pricing cards to compare plans in detail. For the plan cards themselves use PricingTable or PlanCard; for comparing AI models use ModelCompare. Checks and dashes carry screen-reader text (\"Included\" / \"Not included\").",
+    "examples": [
+      "<ComparisonTable\n  features={[\"Seats\", \"Audit log\"]}\n  plans={[{ name: \"Starter\", values: [\"2\", false] }, { name: \"Scale\", values: [\"Unlimited\", true] }]}\n/>"
+    ]
   },
   {
     "name": "confirm-destructive",
@@ -1249,10 +2160,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/confirm-destructive",
     "deps": [],
     "registryDeps": [
-      "button",
-      "dialog"
+      "alert-dialog",
+      "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A ready-made \"are you sure?\" flow: a red trigger button that opens an alert dialog with Cancel and a destructive Confirm.",
+    "category": "overlays",
+    "related": [
+      "alert-dialog",
+      "delete-account-confirm",
+      "danger-zone"
+    ],
+    "guide": "Drop it in wherever one destructive action needs a confirmation step. Both buttons close the dialog; `onConfirm` runs on Confirm. Focus starts inside, Escape cancels, and focus returns to the trigger. For custom layouts compose AlertDialog yourself; for type-the-name confirmation use DeleteAccountConfirm; for a settings section use DangerZone.",
+    "examples": [
+      "<ConfirmDestructive triggerLabel=\"Delete invoice\" title=\"Delete INV-2041?\" description=\"This cannot be undone.\" confirmLabel=\"Delete\" onConfirm={remove} />"
+    ]
   },
   {
     "name": "connected-account",
@@ -1265,7 +2187,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A settings row for a linked third-party account: provider, account handle and a Disconnect button.",
+    "category": "settings",
+    "related": [
+      "stack",
+      "integration-card",
+      "sso-provider-card"
+    ],
+    "guide": "Stack one per provider under an \"Connected accounts\" heading in settings. For an integration with a Connect state and description use IntegrationCard; for SSO setup use SsoProviderCard. Bring your own provider logo through `icon`.",
+    "examples": [
+      "<ConnectedAccount provider=\"GitHub\" account=\"@maya-chen\" icon={<GithubIcon />} onDisconnect={() => unlink(\"github\")} />"
+    ]
   },
   {
     "name": "console-output",
@@ -1279,7 +2212,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "system"
     ],
-    "usage": "<ConsoleOutput lines={[{ text: \"ready on :3000\" }, { level: \"warn\", text: \"deprecated API\" }, { level: \"error\", text: \"failed to fetch\" }]} />"
+    "description": "A monospace log pane for console or build output, with warn and error lines tagged in text and colour.",
+    "usage": "<ConsoleOutput lines={[{ text: \"ready on :3000\" }, { level: \"warn\", text: \"deprecated API\" }, { level: \"error\", text: \"failed to fetch\" }]} />",
+    "category": "developer-tools",
+    "related": [
+      "terminal-window",
+      "stack-trace",
+      "terminal"
+    ],
+    "guide": "Use for build logs, function logs and dev-tool panels. It is a keyboard-scrollable `role=\"log\"` region. For an interactive shell look use TerminalWindow; for a thrown error with frames use StackTrace.",
+    "examples": [
+      "<ConsoleOutput lines={[{ text: \"ready on :3000\" }, { level: \"warn\", text: \"deprecated API\" }, { level: \"error\", text: \"fetch failed\" }]} />"
+    ]
   },
   {
     "name": "container",
@@ -1293,7 +2237,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "layout"
     ],
-    "usage": "<Container size=\"sm\" className=\"rounded-xl border border-dashed border-border py-4 text-center text-xs text-fg-muted\">\n  Container sm\n</Container>"
+    "description": "A layout primitive that centres page content at a readable max width with responsive side padding (16px, 24px from sm).",
+    "usage": "<Container size=\"sm\" className=\"rounded-xl border border-dashed border-border py-4 text-center text-xs text-fg-muted\">\n  Container sm\n</Container>",
+    "category": "layout",
+    "related": [
+      "center",
+      "stack",
+      "cluster"
+    ],
+    "guide": "Wrap each page section's content in it. For a narrow centred column use Center; for spacing children use Stack or Cluster.",
+    "examples": [
+      "<Container size=\"lg\"><PageHeader title=\"Invoices\" /></Container>"
+    ]
   },
   {
     "name": "context-chip",
@@ -1305,7 +2260,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "usage": "<ContextChip active>Files</ContextChip>"
+    "description": "A small toggle chip for adding context to an AI prompt (a file, a page, a selection), shown pressed when active.",
+    "usage": "<ContextChip active>Files</ContextChip>",
+    "category": "ai-chat",
+    "related": [
+      "prompt-input",
+      "context-pill",
+      "suggestion-chips",
+      "chip-filter",
+      "user-chip"
+    ],
+    "guide": "Use in a row above PromptInput to let people switch context sources on and off. It is a toggle button (`aria-pressed`). For an attached item with a remove button use ContextPill; for suggested prompts use SuggestionChips; for filters use ChipFilter.",
+    "examples": [
+      "<ContextChip active={useFile} onClick={() => setUseFile((v) => !v)}>invoice.pdf</ContextChip>"
+    ]
   },
   {
     "name": "context-menu",
@@ -1314,9 +2282,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/context-menu.tsx",
     "import": "@/registry/ui/context-menu",
-    "deps": [],
+    "deps": [
+      "@base-ui/react"
+    ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A right-click (or long-press) menu for any surface, built on Base UI: opens at the pointer, arrow keys move, Enter runs, Escape closes.",
+    "category": "overlays",
+    "related": [
+      "dropdown-menu"
+    ],
+    "guide": "Wrap a row, card or canvas item and pass `items`; each runs its `onSelect` and closes the menu. Mark irreversible actions `destructive`. Always offer the same actions somewhere visible (a DropdownMenu or row actions) since right-click is hidden from many users. For a menu opened by a button use DropdownMenu.",
+    "examples": [
+      "<ContextMenu items={[{ id: \"rename\", label: \"Rename\", shortcut: \"F2\" }, { id: \"delete\", label: \"Delete\", destructive: true, onSelect: remove }]}>\n  <FileRow name=\"Q3-report.pdf\" />\n</ContextMenu>"
+    ]
   },
   {
     "name": "context-pill",
@@ -1329,7 +2308,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A rounded pill naming one item attached to an AI prompt (a file, a URL, a selection), with an optional remove button.",
+    "category": "ai-chat",
+    "related": [
+      "prompt-input",
+      "context-chip",
+      "attachment-chip",
+      "tags-input",
+      "citation-chip"
+    ],
+    "guide": "Show a row of them above or inside PromptInput for the context the model will see. Pass `onRemove` to make it dismissible. For on/off context toggles use ContextChip; for uploaded files with size and progress use AttachmentChip; for a removable tag use TagsInput.",
+    "examples": [
+      "<ContextPill icon={<FileTextIcon />} onRemove={() => detach(\"invoice.pdf\")}>invoice.pdf</ContextPill>"
+    ]
   },
   {
     "name": "conversation-sidebar",
@@ -1349,7 +2341,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "ai-studio"
     ],
     "description": "A chat app's conversation list: a new-chat button on top, then titled threads with their last activity.",
-    "usage": "<ConversationSidebar\n  activeId={active}\n  onSelect={setActive}\n  onNew={() => {}}\n  items={[\n    { id: \"1\", title: \"Hairline audit plan\", updatedAt: new Date(Date.now() - 3600000).toISOString() },\n    { id: \"2\", title: \"Premium hero copy\", updatedAt: new Date(Date.now() - 86400000).toISOString() },\n  ]}\n/>"
+    "usage": "<ConversationSidebar\n  activeId={active}\n  onSelect={setActive}\n  onNew={() => {}}\n  items={CONVERSATIONS}\n/>",
+    "category": "ai-chat",
+    "related": [
+      "chat-thread",
+      "sidebar",
+      "collapsible-sidebar"
+    ],
+    "guide": "Use as the left rail of an AI chat screen next to ChatThread. Uncontrolled unless `activeId` is passed; the active thread gets `aria-current`. For general app navigation use Sidebar or CollapsibleSidebar.",
+    "examples": [
+      "<ConversationSidebar items={threads} activeId={threadId} onSelect={setThreadId} onNew={startThread} />"
+    ]
   },
   {
     "name": "cookie-banner",
@@ -1362,7 +2364,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A floating cookie-consent card fixed to the bottom-right, with Reject and Accept buttons of equal reach.",
+    "category": "marketing",
+    "related": [
+      "announcement-bar",
+      "alert-dialog"
+    ],
+    "guide": "Render it only until the visitor chooses, and store the choice yourself (cookie or localStorage) in `onAccept` / `onReject`. It is a labelled, non-modal region, so the page stays usable. Pass `className=\"static\"` to place it inline. For a site-wide notice bar use AnnouncementBar; for a blocking choice use AlertDialog.",
+    "examples": [
+      "{!consent && <CookieBanner onAccept={() => save(\"all\")} onReject={() => save(\"essential\")} policyHref=\"/privacy\" />}"
+    ]
   },
   {
     "name": "copy-button",
@@ -1381,7 +2393,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<CopyButton value=\"minidev-ui-kit\" />"
+    "description": "A Button that copies `value` to the clipboard and flips to a check and \"Copied\" for 1.5s, announced to screen readers.",
+    "usage": "<CopyButton value=\"minidev-ui-kit\" />",
+    "category": "buttons",
+    "related": [
+      "button",
+      "copy-id",
+      "code-block",
+      "secret-reveal"
+    ],
+    "guide": "Use beside API keys, links, install commands and ids. Takes every Button variant and size. For a monospace id that is itself the button use CopyId; for a whole snippet use CodeBlock (it has its own copy button).",
+    "examples": [
+      "<CopyButton value=\"npx shadcn@latest add https://ui.minidev.pro/r/button.json\" label=\"Copy command\" />"
+    ]
   },
   {
     "name": "copy-id",
@@ -1397,7 +2421,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<CopyId value=\"usr_8f2a91\" />"
+    "description": "A small monospace chip showing an id (user, invoice, request) that copies it on click.",
+    "usage": "<CopyId value=\"usr_8f2a91\" />",
+    "category": "developer-tools",
+    "related": [
+      "copy-button",
+      "secret-reveal",
+      "issue-key"
+    ],
+    "guide": "Use in tables, detail headers and logs where an id should be visible and copyable. Long ids truncate visually but copy in full. For a labelled button beside some other text use CopyButton; for keys that should stay hidden use SecretReveal.",
+    "examples": [
+      "<CopyId value=\"usr_8f2a91c4\" />"
+    ]
   },
   {
     "name": "coupon-input",
@@ -1411,7 +2446,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A coupon or promo-code field with an Apply button and an inline, announced success or error message.",
+    "category": "ecommerce",
+    "related": [
+      "checkout-summary",
+      "order-summary"
+    ],
+    "guide": "Use in a checkout or upgrade flow beside CheckoutSummary or OrderSummary. Validate on your server in `onApply`: return `true` for a valid code, `false` or an error string for an invalid one (a Promise works too). Enter applies; it never submits the surrounding form. Without `onApply` it runs a demo check that accepts \"HAIRLINE\".",
+    "examples": [
+      "<CouponInput onApply={async (code) => (await fetch(`/api/coupons/${code}`)).ok} successMessage=\"20% off applied\" />"
+    ]
   },
   {
     "name": "coverage-meter",
@@ -1423,7 +2468,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "usage": "<CoverageMeter value={91} />"
+    "description": "A labelled bar for a percentage score such as test coverage, coloured green, amber or red by thresholds.",
+    "usage": "<CoverageMeter value={91} />",
+    "category": "developer-tools",
+    "related": [
+      "usage-meter",
+      "quota-bar",
+      "progress"
+    ],
+    "guide": "Use on CI, repo and quality dashboards. It is a `role=\"meter\"`, so screen readers hear the label and percent. For usage against a limit use UsageMeter or QuotaBar; for task progress use Progress.",
+    "examples": [
+      "<CoverageMeter label=\"Branch coverage\" value={72} good={80} warn={60} />"
+    ]
   },
   {
     "name": "create-api-key",
@@ -1438,7 +2494,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "form-field",
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An inline \"name your key, then create it\" row: a labelled input and a Create key button that stays disabled until there is a name.",
+    "category": "developer-tools",
+    "related": [
+      "api-key-list",
+      "secret-reveal"
+    ],
+    "guide": "Use at the top of an API keys settings page above ApiKeyList. Enter creates. Show the new secret once with SecretReveal after `onCreate`.",
+    "examples": [
+      "<CreateApiKey onCreate={async (name) => setSecret(await createKey(name))} />"
+    ]
   },
   {
     "name": "credit-balance",
@@ -1452,7 +2518,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "commerce"
     ],
-    "usage": "<CreditBalance balance=\"1,240\" />"
+    "description": "A compact inline readout of a prepaid balance: a small label and a large tabular number (\"Credits 1,240\").",
+    "usage": "<CreditBalance balance=\"1,240\" />",
+    "category": "billing",
+    "related": [
+      "usage-meter",
+      "stat-card",
+      "number-roll",
+      "token-usage-meter"
+    ],
+    "guide": "Use in a topbar, billing page or usage screen for AI credits, wallet or prepaid balances. Format the number yourself. For usage against a limit use UsageMeter; for a KPI with a trend use StatCard; for animated changes wrap the number in NumberRoll.",
+    "examples": [
+      "<CreditBalance label=\"AI credits\" balance={new Intl.NumberFormat().format(1240)} />"
+    ]
   },
   {
     "name": "credit-card-input",
@@ -1469,7 +2547,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "input"
     ],
     "galleries": [],
-    "description": "Luhn (mod 10) checksum, the check digit rule every major card number follows."
+    "description": "Card details fields with brand-aware formatting, a Luhn check, auto-advance and inline errors; UI only, never sends card data anywhere.",
+    "category": "billing",
+    "related": [
+      "card",
+      "payment-method-card",
+      "add-card-form",
+      "checkout-summary"
+    ],
+    "guide": "The number groups by brand (Visa, Mastercard and Discover 4-4-4-4, Amex 4-6-5), the brand shows as a text badge, expiry formats to MM / YY and advances on its own, and the CVC expects 4 digits for Amex. Fields carry cc-* autocomplete hints and aria-invalid, and errors appear once a field is left. It formats and checks input in the browser and does not process, tokenize or transmit payments: for real payments prefer your provider's hosted fields (Stripe Elements and the like) for PCI scope, and use this for demos, prototypes or providers that accept raw values. For a saved card use PaymentMethodCard; for a full add-card flow use AddCardForm.\n\n`onChange` receives `{ number, expiry, cvc, brand, name, postalCode, valid }`; `luhn(digits)` is exported for your own checks.",
+    "examples": [
+      "<CreditCardInput onChange={(card) => setCanPay(card.valid)} showPostalCode={false} />"
+    ]
   },
   {
     "name": "cta-banner",
@@ -1485,7 +2574,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing"
     ],
-    "usage": "<CtaBanner title=\"Start composing\" action={{ label: \"Open gallery\" }} />"
+    "description": "A full-width call-to-action band: a heading, an optional line of copy and one primary action, stacked on mobile.",
+    "usage": "<CtaBanner title=\"Start composing\" action={{ label: \"Open gallery\" }} />",
+    "category": "marketing",
+    "related": [
+      "hero",
+      "banner",
+      "announcement-bar",
+      "upgrade-prompt",
+      "cta-band"
+    ],
+    "guide": "Use at the end of a marketing page or section. Pass `action.href` for navigation (renders a link) or `action.onClick` for an in-page action. For a hero use Hero; for a dismissible notice use Banner or AnnouncementBar; for an in-app upsell use UpgradePrompt.",
+    "examples": [
+      "<CtaBanner title=\"Ship your UI today\" description=\"Install any component with one command.\" action={{ label: \"Get started\", href: \"/docs\" }} />"
+    ]
   },
   {
     "name": "currency-input",
@@ -1501,7 +2603,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<CurrencyInput aria-label=\"Amount\" />"
+    "description": "A money amount field with the currency code inside on the left, a decimal keypad on mobile and tabular digits.",
+    "usage": "<CurrencyInput aria-label=\"Amount\" />",
+    "category": "forms",
+    "related": [
+      "number-input",
+      "quantity-stepper",
+      "label",
+      "form-field",
+      "input-affix",
+      "input"
+    ],
+    "guide": "Use for prices, invoice amounts and payouts. The value is the typed string (digits, \".\", \",\" and \"-\"); parse it yourself, e.g. `Number(v.replace(/,/g, \"\"))`, and store minor units on the server. For a stepper with +/- use NumberInput; for quantities use QuantityStepper. Label it with FormField (same `id`) or `aria-label`; without either it is named \"Amount in USD\".",
+    "examples": [
+      "const [amount, setAmount] = React.useState(\"\")\n<FormField id=\"amount\" label=\"Amount\"><CurrencyInput id=\"amount\" currency=\"EUR\" value={amount} onChange={setAmount} /></FormField>"
+    ]
   },
   {
     "name": "danger-zone",
@@ -1512,12 +2628,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/danger-zone",
     "deps": [],
     "registryDeps": [
-      "button"
+      "confirm-destructive"
     ],
     "galleries": [
       "settings"
     ],
-    "usage": "<DangerZone />"
+    "description": "A red-outlined settings section for one irreversible action, whose button asks for confirmation before `onConfirm` runs.",
+    "usage": "<DangerZone />",
+    "category": "settings",
+    "related": [
+      "delete-account-confirm",
+      "confirm-destructive",
+      "export-data"
+    ],
+    "guide": "Put it last on a settings page (delete workspace, delete project, transfer ownership). Pass `children` to replace the built-in confirm button with your own actions, such as DeleteAccountConfirm for type-the-name confirmation.",
+    "examples": [
+      "<DangerZone\n  description=\"Delete Northwind and all of its invoices. This cannot be undone.\"\n  actionLabel=\"Delete workspace\"\n  onConfirm={deleteWorkspace}\n/>"
+    ]
   },
   {
     "name": "data-table",
@@ -1536,7 +2663,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "data-table"
     ],
     "description": "A product data table: sortable headers, row selection with a bulk bar, hover row actions, sticky header, density and skeleton loading.",
-    "usage": "<DataTable\n  data={filtered}\n  columns={[\n    { id: \"name\", header: \"Name\", sortValue: (r) => r.name, cell: (r) => r.name },\n    { id: \"plan\", header: \"Plan\", cell: (r) => r.plan },\n    { id: \"status\", header: \"Status\", cell: (r) => (\n      <StatusBadge tone={r.status === \"active\" ? \"success\" : r.status === \"past_due\" ? \"danger\" : \"warning\"}>{r.status}</StatusBadge>\n    ) },\n  ]}\n/>"
+    "usage": "<DataTable\n  data={filtered}\n  columns={[\n    { id: \"name\", header: \"Name\", sortValue: (r) => r.name, cell: (r) => r.name },\n    { id: \"plan\", header: \"Plan\", cell: (r) => r.plan },\n    { id: \"status\", header: \"Status\", cell: (r) => (\n      <StatusBadge tone={r.status === \"active\" ? \"success\" : r.status === \"past_due\" ? \"danger\" : \"warning\"}>{r.status}</StatusBadge>\n    ) },\n  ]}\n/>",
+    "category": "data-tables",
+    "related": [
+      "table",
+      "virtualized-list",
+      "sql-result-table",
+      "table-toolbar",
+      "column-visibility-menu",
+      "table-pagination",
+      "admin-user-row",
+      "api-key-list"
+    ],
+    "guide": "Use for lists of records people scan, sort and act on (invoices, users, deploys). Define `columns` once with a `cell` renderer and an optional `sortValue`; pass `data` and a stable `getRowId`. For a plain static table use Table; for 10k+ rows use VirtualizedList; for SQL output use SqlResultTable. Pair with TableToolbar, ColumnVisibilityMenu and TablePagination around it.",
+    "examples": [
+      "const columns: Column<Invoice>[] = [\n  { id: \"customer\", header: \"Customer\", cell: (r) => r.customer, sortValue: (r) => r.customer },\n  { id: \"amount\", header: \"Amount\", align: \"right\", cell: (r) => money(r.amount), sortValue: (r) => r.amount },\n]\n<DataTable columns={columns} data={invoices} getRowId={(r) => r.id} selectable caption=\"Invoices\"\n  bulkActions={(ids) => <Button size=\"sm\" variant=\"ghost\" onClick={() => archive(ids)}>Archive</Button>} />"
+    ]
   },
   {
     "name": "date-picker",
@@ -1552,7 +2694,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "date-picker"
     ],
-    "usage": "<DatePicker id=\"d1\" aria-label=\"Date\" />"
+    "description": "A date field on the browser's native date input: a localised format, a built-in calendar popup and full keyboard and screen-reader support for free.",
+    "usage": "<DatePicker id=\"d1\" aria-label=\"Date\" />",
+    "category": "forms",
+    "related": [
+      "date-range-picker",
+      "time-picker",
+      "calendar-month",
+      "label",
+      "form-field"
+    ],
+    "guide": "The value is an ISO date string (\"2026-11-14\"), so store, compare (`a < b`) and send it as is. Uncontrolled unless `value` is passed; set the value to \"\" to clear. Use `min` / `max` to bound it. For a start-end pair use DateRangePicker; for times use TimePicker; for an always-visible month grid use CalendarMonth. Label it with FormField (same `id`) or `aria-label`.",
+    "examples": [
+      "const [due, setDue] = React.useState(\"2026-11-14\")\n<FormField id=\"due\" label=\"Due date\"><DatePicker id=\"due\" value={due} onChange={setDue} min=\"2026-11-01\" /></FormField>"
+    ]
   },
   {
     "name": "date-range-picker",
@@ -1568,7 +2723,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "date-picker"
     ],
-    "usage": "<DateRangePicker fromId=\"dr-from\" toId=\"dr-to\" />"
+    "description": "A start and end date as two native date inputs in one labelled group.",
+    "usage": "<DateRangePicker fromId=\"dr-from\" toId=\"dr-to\" />",
+    "category": "forms",
+    "related": [
+      "date-picker",
+      "calendar-month",
+      "report-builder"
+    ],
+    "guide": "Use for from/to filters, reporting periods and bookings. For a single date use `DatePicker`; for a visible month grid use `CalendarMonth`. Dates are ISO day strings (\"2026-11-14\"), the format `<input type=\"date\">` uses.",
+    "examples": [
+      "const [range, setRange] = React.useState<DateRange>({ from: \"2026-11-01\", to: \"2026-11-30\" })\n<DateRangePicker value={range} onChange={setRange} />"
+    ]
   },
   {
     "name": "delete-account-confirm",
@@ -1584,7 +2750,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "inline-alert",
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A type-to-confirm block that keeps the delete button disabled until the phrase matches.",
+    "category": "settings",
+    "related": [
+      "alert-dialog",
+      "confirm-destructive",
+      "danger-zone"
+    ],
+    "guide": "Use inline on a settings page for irreversible account deletion. For a modal confirmation use `AlertDialog` or `ConfirmDestructive`; for a group of risky settings use `DangerZone`.",
+    "examples": [
+      "<DeleteAccountConfirm onConfirm={() => deleteAccount()} />"
+    ]
   },
   {
     "name": "density-toggle",
@@ -1601,7 +2778,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-extra"
     ],
-    "usage": "<DensityToggle value={density} onChange={setDensity} />"
+    "description": "A two-option Compact / Comfortable switch for table and list row density.",
+    "usage": "<DensityToggle value={density} onChange={setDensity} />",
+    "category": "data-tables",
+    "related": [
+      "segmented-control",
+      "switch"
+    ],
+    "guide": "Use in a table toolbar or view menu. For other short option sets use `SegmentedControl`; for on/off settings use `Switch`.",
+    "examples": [
+      "const [density, setDensity] = React.useState<Density>(\"comfortable\")\n<DensityToggle value={density} onChange={setDensity} />"
+    ]
   },
   {
     "name": "description-list",
@@ -1616,7 +2803,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "feeds"
     ],
     "description": "Label and value pairs in a two-column grid, for record details like a customer or an invoice.",
-    "usage": "<DescriptionList className=\"max-w-lg\" items={[\n  { label: \"Workspace\", value: \"MiniDev\" },\n  { label: \"Plan\", value: \"Agency\" },\n  { label: \"Region\", value: \"us-east-1\" },\n  { label: \"Status\", value: <span className=\"inline-flex items-center gap-2\"><StatusDot tone=\"success\" /> Healthy</span> },\n]} />"
+    "usage": "<DescriptionList className=\"max-w-lg\" items={[\n  { label: \"Workspace\", value: \"MiniDev\" },\n  { label: \"Plan\", value: \"Agency\" },\n  { label: \"Region\", value: \"us-east-1\" },\n  { label: \"Status\", value: <span className=\"inline-flex items-center gap-2\"><StatusDot tone=\"success\" /> Healthy</span> },\n]} />",
+    "category": "layout",
+    "related": [
+      "label",
+      "form-field",
+      "table",
+      "project-detail"
+    ],
+    "guide": "Renders a semantic <dl>. Use for read-only record details. For editable settings use `FormField` rows; for tabular data with many records use `Table`.",
+    "examples": [
+      "<DescriptionList items={[{ label: \"Plan\", value: \"Growth\" }, { label: \"Seats\", value: 12 }]} />"
+    ]
   },
   {
     "name": "dialog",
@@ -1635,7 +2833,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "overlays"
     ],
-    "usage": "<Dialog>\n  <DialogTrigger className={cn(buttonVariants())}>Open dialog</DialogTrigger>\n  <DialogContent>\n    <DialogHeader>\n      <DialogTitle>Confirm delete</DialogTitle>\n      <DialogDescription>This cannot be undone.</DialogDescription>\n    </DialogHeader>\n    <DialogFooter>\n      <Button variant=\"outline\">Cancel</Button>\n      <Button variant=\"destructive\">Delete</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>"
+    "description": "A modal window on a scrim: focus is trapped inside, Escape and the close button dismiss it, focus returns to the trigger.",
+    "usage": "<Dialog>\n  <DialogTrigger className={cn(buttonVariants())}>Open dialog</DialogTrigger>\n  <DialogContent>\n    <DialogHeader>\n      <DialogTitle>Confirm delete</DialogTitle>\n      <DialogDescription>This cannot be undone.</DialogDescription>\n    </DialogHeader>\n    <DialogFooter>\n      <Button variant=\"outline\">Cancel</Button>\n      <Button variant=\"destructive\">Delete</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>",
+    "category": "overlays",
+    "related": [
+      "alert-dialog",
+      "sheet",
+      "drawer",
+      "popover",
+      "cancel-flow",
+      "image-lightbox",
+      "inline-cell-edit",
+      "mobile-action-sheet"
+    ],
+    "guide": "Compose it from parts. Use for short forms and focused tasks that block the page. For \"are you sure?\" confirmations use `AlertDialog`; for side panels use `Sheet`; for a bottom sheet on mobile use `Drawer`; for non-modal content anchored to a button use `Popover`. Always render a `DialogTitle` (and ideally a `DialogDescription`) so the dialog has an accessible name.\n\nControlled: `<Dialog open={open} onOpenChange={setOpen}>`.",
+    "examples": [
+      "<Dialog>\n  <DialogTrigger render={<Button variant=\"outline\" />}>Edit invoice</DialogTrigger>\n  <DialogContent>\n    <DialogHeader>\n      <DialogTitle>Edit invoice</DialogTitle>\n      <DialogDescription>Changes are saved to INV-2041.</DialogDescription>\n    </DialogHeader>\n    ...fields\n    <DialogFooter showCloseButton>\n      <Button>Save</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>"
+    ]
   },
   {
     "name": "diff-view",
@@ -1647,7 +2861,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "usage": "<DiffView filename=\"button.tsx\" lines={[{ type: \"ctx\", text: \"function Button() {\" }, { type: \"del\", text: \"  return <button />\" }, { type: \"add\", text: \"  return <button data-slot=\\\"button\\\" />\" }, { type: \"ctx\", text: \"}\" }]} />"
+    "description": "A unified diff of one file: added lines tinted success, removed lines tinted danger, context muted.",
+    "usage": "<DiffView filename=\"button.tsx\" lines={[{ type: \"ctx\", text: \"function Button() {\" }, { type: \"del\", text: \"  return <button />\" }, { type: \"add\", text: \"  return <button data-slot=\\\"button\\\" />\" }, { type: \"ctx\", text: \"}\" }]} />",
+    "category": "developer-tools",
+    "related": [
+      "inline-code-diff",
+      "code-block",
+      "commit-row"
+    ],
+    "guide": "Use to show a code or config change in a review, a deploy or an agent's proposed edit. For a single-line before/after use `InlineCodeDiff`; for plain code use `CodeBlock`. Screen readers hear \"added\" or \"removed\" before each changed line.",
+    "examples": [
+      "<DiffView\n  filename=\"lib/billing.ts\"\n  lines={[\n    { type: \"ctx\", text: \"export function total(items) {\" },\n    { type: \"del\", text: \"  return sum(items)\" },\n    { type: \"add\", text: \"  return sum(items) + tax(items)\" },\n    { type: \"ctx\", text: \"}\" },\n  ]}\n/>"
+    ]
   },
   {
     "name": "donut-chart",
@@ -1661,7 +2886,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
-    "usage": "<DonutChart value={72} label=\"Completion\" />"
+    "description": "A single value as a ring filled to a percentage of `max`, with the percentage in the centre.",
+    "usage": "<DonutChart value={72} label=\"Completion\" />",
+    "category": "charts",
+    "related": [
+      "pie-chart",
+      "radial-chart",
+      "gauge-chart",
+      "meter",
+      "progress",
+      "horizontal-bar-chart"
+    ],
+    "guide": "Use for one ratio at a glance (storage used, goal reached). For several slices use `PieChart`; for concentric rings use `RadialChart`; for a half dial use `GaugeChart`; for a labelled linear bar use `Meter` or `Progress`.",
+    "examples": [
+      "<DonutChart value={68} label=\"Seats used\" />\n<DonutChart value={3.4} max={5} label=\"Storage, GB\" />"
+    ]
   },
   {
     "name": "downgrade-warning",
@@ -1674,7 +2913,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An inline card that spells out what a plan downgrade removes, with keep and downgrade actions.",
+    "category": "billing",
+    "related": [
+      "cancel-flow",
+      "alert-dialog",
+      "upgrade-prompt"
+    ],
+    "guide": "Use on a billing page before a plan change. For a multi-step cancellation use `CancelFlow`; for a modal confirmation use `AlertDialog`; to sell an upgrade instead use `UpgradePrompt`.",
+    "examples": [
+      "<DowngradeWarning\n  title=\"Downgrade to Starter?\"\n  description=\"Audit logs and SSO turn off at the end of this billing period.\"\n  onKeep={() => router.back()}\n  onDowngrade={() => downgrade(\"starter\")}\n/>"
+    ]
   },
   {
     "name": "drawer",
@@ -1689,7 +2939,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "sheet"
     ],
     "galleries": [],
-    "description": "A bottom sheet for quick actions and mobile forms: a Sheet that slides up from the bottom edge."
+    "description": "A bottom sheet for quick actions and mobile forms: a Sheet that slides up from the bottom edge.",
+    "category": "overlays",
+    "related": [
+      "sheet",
+      "dialog",
+      "mobile-action-sheet"
+    ],
+    "guide": "Uncontrolled, it renders its own trigger button (pass `trigger` to replace it). Controlled, pass `open` and `onClose` and render your own trigger. For a side panel use `Sheet`; for a centred modal use `Dialog`; for an iOS style action list use `MobileActionSheet`.",
+    "examples": [
+      "const [open, setOpen] = React.useState(false)\n<Button onClick={() => setOpen(true)}>Invoice actions</Button>\n<Drawer open={open} onClose={() => setOpen(false)} title=\"Invoice INV-2041\">\n  ...actions\n</Drawer>"
+    ]
   },
   {
     "name": "dropdown-menu",
@@ -1709,7 +2969,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "dropdown-menu"
     ],
     "description": "A menu that opens from a trigger: items with shortcuts, labels, separators, checkbox and radio items, and nested submenus.",
-    "usage": "<DropdownMenu>\n  <DropdownMenuTrigger className={cn(buttonVariants({ variant: \"outline\" }))}>\n    Open menu\n  </DropdownMenuTrigger>\n  <DropdownMenuContent align=\"start\" className=\"min-w-52\">\n    <DropdownMenuGroup>\n      <DropdownMenuLabel>Account</DropdownMenuLabel>\n      <DropdownMenuItem>\n        Profile\n        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuItem>Billing</DropdownMenuItem>\n    </DropdownMenuGroup>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem variant=\"destructive\">Sign out</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
+    "usage": "<DropdownMenu>\n  <DropdownMenuTrigger className={cn(buttonVariants({ variant: \"outline\" }))}>\n    Open menu\n  </DropdownMenuTrigger>\n  <DropdownMenuContent align=\"start\" className=\"min-w-52\">\n    <DropdownMenuGroup>\n      <DropdownMenuLabel>Account</DropdownMenuLabel>\n      <DropdownMenuItem>\n        Profile\n        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuItem>Billing</DropdownMenuItem>\n    </DropdownMenuGroup>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem variant=\"destructive\">Sign out</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>",
+    "category": "overlays",
+    "related": [
+      "context-menu",
+      "menubar",
+      "select",
+      "command-palette",
+      "admin-user-row",
+      "breadcrumb-ellipsis",
+      "mobile-action-sheet",
+      "popover"
+    ],
+    "guide": "Built on Base UI Menu: arrow keys move, typeahead jumps, Escape closes and focus returns to the trigger. Use for action menus on a button. For a right-click menu use `ContextMenu`; for an app menu bar use `Menubar`; to pick one value in a form use `Select`; for searchable commands use `CommandPalette`. With no children it renders a sample account menu.",
+    "examples": [
+      "<DropdownMenu>\n  <DropdownMenuTrigger render={<Button variant=\"outline\" />}>Options</DropdownMenuTrigger>\n  <DropdownMenuContent>\n    <DropdownMenuItem onClick={edit}>Edit<DropdownMenuShortcut>⌘E</DropdownMenuShortcut></DropdownMenuItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem variant=\"destructive\" onClick={remove}>Delete</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
+    ]
   },
   {
     "name": "due-date-chip",
@@ -1725,7 +3000,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
-    "usage": "<DueDateChip date=\"Tomorrow\" />"
+    "description": "A small calendar chip for a task or invoice due date, with a danger edge when overdue.",
+    "usage": "<DueDateChip date=\"Tomorrow\" />",
+    "category": "workflow",
+    "related": [
+      "relative-time",
+      "status-badge",
+      "workflow-board"
+    ],
+    "guide": "Use inside issue cards, table cells and list rows. For a relative time (\"3 days ago\") use `RelativeTime`; for a general status label use `StatusBadge`. The overdue state is announced to screen readers, not only shown in colour.",
+    "examples": [
+      "<DueDateChip date=\"Nov 30\" />\n<DueDateChip date=\"Oct 2\" overdue />"
+    ]
   },
   {
     "name": "editable-heading",
@@ -1739,7 +3025,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<EditableHeading defaultValue=\"Untitled doc\" />"
+    "description": "A page or document title that is itself a text input, styled as a heading.",
+    "usage": "<EditableHeading defaultValue=\"Untitled doc\" />",
+    "category": "forms",
+    "related": [
+      "inline-cell-edit",
+      "input",
+      "form-field"
+    ],
+    "guide": "Use for click-to-rename titles (documents, projects, dashboards). Enter commits and leaves the field, Escape restores the text from when editing began. For an editable table cell use `InlineCellEdit`; for a labelled form field use `Input` inside `FormField`.",
+    "examples": [
+      "const [title, setTitle] = React.useState(\"Q4 revenue review\")\n<EditableHeading value={title} onChange={setTitle} aria-label=\"Report title\" />"
+    ]
   },
   {
     "name": "email-button",
@@ -1753,7 +3050,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "email"
     ],
-    "usage": "<EmailButton>Verify email</EmailButton>"
+    "description": "The primary call-to-action link inside an email template, styled as an ink button.",
+    "usage": "<EmailButton>Verify email</EmailButton>",
+    "category": "email",
+    "related": [
+      "email-layout",
+      "button"
+    ],
+    "guide": "It is an <a>, because email clients follow links, not buttons. Use one per email inside `EmailLayout`. For buttons in the app use `Button`.",
+    "examples": [
+      "<EmailButton href=\"https://app.example.com/invoices/2041\">View invoice</EmailButton>"
+    ]
   },
   {
     "name": "email-card",
@@ -1767,7 +3074,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "email"
     ],
-    "usage": "<EmailCard title=\"Did not request this?\">Ignore this message — your account stays unchanged.</EmailCard>"
+    "description": "A bordered content block inside an email body, with an optional title.",
+    "usage": "<EmailCard title=\"Did not request this?\">Ignore this message — your account stays unchanged.</EmailCard>",
+    "category": "email",
+    "related": [
+      "email-layout",
+      "card"
+    ],
+    "guide": "Use inside `EmailLayout` to group a receipt summary, a code or a callout. For cards in the app use `Card`.",
+    "examples": [
+      "<EmailCard title=\"Invoice INV-2041\">$12,400.00 due Nov 30.</EmailCard>"
+    ]
   },
   {
     "name": "email-footer",
@@ -1783,7 +3100,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "email"
     ],
-    "usage": "<EmailFooter />"
+    "description": "The closing band of an email: sender address plus unsubscribe and preferences links.",
+    "usage": "<EmailFooter />",
+    "category": "email",
+    "related": [
+      "email-layout"
+    ],
+    "guide": "Use as the last child of `EmailLayout`. Marketing email must carry a working unsubscribe link, so pass real URLs.",
+    "examples": [
+      "<EmailFooter\n  address=\"Lumen Inc. · 548 Market St, San Francisco\"\n  unsubscribeHref=\"https://app.example.com/unsubscribe?t=abc\"\n  preferencesHref=\"https://app.example.com/settings/email\"\n/>"
+    ]
   },
   {
     "name": "email-header",
@@ -1797,7 +3123,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "email"
     ],
-    "usage": "<EmailHeader />"
+    "description": "The top band of an email template with the sender's brand name.",
+    "usage": "<EmailHeader />",
+    "category": "email",
+    "related": [
+      "email-layout"
+    ],
+    "guide": "Use as the first child of `EmailLayout`. Pass `children` to replace the brand text with a logo.",
+    "examples": [
+      "<EmailHeader brand=\"Lumen\" />"
+    ]
   },
   {
     "name": "email-layout",
@@ -1811,7 +3146,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "email"
     ],
-    "usage": "<EmailLayout>\n  <EmailHeader />\n  <div className=\"space-y-3 px-6 py-6\">\n    <h1 className=\"text-xl font-medium text-fg\">Confirm it is you</h1>\n    <p className=\"text-sm text-fg-muted\">Click below to verify aman@minidev.pro.</p>\n    <EmailButton>Verify email</EmailButton>\n  </div>\n  <EmailCard title=\"Did not request this?\">Ignore this message — your account stays unchanged.</EmailCard>\n  <EmailFooter />\n</EmailLayout>"
+    "description": "The 560px email shell that holds header, body, cards and footer.",
+    "usage": "<EmailLayout>\n  <EmailHeader />\n  <div className=\"space-y-3 px-6 py-6\">\n    <h1 className=\"text-xl font-medium text-fg\">Confirm it is you</h1>\n    <p className=\"text-sm text-fg-muted\">Click below to verify aman@minidev.pro.</p>\n    <EmailButton>Verify email</EmailButton>\n  </div>\n  <EmailCard title=\"Did not request this?\">Ignore this message — your account stays unchanged.</EmailCard>\n  <EmailFooter />\n</EmailLayout>",
+    "category": "email",
+    "related": [
+      "email-header",
+      "email-card",
+      "email-button",
+      "email-footer",
+      "email-preview-frame"
+    ],
+    "guide": "Compose an email preview from `EmailHeader`, `EmailCard`, `EmailButton` and `EmailFooter` inside it, and wrap the whole thing in `EmailPreviewFrame` to show subject and sender. These parts render a preview in the app; inline the styles before sending real mail.",
+    "examples": [
+      "<EmailLayout>\n  <EmailHeader brand=\"Lumen\" />\n  <EmailCard title=\"Invoice INV-2041\">$12,400.00 due Nov 30.</EmailCard>\n  <div className=\"px-6 pb-6\"><EmailButton href=\"https://app.example.com\">Pay invoice</EmailButton></div>\n  <EmailFooter />\n</EmailLayout>"
+    ]
   },
   {
     "name": "email-preview-frame",
@@ -1825,7 +3173,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "email"
     ],
-    "usage": "<EmailPreviewFrame subject=\"Verify your email\">\n  <EmailLayout>\n    <EmailHeader />\n    <div className=\"space-y-3 px-6 py-6\">\n      <h1 className=\"text-xl font-medium text-fg\">Confirm it is you</h1>\n      <p className=\"text-sm text-fg-muted\">Click below to verify aman@minidev.pro.</p>\n      <EmailButton>Verify email</EmailButton>\n    </div>\n    <EmailCard title=\"Did not request this?\">Ignore this message — your account stays unchanged.</EmailCard>\n    <EmailFooter />\n  </EmailLayout>\n</EmailPreviewFrame>"
+    "description": "An inbox-style frame around an email preview showing the sender and subject line.",
+    "usage": "<EmailPreviewFrame subject=\"Verify your email\">\n  <EmailLayout>\n    <EmailHeader />\n    <div className=\"space-y-3 px-6 py-6\">\n      <h1 className=\"text-xl font-medium text-fg\">Confirm it is you</h1>\n      <p className=\"text-sm text-fg-muted\">Click below to verify aman@minidev.pro.</p>\n      <EmailButton>Verify email</EmailButton>\n    </div>\n    <EmailCard title=\"Did not request this?\">Ignore this message — your account stays unchanged.</EmailCard>\n    <EmailFooter />\n  </EmailLayout>\n</EmailPreviewFrame>",
+    "category": "email",
+    "related": [
+      "email-layout"
+    ],
+    "guide": "Use in template editors and notification settings to show what a message will look like. Put an `EmailLayout` inside it.",
+    "examples": [
+      "<EmailPreviewFrame subject=\"Your invoice from Lumen\" from=\"billing@lumen.dev\">\n  <EmailLayout>...</EmailLayout>\n</EmailPreviewFrame>"
+    ]
   },
   {
     "name": "emoji-picker",
@@ -1839,7 +3196,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<EmojiPicker />"
+    "description": "A compact grid of emoji buttons for reactions, with arrow-key navigation and one tab stop.",
+    "usage": "<EmojiPicker />",
+    "category": "forms",
+    "related": [
+      "popover",
+      "reaction-bar"
+    ],
+    "guide": "Use inside a `Popover` from a reaction button, or inline under a message. For a row of existing reaction counts use `ReactionBar`. Arrow keys move through the grid, Home and End jump to the ends, Enter or Space picks.",
+    "examples": [
+      "<EmojiPicker onSelect={(emoji) => addReaction(messageId, emoji)} />\n<EmojiPicker emojis={[\"✅\", \"👀\", \"🚀\"]} columns={3} onSelect={react} />"
+    ]
   },
   {
     "name": "empty-search",
@@ -1852,7 +3219,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "empty-state"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "The \"no results\" state for a search or filtered list, echoing the query back.",
+    "category": "feedback",
+    "related": [
+      "empty-state",
+      "empty-table",
+      "error-state",
+      "empty-workspace",
+      "search-results-page"
+    ],
+    "guide": "Use when a search or filter returns nothing. For a list that has no data yet use `EmptyState` or `EmptyTable`; for a failed request use `ErrorState`.",
+    "examples": [
+      "<EmptySearch query={query} onClear={() => setQuery(\"\")} />"
+    ]
   },
   {
     "name": "empty-state",
@@ -1868,7 +3248,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feedback"
     ],
-    "usage": "<EmptyState className=\"max-w-sm\" title=\"No projects\" description=\"Create a project to begin.\" actionLabel=\"New project\" />"
+    "description": "A centred placeholder for a page or panel with nothing in it yet: icon, title, hint and one action.",
+    "usage": "<EmptyState className=\"max-w-sm\" title=\"No projects\" description=\"Create a project to begin.\" actionLabel=\"New project\" />",
+    "category": "feedback",
+    "related": [
+      "empty-table",
+      "empty-search",
+      "error-state",
+      "not-found-state",
+      "offline-state",
+      "retry-block",
+      "server-error-state",
+      "welcome-screen"
+    ],
+    "guide": "Use for first-run screens (\"No invoices yet\"). For an empty table body use `EmptyTable`; for zero search results use `EmptySearch`; for a failure use `ErrorState`; for a missing page use `NotFoundState`.",
+    "examples": [
+      "<EmptyState\n  icon={<ReceiptIcon className=\"size-6\" />}\n  title=\"No invoices yet\"\n  description=\"Create your first invoice to start getting paid.\"\n  actionLabel=\"New invoice\"\n  onAction={() => router.push(\"/invoices/new\")}\n/>"
+    ]
   },
   {
     "name": "empty-table",
@@ -1884,7 +3280,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-table"
     ],
-    "usage": "<EmptyTable className=\"max-w-md\" actionLabel=\"Create row\" />"
+    "description": "A sunken placeholder for a table or data grid with no rows yet, with an optional create action.",
+    "usage": "<EmptyTable className=\"max-w-md\" actionLabel=\"Create row\" />",
+    "category": "data-tables",
+    "related": [
+      "empty-state",
+      "empty-search",
+      "loading-table"
+    ],
+    "guide": "Use in place of the table body when the collection is empty. For a whole empty page use `EmptyState`; for zero filter matches use `EmptySearch`; while rows load use `LoadingTable`.",
+    "examples": [
+      "<EmptyTable title=\"No customers yet\" actionLabel=\"Add customer\" onAction={openCreate} />"
+    ]
   },
   {
     "name": "env-badge",
@@ -1898,7 +3305,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
-    "usage": "<EnvBadge env=\"staging\" />"
+    "description": "A tiny uppercase label naming the deployment environment; production gets a danger edge.",
+    "usage": "<EnvBadge env=\"staging\" />",
+    "category": "developer-tools",
+    "related": [
+      "env-switcher",
+      "status-badge",
+      "version-badge"
+    ],
+    "guide": "Use beside API keys, deploy rows and headers so nobody mistakes prod for staging. To switch environments use `EnvSwitcher`; for general status use `StatusBadge`.",
+    "examples": [
+      "<EnvBadge env=\"production\" />"
+    ]
   },
   {
     "name": "env-switcher",
@@ -1911,7 +3329,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "segmented-control"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A Dev / Staging / Prod segmented control for scoping a console to one environment.",
+    "category": "developer-tools",
+    "related": [
+      "env-badge",
+      "segmented-control"
+    ],
+    "guide": "Use in a dashboard header or settings page to choose which environment's keys, logs or config are shown. To label a single environment use `EnvBadge`; for other option sets use `SegmentedControl` directly.",
+    "examples": [
+      "const [env, setEnv] = React.useState(\"prod\")\n<EnvSwitcher value={env} onChange={setEnv} />"
+    ]
   },
   {
     "name": "error-state",
@@ -1927,7 +3355,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feedback"
     ],
-    "usage": "<ErrorState className=\"max-w-sm\" onRetry={()=>{}} />"
+    "description": "A centred failure message for a panel or page that could not load, with an optional retry.",
+    "usage": "<ErrorState className=\"max-w-sm\" onRetry={()=>{}} />",
+    "category": "feedback",
+    "related": [
+      "server-error-state",
+      "not-found-state",
+      "inline-alert",
+      "empty-state",
+      "empty-search"
+    ],
+    "guide": "It is a role=\"alert\" region, so screen readers announce it when it appears. Use when a fetch fails. For a 5xx page use `ServerErrorState`; for a 404 use `NotFoundState`; for an inline form error use `InlineAlert`; for \"no data yet\" use `EmptyState`.",
+    "examples": [
+      "<ErrorState description=\"We couldn't load invoices.\" onRetry={() => refetch()} />"
+    ]
   },
   {
     "name": "event-calendar",
@@ -1944,7 +3385,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "segmented-control"
     ],
     "galleries": [],
-    "description": "A week and day event scheduler with overlap layout, an all-day row, a current time line and click to create."
+    "description": "A week and day event scheduler with overlap layout, an all-day row, a current time line and click to create.",
+    "category": "dashboard",
+    "related": [
+      "calendar-month",
+      "calendar-agenda",
+      "gantt-chart"
+    ],
+    "guide": "Use for meeting and shift schedules. Events are plain objects with Date `start` and `end`; `calendars` set their colours. Click an empty slot (or focus a day column and use Up/Down then Enter) to fire `onCreate`. For a month grid use `CalendarMonth`; for a list of upcoming events use `CalendarAgenda`; for project timelines use `GanttChart`.",
+    "examples": [
+      "<EventCalendar\n  events={[{ id: \"1\", title: \"Sprint planning\", start: new Date(2026, 10, 16, 11), end: new Date(2026, 10, 16, 12), calendar: \"eng\" }]}\n  calendars={[{ id: \"eng\", label: \"Engineering\", tone: \"info\" }]}\n  onCreate={({ start, end }) => openNewEvent(start, end)}\n  onEventClick={(ev) => openEvent(ev.id)}\n/>"
+    ]
   },
   {
     "name": "expandable-row",
@@ -1957,7 +3408,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A bordered row whose header toggles a details panel underneath (a disclosure).",
+    "category": "data-tables",
+    "related": [
+      "accordion",
+      "collapsible",
+      "faq-list"
+    ],
+    "guide": "Use for one collapsible block of extra detail, like a log entry or an invoice line. For several mutually exclusive sections use `Accordion`; for an unstyled show/hide use `Collapsible`.\n\nControlled: `<ExpandableRow open={open} onOpenChange={setOpen} title=\"…\">`.",
+    "examples": [
+      "<ExpandableRow title=\"Request headers\">\n  <pre>content-type: application/json</pre>\n</ExpandableRow>"
+    ]
   },
   {
     "name": "export-data",
@@ -1970,7 +3432,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A settings row that explains a data export and offers one button to request it.",
+    "category": "settings",
+    "related": [
+      "danger-zone",
+      "file-list"
+    ],
+    "guide": "Use on account or workspace settings pages (GDPR exports, backups). For a destructive action use `DangerZone`; for a download list use `FileList`.",
+    "examples": [
+      "<ExportData onExport={() => requestExport()} />"
+    ]
   },
   {
     "name": "facet-filter",
@@ -1988,7 +3460,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "data-extra"
     ],
     "description": "A titled group of checkbox facets with result counts, for a filter sidebar.",
-    "usage": "<FacetFilter title=\"Status\" value={facets} onChange={setFacets} options={[{ value: \"open\", label: \"Open\", count: 12 }, { value: \"done\", label: \"Done\", count: 40 }]} />"
+    "usage": "<FacetFilter title=\"Status\" value={facets} onChange={setFacets} options={[{ value: \"open\", label: \"Open\", count: 12 }, { value: \"done\", label: \"Done\", count: 40 }]} />",
+    "category": "forms",
+    "related": [
+      "chip-filter",
+      "radio-group",
+      "multi-select",
+      "audit-filter-bar"
+    ],
+    "guide": "Use for multi-select filters in a sidebar or popover. For filter chips in a toolbar use `ChipFilter`; for a single choice use `RadioGroup`; for many options with search use `MultiSelect`.",
+    "examples": [
+      "const [status, setStatus] = React.useState<string[]>([])\n<FacetFilter\n  title=\"Status\"\n  options={[{ value: \"paid\", label: \"Paid\", count: 128 }, { value: \"open\", label: \"Open\", count: 42 }]}\n  value={status}\n  onChange={setStatus}\n/>"
+    ]
   },
   {
     "name": "faq-list",
@@ -2005,7 +3488,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "marketing"
     ],
     "description": "Frequently asked questions as an accordion: one question per row, the answer unfolds beneath it.",
-    "usage": "<FaqList items={[{ q: \"Is it free?\", a: \"Yes — free React + Tailwind registry.\" }, { q: \"Dark mode?\", a: \"Tokenized light and dark.\" }]} />"
+    "usage": "<FaqList items={[{ q: \"Is it free?\", a: \"Yes — free React + Tailwind registry.\" }, { q: \"Dark mode?\", a: \"Tokenized light and dark.\" }]} />",
+    "category": "marketing",
+    "related": [
+      "accordion",
+      "expandable-row"
+    ],
+    "guide": "Use on pricing and marketing pages. Each question is a button inside a heading, so screen reader users can jump between questions. For arbitrary collapsible sections use `Accordion`; for one disclosure use `ExpandableRow`.",
+    "examples": [
+      "<FaqList items={[{ q: \"Can I cancel anytime?\", a: \"Yes, from Billing. You keep access until the period ends.\" }]} />"
+    ]
   },
   {
     "name": "feature-flag-toggle",
@@ -2022,7 +3514,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
-    "usage": "<FeatureFlagToggle name=\"new-checkout\" description=\"Enable redesigned checkout\" checked={flag} onCheckedChange={setFlag} />"
+    "description": "A bordered row with a flag name, a description and a switch that turns the flag on or off.",
+    "usage": "<FeatureFlagToggle name=\"new-checkout\" description=\"Enable redesigned checkout\" checked={flag} onCheckedChange={setFlag} />",
+    "category": "settings",
+    "related": [
+      "switch",
+      "notification-preferences",
+      "feature-flags"
+    ],
+    "guide": "Use in admin and settings screens for named flags or experiments. The switch is labelled by the name and described by the description. For a plain labelled switch use `Switch` with `label`; for a grid of notification channels use `NotificationPreferences`.",
+    "examples": [
+      "<FeatureFlagToggle\n  name=\"new-invoice-editor\"\n  description=\"Roll out the v2 editor to this workspace.\"\n  checked={enabled}\n  onCheckedChange={setEnabled}\n/>"
+    ]
   },
   {
     "name": "feature-grid",
@@ -2039,7 +3542,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "marketing"
     ],
     "description": "A responsive grid of feature cards, each with an optional icon, a title and a short description.",
-    "usage": "<FeatureGrid features={[{ title: \"Fast\", description: \"Ship UI without reinventing tokens.\" }, { title: \"Accessible\", description: \"Audit-gated screenshots and axe.\" }, { title: \"Composable\", description: \"Primitives that stack cleanly.\" }]} />"
+    "usage": "<FeatureGrid features={[{ title: \"Fast\", description: \"Ship UI without reinventing tokens.\" }, { title: \"Accessible\", description: \"Audit-gated screenshots and axe.\" }, { title: \"Composable\", description: \"Primitives that stack cleanly.\" }]} />",
+    "category": "marketing",
+    "related": [
+      "bento-grid",
+      "plan-comparison",
+      "bento-live"
+    ],
+    "guide": "Use on marketing pages to list product capabilities: one column on phones, two on tablets, three on desktop. For an asymmetric showcase use `BentoGrid`; for a plan-by-plan matrix use `PlanComparison`.",
+    "examples": [
+      "<FeatureGrid\n  features={[\n    { title: \"Invoices in seconds\", description: \"Draft, send and track from one screen.\", icon: <ReceiptIcon className=\"size-5\" /> },\n    { title: \"Automatic reminders\", description: \"Nudges stop the moment a payment lands.\" },\n  ]}\n/>"
+    ]
   },
   {
     "name": "feedback-thumbs",
@@ -2055,7 +3568,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai"
     ],
-    "usage": "<FeedbackThumbs value={thumb} onChange={setThumb} />"
+    "description": "A pair of thumbs up / thumbs down toggle buttons for rating an answer or article.",
+    "usage": "<FeedbackThumbs value={thumb} onChange={setThumb} />",
+    "category": "ai-chat",
+    "related": [
+      "message-actions",
+      "rating",
+      "vote-control"
+    ],
+    "guide": "Use under AI responses and help articles. Pressing the active thumb again clears the vote (value becomes null). For message actions like copy and retry use `MessageActions`; for star ratings use `Rating`; for up/down vote counts use `VoteControl`.",
+    "examples": [
+      "<FeedbackThumbs onChange={(v) => track(\"answer_feedback\", { vote: v })} />"
+    ]
   },
   {
     "name": "file-dropzone",
@@ -2069,7 +3593,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Failed validation (type/size), so retry makes no sense."
+    "description": "A drag-and-drop upload zone with accept/reject drag states, type and size validation, and a file list with progress, retry and remove.",
+    "category": "forms",
+    "related": [
+      "avatar-upload",
+      "image-upload",
+      "image-cropper",
+      "file-list",
+      "attachment-chip",
+      "bulk-user-import",
+      "file-row",
+      "media-library"
+    ],
+    "guide": "Click, Enter or Space opens the file picker; dropping works too. Pass `upload` to stream progress per file; without it files are listed as done at once and handed to `onFiles`. For a single avatar use `AvatarUpload`; for an image with preview and crop use `ImageUpload` or `ImageCropper`; for listing existing files use `FileList`.\n\nGOLD STANDARD COMPONENT. Four designed states (rest, hover, drag-accept, drag-reject); the hairline dashed border is SVG so the dashes stay crisp and march while dragging.",
+    "examples": [
+      "<FileDropzone\n  accept=\"image/*,.pdf\"\n  maxSize={10 * 1024 * 1024}\n  upload={(file, onProgress) => uploadToS3(file, onProgress)}\n  onFiles={(files) => console.log(files)}\n/>"
+    ]
   },
   {
     "name": "file-list",
@@ -2083,7 +3622,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "file-row"
     ],
     "galleries": [],
-    "description": "A stack of file rows with name, metadata and an optional download action."
+    "description": "A stack of file rows with name, metadata and an optional download action.",
+    "category": "media",
+    "related": [
+      "file-row",
+      "file-dropzone",
+      "file-tree",
+      "export-data"
+    ],
+    "guide": "Use for attachments, exports and documents on a record. For one row use `FileRow`; for uploading use `FileDropzone`; for a folder hierarchy use `FileTree`.",
+    "examples": [
+      "<FileList\n  files={[{ id: \"f1\", name: \"INV-2041.pdf\", meta: \"PDF · 184 KB\" }]}\n  onDownload={(id) => download(id)}\n/>"
+    ]
   },
   {
     "name": "file-reference",
@@ -2096,7 +3646,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A compact chip-like card citing a source file: name, path and a line range.",
+    "category": "developer-tools",
+    "related": [
+      "citation-chip",
+      "source-card",
+      "file-row",
+      "file-tree"
+    ],
+    "guide": "Use in agent and code-review UIs to show which file and lines an answer or change refers to. For a web citation use `CitationChip` or `SourceCard`; for a downloadable file use `FileRow`.",
+    "examples": [
+      "<FileReference name=\"billing.ts\" path=\"src/lib/billing.ts\" lines=\"42–68\" />"
+    ]
   },
   {
     "name": "file-row",
@@ -2111,7 +3673,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "icon-button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "One file as a bordered row: icon, name, metadata line and an optional download button.",
+    "category": "media",
+    "related": [
+      "file-list",
+      "attachment-chip",
+      "file-dropzone",
+      "file-reference",
+      "list-item",
+      "media-library"
+    ],
+    "guide": "Use alone for a single attachment, or let `FileList` render a stack. For an attachment pill in a composer use `AttachmentChip`; for upload progress use `FileDropzone`.",
+    "examples": [
+      "<FileRow name=\"Q3-revenue-report.xlsx\" meta=\"Spreadsheet · 1.2 MB\" onDownload={() => download(\"q3\")} />"
+    ]
   },
   {
     "name": "file-tree",
@@ -2126,7 +3702,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A code editor style file explorer with file icons, git status, a filter field and full tree keyboard support."
+    "description": "A code editor style file explorer with file icons, git status, a filter field and full tree keyboard support.",
+    "category": "developer-tools",
+    "related": [
+      "tree-view",
+      "file-reference",
+      "file-list",
+      "json-viewer",
+      "media-library"
+    ],
+    "guide": "Use for repos, artifacts and agent workspaces. Folders are nodes with a `children` array (even empty); files have none. Paths passed to `onSelect` are names joined by \"/\". Keyboard follows the WAI-ARIA tree pattern. For a generic nested list without file semantics use `TreeView`; for a single file citation use `FileReference`.",
+    "examples": [
+      "<FileTree\n  title=\"lumen-web\"\n  data={[{ name: \"app\", children: [{ name: \"page.tsx\", status: \"M\" }] }, { name: \"package.json\" }]}\n  defaultExpanded={[\"app\"]}\n  onSelect={(path) => openFile(path)}\n/>"
+    ]
   },
   {
     "name": "filter-bar",
@@ -2143,7 +3731,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-extra"
     ],
-    "usage": "<FilterBar onClear={() => setFacets([])}>\n  <ChipFilter value={chip} onChange={setChip} options={[{ value: \"all\", label: \"All\" }, { value: \"mine\", label: \"Mine\" }, { value: \"open\", label: \"Open\" }]} />\n</FilterBar>"
+    "description": "A toolbar strip with a filter text field, slots for filter controls and an optional Clear button.",
+    "usage": "<FilterBar onClear={() => setFacets([])}>\n  <ChipFilter value={chip} onChange={setChip} options={[{ value: \"all\", label: \"All\" }, { value: \"mine\", label: \"Mine\" }, { value: \"open\", label: \"Open\" }]} />\n</FilterBar>",
+    "category": "data-tables",
+    "related": [
+      "select",
+      "chip-filter",
+      "multi-select",
+      "table-toolbar",
+      "audit-filter-bar",
+      "query-builder"
+    ],
+    "guide": "Use above a list or table. Put `Select`, `ChipFilter` or `MultiSelect` controls in `children`. For a full table toolbar with bulk actions use `TableToolbar`; for audit logs use `AuditFilterBar`.",
+    "examples": [
+      "const [q, setQ] = React.useState(\"\")\n<FilterBar query={q} onQueryChange={setQ} onClear={() => setQ(\"\")}>\n  <Select ... />\n</FilterBar>"
+    ]
   },
   {
     "name": "floating-action-button",
@@ -2156,7 +3758,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A round, fixed-position primary button in the bottom-right corner of the viewport.",
+    "category": "buttons",
+    "related": [
+      "button",
+      "sticky-bar"
+    ],
+    "guide": "Use for the one primary action of a mobile or canvas screen (\"New invoice\"). Takes every `Button` prop. An icon-only FAB must have an `aria-label`. For an inline primary action use `Button`; for a sticky bottom action bar use `StickyBar`.",
+    "examples": [
+      "<FloatingActionButton aria-label=\"New invoice\" onClick={create}>\n  <PlusIcon />\n</FloatingActionButton>"
+    ]
   },
   {
     "name": "floating-label-input",
@@ -2173,7 +3785,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "Return an error message, or nothing when valid. Runs on submit and after the first error."
+    "description": "A text field whose label rests inside the input and floats onto the top border on focus or once filled.",
+    "category": "forms",
+    "related": [
+      "input",
+      "form-field",
+      "password-input",
+      "masked-input"
+    ],
+    "guide": "Pass `label` for one field (input, or textarea with `multiline`). Without `label` it renders a small sign-up form built from `fields`. The label is a real <label>; `error` sets aria-invalid and is announced. For a classic label-above field use `Input` inside `FormField`; for passwords use `PasswordInput`; for formatted values use `MaskedInput`.",
+    "examples": [
+      "const [email, setEmail] = React.useState(\"\")\n<FloatingLabelInput label=\"Work email\" type=\"email\" value={email} onChange={setEmail} error={emailError} />\n<FloatingLabelInput label=\"Notes\" multiline rows={3} />"
+    ]
   },
   {
     "name": "footer-mega",
@@ -2190,7 +3813,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "marketing-sections"
     ],
     "description": "A multi-column site footer: brand and tagline on the left, titled link columns across the rest.",
-    "usage": "<FooterMega\n  columns={[\n    { title: \"Product\", links: [{ label: \"Gallery\", href: \"#\" }, { label: \"Docs\", href: \"#\" }] },\n    { title: \"Company\", links: [{ label: \"Blog\", href: \"#\" }, { label: \"Careers\", href: \"#\" }] },\n    { title: \"Legal\", links: [{ label: \"Privacy\", href: \"#\" }, { label: \"Terms\", href: \"#\" }] },\n  ]}\n/>"
+    "usage": "<FooterMega\n  columns={[\n    { title: \"Product\", links: [{ label: \"Gallery\", href: \"#\" }, { label: \"Docs\", href: \"#\" }] },\n    { title: \"Company\", links: [{ label: \"Blog\", href: \"#\" }, { label: \"Careers\", href: \"#\" }] },\n    { title: \"Legal\", links: [{ label: \"Privacy\", href: \"#\" }, { label: \"Terms\", href: \"#\" }] },\n  ]}\n/>",
+    "category": "marketing",
+    "related": [
+      "footer-nav"
+    ],
+    "guide": "Use at the bottom of marketing sites with many links. Each column is a labelled nav landmark. For a single row of links use `FooterNav`.",
+    "examples": [
+      "<FooterMega\n  brand=\"Lumen\"\n  tagline=\"Invoicing for teams that close their books every day.\"\n  columns={[{ title: \"Product\", links: [{ label: \"Pricing\", href: \"/pricing\" }] }]}\n/>"
+    ]
   },
   {
     "name": "footer-nav",
@@ -2204,7 +3835,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "link"
     ],
     "galleries": [],
-    "description": "A one-line site footer: brand on the left, a row of quiet links on the right."
+    "description": "A one-line site footer: brand on the left, a row of quiet links on the right.",
+    "category": "navigation",
+    "related": [
+      "footer-mega"
+    ],
+    "guide": "Use for app and docs footers with a handful of links. For a marketing footer with titled link columns use `FooterMega`.",
+    "examples": [
+      "<FooterNav brand=\"Lumen\" links={[{ label: \"Docs\", href: \"/docs\" }, { label: \"Status\", href: \"https://status.example.com\" }]} />"
+    ]
   },
   {
     "name": "forgot-password-form",
@@ -2220,7 +3859,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "form-field",
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An auth card asking for an email address to send a password reset link to.",
+    "category": "auth",
+    "related": [
+      "reset-password-form",
+      "magic-link-form"
+    ],
+    "guide": "A real <form>: Enter submits, the browser checks the email format, and `onSubmit` receives the trimmed address. For setting the new password use `ResetPasswordForm`; for passwordless sign-in use `MagicLinkForm`.",
+    "examples": [
+      "<ForgotPasswordForm onSubmit={async (email) => await sendResetLink(email)} />"
+    ]
   },
   {
     "name": "form-field",
@@ -2238,7 +3887,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "form-field",
       "settings"
     ],
-    "usage": "<FormField id=\"email\" label=\"Email\"><Input id=\"email\" type=\"email\" placeholder=\"you@company.com\" /></FormField>"
+    "description": "A label, a control, and a description or error message stacked with the right spacing and wiring.",
+    "usage": "<FormField id=\"email\" label=\"Email\"><Input id=\"email\" type=\"email\" placeholder=\"you@company.com\" /></FormField>",
+    "category": "forms",
+    "related": [
+      "input",
+      "textarea",
+      "select",
+      "floating-label-input",
+      "auth-card",
+      "combobox",
+      "currency-input",
+      "date-picker"
+    ],
+    "guide": "Pass the control's `id` as `id`. When the child is a single element, FormField links it to the description or error with `aria-describedby` and sets `aria-invalid` while there is an error, so screen readers read the message. Use around `Input`, `Textarea`, `Select` and friends. For a label that floats inside the input use `FloatingLabelInput`.",
+    "examples": [
+      "<FormField id=\"email\" label=\"Work email\" description=\"We send invoices here.\" error={errors.email} required>\n  <Input id=\"email\" type=\"email\" required />\n</FormField>"
+    ]
   },
   {
     "name": "funnel-chart",
@@ -2254,7 +3919,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "segmented-control"
     ],
     "galleries": [],
-    "description": "A funnel chart with stage bars laid out horizontally or vertically, conversion rates and drop-off between stages, an optional comparison series and bars that spring to new values when the data changes."
+    "description": "A funnel chart with stage bars laid out horizontally or vertically, conversion rates and drop-off between stages, an optional comparison series and bars that spring to new values when the data changes.",
+    "category": "charts",
+    "related": [
+      "funnel-steps",
+      "sankey-chart"
+    ],
+    "guide": "Use for signup and checkout funnels. Pass `stages` for one series, or `datasets` to add a segmented switch between them. Screen readers get a full data table. For a compact list of bars use `FunnelSteps`; for flows that branch use `SankeyChart`.",
+    "examples": [
+      "<FunnelChart\n  title=\"Visitors to paid\"\n  stages={[\n    { label: \"Visitors\", value: 48200, compare: 44100 },\n    { label: \"Signed up\", value: 12840, compare: 11200 },\n    { label: \"Paid\", value: 1464, compare: 1210 },\n  ]}\n/>"
+    ]
   },
   {
     "name": "funnel-steps",
@@ -2268,8 +3942,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-extra"
     ],
-    "description": "A conversion funnel as stacked bars: each step's bar is sized against the first step's count.",
-    "usage": "<FunnelSteps steps={[{ label: \"Visited\", value: 1200 }, { label: \"Signed up\", value: 420 }, { label: \"Activated\", value: 210 }]} />"
+    "description": "A compact conversion funnel as stacked bars, each sized against the largest step.",
+    "usage": "<FunnelSteps steps={[{ label: \"Visited\", value: 1200 }, { label: \"Signed up\", value: 420 }, { label: \"Activated\", value: 210 }]} />",
+    "category": "charts",
+    "related": [
+      "funnel-chart",
+      "horizontal-bar-chart"
+    ],
+    "guide": "Use in a card or sidebar for a quick funnel readout. For a full chart with step conversion rates, drop-off, a comparison period and dataset switching use `FunnelChart`; for arbitrary categories use `HorizontalBarChart`.",
+    "examples": [
+      "<FunnelSteps steps={[{ label: \"Visited\", value: 12840 }, { label: \"Signed up\", value: 3210 }, { label: \"Paid\", value: 464 }]} />"
+    ]
   },
   {
     "name": "gantt-chart",
@@ -2283,7 +3966,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "segmented-control"
     ],
     "galleries": [],
-    "description": "A project timeline with day and week scales, a today line, progress fills, dependency arrows, a sticky task column and focusable bars."
+    "description": "A project timeline with day and week scales, a today line, progress fills, dependency arrows, a sticky task column and focusable bars.",
+    "category": "charts",
+    "related": [
+      "gantt-row",
+      "event-calendar",
+      "trace-waterfall"
+    ],
+    "guide": "Use for launch plans and delivery schedules. Tasks take Date objects or ISO day strings; `end` is inclusive. Tasks with the same `group` share a heading and colour; `dependsOn` draws arrows. For a single plain bar row use `GanttRow`; for calendar events by the hour use `EventCalendar`; for request spans use `TraceWaterfall`.",
+    "examples": [
+      "<GanttChart\n  title=\"Launch plan\"\n  tasks={[\n    { id: \"design\", name: \"Landing page design\", start: \"2026-11-02\", end: \"2026-11-09\", progress: 60, group: \"Design\" },\n    { id: \"build\", name: \"Checkout flow\", start: \"2026-11-10\", end: \"2026-11-20\", group: \"Engineering\", dependsOn: [\"design\"] },\n  ]}\n  onTaskClick={(task) => openTask(task.id)}\n/>"
+    ]
   },
   {
     "name": "gantt-row",
@@ -2294,7 +3987,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/gantt-row",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "One labelled timeline row with a bar placed from `start` to `end` on a 0..max scale.",
+    "category": "workflow",
+    "related": [
+      "gantt-chart",
+      "trace-waterfall"
+    ],
+    "guide": "Use for a lightweight schedule built from a few rows (sprints, rollouts) where positions are plain numbers such as day indexes or percentages. For real dates, dependencies, scales and a today line use `GanttChart`; for nested spans of a trace use `TraceWaterfall`.",
+    "examples": [
+      "<GanttRow label=\"Billing API\" start={10} end={45} />\n<GanttRow label=\"QA\" start={20} end={26} max={30} />"
+    ]
   },
   {
     "name": "gauge-chart",
@@ -2308,7 +4011,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
-    "usage": "<GaugeChart value={78} label=\"Health\" />"
+    "description": "A half-circle dial filled to a percentage of `max`, with the percentage inside and a caption below.",
+    "usage": "<GaugeChart value={78} label=\"Health\" />",
+    "category": "charts",
+    "related": [
+      "donut-chart",
+      "goal-ring",
+      "meter"
+    ],
+    "guide": "Use for one bounded score (health, quota, NPS-style index). For a full ring use `DonutChart`; for a goal ring with a target use `GoalRing`; for a linear labelled bar use `Meter`.",
+    "examples": [
+      "<GaugeChart value={72} label=\"Uptime score\" />\n<GaugeChart value={41} max={50} label=\"Seats\" />"
+    ]
   },
   {
     "name": "goal-ring",
@@ -2322,7 +4036,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<GoalRing />"
+    "description": "A circular progress ring for one goal, with the percentage in the centre and a caption below.",
+    "usage": "<GoalRing />",
+    "category": "dashboard",
+    "related": [
+      "progress",
+      "meter",
+      "radial-chart",
+      "gauge-chart",
+      "waffle-chart"
+    ],
+    "guide": "Use it for a single target read at a glance (weekly goal, quota met). For a linear bar use Progress, for a bounded measurement use Meter, and for several values in one ring use RadialChart.",
+    "examples": [
+      "<GoalRing value={72} label=\"Weekly goal\" />"
+    ]
   },
   {
     "name": "heading",
@@ -2336,7 +4063,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "layout"
     ],
-    "usage": "<Heading as=\"h1\">Heading one</Heading>"
+    "description": "A semantic h1 to h6 with the kit's size, weight and tracking for each level.",
+    "usage": "<Heading as=\"h1\">Heading one</Heading>",
+    "category": "layout",
+    "related": [
+      "page-header",
+      "section-header",
+      "hero",
+      "prose",
+      "text"
+    ],
+    "guide": "Use it for in-app section and page headings. For a page title with actions use PageHeader, for a section intro with eyebrow and description use SectionHeader, and for marketing headlines use Hero.",
+    "examples": [
+      "<Heading as=\"h3\">Billing</Heading>"
+    ]
   },
   {
     "name": "health-indicator",
@@ -2349,7 +4089,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "status-dot"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A coloured dot and a word for a service's health: operational, degraded or down.",
+    "category": "feedback",
+    "related": [
+      "status-badge",
+      "status-dot",
+      "uptime-bar",
+      "incident-banner",
+      "status-page",
+      "status-marketing"
+    ],
+    "guide": "Use it inline in tables and status lists. For a tinted pill use StatusBadge, for a bare dot use StatusDot, and for a history strip use UptimeBar.",
+    "examples": [
+      "<HealthIndicator status=\"degraded\" label=\"API\" />"
+    ]
   },
   {
     "name": "heatmap-cell",
@@ -2363,7 +4117,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-extra"
     ],
-    "usage": "<HeatmapCell key={idx} intensity={i} label={`${Math.round(i*100)}%`} />"
+    "description": "One square of a heatmap, tinted from sunken to accent by intensity.",
+    "usage": "<HeatmapCell key={idx} intensity={i} label={`${Math.round(i*100)}%`} />",
+    "category": "charts",
+    "related": [
+      "streak-calendar"
+    ],
+    "guide": "Use it to build custom grids (activity by hour, usage by day). For a ready year of daily cells use StreakCalendar.",
+    "examples": [
+      "<HeatmapCell intensity={0.6} label=\"Tue 14:00, 42 runs\" />"
+    ]
   },
   {
     "name": "hero",
@@ -2379,7 +4142,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing"
     ],
-    "usage": "<Hero title=\"Build with Hairline\" description=\"A registry that looks intentional.\" primaryAction={{ label: \"Get started\" }} />"
+    "description": "A centred marketing headline with an optional eyebrow, description and up to two calls to action.",
+    "usage": "<Hero title=\"Build with Hairline\" description=\"A registry that looks intentional.\" primaryAction={{ label: \"Get started\" }} />",
+    "category": "marketing",
+    "related": [
+      "page-header",
+      "section-header",
+      "cta-banner",
+      "heading",
+      "hero-spotlight",
+      "cta-glow"
+    ],
+    "guide": "Use it at the top of a landing or product page. For an in-app page title use PageHeader, for a mid-page section intro use SectionHeader, and for a closing call to action use CtaBanner.",
+    "examples": [
+      "<Hero\n  eyebrow=\"New in 2.4\"\n  title=\"Invoices that chase themselves\"\n  description=\"Reminders, retries and receipts on autopilot.\"\n  primaryAction={{ label: \"Start free\", href: \"/signup\" }}\n  secondaryAction={{ label: \"Book a demo\", onClick: openDemo }}\n/>"
+    ]
   },
   {
     "name": "horizontal-bar-chart",
@@ -2394,7 +4171,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "charts"
     ],
     "description": "Labelled horizontal bars scaled to the largest value, for ranking categories at a glance.",
-    "usage": "<HorizontalBarChart data={[{label:\"Design\",value:42},{label:\"Eng\",value:68},{label:\"Growth\",value:35}]} />"
+    "usage": "<HorizontalBarChart data={[{label:\"Design\",value:42},{label:\"Eng\",value:68},{label:\"Growth\",value:35}]} />",
+    "category": "charts",
+    "related": [
+      "bar-chart",
+      "area-chart",
+      "stacked-bar-chart",
+      "donut-chart",
+      "funnel-steps"
+    ],
+    "guide": "Use it for top-N lists with long labels (customers, pages, endpoints). For values over time use BarChart or AreaChart, and for parts of a whole use StackedBarChart or DonutChart.",
+    "examples": [
+      "<HorizontalBarChart label=\"Invoices by customer\" data={[{ label: \"Northwind\", value: 124 }, { label: \"Globex\", value: 52 }]} />"
+    ]
   },
   {
     "name": "hover-card",
@@ -2403,9 +4192,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/hover-card.tsx",
     "import": "@/registry/ui/hover-card",
-    "deps": [],
+    "deps": [
+      "@base-ui/react"
+    ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A rich preview that opens when the pointer rests on, or focus lands in, its trigger.",
+    "category": "overlays",
+    "related": [
+      "card",
+      "popover",
+      "tooltip",
+      "link-preview"
+    ],
+    "guide": "Built on Base UI Preview Card: it waits before opening, stays open while the pointer moves onto the card, flips to stay on screen and closes on Escape. Use it for supplementary detail (a person, a record, a link). Anything the user must act on belongs in a Popover; a short text hint belongs in a Tooltip. The trigger should be a link or button so keyboard users can reach it.",
+    "examples": [
+      "<HoverCard trigger={<a href=\"/people/maya\">Maya Chen</a>}>\n  <p className=\"font-medium text-fg\">Maya Chen</p>\n  <p className=\"text-xs text-fg-muted\">Finance lead</p>\n</HoverCard>"
+    ]
   },
   {
     "name": "icon-button",
@@ -2423,7 +4226,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "icon-button"
     ],
-    "usage": "<IconButton aria-label=\"Search\" variant=\"default\"><SearchIcon /></IconButton>"
+    "description": "A square Button that holds only an icon and requires an aria-label.",
+    "usage": "<IconButton aria-label=\"Search\" variant=\"default\"><SearchIcon /></IconButton>",
+    "category": "buttons",
+    "related": [
+      "button",
+      "tooltip"
+    ],
+    "guide": "Use it for toolbar and row actions (close, more, delete). When the action needs a visible word, use Button with an icon and text instead; pair an IconButton with a Tooltip when the icon alone is not obvious.",
+    "examples": [
+      "<IconButton aria-label=\"Delete invoice\" variant=\"ghost\" size=\"icon-sm\"><TrashIcon /></IconButton>"
+    ]
   },
   {
     "name": "image-cropper",
@@ -2442,7 +4255,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "slider"
     ],
     "galleries": [],
-    "description": "Left edge in source pixels, measured on the image after `rotation`."
+    "description": "Crop an image inside a frame: drag to pan, zoom with the slider, wheel or pinch, pick an aspect, mask to a circle and rotate in 90° steps.",
+    "category": "media",
+    "related": [
+      "image-upload",
+      "avatar-upload",
+      "file-dropzone"
+    ],
+    "guide": "Use it before uploading a cover, avatar or product photo. onCrop reports the crop in source pixels; getCroppedBlob(src, rect, opts) renders it to a Blob for upload. For picking a file without framing use ImageUpload, and for a round avatar picker use AvatarUpload. Keyboard: arrows pan (Shift for bigger steps), + and - zoom, R rotates, 0 resets.",
+    "examples": [
+      "const [rect, setRect] = React.useState<CropRect | null>(null)\n<ImageCropper src={url} aspects={[\"1:1\", \"16:9\"]} onCrop={(r) => setRect(r)} />\nconst blob = await getCroppedBlob(url, rect!, { type: \"image/webp\", width: 1200 })"
+    ]
   },
   {
     "name": "image-gallery",
@@ -2456,7 +4279,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "aspect-ratio"
     ],
     "galleries": [],
-    "description": "A square-tile image grid, two columns on phones and three from the small breakpoint up."
+    "description": "A square-tile image grid, two columns on phones and three from the small breakpoint up.",
+    "category": "media",
+    "related": [
+      "masonry-grid",
+      "carousel",
+      "image-lightbox"
+    ],
+    "guide": "Use it for a static set of photos or screenshots. For mixed heights use MasonryGrid, for one image at a time use Carousel, and to open a tile full screen wrap it in ImageLightbox.",
+    "examples": [
+      "<ImageGallery images={[{ src: \"/a.jpg\", alt: \"Front of the store\" }, { src: \"/b.jpg\", alt: \"Checkout counter\" }]} />"
+    ]
   },
   {
     "name": "image-lightbox",
@@ -2466,12 +4299,24 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "path": "src/registry/ui/image-lightbox.tsx",
     "import": "@/registry/ui/image-lightbox",
     "deps": [
+      "@base-ui/react",
       "lucide-react"
     ],
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A thumbnail that opens the full image in a modal viewer.",
+    "category": "media",
+    "related": [
+      "dialog",
+      "image-gallery",
+      "carousel"
+    ],
+    "guide": "Built on Base UI Dialog: focus moves into the viewer and returns to the thumbnail on close, Escape and a click on the backdrop close it, and the page behind does not scroll. Use it to enlarge one image; for a grid of tiles use ImageGallery, and for paging through many images use Carousel.",
+    "examples": [
+      "<ImageLightbox src=\"/receipt.png\" alt=\"Scanned receipt for INV-2041\" />"
+    ]
   },
   {
     "name": "image-upload",
@@ -2489,7 +4334,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "file-dropzone"
     ],
-    "usage": "<ImageUpload className=\"max-w-lg\" />"
+    "description": "A single-image picker: a drop zone that turns into a preview with a remove button.",
+    "usage": "<ImageUpload className=\"max-w-lg\" />",
+    "category": "forms",
+    "related": [
+      "avatar-upload",
+      "file-dropzone",
+      "image-cropper"
+    ],
+    "guide": "Use it for one cover, logo or photo. For a round profile picture use AvatarUpload, for several files of any type use FileDropzone, and to let the user frame the picture before saving use ImageCropper.\n\nThe preview uses an object URL that the component revokes when the image is replaced, removed or unmounted; upload the File from onChange, not the URL.",
+    "examples": [
+      "<ImageUpload value={coverUrl} onChange={(url, file) => { setCoverUrl(url); if (file) upload(file) }} />"
+    ]
   },
   {
     "name": "impersonation-banner",
@@ -2505,7 +4361,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "admin"
     ],
-    "usage": "<ImpersonationBanner user=\"casey@acme.com\" />"
+    "description": "A full-width strip that tells a support agent whose account they are viewing, with an Exit button.",
+    "usage": "<ImpersonationBanner user=\"casey@acme.com\" />",
+    "category": "dashboard",
+    "related": [
+      "incident-banner",
+      "trial-banner",
+      "announcement-bar"
+    ],
+    "guide": "Mount it at the very top of the app shell while impersonating. For system incidents use IncidentBanner, for trials use TrialBanner, and for general announcements use AnnouncementBar.",
+    "examples": [
+      "<ImpersonationBanner user=\"maya@northwind.com\" onExit={stopImpersonating} />"
+    ]
   },
   {
     "name": "incident-banner",
@@ -2521,7 +4388,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<IncidentBanner />"
+    "description": "A full-width strip announcing an ongoing incident, its severity, and a link to the status page.",
+    "usage": "<IncidentBanner />",
+    "category": "feedback",
+    "related": [
+      "announcement-bar",
+      "inline-alert",
+      "callout",
+      "health-indicator",
+      "impersonation-banner",
+      "uptime-bar",
+      "status-page",
+      "status-marketing"
+    ],
+    "guide": "Use it at the top of an app or dashboard during an outage. For a dismissible product announcement use AnnouncementBar, for a message inside a page use InlineAlert or Callout, and for a service's current state use HealthIndicator.",
+    "examples": [
+      "<IncidentBanner severity=\"critical\" title=\"Payments are failing in eu-west\" href=\"https://status.example.com\" />"
+    ]
   },
   {
     "name": "infinite-scroll",
@@ -2536,7 +4419,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "spinner"
     ],
     "galleries": [],
-    "description": "Loads more items when a sentinel near the end of the list scrolls into"
+    "description": "A scrolling list that loads the next page when a sentinel near the end comes into view.",
+    "category": "data-tables",
+    "related": [
+      "virtual-list",
+      "pagination"
+    ],
+    "guide": "It uses IntersectionObserver, never fires twice for the same page, shows a loading row and an end-of-list message, keeps a real \"Load more\" button as the accessible fallback, and offers Retry when a page fails. Use it for feeds of unknown length. For thousands of rows already in memory use VirtualList, and for numbered pages use Pagination.",
+    "examples": [
+      "<InfiniteScroll\n  loadMore={async (page) => {\n    const res = await fetch(`/api/orders?page=${page}`).then((r) => r.json())\n    return { items: res.orders, hasMore: res.hasMore }\n  }}\n  renderItem={(order) => <OrderRow order={order} />}\n/>"
+    ]
   },
   {
     "name": "inline-alert",
@@ -2552,7 +4444,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "overlays"
     ],
-    "usage": "<InlineAlert className=\"max-w-md\" tone=\"warning\" title=\"Action needed\">Add a payment method to keep access.</InlineAlert>"
+    "description": "A bordered message inside the page flow, with a tone icon, an optional title and body text.",
+    "usage": "<InlineAlert className=\"max-w-md\" tone=\"warning\" title=\"Action needed\">Add a payment method to keep access.</InlineAlert>",
+    "category": "feedback",
+    "related": [
+      "callout",
+      "banner",
+      "announcement-bar",
+      "toast",
+      "error-state",
+      "incident-banner",
+      "well"
+    ],
+    "guide": "Use it next to the thing it is about (a form, a settings section). For a tinted aside in prose use Callout, for a page-wide strip use Banner or AnnouncementBar, and for a transient confirmation use Toast.\n\nDanger and warning alerts use role=\"alert\" so screen readers announce them when they appear; neutral and success use role=\"status\", which is polite.",
+    "examples": [
+      "<InlineAlert tone=\"warning\" title=\"Action needed\">Add a payment method to keep access.</InlineAlert>"
+    ]
   },
   {
     "name": "inline-cell-edit",
@@ -2565,7 +4472,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A table cell value that turns into a text field on click; Enter or blur saves, Escape cancels.",
+    "category": "data-tables",
+    "related": [
+      "data-table",
+      "table",
+      "editable-heading",
+      "dialog",
+      "sheet"
+    ],
+    "guide": "Use it for quick edits inside DataTable or Table rows. For a heading edited in place use EditableHeading, and for multi-field edits open a Dialog or Sheet with a form.",
+    "examples": [
+      "<InlineCellEdit value={row.name} label=\"Customer name\" onChange={(name) => save(row.id, { name })} />"
+    ]
   },
   {
     "name": "inline-code-diff",
@@ -2579,7 +4499,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai-studio"
     ],
-    "usage": "<InlineCodeDiff before=\"color: gray\" after=\"color: var(--fg-muted)\" />"
+    "description": "One removed line above one added line, for showing a small code or config change.",
+    "usage": "<InlineCodeDiff before=\"color: gray\" after=\"color: var(--fg-muted)\" />",
+    "category": "developer-tools",
+    "related": [
+      "diff-view"
+    ],
+    "guide": "Use it in reviews, changelogs and agent tool results to show a single edit. For a whole file or several hunks use DiffView.",
+    "examples": [
+      "<InlineCodeDiff before='timeout: 30' after='timeout: 60' />"
+    ]
   },
   {
     "name": "input-affix",
@@ -2595,7 +4524,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "input-affix"
     ],
-    "usage": "<InputAffix id=\"af-search\" leading={<SearchIcon />} placeholder=\"Search\" />"
+    "description": "A text Input with icons or text fixed inside the field before or after the value.",
+    "usage": "<InputAffix id=\"af-search\" leading={<SearchIcon />} placeholder=\"Search\" />",
+    "category": "forms",
+    "related": [
+      "input",
+      "currency-input",
+      "search-input"
+    ],
+    "guide": "Use it for a search icon, a currency sign, a unit, a domain suffix or a trailing button. For money with formatting use CurrencyInput, for a search field with clear and results use SearchInput, and for a plain field use Input. All Input props (value, onChange, size, aria-invalid…) pass to the inner input.",
+    "examples": [
+      "<InputAffix leading={<SearchIcon />} placeholder=\"Search invoices\" aria-label=\"Search invoices\" />\n<InputAffix trailing=\".minidev.pro\" defaultValue=\"acme\" aria-label=\"Subdomain\" />"
+    ]
   },
   {
     "name": "input",
@@ -2615,7 +4555,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "input",
       "settings"
     ],
-    "usage": "<Input id=\"email\" type=\"email\" placeholder=\"you@company.com\" />"
+    "description": "A single-line text field on Base UI Input, with hover, focus halo, invalid, disabled and read-only states.",
+    "usage": "<Input id=\"email\" type=\"email\" placeholder=\"you@company.com\" />",
+    "category": "forms",
+    "related": [
+      "label",
+      "form-field",
+      "input-affix",
+      "textarea",
+      "password-input",
+      "search-input",
+      "number-input",
+      "currency-input"
+    ],
+    "guide": "Use it for any short text, email, number or password value; give it a Label (or wrap it in FormField) or an aria-label. For icons or units inside the field use InputAffix, for multi-line text use Textarea, and for specialised values use PasswordInput, SearchInput, NumberInput, CurrencyInput or OtpInput. Mark errors with aria-invalid so the border turns danger.",
+    "examples": [
+      "<Label htmlFor=\"email\">Email</Label>\n<Input id=\"email\" type=\"email\" placeholder=\"you@company.com\" aria-invalid={!!error} />"
+    ]
   },
   {
     "name": "inset",
@@ -2626,7 +4582,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/inset",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A sunken, bordered well that sets content below the surrounding surface.",
+    "category": "layout",
+    "related": [
+      "card",
+      "well"
+    ],
+    "guide": "Use it inside a card or panel to hold secondary content (a code sample, an embedded preview, read-only details). For a raised container use Card, and for a padded note block with body text styles use Well.",
+    "examples": [
+      "<Inset><p className=\"text-sm text-fg-muted\">No payouts yet.</p></Inset>"
+    ]
   },
   {
     "name": "integration-card",
@@ -2640,7 +4606,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "badge",
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A third-party integration with its name, a one-line description, a Connected or Available badge and a Connect or Manage button.",
+    "category": "settings",
+    "related": [
+      "connected-account",
+      "sso-provider-card",
+      "webhook-list"
+    ],
+    "guide": "Use it in an integrations or app directory grid. For an account the user has already linked (with its identity and a disconnect action) use ConnectedAccount, and for single sign-on providers use SsoProviderCard.",
+    "examples": [
+      "<IntegrationCard name=\"Slack\" description=\"Post invoice events to a channel.\" icon={<SlackLogo />} connected onManage={openSettings} />"
+    ]
   },
   {
     "name": "interactive-area-chart",
@@ -2656,8 +4633,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "new"
     ],
-    "description": "Hover or arrow-key across the series; a hairline",
-    "usage": "<InteractiveAreaChart />"
+    "description": "An area chart you scrub with the pointer or arrow keys; a crosshair pins the value and its change against a comparison line.",
+    "usage": "<InteractiveAreaChart />",
+    "category": "charts",
+    "related": [
+      "area-chart",
+      "line-chart",
+      "stat-sparkline"
+    ],
+    "guide": "Use it for one headline series over time with an optional \"last period\" line (revenue, signups). For a static area use AreaChart, for several lines use LineChart, and for a tiny inline trend use StatSparkline. Keyboard: Left and Right step through points, Home and End jump to the ends.",
+    "examples": [
+      "<InteractiveAreaChart\n  label=\"Revenue\"\n  compareLabel=\"Last year\"\n  format={(n) => `$${n}k`}\n  data={[{ label: \"Jan\", value: 42, compare: 38 }, { label: \"Feb\", value: 47, compare: 40 }]}\n/>"
+    ]
   },
   {
     "name": "invite-members",
@@ -2672,7 +4659,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A card with an email field that sends workspace invites and lists the ones still pending.",
+    "category": "settings",
+    "related": [
+      "seat-manager",
+      "team-member-row",
+      "bulk-user-import",
+      "join-workspace"
+    ],
+    "guide": "Use it in team settings or onboarding. For managing existing members and seats use SeatManager or TeamMemberRow, for CSV uploads use BulkUserImport, and for the invitee's side use JoinWorkspace.\n\nWorks uncontrolled out of the box; pass `pending` and handle `onInvite` to keep the list in your own state.",
+    "examples": [
+      "<InviteMembers pending={invites} onInvite={(email) => api.invite(email)} />"
+    ]
   },
   {
     "name": "invoice-detail",
@@ -2686,7 +4685,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "status-badge"
     ],
     "galleries": [],
-    "description": "One invoice as a card: number, date and status on top, line items below, total at the foot."
+    "description": "One invoice as a card: number, dates and status on top, line items below, total at the foot.",
+    "category": "billing",
+    "related": [
+      "invoice-list",
+      "receipt",
+      "order-summary",
+      "checkout-summary"
+    ],
+    "guide": "Use it on an invoice page or in a side panel. For many invoices use InvoiceList, for a payment confirmation use Receipt, and for a cart before payment use OrderSummary or CheckoutSummary. Amounts are preformatted strings so you control currency and locale.",
+    "examples": [
+      "<InvoiceDetail id=\"INV-2041\" status=\"paid\" amount=\"$1,246.00\" lines={[{ label: \"Growth plan\", amount: \"$1,246.00\" }]} />"
+    ]
   },
   {
     "name": "invoice-list",
@@ -2703,7 +4713,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "billing"
     ],
     "description": "A compact list of invoices: number and date on the left, amount and status badge on the right.",
-    "usage": "<InvoiceList className=\"w-full max-w-md\" items={[\n  { id: \"INV-104\", date: \"Sep 1, 2026\", amount: \"$29.00\", status: \"paid\" },\n  { id: \"INV-105\", date: \"Oct 1, 2026\", amount: \"$29.00\", status: \"open\" },\n]} />"
+    "usage": "<InvoiceList className=\"w-full max-w-md\" items={[\n  { id: \"INV-104\", date: \"Sep 1, 2026\", amount: \"$29.00\", status: \"paid\" },\n  { id: \"INV-105\", date: \"Oct 1, 2026\", amount: \"$29.00\", status: \"open\" },\n]} />",
+    "category": "billing",
+    "related": [
+      "invoice-detail",
+      "data-table",
+      "billing-page"
+    ],
+    "guide": "Use it for a billing history or a customer's recent invoices. For one invoice with line items use InvoiceDetail; for sorting, filtering and selection use DataTable.",
+    "examples": [
+      "<InvoiceList items={[{ id: \"INV-2041\", date: \"Sep 24, 2026\", amount: \"$12,400.00\", status: \"open\" }]} />"
+    ]
   },
   {
     "name": "ip-allowlist",
@@ -2723,7 +4743,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "admin"
     ],
-    "usage": "<IpAllowlist />"
+    "description": "An editable list of IP addresses and CIDR ranges allowed to reach an account or API key.",
+    "usage": "<IpAllowlist />",
+    "category": "settings",
+    "related": [
+      "tags-input",
+      "api-key-list",
+      "admin-console"
+    ],
+    "guide": "Type an IPv4 or IPv6 address, optionally with a /prefix, and press Enter or Add; bad and duplicate entries are rejected with a message. Use it in security settings. For free-form tags use TagsInput; for API keys use ApiKeyList. Always validate again on the server.",
+    "examples": [
+      "<IpAllowlist value={ips} onChange={setIps} />"
+    ]
   },
   {
     "name": "issue-card",
@@ -2736,7 +4767,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A tracker issue as a card: key, status and priority badges, title and a meta line.",
+    "category": "workflow",
+    "related": [
+      "issue-key",
+      "kanban-board",
+      "kanban-column"
+    ],
+    "guide": "Use it in kanban columns, search results and linked-issue lists. For just the key use IssueKey, and for a full board use KanbanBoard.",
+    "examples": [
+      "<IssueCard id=\"LUM-412\" title=\"Add VAT reverse charge\" status=\"In review\" priority=\"Urgent\" meta=\"Priya Raman · updated 2h ago\" />"
+    ]
   },
   {
     "name": "issue-key",
@@ -2750,7 +4792,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
-    "usage": "<IssueKey value=\"MD-88\" href=\"#\" />"
+    "description": "A monospace tracker key such as LUM-412, as text or as a link to the issue.",
+    "usage": "<IssueKey value=\"MD-88\" href=\"#\" />",
+    "category": "workflow",
+    "related": [
+      "issue-card",
+      "copy-id",
+      "workflow-board"
+    ],
+    "guide": "Use it in commit rows, comments and tables wherever an issue is referenced. For the whole issue use IssueCard; for copyable IDs use CopyId.",
+    "examples": [
+      "<IssueKey value=\"LUM-412\" href=\"/issues/LUM-412\" />"
+    ]
   },
   {
     "name": "join-workspace",
@@ -2764,7 +4817,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A card where an invited user enters an invite code to join a team workspace.",
+    "category": "auth",
+    "related": [
+      "workspace-create",
+      "invite-members",
+      "org-switcher"
+    ],
+    "guide": "Use it on an onboarding or \"join your team\" screen. For creating a new workspace use WorkspaceCreate, for the admin's side use InviteMembers, and for switching between workspaces use OrgSwitcher.",
+    "examples": [
+      "<JoinWorkspace onJoin={async (code) => { await api.join(code) }} />"
+    ]
   },
   {
     "name": "json-viewer",
@@ -2780,8 +4844,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "system"
     ],
-    "description": "A collapsible JSON tree with syntax colours, item counts, copy value and copy path on hover, search highlighting and full keyboard navigation.",
-    "usage": "<JsonViewer value={{ name: \"minidev-ui\", items: 300 }} />"
+    "description": "A collapsible JSON tree with syntax colours, item counts, copy value and copy path, search highlighting and full keyboard navigation.",
+    "usage": "<JsonViewer value={{ name: \"minidev-ui\", items: 300 }} />",
+    "category": "developer-tools",
+    "related": [
+      "code-block",
+      "sql-result-table",
+      "file-tree",
+      "tool-result-panel"
+    ],
+    "guide": "Use it for API responses, webhook payloads, tool-call results and debug panels. For JSON as plain highlighted text use CodeBlock, for tabular results use SqlResultTable, and for a file hierarchy use FileTree. Keyboard: arrows walk and fold the tree, Home and End jump, Enter toggles, C copies the focused value and P copies its path.",
+    "examples": [
+      "<JsonViewer value={response} title=\"GET /v1/invoices/inv_8f3a2c\" defaultExpandDepth={1} />"
+    ]
   },
   {
     "name": "kanban-board",
@@ -2796,7 +4871,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "feeds"
     ],
     "description": "Columns of cards in a horizontally scrolling board, each column headed by its title and card count.",
-    "usage": "<KanbanBoard columns={[\n  { id: \"todo\", title: \"Todo\", cards: [{ id: \"a\", title: \"Multi-select polish\", meta: \"Batch A\" }] },\n  { id: \"doing\", title: \"Doing\", cards: [{ id: \"b\", title: \"Data table\", meta: \"Batch B\" }] },\n  { id: \"done\", title: \"Done\", cards: [{ id: \"c\", title: \"Dropdown fix\", meta: \"Shipped\" }] },\n]} />"
+    "usage": "<KanbanBoard columns={[\n  { id: \"todo\", title: \"Todo\", cards: [{ id: \"a\", title: \"Multi-select polish\", meta: \"Batch A\" }] },\n  { id: \"doing\", title: \"Doing\", cards: [{ id: \"b\", title: \"Data table\", meta: \"Batch B\" }] },\n  { id: \"done\", title: \"Done\", cards: [{ id: \"c\", title: \"Dropdown fix\", meta: \"Shipped\" }] },\n]} />",
+    "category": "workflow",
+    "related": [
+      "kanban-column",
+      "issue-card",
+      "sortable-list"
+    ],
+    "guide": "Use it to show work by stage from plain data. It is read-only; to compose your own columns with custom cards use KanbanColumn and IssueCard, and for reordering within one list use SortableList.",
+    "examples": [
+      "<KanbanBoard columns={[{ id: \"todo\", title: \"To do\", cards: [{ id: \"1\", title: \"Export payouts\", meta: \"LUM-418\" }] }]} />"
+    ]
   },
   {
     "name": "kanban-column",
@@ -2809,7 +4894,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "One titled column of a board with an optional count badge; you supply the cards as children.",
+    "category": "workflow",
+    "related": [
+      "issue-card",
+      "kanban-board"
+    ],
+    "guide": "Use it to compose a custom board with your own cards (often IssueCard). For a board rendered from data in one call use KanbanBoard.",
+    "examples": [
+      "<KanbanColumn title=\"In review\" count={2}>\n  <IssueCard id=\"LUM-397\" title=\"Multi-currency totals\" />\n</KanbanColumn>"
+    ]
   },
   {
     "name": "kbd",
@@ -2823,8 +4918,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "primitives-extra"
     ],
-    "description": "A physical keycap: surface, hairline, 1px key edge.",
-    "usage": "<Kbd>⌘</Kbd>"
+    "description": "A physical keycap for a key name or symbol: surface, hairline and a 1px key edge.",
+    "usage": "<Kbd>⌘</Kbd>",
+    "category": "developer-tools",
+    "related": [
+      "keyboard-shortcuts",
+      "shortcut-cheat-sheet",
+      "badge"
+    ],
+    "guide": "Use it inline in text, menus and tooltips to show a shortcut; group a combo with KbdGroup. For a searchable list of every shortcut use KeyboardShortcuts or ShortcutCheatSheet.",
+    "examples": [
+      "<KbdGroup><Kbd>⌘</Kbd><Kbd>K</Kbd></KbdGroup>"
+    ]
   },
   {
     "name": "keyboard-shortcuts",
@@ -2843,7 +4948,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "kbd"
     ],
     "galleries": [],
-    "description": "A keyboard shortcuts cheat sheet in a dialog, opened with the ? key or a trigger button, with search and the right modifier glyphs for the viewer's platform."
+    "description": "A searchable shortcuts cheat sheet in a dialog, opened with the ? key or a trigger button, showing the right modifier glyphs for the viewer's platform.",
+    "category": "overlays",
+    "related": [
+      "shortcut-cheat-sheet",
+      "kbd"
+    ],
+    "guide": "Shortcuts are grouped, filtered as you type, and written once with portable names (mod, shift, alt, enter) that render as ⌘ ⇧ ⌥ ↵ on a Mac and Ctrl, Shift, Alt, Enter elsewhere; screen readers hear the key names. The platform is read after mount, so server and client markup match. For a static, always-visible list use ShortcutCheatSheet; for one key inline use Kbd.",
+    "examples": [
+      "<KeyboardShortcuts\n  groups={[{ title: \"Invoices\", shortcuts: [{ keys: [\"mod\", \"enter\"], label: \"Send invoice\" }, { keys: [\"N\"], label: \"New invoice\" }] }]}\n/>"
+    ]
   },
   {
     "name": "kpi-row",
@@ -2859,7 +4973,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "stats"
     ],
-    "usage": "<KpiRow className=\"w-full\" items={[\n  { label: \"MRR\", value: \"$48.2k\", delta: \"+12% vs last month\" },\n  { label: \"Active users\", value: \"12,480\", delta: \"+3.1%\" },\n  { label: \"Churn\", value: \"2.4%\", delta: \"-0.2%\" },\n  { label: \"NPS\", value: \"62\", delta: \"+4\" },\n]} />"
+    "description": "A responsive row of headline numbers, each with a label, a value and an optional change.",
+    "usage": "<KpiRow className=\"w-full\" items={[\n  { label: \"MRR\", value: \"$48.2k\", delta: \"+12% vs last month\" },\n  { label: \"Active users\", value: \"12,480\", delta: \"+3.1%\" },\n  { label: \"Churn\", value: \"2.4%\", delta: \"-0.2%\" },\n  { label: \"NPS\", value: \"62\", delta: \"+4\" },\n]} />",
+    "category": "dashboard",
+    "related": [
+      "stat-card",
+      "stat-sparkline",
+      "stats-strip",
+      "dashboard-home",
+      "metric-ticker-board"
+    ],
+    "guide": "Use it at the top of a dashboard for three to six metrics. For one metric with more detail use StatCard, for a metric with a trend line use StatSparkline, and for a slim inline band use StatsStrip.",
+    "examples": [
+      "<KpiRow items={[\n  { label: \"MRR\", value: \"$48k\", delta: 8 },\n  { label: \"Churn\", value: \"1.1%\", delta: -0.3, invert: true },\n]} />"
+    ]
   },
   {
     "name": "label",
@@ -2884,7 +5011,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "tags-input",
       "textarea"
     ],
-    "usage": "<Label htmlFor=\"c1\">Unchecked</Label>"
+    "description": "The caption for a form control; point htmlFor at the control's id so clicking it focuses the field.",
+    "usage": "<Label htmlFor=\"c1\">Unchecked</Label>",
+    "category": "forms",
+    "related": [
+      "input",
+      "textarea",
+      "checkbox",
+      "switch",
+      "form-field",
+      "combobox",
+      "currency-input",
+      "date-picker"
+    ],
+    "guide": "Use it beside Input, Textarea, Checkbox, Switch and friends. It dims when a sibling `peer` control is disabled or a `group` ancestor has data-disabled=\"true\". For a label with description and error text wired up for you use FormField.",
+    "examples": [
+      "<Label htmlFor=\"email\">Email</Label>\n<Input id=\"email\" type=\"email\" />"
+    ]
   },
   {
     "name": "language-picker",
@@ -2895,7 +5038,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/language-picker",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A grid of language choices where exactly one is selected, each written in its own language.",
+    "category": "settings",
+    "related": [
+      "select",
+      "combobox",
+      "region-picker"
+    ],
+    "guide": "Works as a radio group: Tab enters at the selected language, arrow keys move and select, Home and End jump to the ends. Use it in settings or onboarding for a handful of languages. For long lists use Select or Combobox; for regions use RegionPicker.",
+    "examples": [
+      "<LanguagePicker value={lang} onChange={setLang} options={[{ id: \"en\", label: \"English\" }, { id: \"fr\", label: \"Français\" }]} />"
+    ]
   },
   {
     "name": "latency-badge",
@@ -2909,7 +5063,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "system"
     ],
-    "usage": "<LatencyBadge ms={48} />"
+    "description": "A small monospace badge for a response time, coloured fast, slow or very slow.",
+    "usage": "<LatencyBadge ms={48} />",
+    "category": "developer-tools",
+    "related": [
+      "stat-sparkline",
+      "trace-waterfall"
+    ],
+    "guide": "Under `fast` ms is success, under `slow` ms is warning, anything above is danger. Use it in endpoint lists, traces and status tables. For a trend over time use StatSparkline, and for a waterfall of spans use TraceWaterfall.",
+    "examples": [
+      "<LatencyBadge ms={182} />\n<LatencyBadge ms={950} thresholds={{ fast: 300, slow: 1000 }} />"
+    ]
   },
   {
     "name": "light-provider",
@@ -2918,12 +5082,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/light-provider.tsx",
     "import": "@/registry/ui/light-provider",
-    "deps": [
-      "motion"
-    ],
+    "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "The page's single light source: it follows the pointer, drifts when idle, and every shadow and sheen in the kit falls away from it."
+    "description": "The page's single light source: it follows the pointer, drifts when idle, and every shadow and sheen in the kit falls away from it.",
+    "category": "animation",
+    "guide": "Optional: without it shadows fall from a fixed light. Render it once near the root (it renders nothing and only touches `document` in an effect, so it is SSR safe). Pick a material with MaterialSwitcher or by setting data-material on <html> or any subtree.",
+    "examples": [
+      "// app/layout.tsx\n<body>\n  <LightProvider />\n  {children}\n</body>"
+    ]
   },
   {
     "name": "line-chart",
@@ -2939,8 +5106,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "charts"
     ],
-    "description": "Multiple smooth series on a hairline grid, with end-point dots.",
-    "usage": "<LineChart series={[[10,14,12,20,18,26],[8,9,15,14,21,19]]} />"
+    "description": "Several smooth series on a hairline grid, each in a chart colour with a dot at its latest value.",
+    "usage": "<LineChart series={[[10,14,12,20,18,26],[8,9,15,14,21,19]]} />",
+    "category": "charts",
+    "related": [
+      "interactive-area-chart",
+      "area-chart",
+      "stat-sparkline",
+      "chart-legend",
+      "chart-card"
+    ],
+    "guide": "Use it to compare a few series over the same periods (MRR, expansion, churn). For one series with scrubbing use InteractiveAreaChart, for a filled single series use AreaChart, and for a tiny trend use StatSparkline. Add a ChartLegend to name the series visually; `seriesLabels` names them for screen readers.",
+    "examples": [
+      "<LineChart label=\"MRR by month\" seriesLabels={[\"Total\", \"Expansion\"]} series={[[12, 14, 17, 19], [4, 5, 6, 8]]} />"
+    ]
   },
   {
     "name": "link-preview",
@@ -2953,7 +5132,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "aspect-ratio"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An unfurled link card: optional image, title, two-line description and the URL, opening in a new tab.",
+    "category": "media",
+    "related": [
+      "hover-card",
+      "source-card",
+      "citation-chip"
+    ],
+    "guide": "Use it for shared links in chat, comments and notes. For a preview that appears on hover over an inline link use HoverCard, and for a cited source in an AI answer use SourceCard or CitationChip.",
+    "examples": [
+      "<LinkPreview url=\"https://lumen.app/changelog\" title=\"Lumen changelog\" description=\"Scheduled payouts and reminders.\" image=\"/og.png\" />"
+    ]
   },
   {
     "name": "link",
@@ -2964,7 +5154,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/link",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "An inline text link in the accent text colour, underlined on hover, with a visible focus ring.",
+    "category": "navigation",
+    "related": [
+      "button",
+      "back-link"
+    ],
+    "guide": "Use it for navigation in running text and help copy. For an action styled as a link use Button with variant=\"link\"; for a link that looks like a button use Button with render={<a href=\"…\" />}; for \"back\" navigation use BackLink. With target=\"_blank\" it adds rel=\"noopener noreferrer\" unless you pass rel. It renders a plain <a>; for client-side routing use your router's link with the same classes.",
+    "examples": [
+      "<Link href=\"/docs/billing\">Billing docs</Link>"
+    ]
   },
   {
     "name": "list-item",
@@ -2975,7 +5175,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/list-item",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "One row of a list: optional leading visual, a heading with an optional description, and optional trailing content.",
+    "category": "layout",
+    "related": [
+      "notification-item",
+      "team-member-row",
+      "file-row"
+    ],
+    "guide": "Use it inside a bordered list or card for settings rows, people, files and search results. It renders a div; put it in an li when the parent is a ul. For a notification use NotificationItem, for a team member with a role use TeamMemberRow, and for a file use FileRow.",
+    "examples": [
+      "<ListItem leading={<Avatar>…</Avatar>} heading=\"Maya Chen\" description=\"Finance lead\" trailing={<Badge>Owner</Badge>} />"
+    ]
   },
   {
     "name": "live-cursors-bar",
@@ -2991,7 +5202,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<LiveCursorsBar />"
+    "description": "Overlapping initials of the people editing right now, each ringed in their cursor colour, with a count.",
+    "usage": "<LiveCursorsBar />",
+    "category": "workflow",
+    "related": [
+      "avatar-group",
+      "presence-dot",
+      "typing-indicator"
+    ],
+    "guide": "Use it in the header of a collaborative document or canvas. For a static stack of members use AvatarGroup, for one person's online state use PresenceDot, and for \"typing…\" use TypingIndicator.",
+    "examples": [
+      "<LiveCursorsBar people={[{ name: \"Maya Chen\", color: \"var(--chart-1)\" }, { name: \"Theo Okafor\", color: \"var(--chart-2)\" }]} />"
+    ]
   },
   {
     "name": "loading-overlay",
@@ -3005,7 +5227,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "spinner"
     ],
     "galleries": [],
-    "usage": "<LoadingOverlay label=\"Saving\" />"
+    "description": "A translucent layer with a spinner and label that covers its positioned parent while it refreshes.",
+    "usage": "<LoadingOverlay label=\"Saving\" />",
+    "category": "feedback",
+    "related": [
+      "skeleton",
+      "loading-table",
+      "spinner"
+    ],
+    "guide": "Put it inside a relative container (a card, a table) while data reloads, so the stale content stays visible underneath. For a first load with no content yet use Skeleton or LoadingTable; for an inline wait use Spinner.",
+    "examples": [
+      "<div className=\"relative\">\n  <InvoiceList items={items} />\n  {isFetching ? <LoadingOverlay label=\"Refreshing\" /> : null}\n</div>"
+    ]
   },
   {
     "name": "loading-table",
@@ -3021,7 +5254,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-table"
     ],
-    "usage": "<LoadingTable className=\"max-w-md\" rows={4} cols={3} />"
+    "description": "A skeleton table (header plus rows of shimmering cells) shown while table data loads for the first time.",
+    "usage": "<LoadingTable className=\"max-w-md\" rows={4} cols={3} />",
+    "category": "data-tables",
+    "related": [
+      "empty-table",
+      "loading-overlay",
+      "skeleton"
+    ],
+    "guide": "Match rows and cols to the real table to avoid layout shift. For an empty result use EmptyTable, for refreshing a table that already has data use LoadingOverlay, and for any other shape use Skeleton.",
+    "examples": [
+      "{isLoading ? <LoadingTable rows={8} cols={5} /> : <DataTable … />}"
+    ]
   },
   {
     "name": "logo-cloud",
@@ -3035,7 +5279,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A wrapping, centred row of customer names and marks for social proof."
+    "description": "A wrapping, centred row of customer names and marks for social proof.",
+    "category": "marketing",
+    "related": [
+      "testimonial",
+      "press-quote",
+      "marquee",
+      "social-proof",
+      "social-proof-wall",
+      "logo-wall-motion"
+    ],
+    "guide": "Use it under a hero or above pricing. Only list real customers you have permission to name. For quotes use Testimonial or PressQuote, and for a scrolling strip wrap it in Marquee.",
+    "examples": [
+      "<LogoCloud label=\"Customers\" logos={[{ name: \"Northwind\", mark: <NorthwindMark /> }, { name: \"Globex\" }]} />"
+    ]
   },
   {
     "name": "magic-link-form",
@@ -3051,7 +5308,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "form-field",
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A passwordless sign-in card: one email field that sends a sign-in link, then confirms where it went.",
+    "category": "auth",
+    "related": [
+      "sign-up-form",
+      "auth-card",
+      "social-auth-row",
+      "otp-input",
+      "forgot-password-form"
+    ],
+    "guide": "Use it as the whole sign-in step for passwordless apps. For email and password use SignUpForm or AuthCard with your own fields, for OAuth buttons use SocialAuthRow, and for entering a one-time code use OtpInput.",
+    "examples": [
+      "<MagicLinkForm onSend={async (email) => { await auth.sendMagicLink(email) }} />"
+    ]
   },
   {
     "name": "markdown-editor",
@@ -3067,7 +5337,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "segmented-control"
     ],
     "galleries": [],
-    "description": "A markdown editor with a toolbar that wraps the selection, Cmd/Ctrl+B and I shortcuts, write, split and preview modes, a live preview rendered without innerHTML, and a word count."
+    "description": "A markdown textarea with a formatting toolbar, Cmd/Ctrl+B, I, E and K shortcuts, write, split and preview modes, a live preview rendered without innerHTML, and a word count.",
+    "category": "forms",
+    "related": [
+      "markdown-renderer",
+      "rich-text-toolbar",
+      "prompt-input",
+      "textarea"
+    ],
+    "guide": "Use it for release notes, comments, descriptions and docs fields. For rendering markdown only use MarkdownRenderer (or the exported MarkdownPreview), for rich text without markdown syntax use RichTextToolbar, and for chat input use PromptInput. Works controlled (value + onChange) or uncontrolled (defaultValue).",
+    "examples": [
+      "<MarkdownEditor value={notes} onChange={setNotes} label=\"Release notes\" defaultMode=\"write\" />"
+    ]
   },
   {
     "name": "markdown-renderer",
@@ -3079,7 +5360,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "Paragraphs and fenced code blocks from a markdown string, with no parser dependency."
+    "description": "Paragraphs and fenced code blocks from a markdown string, with no parser dependency.",
+    "category": "ai-chat",
+    "related": [
+      "code-block",
+      "markdown-editor",
+      "message-bubble"
+    ],
+    "guide": "Use it for short, trusted text such as AI replies, changelog notes or webhook docs where pulling in a full markdown parser is overkill. It never renders HTML, so the content is safe to show as is. For rich markdown (lists, links, tables) bring a real parser; for a single code sample use CodeBlock.",
+    "examples": [
+      "<MarkdownRenderer content={\"Install it:\\n\\n```bash\\nnpx shadcn add button\\n```\"} />"
+    ]
   },
   {
     "name": "marquee",
@@ -3090,7 +5381,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/marquee",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A strip that scrolls its children sideways in a seamless loop.",
+    "category": "animation",
+    "related": [
+      "logo-cloud",
+      "carousel",
+      "typographic-marquee"
+    ],
+    "guide": "Use it for logo strips, release notes or \"trusted by\" rows. It pauses on hover and while anything inside has keyboard focus (WCAG 2.2.2), stops under prefers-reduced-motion, and the duplicate copy is hidden from screen readers. For a static row of logos use LogoCloud.",
+    "examples": [
+      "<Marquee duration={40}>\n  <span>Changelog 0.6</span>\n  <span>Base UI 1.8</span>\n</Marquee>"
+    ]
   },
   {
     "name": "masked-input",
@@ -3106,7 +5408,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "input"
     ],
     "galleries": [],
-    "description": "Formats a value with a mask, e.g. applyMask(\"(999) 999-9999\", \"5550102030\") gives \"(555) 010-2030\"."
+    "description": "A text field that formats as you type from a mask such as \"(999) 999-9999\".",
+    "category": "forms",
+    "related": [
+      "phone-input",
+      "otp-input",
+      "floating-label-input"
+    ],
+    "guide": "Mask tokens: \"9\" digit, \"A\" letter, \"*\" letter or digit, \"\\\\\" escapes a token; anything else is a literal. The caret stays where you expect on insert, delete and paste, pasted text is refitted to the mask, and an optional guide shows the characters still to come. onChange returns the masked string, the raw characters and whether the mask is full. Use it for fixed-shape values (dates, plates, IBANs). For phone numbers with no fixed shape use PhoneInput; for one-time codes use OtpInput. Pass `mask` for a single field; without it the component renders `examples`.",
+    "examples": [
+      "<MaskedInput\n  label=\"Phone\"\n  mask=\"(999) 999-9999\"\n  onChange={({ raw, complete }) => complete && save(raw)}\n/>"
+    ]
   },
   {
     "name": "masonry-grid",
@@ -3118,7 +5430,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "A masonry layout that keeps source order: a CSS grid with tiny rows where"
+    "description": "A masonry layout that keeps source order, for cards of uneven height.",
+    "category": "layout",
+    "related": [
+      "image-gallery"
+    ],
+    "guide": "A CSS grid with tiny rows where each item spans as many rows as its measured height. Items flow left to right, so keyboard and screen reader order match what you see, and the column count follows the container width. Use it for galleries, notes and testimonials; for equal-height cards use a plain grid. Each child is measured, so pass one element per item (no fragments).",
+    "examples": [
+      "<MasonryGrid minColumnWidth={220} gap={16}>\n  {posts.map((p) => <PostCard key={p.id} post={p} />)}\n</MasonryGrid>"
+    ]
   },
   {
     "name": "mention-input",
@@ -3134,7 +5454,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<MentionInput value={mention} onChange={setMention} suggestions={[\"aman\", \"mina\", \"lux\"]} />"
+    "description": "A comment box that suggests people when you type \"@\" and inserts the handle you pick.",
+    "usage": "<MentionInput value={mention} onChange={setMention} suggestions={[\"aman\", \"mina\", \"lux\"]} />",
+    "category": "forms",
+    "related": [
+      "tags-input",
+      "comment-composer"
+    ],
+    "guide": "The suggestion list follows the caret, so mentions work mid-sentence, not only at the end. Keyboard: ArrowUp/ArrowDown move, Enter or Tab inserts, Escape closes; the textarea keeps focus and announces the active option through aria-activedescendant. Controlled or uncontrolled. Use TagsInput for a list of chips instead of free text.",
+    "examples": [
+      "const [text, setText] = React.useState(\"\")\n<label htmlFor=\"reply\">Reply</label>\n<MentionInput id=\"reply\" value={text} onChange={setText} suggestions={[\"maya\", \"theo\", \"priya\"]} />"
+    ]
   },
   {
     "name": "menubar",
@@ -3150,7 +5480,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "navigation"
     ],
-    "usage": "<Menubar>\n  <MenubarMenu>\n    <MenubarTrigger>File</MenubarTrigger>\n    <MenubarContent>\n      <MenubarItem>New…</MenubarItem>\n      <MenubarItem>Open…</MenubarItem>\n      <MenubarItem>Save</MenubarItem>\n    </MenubarContent>\n  </MenubarMenu>\n  <MenubarMenu>\n    <MenubarTrigger>Edit</MenubarTrigger>\n    <MenubarContent>\n      <MenubarItem>Undo</MenubarItem>\n      <MenubarItem>Redo</MenubarItem>\n    </MenubarContent>\n  </MenubarMenu>\n</Menubar>"
+    "description": "A desktop-style row of menus (File, Edit, View) built on Base UI Menubar.",
+    "usage": "<Menubar>\n  <MenubarMenu>\n    <MenubarTrigger>File</MenubarTrigger>\n    <MenubarContent>\n      <MenubarItem>New…</MenubarItem>\n      <MenubarItem>Open…</MenubarItem>\n      <MenubarItem>Save</MenubarItem>\n    </MenubarContent>\n  </MenubarMenu>\n  <MenubarMenu>\n    <MenubarTrigger>Edit</MenubarTrigger>\n    <MenubarContent>\n      <MenubarItem>Undo</MenubarItem>\n      <MenubarItem>Redo</MenubarItem>\n    </MenubarContent>\n  </MenubarMenu>\n</Menubar>",
+    "category": "navigation",
+    "related": [
+      "dropdown-menu",
+      "navigation-menu"
+    ],
+    "guide": "Arrow keys move between menus and through items, typing jumps to an item, Escape closes and returns focus to the trigger. Use it for app chrome in editors and dashboards; for a single menu behind a button use DropdownMenu, for site navigation use NavigationMenu.",
+    "examples": [
+      "<Menubar>\n  <MenubarMenu>\n    <MenubarTrigger>File</MenubarTrigger>\n    <MenubarContent>\n      <MenubarItem onClick={newFile}>New file <MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>\n      <MenubarSeparator />\n      <MenubarItem variant=\"destructive\">Delete</MenubarItem>\n    </MenubarContent>\n  </MenubarMenu>\n</Menubar>"
+    ]
   },
   {
     "name": "merge-box",
@@ -3164,7 +5504,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "callout"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "The merge panel at the foot of a pull request: check status plus the merge button.",
+    "category": "developer-tools",
+    "related": [
+      "callout",
+      "engineering-console"
+    ],
+    "guide": "When `canMerge` is false the callout turns to a warning and the button is disabled. Use it in code review and deploy UIs; for a generic status message use Callout.",
+    "examples": [
+      "<MergeBox canMerge={checks.every((c) => c.ok)} onMerge={merge} />"
+    ]
   },
   {
     "name": "message-actions",
@@ -3182,7 +5532,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai-studio"
     ],
-    "usage": "<MessageActions />"
+    "description": "The copy, retry, thumbs up and thumbs down row under an AI reply.",
+    "usage": "<MessageActions />",
+    "category": "ai-chat",
+    "related": [
+      "message-bubble",
+      "feedback-thumbs"
+    ],
+    "guide": "Pass `feedback` to show which thumb is on; the buttons expose it as aria-pressed. Place it under a MessageBubble with role=\"assistant\".",
+    "examples": [
+      "<MessageActions\n  onCopy={() => navigator.clipboard.writeText(reply)}\n  onRetry={regenerate}\n  feedback={vote}\n  onGood={() => setVote(\"good\")}\n  onBad={() => setVote(\"bad\")}\n/>"
+    ]
   },
   {
     "name": "message-bubble",
@@ -3196,7 +5556,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "streaming-cursor"
     ],
     "galleries": [],
-    "description": "User turns sit in a sunken capsule; assistant turns are"
+    "description": "One chat turn: user turns sit in a sunken capsule, assistant turns are plain prose, system turns are a quiet rule.",
+    "category": "ai-chat",
+    "related": [
+      "message-actions",
+      "markdown-renderer"
+    ],
+    "guide": "Use it for AI chat transcripts. Set `streaming` while tokens arrive to show a blinking cursor and mark the turn aria-busy. Put MessageActions under assistant turns; render markdown inside with MarkdownRenderer.",
+    "examples": [
+      "<MessageBubble role=\"user\">Summarise invoice INV-2041</MessageBubble>\n<MessageBubble role=\"assistant\" streaming={isStreaming}>{reply}</MessageBubble>"
+    ]
   },
   {
     "name": "meter",
@@ -3207,7 +5576,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/meter",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A labelled bar showing how much of a known range is used (storage, quota, seats).",
+    "category": "feedback",
+    "related": [
+      "progress",
+      "donut-chart",
+      "gauge-chart",
+      "goal-ring",
+      "usage-meter"
+    ],
+    "guide": "Exposes role=\"meter\" with the value and a percentage text. Use Meter for a level that can go up and down; use Progress for a task moving toward done.",
+    "examples": [
+      "<Meter label=\"Storage\" value={42} max={50} valueText=\"42 of 50 GB\" showValue />"
+    ]
   },
   {
     "name": "metric-delta",
@@ -3223,7 +5605,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-extra"
     ],
-    "usage": "<MetricDelta value={12.4} />"
+    "description": "A small arrow and percentage showing how a metric moved, green for good and red for bad.",
+    "usage": "<MetricDelta value={12.4} />",
+    "category": "dashboard",
+    "related": [
+      "stat-card"
+    ],
+    "guide": "Positive values point up, negative point down, zero is neutral with no arrow. Set `invert` for metrics where down is good (latency, churn, cost). Screen readers hear \"Up 12%\" or \"Down 3%\". Use it inside StatCard or a KPI row.",
+    "examples": [
+      "<MetricDelta value={12.4} />\n<MetricDelta value={-8} invert />  // latency fell: shown green"
+    ]
   },
   {
     "name": "mobile-action-sheet",
@@ -3232,12 +5623,24 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/mobile-action-sheet.tsx",
     "import": "@/registry/ui/mobile-action-sheet",
-    "deps": [],
+    "deps": [
+      "@base-ui/react"
+    ],
     "registryDeps": [
       "button"
     ],
     "galleries": [],
-    "description": "A bottom sheet of full-width actions with a cancel row, for phone-sized screens."
+    "description": "An iOS-style sheet of full-width actions with a separate Cancel row, for phone-sized screens.",
+    "category": "overlays",
+    "related": [
+      "dialog",
+      "drawer",
+      "dropdown-menu"
+    ],
+    "guide": "Built on Base UI Dialog: focus moves into the sheet and is trapped there, the page is scroll-locked and inert, Escape or a tap on the scrim cancels, and focus returns to the trigger. Use it for a short list of verbs on one object; for forms or longer content use Drawer, for desktop menus use DropdownMenu.",
+    "examples": [
+      "const [open, setOpen] = React.useState(false)\n<Button onClick={() => setOpen(true)}>Invoice actions</Button>\n<MobileActionSheet\n  open={open}\n  onClose={() => setOpen(false)}\n  title=\"Invoice INV-2041\"\n  actions={[\n    { id: \"send\", label: \"Send reminder\", onSelect: send },\n    { id: \"void\", label: \"Void invoice\", destructive: true, onSelect: voidInvoice },\n  ]}\n/>"
+    ]
   },
   {
     "name": "mobile-nav-drawer",
@@ -3250,9 +5653,24 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [
-      "button"
+      "button",
+      "sheet"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A hamburger button that opens site navigation in a panel from the right edge.",
+    "category": "navigation",
+    "related": [
+      "sheet",
+      "dialog",
+      "nav-marketing",
+      "navigation-menu",
+      "collapsible-sidebar",
+      "sidebar"
+    ],
+    "guide": "Built on Sheet (Base UI Dialog), so focus is trapped, Escape and the scrim close it, the page is scroll-locked and focus returns to the hamburger. Links close the drawer when followed. Show it below your desktop breakpoint (e.g. className=\"md:hidden\") next to NavMarketing or a NavigationMenu.",
+    "examples": [
+      "<MobileNavDrawer\n  className=\"md:hidden\"\n  brand=\"Lumen\"\n  links={[{ href: \"/pricing\", label: \"Pricing\" }, { href: \"/docs\", label: \"Docs\" }]}\n/>"
+    ]
   },
   {
     "name": "model-compare",
@@ -3269,7 +5687,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "ai-studio"
     ],
     "description": "A compact table of AI models by latency, cost and quality, with latency colour coded.",
-    "usage": "<ModelCompare rows={[\n  { name: \"Fast\", latencyMs: 420, cost: \"$0.002\", quality: \"Good\" },\n  { name: \"Pro\", latencyMs: 980, cost: \"$0.01\", quality: \"Great\" },\n  { name: \"Max\", latencyMs: 1800, cost: \"$0.04\", quality: \"Best\" },\n]} />"
+    "usage": "<ModelCompare rows={[\n  { name: \"Fast\", latencyMs: 420, cost: \"$0.002\", quality: \"Good\" },\n  { name: \"Pro\", latencyMs: 980, cost: \"$0.01\", quality: \"Great\" },\n  { name: \"Max\", latencyMs: 1800, cost: \"$0.04\", quality: \"Best\" },\n]} />",
+    "category": "ai-chat",
+    "related": [
+      "model-picker",
+      "comparison-table"
+    ],
+    "guide": "Exposes table semantics (role=\"table\", rows, column headers) so screen readers can move by cell. Use it on model settings or pricing pages; to choose one model use ModelPicker.",
+    "examples": [
+      "<ModelCompare rows={[{ name: \"Mini\", latencyMs: 84, cost: \"$0.15 / 1M\", quality: \"Good\" }]} />"
+    ]
   },
   {
     "name": "model-picker",
@@ -3286,7 +5713,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "ai"
     ],
     "description": "A select for choosing an AI model, controlled or uncontrolled.",
-    "usage": "<ModelPicker\n  models={[\n    { id: \"gpt\", label: \"GPT\" },\n    { id: \"sonnet\", label: \"Sonnet\" },\n    { id: \"opus\", label: \"Opus\" },\n  ]}\n  value=\"sonnet\"\n/>"
+    "usage": "<ModelPicker\n  models={[\n    { id: \"gpt\", label: \"GPT\" },\n    { id: \"sonnet\", label: \"Sonnet\" },\n    { id: \"opus\", label: \"Opus\" },\n  ]}\n  value=\"sonnet\"\n/>",
+    "category": "ai-chat",
+    "related": [
+      "select",
+      "model-compare"
+    ],
+    "guide": "Built on the kit's Select (Base UI): full keyboard support, typeahead and a labelled trigger. Use it in chat composers and AI settings; to compare models side by side use ModelCompare.",
+    "examples": [
+      "const [model, setModel] = React.useState(\"lumen-pro\")\n<ModelPicker value={model} onChange={setModel} models={[{ id: \"lumen-pro\", label: \"Lumen Pro\" }]} />"
+    ]
   },
   {
     "name": "morph-panel",
@@ -3301,7 +5737,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Panel width in px."
+    "description": "A button that stretches into the panel it opens on a spring, with a built-in feedback form.",
+    "category": "animation",
+    "related": [
+      "popover",
+      "dialog"
+    ],
+    "guide": "One surface grows from a pill into a panel, its corners easing from 10 to 16px, while the label blurs out and the content blurs in. No popover, no jump. Escape and an outside click close it and focus returns to the trigger; with reduced motion it swaps instantly. Default content is a feedback form with a sent state; pass a render function as `children` for your own panel. For a plain anchored panel use Popover; for a modal use Dialog.",
+    "examples": [
+      "<MorphPanel label=\"Feedback\" onSubmit={(text) => api.feedback(text)} />\n<MorphPanel label=\"New note\" width={300}>{({ close }) => <NoteForm onDone={close} />}</MorphPanel>"
+    ]
   },
   {
     "name": "multi-select",
@@ -3320,7 +5765,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "combobox"
     ],
     "description": "A popover list with check marks and removable chips for the chosen items.",
-    "usage": "<MultiSelect items={items} value={m} onChange={setM} />"
+    "usage": "<MultiSelect items={items} value={m} onChange={setM} />",
+    "category": "forms",
+    "related": [
+      "combobox",
+      "tags-input",
+      "facet-filter",
+      "filter-bar"
+    ],
+    "guide": "Each option is a toggle button (aria-pressed), so Tab and Space/Enter work without a custom keyboard model; chips under the trigger remove an item in one click and are labelled \"Remove <name>\". Use it for 2 to ~20 options; for long or searchable lists use Combobox, for free-form entry use TagsInput.",
+    "examples": [
+      "const [reviewers, setReviewers] = React.useState<string[]>([])\n<MultiSelect\n  aria-label=\"Reviewers\"\n  items={[{ value: \"maya\", label: \"Maya Chen\" }, { value: \"theo\", label: \"Theo Okafor\" }]}\n  value={reviewers}\n  onChange={setReviewers}\n/>"
+    ]
   },
   {
     "name": "nav-marketing",
@@ -3337,7 +5793,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing-sections"
     ],
-    "usage": "<NavMarketing />"
+    "description": "A sticky top bar for marketing sites: brand, a few links and sign-in / get-started buttons.",
+    "usage": "<NavMarketing />",
+    "category": "marketing",
+    "related": [
+      "mobile-nav-drawer",
+      "navigation-menu",
+      "sidebar",
+      "topbar"
+    ],
+    "guide": "The links hide below the md breakpoint; pair it with MobileNavDrawer there. Pass `actions` to replace the default buttons. For app navigation with dropdown panels use NavigationMenu; for an app sidebar use Sidebar.",
+    "examples": [
+      "<NavMarketing\n  brand=\"Lumen\"\n  links={[{ label: \"Pricing\", href: \"/pricing\" }, { label: \"Docs\", href: \"/docs\" }]}\n  actions={<Button size=\"sm\" render={<a href=\"/signup\" />}>Start free</Button>}\n/>"
+    ]
   },
   {
     "name": "navigation-menu",
@@ -3353,7 +5821,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "navigation"
     ],
-    "usage": "<NavigationMenu>\n  <NavigationMenuList>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>Product</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <div className=\"grid w-80 gap-1 p-2\">\n          <NavigationMenuLink href=\"#\">AI chat</NavigationMenuLink>\n          <NavigationMenuLink href=\"#\">Billing</NavigationMenuLink>\n          <NavigationMenuLink href=\"#\">Admin</NavigationMenuLink>\n        </div>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>Resources</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <div className=\"grid w-64 gap-1 p-2\">\n          <NavigationMenuLink href=\"#\">Docs</NavigationMenuLink>\n          <NavigationMenuLink href=\"#\">Gallery</NavigationMenuLink>\n        </div>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n  <NavigationMenuViewport />\n</NavigationMenu>"
+    "description": "A site navigation bar whose items open rich dropdown panels, built on Base UI NavigationMenu.",
+    "usage": "<NavigationMenu>\n  <NavigationMenuList>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>Product</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <div className=\"grid w-80 gap-1 p-2\">\n          <NavigationMenuLink href=\"#\">AI chat</NavigationMenuLink>\n          <NavigationMenuLink href=\"#\">Billing</NavigationMenuLink>\n          <NavigationMenuLink href=\"#\">Admin</NavigationMenuLink>\n        </div>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>Resources</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <div className=\"grid w-64 gap-1 p-2\">\n          <NavigationMenuLink href=\"#\">Docs</NavigationMenuLink>\n          <NavigationMenuLink href=\"#\">Gallery</NavigationMenuLink>\n        </div>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n  <NavigationMenuViewport />\n</NavigationMenu>",
+    "category": "navigation",
+    "related": [
+      "menubar",
+      "nav-marketing",
+      "mobile-nav-drawer"
+    ],
+    "guide": "Panels share one viewport that resizes between items; hover or click opens, arrow keys move between triggers, Escape closes and returns focus. Render NavigationMenuViewport once inside NavigationMenu. Use it for marketing and docs headers with grouped links; for app commands use Menubar, for a simple bar of links use NavMarketing.",
+    "examples": [
+      "<NavigationMenu>\n  <NavigationMenuList>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>Product</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href=\"/invoices\">Invoices</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n    <NavigationMenuItem>\n      <NavigationMenuLink href=\"/pricing\">Pricing</NavigationMenuLink>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n  <NavigationMenuViewport />\n</NavigationMenu>"
+    ]
   },
   {
     "name": "nested-nav",
@@ -3367,7 +5846,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A collapsible tree of navigation groups that indents with depth."
+    "description": "A collapsible tree of navigation groups that indents with depth, for settings and docs sidebars.",
+    "category": "navigation",
+    "related": [
+      "tree-view",
+      "org-chart"
+    ],
+    "guide": "Groups are disclosure buttons (aria-expanded); leaves are links when they have an `href`, buttons otherwise. The node matching `activeId` gets aria-current=\"page\". Use it for two or three levels of navigation; for a file-style tree with arrow-key navigation and selection use TreeView.",
+    "examples": [
+      "<NestedNav\n  activeId=\"invoices\"\n  nodes={[{ id: \"billing\", label: \"Billing\", children: [{ id: \"invoices\", label: \"Invoices\", href: \"/billing/invoices\" }] }]}\n/>"
+    ]
   },
   {
     "name": "newsletter-signup",
@@ -3384,7 +5872,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing"
     ],
-    "usage": "<NewsletterSignup />"
+    "description": "An email field and Subscribe button that stack on phones and sit in one row from sm up.",
+    "usage": "<NewsletterSignup />",
+    "category": "marketing",
+    "related": [
+      "waitlist-hero"
+    ],
+    "guide": "Uses native email validation. If `onSubmit` returns a promise the button shows \"Subscribing…\" until it settles, then a polite status line confirms success or reports the error; a rejected promise keeps the email so the user can retry. Use it in footers and blog sidebars; for a full sign-up flow use a form block.",
+    "examples": [
+      "<NewsletterSignup onSubmit={(email) => fetch(\"/api/subscribe\", { method: \"POST\", body: email })} />"
+    ]
   },
   {
     "name": "not-found-state",
@@ -3397,7 +5894,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A centred 404 panel with a code, heading, explanation and recovery buttons.",
+    "category": "feedback",
+    "related": [
+      "empty-state",
+      "permission-denied",
+      "error-state",
+      "server-error-state"
+    ],
+    "guide": "Use it in a Next.js not-found.tsx or when a record lookup returns nothing. Pass `actions` with real links (the defaults are inert placeholders). For an empty list use EmptyState; for a blocked page use PermissionDenied.",
+    "examples": [
+      "<NotFoundState\n  description=\"That invoice was deleted or never existed.\"\n  actions={<Button size=\"sm\" render={<a href=\"/invoices\" />}>Back to invoices</Button>}\n/>"
+    ]
   },
   {
     "name": "notebook-cell",
@@ -3416,7 +5925,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai-studio"
     ],
-    "usage": "<NotebookCell code={\"const n = 42\\nconsole.log(n)\"} output=\"42\" />"
+    "description": "A Jupyter-style cell: a run button, the code in an editor frame, and its output below.",
+    "usage": "<NotebookCell code={\"const n = 42\\nconsole.log(n)\"} output=\"42\" />",
+    "category": "developer-tools",
+    "related": [
+      "code-block"
+    ],
+    "guide": "While `running` is true the run button is disabled and the cell is aria-busy; the output region is a labelled, keyboard-scrollable live region so results are announced. Use it for data and AI playgrounds; for static code use CodeBlock.",
+    "examples": [
+      "<NotebookCell code={source} output={result} running={busy} onRun={run} filename=\"query.sql\" />"
+    ]
   },
   {
     "name": "notification-inbox",
@@ -3433,8 +5951,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "new"
     ],
-    "description": "A bell with an unread count that opens an inbox:",
-    "usage": "<NotificationInbox />"
+    "description": "A bell with an unread count that opens an inbox popover with All and Mentions tabs, unread dots and mark-all-read.",
+    "usage": "<NotificationInbox />",
+    "category": "overlays",
+    "related": [
+      "popover",
+      "notification-item",
+      "notification-preferences",
+      "notification-center"
+    ],
+    "guide": "Built on Base UI Popover: focus moves in on open, Escape closes and returns focus to the bell, whose accessible name includes the unread count. Opening a row marks it read. Use it in app headers; for a single row use NotificationItem, for settings use NotificationPreferences.",
+    "examples": [
+      "<NotificationInbox\n  notes={[{ id: \"1\", kind: \"mention\", who: \"Mira Sato\", text: \"mentioned you in Q3 roadmap\", time: \"2m\", unread: true }]}\n  onOpenNote={(n) => router.push(`/inbox/${n.id}`)}\n  viewAllHref=\"/activity\"\n/>"
+    ]
   },
   {
     "name": "notification-item",
@@ -3448,7 +5977,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "relative-time"
     ],
     "galleries": [],
-    "description": "One row of a notification list: title, body, relative time and an unread dot."
+    "description": "One row of a notification list: title, body, relative time and an unread dot.",
+    "category": "feedback",
+    "related": [
+      "relative-time",
+      "stack",
+      "notification-inbox",
+      "list-item",
+      "notification-center"
+    ],
+    "guide": "The time renders with RelativeTime (\"42 min ago\") and is hydration-safe. Unread rows get a tinted background, an accent dot and \"Unread\" for screen readers. Stack rows in a list; for the bell-and-popover inbox use NotificationInbox.",
+    "examples": [
+      "<NotificationItem title=\"Invoice INV-2041 paid\" body=\"Northwind paid $12,400.00.\" date={paidAt} unread />"
+    ]
   },
   {
     "name": "notification-preferences",
@@ -3462,7 +6003,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "label",
       "switch"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A list of labelled on/off switches for notification channels (email digests, product updates, security alerts).",
+    "category": "settings",
+    "related": [
+      "feature-flag-toggle",
+      "notification-inbox",
+      "feature-flags"
+    ],
+    "guide": "Each row's label is wired to its switch, ids are unique per instance, and `onCheckedChange` reports which channel changed. Switches are uncontrolled from `defaultChecked`; persist changes in the callback. Use it on settings pages.",
+    "examples": [
+      "<NotificationPreferences\n  items={[{ id: \"email\", label: \"Email digests\", defaultChecked: true }, { id: \"sms\", label: \"SMS alerts\" }]}\n  onCheckedChange={(id, on) => savePreference(id, on)}\n/>"
+    ]
   },
   {
     "name": "number-input",
@@ -3481,7 +6033,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<NumberInput value={n} onChange={setN} aria-label=\"Number\" />"
+    "description": "A numeric field with minus and plus buttons, clamped to min and max.",
+    "usage": "<NumberInput value={n} onChange={setN} aria-label=\"Number\" />",
+    "category": "forms",
+    "related": [
+      "slider",
+      "currency-input",
+      "input",
+      "quantity-stepper"
+    ],
+    "guide": "Typing is free while the field has focus (you can clear it or type \"15\" past a min of 10); the value is clamped and committed on blur or Enter. ArrowUp/ArrowDown step natively, buttons disable at the bounds, and decimal steps avoid float drift (0.1 + 0.2 stays 0.3). Controlled or uncontrolled. Use Slider for a rough value on a range; use it for exact counts like seats or quantities.",
+    "examples": [
+      "const [seats, setSeats] = React.useState(5)\n<NumberInput value={seats} onChange={setSeats} min={1} max={50} aria-label=\"Seats\" />"
+    ]
   },
   {
     "name": "number-roll",
@@ -3495,7 +6059,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Intl.NumberFormat options, e.g. { style: \"currency\", currency: \"USD\" }."
+    "description": "An odometer number whose digits roll on a spring when the value changes.",
+    "category": "animation",
+    "related": [
+      "credit-balance",
+      "split-flap",
+      "flip-stat-board",
+      "launch-countdown",
+      "stats-counter"
+    ],
+    "guide": "Each digit is a strip of 0-9 that springs to its place, so changing $1,284 to $1,391 rolls only the digits that changed. Digits keep their identity from the right, so 999 → 1,000 grows a column instead of reshuffling. Screen readers get the plain formatted value; with reduced motion the number swaps instantly. Use it for live totals, prices and KPI values; for a static number just render it with tabular-nums.",
+    "examples": [
+      "<NumberRoll value={mrr} format={{ style: \"currency\", currency: \"USD\" }} trend />"
+    ]
   },
   {
     "name": "offline-banner",
@@ -3511,7 +6087,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "usage": "<OfflineBanner onRetry={() => {}} />"
+    "description": "A full-width warning strip saying the app is offline, with an optional Retry button.",
+    "usage": "<OfflineBanner onRetry={() => {}} />",
+    "category": "feedback",
+    "related": [
+      "offline-state"
+    ],
+    "guide": "It is a polite live region (role=\"status\"), so mounting it announces the message. Render it at the top of the page while `navigator.onLine` is false; for a whole empty panel use OfflineState.",
+    "examples": [
+      "{!online ? <OfflineBanner onRetry={reconnect} /> : null}"
+    ]
   },
   {
     "name": "offline-state",
@@ -3524,7 +6109,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A card that says the app is offline, explains what still works, and offers a retry.",
+    "category": "feedback",
+    "related": [
+      "offline-banner",
+      "empty-state"
+    ],
+    "guide": "Use it in place of content that needs the network. For a thin page-wide strip use OfflineBanner; for a generic empty list use EmptyState.",
+    "examples": [
+      "<OfflineState onRetry={() => refetch()} description=\"Your drafts are saved on this device.\" />"
+    ]
   },
   {
     "name": "onboarding-checklist",
@@ -3537,7 +6132,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A \"Get started\" card of tickable setup tasks with a done count.",
+    "category": "dashboard",
+    "related": [
+      "onboarding-wizard",
+      "welcome-screen",
+      "onboarding-motion"
+    ],
+    "guide": "Each task is a checkbox (role=\"checkbox\", aria-checked) toggled by click, Space or Enter; the header shows \"2 of 4\" progress. State is kept inside from `items`; persist it with `onToggle`. Use it on empty dashboards; for a strict linear flow use OnboardingWizard.",
+    "examples": [
+      "<OnboardingChecklist\n  title=\"Set up Lumen\"\n  items={[{ id: \"invite\", label: \"Invite your team\" }, { id: \"bank\", label: \"Connect a bank\", done: true }]}\n  onToggle={(id, done) => saveStep(id, done)}\n/>"
+    ]
   },
   {
     "name": "onboarding-wizard",
@@ -3553,7 +6159,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "stepper",
       "workspace-create"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A three-step first-run flow: create a workspace, invite members, done.",
+    "category": "workflow",
+    "related": [
+      "stepper",
+      "onboarding-checklist",
+      "welcome-screen",
+      "onboarding-motion",
+      "product-tour"
+    ],
+    "guide": "A Stepper shows progress; when the step changes, focus moves to the new step so keyboard and screen reader users land on the fresh content. Use it as a starting point for a linear setup flow; for optional tasks in any order use OnboardingChecklist.",
+    "examples": [
+      "<OnboardingWizard onComplete={() => router.push(\"/dashboard\")} />"
+    ]
   },
   {
     "name": "order-summary",
@@ -3563,14 +6182,24 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "path": "src/registry/ui/order-summary.tsx",
     "import": "@/registry/ui/order-summary",
     "deps": [],
-    "registryDeps": [
-      "separator"
-    ],
+    "registryDeps": [],
     "galleries": [
       "commerce"
     ],
     "description": "Label and value lines above a separator and a bold total, for checkout and invoices.",
-    "usage": "<OrderSummary lines={[{ label: \"Subtotal\", value: \"$49.00\" }, { label: \"Tax\", value: \"$3.92\" }]} total=\"$52.92\" />"
+    "usage": "<OrderSummary lines={[{ label: \"Subtotal\", value: \"$49.00\" }, { label: \"Tax\", value: \"$3.92\" }]} total=\"$52.92\" />",
+    "category": "ecommerce",
+    "related": [
+      "label",
+      "pricing-table",
+      "checkout-summary",
+      "coupon-input",
+      "invoice-detail"
+    ],
+    "guide": "Marked up as a description list (dt/dd) so each amount is read with its label. Values are preformatted strings: format money with Intl.NumberFormat before passing it in. Use it beside a checkout form; for a full price table use PricingTable.",
+    "examples": [
+      "<OrderSummary\n  lines={[{ label: \"Subtotal\", value: \"$120.00\" }, { label: \"Tax\", value: \"$9.60\" }]}\n  total=\"$129.60\"\n/>"
+    ]
   },
   {
     "name": "org-chart",
@@ -3585,7 +6214,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A collapsible organisation chart with connector lines, initials avatars, team colours, per node counts and arrow key navigation."
+    "description": "A collapsible organisation chart with connector lines, initials avatars, team colours, per node counts and arrow key navigation.",
+    "category": "dashboard",
+    "related": [
+      "tree-view",
+      "nested-nav"
+    ],
+    "guide": "Cards carry an initials avatar, name, role and a team coloured stripe; a pill under each manager shows how many people report up and folds the branch on a spring. Connectors are plain CSS borders and the tree scrolls sideways when wider than its container. Keyboard: one tab stop; ArrowLeft/Right walk siblings, ArrowDown opens or enters reports, ArrowUp goes to the manager, Home/End jump, Enter/Space selects and toggles. Use it for people directories and admin consoles; for a file-style hierarchy use TreeView, for a sidebar menu use NestedNav.",
+    "examples": [
+      "<OrgChart\n  data={{ id: \"ceo\", name: \"Maya Chen\", role: \"CEO\", children: [{ id: \"cto\", name: \"Theo Okafor\", role: \"CTO\", team: \"Engineering\" }] }}\n  defaultExpandDepth={1}\n  onSelect={(node) => openProfile(node.id)}\n/>"
+    ]
   },
   {
     "name": "org-switcher",
@@ -3604,7 +6242,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "admin"
     ],
     "description": "A popover list of organizations with the current one checked and its plan beside it.",
-    "usage": "<OrgSwitcher\n  value={org}\n  onChange={setOrg}\n  orgs={[\n    { id: \"1\", name: \"Acme\", plan: \"Studio\" },\n    { id: \"2\", name: \"MiniDev\", plan: \"Premium\" },\n  ]}\n/>"
+    "usage": "<OrgSwitcher\n  value={org}\n  onChange={setOrg}\n  orgs={[\n    { id: \"1\", name: \"Acme\", plan: \"Studio\" },\n    { id: \"2\", name: \"MiniDev\", plan: \"Premium\" },\n  ]}\n/>",
+    "category": "navigation",
+    "related": [
+      "sidebar",
+      "select",
+      "join-workspace",
+      "workspace-create"
+    ],
+    "guide": "The trigger reads \"<current org>, switch organization\"; the current option carries aria-current. Picking one closes the popover and returns focus to the trigger. Controlled (`value`) or uncontrolled (`defaultValue`). Use it at the top of a Sidebar; for a plain list of options use Select.",
+    "examples": [
+      "<OrgSwitcher\n  orgs={[{ id: \"northwind\", name: \"Northwind\", plan: \"Business\" }, { id: \"halcyon\", name: \"Halcyon\", plan: \"Pro\" }]}\n  value={orgId}\n  onChange={setOrgId}\n/>"
+    ]
   },
   {
     "name": "otp-input",
@@ -3619,8 +6268,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "auth",
       "otp-input"
     ],
-    "description": "Fires once when every slot is filled.",
-    "usage": "<OtpInput />"
+    "description": "A one-time code field drawn as separate slots, with SMS autofill, paste and a shake on error.",
+    "usage": "<OtpInput />",
+    "category": "auth",
+    "related": [
+      "masked-input",
+      "input",
+      "magic-link-form",
+      "two-factor-verify",
+      "sign-in-page"
+    ],
+    "guide": "One real <input> sits invisibly over the slots, so paste, SMS autofill (autocomplete=\"one-time-code\"), backspace, selection and screen readers all behave natively. The slots are pure paint: a fake caret, a glyph that settles in, a shake when `status` turns \"invalid\". Use it for 2FA and email verification codes; for other fixed-shape values use MaskedInput.",
+    "examples": [
+      "<OtpInput length={6} groups={[3, 3]} onComplete={verify} status={error ? \"invalid\" : \"idle\"} />"
+    ]
   },
   {
     "name": "page-header",
@@ -3634,7 +6295,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "shells"
     ],
-    "usage": "<PageHeader title=\"Users\" description=\"Manage workspace members\" actions={<Button size=\"sm\">Invite</Button>} />"
+    "description": "The top of an app page: an h1 title, an optional description and right-aligned actions, over a hairline.",
+    "usage": "<PageHeader title=\"Users\" description=\"Manage workspace members\" actions={<Button size=\"sm\">Invite</Button>} />",
+    "category": "layout",
+    "related": [
+      "hero",
+      "heading",
+      "section-header",
+      "topbar",
+      "dashboard-home",
+      "empty-workspace",
+      "project-detail",
+      "users-table-page"
+    ],
+    "guide": "Renders the page's only h1, so use it once per page. Actions wrap under the title on narrow screens. For a marketing hero use a Hero block; for a section inside a page use a plain h2.",
+    "examples": [
+      "<PageHeader\n  title=\"Invoices\"\n  description=\"Everything billed to customers this year.\"\n  actions={<Button size=\"sm\">New invoice</Button>}\n/>"
+    ]
   },
   {
     "name": "pagination",
@@ -3643,14 +6320,26 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/pagination.tsx",
     "import": "@/registry/ui/pagination",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [
       "button"
     ],
     "galleries": [
       "shells"
     ],
-    "usage": "<Pagination page={page} pageCount={5} onPageChange={setPage} />"
+    "description": "Previous / page numbers / Next controls for a paged list, with ellipses for long ranges.",
+    "usage": "<Pagination page={page} pageCount={5} onPageChange={setPage} />",
+    "category": "navigation",
+    "related": [
+      "infinite-scroll",
+      "table-pagination"
+    ],
+    "guide": "Always shows the first and last page plus the current page's neighbours, and keeps a constant seven slots so the bar never changes width as you page. The current page has aria-current=\"page\"; every button has a spoken label (\"Page 4\"). The component is controlled: keep `page` in state (1-based) and update it in onPageChange. For infinite feeds use a \"Load more\" button instead.",
+    "examples": [
+      "const [page, setPage] = React.useState(1)\n<Pagination page={page} pageCount={Math.ceil(total / pageSize)} onPageChange={setPage} />"
+    ]
   },
   {
     "name": "password-input",
@@ -3669,7 +6358,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<PasswordInput id=\"pw\" aria-label=\"Password\" />"
+    "description": "A password field with an eye button that shows or hides what was typed.",
+    "usage": "<PasswordInput id=\"pw\" aria-label=\"Password\" />",
+    "category": "forms",
+    "related": [
+      "password-strength",
+      "floating-label-input",
+      "input"
+    ],
+    "guide": "Accepts every native input prop (name, autoComplete, required, value, onChange…). The toggle is a real button labelled \"Show password\" / \"Hide password\" that controls the field via aria-controls. Use autoComplete=\"current-password\" on sign-in and \"new-password\" on sign-up; for a strength meter use PasswordStrength.",
+    "examples": [
+      "<label htmlFor=\"pw\">Password</label>\n<PasswordInput id=\"pw\" name=\"password\" autoComplete=\"current-password\" required />"
+    ]
   },
   {
     "name": "password-strength",
@@ -3685,7 +6385,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "password-input"
     ],
     "galleries": [],
-    "description": "A password field with a four segment strength meter and a live checklist"
+    "description": "A new-password field with a four segment strength meter and a live checklist of rules.",
+    "category": "forms",
+    "related": [
+      "password-input"
+    ],
+    "guide": "The score is announced politely as it changes, rules are plain text for screen readers (\"(met)\" / \"(not met)\"), and nothing blocks typing. Swap in your own scorer (for example zxcvbn) with the `score` prop and your own policy with `rules`. Use it on sign-up and change-password forms; on sign-in use PasswordInput alone.",
+    "examples": [
+      "<PasswordStrength\n  label=\"New password\"\n  onChange={setPassword}\n  rules={[{ label: \"At least 12 characters\", test: (v) => v.length >= 12 }]}\n/>"
+    ]
   },
   {
     "name": "payment-method-card",
@@ -3698,7 +6406,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A saved card on file: brand, masked last four digits, expiry and an Edit button.",
+    "category": "billing",
+    "related": [
+      "credit-card-input"
+    ],
+    "guide": "Screen readers hear \"Visa ending in 4242, expires 09/28\" instead of the dots. Never pass a full card number; only the last four. Use it on billing settings pages; to collect a new card use your payment provider's hosted fields.",
+    "examples": [
+      "<PaymentMethodCard brand=\"Mastercard\" last4=\"4444\" exp=\"11/27\" onEdit={openBillingPortal} />"
+    ]
   },
   {
     "name": "peek-panel",
@@ -3716,7 +6433,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<PeekPanel title=\"Issue MD-214\">\n  <p className=\"text-sm text-fg-muted\">Raise the Premium bar without breaking the audit gate.</p>\n</PeekPanel>"
+    "description": "A non-modal side panel for previewing a record beside a list, with a title bar and close button.",
+    "usage": "<PeekPanel title=\"Issue MD-214\">\n  <p className=\"text-sm text-fg-muted\">Raise the Premium bar without breaking the audit gate.</p>\n</PeekPanel>",
+    "category": "overlays",
+    "related": [
+      "sheet"
+    ],
+    "guide": "It is a labelled landmark (aside) that leaves the rest of the page usable; Escape inside it calls `onClose`, and the close button only renders when `onClose` is given. Place it in a flex row next to the list. For a modal overlay that traps focus use Sheet; for a resizable split use a resizable panel layout.",
+    "examples": [
+      "<div className=\"flex h-[600px]\">\n  <IssueList className=\"flex-1\" onOpen={setIssue} />\n  {issue ? <PeekPanel title={issue.title} onClose={() => setIssue(null)}>{issue.body}</PeekPanel> : null}\n</div>"
+    ]
   },
   {
     "name": "permission-chip",
@@ -3730,7 +6456,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "admin"
     ],
-    "usage": "<PermissionChip level=\"admin\" />"
+    "description": "A small uppercase chip showing an access level: admin, write or read.",
+    "usage": "<PermissionChip level=\"admin\" />",
+    "category": "settings",
+    "related": [
+      "badge",
+      "status-badge",
+      "permission-denied"
+    ],
+    "guide": "Admin is accent-tinted, write is filled, read is quiet, so levels scan at a glance in member tables. Screen readers hear \"admin access\". For arbitrary labels use Badge; for live status use StatusBadge.",
+    "examples": [
+      "<PermissionChip level=\"write\" />"
+    ]
   },
   {
     "name": "permission-denied",
@@ -3743,7 +6480,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A centred panel explaining that the user lacks access, with buttons to request it or go elsewhere.",
+    "category": "feedback",
+    "related": [
+      "not-found-state",
+      "permission-chip",
+      "tooltip"
+    ],
+    "guide": "Say which role is needed in `description`. Pass `actions` with real handlers (the defaults are inert placeholders). For a missing page use NotFoundState; for a single locked control use PermissionChip or a disabled button with a Tooltip.",
+    "examples": [
+      "<PermissionDenied\n  description=\"You need the Billing admin role to view invoices.\"\n  actions={<Button size=\"sm\" onClick={requestAccess}>Request access</Button>}\n/>"
+    ]
   },
   {
     "name": "phone-input",
@@ -3759,7 +6507,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<PhoneInput aria-label=\"Phone\" />"
+    "description": "A telephone field with the phone keypad on mobile and tel autofill, free-form so any country's format works.",
+    "usage": "<PhoneInput aria-label=\"Phone\" />",
+    "category": "forms",
+    "related": [
+      "masked-input"
+    ],
+    "guide": "Accepts every native input prop (name, required, aria-invalid…); onChange gives the string. Validate and normalise (e.g. to E.164) on submit, not while typing. For a fixed national format with live formatting use MaskedInput with \"(999) 999-9999\".",
+    "examples": [
+      "<label htmlFor=\"phone\">Phone</label>\n<PhoneInput id=\"phone\" name=\"phone\" value={phone} onChange={setPhone} />"
+    ]
   },
   {
     "name": "pie-chart",
@@ -3773,7 +6530,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "An SVG pie chart with leader line labels, a legend and slices that pull out on hover or focus."
+    "description": "An SVG pie chart with leader line labels, a legend and slices that pull out on hover or focus.",
+    "category": "charts",
+    "related": [
+      "bar-chart",
+      "donut-chart",
+      "waffle-chart"
+    ],
+    "guide": "Hover or focus a slice and it pulls out on a spring while the readout shows its value and share. Slices are one tab stop; arrow keys, Home and End move between them, and a visually hidden table carries the data for screen readers. Labels hide below 320px wide. Use it for 2 to 6 parts of a whole; for more categories or comparisons over time use BarChart, for a ring with a centre total use DonutChart.",
+    "examples": [
+      "<PieChart\n  title=\"Revenue by plan\"\n  data={[{ label: \"Pro\", value: 22400 }, { label: \"Business\", value: 31600 }]}\n  format={(n) => `$${n.toLocaleString()}`}\n/>"
+    ]
   },
   {
     "name": "pinned-message",
@@ -3786,7 +6553,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "An accent-tinted note pinned to the top of a channel or thread, with its author.",
+    "category": "ai-chat",
+    "related": [
+      "banner",
+      "callout"
+    ],
+    "guide": "Use it for one standing announcement above a message list; for page-wide notices use Banner, for inline warnings use Callout. Pass `onUnpin` to show an Unpin button.",
+    "examples": [
+      "<PinnedMessage author=\"Maya\" body=\"Release freeze starts Friday at 18:00 UTC.\" onUnpin={unpin} />"
+    ]
   },
   {
     "name": "plan-card",
@@ -3795,12 +6572,29 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/plan-card.tsx",
     "import": "@/registry/ui/plan-card",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [
       "button"
     ],
     "galleries": [],
-    "description": "A pricing tier with price per period, feature list and a call to action; highlighted tiers get the accent ring."
+    "description": "A pricing tier with price per period, feature list and a call to action; highlighted tiers get the accent ring.",
+    "category": "billing",
+    "related": [
+      "plan-comparison",
+      "pricing-toggle",
+      "choice-card",
+      "comparison-table",
+      "pricing-table",
+      "product-card",
+      "billing-page",
+      "morph-price"
+    ],
+    "guide": "Lay several side by side for a pricing page; mark the recommended one `highlighted` and give it a `badge`. Prices are preformatted strings. For a full feature matrix use PlanComparison, for a monthly/yearly switch use PricingToggle.",
+    "examples": [
+      "<PlanCard name=\"Pro\" price=\"$49\" period=\"mo\" features={[\"10 seats\", \"Bank sync\"]} highlighted badge=\"Most popular\" onCta={() => checkout(\"pro\")} />"
+    ]
   },
   {
     "name": "plan-comparison",
@@ -3813,7 +6607,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A feature-by-plan table with check marks, dashes or short values in each cell.",
+    "category": "billing",
+    "related": [
+      "plan-card",
+      "feature-grid",
+      "upgrade-prompt",
+      "pricing-page"
+    ],
+    "guide": "A real <table> with column and row headers; icon cells carry \"Included\" / \"Not included\" for screen readers. Pass `plans` for the columns and `rows` with one value per plan: true, false, or a string such as \"10 seats\". Scrolls sideways on narrow screens. Pair it with PlanCard tiers above.",
+    "examples": [
+      "<PlanComparison\n  plans={[\"Free\", \"Pro\", \"Business\"]}\n  rows={[\n    { feature: \"Seats\", values: [\"1\", \"10\", \"Unlimited\"] },\n    { feature: \"SSO\", values: [false, false, true] },\n  ]}\n/>"
+    ]
   },
   {
     "name": "popover",
@@ -3829,7 +6635,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A floating panel anchored to its trigger, built on Base UI; without children it shows a demo trigger and panel."
+    "description": "A floating panel anchored to its trigger, built on Base UI; without children it shows a demo trigger and panel.",
+    "category": "overlays",
+    "related": [
+      "tooltip",
+      "dropdown-menu",
+      "dialog",
+      "calendar-month",
+      "emoji-picker",
+      "hover-card",
+      "morph-panel",
+      "notification-inbox"
+    ],
+    "guide": "Click or Enter opens it, focus moves inside, Escape or an outside click closes it and focus returns to the trigger. The panel is non-modal and labelled by PopoverTitle. Use it for small interactive content (share links, filters, quick edits); for read-only hints use Tooltip, for a list of commands use DropdownMenu, for blocking decisions use Dialog.",
+    "examples": [
+      "<Popover>\n  <PopoverTrigger render={<Button variant=\"outline\" />}>Share</PopoverTrigger>\n  <PopoverContent align=\"start\">\n    <PopoverHeader>\n      <PopoverTitle>Share report</PopoverTitle>\n      <PopoverDescription>Anyone with the link can view.</PopoverDescription>\n    </PopoverHeader>\n    <PopoverClose render={<Button size=\"sm\" />}>Done</PopoverClose>\n  </PopoverContent>\n</Popover>"
+    ]
   },
   {
     "name": "presence-dot",
@@ -3840,7 +6661,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/presence-dot",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A small coloured dot that shows whether a person is online, away, busy or offline.",
+    "category": "feedback",
+    "related": [
+      "status-badge",
+      "live-cursors-bar"
+    ],
+    "guide": "Use it on avatars, member lists and chat headers. For a labelled state chip use StatusBadge; for a pulsing \"live\" indicator use a badge with its own copy.",
+    "examples": [
+      "<PresenceDot status=\"online\" />\n<PresenceDot status=\"busy\" label=\"Maya is in a meeting\" />"
+    ]
   },
   {
     "name": "press-quote",
@@ -3854,7 +6685,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing-sections"
     ],
-    "usage": "<PressQuote quote=\"The rare kit that looks intentional in screenshots.\" source=\"Design Weekly\" />"
+    "description": "A centred pull quote from a publication, with the source in small caps underneath.",
+    "usage": "<PressQuote quote=\"The rare kit that looks intentional in screenshots.\" source=\"Design Weekly\" />",
+    "category": "marketing",
+    "related": [
+      "logo-cloud",
+      "testimonial",
+      "testimonial-carousel"
+    ],
+    "guide": "Use it for one line of real press coverage on a landing page. For a customer quote with a name, role and avatar use a testimonial card. Only quote coverage you actually have.",
+    "examples": [
+      "<PressQuote quote=\"The calmest component kit we have used.\" source=\"Design Weekly\" />"
+    ]
   },
   {
     "name": "pricing-table",
@@ -3871,7 +6713,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "billing"
     ],
     "description": "Three PlanCards in a responsive grid, one of them highlighted.",
-    "usage": "<PricingTable className=\"w-full\" plans={[\n  { name: \"Free\", price: \"$0\", features: [\"10 components\",\"Community\"], cta: \"Start\" },\n  { name: \"Pro\", price: \"$29\", features: [\"All components\",\"Priority\"], highlighted: true },\n  { name: \"Team\", price: \"$99\", features: [\"Seats\",\"SSO\",\"Audit\"] },\n]} />"
+    "usage": "<PricingTable className=\"w-full\" plans={[\n  { name: \"Free\", price: \"$0\", features: [\"10 components\",\"Community\"], cta: \"Start\" },\n  { name: \"Pro\", price: \"$29\", features: [\"All components\",\"Priority\"], highlighted: true },\n  { name: \"Team\", price: \"$99\", features: [\"Seats\",\"SSO\",\"Audit\"] },\n]} />",
+    "category": "billing",
+    "related": [
+      "pricing-toggle",
+      "plan-card",
+      "comparison-table",
+      "order-summary",
+      "morph-price",
+      "pricing-kinetic",
+      "pricing-motion",
+      "pricing-page"
+    ],
+    "guide": "Use it for a pricing section with plan tiers side by side. Pair it with PricingToggle for a monthly / yearly switch. For a single plan use PlanCard directly.",
+    "examples": [
+      "<PricingTable\n  plans={[\n    { name: \"Starter\", price: \"$0\", features: [\"1 seat\"], cta: \"Start free\" },\n    { name: \"Pro\", price: \"$49\", features: [\"10 seats\"], highlighted: true },\n  ]}\n/>"
+    ]
   },
   {
     "name": "pricing-toggle",
@@ -3887,7 +6744,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "marketing-sections"
     ],
-    "usage": "<PricingToggle value={cadence} onChange={setCadence} />"
+    "description": "A Monthly / Yearly segmented switch with a savings note underneath.",
+    "usage": "<PricingToggle value={cadence} onChange={setCadence} />",
+    "category": "billing",
+    "related": [
+      "pricing-table",
+      "segmented-control",
+      "plan-card"
+    ],
+    "guide": "Use it above a PricingTable to flip prices between billing periods. For any other two or three way choice use SegmentedControl directly.",
+    "examples": [
+      "const [cadence, setCadence] = React.useState<BillingCadence>(\"monthly\")\n<PricingToggle value={cadence} onChange={setCadence} note=\"Two months free on yearly\" />"
+    ]
   },
   {
     "name": "priority-picker",
@@ -3901,7 +6769,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "workflow"
     ],
-    "usage": "<PriorityPicker value={priority} onChange={setPriority} />"
+    "description": "A row of four pill radios (Low, Medium, High, Urgent) for an issue or task priority.",
+    "usage": "<PriorityPicker value={priority} onChange={setPriority} />",
+    "category": "workflow",
+    "related": [
+      "segmented-control",
+      "radio-group",
+      "workflow-board"
+    ],
+    "guide": "Use it in issue forms and task sidebars. Arrow keys move and select, like any radio group. For an arbitrary option list use SegmentedControl or RadioGroup.",
+    "examples": [
+      "const [priority, setPriority] = React.useState<Priority>(\"medium\")\n<PriorityPicker value={priority} onChange={setPriority} />"
+    ]
   },
   {
     "name": "product-card",
@@ -3918,7 +6797,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "commerce"
     ],
-    "usage": "<ProductCard title=\"Studio plan\" price=\"$49/mo\" badge=\"Popular\" onAdd={() => {}} />"
+    "description": "A square product image, title, price and an optional Add to cart button.",
+    "usage": "<ProductCard title=\"Studio plan\" price=\"$49/mo\" badge=\"Popular\" onAdd={() => {}} />",
+    "category": "ecommerce",
+    "related": [
+      "plan-card",
+      "card"
+    ],
+    "guide": "Use it in shop grids and recommendation rails. For a pricing tier use PlanCard; for a generic content tile use Card.",
+    "examples": [
+      "<ProductCard title=\"Linen tote\" price=\"$48\" image=\"/tote.jpg\" imageAlt=\"Natural linen tote bag\" badge=\"New\" onAdd={() => addToCart(\"tote\")} />"
+    ]
   },
   {
     "name": "profile-form",
@@ -3934,7 +6823,13 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "input",
       "textarea"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A display name and bio form with a Save button, for account settings pages.",
+    "category": "settings",
+    "guide": "Use it as a starting point for profile settings; the fields are native form controls, so the values arrive in `onSubmit` as plain strings. For sign in or sign up use the auth forms.",
+    "examples": [
+      "<ProfileForm defaultValues={{ name: \"Maya Chen\" }} onSubmit={({ name, bio }) => save(name, bio)} />"
+    ]
   },
   {
     "name": "progress-circle",
@@ -3945,7 +6840,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/progress-circle",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A small ring that fills clockwise to a percentage, with the number underneath.",
+    "category": "feedback",
+    "related": [
+      "progress",
+      "radial-chart",
+      "waffle-chart"
+    ],
+    "guide": "Use it for compact determinate progress in cards, lists and table cells. For a full width bar use Progress; for several goals at once use RadialChart.",
+    "examples": [
+      "<ProgressCircle value={64} label=\"Upload progress\" />\n<ProgressCircle value={30} size={56} showValue={false} />"
+    ]
   },
   {
     "name": "progress",
@@ -3961,11 +6867,27 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feedback"
     ],
-    "usage": "<Progress value={64} aria-label=\"Progress\" />"
+    "description": "A thin determinate progress bar built on Base UI, with optional label and value text.",
+    "usage": "<Progress value={64} aria-label=\"Progress\" />",
+    "category": "feedback",
+    "related": [
+      "progress-circle",
+      "quota-bar",
+      "account-setup-progress",
+      "coverage-meter",
+      "donut-chart",
+      "goal-ring",
+      "meter",
+      "spinner"
+    ],
+    "guide": "Use it for uploads, onboarding steps and long tasks with a known end. Pass `value={null}` for an indeterminate bar. For a compact ring use ProgressCircle; for usage against a limit use QuotaBar. Children render above the track, so put ProgressLabel and ProgressValue inside.",
+    "examples": [
+      "<Progress value={42}>\n  <ProgressLabel>Uploading</ProgressLabel>\n  <ProgressValue />\n</Progress>"
+    ]
   },
   {
     "name": "prompt-input-attachments",
-    "title": "PromptInputWithAttachments",
+    "title": "PromptInputAttachments",
     "tier": "free",
     "kind": "ui",
     "path": "src/registry/ui/prompt-input-attachments.tsx",
@@ -3977,7 +6899,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "prompt-input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A PromptInput with an attach row above it for file uploads.",
+    "category": "ai-chat",
+    "related": [
+      "prompt-input",
+      "attachment-chip"
+    ],
+    "guide": "Use it when attachments are a first-class part of the prompt and deserve their own row. Otherwise pass `onAttach` to PromptInput and use its built-in paperclip. Takes every PromptInput prop.",
+    "examples": [
+      "<PromptInputWithAttachments value={prompt} onChange={setPrompt} onSubmit={send} onAttach={() => fileInput.current?.click()} hint=\"PDF or CSV, up to 10 MB\" />"
+    ]
   },
   {
     "name": "prompt-input",
@@ -3994,8 +6926,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "ai",
       "new"
     ],
-    "description": "The composer. Grows with content, submits on Enter,",
-    "usage": "<PromptInput value={prompt} onChange={setPrompt} onSubmit={() => setPrompt(\"\")} />"
+    "description": "The AI chat composer: grows with content, sends on Enter, Shift+Enter for a newline.",
+    "usage": "<PromptInput value={prompt} onChange={setPrompt} onSubmit={() => setPrompt(\"\")} />",
+    "category": "ai-chat",
+    "related": [
+      "textarea",
+      "ai-composer",
+      "chat-thread",
+      "comment-composer",
+      "context-chip",
+      "context-pill",
+      "markdown-editor",
+      "prompt-input-attachments"
+    ],
+    "guide": "The whole shell takes the focus halo.\n\nUse it at the bottom of any AI chat. Controlled (`value` + `onChange`) or uncontrolled (`defaultValue`); either way `onSubmit` receives the current text. Enter while an IME is composing does not send. For a plain multi-line field use Textarea.",
+    "examples": [
+      "const [prompt, setPrompt] = React.useState(\"\")\n<PromptInput value={prompt} onChange={setPrompt} onSubmit={(text) => { send(text); setPrompt(\"\") }} />"
+    ]
   },
   {
     "name": "prompt-library",
@@ -4012,7 +6959,12 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "ai-studio"
     ],
     "description": "A searchable list of saved prompts, each a card with a title, tag and two-line preview.",
-    "usage": "<PromptLibrary\n  prompts={[\n    { id: \"1\", title: \"Critique UI\", body: \"Review this screen for Hairline violations.\", tag: \"Design\" },\n    { id: \"2\", title: \"Write changelog\", body: \"Summarize commits as a customer-facing changelog.\", tag: \"Docs\" },\n  ]}\n/>"
+    "usage": "<PromptLibrary\n  prompts={[\n    { id: \"1\", title: \"Critique UI\", body: \"Review this screen for Hairline violations.\", tag: \"Design\" },\n    { id: \"2\", title: \"Write changelog\", body: \"Summarize commits as a customer-facing changelog.\", tag: \"Docs\" },\n  ]}\n/>",
+    "category": "ai-chat",
+    "guide": "Use it in an AI app's sidebar or a \"/\" picker so people can reuse prompts. Search filters by title, body and tag as you type; clicking a card calls `onSelect`. For command style search across actions use a command palette instead.",
+    "examples": [
+      "<PromptLibrary prompts={[{ id: \"sum\", title: \"Summarize thread\", body: \"Summarize this thread in five bullets.\", tag: \"Writing\" }]} onSelect={(p) => setPrompt(p.body)} />"
+    ]
   },
   {
     "name": "prose",
@@ -4026,7 +6978,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "layout"
     ],
-    "usage": "<Prose>\n  <p>Prose styles for docs and long-form content with <a href=\"#\">links</a>.</p>\n</Prose>"
+    "description": "Typography for long-form HTML you do not control: docs, blog posts, markdown output, model answers.",
+    "usage": "<Prose>\n  <p>Prose styles for docs and long-form content with <a href=\"#\">links</a>.</p>\n</Prose>",
+    "category": "layout",
+    "related": [
+      "heading",
+      "text"
+    ],
+    "guide": "Wrap rendered markdown or plain HTML elements in it and they get the kit's headings, spacing, links, lists, code and quotes. For single headings or paragraphs in app UI use Heading and Text.",
+    "examples": [
+      "<Prose>\n  <h2>Install</h2>\n  <p>Add components with <code>npx shadcn add</code>.</p>\n</Prose>"
+    ]
   },
   {
     "name": "publish-bar",
@@ -4043,7 +7005,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<PublishBar />"
+    "description": "A status badge, a save note and Preview / Publish buttons for a CMS or editor.",
+    "usage": "<PublishBar />",
+    "category": "workflow",
+    "related": [
+      "sticky-cta-bar"
+    ],
+    "guide": "Use it pinned above or below an editor to show draft, scheduled or published state. For a floating unsaved-changes prompt use a toast or a save bar instead.",
+    "examples": [
+      "<PublishBar status=\"draft\" onPreview={openPreview} onPublish={publish} publishing={isPending} />"
+    ]
   },
   {
     "name": "qr-code",
@@ -4059,7 +7030,11 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A dependency free QR code rendered as crisp SVG, with error correction levels, a logo well and a one click SVG download."
+    "description": "A QR code that needs no library. The encoder is in this file: byte mode, versions 1 to 40, all four error correction levels, Reed-Solomon codewords and spec penalty masking. Modules draw as one SVG path in `currentColor`, so the code follows your tokens; a logo can sit in a cleared well at level H; and Download SVG writes a standalone file.",
+    "category": "media",
+    "related": [
+      "two-factor-setup"
+    ]
   },
   {
     "name": "quantity-stepper",
@@ -4068,11 +7043,24 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/quantity-stepper.tsx",
     "import": "@/registry/ui/quantity-stepper",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "Minus and plus buttons around a number, clamped between `min` and `max`.",
+    "category": "ecommerce",
+    "related": [
+      "number-input",
+      "slider",
+      "currency-input"
+    ],
+    "guide": "Use it for cart quantities, seat counts and guest numbers where people nudge a small integer. For free numeric entry use NumberInput; for a continuous range use Slider.",
+    "examples": [
+      "const [qty, setQty] = React.useState(1)\n<QuantityStepper value={qty} onChange={setQty} min={1} max={10} aria-label=\"Tickets\" />"
+    ]
   },
   {
     "name": "query-builder",
@@ -4091,7 +7079,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<QueryBuilder />"
+    "description": "Rows of \"field / operator / value\" filter clauses joined by AND, with add and remove.",
+    "usage": "<QueryBuilder />",
+    "category": "data-tables",
+    "related": [
+      "filter-bar",
+      "chip-filter"
+    ],
+    "guide": "Use it for advanced filters on issue lists, tables and logs. Controlled with `value` + `onChange`, or uncontrolled with `defaultValue`. For quick one-tap filters use FilterBar or ChipFilter.",
+    "examples": [
+      "const [clauses, setClauses] = React.useState<Clause[]>([{ id: \"1\", field: \"status\", op: \"is\", value: \"open\" }])\n<QueryBuilder value={clauses} onChange={setClauses} fields={[\"status\", \"assignee\", \"label\"]} />"
+    ]
   },
   {
     "name": "quota-bar",
@@ -4106,7 +7104,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "commerce"
     ],
     "description": "A labelled usage meter that reads \"used / max\" and fills to the percentage.",
-    "usage": "<QuotaBar label=\"API calls\" used={7200} max={10000} />"
+    "usage": "<QuotaBar label=\"API calls\" used={7200} max={10000} />",
+    "category": "billing",
+    "related": [
+      "progress",
+      "resource-quota-grid",
+      "coverage-meter",
+      "usage-breakdown"
+    ],
+    "guide": "Use it on billing and usage pages for anything metered against a limit. The fill turns warning at `warnAt` percent and danger once the limit is reached. For task progress toward a finish use Progress; for many quotas at once use ResourceQuotaGrid.",
+    "examples": [
+      "<QuotaBar label=\"Seats\" used={18} max={25} />\n<QuotaBar label=\"Storage\" used={46.2} max={50} format={(n) => `${n} GB`} />"
+    ]
   },
   {
     "name": "radar-chart",
@@ -4115,13 +7124,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/radar-chart.tsx",
     "import": "@/registry/ui/radar-chart",
-    "deps": [],
+    "deps": [
+      "motion"
+    ],
     "registryDeps": [],
     "galleries": [
       "charts"
     ],
     "description": "A filled polygon over concentric rings, one axis per label.",
-    "usage": "<RadarChart labels={[\"Speed\",\"A11y\",\"DX\",\"Motion\",\"Tokens\"]} values={[0.8,0.95,0.75,0.7,0.9]} />"
+    "usage": "<RadarChart labels={[\"Speed\",\"A11y\",\"DX\",\"Motion\",\"Tokens\"]} values={[0.8,0.95,0.75,0.7,0.9]} />",
+    "category": "charts",
+    "related": [
+      "radial-chart"
+    ],
+    "guide": "Use it to compare five to eight scores on the same 0 to 1 scale, like a vendor or skill scorecard. The shape glides to new values on the data spring. For goals against targets use RadialChart; for exact comparisons use a bar chart.",
+    "examples": [
+      "<RadarChart labels={[\"Speed\", \"Cost\", \"Support\", \"Docs\", \"Uptime\"]} values={[0.8, 0.6, 0.9, 0.7, 0.95]} label=\"Vendor scorecard\" />"
+    ]
   },
   {
     "name": "radial-chart",
@@ -4137,7 +7156,14 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "segmented-control"
     ],
     "galleries": [],
-    "description": "A radial bar chart of concentric progress rings with a legend, a rolling centre total and spring animated values."
+    "description": "A radial bar chart of concentric progress rings, each labelled at its start, with a legend and a centre total. Rings sweep to new values on the data spring when the data changes and the total rolls. Pass a single item to get a full radial progress ring.",
+    "category": "charts",
+    "related": [
+      "donut-chart",
+      "goal-ring",
+      "progress-circle",
+      "radar-chart"
+    ]
   },
   {
     "name": "radio-group",
@@ -4153,7 +7179,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "radio-group"
     ],
-    "usage": "<RadioGroup defaultValue=\"a\" className=\"gap-2\">\n  <div className=\"flex items-center gap-2\"><RadioGroupItem value=\"a\" id=\"r1\" /><Label htmlFor=\"r1\">Alpha</Label></div>\n  <div className=\"flex items-center gap-2\"><RadioGroupItem value=\"b\" id=\"r2\" /><Label htmlFor=\"r2\">Beta</Label></div>\n  <div className=\"flex items-center gap-2\"><RadioGroupItem value=\"c\" id=\"r3\" disabled /><Label htmlFor=\"r3\">Disabled</Label></div>\n</RadioGroup>"
+    "description": "Accessible single choice radios on Base UI, with arrow-key navigation built in.",
+    "usage": "<RadioGroup defaultValue=\"a\" className=\"gap-2\">\n  <div className=\"flex items-center gap-2\"><RadioGroupItem value=\"a\" id=\"r1\" /><Label htmlFor=\"r1\">Alpha</Label></div>\n  <div className=\"flex items-center gap-2\"><RadioGroupItem value=\"b\" id=\"r2\" /><Label htmlFor=\"r2\">Beta</Label></div>\n  <div className=\"flex items-center gap-2\"><RadioGroupItem value=\"c\" id=\"r3\" disabled /><Label htmlFor=\"r3\">Disabled</Label></div>\n</RadioGroup>",
+    "category": "forms",
+    "related": [
+      "label",
+      "segmented-control",
+      "select",
+      "checkbox-group",
+      "choice-card",
+      "facet-filter",
+      "priority-picker",
+      "region-picker"
+    ],
+    "guide": "Use it for two to six mutually exclusive options shown at once, each with a Label. For a compact switcher use SegmentedControl; for long lists use Select. Base UI's `onValueChange` receives `(value, eventDetails)`.",
+    "examples": [
+      "<RadioGroup defaultValue=\"card\" aria-label=\"Payment method\" onValueChange={(v) => setMethod(v as string)}>\n  <div className=\"flex items-center gap-2\">\n    <RadioGroupItem value=\"card\" id=\"pm-card\" />\n    <Label htmlFor=\"pm-card\">Card</Label>\n  </div>\n  <div className=\"flex items-center gap-2\">\n    <RadioGroupItem value=\"bank\" id=\"pm-bank\" />\n    <Label htmlFor=\"pm-bank\">Bank transfer</Label>\n  </div>\n</RadioGroup>"
+    ]
   },
   {
     "name": "range-slider",
@@ -4169,8 +7211,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "slider"
     ],
-    "description": "Two-thumb slider. Both value bubbles show while either thumb is dragged.",
-    "usage": "<RangeSlider defaultValue={[20, 80]} aria-label=\"Price range\" />"
+    "description": "A two-thumb slider for picking a low and high value. Both value bubbles show while either thumb is dragged.",
+    "usage": "<RangeSlider defaultValue={[20, 80]} aria-label=\"Price range\" />",
+    "category": "forms",
+    "related": [
+      "slider"
+    ],
+    "guide": "Use it for price, date or size ranges. For one value use Slider. Values are plain number arrays `[low, high]`; `onValueCommitted` fires once on release, which is the place to query.",
+    "examples": [
+      "<RangeSlider defaultValue={[20, 80]} min={0} max={200} step={5} aria-label=\"Price\" onValueCommitted={([lo, hi]) => setPrice({ lo, hi })} />"
+    ]
   },
   {
     "name": "rating",
@@ -4186,7 +7236,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "editors"
     ],
-    "usage": "<Rating defaultValue={4} aria-label=\"Rating\" />"
+    "description": "A row of stars people click or arrow through to give a 1 to `max` score.",
+    "usage": "<Rating defaultValue={4} aria-label=\"Rating\" />",
+    "category": "forms",
+    "related": [
+      "segmented-control",
+      "feedback-thumbs"
+    ],
+    "guide": "Use it for reviews and feedback prompts. It is a radio group: Tab lands on the current star, arrow keys move and select, hover previews. Pass `readOnly` to display an average without input. For a numeric scale with labels use SegmentedControl.",
+    "examples": [
+      "const [score, setScore] = React.useState(0)\n<Rating value={score} onChange={setScore} aria-label=\"Rate your onboarding\" />\n<Rating value={4} readOnly aria-label=\"Average rating, 4 out of 5\" />"
+    ]
   },
   {
     "name": "reaction-bar",
@@ -4201,7 +7261,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "workflow"
     ],
     "description": "Emoji reaction pills with counts; the ones you pressed get the accent border.",
-    "usage": "<ReactionBar reactions={[{ emoji: \"👍\", count: 3, active: true }, { emoji: \"🎉\", count: 1 }]} />"
+    "usage": "<ReactionBar reactions={[{ emoji: \"👍\", count: 3, active: true }, { emoji: \"🎉\", count: 1 }]} />",
+    "category": "feedback",
+    "related": [
+      "emoji-picker",
+      "vote-control"
+    ],
+    "guide": "Use it under comments, chat messages and changelog posts. Without `onToggle` it keeps its own counts; with it, you own the data and pass back updated `reactions`. Each pill is a toggle button with `aria-pressed`.",
+    "examples": [
+      "<ReactionBar reactions={[{ emoji: \"👍\", count: 3, active: true }, { emoji: \"🎉\", count: 1 }]} onToggle={(emoji) => toggleReaction(messageId, emoji)} />"
+    ]
   },
   {
     "name": "read-receipt",
@@ -4214,7 +7283,13 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "One tick for sent, two for delivered, two accent ticks for read.",
+    "category": "ai-chat",
+    "guide": "Use it next to a message timestamp in chat bubbles. It carries a spoken label (\"Read\"), so it is not silent for screen readers. For a full delivery timeline use a status list.",
+    "examples": [
+      "<ReadReceipt status=\"delivered\" />"
+    ]
   },
   {
     "name": "reasoning-block",
@@ -4231,8 +7306,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "ai",
       "new"
     ],
-    "description": "The model's thinking, folded by default. While `active`,",
-    "usage": "<ReasoningBlock>\n  Considered layout density, Hairline borders, and tabular numbers for prices.\n</ReasoningBlock>"
+    "description": "The model's thinking, folded by default; the title shimmers while active and reports how long it took when done.",
+    "usage": "<ReasoningBlock>\n  Considered layout density, Hairline borders, and tabular numbers for prices.\n</ReasoningBlock>",
+    "category": "ai-chat",
+    "related": [
+      "collapsible",
+      "thinking-block"
+    ],
+    "guide": "Use it above an assistant message to hold chain-of-thought or tool reasoning. Folded content is inert, so it is skipped by Tab and screen readers until opened. Controlled with `open` + `onOpenChange`, or uncontrolled with `defaultOpen`. For generic disclosure use Collapsible.",
+    "examples": [
+      "<ReasoningBlock active={isThinking} duration=\"4s\">{reasoningText}</ReasoningBlock>"
+    ]
   },
   {
     "name": "receipt",
@@ -4244,7 +7328,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "A monospaced receipt card with an id, itemised lines and a ruled total."
+    "description": "A monospaced receipt card with an id, itemised lines and a ruled total.",
+    "category": "billing",
+    "related": [
+      "invoice-detail"
+    ],
+    "guide": "Use it in order confirmations, billing history and chat answers that show a charge. Amounts are display strings, so format money before passing it. For an editable bill use an invoice table instead.",
+    "examples": [
+      "<Receipt id=\"RCP-1042\" lines={[{ label: \"Pro plan\", amount: \"$49.00\" }, { label: \"Tax\", amount: \"$3.92\" }]} total=\"$52.92\" />"
+    ]
   },
   {
     "name": "regenerate-bar",
@@ -4259,7 +7351,13 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A \"Not quite right?\" footer under an AI answer with Regenerate and an optional Edit prompt button.",
+    "category": "ai-chat",
+    "guide": "Use it at the end of an assistant message. For per-message copy, like and retry icons use a message actions row instead.",
+    "examples": [
+      "<RegenerateBar onRegenerate={retry} onEdit={() => setEditing(true)} pending={isStreaming} />"
+    ]
   },
   {
     "name": "region-picker",
@@ -4273,7 +7371,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<RegionPicker value={region} onChange={setRegion} />"
+    "description": "A grid of selectable region cards, each with a name and a latency hint.",
+    "usage": "<RegionPicker value={region} onChange={setRegion} />",
+    "category": "settings",
+    "related": [
+      "radio-group",
+      "select",
+      "language-picker"
+    ],
+    "guide": "Use it in deploy and project setup flows to choose a data region. It is a radio group: Tab lands on the selected card, arrow keys move and select. For a plain list of options use RadioGroup or Select.",
+    "examples": [
+      "const [region, setRegion] = React.useState(\"eu-west\")\n<RegionPicker value={region} onChange={setRegion} regions={[{ id: \"eu-west\", label: \"EU West\", latency: \"42ms\" }, { id: \"us-east\", label: \"US East\" }]} />"
+    ]
   },
   {
     "name": "relative-time",
@@ -4285,7 +7394,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "A time element that reads \"3h ago\" and carries the exact ISO timestamp for machines."
+    "description": "A time element that reads \"3h ago\" and carries the exact ISO timestamp for machines.",
+    "category": "developer-tools",
+    "related": [
+      "due-date-chip",
+      "notification-item"
+    ],
+    "guide": "Use it in feeds, comments, activity logs and table cells. Hover shows the full local date. Set `live` to refresh the label every minute. Server and client may disagree by a minute, so the text is hydration-safe. An invalid date renders nothing. For a fixed date use a formatted string in a time element.",
+    "examples": [
+      "<RelativeTime date={comment.createdAt} />\n<RelativeTime date=\"2026-11-14T09:30:00Z\" live />"
+    ]
   },
   {
     "name": "reset-password-form",
@@ -4301,7 +7419,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "form-field",
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A \"set a new password\" card with confirm field and a mismatch check.",
+    "category": "auth",
+    "related": [
+      "forgot-password-form"
+    ],
+    "guide": "Use it on the page a password reset email links to. It checks the two fields match and meet `minLength` before calling `onSubmit`; send the token and password to your server there. For the \"email me a link\" step use a forgot password form.",
+    "examples": [
+      "<ResetPasswordForm onSubmit={(password) => resetPassword({ token, password })} />"
+    ]
   },
   {
     "name": "resizable-panels",
@@ -4317,8 +7444,12 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "navigation"
     ],
-    "description": "Split panes with draggable, keyboard operable handles, min and max sizes, snap to collapse and nested groups in either direction.",
-    "usage": "<ResizablePanels left={<p className=\"text-sm text-fg-muted\">Left pane</p>} right={<p className=\"text-sm text-fg-muted\">Right pane</p>} />"
+    "description": "Split panes for editors, inspectors and dashboards. Drag a handle to resize; the hairline swells to accent under the hand. Arrow keys move it, Shift jumps, Home and End slam it, Enter collapses a collapsible pane and a double click resets the pair. Controlled or uncontrolled sizes, nothing is persisted. With no children it renders a three pane editor demo.",
+    "usage": "<ResizablePanels left={<p className=\"text-sm text-fg-muted\">Left pane</p>} right={<p className=\"text-sm text-fg-muted\">Right pane</p>} />",
+    "category": "layout",
+    "related": [
+      "split-pane"
+    ]
   },
   {
     "name": "resource-quota-grid",
@@ -4335,7 +7466,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "admin"
     ],
     "description": "A responsive grid of quota cards, one bar per metered resource, for plan and usage pages.",
-    "usage": "<ResourceQuotaGrid\n  items={[\n    { label: \"Seats\", used: 42, max: 50 },\n    { label: \"API\", used: 820000, max: 1000000 },\n    { label: \"Storage\", used: 18, max: 100 },\n  ]}\n/>"
+    "usage": "<ResourceQuotaGrid\n  items={[\n    { label: \"Seats\", used: 42, max: 50 },\n    { label: \"API\", used: 820000, max: 1000000 },\n    { label: \"Storage\", used: 18, max: 100 },\n  ]}\n/>",
+    "category": "dashboard",
+    "related": [
+      "quota-bar",
+      "usage-breakdown",
+      "admin-console"
+    ],
+    "guide": "Each card is a QuotaBar, so bars turn warning near the limit and danger at it. For a single meter use QuotaBar directly.",
+    "examples": [
+      "<ResourceQuotaGrid items={[{ label: \"Seats\", used: 18, max: 25 }, { label: \"Storage (GB)\", used: 38, max: 50 }]} />"
+    ]
   },
   {
     "name": "retry-block",
@@ -4344,12 +7485,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "ui",
     "path": "src/registry/ui/retry-block.tsx",
     "import": "@/registry/ui/retry-block",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [
       "button",
       "inline-alert"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A danger alert explaining what failed, with a Try again button under it.",
+    "category": "feedback",
+    "related": [
+      "empty-state"
+    ],
+    "guide": "Use it where a fetch, upload or AI request failed and retrying might work. The alert is a live region, so the failure is announced. For a whole empty page use an error state or EmptyState.",
+    "examples": [
+      "<RetryBlock title=\"Could not load invoices\" description=\"The server did not answer.\" onRetry={refetch} retrying={isFetching} />"
+    ]
   },
   {
     "name": "review-request-card",
@@ -4364,7 +7516,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "status-badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A pull request awaiting your review: title, repo, author avatar and Review / View diff buttons.",
+    "category": "developer-tools",
+    "related": [
+      "engineering-console"
+    ],
+    "guide": "Use it in inboxes, dashboards and notification panels for code review requests. For a full PR row with checks and labels use a list item of your own.",
+    "examples": [
+      "<ReviewRequestCard title=\"Add invoice export\" repo=\"lumen/web\" author=\"Maya Chen\" onReview={() => router.push(prUrl)} onViewDiff={openDiff} />"
+    ]
   },
   {
     "name": "rich-text-toolbar",
@@ -4374,17 +7535,28 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "path": "src/registry/ui/rich-text-toolbar.tsx",
     "import": "@/registry/ui/rich-text-toolbar",
     "deps": [
+      "@base-ui/react",
       "lucide-react"
     ],
     "registryDeps": [
-      "separator",
       "toggle",
       "toggle-group"
     ],
     "galleries": [
       "editors"
     ],
-    "usage": "<RichTextToolbar />"
+    "description": "A formatting bar (bold, italic, link, bullet and numbered lists) for a text editor.",
+    "usage": "<RichTextToolbar />",
+    "category": "forms",
+    "related": [
+      "textarea",
+      "table-toolbar",
+      "markdown-editor"
+    ],
+    "guide": "Use it above a Textarea or a contenteditable editor. It is a real ARIA toolbar on Base UI: one Tab stop, arrow keys move between buttons. Wire `onAction` to your editor's commands. For a table's search and filter row use TableToolbar.",
+    "examples": [
+      "<RichTextToolbar onAction={(action, pressed) => editor.chain().focus().run(action, pressed)} />"
+    ]
   },
   {
     "name": "role-permission-matrix",
@@ -4398,7 +7570,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "checkbox"
     ],
     "galleries": [],
-    "description": "A permissions table with one checkbox per role and capability, for workspace access settings."
+    "description": "A permissions table with one checkbox per role and capability, for workspace access settings.",
+    "category": "settings",
+    "related": [
+      "role-picker",
+      "seat-manager"
+    ],
+    "guide": "Rows are capabilities, columns are roles; each checkbox is named \"<role> <permission>\" for screen readers. Seed it with `isChecked` and listen with `onCheckedChange`. For assigning one role to one person use RolePicker.",
+    "examples": [
+      "<RolePermissionMatrix\n  roles={[\"Admin\", \"Member\"]}\n  permissions={[\"Read\", \"Edit\"]}\n  isChecked={(role, permission) => role === \"Admin\" || permission === \"Read\"}\n  onCheckedChange={(role, permission, checked) => savePermission(role, permission, checked)}\n/>"
+    ]
   },
   {
     "name": "role-picker",
@@ -4412,7 +7593,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "label",
       "radio-group"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "Labelled radios for choosing one workspace role (Owner, Admin, Member by default).",
+    "category": "settings",
+    "related": [
+      "radio-group",
+      "role-permission-matrix",
+      "seat-manager"
+    ],
+    "guide": "Use it in invite dialogs and member settings. Built on RadioGroup, so arrow keys move and select. For editing what each role can do use RolePermissionMatrix.",
+    "examples": [
+      "<RolePicker value={role} onValueChange={setRole} roles={[{ value: \"admin\", label: \"Admin\" }, { value: \"viewer\", label: \"Viewer\" }]} />"
+    ]
   },
   {
     "name": "row-selection",
@@ -4425,7 +7617,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "checkbox"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "The select checkbox for a data table row or header, with an indeterminate state.",
+    "category": "data-tables",
+    "related": [
+      "checkbox",
+      "select"
+    ],
+    "guide": "Put one in each row's first cell and one in the header with `indeterminate` when only some rows are selected. It is a Checkbox with a default \"Select row\" name; give each row a specific one.",
+    "examples": [
+      "<RowSelection checked={allSelected} indeterminate={someSelected} onCheckedChange={toggleAll} aria-label=\"Select all rows\" />\n<RowSelection checked={selected.has(row.id)} onCheckedChange={(on) => toggle(row.id, on)} aria-label={`Select ${row.name}`} />"
+    ]
   },
   {
     "name": "sankey-chart",
@@ -4437,7 +7639,11 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "An SVG sankey diagram that lays nodes out in columns computed from the links, draws curved ribbons, labels nodes with values, highlights a node's flows on hover or focus, and includes a hidden table."
+    "description": "A sankey diagram. Columns come from the links themselves, ribbons curve between nodes with a gradient from source to target, and hovering or focusing a node lights its flows while the rest fall back. Nodes are keyboard focusable with a spoken summary; a hidden table carries the data.",
+    "category": "charts",
+    "related": [
+      "funnel-chart"
+    ]
   },
   {
     "name": "saved-views",
@@ -4451,7 +7657,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<SavedViews />"
+    "description": "A vertical list of saved filters (\"My open\", \"Needs review\") with counts, one selected.",
+    "usage": "<SavedViews />",
+    "category": "data-tables",
+    "related": [
+      "tabs",
+      "column-visibility-menu"
+    ],
+    "guide": "Use it in an issue tracker or inbox sidebar. It is a single-select listbox: Tab lands on the selected view, Up and Down arrows move and select, Home and End jump. For top-level page navigation use a sidebar nav; for switching panels in place use Tabs.",
+    "examples": [
+      "<SavedViews views={[{ id: \"mine\", name: \"My open\", count: 12 }, { id: \"all\", name: \"All issues\" }]} value={view} onChange={setView} />"
+    ]
   },
   {
     "name": "schema-field-row",
@@ -4467,7 +7683,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<SchemaFieldRow name=\"id\" type=\"string\" required description=\"Stable identifier\" />"
+    "description": "One row of an API or data schema: field name, required badge, type and description.",
+    "usage": "<SchemaFieldRow name=\"id\" type=\"string\" required description=\"Stable identifier\" />",
+    "category": "developer-tools",
+    "related": [
+      "stack",
+      "data-table"
+    ],
+    "guide": "Stack several to document a request body, a webhook payload or a database table. Rows are responsive: three columns from `sm`, stacked below. For an interactive table use DataTable.",
+    "examples": [
+      "<SchemaFieldRow name=\"amount\" type=\"integer\" required description=\"Amount in cents.\" />\n<SchemaFieldRow name=\"metadata\" type=\"Record<string, string>\" description=\"Up to 50 keys.\" />"
+    ]
   },
   {
     "name": "scroll-area",
@@ -4480,7 +7706,13 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "@base-ui/react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A scroll container with thin, themed scrollbars on Base UI; native scrolling underneath.",
+    "category": "layout",
+    "guide": "Give it a fixed height (or max height) and put long content inside. Set `orientation` to \"horizontal\" or \"both\" for sideways overflow. The viewport is keyboard focusable so arrow keys scroll it. For a whole page let the body scroll instead.",
+    "examples": [
+      "<ScrollArea className=\"h-72 rounded-xl border border-border\">\n  <div className=\"p-4\">{longList}</div>\n</ScrollArea>"
+    ]
   },
   {
     "name": "search-input",
@@ -4498,7 +7730,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "search-input"
     ],
-    "usage": "<SearchInput id=\"q1\" placeholder=\"Search components\" />"
+    "description": "A search field with a magnifier icon and a clear button that appears once there is text.",
+    "usage": "<SearchInput id=\"q1\" placeholder=\"Search components\" />",
+    "category": "forms",
+    "related": [
+      "search-with-results",
+      "command-palette",
+      "input-affix",
+      "input",
+      "docs-marketing"
+    ],
+    "guide": "Use it for list filters, table search and site search. Escape or the clear button empties it and keeps focus in the field. Controlled (`value` + `onChange`) or uncontrolled. Clearing calls `onClear` and an `onChange` whose `target.value` is \"\". For a field with a result list use SearchWithResults; for a command launcher use CommandPalette.",
+    "examples": [
+      "<SearchInput aria-label=\"Search invoices\" placeholder=\"Search invoices…\" value={q} onChange={(e) => setQ(e.target.value)} />"
+    ]
   },
   {
     "name": "search-with-results",
@@ -4512,7 +7757,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "search-input"
     ],
     "galleries": [],
-    "description": "A search field with a result list underneath, for global search and quick lookups."
+    "description": "A search field with a result list underneath, for global search and quick lookups.",
+    "category": "forms",
+    "related": [
+      "command-palette",
+      "search-input",
+      "search-results-page"
+    ],
+    "guide": "Without `onSearch` it filters `results` by title and subtitle itself; with it, you fetch and pass back `results`. Pass `onSelect` to make each result a button. The result count is announced to screen readers. For a keyboard-first launcher use CommandPalette; for a field alone use SearchInput.",
+    "examples": [
+      "<SearchWithResults results={hits} onSearch={setQuery} onSelect={(r) => router.push(`/items/${r.id}`)} />"
+    ]
   },
   {
     "name": "seat-manager",
@@ -4526,7 +7781,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "badge",
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A card listing workspace members with their roles, a seats-used count and an Invite button.",
+    "category": "billing",
+    "related": [
+      "role-picker",
+      "role-permission-matrix",
+      "invite-members"
+    ],
+    "guide": "Use it on billing and team settings pages. The \"N of M used\" line is computed from `seats` and `limit`. For editing a member's role use RolePicker; for permissions use RolePermissionMatrix.",
+    "examples": [
+      "<SeatManager seats={[{ name: \"Maya Chen\", email: \"maya@lumen.app\", role: \"Owner\" }]} limit={10} onInvite={openInvite} />"
+    ]
   },
   {
     "name": "secret-reveal",
@@ -4543,7 +7809,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "icon-button"
     ],
     "galleries": [],
-    "usage": "<SecretReveal />"
+    "description": "A masked API key or token with Reveal and Copy buttons.",
+    "usage": "<SecretReveal />",
+    "category": "developer-tools",
+    "related": [
+      "code-block",
+      "copy-button",
+      "api-key-list",
+      "copy-id",
+      "create-api-key",
+      "scratch-to-reveal"
+    ],
+    "guide": "Use it on API key and webhook secret settings. Copy always copies the real secret, even while masked. Pass only `revealedValue` and the mask is generated, keeping the prefix and the last four characters. For a plain copyable value use CodeBlock or CopyButton.",
+    "examples": [
+      "<SecretReveal revealedValue={apiKey} label=\"Live API key\" />"
+    ]
   },
   {
     "name": "section-header",
@@ -4554,7 +7834,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/section-header",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A section title with an optional description on the left and actions on the right.",
+    "category": "layout",
+    "related": [
+      "page-header",
+      "heading",
+      "hero"
+    ],
+    "guide": "Use it to head a settings group, a dashboard panel or a list. It renders an h2 by default; set `level` to keep the document outline correct. For a whole page title use PageHeader.",
+    "examples": [
+      "<SectionHeader title=\"Members\" description=\"People with access to this workspace.\" actions={<Button size=\"sm\">Invite</Button>} />\n<SectionHeader level={3} title=\"Danger zone\" />"
+    ]
   },
   {
     "name": "segmented-control",
@@ -4570,8 +7861,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "segmented-control"
     ],
-    "description": "Short trailing detail, e.g. \"-20%\" or a count.",
-    "usage": "<SegmentedControl disabled items={[\"Day\", \"Week\", \"Month\"]} aria-label=\"Disabled range\" />"
+    "description": "A row of options with a raised thumb that glides to the selected one.",
+    "usage": "<SegmentedControl disabled items={[\"Day\", \"Week\", \"Month\"]} aria-label=\"Disabled range\" />",
+    "category": "forms",
+    "related": [
+      "radio-group",
+      "tabs",
+      "toggle-group",
+      "button-group",
+      "chip-filter",
+      "choice-card",
+      "density-toggle",
+      "env-switcher"
+    ],
+    "guide": "Use it for two to five mutually exclusive views or modes (Monthly / Yearly, List / Board). It is a radio group: Tab lands on the selected option, arrows move and select, Home and End jump. Controlled with `value` + `onChange` or uncontrolled with `defaultValue`. For form fields use RadioGroup; for switching whole panels use Tabs; for on/off toolbar buttons use ToggleGroup.",
+    "examples": [
+      "<SegmentedControl items={[\"Day\", \"Week\", \"Month\"]} defaultValue=\"Week\" aria-label=\"Range\" />\n<SegmentedControl\n  aria-label=\"Layout\"\n  value={layout}\n  onChange={setLayout}\n  options={[{ value: \"list\", label: \"List\", icon: <ListIcon /> }, { value: \"board\", label: \"Board\", icon: <KanbanIcon /> }]}\n/>"
+    ]
   },
   {
     "name": "select",
@@ -4588,7 +7894,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "select"
     ],
-    "usage": "<Select disabled={disabled} {...props}>\n  <SelectTrigger id={id} className=\"w-56\" aria-label={label}>\n    <SelectValue placeholder={placeholder} />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value=\"a\">Alpha</SelectItem>\n    <SelectItem value=\"b\">Beta</SelectItem>\n    <SelectItem value=\"c\">A very long option label for overflow</SelectItem>\n  </SelectContent>\n</Select>"
+    "description": "A styled single or multiple choice dropdown on Base UI, with keyboard typeahead and a check on the chosen item.",
+    "usage": "<Select disabled={disabled} {...props}>\n  <SelectTrigger id={id} className=\"w-56\" aria-label={label}>\n    <SelectValue placeholder={placeholder} />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value=\"a\">Alpha</SelectItem>\n    <SelectItem value=\"b\">Beta</SelectItem>\n    <SelectItem value=\"c\">A very long option label for overflow</SelectItem>\n  </SelectContent>\n</Select>",
+    "category": "forms",
+    "related": [
+      "radio-group",
+      "segmented-control",
+      "combobox",
+      "label",
+      "autocomplete",
+      "chip-filter",
+      "dropdown-menu",
+      "filter-bar"
+    ],
+    "guide": "Use it for picking one option from five or more in forms and toolbars. For two to four options shown at once use RadioGroup or SegmentedControl; for searchable lists use a Combobox. Pass `items` to `Select` so `SelectValue` shows the label, not the raw value. Base UI's `onValueChange` receives `(value, eventDetails)`. Label the trigger with `aria-label` or a Label whose `htmlFor` matches the trigger `id`.",
+    "examples": [
+      "const items = [{ value: \"usd\", label: \"US dollar\" }, { value: \"eur\", label: \"Euro\" }]\n<Select items={items} defaultValue=\"usd\" onValueChange={(v) => setCurrency(v as string)}>\n  <SelectTrigger aria-label=\"Currency\" className=\"w-48\">\n    <SelectValue placeholder=\"Pick a currency\" />\n  </SelectTrigger>\n  <SelectContent>\n    {items.map((i) => <SelectItem key={i.value} value={i.value}>{i.label}</SelectItem>)}\n  </SelectContent>\n</Select>"
+    ]
   },
   {
     "name": "separator",
@@ -4601,7 +7923,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "@base-ui/react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A 1px hairline that divides content, horizontally or vertically.",
+    "category": "layout",
+    "related": [
+      "dropdown-menu"
+    ],
+    "guide": "Base UI Separator renders `role=\"separator\"` with `aria-orientation`. For a purely visual rule inside a list or menu use DropdownMenuSeparator; for a labelled break (\"or continue with\") put text beside two Separators.",
+    "examples": [
+      "<Separator />\n<div className=\"flex h-5 items-center gap-3\">Docs<Separator orientation=\"vertical\" />API</div>"
+    ]
   },
   {
     "name": "server-error-state",
@@ -4614,7 +7945,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A 500 error panel: status code, a plain-language headline, a retry button and a copyable request id for support.",
+    "category": "feedback",
+    "related": [
+      "not-found-state",
+      "empty-state",
+      "form-field",
+      "error-state",
+      "stack-trace"
+    ],
+    "guide": "Use it where a server call failed and the user can retry. For a missing page use NotFoundState; for an empty list use EmptyState; for an inline field error use FormField `error`.",
+    "examples": [
+      "<ServerErrorState onRetry={() => refetch()} requestId={error.requestId} />"
+    ]
   },
   {
     "name": "session-list",
@@ -4628,7 +7972,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A list of signed-in devices with a revoke action on every session except the current one."
+    "description": "A list of signed-in devices with a revoke action on every session except the current one.",
+    "category": "settings",
+    "related": [
+      "api-key-list"
+    ],
+    "guide": "Use it on an account security page. For API keys use ApiKeyList instead.",
+    "examples": [
+      "<SessionList sessions={sessions} onRevoke={(id) => revokeSession(id)} />"
+    ]
   },
   {
     "name": "settings-layout",
@@ -4642,7 +7994,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "settings"
     ],
-    "usage": "<SettingsLayout className=\"w-full max-w-3xl\" nav={<>\n  <Button variant=\"ghost\" className=\"w-full justify-start\">Profile</Button>\n  <Button variant=\"secondary\" className=\"w-full justify-start\">API</Button>\n  <Button variant=\"ghost\" className=\"w-full justify-start\">Billing</Button>\n</>}>\n  <SettingsSection title=\"Profile\" description=\"Public details for your workspace.\">\n    <FormField id=\"name\" label=\"Name\" className=\"max-w-sm\"><Input id=\"name\" defaultValue=\"MiniDev\" /></FormField>\n  </SettingsSection>\n  <SettingsSection title=\"API keys\">\n    <ApiKeyList keys={[{ id: \"1\", name: \"Production\", preview: \"md_live_••••1234\" }]} />\n  </SettingsSection>\n  <SettingsSection title=\"Danger zone\"><DangerZone /></SettingsSection>\n</SettingsLayout>"
+    "description": "A two-column settings page: a 200px nav rail beside stacked, divided SettingsSection blocks (one column on mobile).",
+    "usage": "<SettingsLayout className=\"w-full max-w-3xl\" nav={<>\n  <Button variant=\"ghost\" className=\"w-full justify-start\">Profile</Button>\n  <Button variant=\"secondary\" className=\"w-full justify-start\">API</Button>\n  <Button variant=\"ghost\" className=\"w-full justify-start\">Billing</Button>\n</>}>\n  <SettingsSection title=\"Profile\" description=\"Public details for your workspace.\">\n    <FormField id=\"name\" label=\"Name\" className=\"max-w-sm\"><Input id=\"name\" defaultValue=\"MiniDev\" /></FormField>\n  </SettingsSection>\n  <SettingsSection title=\"API keys\">\n    <ApiKeyList keys={[{ id: \"1\", name: \"Production\", preview: \"md_live_••••1234\" }]} />\n  </SettingsSection>\n  <SettingsSection title=\"Danger zone\"><DangerZone /></SettingsSection>\n</SettingsLayout>",
+    "category": "settings",
+    "related": [
+      "sidebar",
+      "vertical-tabs"
+    ],
+    "guide": "Use SettingsLayout for the page frame and SettingsSection for each titled group of controls. For app-wide navigation use Sidebar instead.",
+    "examples": [
+      "<SettingsLayout nav={<SidebarNavItem active>Profile</SidebarNavItem>}>\n  <SettingsSection title=\"Profile\" description=\"How others see you.\">…</SettingsSection>\n</SettingsLayout>"
+    ]
   },
   {
     "name": "sheet",
@@ -4652,13 +8014,28 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "path": "src/registry/ui/sheet.tsx",
     "import": "@/registry/ui/sheet",
     "deps": [
+      "@base-ui/react",
       "lucide-react"
     ],
     "registryDeps": [
       "button"
     ],
     "galleries": [],
-    "description": "A side panel that slides over the page from any edge, with a scrim, a title bar and a close button."
+    "description": "A side panel that slides over the page from any edge, with a scrim, a title bar and a close button.",
+    "category": "overlays",
+    "related": [
+      "dialog",
+      "drawer",
+      "app-shell",
+      "inline-cell-edit",
+      "mobile-nav-drawer",
+      "peek-panel",
+      "sidebar"
+    ],
+    "guide": "Built on Base UI Dialog: focus is trapped inside, the page is inert and scroll-locked, Escape and the scrim close it, and focus returns to the trigger. Use Sheet for secondary tasks beside the page (filters, edit forms, mobile nav); use Dialog for a centred decision, Drawer for a bottom sheet on mobile.",
+    "examples": [
+      "const [open, setOpen] = React.useState(false)\n<Button onClick={() => setOpen(true)}>Edit</Button>\n<Sheet open={open} onClose={() => setOpen(false)} side=\"right\" title=\"Edit customer\">\n  <form>…</form>\n</Sheet>"
+    ]
   },
   {
     "name": "shipping-address",
@@ -4670,10 +8047,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [
       "form-field",
-      "input",
-      "label"
+      "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A shipping address fieldset: full name, street address, city and postal code, with labels wired to inputs and browser autofill tokens.",
+    "category": "ecommerce",
+    "related": [
+      "billing-address"
+    ],
+    "guide": "Drop it inside a checkout `<form>`; inputs carry `name` attributes so FormData picks them up. Use BillingAddress for the payment address.",
+    "examples": [
+      "<form action={save}><ShippingAddress /><Button type=\"submit\">Continue</Button></form>"
+    ]
   },
   {
     "name": "shortcut-cheat-sheet",
@@ -4689,7 +8074,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<ShortcutCheatSheet />"
+    "description": "A titled card listing keyboard shortcuts: action on the left, keycaps on the right.",
+    "usage": "<ShortcutCheatSheet />",
+    "category": "developer-tools",
+    "related": [
+      "kbd",
+      "command-palette",
+      "keyboard-shortcuts"
+    ],
+    "guide": "Use it in a help panel or behind a \"?\" shortcut. For a single inline shortcut hint use Kbd; for a searchable list of actions use CommandPalette.",
+    "examples": [
+      "<ShortcutCheatSheet rows={[{ keys: [\"⌘\", \"K\"], action: \"Command palette\" }, { keys: [\"?\"], action: \"Show shortcuts\" }]} />"
+    ]
   },
   {
     "name": "sidebar-section",
@@ -4700,7 +8096,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/sidebar-section",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A titled group inside a Sidebar: a small uppercase label above a stack of SidebarNavItems.",
+    "category": "navigation",
+    "related": [
+      "sidebar"
+    ],
+    "guide": "The title names the group for screen readers (`role=\"group\"`). Use one per cluster of links (\"Workspace\", \"Settings\"); the Sidebar itself is the outer frame.",
+    "examples": [
+      "<SidebarSection title=\"Workspace\">\n  <SidebarNavItem active>Inbox</SidebarNavItem>\n  <SidebarNavItem>Projects</SidebarNavItem>\n</SidebarSection>"
+    ]
   },
   {
     "name": "sidebar",
@@ -4715,7 +8120,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "blocks",
       "shells"
     ],
-    "usage": "<Sidebar><div className=\"p-3 text-xs font-medium text-fg-muted\">MiniDev</div><SidebarNavItem active>Overview</SidebarNavItem><SidebarNavItem>Projects</SidebarNavItem></Sidebar>"
+    "description": "An app sidebar frame (224px, or a 56px icon rail when `collapsed`) and its nav items.",
+    "usage": "<Sidebar><div className=\"p-3 text-xs font-medium text-fg-muted\">MiniDev</div><SidebarNavItem active>Overview</SidebarNavItem><SidebarNavItem>Projects</SidebarNavItem></Sidebar>",
+    "category": "navigation",
+    "related": [
+      "sidebar-section",
+      "settings-layout",
+      "mobile-nav-drawer",
+      "sheet",
+      "app-shell",
+      "collapsible-sidebar",
+      "conversation-sidebar",
+      "nav-marketing"
+    ],
+    "guide": "Put a `<nav aria-label=\"Main\">` of SidebarNavItems inside, grouped with SidebarSection. When the Sidebar is collapsed, nav item labels become screen-reader only, so items stay named. For a settings page frame use SettingsLayout; for a mobile slide-over use MobileNavDrawer or Sheet.",
+    "examples": [
+      "<Sidebar collapsed={collapsed}>\n  <nav aria-label=\"Main\">\n    <SidebarNavItem icon={<InboxIcon />} active>Inbox</SidebarNavItem>\n  </nav>\n</Sidebar>"
+    ]
   },
   {
     "name": "sign-up-form",
@@ -4732,7 +8153,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "input",
       "social-auth-row"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A complete sign-up card: GitHub and Google buttons, then name, email and password fields and a submit button.",
+    "category": "auth",
+    "related": [
+      "auth-card",
+      "social-auth-row",
+      "magic-link-form"
+    ],
+    "guide": "Fields use browser autofill tokens (`new-password` for the password) and native required checks. Use AuthCard to build your own variant; use SocialAuthRow alone for OAuth-only sign-in.",
+    "examples": [
+      "<SignUpForm onSubmit={({ name, email, password }) => signUp(name, email, password)} signInHref=\"/login\" />"
+    ]
   },
   {
     "name": "signature-pad",
@@ -4742,13 +8174,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "path": "src/registry/ui/signature-pad.tsx",
     "import": "@/registry/ui/signature-pad",
     "deps": [
-      "lucide-react"
+      "lucide-react",
+      "type"
     ],
     "registryDeps": [
       "button"
     ],
     "galleries": [],
-    "description": "A signature field drawn with pointer events on a canvas: smooth"
+    "description": "A signature field drawn on a canvas with smooth, pressure-aware strokes, undo and clear, a typed-name fallback for keyboard users, and PNG export.",
+    "category": "forms",
+    "guide": "Both modes report through one `onChange`: a drawn signature or the typed name rendered in a script face, as a transparent PNG data URL, or null when empty. Store the data URL or upload it as an image.",
+    "examples": [
+      "const [sig, setSig] = React.useState<string | null>(null)\n<SignaturePad label=\"Sign to accept\" onChange={setSig} />\n<Button disabled={!sig}>Accept</Button>"
+    ]
   },
   {
     "name": "skeleton",
@@ -4762,8 +8200,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feedback"
     ],
-    "description": "A sunken plate with a hairline sheen that sweeps once per 1.6s.",
-    "usage": "<Skeleton className=\"h-4 w-40\" />"
+    "description": "A sunken plate with a hairline sheen that sweeps once per 1.6s, standing in for content while it loads.",
+    "usage": "<Skeleton className=\"h-4 w-40\" />",
+    "category": "feedback",
+    "related": [
+      "spinner",
+      "loading-overlay",
+      "loading-table"
+    ],
+    "guide": "Size it with className to match the content it replaces (zero layout shift when the data lands). Skeletons are aria-hidden: mark the loading region `aria-busy=\"true\"` and give it a status label. Use Spinner for a short action in a button; use SkeletonCard for a whole card placeholder.",
+    "examples": [
+      "<div aria-busy=\"true\" aria-label=\"Loading invoices\">\n  <Skeleton className=\"h-4 w-1/3\" />\n  <Skeleton className=\"mt-2 h-3 w-full\" />\n</div>"
+    ]
   },
   {
     "name": "skip-link",
@@ -4777,7 +8225,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "layout"
     ],
-    "usage": "<SkipLink href=\"#main\" />"
+    "description": "A \"Skip to content\" link, visually hidden until it receives keyboard focus, then pinned top-left.",
+    "usage": "<SkipLink href=\"#main\" />",
+    "category": "navigation",
+    "related": [
+      "visually-hidden"
+    ],
+    "guide": "Render it as the first focusable element in the layout. Its `href` must match the id of your main landmark, e.g. `<main id=\"main\" tabIndex={-1}>`, so focus lands there after the skip.",
+    "examples": [
+      "<body><SkipLink href=\"#main\" /><Header /><main id=\"main\" tabIndex={-1}>…</main></body>"
+    ]
   },
   {
     "name": "slash-command-menu",
@@ -4792,7 +8249,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "editors"
     ],
     "description": "A floating list of slash commands filtered by what the user has typed after the slash.",
-    "usage": "<SlashCommandMenu items={[{ id: \"table\", label: \"table\", hint: \"Insert table\" }, { id: \"ai\", label: \"ai\", hint: \"Ask AI\" }]} />"
+    "usage": "<SlashCommandMenu items={[{ id: \"table\", label: \"table\", hint: \"Insert table\" }, { id: \"ai\", label: \"ai\", hint: \"Ask AI\" }]} />",
+    "category": "forms",
+    "related": [
+      "command-palette",
+      "dropdown-menu",
+      "command-item"
+    ],
+    "guide": "Presentational: you own the editor and pass `query` (text after \"/\"). The list is a listbox with roving focus: Arrow Up/Down, Home/End move, Enter or click selects, Escape calls `onClose`. For a global action search use CommandPalette; for a menu from a button use DropdownMenu.",
+    "examples": [
+      "{open ? <SlashCommandMenu query={afterSlash} onSelect={(c) => run(c.id)} onClose={() => setOpen(false)} /> : null}"
+    ]
   },
   {
     "name": "slider",
@@ -4809,7 +8276,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "slider"
     ],
     "description": "Hairline rail, keycap thumb and a value bubble while you drag or tab to it.",
-    "usage": "<Slider defaultValue={[40]} aria-label=\"Volume\" aria-labelledby=\"vol-label\" />"
+    "usage": "<Slider defaultValue={[40]} aria-label=\"Volume\" aria-labelledby=\"vol-label\" />",
+    "category": "forms",
+    "related": [
+      "number-input",
+      "switch",
+      "quantity-stepper",
+      "range-slider"
+    ],
+    "guide": "One value, or a range when `defaultValue`/`value` is an array of two. Use Slider for a continuous or stepped number; use NumberInput when the exact value matters more than the feel, and Switch for on/off. Always name it with `aria-label` or `aria-labelledby`.\n\nBase UI for pointer, keyboard and form behaviour. Hairline rail with an accent fill, a raised keycap thumb whose ring grows on hover, drag and focus, and an ink value bubble that settles in above the thumb while you drag or tab to it. Optional marks sit under the rail. RTL needs Base UI's <DirectionProvider direction=\"rtl\">, not only dir=\"rtl\", or dragging and arrow keys run backwards.",
+    "examples": [
+      "<Slider aria-label=\"Volume\" defaultValue={40} />\n<Slider aria-label=\"Price\" defaultValue={[20, 80]} format={{ style: \"currency\", currency: \"USD\" }} marks={[0, 50, 100]} />"
+    ]
   },
   {
     "name": "social-auth-row",
@@ -4825,7 +8303,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "auth"
     ],
-    "usage": "<SocialAuthRow />"
+    "description": "Two outline buttons, \"Continue with GitHub\" and \"Continue with Google\", side by side for OAuth sign-in.",
+    "usage": "<SocialAuthRow />",
+    "category": "auth",
+    "related": [
+      "auth-card",
+      "sign-up-form",
+      "magic-link-form"
+    ],
+    "guide": "Put it at the top of an AuthCard, above an email form. SignUpForm already includes it.",
+    "examples": [
+      "<SocialAuthRow onGithub={() => signIn(\"github\")} onGoogle={() => signIn(\"google\")} />"
+    ]
   },
   {
     "name": "social-proof",
@@ -4842,7 +8331,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "marketing"
     ],
     "description": "A stack of up to five customer avatars beside a short trust line, for hero and signup sections.",
-    "usage": "<SocialProof countLabel=\"2,400+ teams building with MiniDev\" people={[{ name: \"Ada\" }, { name: \"Lin\" }, { name: \"Kai\" }, { name: \"Noa\" }]} />"
+    "usage": "<SocialProof countLabel=\"2,400+ teams building with MiniDev\" people={[{ name: \"Ada\" }, { name: \"Lin\" }, { name: \"Kai\" }, { name: \"Noa\" }]} />",
+    "category": "marketing",
+    "related": [
+      "testimonial",
+      "logo-cloud"
+    ],
+    "guide": "The avatars are decorative; the trust line is what screen readers hear. Only claim numbers you can back up. For quotes use Testimonial; for a row of logos use LogoCloud.",
+    "examples": [
+      "<SocialProof countLabel=\"Used by 40 teams in our beta\" people={[{ name: \"Maya Chen\", src: \"/maya.jpg\" }]} />"
+    ]
   },
   {
     "name": "sortable-header",
@@ -4855,7 +8353,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A table column header button that shows and toggles sort direction (none, ascending, descending).",
+    "category": "data-tables",
+    "related": [
+      "table",
+      "table-toolbar",
+      "sql-result-table"
+    ],
+    "guide": "Put it inside a `<TableHead>` and set `aria-sort` on that header cell to match (\"ascending\" | \"descending\" | \"none\"); screen readers read sort state from the cell. Use TableToolbar for filters and search above the table.",
+    "examples": [
+      "<TableHead aria-sort={dir === \"asc\" ? \"ascending\" : dir === \"desc\" ? \"descending\" : \"none\"}>\n  <SortableHeader label=\"Amount\" direction={dir} onToggle={cycle} />\n</TableHead>"
+    ]
   },
   {
     "name": "sortable-list",
@@ -4870,7 +8379,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A drag to reorder list built on Motion's Reorder: grab the handle to"
+    "description": "A drag-to-reorder list: drag the grip handle, or focus it and use the arrow keys; every move is announced and the new order comes back through onReorder.",
+    "category": "workflow",
+    "related": [
+      "kanban-board"
+    ],
+    "guide": "Built on Motion's Reorder.\n\nKeyboard: Arrow Up/Down move one place, Home/End move to the ends; focus stays on the moved handle. Pass a new `items` array (different ids or order) to reset the list from outside.",
+    "examples": [
+      "<SortableList items={tasks} onReorder={(next) => saveOrder(next.map((t) => t.id))} />"
+    ]
   },
   {
     "name": "source-card",
@@ -4886,7 +8403,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai"
     ],
-    "usage": "<SourceCard\n  className=\"max-w-sm\"\n  title=\"Radix Select\"\n  url=\"https://www.radix-ui.com\"\n  snippet=\"Accessible select primitive.\"\n/>"
+    "description": "A citation card for AI answers and RAG results: source title, its URL or path in mono, and a quoted snippet.",
+    "usage": "<SourceCard\n  className=\"max-w-sm\"\n  title=\"Radix Select\"\n  url=\"https://www.radix-ui.com\"\n  snippet=\"Accessible select primitive.\"\n/>",
+    "category": "ai-chat",
+    "related": [
+      "streaming-message",
+      "citation-chip",
+      "file-reference",
+      "link-preview"
+    ],
+    "guide": "Show one per retrieved source under a StreamingMessage. When `href` is set the title becomes a link.",
+    "examples": [
+      "<SourceCard title=\"Billing API\" url=\"docs.acme.com/billing\" href=\"https://docs.acme.com/billing\" snippet=\"Invoices are finalised after 1 hour.\" />"
+    ]
   },
   {
     "name": "sparkline-set",
@@ -4904,7 +8433,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "charts"
     ],
     "description": "A grid of KPI cards, each with a value, a delta and a small area sparkline, for dashboard overviews.",
-    "usage": "<SparklineSet items={[\n  { label: \"Revenue\", value: \"$48.2k\", delta: 12.4, data: [12,18,15,28,22,36,30,42] },\n  { label: \"Signups\", value: \"1,204\", delta: 4.1, data: [8,10,9,14,13,18,16,20] },\n  { label: \"Churn\", value: \"2.1%\", delta: -0.4, data: [6,5,7,4,5,3,4,3] },\n]} />"
+    "usage": "<SparklineSet items={[\n  { label: \"Revenue\", value: \"$48.2k\", delta: 12.4, data: [12,18,15,28,22,36,30,42] },\n  { label: \"Signups\", value: \"1,204\", delta: 4.1, data: [8,10,9,14,13,18,16,20] },\n  { label: \"Churn\", value: \"2.1%\", delta: -0.4, data: [6,5,7,4,5,3,4,3] },\n]} />",
+    "category": "dashboard",
+    "related": [
+      "stat-sparkline",
+      "stat-card",
+      "stats-strip"
+    ],
+    "guide": "Use it for 2 to 6 headline metrics. For one metric use StatSparkline or StatCard; for a single flat row of numbers without charts use StatsStrip.",
+    "examples": [
+      "<SparklineSet items={[{ label: \"Revenue\", value: \"$12,400\", delta: 8.2, data: [4, 6, 5, 8, 9] }]} />"
+    ]
   },
   {
     "name": "spinner",
@@ -4918,7 +8457,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feedback"
     ],
-    "usage": "<Spinner />"
+    "description": "A small accent ring that spins while something loads; announced once as a status with its label.",
+    "usage": "<Spinner />",
+    "category": "feedback",
+    "related": [
+      "skeleton",
+      "progress",
+      "loading-overlay",
+      "typing-indicator"
+    ],
+    "guide": "Use it inside a button or beside text for short waits. Use Skeleton when the layout of the incoming content is known, and a Progress bar when you know how far along it is.",
+    "examples": [
+      "<Button disabled><Spinner size=\"sm\" label=\"Saving\" /> Saving</Button>"
+    ]
   },
   {
     "name": "split-button",
@@ -4939,7 +8490,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "split-button"
     ],
     "description": "A primary action with an attached chevron that opens a menu of related actions.",
-    "usage": "<SplitButton\n  label=\"Save\"\n  items={[\n    { label: \"Save draft\" },\n    { label: \"Save and close\" },\n    { label: \"Discard\", destructive: true },\n  ]}\n/>"
+    "usage": "<SplitButton\n  label=\"Save\"\n  items={[\n    { label: \"Save draft\" },\n    { label: \"Save and close\" },\n    { label: \"Discard\", destructive: true },\n  ]}\n/>",
+    "category": "buttons",
+    "related": [
+      "dropdown-menu",
+      "button"
+    ],
+    "guide": "Use it when one action is the obvious default and two to five close variants sit behind it (\"Save\" / \"Save draft\", \"Merge\" / \"Squash and merge\"). For unrelated actions use DropdownMenu on its own; for a single action use Button.",
+    "examples": [
+      "<SplitButton\n  label=\"Merge\"\n  onPrimaryClick={merge}\n  items={[{ label: \"Squash and merge\", onSelect: squash }, { label: \"Close pull request\", destructive: true, onSelect: close }]}\n/>"
+    ]
   },
   {
     "name": "split-flap",
@@ -4953,7 +8513,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Pad or cut to this many cells."
+    "description": "A departure-board display where each character flips through the alphabet to its target, rippling across the row like a Solari board.",
+    "category": "animation",
+    "related": [
+      "number-roll"
+    ],
+    "guide": "Top half falls over the bottom with a staggered start per column. Screen readers get the final text once; the flipping is decoration.\n\nThe board is always dark (it scopes the dark tokens to itself). Supported characters: A-Z, 0-9, space and : . - ' / ·; anything else shows blank. Use it for a headline status or a launch moment; for a changing number in a dashboard use NumberRoll, which is quieter.",
+    "examples": [
+      "<SplitFlap value=\"GATE 12\" length={8} tone=\"accent\" />"
+    ]
   },
   {
     "name": "split-pane",
@@ -4964,7 +8532,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/split-pane",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "Two equal panes side by side in one bordered frame, stacked on mobile: for before/after, code/preview or source/result.",
+    "category": "layout",
+    "related": [
+      "resizable-panels"
+    ],
+    "guide": "Static 50/50 layout; for a draggable divider use ResizablePanels. Panes clip overflow to the frame, so put scrolling content in its own `overflow-auto` box.",
+    "examples": [
+      "<SplitPane left={<CodeBlock code={src} />} right={<Preview />} />"
+    ]
   },
   {
     "name": "sql-result-table",
@@ -4978,7 +8555,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<SqlResultTable />"
+    "description": "A compact result grid for SQL query output: uppercase column headers, mono cells, NULL shown dimmed, and a scrollable frame.",
+    "usage": "<SqlResultTable />",
+    "category": "developer-tools",
+    "related": [
+      "table",
+      "sortable-header",
+      "table-pagination",
+      "data-table",
+      "json-viewer"
+    ],
+    "guide": "Use it under a query editor or in an AI agent's tool-call output. For an app data table with sorting, selection and pagination use Table with SortableHeader and TablePagination.",
+    "examples": [
+      "<SqlResultTable columns={[\"id\", \"email\"]} rows={[[1, \"maya@lumen.app\"], [2, null]]} caption=\"users, 2 rows\" />"
+    ]
   },
   {
     "name": "sso-provider-card",
@@ -4996,7 +8586,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "admin"
     ],
-    "usage": "<SsoProviderCard name=\"SAML\" description=\"Enterprise IdP\" enabled={sso} configured onEnabledChange={setSso} />"
+    "description": "A settings card for one SSO identity provider (Okta, Azure AD, Google Workspace): name, status badge, enable switch and Configure button.",
+    "usage": "<SsoProviderCard name=\"SAML\" description=\"Enterprise IdP\" enabled={sso} configured onEnabledChange={setSso} />",
+    "category": "auth",
+    "related": [
+      "connected-account",
+      "integration-card",
+      "admin-console"
+    ],
+    "guide": "Render one per provider in an organisation's security settings. The switch is controlled: pass `enabled` and update it in `onEnabledChange`.",
+    "examples": [
+      "<SsoProviderCard name=\"Okta\" description=\"SAML 2.0\" configured enabled={on} onEnabledChange={setOn} onConfigure={openSetup} />"
+    ]
   },
   {
     "name": "stack-trace",
@@ -5010,7 +8611,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "system"
     ],
-    "usage": "<StackTrace stack={\"Error: boom\\n    at render (app.tsx:12)\\n    at main (index.tsx:4)\"} />"
+    "description": "A scrollable, monospaced error stack in the danger tone, preserving line breaks and indentation.",
+    "usage": "<StackTrace stack={\"Error: boom\\n    at render (app.tsx:12)\\n    at main (index.tsx:4)\"} />",
+    "category": "developer-tools",
+    "related": [
+      "code-block",
+      "server-error-state",
+      "console-output"
+    ],
+    "guide": "Use it in error pages, logs and AI tool-call failures. For general code use CodeBlock; for an error summary with retry use ServerErrorState.",
+    "examples": [
+      "<StackTrace stack={error.stack ?? String(error)} />"
+    ]
   },
   {
     "name": "stack",
@@ -5024,7 +8636,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "layout"
     ],
-    "usage": "<Stack gap={2}>\n  <div className=\"h-8 rounded-lg bg-sunken\" />\n  <div className=\"h-8 rounded-lg bg-sunken\" />\n</Stack>"
+    "description": "A vertical flex column with a fixed gap from the 4px spacing scale.",
+    "usage": "<Stack gap={2}>\n  <div className=\"h-8 rounded-lg bg-sunken\" />\n  <div className=\"h-8 rounded-lg bg-sunken\" />\n</Stack>",
+    "category": "layout",
+    "related": [
+      "admin-user-row",
+      "cart-line-item",
+      "center",
+      "cluster",
+      "commit-row",
+      "connected-account",
+      "container",
+      "notification-item"
+    ],
+    "guide": "Use it to space sibling blocks evenly without margin utilities. For horizontal rows use `flex gap-*` directly; for a page grid use CSS grid.",
+    "examples": [
+      "<Stack gap={4}><Heading /><Text /><Button>Continue</Button></Stack>"
+    ]
   },
   {
     "name": "stacked-bar-chart",
@@ -5039,7 +8667,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "charts"
     ],
     "description": "Vertical bars stacked by series, with a legend, for comparing revenue mix across periods.",
-    "usage": "<StackedBarChart\n  seriesLabels={[\"New\", \"Returning\"]}\n  data={[\n    { label: \"W1\", values: [12, 8] },\n    { label: \"W2\", values: [15, 10] },\n    { label: \"W3\", values: [9, 14] },\n    { label: \"W4\", values: [18, 11] },\n  ]}\n/>"
+    "usage": "<StackedBarChart\n  seriesLabels={[\"New\", \"Returning\"]}\n  data={[\n    { label: \"W1\", values: [12, 8] },\n    { label: \"W2\", values: [15, 10] },\n    { label: \"W3\", values: [9, 14] },\n    { label: \"W4\", values: [18, 11] },\n  ]}\n/>",
+    "category": "charts",
+    "related": [
+      "bar-chart",
+      "area-chart",
+      "horizontal-bar-chart"
+    ],
+    "guide": "Screen readers get the numbers as a hidden data table. Use it for part-to-whole over time with 2 to 4 series; use BarChart for one series and AreaChart for continuous trends.",
+    "examples": [
+      "<StackedBarChart\n  label=\"Revenue mix by month\"\n  seriesLabels={[\"Subscriptions\", \"Usage\"]}\n  data={[{ label: \"Jan\", values: [48, 14] }, { label: \"Feb\", values: [52, 16] }]}\n/>"
+    ]
   },
   {
     "name": "stat-card",
@@ -5054,11 +8692,26 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "stats"
     ],
     "description": "Label, a big tabular value, and a delta chip that colours itself.",
-    "usage": "<StatCard className=\"w-56\" label=\"Latency\" value=\"142ms\" delta=\"p95\" />"
+    "usage": "<StatCard className=\"w-56\" label=\"Latency\" value=\"142ms\" delta=\"p95\" />",
+    "category": "dashboard",
+    "related": [
+      "label",
+      "stat-sparkline",
+      "stats-strip",
+      "admin-stat-strip",
+      "card",
+      "case-study-card",
+      "credit-balance",
+      "kpi-row"
+    ],
+    "guide": "The delta tone comes from its leading sign: \"+\", \"▲\" read as up (success), \"-\", \"−\", \"▼\" as down (danger); set `invertDelta` where down is good. For a value with a trend line use StatSparkline; for several numbers in one row use StatsStrip.",
+    "examples": [
+      "<StatCard label=\"MRR\" value=\"$48,200\" delta=\"+8.2%\" footnote=\"vs last month\" />\n<StatCard label=\"p95 latency\" value=\"182 ms\" delta=\"-12%\" invertDelta />"
+    ]
   },
   {
     "name": "stat-sparkline",
-    "title": "StatWithSparkline",
+    "title": "StatSparkline",
     "tier": "free",
     "kind": "ui",
     "path": "src/registry/ui/stat-sparkline.tsx",
@@ -5068,7 +8721,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "area-chart"
     ],
     "galleries": [],
-    "description": "A KPI card with a big number, a coloured delta and a trend sparkline bleeding off the bottom edge."
+    "description": "A KPI card with a big number, a coloured delta and a trend sparkline bleeding off the bottom edge.",
+    "category": "dashboard",
+    "related": [
+      "stat-card",
+      "sparkline-set",
+      "chart-card",
+      "interactive-area-chart",
+      "kpi-row",
+      "latency-badge",
+      "line-chart"
+    ],
+    "guide": "Exported as `StatWithSparkline`. Use it for one headline metric with its trend; use StatCard without a chart, and SparklineSet for a grid of several.",
+    "examples": [
+      "<StatWithSparkline label=\"MRR\" value=\"$48,200\" delta=\"+8.2%\" points={[31, 34, 33, 38, 41, 48]} />"
+    ]
   },
   {
     "name": "stats-strip",
@@ -5083,7 +8750,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "marketing"
     ],
     "description": "A hairline-divided row of headline numbers, for landing pages and report headers.",
-    "usage": "<StatsStrip stats={[{ label: \"Uptime\", value: \"99.99%\" }, { label: \"Latency\", value: \"42ms\" }, { label: \"Regions\", value: \"12\" }, { label: \"NPS\", value: \"72\" }]} />"
+    "usage": "<StatsStrip stats={[{ label: \"Uptime\", value: \"99.99%\" }, { label: \"Latency\", value: \"42ms\" }, { label: \"Regions\", value: \"12\" }, { label: \"NPS\", value: \"72\" }]} />",
+    "category": "marketing",
+    "related": [
+      "stat-card",
+      "sparkline-set",
+      "kpi-row"
+    ],
+    "guide": "Marked up as a description list so each value is read with its label. Use real, sourced figures only. For dashboard metrics with deltas use StatCard; with trend lines, SparklineSet.",
+    "examples": [
+      "<StatsStrip stats={[{ label: \"Components\", value: \"300+\" }, { label: \"Dependencies\", value: \"2\" }]} />"
+    ]
   },
   {
     "name": "status-badge",
@@ -5099,8 +8776,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-table"
     ],
-    "description": "Tinted fill, hairline edge, and a status dot that carries the",
-    "usage": "<StatusBadge tone={r.status === \"active\" ? \"success\" : r.status === \"past_due\" ? \"danger\" : \"warning\"}>{r.status}</StatusBadge>"
+    "description": "A status pill with a tinted fill, hairline edge and a leading dot, in six tones that share lightness.",
+    "usage": "<StatusBadge tone={r.status === \"active\" ? \"success\" : r.status === \"past_due\" ? \"danger\" : \"warning\"}>{r.status}</StatusBadge>",
+    "category": "feedback",
+    "related": [
+      "badge",
+      "status-dot",
+      "due-date-chip",
+      "env-badge",
+      "health-indicator",
+      "permission-chip",
+      "presence-dot",
+      "status-marketing"
+    ],
+    "guide": "Tones share lightness so a row of badges reads as one set.\n\nUse it for the state of a record (\"Paid\", \"Failed\", \"Draft\"); the text carries the meaning, the colour reinforces it. For counts and categories use Badge; for a bare dot use StatusDot.",
+    "examples": [
+      "<StatusBadge tone=\"success\">Paid</StatusBadge>\n<StatusBadge tone=\"danger\">Failed</StatusBadge>"
+    ]
   },
   {
     "name": "status-dot",
@@ -5116,7 +8808,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feeds"
     ],
-    "usage": "<StatusDot tone=\"success\" />"
+    "description": "An 8px coloured dot for status beside text: online, degraded, failed.",
+    "usage": "<StatusDot tone=\"success\" />",
+    "category": "feedback",
+    "related": [
+      "status-badge",
+      "health-indicator"
+    ],
+    "guide": "Decorative by default (the adjacent text says the status). When the dot stands alone, pass `label` so screen readers hear it. For a dot inside a pill use StatusBadge.",
+    "examples": [
+      "<span className=\"inline-flex items-center gap-2\"><StatusDot tone=\"success\" /> Operational</span>\n<StatusDot tone=\"danger\" label=\"Offline\" />"
+    ]
   },
   {
     "name": "step-progress",
@@ -5128,7 +8830,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "A row of labelled segments that fill as a multi-step flow advances, for onboarding and checkout."
+    "description": "A row of labelled segments that fill as a multi-step flow advances, for onboarding and checkout.",
+    "category": "workflow",
+    "related": [
+      "stepper",
+      "progress"
+    ],
+    "guide": "Read-only progress, not navigation. Use Stepper for the numbered variant (\"1. Details\"); use Progress for a single percentage.",
+    "examples": [
+      "<StepProgress steps={[\"Account\", \"Company\", \"Review\"]} current={1} />"
+    ]
   },
   {
     "name": "stepper",
@@ -5143,7 +8854,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "auth",
       "shells"
     ],
-    "usage": "<Stepper steps={[\"Account\",\"Workspace\",\"Invite\"]} current={1} />"
+    "description": "A numbered progress bar for multi-step forms: one segment per step, filled up to the current one, with \"1. Details\" style labels.",
+    "usage": "<Stepper steps={[\"Account\",\"Workspace\",\"Invite\"]} current={1} />",
+    "category": "workflow",
+    "related": [
+      "step-progress",
+      "account-setup-progress",
+      "build-pipeline",
+      "onboarding-wizard"
+    ],
+    "guide": "Read-only progress, not navigation. Use StepProgress for the unnumbered, smaller-label variant. Keep `current` in your form state and render the step's fields below.",
+    "examples": [
+      "<Stepper steps={[\"Details\", \"Members\", \"Billing\"]} current={step} />"
+    ]
   },
   {
     "name": "sticky-bar",
@@ -5154,7 +8877,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/sticky-bar",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A bar pinned to the bottom of its scroll container for page-level actions: \"3 selected · Delete\", \"Unsaved changes · Save\".",
+    "category": "layout",
+    "related": [
+      "floating-action-button",
+      "sticky-cta-bar"
+    ],
+    "guide": "Opaque surface with a hairline top edge, no blur. Put it last inside the scrolling element. Give it `role=\"region\"` and an `aria-label` when it holds important actions. For one floating action use FloatingActionButton.",
+    "examples": [
+      "<StickyBar aria-label=\"Unsaved changes\">\n  <span className=\"text-sm text-fg-muted\">Unsaved changes</span>\n  <Button size=\"sm\">Save</Button>\n</StickyBar>"
+    ]
   },
   {
     "name": "sticky-column",
@@ -5165,7 +8898,13 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/sticky-column",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A cell wrapper that stays pinned to the left or right edge while a wide table or board scrolls horizontally.",
+    "category": "data-tables",
+    "guide": "Opaque so scrolled content passes underneath, with a hairline on the inner edge. The scroll container needs `overflow-x-auto`. For a sticky header row use `sticky top-0` on the thead.",
+    "examples": [
+      "<div className=\"flex overflow-x-auto\">\n  <StickyColumn className=\"w-40 p-3\">Customer</StickyColumn>\n  <div className=\"min-w-[800px]\">…</div>\n</div>"
+    ]
   },
   {
     "name": "stop-generating",
@@ -5183,7 +8922,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai"
     ],
-    "usage": "<StopGenerating />"
+    "description": "An outline button with a stop square that cancels an in-flight AI response.",
+    "usage": "<StopGenerating />",
+    "category": "ai-chat",
+    "related": [
+      "streaming-message",
+      "ai-composer"
+    ],
+    "guide": "Show it only while a response streams, next to the StreamingMessage or in the composer; wire `onClick` to your AbortController. AiComposer swaps its send button for a stop button itself.",
+    "examples": [
+      "{isStreaming ? <StopGenerating onClick={() => controller.abort()} /> : null}"
+    ]
   },
   {
     "name": "streak-calendar",
@@ -5197,7 +8946,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<StreakCalendar />"
+    "description": "A 7-column grid of day tiles, filled in accent on active days, for habit and contribution streaks.",
+    "usage": "<StreakCalendar />",
+    "category": "dashboard",
+    "related": [
+      "heatmap-cell"
+    ],
+    "guide": "Days are numbered from 1. Screen readers hear a summary (\"17 of 28 days active\"). For a year-long contribution graph build rows of HeatmapCell.",
+    "examples": [
+      "<StreakCalendar active={[1, 2, 3, 5, 8]} days={28} />"
+    ]
   },
   {
     "name": "streaming-cursor",
@@ -5208,7 +8966,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/streaming-cursor",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A blinking 2px accent caret to append after text that is still streaming in.",
+    "category": "ai-chat",
+    "related": [
+      "streaming-message",
+      "typing-indicator"
+    ],
+    "guide": "Decorative (aria-hidden). Render it only while tokens arrive and remove it when the stream ends. StreamingMessage already includes it.",
+    "examples": [
+      "<p>{text}{isStreaming ? <StreamingCursor /> : null}</p>"
+    ]
   },
   {
     "name": "streaming-message",
@@ -5221,7 +8989,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "streaming-cursor"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An assistant message bubble that shows text as it streams, with a blinking caret while `streaming` is true.",
+    "category": "ai-chat",
+    "related": [
+      "stop-generating",
+      "source-card",
+      "streaming-cursor"
+    ],
+    "guide": "Marked `aria-busy` while streaming so screen readers wait for the finished text instead of reading every token. Pair with StopGenerating; render finished markdown in your own message view.",
+    "examples": [
+      "<StreamingMessage content={partialText} streaming={!done} />"
+    ]
   },
   {
     "name": "suggestion-chips",
@@ -5235,7 +9014,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai"
     ],
-    "usage": "<SuggestionChips items={[\"Add yearly toggle\", \"Make it responsive\", \"Dark mode\"]} />"
+    "description": "A wrap of pill buttons offering follow-up prompts in an AI chat (\"Summarize\", \"Find bugs\").",
+    "usage": "<SuggestionChips items={[\"Add yearly toggle\", \"Make it responsive\", \"Dark mode\"]} />",
+    "category": "ai-chat",
+    "related": [
+      "toggle-group",
+      "context-chip"
+    ],
+    "guide": "Clicking a chip calls `onSelect` with its text; send it or put it in the composer. For filters that stay on use ToggleGroup.",
+    "examples": [
+      "<SuggestionChips items={[\"Summarize\", \"Explain this code\"]} onSelect={(text) => send(text)} />"
+    ]
   },
   {
     "name": "switch",
@@ -5253,8 +9042,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "switch"
     ],
-    "description": "Hairline track with a raised thumb that leans on press, then springs across.",
-    "usage": "<Switch aria-label=\"Off\" />"
+    "description": "Hairline track with a raised thumb that leans on press, then springs across. While pressed the thumb stretches toward where it is about to go. The track only changes colour. 44px hit area via ::after. Pass `label` (+ `description`) for a settings row where the whole row is clickable.",
+    "usage": "<Switch aria-label=\"Off\" />",
+    "category": "forms",
+    "related": [
+      "checkbox",
+      "toggle-group",
+      "density-toggle",
+      "feature-flag-toggle",
+      "label",
+      "slider",
+      "toggle"
+    ],
+    "guide": "Use Switch for a setting that applies immediately; use Checkbox for a choice submitted with a form, and ToggleGroup for picking one of several options. Controlled with `checked` + `onCheckedChange`, or uncontrolled with `defaultChecked`. Without `label`, give it an `aria-label`.",
+    "examples": [
+      "<Switch aria-label=\"Dark mode\" checked={dark} onCheckedChange={setDark} />\n<Switch label=\"Email alerts\" description=\"A digest every morning.\" defaultChecked />"
+    ]
   },
   {
     "name": "table-of-contents",
@@ -5268,7 +9071,12 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A sticky table of contents that spies on headings while you scroll, with a marker that glides to the active item and smooth scroll on click."
+    "description": "A table of contents for long pages. It reads h2 and h3 headings from a container, or takes explicit items, then watches the nearest scroll area and moves an accent marker to the heading you are reading. Clicking an item scrolls there smoothly and hands focus to the heading. With no props it renders a scrollable Lumen docs article next to the list so the spy can be seen working.",
+    "category": "navigation",
+    "related": [
+      "toc",
+      "scroll-progress-rail"
+    ]
   },
   {
     "name": "table-pagination",
@@ -5286,7 +9094,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-table"
     ],
-    "usage": "<TablePagination page={page} pageCount={3} onPageChange={setPage} />"
+    "description": "Previous/next pagination for a data table, with a \"Page 2 of 9\" readout.",
+    "usage": "<TablePagination page={page} pageCount={3} onPageChange={setPage} />",
+    "category": "data-tables",
+    "related": [
+      "pagination",
+      "data-table",
+      "sql-result-table",
+      "table-toolbar",
+      "table"
+    ],
+    "guide": "Pages are 1-based and controlled: keep `page` in state and set it in `onPageChange`. Page changes are announced to screen readers. For numbered page links on content pages use Pagination.",
+    "examples": [
+      "<TablePagination page={page} pageCount={Math.ceil(total / 20)} onPageChange={setPage} />"
+    ]
   },
   {
     "name": "table-toolbar",
@@ -5302,7 +9123,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "data-table"
     ],
-    "usage": "<TableToolbar search={q} onSearchChange={setQ}>\n  <Button size=\"sm\">Add user</Button>\n</TableToolbar>"
+    "description": "The bar above a data table: a search field on the left, your filters and actions on the right.",
+    "usage": "<TableToolbar search={q} onSearchChange={setQ}>\n  <Button size=\"sm\">Add user</Button>\n</TableToolbar>",
+    "category": "data-tables",
+    "related": [
+      "table",
+      "sortable-header",
+      "table-pagination",
+      "audit-filter-bar",
+      "column-visibility-menu",
+      "data-table",
+      "filter-bar",
+      "rich-text-toolbar"
+    ],
+    "guide": "Search is controlled: pass `search` and update it in `onSearchChange`, then filter rows yourself. Pair with Table, SortableHeader and TablePagination.",
+    "examples": [
+      "<TableToolbar search={q} onSearchChange={setQ} searchPlaceholder=\"Search invoices…\">\n  <Button size=\"sm\">New invoice</Button>\n</TableToolbar>"
+    ]
   },
   {
     "name": "table",
@@ -5313,7 +9150,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/table",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A semantic HTML table with hairline row dividers, a hover tint and horizontal scroll on narrow screens.",
+    "category": "data-tables",
+    "related": [
+      "sortable-header",
+      "table-toolbar",
+      "table-pagination",
+      "sql-result-table",
+      "data-table",
+      "description-list",
+      "inline-cell-edit"
+    ],
+    "guide": "Compose Table > TableHeader/TableBody/TableFooter > TableRow > TableHead/TableCell, plus an optional TableCaption. Numbers line up (tabular-nums). Add SortableHeader inside a TableHead (set `aria-sort` on the TableHead), TableToolbar above and TablePagination below. Mark a selected row with `data-selected` or `aria-selected`. For SQL output use SqlResultTable.",
+    "examples": [
+      "<Table>\n  <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead className=\"text-right\">Amount</TableHead></TableRow></TableHeader>\n  <TableBody><TableRow><TableCell>INV-2041</TableCell><TableCell className=\"text-right\">$12,400.00</TableCell></TableRow></TableBody>\n</Table>"
+    ]
   },
   {
     "name": "tabs",
@@ -5331,8 +9183,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "tabs"
     ],
-    "description": "A raised thumb or accent underline that glides to the active tab.",
-    "usage": "<Tabs defaultValue=\"overview\" className=\"w-full\">\n  <div className={scroll}>\n    <TabsList>\n      <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n      <TabsTrigger value=\"invoices\" badge={12}>Invoices</TabsTrigger>\n      <TabsTrigger value=\"activity\">Activity</TabsTrigger>\n      <TabsTrigger value=\"settings\" disabled>Settings</TabsTrigger>\n    </TabsList>\n  </div>\n  <TabsContent value=\"overview\" className={panel}>Overview for the Lumen workspace.</TabsContent>\n  <TabsContent value=\"invoices\" className={panel}>12 invoices issued this month.</TabsContent>\n  <TabsContent value=\"activity\" className={panel}>Recent activity.</TabsContent>\n</Tabs>"
+    "description": "A raised thumb or accent underline that glides to the active tab. Base UI for roving focus and panels. The active tab carries one indicator per list (a raised thumb, or a 2px accent underline for `line`) that glides between tabs on a spring, the way segmented-control does.",
+    "usage": "<Tabs defaultValue=\"overview\" className=\"w-full\">\n  <div className={scroll}>\n    <TabsList>\n      <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n      <TabsTrigger value=\"invoices\" badge={12}>Invoices</TabsTrigger>\n      <TabsTrigger value=\"activity\">Activity</TabsTrigger>\n      <TabsTrigger value=\"settings\" disabled>Settings</TabsTrigger>\n    </TabsList>\n  </div>\n  <TabsContent value=\"overview\" className={panel}>Overview for the Lumen workspace.</TabsContent>\n  <TabsContent value=\"invoices\" className={panel}>12 invoices issued this month.</TabsContent>\n  <TabsContent value=\"activity\" className={panel}>Recent activity.</TabsContent>\n</Tabs>",
+    "category": "navigation",
+    "related": [
+      "segmented-control",
+      "accordion",
+      "chip-filter",
+      "saved-views",
+      "vertical-tabs",
+      "floating-nav",
+      "animated-tabs",
+      "dock"
+    ],
+    "guide": "Keyboard per WAI-ARIA tabs: Arrow keys move between tabs, Home/End jump, Tab moves into the panel. Use Tabs to switch between panels of content in place; use SegmentedControl for a compact value picker without panels, and links (not tabs) when each view has its own URL. Every TabsTrigger `value` needs a TabsContent with the same `value`.",
+    "examples": [
+      "<Tabs defaultValue=\"overview\">\n  <TabsList variant=\"line\">\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"invoices\" badge={12}>Invoices</TabsTrigger>\n  </TabsList>\n  <TabsContent value=\"overview\">…</TabsContent>\n  <TabsContent value=\"invoices\">…</TabsContent>\n</Tabs>"
+    ]
   },
   {
     "name": "tags-input",
@@ -5348,7 +9215,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "tags-input"
     ],
-    "usage": "<TagsInput defaultValue={[\"react\",\"tailwind\"]} aria-label=\"Tags\" />"
+    "description": "A text field that turns typed entries into removable tag chips (Enter or comma adds, Backspace removes the last).",
+    "usage": "<TagsInput defaultValue={[\"react\",\"tailwind\"]} aria-label=\"Tags\" />",
+    "category": "forms",
+    "related": [
+      "multi-select",
+      "mention-input",
+      "badge",
+      "context-pill",
+      "ip-allowlist"
+    ],
+    "guide": "Use it for free-form labels, emails or keywords. Reach for `MultiSelect` when values must come from a fixed list, or `MentionInput` for @mentions inside text.",
+    "examples": [
+      "<TagsInput defaultValue={[\"finance\", \"q3\"]} onChange={setTags} aria-label=\"Invoice labels\" />"
+    ]
   },
   {
     "name": "tax-fields",
@@ -5361,7 +9241,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "Country and tax ID fields side by side, for checkout and billing-details forms.",
+    "category": "billing",
+    "related": [
+      "billing-address"
+    ],
+    "guide": "Uncontrolled inputs with `name`s, so they submit with a plain `<form>`. Pair it with `BillingAddress` for the full postal address.",
+    "examples": [
+      "<form action={saveBilling}><TaxFields defaultCountry=\"Germany\" /></form>"
+    ]
   },
   {
     "name": "team-member-row",
@@ -5375,7 +9264,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "avatar",
       "badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "One teammate in a members list: avatar, name, email and a role badge, with an optional trailing actions slot.",
+    "category": "settings",
+    "related": [
+      "stack",
+      "admin-user-row",
+      "invite-members",
+      "list-item",
+      "user-detail"
+    ],
+    "guide": "Stack several inside a bordered card; the last row drops its divider. Use `AdminUserRow` when you need presence and a permission chip.",
+    "examples": [
+      "<TeamMemberRow name=\"Priya Raman\" email=\"priya@northwind.com\" role=\"Owner\" actions={<RowMenu />} />"
+    ]
   },
   {
     "name": "terminal-window",
@@ -5389,7 +9291,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "system"
     ],
-    "usage": "<TerminalWindow>{`$ npm run audit\\nAUDIT PASS`}</TerminalWindow>"
+    "description": "A terminal frame with traffic-light dots and a title bar around monospace output, for install steps and CLI demos.",
+    "usage": "<TerminalWindow>{`$ npm run audit\\nAUDIT PASS`}</TerminalWindow>",
+    "category": "developer-tools",
+    "related": [
+      "code-block",
+      "console-output",
+      "window-chrome",
+      "terminal"
+    ],
+    "guide": "Children render inside a `<pre>`, so whitespace is kept. Use `CodeBlock` for highlighted source with a copy button, and `ConsoleOutput` for streaming log lines.",
+    "examples": [
+      "<TerminalWindow title=\"zsh\">{\"$ npx shadcn add https://ui.minidev.pro/r/button.json\"}</TerminalWindow>"
+    ]
   },
   {
     "name": "testimonial",
@@ -5406,7 +9320,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "marketing"
     ],
     "description": "A quote card with the customer's avatar, name and role, for landing pages and case studies.",
-    "usage": "<Testimonial quote=\"Finally a kit that doesn’t look like every other dashboard.\" name=\"Jordan Lee\" role=\"Design Eng\" />"
+    "usage": "<Testimonial quote=\"Finally a kit that doesn’t look like every other dashboard.\" name=\"Jordan Lee\" role=\"Design Eng\" />",
+    "category": "marketing",
+    "related": [
+      "press-quote",
+      "case-study-card",
+      "logo-cloud",
+      "social-proof",
+      "social-proof-wall",
+      "testimonial-carousel"
+    ],
+    "guide": "Renders a semantic `<figure>` with `<blockquote>` and `<figcaption>`. Use `PressQuote` for a publication pull quote. Only quote real customers.",
+    "examples": [
+      "<Testimonial quote=\"Month-end close went from six days to two.\" name=\"Maya Chen\" role=\"Head of Finance, Northwind\" />"
+    ]
   },
   {
     "name": "text",
@@ -5420,7 +9347,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "layout"
     ],
-    "usage": "<Text muted>Muted body copy for secondary information.</Text>"
+    "description": "Body copy: a 14px paragraph with the kit's line height, in default, muted, subtle or mono flavours.",
+    "usage": "<Text muted>Muted body copy for secondary information.</Text>",
+    "category": "layout",
+    "related": [
+      "heading",
+      "prose",
+      "visually-hidden",
+      "hyper-text",
+      "sparkles-text"
+    ],
+    "guide": "Renders a `<p>` and accepts every paragraph prop. Use `Heading` for titles and `Prose` for long-form rich text.",
+    "examples": [
+      "<Text muted>Invoices are emailed to billing@northwind.com.</Text>"
+    ]
   },
   {
     "name": "textarea",
@@ -5434,7 +9374,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "textarea"
     ],
-    "usage": "<Textarea id=\"ta\" placeholder=\"Write something…\" />"
+    "description": "A multi-line text field styled like `Input`: hairline border, accent focus halo, invalid and read-only states.",
+    "usage": "<Textarea id=\"ta\" placeholder=\"Write something…\" />",
+    "category": "forms",
+    "related": [
+      "input",
+      "prompt-input",
+      "markdown-editor",
+      "ai-composer",
+      "character-count",
+      "form-field",
+      "label",
+      "rich-text-toolbar"
+    ],
+    "guide": "Accepts every `<textarea>` prop. Set `autoResize` to grow with the content. Use `PromptInput` for chat composers and `MarkdownEditor` for formatted text.",
+    "examples": [
+      "<Textarea id=\"note\" placeholder=\"Add a note to the customer\" rows={4} autoResize aria-invalid={!!error} />"
+    ]
   },
   {
     "name": "theme-picker",
@@ -5445,7 +9401,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/theme-picker",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A three-way Light / Dark / System radio group. Pass `applyToDocument` to have it toggle the `dark` class on `<html>`.",
+    "category": "settings",
+    "related": [
+      "segmented-control",
+      "color-picker"
+    ],
+    "guide": "Works uncontrolled, or controlled with `value` + `onChange` when you persist the choice (cookie, localStorage). Arrow keys move and select, per the WAI-ARIA radio group pattern. Use `SegmentedControl` for any other small exclusive choice.",
+    "examples": [
+      "<ThemePicker applyToDocument value={mode} onChange={(m) => { setMode(m); localStorage.theme = m }} />"
+    ]
   },
   {
     "name": "thinking-block",
@@ -5461,7 +9427,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai-studio"
     ],
-    "usage": "<ThinkingBlock>Considering Hairline tokens, violet accent, and reduced motion…</ThinkingBlock>"
+    "description": "A collapsible \"Thinking\" disclosure for a model's hidden reasoning in a chat transcript, closed by default.",
+    "usage": "<ThinkingBlock>Considering Hairline tokens, violet accent, and reduced motion…</ThinkingBlock>",
+    "category": "ai-chat",
+    "related": [
+      "reasoning-block",
+      "tool-call-card"
+    ],
+    "guide": "Use it for one plain block of reasoning text. Use `ReasoningBlock` for streamed, step-by-step reasoning with a timer, and `ToolCallCard` for tool invocations.",
+    "examples": [
+      "<ThinkingBlock label=\"Thought for 4s\">Checking which invoices are overdue before drafting the reminder…</ThinkingBlock>"
+    ]
   },
   {
     "name": "time-picker",
@@ -5477,7 +9453,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "date-picker"
     ],
-    "usage": "<TimePicker id=\"t1\" aria-label=\"Time\" />"
+    "description": "A native time field (`<input type=\"time\">`) in the kit's input styling; the value is a 24-hour \"HH:mm\" string.",
+    "usage": "<TimePicker id=\"t1\" aria-label=\"Time\" />",
+    "category": "forms",
+    "related": [
+      "date-picker"
+    ],
+    "guide": "The browser supplies the locale-aware picker and keyboard support. Works controlled (`value` + `onChange`) or uncontrolled (`defaultValue`), and passes through `name`, `min`, `max`, `step` and `required`. Use `DatePicker` for dates.",
+    "examples": [
+      "<TimePicker value={time} onChange={setTime} min=\"09:00\" max=\"17:00\" aria-label=\"Standup time\" />"
+    ]
   },
   {
     "name": "timeline",
@@ -5492,7 +9477,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "feeds"
     ],
     "description": "A vertical list of dated events on a hairline, for activity feeds and audit logs.",
-    "usage": "<Timeline className=\"max-w-md\" items={[\n  { title: \"Deployed v0.1\", description: \"Batch A shipped\", time: \"2h ago\" },\n  { title: \"Audit green\", description: \"All gallery routes passed\", time: \"3h ago\" },\n  { title: \"Scaffold\", description: \"Next + shadcn\", time: \"5h ago\" },\n]} />"
+    "usage": "<Timeline className=\"max-w-md\" items={[\n  { title: \"Deployed v0.1\", description: \"Batch A shipped\", time: \"2h ago\" },\n  { title: \"Audit green\", description: \"All gallery routes passed\", time: \"3h ago\" },\n  { title: \"Scaffold\", description: \"Next + shadcn\", time: \"5h ago\" },\n]} />",
+    "category": "dashboard",
+    "related": [
+      "activity-feed",
+      "audit-trail",
+      "tracing-beam"
+    ],
+    "guide": "Renders an ordered list, newest first. Use `ActivityFeed` when each event needs an avatar, and `AuditTrail` for who-did-what logs.",
+    "examples": [
+      "<Timeline items={[{ title: \"Invoice INV-2041 paid\", description: \"$12,400 from Northwind\", time: \"09:41\", dateTime: \"2026-03-12T09:41\" }]} />"
+    ]
   },
   {
     "name": "toast",
@@ -5509,8 +9504,14 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "new",
       "overlays"
     ],
-    "description": "A single notification card: status glyph, title, optional",
-    "usage": "<Toast title=\"Saved\" description=\"Changes are live.\" tone=\"success\" />"
+    "description": "A single notification card: status glyph, title, optional description and action. Use `<Toaster />` + `toast()` for the stacked system.",
+    "usage": "<Toast title=\"Saved\" description=\"Changes are live.\" tone=\"success\" />",
+    "category": "feedback",
+    "related": [
+      "banner",
+      "callout",
+      "inline-alert"
+    ]
   },
   {
     "name": "toc",
@@ -5522,7 +9523,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "An indented table of contents for a docs page, with the current section highlighted."
+    "description": "An indented table of contents for a docs page, with the current section highlighted.",
+    "category": "navigation",
+    "related": [
+      "table-of-contents",
+      "docs-page",
+      "docs-marketing"
+    ],
+    "guide": "Links jump to `#id` anchors. Pass `activeId` from your own scroll-spy (IntersectionObserver) to follow the reader; without it the last clicked entry is marked. Use `TableOfContents` for built-in scroll-spy and a sticky rail.",
+    "examples": [
+      "<Toc items={[{ id: \"install\", title: \"Install\" }, { id: \"usage\", title: \"Usage\", level: 2 }]} activeId={visibleId} />"
+    ]
   },
   {
     "name": "toggle-group",
@@ -5538,7 +9549,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "primitives-extra"
     ],
-    "usage": "<ToggleGroup multiple>\n  <Toggle value=\"bold\" aria-label=\"Bold\" size=\"sm\"><BoldIcon className=\"size-4\" /></Toggle>\n  <Toggle value=\"italic\" aria-label=\"Italic\" size=\"sm\"><ItalicIcon className=\"size-4\" /></Toggle>\n  <Toggle value=\"underline\" aria-label=\"Underline\" size=\"sm\"><UnderlineIcon className=\"size-4\" /></Toggle>\n</ToggleGroup>"
+    "description": "A row of `Toggle` buttons that share pressed state, built on Base UI: single-select by default, `multiple` for formatting bars.",
+    "usage": "<ToggleGroup multiple>\n  <Toggle value=\"bold\" aria-label=\"Bold\" size=\"sm\"><BoldIcon className=\"size-4\" /></Toggle>\n  <Toggle value=\"italic\" aria-label=\"Italic\" size=\"sm\"><ItalicIcon className=\"size-4\" /></Toggle>\n  <Toggle value=\"underline\" aria-label=\"Underline\" size=\"sm\"><UnderlineIcon className=\"size-4\" /></Toggle>\n</ToggleGroup>",
+    "category": "buttons",
+    "related": [
+      "toggle",
+      "segmented-control",
+      "radio-group",
+      "button-group",
+      "suggestion-chips",
+      "switch"
+    ],
+    "guide": "`value` is always an array of the pressed toggles' `value`s. Arrow keys move focus between toggles. Use `SegmentedControl` for a view switch with a sliding thumb, and `RadioGroup` inside forms.",
+    "examples": [
+      "<ToggleGroup defaultValue={[\"left\"]} aria-label=\"Text alignment\">\n  <Toggle value=\"left\" aria-label=\"Align left\"><AlignLeftIcon /></Toggle>\n  <Toggle value=\"center\" aria-label=\"Align center\"><AlignCenterIcon /></Toggle>\n</ToggleGroup>"
+    ]
   },
   {
     "name": "toggle",
@@ -5555,7 +9580,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "primitives-extra"
     ],
-    "usage": "<Toggle aria-label=\"Bold\"><BoldIcon className=\"size-4\" /></Toggle>"
+    "description": "A two-state button (pressed or not) for toolbar actions such as bold or \"show archived\", built on Base UI.",
+    "usage": "<Toggle aria-label=\"Bold\"><BoldIcon className=\"size-4\" /></Toggle>",
+    "category": "buttons",
+    "related": [
+      "switch",
+      "toggle-group",
+      "wishlist-button"
+    ],
+    "guide": "Controlled with `pressed` + `onPressedChange`, or uncontrolled with `defaultPressed`. Icon-only toggles need an `aria-label`. Use `Switch` for settings that take effect immediately, and `ToggleGroup` for a set of related toggles.",
+    "examples": [
+      "<Toggle aria-label=\"Bold\" pressed={bold} onPressedChange={setBold}><BoldIcon /></Toggle>"
+    ]
   },
   {
     "name": "token-usage-meter",
@@ -5571,7 +9607,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai"
     ],
-    "usage": "<TokenUsageMeter used={4200} limit={10000} />"
+    "description": "A card showing LLM tokens used against a budget: label, \"used / limit\" in mono, a progress bar and a note.",
+    "usage": "<TokenUsageMeter used={4200} limit={10000} />",
+    "category": "ai-chat",
+    "related": [
+      "usage-meter",
+      "usage-breakdown",
+      "credit-balance"
+    ],
+    "guide": "Use it on AI usage and billing pages. Use `UsageMeter` for a bare labelled bar, `UsageBreakdown` for several resources, and `CreditBalance` for prepaid credits.",
+    "examples": [
+      "<TokenUsageMeter used={128400} limit={200000} note=\"Resets on the 1st\" />"
+    ]
   },
   {
     "name": "tool-call-card",
@@ -5588,8 +9635,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "ai",
       "new"
     ],
-    "description": "One tool invocation inside an agent turn: the call, its",
-    "usage": "<ToolCallCard name=\"read_file\" status=\"done\">\n  DESIGN.md § Geometry\n</ToolCallCard>"
+    "description": "One tool invocation inside an agent turn: tool name, argument preview, status pill, duration and a collapsible output.",
+    "usage": "<ToolCallCard name=\"read_file\" status=\"done\">\n  DESIGN.md § Geometry\n</ToolCallCard>",
+    "category": "ai-chat",
+    "related": [
+      "tool-call-collapsed",
+      "tool-result-panel",
+      "agent-trace",
+      "thinking-block"
+    ],
+    "guide": "Children are the output (plain text or `<pre>`); without children the header is static. Use `ToolCallCollapsed` for a minimal one-line disclosure, `ToolResultPanel` to show JSON output, and `AgentTrace` for a whole run.",
+    "examples": [
+      "<ToolCallCard name=\"get_invoice\" args='id=\"INV-2041\"' status=\"done\" duration=\"0.3s\">{JSON.stringify(result, null, 2)}</ToolCallCard>"
+    ]
   },
   {
     "name": "tool-call-collapsed",
@@ -5602,7 +9660,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A quiet one-line disclosure for a tool call: chevron and mono tool name, with the details hidden until opened.",
+    "category": "ai-chat",
+    "related": [
+      "tool-call-card"
+    ],
+    "guide": "Use it when tool calls should stay out of the way in a chat transcript. Use `ToolCallCard` when status and duration matter.",
+    "examples": [
+      "<ToolCallCollapsed name=\"search_customers\">Found 3 customers matching \"northwind\".</ToolCallCollapsed>"
+    ]
   },
   {
     "name": "tool-result-panel",
@@ -5619,8 +9686,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "ai-studio"
     ],
-    "description": "A collapsed-chrome panel showing an AI tool call's name, status and JSON output.",
-    "usage": "<ToolResultPanel name=\"generate_hero\" output={'{\\n  \"variant\": \"aurora\",\\n  \"cta\": [\"Start free\", \"See Premium\"]\\n}'} />"
+    "description": "A panel showing an AI tool call's name, a status badge and its output as highlighted JSON.",
+    "usage": "<ToolResultPanel name=\"generate_hero\" output={'{\\n  \"variant\": \"aurora\",\\n  \"cta\": [\"Start free\", \"See Premium\"]\\n}'} />",
+    "category": "ai-chat",
+    "related": [
+      "tool-call-card",
+      "json-viewer",
+      "artifact-preview"
+    ],
+    "guide": "Pass `output` as a string or any JSON-serialisable value; objects are pretty-printed. Use `ToolCallCard` for a collapsible call inside a chat turn, and `JsonViewer` for large, foldable payloads.",
+    "examples": [
+      "<ToolResultPanel name=\"lookup_invoice\" status=\"success\" output={{ invoice: \"INV-2041\", status: \"paid\" }} />"
+    ]
   },
   {
     "name": "tooltip",
@@ -5636,7 +9713,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "An ink label with an arrow that appears on hover and keyboard focus, built on Base UI."
+    "description": "An ink label with an arrow that appears on hover and keyboard focus, built on Base UI.",
+    "category": "overlays",
+    "related": [
+      "hover-card",
+      "popover",
+      "chart-tooltip-card",
+      "icon-button",
+      "permission-denied",
+      "animated-tooltip"
+    ],
+    "guide": "Compose `Tooltip` > `TooltipTrigger` + `TooltipContent`; use `render` to make your own button the trigger. Wrap a toolbar in `TooltipProvider` so neighbouring tooltips open instantly. Tooltips are hints only: never put interactive content or the only copy of important text in one. Use `HoverCard` or `Popover` for rich or clickable content. `<Tooltip />` with no children renders a demo.",
+    "examples": [
+      "<Tooltip>\n  <TooltipTrigger render={<IconButton aria-label=\"Archive invoice\" />}><ArchiveIcon /></TooltipTrigger>\n  <TooltipContent side=\"bottom\">Archive <Kbd>E</Kbd></TooltipContent>\n</Tooltip>"
+    ]
   },
   {
     "name": "topbar",
@@ -5651,7 +9741,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "blocks",
       "shells"
     ],
-    "usage": "<Topbar left={<span className=\"text-sm text-fg\">Dashboard</span>} />"
+    "description": "A 56px app header bar with a title (or custom left content) and a right-hand slot for actions.",
+    "usage": "<Topbar left={<span className=\"text-sm text-fg\">Dashboard</span>} />",
+    "category": "navigation",
+    "related": [
+      "app-shell",
+      "page-header",
+      "nav-marketing",
+      "floating-nav"
+    ],
+    "guide": "Renders a `<header>`. Use it at the top of an `AppShell` content area. Use `PageHeader` for a page title with description and actions inside the content, and `NavMarketing` for a marketing site nav.",
+    "examples": [
+      "<Topbar title=\"Invoices\" right={<><SearchInput /><Button size=\"sm\">New invoice</Button></>} />"
+    ]
   },
   {
     "name": "trace-waterfall",
@@ -5663,7 +9765,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "usage": "<TraceWaterfall />"
+    "description": "A distributed-trace waterfall: one row per span with its name (indented by depth), a bar placed on a shared time axis, and its duration.",
+    "usage": "<TraceWaterfall />",
+    "category": "developer-tools",
+    "related": [
+      "gantt-chart",
+      "agent-trace",
+      "gantt-row",
+      "latency-badge",
+      "engineering-console"
+    ],
+    "guide": "Times are in milliseconds from the start of the trace. Use it for request traces and agent step timing. Use `GanttChart` for calendar schedules and `AgentTrace` for a step-by-step agent run.",
+    "examples": [
+      "<TraceWaterfall spans={[{ name: \"POST /invoices\", start: 0, duration: 120 }, { name: \"db.insert\", start: 18, duration: 40, depth: 1 }]} />"
+    ]
   },
   {
     "name": "tree-view",
@@ -5679,8 +9794,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "feeds"
     ],
-    "description": "A collapsible tree of nested nodes, open by default, for file browsers and org charts.",
-    "usage": "<TreeView className=\"max-w-sm rounded-xl border border-border p-2\" nodes={[\n  { id: \"app\", label: \"app\", children: [\n    { id: \"gallery\", label: \"gallery\" },\n    { id: \"docs\", label: \"docs\" },\n  ]},\n  { id: \"registry\", label: \"registry\", children: [\n    { id: \"ui\", label: \"ui\" },\n    { id: \"blocks\", label: \"blocks\" },\n  ]},\n]} />"
+    "description": "A keyboard-navigable tree of nested nodes, all open by default, for file browsers, folders and org charts.",
+    "usage": "<TreeView className=\"max-w-sm rounded-xl border border-border p-2\" nodes={[\n  { id: \"app\", label: \"app\", children: [\n    { id: \"gallery\", label: \"gallery\" },\n    { id: \"docs\", label: \"docs\" },\n  ]},\n  { id: \"registry\", label: \"registry\", children: [\n    { id: \"ui\", label: \"ui\" },\n    { id: \"blocks\", label: \"blocks\" },\n  ]},\n]} />",
+    "category": "navigation",
+    "related": [
+      "file-tree",
+      "nested-nav",
+      "org-chart"
+    ],
+    "guide": "Follows the WAI-ARIA tree pattern: one tab stop, Up/Down move, Right opens or enters a branch, Left closes or goes to the parent, Home/End jump, Enter/Space selects (and toggles a branch). Use `FileTree` for files with icons and status, and `NestedNav` for sidebar navigation links.",
+    "examples": [
+      "<TreeView nodes={[{ id: \"src\", label: \"src\", children: [{ id: \"app\", label: \"app.tsx\" }] }]} onSelect={(node) => open(node.id)} aria-label=\"Project files\" />"
+    ]
   },
   {
     "name": "treemap-chart",
@@ -5692,7 +9817,8 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "A squarified SVG treemap with one level of grouping, labels that hide in small cells, hover and keyboard focus with a value tooltip, and a hidden data table."
+    "description": "A squarified treemap. Groups get a header strip and their cells share one hue at falling strengths, labels appear only where they fit, and hovering or focusing a cell lifts it and shows its value and share in a tooltip. Cells are keyboard focusable with arrow keys; a hidden table carries the data.",
+    "category": "charts"
   },
   {
     "name": "trial-banner",
@@ -5705,7 +9831,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An accent-tinted banner counting down the days left in a free trial, with an upgrade button.",
+    "category": "billing",
+    "related": [
+      "upgrade-prompt",
+      "announcement-bar",
+      "impersonation-banner"
+    ],
+    "guide": "Place it above page content or in a settings sidebar. Use `UpgradePrompt` for a feature-gated card and `AnnouncementBar` for a site-wide strip.",
+    "examples": [
+      "<TrialBanner daysLeft={5} description=\"Invoice automations stay on until then.\" onUpgrade={() => router.push(\"/billing\")} />"
+    ]
   },
   {
     "name": "two-factor-setup",
@@ -5720,7 +9857,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "otp-input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "The enable-2FA step: a QR code slot, the manual setup key, a 6-digit code field and a verify button.",
+    "category": "auth",
+    "related": [
+      "qr-code",
+      "two-factor-verify"
+    ],
+    "guide": "Render your QR (for example with `QrCode`) in `qr` and the base32 secret in `secret`. `onVerify` receives the code once all six digits are in. Use `TwoFactorVerify` for the sign-in challenge after 2FA is on.",
+    "examples": [
+      "<TwoFactorSetup qr={<QrCode value={otpauthUrl} />} secret=\"JBSW Y3DP EHPK 3PXP\" onVerify={(code) => enable2fa(code)} />"
+    ]
   },
   {
     "name": "two-factor-verify",
@@ -5735,7 +9882,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "otp-input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "The sign-in 2FA challenge: a card with a 6-digit code field that submits itself when the last digit is typed.",
+    "category": "auth",
+    "related": [
+      "two-factor-setup",
+      "otp-input"
+    ],
+    "guide": "`onVerify` receives the code. Set `invalid` after a wrong code to shake the field red. Use `TwoFactorSetup` to enrol a device, and `OtpInput` alone for other one-time codes.",
+    "examples": [
+      "<TwoFactorVerify onVerify={async (code) => setInvalid(!(await verify(code)))} invalid={invalid} />"
+    ]
   },
   {
     "name": "typing-indicator",
@@ -5746,7 +9903,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/typing-indicator",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "Three pulsing dots in a pill that say someone (or the model) is typing; announced once to screen readers.",
+    "category": "ai-chat",
+    "related": [
+      "streaming-cursor",
+      "spinner",
+      "live-cursors-bar"
+    ],
+    "guide": "Render it while waiting for the first token of a reply, then swap in the message. Use `StreamingCursor` once text is arriving, and `Spinner` for non-chat loading.",
+    "examples": [
+      "{isWaiting ? <TypingIndicator label=\"Lumen Assistant is typing\" /> : null}"
+    ]
   },
   {
     "name": "upgrade-prompt",
@@ -5762,7 +9930,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "billing"
     ],
-    "usage": "<UpgradePrompt />"
+    "description": "A small card that explains a locked feature and offers one upgrade button, for soft paywalls.",
+    "usage": "<UpgradePrompt />",
+    "category": "billing",
+    "related": [
+      "trial-banner",
+      "plan-comparison",
+      "downgrade-warning",
+      "cta-banner"
+    ],
+    "guide": "Show it in place of the gated feature. Use `TrialBanner` for a trial countdown, `PlanComparison` to choose between plans, and `DowngradeWarning` before a plan change.",
+    "examples": [
+      "<UpgradePrompt title=\"Forecasts are on Scale\" description=\"See 90 days of cash flow from open invoices.\" onUpgrade={openBilling} />"
+    ]
   },
   {
     "name": "uptime-bar",
@@ -5776,7 +9956,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<UptimeBar />"
+    "description": "A status-page uptime strip: one bar per day, red where there was downtime, with the uptime percentage.",
+    "usage": "<UptimeBar />",
+    "category": "dashboard",
+    "related": [
+      "health-indicator",
+      "incident-banner",
+      "status-marketing"
+    ],
+    "guide": "`downtimes` holds zero-based day indexes counted from the oldest day. Use `HealthIndicator` for a single live status, and `IncidentBanner` to announce an ongoing outage.",
+    "examples": [
+      "<UptimeBar label=\"Payments API\" days={90} downtimes={[12, 44]} />"
+    ]
   },
   {
     "name": "usage-breakdown",
@@ -5788,7 +9979,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "A stack of labelled usage bars, each showing used against limit, for plan and billing pages."
+    "description": "A stack of labelled usage bars, each showing used against limit, for plan and billing pages. Bars turn amber at 90% and red at the limit.",
+    "category": "billing",
+    "related": [
+      "usage-meter",
+      "quota-bar",
+      "resource-quota-grid",
+      "token-usage-meter"
+    ],
+    "guide": "Use it to show several metered resources at once. Use `UsageMeter` for a single bar, `QuotaBar` for one quota with a legend, and `ResourceQuotaGrid` for many quotas as cards.",
+    "examples": [
+      "<UsageBreakdown items={[{ label: \"Seats\", used: 18, limit: 25 }, { label: \"Storage (GB)\", used: 38, limit: 50 }]} />"
+    ]
   },
   {
     "name": "usage-meter",
@@ -5804,7 +10006,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "billing"
     ],
-    "usage": "<UsageMeter label=\"Seats\" used={3} limit={5} />"
+    "description": "One labelled usage bar with \"used/limit\" on the right, for seats, storage or API calls.",
+    "usage": "<UsageMeter label=\"Seats\" used={3} limit={5} />",
+    "category": "billing",
+    "related": [
+      "usage-breakdown",
+      "token-usage-meter",
+      "meter",
+      "coverage-meter",
+      "credit-balance",
+      "billing-page"
+    ],
+    "guide": "The bar caps at 100%. Use `UsageBreakdown` for several resources, `TokenUsageMeter` for an LLM token budget card, and `Meter` for a value in a known range that is not usage.",
+    "examples": [
+      "<UsageMeter label=\"Seats\" used={18} limit={25} />"
+    ]
   },
   {
     "name": "user-chip",
@@ -5820,7 +10036,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "avatar"
     ],
     "galleries": [],
-    "description": "A pill with an avatar and a name, optionally removable, for assignee pickers and share lists."
+    "description": "A pill with an avatar and a name, optionally removable, for assignee pickers and share lists.",
+    "category": "forms",
+    "related": [
+      "attachment-chip",
+      "context-chip",
+      "avatar-group"
+    ],
+    "guide": "Passing `onRemove` adds an \"x\" button labelled \"Remove {name}\". Use `AttachmentChip` for files, `ContextChip` for AI context items, and `AvatarGroup` for a compact stack of people.",
+    "examples": [
+      "<UserChip name=\"Priya Raman\" src=\"/avatars/priya.jpg\" onRemove={() => unassign(\"priya\")} />"
+    ]
   },
   {
     "name": "version-badge",
@@ -5832,7 +10058,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "usage": "<VersionBadge version=\"0.6.0\" channel=\"stable\" />"
+    "description": "A mono version tag (\"v2.4.1\") with an optional release-channel pill: stable, beta or canary.",
+    "usage": "<VersionBadge version=\"0.6.0\" channel=\"stable\" />",
+    "category": "developer-tools",
+    "related": [
+      "env-badge",
+      "badge"
+    ],
+    "guide": "Pass the version with or without a leading \"v\". Use `EnvBadge` for deploy environments and `Badge` for anything else.",
+    "examples": [
+      "<VersionBadge version=\"2.4.1\" channel=\"beta\" />"
+    ]
   },
   {
     "name": "vertical-tabs",
@@ -5844,7 +10080,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "A left-hand tab list with the active panel beside it, for settings pages."
+    "description": "A left-hand tab list with the active panel beside it, for settings pages; stacks above the panel on small screens.",
+    "category": "navigation",
+    "related": [
+      "tabs",
+      "settings-layout",
+      "segmented-control"
+    ],
+    "guide": "Follows the WAI-ARIA tabs pattern: one tab stop, Up/Down (and Left/Right) move and select, Home/End jump. Use `Tabs` for horizontal tabs, `SettingsLayout` for a full settings page with routes, and `SegmentedControl` for switching a view in place.",
+    "examples": [
+      "<VerticalTabs defaultValue=\"billing\" tabs={[{ id: \"general\", label: \"General\", content: <GeneralForm /> }, { id: \"billing\", label: \"Billing\", content: <BillingForm /> }]} />"
+    ]
   },
   {
     "name": "video-player-chrome",
@@ -5859,7 +10105,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "icon-button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "Presentational video-player chrome: a 16:9 stage with a play/pause button and a bottom bar with progress and title.",
+    "category": "media",
+    "related": [
+      "audio-player"
+    ],
+    "guide": "It draws the controls only; wire `playing`, `onToggle` and `progress` to your `<video>` element, or put the video in `children`. Uncontrolled, the button just toggles its own state. Use `AudioPlayer` for audio.",
+    "examples": [
+      "<VideoPlayerChrome title=\"Q3 close walkthrough\" playing={playing} onToggle={() => (playing ? ref.current.pause() : ref.current.play())} progress={pct}><video ref={ref} src=\"/q3.mp4\" /></VideoPlayerChrome>"
+    ]
   },
   {
     "name": "virtual-list",
@@ -5873,7 +10128,12 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A windowed list that renders only the rows in view, with fixed or measured row heights, overscan, keyboard row navigation and scroll to index."
+    "description": "A windowed list. Only the rows inside the viewport (plus an overscan band) exist in the DOM, so ten thousand rows scroll like ten. Row heights are fixed or measured per row, arrow keys move an active row with Home, End and Page Up/Down, and a ref exposes scrollToIndex for deep links.",
+    "category": "data-tables",
+    "related": [
+      "infinite-scroll",
+      "virtualized-list"
+    ]
   },
   {
     "name": "virtualized-list",
@@ -5885,7 +10145,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [],
     "galleries": [],
-    "description": "Renders a sample invoice row; replace it with your own `renderItem`."
+    "description": "A bare fixed-row-height windowed list that renders only the rows in view; ten thousand rows cost about twenty DOM nodes.",
+    "category": "data-tables",
+    "related": [
+      "virtual-list",
+      "data-table"
+    ],
+    "guide": "Pass `count`, `itemHeight` and `renderItem(index)`. Use `VirtualList` for a header, measured row heights, keyboard row navigation and scroll-to-index.",
+    "examples": [
+      "<VirtualizedList count={rows.length} itemHeight={40} height={320} renderItem={(i) => <Row row={rows[i]} />} aria-label=\"Transactions\" />"
+    ]
   },
   {
     "name": "visually-hidden",
@@ -5896,7 +10165,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/ui/visually-hidden",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "Text that screen readers announce but sighted users never see (Tailwind `sr-only`), e.g. a label for an icon-only control.",
+    "category": "layout",
+    "related": [
+      "text",
+      "skip-link"
+    ],
+    "guide": "Accepts every `<span>` prop, so it can carry an `id` for `aria-describedby`. Prefer `aria-label` on the control when the text is short. Use `SkipLink` for a skip-to-content link that appears on focus.",
+    "examples": [
+      "<button><TrashIcon aria-hidden /><VisuallyHidden>Delete invoice INV-2041</VisuallyHidden></button>"
+    ]
   },
   {
     "name": "vote-control",
@@ -5909,7 +10188,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A vertical up/down vote control with the score between, for feature boards and Q&A. Pressing the active arrow again clears the vote.",
+    "category": "feedback",
+    "related": [
+      "feedback-thumbs",
+      "reaction-bar"
+    ],
+    "guide": "The arrows are toggle buttons (`aria-pressed`). `score` is displayed as given, so include the viewer's vote in it. Use `FeedbackThumbs` for rating an AI answer and `ReactionBar` for emoji reactions.",
+    "examples": [
+      "<VoteControl score={score} value={vote} onChange={(v) => { setScore(score - delta(vote) + delta(v)); setVote(v) }} />"
+    ]
   },
   {
     "name": "waffle-chart",
@@ -5923,7 +10212,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<WaffleChart />"
+    "description": "A 10-column grid of squares with the first `value` filled, for \"42 of 100\" style part-to-whole stats.",
+    "usage": "<WaffleChart />",
+    "category": "charts",
+    "related": [
+      "progress-circle",
+      "goal-ring",
+      "pie-chart"
+    ],
+    "guide": "Keep `total` at 100 or less so each square stays countable. Use `ProgressCircle` or `GoalRing` for a single percentage and `PieChart` for several parts.",
+    "examples": [
+      "<WaffleChart label=\"Invoices paid on time\" value={42} total={100} />"
+    ]
   },
   {
     "name": "webhook-list",
@@ -5937,7 +10237,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "badge",
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A card listing webhook endpoints (URL, subscribed events, active or paused) with an \"Add endpoint\" button.",
+    "category": "developer-tools",
+    "related": [
+      "api-key-list",
+      "integration-card"
+    ],
+    "guide": "Use it on developer settings pages. Use `ApiKeyList` for API keys and `IntegrationCard` for third-party connections.",
+    "examples": [
+      "<WebhookList hooks={[{ url: \"https://api.northwind.com/hooks/lumen\", events: \"invoice.paid, invoice.overdue\", status: \"active\" }]} onAdd={openCreateDialog} />"
+    ]
   },
   {
     "name": "welcome-screen",
@@ -5950,7 +10260,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A first-run welcome card: eyebrow, headline, one sentence, numbered next steps and two actions.",
+    "category": "workflow",
+    "related": [
+      "onboarding-checklist",
+      "onboarding-wizard",
+      "empty-state"
+    ],
+    "guide": "Show it on an empty dashboard after sign-up. Use `OnboardingChecklist` when the steps should tick off as they are done, `OnboardingWizard` for a guided multi-step flow, and `EmptyState` for an empty list.",
+    "examples": [
+      "<WelcomeScreen title=\"Welcome to Lumen, Maya\" steps={[\"Connect your bank\", \"Invite your finance team\", \"Send your first invoice\"]} actions={<Button>Connect bank</Button>} />"
+    ]
   },
   {
     "name": "well",
@@ -5964,7 +10285,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "layout"
     ],
-    "usage": "<Well>Sunken well for nested content.</Well>"
+    "description": "A sunken, bordered box that sets content back from the page: notes, code samples, read-only summaries.",
+    "usage": "<Well>Sunken well for nested content.</Well>",
+    "category": "layout",
+    "related": [
+      "card",
+      "callout",
+      "inline-alert",
+      "inset"
+    ],
+    "guide": "Accepts every `<div>` prop. Use `Card` for raised, primary content, `Callout` or `InlineAlert` for messages with a tone, and `Inset` for padding without a frame.",
+    "examples": [
+      "<Well>Payouts land in your bank 2 business days after an invoice is paid.</Well>"
+    ]
   },
   {
     "name": "window-chrome",
@@ -5978,7 +10311,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "engineering"
     ],
-    "usage": "<WindowChrome title=\"minidev — audit\">\n  <p className=\"text-sm text-fg-muted\">Screenshots + axe on every gallery route.</p>\n</WindowChrome>"
+    "description": "A neutral app-window frame (three grey dots and a title bar) for screenshots and product previews on marketing pages.",
+    "usage": "<WindowChrome title=\"minidev — audit\">\n  <p className=\"text-sm text-fg-muted\">Screenshots + axe on every gallery route.</p>\n</WindowChrome>",
+    "category": "layout",
+    "related": [
+      "terminal-window",
+      "code-editor-frame"
+    ],
+    "guide": "Children sit in 16px padding. Use `TerminalWindow` for CLI output and `CodeEditorFrame` for source code.",
+    "examples": [
+      "<WindowChrome title=\"Lumen — Invoices\"><InvoiceList /></WindowChrome>"
+    ]
   },
   {
     "name": "wishlist-button",
@@ -5996,7 +10339,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "commerce"
     ],
-    "usage": "<WishlistButton active={wish} onToggle={() => setWish((w) => !w)} />"
+    "description": "A heart toggle button for saving a product to a wishlist; the heart fills when active.",
+    "usage": "<WishlistButton active={wish} onToggle={() => setWish((w) => !w)} />",
+    "category": "ecommerce",
+    "related": [
+      "toggle"
+    ],
+    "guide": "It is a toggle (`aria-pressed`) with a fixed label, so screen readers hear \"Save to wishlist, pressed\". Works controlled (`active` + `onToggle`) or uncontrolled (`defaultActive`). Use `Toggle` for generic toolbar toggles.",
+    "examples": [
+      "<WishlistButton active={saved} onToggle={setSaved} label=\"Save Aurora desk lamp\" />"
+    ]
   },
   {
     "name": "workspace-create",
@@ -6011,7 +10363,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "form-field",
       "input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A create-workspace form: name (required) and URL slug, which follows the name until edited, plus a submit button.",
+    "category": "forms",
+    "related": [
+      "join-workspace",
+      "org-switcher"
+    ],
+    "guide": "`onCreate` gets `{ name, slug }` on submit; Enter submits. Use `JoinWorkspace` to join an existing one and `OrgSwitcher` to move between workspaces.",
+    "examples": [
+      "<WorkspaceCreate onCreate={({ name, slug }) => createWorkspace(name, slug)} />"
+    ]
   },
   {
     "name": "admin-console",
@@ -6038,7 +10400,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "admin",
       "blocks"
     ],
-    "usage": "<AdminConsole />"
+    "description": "A workspace admin area: impersonation banner, org switcher, KPIs, then tabs for users, security, quotas and import.",
+    "usage": "<AdminConsole />",
+    "category": "dashboard",
+    "related": [
+      "admin-user-row",
+      "audit-filter-bar",
+      "sso-provider-card",
+      "ip-allowlist",
+      "resource-quota-grid",
+      "bulk-user-import",
+      "admin-overview",
+      "users-table-page"
+    ],
+    "guide": "Use as the full admin screen of a B2B app. Every panel is a registry component (AdminUserRow, AuditFilterBar, SsoProviderCard, IpAllowlist, ResourceQuotaGrid, BulkUserImport), so drop tabs you do not need. For a lighter landing page use AdminOverview; for a searchable member table use UsersTablePage.",
+    "examples": [
+      "<AdminConsole />"
+    ]
   },
   {
     "name": "admin-overview",
@@ -6051,9 +10429,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "activity-feed",
       "admin-stat-strip",
-      "button"
+      "button",
+      "page-header"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An admin landing page: title with \"Invite admin\", four org KPIs with deltas, then recent admin activity.",
+    "category": "dashboard",
+    "related": [
+      "admin-console",
+      "analytics-page",
+      "admin-stat-strip",
+      "activity-feed"
+    ],
+    "guide": "Use as the first screen of an admin area. For the full tabbed admin (users, SSO, quotas, import) use AdminConsole; for product metrics with charts use AnalyticsPage. Composes AdminStatStrip and ActivityFeed.",
+    "examples": [
+      "<AdminOverview onInvite={() => setInviteOpen(true)} />"
+    ]
   },
   {
     "name": "analytics-page",
@@ -6065,9 +10456,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [
       "admin-stat-strip",
-      "chart-card"
+      "bar-chart",
+      "chart-card",
+      "interactive-area-chart",
+      "page-header"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A metrics page: four KPIs with deltas, a hoverable revenue trend and a signups bar chart.",
+    "category": "dashboard",
+    "related": [
+      "dashboard-home",
+      "report-builder",
+      "admin-overview"
+    ],
+    "guide": "Use for a product or revenue analytics screen with a few headline charts. For the app home with activity use DashboardHome; to let people build their own chart use ReportBuilder. Charts carry text summaries for screen readers and stack on small screens.",
+    "examples": [
+      "<AnalyticsPage />"
+    ]
   },
   {
     "name": "api-docs-page",
@@ -6079,10 +10484,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [
       "badge",
-      "button",
-      "code-block"
+      "code-block",
+      "copy-button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An API reference page: section nav, base URL with a copy button, the endpoint list, and a curl sample.",
+    "category": "developer-tools",
+    "related": [
+      "docs-page",
+      "api-key-list"
+    ],
+    "guide": "Use for REST reference docs. Each endpoint shows its method, path and one-line purpose. For prose guides with a table of contents use DocsPage; for an in-app API key screen use ApiKeyList. The nav collapses above the content on small screens.",
+    "examples": [
+      "<ApiDocsPage />"
+    ]
   },
   {
     "name": "bento-live",
@@ -6099,7 +10514,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "number-roll"
     ],
     "galleries": [],
-    "description": "Column span on large screens (of 6)."
+    "description": "A product feature grid where every tile runs a small live piece of the product (a ticking metric, a typed answer, alerts) instead of a screenshot.",
+    "category": "marketing",
+    "related": [
+      "feature-grid",
+      "feature-bento-motion",
+      "marketing-landing",
+      "scroll-story"
+    ],
+    "guide": "Use as the main \"features\" section of a landing page, with 4–6 tiles on a 6-column grid. Live tiles only tick while on screen and sit still under reduced motion. Tiles rise in once as the grid enters view and lift on hover. For a text-only grid use FeatureGrid; for a premium animated bento use FeatureBentoMotion.",
+    "examples": [
+      "<BentoLive items={[{ title: \"Live MRR\", body: \"Every metric is live.\", visual: <MyChart />, span: 4, tall: true }]} />"
+    ]
   },
   {
     "name": "billing-page",
@@ -6111,10 +10537,25 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [
       "invoice-list",
+      "page-header",
       "plan-card",
       "usage-meter"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A subscription page: plan cards with the current plan highlighted, seat usage, then recent invoices.",
+    "category": "billing",
+    "related": [
+      "pricing-plans",
+      "commerce-checkout",
+      "plan-card",
+      "usage-meter",
+      "invoice-list",
+      "settings-page"
+    ],
+    "guide": "Use inside an app's settings for an existing customer. For a public pricing section with a monthly/yearly switch use PricingPlans; for paying for a cart use CommerceCheckout. Composes PlanCard, UsageMeter and InvoiceList.",
+    "examples": [
+      "<BillingPage onChangePlan={(plan) => openCheckout(plan)} />"
+    ]
   },
   {
     "name": "changelog-page",
@@ -6127,7 +10568,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A release-notes list: one entry per version with date, tag, title and a short body, newest first.",
+    "category": "marketing",
+    "related": [
+      "changelog-marketing",
+      "docs-page"
+    ],
+    "guide": "Use for a public /changelog or an in-app \"What's new\" panel. Each entry is an article with a real <time>, so feeds and search engines can read it. For a marketing changelog with motion use the premium ChangelogMarketing; for docs use DocsPage.",
+    "examples": [
+      "<ChangelogPage />"
+    ]
   },
   {
     "name": "chat-page",
@@ -6142,7 +10593,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "page-header",
       "prompt-input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A full-height AI chat screen: titled header, a scrolling transcript that follows new messages, and a composer.",
+    "category": "ai-chat",
+    "related": [
+      "chat-thread",
+      "ai-composer"
+    ],
+    "guide": "Use for an assistant or support chat that owns the page. Sent messages append to the thread; wire `onSend` to your model and push its reply into your own state when you copy the block. For just the transcript use ChatThread; for a composer with attachments and model picker use AiComposer. Give the block a height.",
+    "examples": [
+      "<ChatPage className=\"h-[600px]\" onSend={(text) => ask(text)} />"
+    ]
   },
   {
     "name": "command-center",
@@ -6155,10 +10616,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "registryDeps": [
       "button",
       "command-dialog",
+      "kbd",
       "kpi-row",
       "page-header"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An ops home: page title with a \"Commands\" button (also ⌘K / Ctrl+K), a KPI row, and a command dialog.",
+    "category": "dashboard",
+    "related": [
+      "dashboard-home",
+      "command-palette",
+      "command-dialog"
+    ],
+    "guide": "Use for an operator dashboard where the fastest path to any action is the keyboard. For a chart-led overview use DashboardHome; for just the palette use CommandPalette (has its own ⌘K) or CommandDialog. The shortcut listener is attached to the window while the block is mounted.",
+    "examples": [
+      "<CommandCenter />"
+    ]
   },
   {
     "name": "commerce-checkout",
@@ -6175,7 +10648,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "page-header",
       "shipping-address"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A two-column checkout: line items and billing address on the left, a live order summary and Pay on the right.",
+    "category": "ecommerce",
+    "related": [
+      "pricing-plans",
+      "billing-page"
+    ],
+    "guide": "Use for a one-page checkout of a few items or seats. Totals recompute as quantity changes. On small screens the summary stacks under the form. For plan selection before checkout use PricingPlans; for an existing subscription use BillingPage.",
+    "examples": [
+      "<CommerceCheckout onPay={(total) => createPaymentIntent(total)} />"
+    ]
   },
   {
     "name": "cta-band",
@@ -6189,7 +10672,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "motion"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "The closing call to action of a landing page: a big lit panel, a headline that catches the light, and an email field whose button morphs into a confirmation.",
+    "category": "marketing",
+    "related": [
+      "cta-banner",
+      "cta-glow",
+      "marketing-landing"
+    ],
+    "guide": "Use as the last section before the footer when the ask is \"leave your email\". For a plain row with one button use CtaBanner; for a premium glow panel use CtaGlow. `onSubmit` may return a promise: the button shows \"Sending…\" until it settles, \"Check your inbox\" on success, and an error line if it throws. Result is announced to screen readers.",
+    "examples": [
+      "<CtaBand title=\"Ship it this week.\" onSubmit={(email) => fetch(\"/api/waitlist\", { method: \"POST\", body: email })} />"
+    ]
   },
   {
     "name": "dashboard-home",
@@ -6201,6 +10695,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [
       "activity-feed",
+      "bar-chart",
       "button",
       "chart-card",
       "kpi-row",
@@ -6209,7 +10704,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "blocks"
     ],
-    "usage": "<DashboardHome />"
+    "description": "An app home: page title with a primary action, four KPIs with deltas, a revenue chart and recent activity.",
+    "usage": "<DashboardHome />",
+    "category": "dashboard",
+    "related": [
+      "analytics-page",
+      "command-center",
+      "page-header",
+      "kpi-row",
+      "chart-card",
+      "bar-chart",
+      "activity-feed",
+      "report-builder"
+    ],
+    "guide": "Use as the first screen after sign-in. For a metrics-only page with more charts use AnalyticsPage; for an ops home driven by ⌘K use CommandCenter. Composes PageHeader, KpiRow, ChartCard, BarChart and ActivityFeed; the chart and feed stack on small screens.",
+    "examples": [
+      "<DashboardHome />"
+    ]
   },
   {
     "name": "device-frame",
@@ -6223,7 +10734,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Browser only."
+    "description": "A phone or a browser window around live UI, with a lit bezel edge and a glass sheen that follow the light.",
+    "category": "media",
+    "related": [
+      "hero-spotlight",
+      "scroll-story"
+    ],
+    "guide": "Use in heroes, feature rows and scroll stories to show real product UI instead of a screenshot. The phone is a fixed 300×630px frame (scale it with a transform class); the browser fills its container width. Children render inside the screen and stay interactive. For a static image use a plain <img>; for several overlapping devices use the premium DeviceStack.",
+    "examples": [
+      "<DeviceFrame device=\"browser\" url=\"app.lumen.io/revenue\"><DashboardHome /></DeviceFrame>\n<DeviceFrame device=\"phone\" time=\"09:41\"><NotificationCenter /></DeviceFrame>"
+    ]
   },
   {
     "name": "docs-page",
@@ -6232,14 +10752,27 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "block",
     "path": "src/registry/blocks/docs-page.tsx",
     "import": "@/registry/blocks/docs-page",
-    "deps": [],
+    "deps": [
+      "@lumen/sdk"
+    ],
     "registryDeps": [
       "callout",
       "code-block",
       "prose",
       "toc"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A documentation article: a sticky table of contents beside prose, code samples and a callout.",
+    "category": "developer-tools",
+    "related": [
+      "toc",
+      "api-docs-page",
+      "changelog-page"
+    ],
+    "guide": "Use for guides and how-tos. Every Toc entry points at a heading id in the article. For endpoint reference with methods and a curl sample use ApiDocsPage; for release notes use ChangelogPage. On small screens the Toc stacks above the article.",
+    "examples": [
+      "<DocsPage />"
+    ]
   },
   {
     "name": "empty-workspace",
@@ -6248,13 +10781,27 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "block",
     "path": "src/registry/blocks/empty-workspace.tsx",
     "import": "@/registry/blocks/empty-workspace",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [
       "button",
       "empty-state",
       "page-header"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "The first-run screen of a new workspace: page title, an empty state with one primary action, then two shortcuts.",
+    "category": "feedback",
+    "related": [
+      "empty-search",
+      "onboarding-flow",
+      "page-header",
+      "empty-state"
+    ],
+    "guide": "Use when a list or workspace has no data yet and the next step is obvious. For an empty search result use EmptySearch; for a multi-step first-run setup use OnboardingFlow. Composes PageHeader and EmptyState.",
+    "examples": [
+      "<EmptyWorkspace onCreate={() => router.push(\"/projects/new\")} />"
+    ]
   },
   {
     "name": "engineering-console",
@@ -6281,7 +10828,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "blocks",
       "engineering"
     ],
-    "usage": "<EngineeringConsole />"
+    "description": "A dev-ops page: environment switch, the build pipeline, then tabs for commits, checks, trace and review.",
+    "usage": "<EngineeringConsole />",
+    "category": "developer-tools",
+    "related": [
+      "build-pipeline",
+      "commit-row",
+      "check-run-list",
+      "trace-waterfall",
+      "review-request-card",
+      "merge-box",
+      "admin-console",
+      "logs-viewer"
+    ],
+    "guide": "Use as the engineering home of an internal tool or a developer product. Every panel is a registry component (BuildPipeline, CommitRow, CheckRunList, TraceWaterfall, ReviewRequestCard, MergeBox), so drop tabs you do not need. For workspace administration use AdminConsole; for raw log lines use LogsViewer.",
+    "examples": [
+      "<EngineeringConsole defaultEnv=\"staging\" />"
+    ]
   },
   {
     "name": "faq-section",
@@ -6294,7 +10857,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "lucide-react"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A landing-page FAQ: a heading column with a contact line beside a one-open-at-a-time accordion.",
+    "category": "marketing",
+    "related": [
+      "accordion",
+      "marketing-landing"
+    ],
+    "guide": "Use near the end of a marketing page, before the closing CTA. Answers open by animating grid rows (no measuring) and the plus turns into a cross. Keyboard follows the WAI-ARIA accordion pattern: Enter/Space toggles, Arrow Up/Down move between questions, Home/End jump to the first/last. Closed answers are inert. For an in-app collapsible list use Accordion.",
+    "examples": [
+      "<FaqSection items={[{ q: \"Do you store our data?\", a: \"Only aggregates, encrypted at rest.\" }]} />"
+    ]
   },
   {
     "name": "feature-flags",
@@ -6305,11 +10878,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/blocks/feature-flags",
     "deps": [],
     "registryDeps": [
-      "label",
-      "page-header",
-      "switch"
+      "feature-flag-toggle",
+      "page-header"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An admin page of named flags, each a row with a description and a switch, plus a live \"n of m on\" count.",
+    "category": "settings",
+    "related": [
+      "feature-flag-toggle",
+      "notification-preferences"
+    ],
+    "guide": "Use for workspace-level flags, betas and experiments. For a single flag row use FeatureFlagToggle; for per-channel notification switches use NotificationPreferences. State lives in the block; wire `onChange` to persist each flip.",
+    "examples": [
+      "<FeatureFlags onChange={(flag, on) => api.flags.set(flag, on)} />"
+    ]
   },
   {
     "name": "floating-nav",
@@ -6326,7 +10908,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "Sticky inside a scroll container instead of the viewport."
+    "description": "A sticky marketing header that tucks into a floating raised pill once you scroll, with a hover highlight that glides between links.",
+    "category": "navigation",
+    "related": [
+      "hero-spotlight",
+      "topbar",
+      "sidebar",
+      "tabs"
+    ],
+    "guide": "Use at the top of a landing page, above HeroSpotlight. It tracks window scroll. Below md the links move into a menu sheet: the toggle has aria-expanded/aria-controls, Escape closes it and returns focus, and choosing a link closes it. For an app shell with a sidebar use Topbar or Sidebar; for in-page section tabs use Tabs.",
+    "examples": [
+      "<FloatingNav links={[{ label: \"Pricing\", href: \"#pricing\" }]} cta={{ label: \"Start free\", href: \"/signup\" }} />"
+    ]
   },
   {
     "name": "form-wizard",
@@ -6335,14 +10928,27 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "block",
     "path": "src/registry/blocks/form-wizard.tsx",
     "import": "@/registry/blocks/form-wizard",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [
       "button",
+      "description-list",
       "form-field",
       "input",
       "stepper"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A multi-step form: a stepper, one group of fields per step, Back/Next, a review step and a done state.",
+    "category": "forms",
+    "related": [
+      "onboarding-flow",
+      "form-field"
+    ],
+    "guide": "Use when a form is long enough to split (connect a data source, create an account). Each step validates with the browser's own `required` checks before moving on, and focus moves to the new step's heading so screen readers hear where they are. For a first-run checklist with progress use OnboardingFlow; for one short form use FormField.",
+    "examples": [
+      "<FormWizard onComplete={(v) => api.sources.create(v)} />"
+    ]
   },
   {
     "name": "hero-spotlight",
@@ -6359,7 +10965,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "Second line of the title, lit by the cursor."
+    "description": "A launch hero: a staggered h1 that settles in with a blur, a lit second line, two actions, a proof line and a product visual that rises last.",
+    "category": "marketing",
+    "related": [
+      "device-frame",
+      "hero",
+      "hero-aurora",
+      "floating-nav",
+      "marketing-landing"
+    ],
+    "guide": "Use as the first section of a landing page (it renders the page's h1, so use it once). Pair `visual` with a DeviceFrame wrapping real UI. Entrance motion is skipped under reduced motion. For a plain hero with no motion use Hero; for premium backgrounds use HeroAurora. Actions render as links when `href` is set, buttons otherwise.",
+    "examples": [
+      "<HeroSpotlight\n  title=\"Answers from your data,\"\n  highlight=\"before you ask.\"\n  primary={{ label: \"Start free\", href: \"/signup\" }}\n  visual={<DeviceFrame device=\"browser\"><DashboardHome /></DeviceFrame>}\n/>"
+    ]
   },
   {
     "name": "inbox-page",
@@ -6370,10 +10988,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/blocks/inbox-page",
     "deps": [],
     "registryDeps": [
-      "badge",
       "button"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A two-pane inbox: a message list with unread dots on the left, the open message on the right (stacked on mobile).",
+    "category": "dashboard",
+    "related": [
+      "support-inbox",
+      "notification-center"
+    ],
+    "guide": "Use for in-app messages, digests or system mail. Opening a message marks it read; \"Mark all read\" clears the rest and the unread count is announced. For support tickets with SLA and status use SupportInbox; for short notifications use NotificationCenter.",
+    "examples": [
+      "<InboxPage />"
+    ]
   },
   {
     "name": "logs-viewer",
@@ -6384,10 +11011,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/blocks/logs-viewer",
     "deps": [],
     "registryDeps": [
-      "badge",
-      "input"
+      "search-input",
+      "segmented-control",
+      "status-badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A log panel: text filter and level switch over a scrollable, monospaced list of timestamped lines.",
+    "category": "developer-tools",
+    "related": [
+      "audit-log-entry",
+      "build-pipeline",
+      "engineering-console"
+    ],
+    "guide": "Use for job, sync or request logs inside an ops screen. Filtering is client-side over the lines you pass in; for streaming or server-side search, filter upstream and keep the markup. For a structured audit trail use AuditLogEntry; for build steps use BuildPipeline.",
+    "examples": [
+      "<LogsViewer className=\"h-96\" />"
+    ]
   },
   {
     "name": "marketing-landing",
@@ -6404,7 +11043,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "logo-cloud",
       "stats-strip"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A plain, fast landing page from free sections: hero, logo cloud, stats, feature grid and a CTA banner.",
+    "category": "marketing",
+    "related": [
+      "hero-spotlight",
+      "bento-live",
+      "pricing-plans",
+      "faq-section",
+      "cta-band",
+      "premium-landing",
+      "saas-marketing-page"
+    ],
+    "guide": "Use for a simple product or docs home with no motion budget. For a richer launch page use HeroSpotlight, BentoLive, PricingPlans, FaqSection and CtaBand together; for premium motion use PremiumLanding or SaasMarketingPage. Logos, stats and features fall back to each section's Lumen sample data, which is fictional: replace it with your own.",
+    "examples": [
+      "<MarketingLanding onStart={() => router.push(\"/signup\")} />"
+    ]
   },
   {
     "name": "media-library",
@@ -6415,10 +11069,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/blocks/media-library",
     "deps": [],
     "registryDeps": [
-      "badge",
-      "button"
+      "button",
+      "file-row"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A files panel: title with an Upload button that opens the system file picker, then a responsive grid of file rows.",
+    "category": "media",
+    "related": [
+      "file-dropzone",
+      "file-row",
+      "file-tree"
+    ],
+    "guide": "Use for attachments, exports or brand assets shared by a workspace. Picked files are added to the top of the list (no network); wire `onUpload` to send them. For drag-and-drop with progress use FileDropzone; for a single file use FileRow; for a folder hierarchy use FileTree.",
+    "examples": [
+      "<MediaLibrary onUpload={(files) => uploadAll(files)} />"
+    ]
   },
   {
     "name": "notification-center",
@@ -6432,7 +11097,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button",
       "notification-item"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A notifications panel: a titled header with an unread count and \"Mark all read\", then the latest rows.",
+    "category": "feedback",
+    "related": [
+      "notification-item",
+      "notification-inbox",
+      "activity-feed",
+      "inbox-page",
+      "support-inbox"
+    ],
+    "guide": "Use as the body of a bell popover or a side panel in an app shell. For one row use NotificationItem; for a bell button that opens its own popover use NotificationInbox; for a team audit trail use ActivityFeed. Ships with Lumen sample notifications; copy the block and swap `SAMPLE` for your data.",
+    "examples": [
+      "<NotificationCenter className=\"max-w-md\" />"
+    ]
   },
   {
     "name": "onboarding-flow",
@@ -6444,10 +11122,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [
       "button",
+      "form-field",
       "input",
+      "segmented-control",
       "step-progress"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A first-run setup card: progress, one short question per step (workspace, team, digest), Back/Continue, then Finish.",
+    "category": "forms",
+    "related": [
+      "form-wizard",
+      "empty-workspace"
+    ],
+    "guide": "Use right after sign-up to collect the three things the product needs. Steps validate with `required` before moving on. For a long, multi-field form use FormWizard; for an empty screen with one action use EmptyWorkspace.",
+    "examples": [
+      "<OnboardingFlow onFinish={(v) => api.workspace.create(v)} />"
+    ]
   },
   {
     "name": "premium-landing",
@@ -6463,7 +11153,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "hero-aurora",
       "pricing-motion"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A short premium launch page: aurora hero, animated feature row, motion pricing and a glowing CTA.",
+    "category": "marketing",
+    "related": [
+      "saas-marketing-page",
+      "marketing-landing"
+    ],
+    "guide": "Use for a product launch or waitlist page that should feel alive. For a full SaaS home with logos, compare and quotes use SaasMarketingPage; for the free-tier equivalent use MarketingLanding. Every section falls back to its own Lumen sample copy; pass props to the sections to change it.",
+    "examples": [
+      "<PremiumLanding />"
+    ]
   },
   {
     "name": "pricing-plans",
@@ -6481,7 +11181,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "segmented-control"
     ],
     "galleries": [],
-    "description": "Discount badge on the yearly option."
+    "description": "A public pricing section: a monthly/yearly switch whose prices roll digit by digit, a featured plan in ink, and plain yes/no feature rows.",
+    "category": "billing",
+    "related": [
+      "billing-page",
+      "pricing-motion",
+      "commerce-checkout",
+      "marketing-landing"
+    ],
+    "guide": "Use on a marketing or /pricing page with two to four plans. Prices are numbers per month; the yearly figure is the monthly-equivalent price and the \"Billed $X yearly\" line is derived. A price of 0 reads \"Free\". For an existing customer's plan and invoices use BillingPage; for a premium animated variant use PricingMotion. Period is uncontrolled by default; pass `period` + `onPeriodChange` to control it.",
+    "examples": [
+      "<PricingPlans\n  plans={[{ name: \"Team\", blurb: \"For finance teams\", monthly: 49, yearly: 39, cta: \"Start trial\", featured: true, features: [\"Unlimited workspaces\"] }]}\n  onSelect={(plan, period) => router.push(`/signup?plan=${plan}&period=${period}`)}\n/>"
+    ]
   },
   {
     "name": "project-detail",
@@ -6492,11 +11203,27 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/blocks/project-detail",
     "deps": [],
     "registryDeps": [
+      "activity-feed",
       "back-link",
+      "button",
       "description-list",
-      "page-header"
+      "page-header",
+      "status-badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A record page: back link, title with status and actions, a facts list, then recent activity.",
+    "category": "dashboard",
+    "related": [
+      "project-list",
+      "user-detail",
+      "page-header",
+      "description-list",
+      "activity-feed"
+    ],
+    "guide": "Use for any \"one item\" screen (a project, customer, invoice) reached from a list. For the list itself use ProjectList; for a person use UserDetail. Composes PageHeader, DescriptionList and ActivityFeed; swap the sample Lumen board-pack data for your record.",
+    "examples": [
+      "<ProjectDetail />"
+    ]
   },
   {
     "name": "project-list",
@@ -6505,13 +11232,26 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "block",
     "path": "src/registry/blocks/project-list.tsx",
     "import": "@/registry/blocks/project-list",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [
       "button",
       "page-header",
       "status-badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An index page: title with \"New project\", then one linked row per project with owner, freshness and status.",
+    "category": "dashboard",
+    "related": [
+      "project-detail",
+      "users-table-page",
+      "data-table"
+    ],
+    "guide": "Use for short lists (under ~30 items) where each row opens a detail page (see ProjectDetail). For sortable, selectable or long lists use UsersTablePage / DataTable. Rows are real links, so they work with the keyboard, middle-click and screen readers.",
+    "examples": [
+      "<ProjectList />"
+    ]
   },
   {
     "name": "report-builder",
@@ -6522,12 +11262,28 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/blocks/report-builder",
     "deps": [],
     "registryDeps": [
+      "bar-chart",
       "button",
       "chart-card",
       "date-range-picker",
-      "page-header"
+      "page-header",
+      "segmented-control"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A report editor page: title with Export, a date range, a metric switch and a live chart preview.",
+    "category": "dashboard",
+    "related": [
+      "dashboard-home",
+      "analytics-page",
+      "date-range-picker",
+      "segmented-control",
+      "chart-card",
+      "bar-chart"
+    ],
+    "guide": "Use when people assemble a saved report from a metric and a period. For a read-only dashboard use DashboardHome or AnalyticsPage. Composes DateRangePicker, SegmentedControl, ChartCard and BarChart.",
+    "examples": [
+      "<ReportBuilder onExport={({ metric, range }) => downloadCsv(metric, range)} />"
+    ]
   },
   {
     "name": "saas-marketing-page",
@@ -6545,7 +11301,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "magnetic-cta",
       "testimonial-carousel"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A premium SaaS home page stacked from motion sections: pitch hero, logo wall, bento, compare, quotes, CTA.",
+    "category": "marketing",
+    "related": [
+      "marketing-landing",
+      "premium-landing"
+    ],
+    "guide": "Use as a starting point for a pitch or launch page built from premium sections. For the free-tier equivalent use MarketingLanding; for a lighter premium page use PremiumLanding. Each section is its own registry component, so remove or reorder lines freely. The sample logos and quotes are fictional; replace them with your own.",
+    "examples": [
+      "<SaasMarketingPage />"
+    ]
   },
   {
     "name": "scroll-story",
@@ -6559,7 +11325,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "motion"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A \"how it works\" section: numbered steps on one side, a pinned visual on the other that swaps as each step reaches mid-screen, with a filling progress rail.",
+    "category": "marketing",
+    "related": [
+      "device-frame",
+      "bento-live"
+    ],
+    "guide": "Use for a 3–5 step explanation on a landing page. On large screens the visual is sticky; below lg each step shows its own visual inline, so nothing is lost on mobile. Each `visual` should be a compact panel (a DeviceFrame scaled down, a card). Swaps are instant under reduced motion. For a static grid of features use BentoLive.",
+    "examples": [
+      "<ScrollStory steps={[{ kicker: \"01 · Connect\", title: \"Point it at your tools.\", body: \"Read-only keys.\", visual: <MyPanel /> }]} />"
+    ]
   },
   {
     "name": "search-results-page",
@@ -6571,9 +11347,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [
       "badge",
-      "input"
+      "search-input"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A search screen: a search field, a live result count, and linked results grouped by type with the match highlighted.",
+    "category": "navigation",
+    "related": [
+      "search-with-results",
+      "command-palette",
+      "empty-search"
+    ],
+    "guide": "Use for an in-app search across records (customers, invoices, reports). Results filter as you type and the count is announced to screen readers. For a dropdown of results under a field use SearchWithResults; for a ⌘K launcher use CommandPalette; for \"nothing found\" art use EmptySearch.",
+    "examples": [
+      "<SearchResultsPage defaultQuery=\"northwind\" />"
+    ]
   },
   {
     "name": "settings-page",
@@ -6590,7 +11377,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "profile-form",
       "theme-picker"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An account settings page: profile form, theme picker, notification channels and a danger zone, in that order.",
+    "category": "settings",
+    "related": [
+      "admin-console",
+      "billing-page"
+    ],
+    "guide": "Use for a single-column personal or workspace settings screen. For admin-only controls (users, SSO, quotas) use AdminConsole; for billing use BillingPage. Each section is a registry component, so drop the ones you do not need. The theme picker applies to the whole document by default.",
+    "examples": [
+      "<SettingsPage className=\"max-w-2xl\" />"
+    ]
   },
   {
     "name": "sign-in-page",
@@ -6607,7 +11404,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "input",
       "social-auth-row"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A centred sign-in screen: GitHub and Google buttons, an \"or\" divider, then email and password in a real form.",
+    "category": "auth",
+    "related": [
+      "auth-card",
+      "otp-input"
+    ],
+    "guide": "Use as the whole /sign-in route. Fields carry `autoComplete` so password managers fill them, and Enter submits. For just the card use AuthCard; for one-time codes use OtpInput. Wire `onSubmit` to your auth call.",
+    "examples": [
+      "<SignInPage onSubmit={({ email, password }) => signIn(email, password)} />"
+    ]
   },
   {
     "name": "social-proof-wall",
@@ -6616,9 +11423,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "block",
     "path": "src/registry/blocks/social-proof-wall.tsx",
     "import": "@/registry/blocks/social-proof-wall",
-    "deps": [],
-    "registryDeps": [],
-    "galleries": []
+    "deps": [
+      "lucide-react"
+    ],
+    "registryDeps": [
+      "button"
+    ],
+    "galleries": [],
+    "description": "A customer section: a logo marquee that fades at the edges, then a wall of quotes in up to three columns drifting at different speeds.",
+    "category": "marketing",
+    "related": [
+      "testimonial",
+      "logo-cloud"
+    ],
+    "guide": "Use once on a landing page, after the product sections. Motion pauses on hover and with the \"Pause motion\" button (WCAG 2.2.2), and stops entirely under reduced motion; duplicated copies used for the loop are hidden from screen readers. The default logos and quotes are fictional samples: always pass your own real customers. For a single featured quote use a Testimonial; for a static logo row use LogoCloud.",
+    "examples": [
+      "<SocialProofWall logos={[\"Acme\", \"Globex\"]} quotes={[{ quote: \"Closed the books in two days.\", name: \"Jane Doe\", role: \"CFO, Acme\" }]} />"
+    ]
   },
   {
     "name": "status-page",
@@ -6629,10 +11450,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/blocks/status-page",
     "deps": [],
     "registryDeps": [
-      "badge",
-      "health-indicator"
+      "health-indicator",
+      "status-badge",
+      "uptime-bar"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A public status page: an overall verdict derived from every service, then each service with its health and 90-day uptime.",
+    "category": "developer-tools",
+    "related": [
+      "health-indicator",
+      "incident-banner"
+    ],
+    "guide": "Use for status.yourapp.com or an in-app \"System status\" panel. The headline badge is computed from the worst service, so it never disagrees with the list. For a single live dot use HealthIndicator; for an outage notice across the app use IncidentBanner.",
+    "examples": [
+      "<StatusPage />"
+    ]
   },
   {
     "name": "support-inbox",
@@ -6643,11 +11475,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/blocks/support-inbox",
     "deps": [],
     "registryDeps": [
-      "badge",
       "button",
-      "input"
+      "search-input",
+      "status-badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A ticket queue: open count and SLA risk in the header, search, then linked tickets with status and time left.",
+    "category": "dashboard",
+    "related": [
+      "inbox-page",
+      "notification-center"
+    ],
+    "guide": "Use for a helpdesk or customer-success queue. Tickets under two hours to SLA are flagged. Search matches subject, id or sender. For personal messages use InboxPage; for in-app notifications use NotificationCenter.",
+    "examples": [
+      "<SupportInbox onCompose={() => setComposeOpen(true)} />"
+    ]
   },
   {
     "name": "user-detail",
@@ -6658,12 +11500,27 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/blocks/user-detail",
     "deps": [],
     "registryDeps": [
+      "activity-feed",
       "avatar",
       "back-link",
+      "button",
+      "description-list",
       "page-header",
+      "status-badge"
+    ],
+    "galleries": [],
+    "description": "One person's admin page: back link, avatar and name as the title, account facts, then their recent activity.",
+    "category": "dashboard",
+    "related": [
+      "users-table-page",
+      "admin-console",
+      "project-detail",
       "team-member-row"
     ],
-    "galleries": []
+    "guide": "Use as the target of a row in UsersTablePage or AdminConsole. For a non-person record use ProjectDetail; for a single member row inside a list use TeamMemberRow. Swap the sample Lumen user for your data.",
+    "examples": [
+      "<UserDetail />"
+    ]
   },
   {
     "name": "users-table-page",
@@ -6680,7 +11537,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "status-badge",
       "table-toolbar"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A members page: title with Invite, a search toolbar, and a sortable table of people with role and status.",
+    "category": "data-tables",
+    "related": [
+      "project-list",
+      "user-detail",
+      "admin-console",
+      "page-header",
+      "table-toolbar",
+      "data-table"
+    ],
+    "guide": "Use for any admin list that needs search and sorting (users, customers, API keys). Search matches name or email. For a short linked list use ProjectList; for one person use UserDetail; for the whole admin area use AdminConsole. Composes PageHeader, TableToolbar and DataTable.",
+    "examples": [
+      "<UsersTablePage onInvite={() => setInviteOpen(true)} />"
+    ]
   },
   {
     "name": "workflow-board",
@@ -6692,13 +11563,26 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [],
     "registryDeps": [
       "approval-card",
-      "card",
       "due-date-chip",
       "issue-key",
       "page-header",
-      "priority-picker"
+      "priority-picker",
+      "status-badge"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "An approvals page: the request in focus with key, due date and priority, its approval card, and the queue behind it.",
+    "category": "workflow",
+    "related": [
+      "alert-dialog",
+      "issue-key",
+      "due-date-chip",
+      "priority-picker",
+      "approval-card"
+    ],
+    "guide": "Use for finance or ops sign-off flows (refunds, credits, price changes). Approving or rejecting moves the queue on. For a kanban of many tasks use a board of Cards; for a one-off confirmation use AlertDialog. Composes IssueKey, DueDateChip, PriorityPicker and ApprovalCard.",
+    "examples": [
+      "<WorkflowBoard onDecision={(key, approved) => api.approvals.decide(key, approved)} />"
+    ]
   },
   {
     "name": "agency-portfolio",
@@ -6719,7 +11603,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<AgencyPortfolio />"
+    "description": "A full agency portfolio page: marketing navbar, headline, project cards that rise in sequence as they scroll in, and a mega footer.",
+    "usage": "<AgencyPortfolio />",
+    "category": "marketing",
+    "related": [
+      "careers-page",
+      "blog-home"
+    ],
+    "guide": "A page template, not a primitive: drop it on a route and swap the copy and `projects`. Cards show a cover image when `image` is set, a sunken placeholder otherwise. For a single project grid inside your own page use the cards directly; for a careers or blog page use CareersPage or BlogHome.",
+    "examples": [
+      "<AgencyPortfolio projects={[{ name: \"Northwind\", blurb: \"AI ops console\", image: \"/northwind.png\", href: \"/work/northwind\" }]} />"
+    ]
   },
   {
     "name": "animated-beam",
@@ -6734,7 +11628,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Light that travels along curved paths between elements: sources on the"
+    "description": "Light that travels along curved paths between elements, showing data flowing from sources into a hub and out to a result.",
+    "category": "animation",
+    "related": [
+      "border-beam",
+      "orbiting-circles"
+    ],
+    "guide": "Paths are measured from the real DOM, so the diagram reflows with its container. `AnimatedBeam` is a ready-made \"inputs → hub → output\" diagram; `Beam` is the primitive that connects any two refs in your own layout. Use it for integration and pipeline diagrams; for a lit box outline use BorderBeam instead. Reduced motion keeps the static path and drops the light.",
+    "examples": [
+      "<AnimatedBeam hub={{ icon: BotIcon, label: \"Agent\" }} output={{ icon: UserIcon, label: \"Customer\" }} />",
+      "// Your own layout: the container must be position: relative.\n<div ref={box} className=\"relative\">… <Beam container={box} from={a} to={b} curvature={-24} /></div>"
+    ]
   },
   {
     "name": "animated-feature-row",
@@ -6750,8 +11654,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
-    "description": "Three feature cards that rise into view one after another as the row scrolls on screen.",
-    "usage": "<AnimatedFeatureRow features={[\n  { title: \"Motion\", description: \"Framer Motion with reduced-motion respect.\" },\n  { title: \"Hairline\", description: \"Same tokens as the free kit.\" },\n  { title: \"Premium\", description: \"Launch-ready sections.\" },\n]} />"
+    "description": "A row of feature cards that rise into view one after another as the row scrolls on screen.",
+    "usage": "<AnimatedFeatureRow features={[\n  { title: \"Motion\", description: \"Framer Motion with reduced-motion respect.\" },\n  { title: \"Hairline\", description: \"Same tokens as the free kit.\" },\n  { title: \"Premium\", description: \"Launch-ready sections.\" },\n]} />",
+    "category": "animation",
+    "related": [
+      "feature-bento-motion",
+      "blur-fade",
+      "grid-reveal"
+    ],
+    "guide": "Cards settle on the morph spring with a short stagger, once; reduced motion shows them in place. Three features read best (one row on desktop, stacked on mobile). Use it for a \"why us\" strip on a landing page; for mixed-size tiles use FeatureBentoMotion, for icons with a blur reveal use BlurFade.",
+    "examples": [
+      "<AnimatedFeatureRow features={[{ title: \"Invoices that chase themselves\", description: \"Reminders on your schedule.\" }]} />"
+    ]
   },
   {
     "name": "animated-list",
@@ -6766,7 +11680,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A live feed where new items drop in at the top with a spring and older"
+    "description": "A live activity feed where new items drop in at the top on a spring and older ones slide down and fall off the end.",
+    "category": "animation",
+    "related": [
+      "blur-fade"
+    ],
+    "guide": "Use it for \"happening now\" sections, notification previews and activity streams on marketing pages. Items cycle through `items` on a timer while the list is on screen, and pause while the pointer or keyboard focus is on it. Reduced motion shows the first `max` items, still. For a static list of notifications use a plain list; for a one-off reveal use BlurFade.",
+    "examples": [
+      "<AnimatedList max={4} interval={2000} items={[{ title: \"Payment received\", detail: \"Acme paid $2,400\", time: \"now\" }]} />"
+    ]
   },
   {
     "name": "animated-tabs",
@@ -6780,7 +11702,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Tabs with a pill that slides between triggers and panels that cross"
+    "description": "Tabs with a pill that slides between triggers and panels that cross-fade in the direction of travel.",
+    "category": "navigation",
+    "related": [
+      "tabs",
+      "segmented-control",
+      "before-after-wipe"
+    ],
+    "guide": "Follows the WAI-ARIA tabs pattern: roving focus, Arrow keys, Home and End, automatic activation. Pass `tabs` as data (id, label, content). Works uncontrolled (`defaultValue`) or controlled (`value` + `onValueChange`). Use it for a marketing or overview panel with a few views; for app navigation tabs built from parts use Tabs, and for a compact toggle between options use SegmentedControl.",
+    "examples": [
+      "<AnimatedTabs\n  label=\"Account\"\n  tabs={[\n    { id: \"overview\", label: \"Overview\", content: <p>Revenue is up 12.4%.</p> },\n    { id: \"billing\", label: \"Billing\", content: <p>Next invoice Oct 14.</p> },\n  ]}\n/>"
+    ]
   },
   {
     "name": "animated-tooltip",
@@ -6794,7 +11726,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A row of overlapping avatars where hovering or focusing one pops up a name and role card that leans and slides with the pointer."
+    "description": "A row of overlapping avatars where hovering or focusing one pops up a name and role card that leans and slides with the pointer.",
+    "category": "overlays",
+    "related": [
+      "tooltip",
+      "avatar-group"
+    ],
+    "guide": "The card rises on a spring, tilts a few degrees toward the pointer as it crosses the face, and settles back when it leaves. Keyboard focus opens the same card centred; Escape closes it; a tap toggles it on touch. Reduced motion shows and hides the card instantly with no tilt. Use it for team, contributor or \"who's online\" rows; for a tooltip on any trigger use Tooltip, and for a plain stacked row use AvatarGroup.",
+    "examples": [
+      "<AnimatedTooltip people={[{ name: \"Maya Chen\", role: \"Founder\", src: \"/maya.jpg\" }, { name: \"Theo Okafor\", role: \"Engineering\" }]} />"
+    ]
   },
   {
     "name": "aurora-background",
@@ -6811,7 +11752,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "Soft northern-lights curtains that drift and sway across the panel behind your content."
+    "description": "Soft northern-lights curtains that drift and sway across the panel behind your content. Three blurred bands of accent colour move at different periods, so the motion never reads as a loop. The light sits behind the content, ignores the pointer, pauses off screen and holds still for reduced motion.",
+    "category": "animation",
+    "related": [
+      "hero-gradient-mesh",
+      "background-boxes",
+      "hero-aurora",
+      "light-field",
+      "wavy-background"
+    ],
+    "guide": "Use it as a hero or CTA backdrop; children render on top. For a static glow use HeroGradientMesh, for a pointer-reactive grid use BackgroundBoxes.",
+    "examples": [
+      "<AuroraBackground intensity={0.8} className=\"h-[480px]\">\n  <h1 className=\"text-4xl text-fg\">See your runway in a new light</h1>\n</AuroraBackground>"
+    ]
   },
   {
     "name": "background-boxes",
@@ -6828,7 +11781,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A skewed grid of hairline boxes behind your content where the box under the pointer lights up in colour and fades out behind it."
+    "description": "A skewed grid of hairline boxes behind your content where the box under the pointer lights up in colour and fades out behind it. One pointer handler maps the cursor into the skewed grid with a little matrix maths and writes the colour straight to the box, so React never re-renders a box. Neighbours catch a softer glow. It works through the content on top and with touch. Left alone, a box lights now and then so the panel looks alive; that idle flicker pauses off screen and stops for reduced motion, and the fade is instant for reduced motion too.",
+    "category": "animation",
+    "related": [
+      "flickering-grid",
+      "aurora-background",
+      "dot-pattern",
+      "retro-grid"
+    ],
+    "guide": "Use it as an interactive hero backdrop; children render on top. For quiet ambient motion use FlickeringGrid or AuroraBackground instead.",
+    "examples": [
+      "<BackgroundBoxes density={1.5} idle={0}>\n  <h1 className=\"text-4xl text-fg\">Built on a grid you can feel</h1>\n</BackgroundBoxes>"
+    ]
   },
   {
     "name": "before-after-wipe",
@@ -6837,12 +11801,25 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "premium",
     "path": "src/registry/premium/before-after-wipe.tsx",
     "import": "@/registry/premium/before-after-wipe",
-    "deps": [],
+    "deps": [
+      "lucide-react"
+    ],
     "registryDeps": [],
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<BeforeAfterWipe />"
+    "description": "A before and after comparison: drag the divider (or use the arrow keys) to wipe between two layers.",
+    "usage": "<BeforeAfterWipe />",
+    "category": "media",
+    "related": [
+      "animated-tabs",
+      "filmstrip-scrub",
+      "scratch-to-reveal"
+    ],
+    "guide": "The divider is a real range input under the hood, so it is keyboard and screen reader operable (Arrow keys, Home, End, Page Up/Down). Pass any content as `before` and `after` (screenshots, mockups, two renders of a component); with neither it shows a sample dashboard. Works uncontrolled (`defaultValue`) or controlled (`value` + `onValueChange`). Use it for redesigns, filters and \"with vs without\" proof; for flipping between more than two states use AnimatedTabs.",
+    "examples": [
+      "<BeforeAfterWipe\n  beforeLabel=\"Before\"\n  afterLabel=\"After\"\n  before={<img src=\"/old.png\" alt=\"\" className=\"size-full object-cover\" />}\n  after={<img src=\"/new.png\" alt=\"\" className=\"size-full object-cover\" />}\n/>"
+    ]
   },
   {
     "name": "blog-home",
@@ -6861,7 +11838,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<BlogHome />"
+    "description": "A blog index page: marketing navbar, title, tag chips that filter the post grid, and a mega footer.",
+    "usage": "<BlogHome />",
+    "category": "marketing",
+    "related": [
+      "blog-card",
+      "agency-portfolio"
+    ],
+    "guide": "A page template: pass your `posts`; the chips are built from their tags plus \"All\". Dates are fixed strings or Dates (never `new Date()` at render, which would differ between server and client). For a single post card use BlogCard.",
+    "examples": [
+      "<BlogHome posts={[{ title: \"Why we ship hairlines\", excerpt: \"Structure from borders.\", tag: \"Design\", date: \"2026-09-14\", href: \"/blog/hairlines\" }]} />"
+    ]
   },
   {
     "name": "blur-fade",
@@ -6876,7 +11863,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Reveals its children as they scroll into view, rising out of a soft blur and settling into focus on a spring."
+    "description": "Reveals its children as they scroll into view, rising out of a soft blur and settling into focus on a spring. Wrap each item of a list and grow the `delay` to stagger them. Reduced motion shows everything in place at once.",
+    "category": "animation",
+    "related": [
+      "animated-feature-row",
+      "animated-list",
+      "scroll-reveal",
+      "text-reveal"
+    ],
+    "guide": "Use it for scroll reveals of cards, sections and images on marketing pages. Product UI should not animate on load (law 5), so keep it out of app chrome. With no children it renders a sample grid of six feature cards.",
+    "examples": [
+      "{features.map((f, i) => (\n  <BlurFade key={f.id} delay={i * 0.08} direction=\"up\">\n    <FeatureCard {...f} />\n  </BlurFade>\n))}"
+    ]
   },
   {
     "name": "border-beam",
@@ -6890,7 +11888,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A short beam of light that travels around the border of any box. Wrap a"
+    "description": "A short beam of light that travels around the border of any box to mark the one thing that matters.",
+    "category": "animation",
+    "related": [
+      "animated-beam",
+      "shimmer-button",
+      "shine-border"
+    ],
+    "guide": "Wrap a card, input or pricing tier with it. The beam is a rotating conic gradient masked to the border ring, so the content inside is untouched; it animates transform only and holds still for reduced motion. Set `radius` to match the child's corner radius. For light flowing between elements use AnimatedBeam; for a static highlight use a `border-accent` ring.",
+    "examples": [
+      "<BorderBeam radius={12} duration={8}>\n  <Card className=\"w-80\">…</Card>\n</BorderBeam>"
+    ]
   },
   {
     "name": "brand-kit-page",
@@ -6912,7 +11920,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<BrandKitPage />"
+    "description": "A brand kit page that stacks poster type, a type marquee, tilt cards, a scramble line, a reveal grid, a morphing price and a magnetic CTA.",
+    "usage": "<BrandKitPage />",
+    "category": "marketing",
+    "related": [
+      "hero-poster-type",
+      "card-tilt",
+      "grid-reveal",
+      "morph-price",
+      "magnetic-cta"
+    ],
+    "guide": "A showcase composition of premium motion pieces, not a primitive. Use it as a starting point for a brand or press page and replace sections with your own; each piece is its own registry item (HeroPosterType, CardTilt, GridReveal, MorphPrice, MagneticCta …) if you only need one.",
+    "examples": [
+      "<BrandKitPage />"
+    ]
   },
   {
     "name": "browser-mockup",
@@ -6926,7 +11947,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A browser window frame with traffic lights, back and forward buttons, an address bar and optional tabs, wrapping your screenshot or any children."
+    "description": "A browser window frame with traffic lights, back and forward buttons, an address bar and optional tabs, wrapping your screenshot or any children. PhoneMockup, exported from the same file, is the matching handset with a dynamic island and rounded screen. Both are built from tokens, so they follow light, dark and every material. With no content, the browser shows a Lumen dashboard made of plain divs, with a phone over its corner on wide screens and below it on narrow ones.",
+    "category": "marketing",
+    "related": [
+      "device-frame-stack",
+      "hero-split-showcase",
+      "product-os-mock"
+    ],
+    "guide": "Use it to frame product screenshots on landing pages, docs and changelogs. For several tilted frames at once use DeviceFrameStack.",
+    "examples": [
+      "<BrowserMockup url=\"https://app.acme.com/billing\" src=\"/billing.png\" alt=\"Billing page\" />",
+      "<PhoneMockup width={260}><MyMobileScreen /></PhoneMockup>"
+    ]
   },
   {
     "name": "card-tilt",
@@ -6942,7 +11974,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<CardTilt />"
+    "description": "A card that tilts in 3D toward a mouse pointer, with an accent glare that follows it.",
+    "usage": "<CardTilt />",
+    "category": "animation",
+    "related": [
+      "cursor-spotlight-panel",
+      "brand-kit-page",
+      "tilt-card"
+    ],
+    "guide": "Tilt and glare run on motion values, so moving the pointer never re-renders React. Mouse only: touch and keyboard see a flat card, and reduced motion keeps it flat too. Pass `children` for your own content, or `title` and `body` for the built-in layout. Use it for a featured card or showcase tile on marketing pages; for a flat spotlight panel use CursorSpotlightPanel, and keep it out of product UI.",
+    "examples": [
+      "<CardTilt title=\"Crafted details\" body=\"Every pixel, accounted for.\" />",
+      "<CardTilt maxTilt={6}><img src=\"/shot.png\" alt=\"Dashboard\" /></CardTilt>"
+    ]
   },
   {
     "name": "careers-page",
@@ -6962,7 +12006,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<CareersPage />"
+    "description": "A careers page: marketing navbar, headline, open roles that rise in as they scroll into view with an Apply button each, and a mega footer.",
+    "usage": "<CareersPage />",
+    "category": "marketing",
+    "related": [
+      "agency-portfolio"
+    ],
+    "guide": "A page template: pass your `roles`. Each Apply button is a link when the role has an `href` and is named for its role (\"Apply for Design Engineer\"), so screen reader users can tell the buttons apart.",
+    "examples": [
+      "<CareersPage roles={[{ title: \"Design Engineer\", loc: \"Remote\", type: \"Full-time\", href: \"/jobs/design-engineer\" }]} />"
+    ]
   },
   {
     "name": "changelog-marketing",
@@ -6981,7 +12034,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<ChangelogMarketing />"
+    "description": "A marketing changelog section: an eyebrow, a gradient headline, a Subscribe button and a timeline of release cards that slide in as they scroll into view.",
+    "usage": "<ChangelogMarketing />",
+    "category": "marketing",
+    "related": [
+      "changelog-motion",
+      "changelog-page"
+    ],
+    "guide": "Pass `entries` newest first; mark the release you want to sell with `highlight`. Use it on a public \"What's new\" page; for a quieter timeline with New/Fix tags use ChangelogMotion.",
+    "examples": [
+      "<ChangelogMarketing entries={[{ version: \"v2.4\", date: \"Oct 8\", dateTime: \"2026-10-08\", title: \"Approvals\", items: [\"Route refunds to an approver\"], highlight: true }]} />"
+    ]
   },
   {
     "name": "changelog-motion",
@@ -6999,8 +12062,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "description": "A vertical release timeline whose entries slide in as they scroll into view, with version, date and tag per release.",
-    "usage": "<ChangelogMotion entries={[\n  { version: \"v0.6.0\", date: \"Sep 14\", title: \"Premium elevation\", tag: \"Premium\", items: [\"Kinetic type\", \"Sticky story\", \"Launch kit\"] },\n  { version: \"v0.5.0\", date: \"Sep 14\", title: \"Email + admin + page kits\", tag: \"Premium\", items: [\"Email templates\", \"Admin console\", \"Pricing / careers / blog\"] },\n  { version: \"v0.4.0\", date: \"Sep 14\", title: \"Premium templates\", tag: \"Premium\", items: [\"SaaS landing\", \"Docs marketing\", \"Changelog motion\"] },\n]} />"
+    "description": "A vertical release timeline whose entries slide in as they scroll into view, with version, date and a New, Fix or Premium tag per release.",
+    "usage": "<ChangelogMotion entries={[\n  { version: \"v0.6.0\", date: \"Sep 14\", title: \"Premium elevation\", tag: \"Premium\", items: [\"Kinetic type\", \"Sticky story\", \"Launch kit\"] },\n  { version: \"v0.5.0\", date: \"Sep 14\", title: \"Email + admin + page kits\", tag: \"Premium\", items: [\"Email templates\", \"Admin console\", \"Pricing / careers / blog\"] },\n  { version: \"v0.4.0\", date: \"Sep 14\", title: \"Premium templates\", tag: \"Premium\", items: [\"SaaS landing\", \"Docs marketing\", \"Changelog motion\"] },\n]} />",
+    "category": "marketing",
+    "related": [
+      "changelog-marketing"
+    ],
+    "guide": "Pass `entries` newest first. The section heading is an h2 and each release an h3, so it drops into any page under its h1. Use it for a product changelog or release notes page; for a louder marketing version with a Subscribe button use ChangelogMarketing.",
+    "examples": [
+      "<ChangelogMotion entries={[{ version: \"v2.4.0\", date: \"Oct 8, 2026\", title: \"Approvals\", tag: \"New\", items: [\"Refunds route to an approver\"] }]} />"
+    ]
   },
   {
     "name": "client-pitch-kit",
@@ -7026,7 +12097,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "testimonial-carousel",
       "typographic-marquee"
     ],
-    "galleries": []
+    "galleries": [],
+    "description": "A long client pitch page that chains a hero, metrics, a live component rail, product mock, proof, before and after, plans, story, logos, FAQ, testimonials and a final CTA.",
+    "category": "marketing",
+    "related": [
+      "hero-client-pitch"
+    ],
+    "guide": "A showcase composition, not a primitive: every section is its own registry item, so lift the ones you need. Use it to demo a design system or agency offer end to end; for a shorter landing page start from a single hero such as HeroClientPitch.",
+    "examples": [
+      "<ClientPitchKit className=\"mx-auto max-w-6xl px-6\" />"
+    ]
   },
   {
     "name": "command-waitlist",
@@ -7044,7 +12124,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<CommandWaitlist />"
+    "description": "A terminal-styled waitlist card with a monospace email field and a Join button that springs into view as it scrolls on screen.",
+    "usage": "<CommandWaitlist />",
+    "category": "marketing",
+    "related": [
+      "input",
+      "button",
+      "waitlist-hero"
+    ],
+    "guide": "Handles its own pending, success and error states and announces them to screen readers. Pass `onSubmit` to send the address anywhere; it may return a promise, and a thrown error shows `errorMessage` and keeps the address so nothing typed is lost. Use it for a launch or beta waitlist; for a newsletter row in a footer use a plain Input and Button.",
+    "examples": [
+      "<CommandWaitlist product=\"Lumen 2.0\" onSubmit={(email) => fetch(\"/api/waitlist\", { method: \"POST\", body: JSON.stringify({ email }) })} />"
+    ]
   },
   {
     "name": "confetti-button",
@@ -7059,7 +12150,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A button that bursts confetti from itself on click: a few dozen paper"
+    "description": "A button that bursts confetti from itself on click, for celebrating a finished action.",
+    "category": "animation",
+    "related": [
+      "button",
+      "sparkles-text"
+    ],
+    "guide": "A few dozen paper pieces with gravity, drag and spin are drawn on a throwaway canvas and cleaned up when they land; physics are time based, so 60 and 120Hz screens fall at the same speed. No library. Reduced motion skips the burst and keeps the click. It takes every native button prop. Use it for \"you did it\" moments (first invoice sent, plan upgraded), not for routine saves; for a normal action use Button.",
+    "examples": [
+      "<ConfettiButton onClick={publish}>Publish</ConfettiButton>"
+    ]
   },
   {
     "name": "contact-sales",
@@ -7083,7 +12183,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<ContactSales />"
+    "description": "A contact sales page: marketing navbar, headline with proof (a case study and a press quote) beside a request-a-call form.",
+    "usage": "<ContactSales />",
+    "category": "marketing",
+    "related": [
+      "form-field",
+      "input",
+      "textarea"
+    ],
+    "guide": "A page template. Labels are wired to their fields, and the form handles pending, sent and error states. Pass `onSubmit` to receive `{ email, company, message }`; it may return a promise, and a thrown error keeps everything typed. Replace the sample proof with your own real customers before shipping. For a bare form use FormField with Input and Textarea.",
+    "examples": [
+      "<ContactSales onSubmit={(data) => fetch(\"/api/sales\", { method: \"POST\", body: JSON.stringify(data) })} />"
+    ]
   },
   {
     "name": "cta-glow",
@@ -7102,7 +12213,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
-    "usage": "<CtaGlow title=\"Upgrade the moments that matter\" description=\"Keep building free. Swap in a kinetic hero when the page needs to convert.\" />"
+    "description": "A closing call-to-action panel with a soft accent glow, a heading, a line of copy and two buttons, rising in as it scrolls into view.",
+    "usage": "<CtaGlow title=\"Upgrade the moments that matter\" description=\"Keep building free. Swap in a kinetic hero when the page needs to convert.\" />",
+    "category": "marketing",
+    "related": [
+      "hero",
+      "cta-band",
+      "shine-border"
+    ],
+    "guide": "Pass `children` to replace the default buttons (a magnetic \"Get started\" and an outline \"Stay free\") with your own actions. Use it as the last section of a landing or pricing page; for a full-width hero use one of the Hero* components.",
+    "examples": [
+      "<CtaGlow title=\"Close your books today\" description=\"Start free, no card needed.\">\n  <Button render={<a href=\"/signup\" />}>Start free</Button>\n</CtaGlow>"
+    ]
   },
   {
     "name": "cursor-spotlight-panel",
@@ -7118,7 +12240,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<CursorSpotlightPanel />"
+    "description": "A sunken panel with a soft accent spotlight that follows the pointer across it.",
+    "usage": "<CursorSpotlightPanel />",
+    "category": "animation",
+    "related": [
+      "card-tilt",
+      "lamp-effect"
+    ],
+    "guide": "The spotlight runs on motion values over the panel's own surface, so it never re-renders React and the material still reaches the background. Touch and reduced motion get a still glow. Pass `children` for your own content, or `title` and `body` for the built-in layout. Use it for an \"ask\", a quote or a feature callout on marketing pages; for a card that tilts in 3D use CardTilt.",
+    "examples": [
+      "<CursorSpotlightPanel title=\"Ask\" body=\"We are raising a seed round. Reply if you want the deck.\" />"
+    ]
   },
   {
     "name": "device-frame-stack",
@@ -7135,7 +12267,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-heroes",
       "premium-motion"
     ],
-    "usage": "<DeviceFrameStack />"
+    "description": "Three small window frames that fan out from a stack into a tilted spread as they scroll into view.",
+    "usage": "<DeviceFrameStack />",
+    "category": "animation",
+    "related": [
+      "hero-editorial-split",
+      "browser-mockup",
+      "product-os-mock",
+      "soft-stack"
+    ],
+    "guide": "Decorative: the frames are skeletons, so the whole stack is one image to screen readers, named by `label`. Frames spring into place once; reduced motion shows the spread at once. Use it beside a hero headline (see HeroEditorialSplit); to frame a real screenshot use BrowserMockup.",
+    "examples": [
+      "<DeviceFrameStack frames={[\"Mobile\", \"App\", \"Docs\"]} label=\"Lumen on phone, web and docs\" />"
+    ]
   },
   {
     "name": "dock",
@@ -7150,7 +12294,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A macOS style dock: icons swell as the pointer passes over them and ease"
+    "description": "A macOS style dock where icons swell as the pointer passes over them, with a label above the one under the pointer.",
+    "category": "navigation",
+    "related": [
+      "tabs"
+    ],
+    "guide": "Every item is a real button (with `onClick`) or link (with `href`), reachable and labelled for keyboard and screen reader users; focus shows the label too. Magnification is pointer only and off for reduced motion. Use it for an app launcher or a playful bottom nav on marketing pages; for product navigation use a sidebar or Tabs.",
+    "examples": [
+      "<Dock items={[{ label: \"Home\", icon: HomeIcon, href: \"/\", active: true }, { label: \"Mail\", icon: MailIcon, onClick: openMail }]} />"
+    ]
   },
   {
     "name": "docs-marketing",
@@ -7173,7 +12325,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<DocsMarketing />"
+    "description": "A documentation home: a hero with search and two entry buttons, then a sticky table of contents beside install, tokens and premium sections that reveal on scroll.",
+    "usage": "<DocsMarketing />",
+    "category": "developer-tools",
+    "related": [
+      "search-input",
+      "toc"
+    ],
+    "guide": "A page template for a docs landing route; swap the copy, TOC items and sections. The search field is presentational until you wire `onChange` on SearchInput. For a single docs article use Toc with your MDX content.",
+    "examples": [
+      "<DocsMarketing />"
+    ]
   },
   {
     "name": "dot-pattern",
@@ -7187,7 +12349,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A background of dots or grid lines drawn as one SVG pattern, faded at the"
+    "description": "A background of dots or grid lines drawn as one SVG pattern, faded at the edges, with an optional glow that lights the pattern under the pointer.",
+    "category": "layout",
+    "related": [
+      "flickering-grid",
+      "background-boxes",
+      "particles",
+      "retro-grid"
+    ],
+    "guide": "The pattern sits behind your children with pointer-events off. The glow writes CSS variables on pointer move, so React never re-renders while it follows; it is off for reduced motion. Use it as a quiet section or hero backdrop; for animated texture use FlickeringGrid, for a reactive grid of boxes use BackgroundBoxes.",
+    "examples": [
+      "<DotPattern variant=\"grid\" gap={24} className=\"h-[420px]\">\n  <h2 className=\"text-3xl text-fg\">Every pixel, accounted for</h2>\n</DotPattern>"
+    ]
   },
   {
     "name": "email-receipt",
@@ -7207,7 +12380,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "email"
     ],
-    "usage": "<EmailReceipt />"
+    "description": "A payment receipt email preview: brand header, \"Payment received\", line items with a computed total, and a footer, inside an email client frame.",
+    "usage": "<EmailReceipt />",
+    "category": "email",
+    "related": [
+      "email-welcome"
+    ],
+    "guide": "Pass `items` as amounts in major units (49 means $49.00); the total and the subject line are computed and formatted with Intl for `currency`. Use it for receipts and invoices paid; for onboarding use EmailWelcome.",
+    "examples": [
+      "<EmailReceipt brand=\"Lumen Billing\" items={[{ label: \"Team plan\", amount: 96 }, { label: \"Tax\", amount: 9.6 }]} currency=\"USD\" />"
+    ]
   },
   {
     "name": "email-welcome",
@@ -7228,7 +12410,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "email"
     ],
-    "usage": "<EmailWelcome />"
+    "description": "A welcome email preview: brand header, a \"You are in\" message, a primary button, a quick-start card and a footer, inside an email client frame.",
+    "usage": "<EmailWelcome />",
+    "category": "email",
+    "related": [
+      "email-receipt"
+    ],
+    "guide": "Built from the Email* primitives, which use email-safe layout. Use it as a starting point for onboarding emails; for a payment confirmation use EmailReceipt.",
+    "examples": [
+      "<EmailWelcome />"
+    ]
   },
   {
     "name": "faq-accordion-motion",
@@ -7244,7 +12435,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "showcase"
     ],
-    "usage": "<FaqAccordionMotion />"
+    "description": "A single-open FAQ accordion whose answers spring open and close faster, with a plus that turns into a minus.",
+    "usage": "<FaqAccordionMotion />",
+    "category": "marketing",
+    "related": [
+      "accordion"
+    ],
+    "guide": "Follows the WAI-ARIA accordion pattern: each question is a button inside a heading, with `aria-expanded` and `aria-controls` pointing at a labelled region. One answer is open at a time; clicking the open one closes it. Reduced motion opens and closes instantly. Use it for a marketing FAQ; for multi-open disclosure in product UI use Accordion.",
+    "examples": [
+      "<FaqAccordionMotion items={[{ q: \"Is there a free plan?\", a: \"Yes, up to three projects.\" }]} defaultOpen={-1} />"
+    ]
   },
   {
     "name": "feature-bento-motion",
@@ -7260,7 +12460,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<FeatureBentoMotion />"
+    "description": "A bento grid of feature tiles in mixed widths that rise in as they scroll into view and lift slightly on hover.",
+    "usage": "<FeatureBentoMotion />",
+    "category": "marketing",
+    "related": [
+      "animated-feature-row",
+      "bento-live",
+      "grid-reveal",
+      "hero-bento",
+      "horizontal-product-rail"
+    ],
+    "guide": "Wide tiles span two of three columns from `sm` up. Tiles settle on the morph spring once; reduced motion shows them in place with no hover lift. Use it for a features overview with one or two hero features; for equal cards in a row use AnimatedFeatureRow.",
+    "examples": [
+      "<FeatureBentoMotion items={[{ title: \"Realtime\", body: \"Syncs in under 100ms.\", wide: true }, { title: \"Secure\", body: \"SSO and audit logs.\" }]} />"
+    ]
   },
   {
     "name": "feature-comparison",
@@ -7280,7 +12493,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-templates"
     ],
     "description": "A free versus premium feature table whose rows fade in as they scroll into view, with a pair of plan buttons below.",
-    "usage": "<FeatureComparison rows={[\n  { feature: \"UI primitives\", free: true, premium: true },\n  { feature: \"Kinetic motion\", free: false, premium: true },\n  { feature: \"Launch kits\", free: false, premium: true },\n  { feature: \"Email kits\", free: false, premium: true },\n  { feature: \"Seats\", free: \"1\", premium: \"Unlimited\" },\n]} />"
+    "usage": "<FeatureComparison rows={[\n  { feature: \"UI primitives\", free: true, premium: true },\n  { feature: \"Kinetic motion\", free: false, premium: true },\n  { feature: \"Launch kits\", free: false, premium: true },\n  { feature: \"Email kits\", free: false, premium: true },\n  { feature: \"Seats\", free: \"1\", premium: \"Unlimited\" },\n]} />",
+    "category": "billing",
+    "related": [
+      "free-premium-compare",
+      "pricing-kinetic"
+    ],
+    "guide": "Exposed to assistive tech as a real table (role table, row, columnheader, rowheader, cell), so each check is read with its feature and plan. A boolean renders a check or a dash, a string renders as text. Scrolls sideways on narrow screens. Use it under pricing cards; for the cards themselves use FreePremiumCompare or a pricing table.",
+    "examples": [
+      "<FeatureComparison rows={[{ feature: \"Team seats\", free: \"2\", premium: \"Unlimited\" }, { feature: \"SSO\", free: false, premium: true }]} />"
+    ]
   },
   {
     "name": "filmstrip-scrub",
@@ -7289,12 +12511,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "premium",
     "path": "src/registry/premium/filmstrip-scrub.tsx",
     "import": "@/registry/premium/filmstrip-scrub",
-    "deps": [],
+    "deps": [
+      "motion"
+    ],
     "registryDeps": [],
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<FilmstripScrub />"
+    "description": "A frame viewer with a strip of thumbnails and a scrub slider below it; pick a thumbnail or drag the slider to change the frame.",
+    "usage": "<FilmstripScrub />",
+    "category": "media",
+    "related": [
+      "before-after-wipe"
+    ],
+    "guide": "The slider is a native range input (arrow keys, Home, End) and the strip keeps the current thumbnail scrolled into view. Pass `renderFrame` to draw your own frame (a video still, a step of an animation); without it the viewer shows the frame number. Works uncontrolled (`defaultValue`) or controlled (`value` + `onValueChange`). Use it to step through a sequence; for comparing two states use BeforeAfterWipe.",
+    "examples": [
+      "<FilmstripScrub frames={24} renderFrame={(i) => <img src={`/frames/${i}.jpg`} alt={`Frame ${i + 1}`} />} />"
+    ]
   },
   {
     "name": "flickering-grid",
@@ -7311,7 +12544,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A canvas grid of small squares whose brightness flickers at random behind your content, like a board of quiet signals."
+    "description": "A canvas grid of small squares whose brightness flickers at random behind your content, like a board of quiet signals. Colour comes from the accent token and an optional radial mask fades the edges. The canvas is sharp on high density screens, resizes with its box, sleeps off screen and draws one still frame for reduced motion.",
+    "category": "animation",
+    "related": [
+      "background-boxes",
+      "dot-pattern",
+      "particles"
+    ],
+    "guide": "Use it as a calm, living hero or status backdrop; children render on top. For a pointer-reactive backdrop use BackgroundBoxes, for a still pattern use DotPattern.",
+    "examples": [
+      "<FlickeringGrid squareSize={4} gap={6} maxOpacity={0.3} className=\"h-[420px]\">\n  <h1 className=\"text-4xl text-fg\">All systems normal</h1>\n</FlickeringGrid>"
+    ]
   },
   {
     "name": "flip-stat-board",
@@ -7327,7 +12570,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<FlipStatBoard />"
+    "description": "A row of stat tiles whose digits count up on split-flap cards when the board scrolls into view.",
+    "usage": "<FlipStatBoard />",
+    "category": "animation",
+    "related": [
+      "number-roll",
+      "investor-update",
+      "launch-countdown",
+      "metric-ticker-board"
+    ],
+    "guide": "Each digit is its own card that springs up as it changes, set in tabular mono so nothing shifts. Counting runs once, when the board is 60% on screen. Screen readers get the final value and label, never the count. Reduced motion shows the final numbers at once. Use it for a few headline metrics on a marketing or investor page; for a live number that changes in place use NumberRoll, and for a KPI card with trend use a stat card.",
+    "examples": [
+      "<FlipStatBoard stats={[{ value: 1284, label: \"Invoices paid\" }, { value: 312, label: \"Teams\" }]} />"
+    ]
   },
   {
     "name": "free-premium-compare",
@@ -7347,7 +12602,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-motion",
       "showcase"
     ],
-    "usage": "<FreePremiumCompare />"
+    "description": "Two side-by-side plan cards, Free and Premium, each with a price, a checklist and a link button; the featured card gets an accent ring.",
+    "usage": "<FreePremiumCompare />",
+    "category": "billing",
+    "related": [
+      "feature-comparison",
+      "split-proof-panel"
+    ],
+    "guide": "Cards rise in on the morph spring as they scroll into view; reduced motion shows them in place. The buttons are real links. Use it for a two-tier pricing moment; for a detailed feature matrix put FeatureComparison under it, and for three or more tiers use a pricing table.",
+    "examples": [
+      "<FreePremiumCompare />"
+    ]
   },
   {
     "name": "globe",
@@ -7364,7 +12629,15 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A dotted globe drawn on a plain canvas, no WebGL, that turns on its own and spins under your finger."
+    "description": "A dotted globe drawn on a plain canvas, no WebGL, that turns on its own and spins under your finger. Two thousand points sit on a sphere, rotate with simple trig and draw with depth shading. Markers take latitude and longitude, carry labels and are joined by arcs with a pulse travelling along each one. Drag to rotate with inertia, or focus the globe and use the arrow keys. Colours resolve through the cascade; the canvas is sharp on high density screens, sleeps off screen and draws one still frame for reduced motion. Content ignores the pointer where it is empty, so the globe stays draggable beside it.",
+    "category": "animation",
+    "related": [
+      "icon-cloud"
+    ],
+    "guide": "Use it for \"global reach\" or \"where your users are\" sections. For a lighter decorative sphere of logos use IconCloud.",
+    "examples": [
+      "<Globe markers={[{ lat: 51.51, lng: -0.13, label: \"London\" }, { lat: 40.71, lng: -74.0, label: \"New York\" }]} speed={4}>\n  <h2 className=\"text-3xl text-fg\">Settled locally, everywhere</h2>\n</Globe>"
+    ]
   },
   {
     "name": "gradient-text",
@@ -7378,7 +12651,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Headline text filled with a slowly drifting gradient built from the accent"
+    "description": "Headline text filled with a slowly drifting gradient built from the accent tokens, so it follows your theme.",
+    "category": "animation",
+    "related": [
+      "hyper-text",
+      "masked-gradient-headline",
+      "sparkles-text"
+    ],
+    "guide": "Stays a real text node for SEO and screen readers, and holds still for reduced motion. Marketing only: the design law bans gradient text in product UI. Use it for one hero word or line; for a scramble-in effect use HyperText.\n\nString children get the display size (text-4xl, 5xl from sm); pass a `className` text size to override it.",
+    "examples": [
+      "<GradientText as=\"h2\" duration={12}>Every pixel, accounted for</GradientText>"
+    ]
   },
   {
     "name": "grid-reveal",
@@ -7394,7 +12677,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<GridReveal />"
+    "description": "A grid of numbered label tiles that rise into place one after another as the grid scrolls into view.",
+    "usage": "<GridReveal />",
+    "category": "animation",
+    "related": [
+      "animated-feature-row",
+      "feature-bento-motion",
+      "brand-kit-page"
+    ],
+    "guide": "Tiles settle on the morph spring with a short stagger, once. Reduced motion shows them in place. Use it for a quick \"what's inside\" index of categories or modules on a marketing page; for cards with a title and description use AnimatedFeatureRow or FeatureBentoMotion.",
+    "examples": [
+      "<GridReveal items={[\"Invoices\", \"Payments\", \"Reports\", \"Approvals\"]} />"
+    ]
   },
   {
     "name": "hero-aurora",
@@ -7412,7 +12706,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
-    "usage": "<HeroAurora />"
+    "description": "A centred hero with two slow-drifting accent glows behind an eyebrow, headline, description and two buttons that rise in on load.",
+    "usage": "<HeroAurora />",
+    "category": "marketing",
+    "related": [
+      "aurora-background",
+      "hero-gradient-mesh",
+      "hero-spotlight",
+      "hero-client-pitch",
+      "hero-editorial-split"
+    ],
+    "guide": "Every string and both click handlers are props, so it works without editing the file. The glows drift on transform only and stop for reduced motion, which also shows the copy in place. Use it for a calm product launch hero; for the full northern-lights effect behind any content use AuroraBackground, for an always-dark hero use HeroGradientMesh.",
+    "examples": [
+      "<HeroAurora title=\"Close your books every day\" primaryLabel=\"Start free\" onPrimary={() => router.push(\"/signup\")} />"
+    ]
   },
   {
     "name": "hero-bento",
@@ -7430,7 +12737,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
-    "usage": "<HeroBento />"
+    "description": "A hero with a centred headline and button above a bento grid of four capability tiles that rise in on load.",
+    "usage": "<HeroBento />",
+    "category": "marketing",
+    "related": [
+      "feature-bento-motion"
+    ],
+    "guide": "Use it for a product overview hero that shows breadth at a glance; for a scroll-triggered bento lower on the page use FeatureBentoMotion. Reduced motion shows the tiles in place.",
+    "examples": [
+      "<HeroBento />"
+    ]
   },
   {
     "name": "hero-client-pitch",
@@ -7449,7 +12765,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-motion",
       "showcase"
     ],
-    "usage": "<HeroClientPitch />"
+    "description": "A pitch hero whose headline rises word by word out of a mask, ending on a gradient line, with two link buttons and a row of three stats.",
+    "usage": "<HeroClientPitch />",
+    "category": "marketing",
+    "related": [
+      "client-pitch-kit",
+      "hero-aurora"
+    ],
+    "guide": "Words are separated by real spaces, so the h1 reads as one sentence to screen readers and search engines. Reduced motion shows everything in place. The buttons link to /showcase and /gallery; edit them for your routes. Use it to open a client or agency pitch (see ClientPitchKit); for a quieter product hero use HeroAurora.",
+    "examples": [
+      "<HeroClientPitch />"
+    ]
   },
   {
     "name": "hero-editorial-split",
@@ -7470,7 +12796,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-heroes",
       "premium-motion"
     ],
-    "usage": "<HeroEditorialSplit />"
+    "description": "A two-column hero: an editorial headline that rises line by line out of a mask with a magnetic CTA on the left, a fanned DeviceFrameStack on the right.",
+    "usage": "<HeroEditorialSplit />",
+    "category": "marketing",
+    "related": [
+      "device-frame-stack",
+      "hero-aurora",
+      "hero-kinetic-type"
+    ],
+    "guide": "Stacks to one column below `lg`. Reduced motion shows everything in place. Use it for a launch announcement with a visual; for a centred hero use HeroAurora or HeroKineticType.",
+    "examples": [
+      "<HeroEditorialSplit />"
+    ]
   },
   {
     "name": "hero-gradient-mesh",
@@ -7488,7 +12825,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
-    "usage": "<HeroGradientMesh />"
+    "description": "An always-dark launch hero with an accent and info gradient mesh behind a centred headline, a line of copy and two buttons.",
+    "usage": "<HeroGradientMesh />",
+    "category": "marketing",
+    "related": [
+      "hero-aurora",
+      "aurora-background",
+      "light-field"
+    ],
+    "guide": "It scopes the dark theme with the `dark` class, so every colour is still a token and the buttons are the kit's own ink and outline buttons; it stays dark inside a light page. Reduced motion shows the headline in place. Use it when a launch needs a dark, high-contrast moment; for a hero that follows the page theme use HeroAurora.",
+    "examples": [
+      "<HeroGradientMesh title=\"Dark-mode first. Accent that sings.\" primaryLabel=\"Launch\" secondaryLabel=\"Docs\" />"
+    ]
   },
   {
     "name": "hero-kinetic-type",
@@ -7507,7 +12855,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-heroes",
       "premium-motion"
     ],
-    "usage": "<HeroKineticType />"
+    "description": "A kinetic type hero: each headline line rises out of its own mask in turn, the last one in an accent gradient, then copy and two buttons follow.",
+    "usage": "<HeroKineticType />",
+    "category": "marketing",
+    "related": [
+      "hero-typed-headline",
+      "hero-poster-type",
+      "hero-editorial-split"
+    ],
+    "guide": "Pass `lines` to set the headline (one string per line); the lines join into one h1 for screen readers and search. Reduced motion shows everything in place. Use it for a bold, type-led launch; for a single rotating word use HeroTypedHeadline, for poster scale with a grid use HeroPosterType.",
+    "examples": [
+      "<HeroKineticType lines={[\"Close the books\", \"every single\", \"day.\"]} description=\"Lumen reconciles as you go.\" />"
+    ]
   },
   {
     "name": "hero-marquee-brands",
@@ -7525,7 +12884,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
-    "usage": "<HeroMarqueeBrands />"
+    "description": "A social-proof hero: a centred headline and two buttons above an endless marquee of customer names.",
+    "usage": "<HeroMarqueeBrands />",
+    "category": "marketing",
+    "related": [
+      "logo-wall-motion"
+    ],
+    "guide": "The marquee scrolls on transform only, pauses while hovered (WCAG 2.2.2), stops for reduced motion, and is read once as a list by screen readers (the looping copy is hidden). The sample names are fictional; pass `brands` with customers you actually have permission to name. For a grid of logos use a logo wall.",
+    "examples": [
+      "<HeroMarqueeBrands title=\"Trusted by teams who ship\" brands={[\"Northwind\", \"Acme\", \"Globex\"]} />"
+    ]
   },
   {
     "name": "hero-poster-type",
@@ -7544,7 +12912,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<HeroPosterType />"
+    "description": "A poster-scale type hero on a thirds grid: three headline lines rise out of masks, the last in an accent gradient, with a magnetic CTA below.",
+    "usage": "<HeroPosterType />",
+    "category": "marketing",
+    "related": [
+      "brand-kit-page",
+      "hero-kinetic-type"
+    ],
+    "guide": "Reduced motion shows everything in place. Use it for a launch or brand page that should feel like a poster (see BrandKitPage); for editable lines use HeroKineticType.",
+    "examples": [
+      "<HeroPosterType />"
+    ]
   },
   {
     "name": "hero-split-showcase",
@@ -7563,7 +12941,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
-    "usage": "<HeroSplitShowcase />"
+    "description": "A split hero: headline, copy and two buttons on the left, a revenue card whose bars grow in on the right.",
+    "usage": "<HeroSplitShowcase />",
+    "category": "marketing",
+    "related": [
+      "browser-mockup"
+    ],
+    "guide": "Bars grow with a transform (scaleY) on the data spring, so nothing reflows; the chart is one image to screen readers. Reduced motion shows the final chart. Use it when the hero should show a live-looking product surface; for a framed screenshot use BrowserMockup inside your own hero.",
+    "examples": [
+      "<HeroSplitShowcase />"
+    ]
   },
   {
     "name": "hero-typed-headline",
@@ -7581,7 +12968,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
-    "usage": "<HeroTypedHeadline />"
+    "description": "A centred hero whose headline ends in a word that rotates through a list (\"Ship beautiful dashboards\", \"… AI apps\"), sliding up as each one swaps.",
+    "usage": "<HeroTypedHeadline />",
+    "category": "marketing",
+    "related": [
+      "hero-kinetic-type",
+      "hyper-text",
+      "typing-text"
+    ],
+    "guide": "Screen readers and search engines get one stable sentence listing every word; the rotating word is hidden from them. Rotation pauses while the pointer is over the headline and stops for reduced motion, which shows the first word. Use it to name several audiences or use cases in one line; for multi-line kinetic type use HeroKineticType.",
+    "examples": [
+      "<HeroTypedHeadline prefix=\"Invoice\" words={[\"freelancers\", \"agencies\", \"studios\"]} />"
+    ]
   },
   {
     "name": "horizontal-product-rail",
@@ -7597,7 +12995,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<HorizontalProductRail />"
+    "description": "A horizontal, snap-scrolling rail of product cards with a title above, whose cards slide in as they scroll into view.",
+    "usage": "<HorizontalProductRail />",
+    "category": "animation",
+    "related": [
+      "feature-bento-motion",
+      "live-component-rail",
+      "pin-scroll-gallery"
+    ],
+    "guide": "The rail is a labelled, focusable region, so keyboard users can scroll it with the arrow keys; touch and trackpads swipe natively. Cards lift a little on hover. Reduced motion shows the cards in place. Use it for a \"explore the product\" strip; for a grid that fits on screen use FeatureBentoMotion.",
+    "examples": [
+      "<HorizontalProductRail title=\"Explore Lumen\" items={[{ title: \"Billing\", blurb: \"Plans, invoices, seats.\", tag: \"Commerce\" }]} />"
+    ]
   },
   {
     "name": "hyper-text",
@@ -7611,7 +13020,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Text that decodes itself: every character cycles through random glyphs and locks into place from left to right."
+    "description": "Text that decodes itself: every character cycles through random glyphs and locks into place from left to right. A violet scanning head marks the letter about to settle. It runs once when it scrolls into view and again on hover, set in monospace so nothing shifts while it runs. Screen readers only ever get the final text, and reduced motion shows it at once.",
+    "category": "animation",
+    "related": [
+      "text",
+      "hero-typed-headline",
+      "gradient-text",
+      "text-scramble",
+      "word-rotate"
+    ],
+    "guide": "Use it for short headline moments (a tagline, a stat line); keep it under a line or two. For a headline that types word by word use HeroTypedHeadline, for a gradient fill use GradientText.",
+    "examples": [
+      "<HyperText text=\"Close the books in 24 hours\" trigger=\"both\" className=\"text-4xl\" />"
+    ]
   },
   {
     "name": "icon-cloud",
@@ -7626,7 +13047,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A sphere of icons that turns slowly in 3D, scales and fades with depth, and can be dragged to spin with inertia."
+    "description": "A sphere of icons that turns slowly in 3D, scales and fades with depth, and can be dragged to spin with inertia. Items sit on a Fibonacci sphere so they spread evenly, and each is a real element (lucide icons by default, or your children), so they stay crisp and take token colours. The sphere turns on its own, keeps spinning after a flick, pauses off screen and holds still for reduced motion. Arrow keys turn it when it has focus.",
+    "category": "animation",
+    "related": [
+      "globe",
+      "orbiting-circles"
+    ],
+    "guide": "Use it for \"works with everything\" integration and stack sections. Items are decorative (hidden from screen readers), so say what they are in nearby text. For a world map of places use Globe.",
+    "examples": [
+      "<IconCloud size={360} speed={0.8}>\n  {logos.map((Logo) => <Logo key={Logo.name} className=\"size-6\" />)}\n</IconCloud>"
+    ]
   },
   {
     "name": "investor-update",
@@ -7647,7 +13077,16 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<InvestorUpdate />"
+    "description": "An investor update page: a quarter eyebrow and gradient headline, a flip-counter stat board, a \"What shipped\" list, a product rail and a spotlit \"Ask\" panel.",
+    "usage": "<InvestorUpdate />",
+    "category": "marketing",
+    "related": [
+      "flip-stat-board"
+    ],
+    "guide": "A page template for a public or emailed-as-link update. Every block takes props: pass your own `stats`, `shipped` and `ask`. The sample is the fictional Lumen; never ship invented numbers for a real company. For a single metric row use FlipStatBoard on its own.",
+    "examples": [
+      "<InvestorUpdate quarter=\"Q3 2026\" headline=\"Profitable on a monthly basis.\" stats={[{ value: 1284, label: \"Paying teams\" }]} shipped={[\"Approvals\", \"Multi-currency\"]} />"
+    ]
   },
   {
     "name": "lamp-effect",
@@ -7664,7 +13103,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A glowing strip light at the top of a dark panel that switches on and widens to light the headline beneath it."
+    "description": "A glowing strip light at the top of a dark panel that switches on and widens to light the headline beneath it. The lamp is a thin bright line with a soft trapezoid of light falling from it. On first view the line stretches open and the light follows a beat later, with springs. The panel stays dark in both themes by default so the light has something to fall on; reduced motion shows the lamp already on.",
+    "category": "animation",
+    "related": [
+      "cursor-spotlight-panel",
+      "retro-grid",
+      "meteors"
+    ],
+    "guide": "Use it for one launch or release headline that should feel lit from above. Reach for CursorSpotlightPanel when the light should follow the pointer, and RetroGrid or Meteors when the backdrop itself should move.",
+    "examples": [
+      "<LampEffect width={480} glow={1.2}>\n  <h2 className=\"text-4xl font-medium text-fg\">Close the books in minutes</h2>\n</LampEffect>"
+    ]
   },
   {
     "name": "launch-countdown",
@@ -7673,16 +13122,27 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "premium",
     "path": "src/registry/premium/launch-countdown.tsx",
     "import": "@/registry/premium/launch-countdown",
-    "deps": [
-      "motion"
-    ],
+    "deps": [],
     "registryDeps": [
-      "magnetic-cta"
+      "magnetic-cta",
+      "number-roll"
     ],
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<LaunchCountdown />"
+    "description": "A launch countdown in days, hours, minutes and seconds whose digits roll like an odometer, above a magnetic call to action. Pass `target` for a real launch date; without it the clock counts down `targetOffsetMs` from mount, which suits demos. Each digit springs to its place instead of swapping. The clock is a `timer` region: screen readers read the time left when they reach it but are not interrupted every second. Reduced motion swaps digits instantly.",
+    "usage": "<LaunchCountdown />",
+    "category": "marketing",
+    "related": [
+      "flip-stat-board",
+      "stats-counter",
+      "number-roll",
+      "waitlist-hero"
+    ],
+    "guide": "Use it for a pre-launch or waitlist page. Reach for FlipStatBoard or StatsCounter for figures that do not tick, and NumberRoll for one number.",
+    "examples": [
+      "<LaunchCountdown target=\"2026-12-01T09:00:00Z\" title=\"Lumen 3.0 opens in\" cta=\"Join the waitlist\" />"
+    ]
   },
   {
     "name": "light-field",
@@ -7693,7 +13153,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "import": "@/registry/premium/light-field",
     "deps": [],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A living WebGL background of slow colour silk with a soft light that follows the cursor and fine film grain. Warped noise drifts slowly, the cursor carries a soft light through it, and fine grain keeps it from looking digital. It starts when the browser is idle, compiles its shader off the main thread where the GPU allows, renders at half resolution and 30 fps, fades in on its first frame, sleeps when off screen or in a background tab, stays empty without a real GPU (put a still behind it), and draws a single still frame for reduced motion. Glass surfaces placed over it frost it beautifully.",
+    "category": "animation",
+    "related": [
+      "aurora-background",
+      "hero-gradient-mesh",
+      "wavy-background",
+      "particles"
+    ],
+    "guide": "It fills its parent: put it in a sized, `relative` box with your content layered above. Reach for AuroraBackground or HeroGradientMesh for a CSS-only backdrop, and WavyBackground or Particles for a lighter canvas effect.",
+    "examples": [
+      "<div className=\"relative h-[480px] overflow-hidden rounded-2xl\">\n  <LightField className=\"absolute inset-0\" />\n  <div className=\"relative z-10\">…</div>\n</div>"
+    ]
   },
   {
     "name": "live-component-rail",
@@ -7715,7 +13187,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-motion",
       "showcase"
     ],
-    "usage": "<LiveComponentRail />"
+    "description": "A horizontally scrolling rail of small cards, each holding a real, working kit primitive, that rise in one after another. The rail is a keyboard-scrollable region (Tab to it, then arrow keys), and the controls inside are live, not screenshots. Cards rise with the morph spring as the rail scrolls into view; reduced motion shows them in place.",
+    "usage": "<LiveComponentRail />",
+    "category": "animation",
+    "related": [
+      "horizontal-product-rail",
+      "logo-wall-motion"
+    ],
+    "guide": "Use it on a marketing page to prove the product kit underneath. Reach for HorizontalProductRail for larger product screenshots and LogoWallMotion for a looping logo strip.",
+    "examples": [
+      "<LiveComponentRail eyebrow=\"Live primitives\" title=\"The same kit your product uses\" />"
+    ]
   },
   {
     "name": "logo-wall-motion",
@@ -7724,14 +13206,26 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "premium",
     "path": "src/registry/premium/logo-wall-motion.tsx",
     "import": "@/registry/premium/logo-wall-motion",
-    "deps": [
-      "motion"
-    ],
+    "deps": [],
     "registryDeps": [],
     "galleries": [
       "premium-heroes"
     ],
-    "usage": "<LogoWallMotion logos={[\"Acme\", \"Globex\", \"Initech\", \"Umbrella\", \"Stark\", \"Wayne\", \"Oscorp\", \"Cyberdyne\"]} />"
+    "description": "An endless, slowly scrolling strip of customer logos or names with soft faded edges, for social proof under a hero. The strip runs on the compositor (a CSS transform loop), pauses while the pointer is over it, and holds still for reduced motion. Screen readers get the list once; the looping copy is hidden from them.",
+    "usage": "<LogoWallMotion logos={[\"Acme\", \"Globex\", \"Initech\", \"Umbrella\", \"Stark\", \"Wayne\", \"Oscorp\", \"Cyberdyne\"]} />",
+    "category": "marketing",
+    "related": [
+      "logo-cloud",
+      "hero-marquee-brands",
+      "marquee-quotes",
+      "live-component-rail",
+      "orbit-logo-cluster",
+      "typographic-marquee"
+    ],
+    "guide": "Use it for a \"trusted by\" row. Reach for LogoCloud for a static grid, HeroMarqueeBrands for a hero with a built-in brand strip, and MarqueeQuotes for scrolling testimonials. Pass your real customers: never invent logos.",
+    "examples": [
+      "<LogoWallMotion title=\"Trusted by finance teams\" logos={[\"Northwind\", \"Contoso\", <img key=\"a\" src=\"/acme.svg\" alt=\"Acme\" className=\"h-6\" />]} />"
+    ]
   },
   {
     "name": "magnetic-cta",
@@ -7750,7 +13244,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-heroes",
       "premium-motion"
     ],
-    "usage": "<MagneticCta size=\"lg\" className=\"w-full max-w-sm sm:w-auto\">Feel the CTA</MagneticCta>"
+    "description": "A call-to-action button that leans toward the pointer as it nears, like a magnet, and springs back when the pointer leaves. It is the kit Button inside a wrapper that moves on a spring, so every Button prop (variant, size, render, onClick, disabled) works unchanged. Only a mouse or pen pulls it; touch and keyboard use it as a normal button, and reduced motion keeps it still.",
+    "usage": "<MagneticCta size=\"lg\" className=\"w-full max-w-sm sm:w-auto\">Feel the CTA</MagneticCta>",
+    "category": "buttons",
+    "related": [
+      "button",
+      "shimmer-button",
+      "brand-kit-page",
+      "pricing-kinetic"
+    ],
+    "guide": "Use it for the one primary action on a marketing section. Reach for Button everywhere in product UI, and ShimmerButton when the action should glow rather than move.",
+    "examples": [
+      "<MagneticCta size=\"lg\" strength={20} onClick={startTrial}>Start free trial</MagneticCta>\n<MagneticCta render={<a href=\"/signup\" />}>Get started</MagneticCta>"
+    ]
   },
   {
     "name": "marquee-quotes",
@@ -7759,14 +13265,23 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "premium",
     "path": "src/registry/premium/marquee-quotes.tsx",
     "import": "@/registry/premium/marquee-quotes",
-    "deps": [
-      "motion"
-    ],
+    "deps": [],
     "registryDeps": [],
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<MarqueeQuotes />"
+    "description": "Two rows of short customer quotes drifting in opposite directions, for a calm wall of social proof. Each row loops on the compositor (a CSS transform), pauses while the pointer is over it, and holds still for reduced motion. Screen readers get each quote once; the looping copies are hidden from them.",
+    "usage": "<MarqueeQuotes />",
+    "category": "marketing",
+    "related": [
+      "testimonial-carousel",
+      "logo-wall-motion",
+      "typographic-marquee"
+    ],
+    "guide": "Use it for many short quotes at a glance. Reach for TestimonialCarousel for one long quote at a time with controls, and LogoWallMotion for logos. Use real customer words: never invent testimonials.",
+    "examples": [
+      "<MarqueeQuotes items={[{ quote: \"Month-end close went from four days to one.\", name: \"Maya Patel, Northwind\" }]} />"
+    ]
   },
   {
     "name": "masked-gradient-headline",
@@ -7782,7 +13297,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<MaskedGradientHeadline />"
+    "description": "A large headline filled with an ink-to-violet gradient that wipes in from left to right as it scrolls into view. The wipe is a clip-path reveal that plays once; the text is a real heading from the first paint, so search engines and screen readers read it normally. Reduced motion shows it fully revealed.",
+    "usage": "<MaskedGradientHeadline />",
+    "category": "animation",
+    "related": [
+      "gradient-text",
+      "text-reveal",
+      "status-marketing"
+    ],
+    "guide": "Use it for one section headline on a marketing page. Reach for GradientText for an inline gradient phrase without the reveal, and TextReveal for a paragraph that lights up word by word.",
+    "examples": [
+      "<MaskedGradientHeadline as=\"h1\">Invoices that close themselves.</MaskedGradientHeadline>"
+    ]
   },
   {
     "name": "meteors",
@@ -7799,7 +13325,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "Meteor streaks with fading tails that fall diagonally behind your content at random intervals."
+    "description": "Meteor streaks with fading tails that fall diagonally behind your content at random intervals. Each meteor takes a fresh path every time it comes round. The streaks sit behind the content, ignore the pointer, pause off screen and hold still for reduced motion.",
+    "category": "animation",
+    "related": [
+      "particles",
+      "retro-grid",
+      "ripple",
+      "lamp-effect",
+      "wavy-background"
+    ],
+    "guide": "Use it behind a dark, quiet hero or release announcement. Reach for Particles when the backdrop should react to the pointer, and RetroGrid or Ripple for a steadier geometric backdrop.",
+    "examples": [
+      "<Meteors count={20} angle={135}>\n  <h2 className=\"text-4xl font-medium text-fg\">Invoices that close themselves</h2>\n</Meteors>"
+    ]
   },
   {
     "name": "metric-ticker-board",
@@ -7811,12 +13349,27 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [
       "motion"
     ],
-    "registryDeps": [],
+    "registryDeps": [
+      "number-roll"
+    ],
     "galleries": [
       "premium-motion",
       "showcase"
     ],
-    "usage": "<MetricTickerBoard />"
+    "description": "A responsive board of headline metrics whose digits roll up from zero, odometer style, the first time each card scrolls into view. Every digit springs to its place with the roll preset, so numbers keep their identity instead of flickering through values. Screen readers and search engines get the final value as plain text; reduced motion shows it straight away.",
+    "usage": "<MetricTickerBoard />",
+    "category": "animation",
+    "related": [
+      "stats-counter",
+      "flip-stat-board",
+      "kpi-row",
+      "stat-card",
+      "split-proof-panel"
+    ],
+    "guide": "Use it for three or four headline numbers on a marketing page. Reach for StatsCounter for a single figure, FlipStatBoard for split-flap digits, and the free KpiRow or StatCard for live product metrics.",
+    "examples": [
+      "<MetricTickerBoard metrics={[{ label: \"Invoices paid\", value: 12400, suffix: \"+\" }, { label: \"Days to close\", value: 2 }]} />"
+    ]
   },
   {
     "name": "morph-price",
@@ -7825,16 +13378,28 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "premium",
     "path": "src/registry/premium/morph-price.tsx",
     "import": "@/registry/premium/morph-price",
-    "deps": [
-      "motion"
-    ],
+    "deps": [],
     "registryDeps": [
+      "number-roll",
       "pricing-toggle"
     ],
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<MorphPrice />"
+    "description": "A price card with a Monthly / Yearly toggle whose price digits roll to the new amount instead of swapping. Only the digits that change move, on the roll spring, so $49 to $39 turns one column. The new price and billing note are announced politely to screen readers; reduced motion swaps instantly.",
+    "usage": "<MorphPrice />",
+    "category": "billing",
+    "related": [
+      "pricing-motion",
+      "pricing-table",
+      "plan-card",
+      "brand-kit-page",
+      "pricing-kinetic"
+    ],
+    "guide": "Use it for one plan, or above a comparison table. Reach for PricingMotion for a row of plan cards, and the free PricingTable or PlanCard inside product billing screens.",
+    "examples": [
+      "<MorphPrice monthly={49} yearly={39} unit=\"/ seat\" defaultCadence=\"yearly\" />"
+    ]
   },
   {
     "name": "morphing-text",
@@ -7848,7 +13413,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A headline that cycles through phrases by melting each one into the next with a blur and crossfade on two stacked layers."
+    "description": "A headline that cycles through phrases by melting each one into the next with a blur and crossfade on two stacked layers. The old words blur and spread like wet ink while the new ones condense into focus. It holds the tallest phrase's height so nothing below it jumps, pauses off screen, and shows the first phrase for reduced motion. Screen readers get the whole list once.",
+    "category": "animation",
+    "related": [
+      "word-rotate",
+      "typing-text",
+      "text-scramble"
+    ],
+    "guide": "Use it for one hero headline that cycles a few phrases. Reach for WordRotate to swap a single word inside a sentence, TypingText for a typewriter, and TextScramble for a one-off decode.",
+    "examples": [
+      "<MorphingText words={[\"Invoices that close themselves\", \"Books that balance themselves\"]} interval={3000} />"
+    ]
   },
   {
     "name": "onboarding-motion",
@@ -7867,7 +13442,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<OnboardingMotion />"
+    "description": "A short onboarding card that slides between steps, with a segmented progress bar you can click, Back and Continue, and a magnetic finish button. Each step slides in on the morph spring and leaves faster than it came. The progress segments are real buttons with `aria-current=\"step\"`, and the step text is announced politely as it changes. Reduced motion swaps steps instantly.",
+    "usage": "<OnboardingMotion />",
+    "category": "animation",
+    "related": [
+      "onboarding-wizard",
+      "onboarding-checklist",
+      "product-tour"
+    ],
+    "guide": "Use it for a three-to-five step welcome on a marketing or signup page. Reach for the free OnboardingWizard for multi-step forms inside a product, OnboardingChecklist for a task list, and ProductTour to walk through features beside a preview.",
+    "examples": [
+      "<OnboardingMotion\n  steps={[{ title: \"Connect your bank\", body: \"Transactions sync every hour.\" }, { title: \"Send an invoice\", body: \"Numbering and reminders are handled.\" }]}\n  finishLabel=\"Open Lumen\"\n  onFinish={() => router.push(\"/app\")}\n/>"
+    ]
   },
   {
     "name": "orbit-logo-cluster",
@@ -7876,14 +13462,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "premium",
     "path": "src/registry/premium/orbit-logo-cluster.tsx",
     "import": "@/registry/premium/orbit-logo-cluster",
-    "deps": [
-      "motion"
-    ],
+    "deps": [],
     "registryDeps": [],
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<OrbitLogoCluster />"
+    "description": "A ring of logo or name pills slowly orbiting a centre badge, each pill staying upright as it travels. The orbit is a pair of CSS transform loops (the ring turns, each pill turns back), so it runs on the compositor and costs nothing on the main thread. It pauses while the pointer is over it and holds still for reduced motion. Screen readers get the names as a plain list.",
+    "usage": "<OrbitLogoCluster />",
+    "category": "animation",
+    "related": [
+      "orbiting-circles",
+      "logo-wall-motion"
+    ],
+    "guide": "Use it for \"connects with\" or partner sections with text names. Reach for OrbitingCircles for icons on several rings, and LogoWallMotion for a scrolling strip. Pass real partners: never invent logos.",
+    "examples": [
+      "<OrbitLogoCluster center=\"Lumen\" logos={[\"Stripe\", \"Plaid\", \"Xero\", \"QuickBooks\"]} duration={48} />"
+    ]
   },
   {
     "name": "orbiting-circles",
@@ -7898,7 +13492,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Icons orbiting a centre on hairline rings, for \"works with everything\""
+    "description": "Icons orbiting a centre on hairline rings, each ring at its own speed and direction, for integration sections. Icons orbiting a centre on hairline rings, for \"works with everything\" integration sections. Each ring sets its own radius, speed and direction; icons stay upright as they travel. Static for reduced motion.",
+    "category": "animation",
+    "related": [
+      "orbit-logo-cluster",
+      "icon-cloud",
+      "animated-beam",
+      "ripple"
+    ],
+    "guide": "Use it for an integrations or \"works with your stack\" section. Reach for OrbitLogoCluster for text logos on one ring, IconCloud for a 3D sphere of icons, and AnimatedBeam to show data flowing between named tools.",
+    "examples": [
+      "<OrbitingCircles size={320} rings={[{ radius: 80, duration: 20, icons: [MailIcon, DatabaseIcon] }]} center={<Logo />} />"
+    ]
   },
   {
     "name": "parallax-panel",
@@ -7911,7 +13516,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "motion"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A sunken panel whose text and soft accent glow drift at different speeds as the page scrolls, giving the section depth. Both layers move with transforms tied straight to scroll position, so nothing lays out again and nothing lags. Reduced motion holds both still.",
+    "category": "animation",
+    "related": [
+      "scroll-reveal",
+      "sticky-feature-story",
+      "tilt-card"
+    ],
+    "guide": "Use it for a quiet feature or manifesto section between busier ones. Reach for ScrollReveal to bring any block in once, StickyFeatureStory for a pinned multi-step story, and TiltCard for depth under the pointer instead.",
+    "examples": [
+      "<ParallaxPanel eyebrow=\"Reconciliation\" title=\"Every payment, matched\" body=\"Lumen pairs deposits with invoices as they land.\" />"
+    ]
   },
   {
     "name": "particles",
@@ -7928,7 +13544,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A canvas particle field that drifts behind your content and parts around the pointer, or gathers toward it."
+    "description": "A canvas particle field that drifts behind your content and parts around the pointer, or gathers toward it. Colour comes from the accent token and follows theme and material changes. The canvas is sharp on high density screens, resizes with its box, sleeps off screen and in background tabs, and draws one still frame for reduced motion.",
+    "category": "animation",
+    "related": [
+      "meteors",
+      "light-field",
+      "dot-pattern",
+      "flickering-grid",
+      "ripple",
+      "wavy-background"
+    ],
+    "guide": "Use it behind a hero or CTA panel that should feel alive under the pointer. Reach for Meteors for streaks, LightField for a soft WebGL glow, and DotPattern or FlickeringGrid for a static or barely moving texture.",
+    "examples": [
+      "<Particles quantity={140} mode=\"attract\" className=\"h-[420px]\">\n  <h2 className=\"text-4xl font-medium text-fg\">Every invoice, accounted for</h2>\n</Particles>"
+    ]
   },
   {
     "name": "pin-scroll-gallery",
@@ -7944,7 +13573,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<PinScrollGallery />"
+    "description": "A gallery that pins to the viewport and slides its frames sideways as you scroll down, then releases. The section is as tall as the frames need; vertical scroll drives a horizontal transform, so nothing lays out again while it moves. Reduced motion shows the frames as a plain grid instead of hijacking the scroll.",
+    "usage": "<PinScrollGallery />",
+    "category": "animation",
+    "related": [
+      "horizontal-product-rail",
+      "sticky-feature-story",
+      "scroll-chapter-story"
+    ],
+    "guide": "Use it for three to five big product moments on a launch page. Reach for HorizontalProductRail for a rail the visitor scrolls themselves, StickyFeatureStory for pinned steps beside one preview, and ScrollChapterStory for stacked chapters.",
+    "examples": [
+      "<PinScrollGallery frames={[{ title: \"Send\", body: \"Invoices go out on schedule.\" }, { title: \"Match\", body: \"Payments pair with invoices.\" }]} />"
+    ]
   },
   {
     "name": "pricing-kinetic",
@@ -7965,7 +13605,22 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<PricingKinetic />"
+    "description": "A complete kinetic pricing section: headline, typographic marquee, a price that rolls between monthly and yearly, a comparison table and a magnetic upgrade button. It composes MorphPrice, TypographicMarquee, FeatureComparison and MagneticCta, so each piece keeps its own accessibility and reduced-motion behaviour. Copy the file and edit the content in place; it is a page section, not a configurable widget.",
+    "usage": "<PricingKinetic />",
+    "category": "billing",
+    "related": [
+      "morph-price",
+      "typographic-marquee",
+      "feature-comparison",
+      "magnetic-cta",
+      "pricing-page",
+      "pricing-motion",
+      "pricing-table"
+    ],
+    "guide": "Use it as the pricing section of a launch page. Reach for PricingPage for a whole page with nav and footer, PricingMotion for plan cards alone, and the free PricingTable inside product billing.",
+    "examples": [
+      "<PricingKinetic className=\"py-16\" />"
+    ]
   },
   {
     "name": "pricing-motion",
@@ -7983,8 +13638,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
-    "description": "Pricing tiers that rise into view one after another as they scroll in.",
-    "usage": "<PricingMotion plans={[\n  { name: \"Free\", price: \"$0\", blurb: \"Primitives forever\", features: [\"MIT components\", \"Galleries\", \"Audit gate\"] },\n  { name: \"Pro\", price: \"$49\", blurb: \"For product teams\", featured: true, features: [\"Premium heroes\", \"Motion blocks\", \"Priority updates\"] },\n  { name: \"Team\", price: \"$149\", blurb: \"Shared seats\", features: [\"Everything in Pro\", \"Seat management\", \"Support\"] },\n]} />"
+    "description": "Pricing tiers that rise into view one after another as they scroll in. Each card rises on the morph spring with a short stagger, once. The featured plan gets the accent border, a \"Most popular\" badge and the solid button. Reduced motion shows every card in place.",
+    "usage": "<PricingMotion plans={[\n  { name: \"Free\", price: \"$0\", blurb: \"Primitives forever\", features: [\"MIT components\", \"Galleries\", \"Audit gate\"] },\n  { name: \"Pro\", price: \"$49\", blurb: \"For product teams\", featured: true, features: [\"Premium heroes\", \"Motion blocks\", \"Priority updates\"] },\n  { name: \"Team\", price: \"$149\", blurb: \"Shared seats\", features: [\"Everything in Pro\", \"Seat management\", \"Support\"] },\n]} />",
+    "category": "billing",
+    "related": [
+      "morph-price",
+      "pricing-kinetic",
+      "pricing-page",
+      "pricing-table",
+      "plan-card",
+      "pricing-plans"
+    ],
+    "guide": "Use it for two to four plans on a marketing page. Reach for MorphPrice for one plan with a Monthly / Yearly roll, PricingKinetic or PricingPage for a full section, and the free PricingTable or PlanCard inside billing screens.",
+    "examples": [
+      "<PricingMotion\n  plans={[{ name: \"Pro\", price: \"$49\", period: \"/ month\", blurb: \"For finance teams\", featured: true, features: [\"Unlimited invoices\"] }]}\n  onSelect={(plan) => router.push(`/signup?plan=${plan.name}`)}\n/>"
+    ]
   },
   {
     "name": "pricing-page",
@@ -8006,7 +13674,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<PricingPage />"
+    "description": "A full pricing page kit: marketing nav, Monthly / Yearly toggle, three plan cards, a feature comparison, FAQ, a closing CTA and a mega footer. The toggle drives the featured plan's price. Every section is a kit component with its own keyboard and reduced-motion behaviour. Copy the file and replace the sample plans, rows and questions with yours.",
+    "usage": "<PricingPage />",
+    "category": "billing",
+    "related": [
+      "pricing-kinetic",
+      "pricing-motion",
+      "pricing-table",
+      "plan-comparison",
+      "product-launch",
+      "saas-landing"
+    ],
+    "guide": "Use it as a starting point for /pricing. Reach for PricingKinetic for just the pricing section, PricingMotion for the plan cards, and the free PricingTable or PlanComparison inside a product.",
+    "examples": [
+      "<PricingPage />"
+    ]
   },
   {
     "name": "product-launch",
@@ -8033,7 +13715,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<ProductLaunch />"
+    "description": "A full product launch page kit: scroll progress rail, kinetic hero with device frames, product rail, sticky feature story, before/after wipe, stats, quotes, spotlight panel, countdown and waitlist. Every section is a separate Premium component, so you can delete or reorder sections freely. Copy the file and swap the sample copy and figures for your own; never ship invented stats or quotes.",
+    "usage": "<ProductLaunch />",
+    "category": "marketing",
+    "related": [
+      "saas-landing",
+      "pricing-page"
+    ],
+    "guide": "Use it as the skeleton of a launch or \"coming soon\" page. Reach for SaasLanding for an evergreen home page, PricingPage for /pricing, and the individual sections when you only need one.",
+    "examples": [
+      "<ProductLaunch />"
+    ]
   },
   {
     "name": "product-os-mock",
@@ -8053,7 +13745,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "premium-motion",
       "showcase"
     ],
-    "usage": "<ProductOsMock />"
+    "description": "A mock product window with a sidebar of workspaces that cycles on its own, each view rising in with its rows and KPI bars. It auto-advances every few seconds to show the product breathing, pauses while the pointer or keyboard focus is inside, and stops for good once the visitor picks a view. Reduced motion never auto-advances and shows every view in place.",
+    "usage": "<ProductOsMock />",
+    "category": "marketing",
+    "related": [
+      "browser-mockup",
+      "device-frame-stack",
+      "product-tour"
+    ],
+    "guide": "Use it as a hero visual for a product or platform page. Reach for BrowserMockup or DeviceFrameStack to frame your own screenshot, and ProductTour for a guided, visitor-driven walkthrough.",
+    "examples": [
+      "<ProductOsMock interval={3200} />"
+    ]
   },
   {
     "name": "product-tour",
@@ -8071,8 +13774,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "description": "A step list beside a stage that fades to the selected step, with Back and Next.",
-    "usage": "<ProductTour steps={[\n  { title: \"Install free kit\", body: \"Add Hairline primitives from the registry.\" },\n  { title: \"Compose product UI\", body: \"Dashboards, AI, billing — all free.\" },\n  { title: \"Drop Premium moments\", body: \"Heroes and templates when launch needs wow.\" },\n]} />"
+    "description": "A step list beside a stage that fades to the selected step, with Back and Next. The list items are buttons marked `aria-current=\"step\"`; the stage rises in on the morph spring and is announced politely as it changes. Optional `media` per step fills the stage. Reduced motion swaps steps instantly.",
+    "usage": "<ProductTour steps={[\n  { title: \"Install free kit\", body: \"Add Hairline primitives from the registry.\" },\n  { title: \"Compose product UI\", body: \"Dashboards, AI, billing — all free.\" },\n  { title: \"Drop Premium moments\", body: \"Heroes and templates when launch needs wow.\" },\n]} />",
+    "category": "marketing",
+    "related": [
+      "onboarding-motion",
+      "sticky-feature-story",
+      "onboarding-wizard",
+      "product-os-mock"
+    ],
+    "guide": "Use it to walk visitors through four or five features in order. Reach for OnboardingMotion for a compact welcome card, StickyFeatureStory when scroll should drive the steps, and the free OnboardingWizard for real forms.",
+    "examples": [
+      "<ProductTour steps={[{ title: \"Connect your bank\", body: \"Transactions sync every hour.\", media: <img src=\"/bank.png\" alt=\"\" /> }]} />"
+    ]
   },
   {
     "name": "retro-grid",
@@ -8089,7 +13803,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A retro perspective grid floor that recedes to a glowing horizon and scrolls slowly toward you."
+    "description": "A retro perspective grid floor that recedes to a glowing horizon and scrolls slowly toward you. Lines are tinted with the accent and fade out before they reach the horizon, so they never shimmer. The floor sits behind the content, ignores the pointer, pauses off screen and holds still for reduced motion.",
+    "category": "animation",
+    "related": [
+      "dot-pattern",
+      "background-boxes",
+      "lamp-effect",
+      "meteors"
+    ],
+    "guide": "Use it behind a launch, deploy or developer-tool hero. Reach for DotPattern or BackgroundBoxes for a flat grid, and LampEffect when the headline should be lit rather than grounded.",
+    "examples": [
+      "<RetroGrid angle={70} cellSize={56}>\n  <h2 className=\"text-4xl font-medium text-fg\">Every release, right on schedule</h2>\n</RetroGrid>"
+    ]
   },
   {
     "name": "ripple",
@@ -8106,7 +13831,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "Concentric rings behind your content with a soft pulse that travels outward ring by ring, like a sonar ping."
+    "description": "Concentric rings behind your content with a soft pulse that travels outward ring by ring, like a sonar ping. Clicking or tapping the panel sends an extra ripple out from the pointer. The rings sit behind the content, pause off screen and hold still for reduced motion.",
+    "category": "animation",
+    "related": [
+      "orbiting-circles",
+      "meteors",
+      "particles"
+    ],
+    "guide": "Use it behind a \"live\", \"listening\" or \"connected\" message. Reach for OrbitingCircles to show integrations around a centre, and Meteors or Particles for a looser, less centred backdrop.",
+    "examples": [
+      "<Ripple count={6} origin={{ x: 50, y: 40 }}>\n  <h2 className=\"text-4xl font-medium text-fg\">Lumen hears every payment</h2>\n</Ripple>"
+    ]
   },
   {
     "name": "saas-landing",
@@ -8129,7 +13864,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<SaasLanding />"
+    "description": "A complete SaaS landing page kit: aurora hero, moving logo wall, stats, feature row, pricing cards, testimonial carousel, FAQ and a glowing CTA. Every section is a separate kit component with its own accessibility and reduced-motion handling, so you can delete or reorder sections freely. Copy the file and replace the sample copy, logos and figures with your own; never ship invented customers, stats or testimonials.",
+    "usage": "<SaasLanding />",
+    "category": "marketing",
+    "related": [
+      "product-launch",
+      "pricing-page"
+    ],
+    "guide": "Use it as the home page of a SaaS product. Reach for ProductLaunch for a launch or waitlist page, and PricingPage for /pricing.",
+    "examples": [
+      "<SaasLanding />"
+    ]
   },
   {
     "name": "scratch-to-reveal",
@@ -8144,7 +13889,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A scratch card: a foil you rub away with the pointer or a finger to reveal what is underneath, which clears itself once enough is gone."
+    "description": "A scratch card: a foil you rub away with the pointer or a finger to reveal what is underneath, which clears itself once enough is gone. The foil is a canvas painted with a gradient from your tokens. Progress is tracked on a coarse grid, so there is no pixel reading on every move. Past the threshold the rest lifts away on its own and onComplete fires. A Reveal button serves keyboard users, and reduced motion skips the fade.",
+    "category": "animation",
+    "related": [
+      "progress",
+      "secret-reveal",
+      "before-after-wipe"
+    ],
+    "guide": "Use it for a playful reward, promo code or launch teaser. Reach for SecretReveal to show a sensitive value behind a click, and BeforeAfterWipe to compare two images.",
+    "examples": [
+      "<ScratchToReveal threshold={45} onComplete={() => track(\"reward_revealed\")}>\n  <p className=\"p-8 text-center text-2xl text-fg\">20% off Lumen Pro</p>\n</ScratchToReveal>"
+    ]
   },
   {
     "name": "scroll-chapter-story",
@@ -8160,7 +13915,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "showcase"
     ],
-    "usage": "<ScrollChapterStory />"
+    "description": "A long-form story told in numbered chapters that rise in as you reach them, under a sticky progress bar that fills with your reading. The progress bar is a scaleX transform tied straight to scroll, so it never lays out again. Each chapter rises once on the morph spring. Reduced motion shows chapters in place and the bar still tracks progress, without motion.",
+    "usage": "<ScrollChapterStory />",
+    "category": "animation",
+    "related": [
+      "sticky-feature-story",
+      "tracing-beam",
+      "scroll-progress",
+      "pin-scroll-gallery",
+      "stack-reveal-story"
+    ],
+    "guide": "Use it for a narrative \"how it works\" or manifesto section. Reach for StickyFeatureStory for steps beside one pinned preview, TracingBeam for a changelog-style timeline, and ScrollProgress for a page-wide reading bar.",
+    "examples": [
+      "<ScrollChapterStory chapters={[{ kicker: \"01 · Send\", title: \"Invoices go out on time.\", body: \"Schedules and reminders are automatic.\" }]} />"
+    ]
   },
   {
     "name": "scroll-progress-rail",
@@ -8173,7 +13941,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "motion"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A sticky top rail with a thin bar that fills as the page scrolls and a row of section labels underneath. The bar is a scaleX transform smoothed by the release spring, so it glides with the scroll; reduced motion tracks the scroll exactly. Labels are plain text by default, or pass `href`s to make them in-page links.",
+    "category": "navigation",
+    "related": [
+      "scroll-progress",
+      "table-of-contents"
+    ],
+    "guide": "Use it at the top of a long launch or story page. Reach for ScrollProgress for a bare bar or a percent ring, and the free TableOfContents for a full side navigation that highlights the current section.",
+    "examples": [
+      "<ScrollProgressRail labels={[{ label: \"Intro\", href: \"#intro\" }, { label: \"Pricing\", href: \"#pricing\" }]} />"
+    ]
   },
   {
     "name": "scroll-progress",
@@ -8187,7 +13965,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Reading progress as a thin bar that fills along the top edge and a ring with the percent inside, for the page or any scrollable element."
+    "description": "Reading progress as a thin bar that fills along the top edge and a ring with the percent inside, for the page or any scrollable element. Pin it to the viewport with `fixed`, point it at a scroller with `container`, or give it children and it becomes its own scrolling panel. The spring gives the bar a little weight as you scroll; reduced motion tracks the scroll position exactly.",
+    "category": "animation",
+    "related": [
+      "scroll-progress-rail",
+      "progress",
+      "scroll-chapter-story"
+    ],
+    "guide": "Use it on long articles, docs and changelogs. Reach for ScrollProgressRail for a sticky rail with section labels, and the free Progress for task progress that is not tied to scrolling.",
+    "examples": [
+      "<ScrollProgress fixed variant=\"bar\" />\n<ScrollProgress variant=\"both\" title=\"Release notes\">{longContent}</ScrollProgress>"
+    ]
   },
   {
     "name": "scroll-reveal",
@@ -8200,7 +13988,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "motion"
     ],
     "registryDeps": [],
-    "galleries": []
+    "galleries": [],
+    "description": "A wrapper that lifts any block into place on a spring the first time it scrolls into view. Only transform moves, so the content is visible and readable from the first paint (no hidden text for search engines or screen readers) and nothing lays out again. It plays once; reduced motion shows the block in place.",
+    "category": "animation",
+    "related": [
+      "blur-fade",
+      "text-reveal",
+      "parallax-panel"
+    ],
+    "guide": "Use it on marketing sections that should arrive as you reach them; stagger siblings with `delay`. Reach for BlurFade for a blur-and-fade entrance, TextReveal for word-by-word paragraphs, and nothing at all inside product UI, where content should simply be there.",
+    "examples": [
+      "<ScrollReveal delay={0.08}>\n  <FeatureCard />\n</ScrollReveal>"
+    ]
   },
   {
     "name": "shimmer-button",
@@ -8215,7 +14014,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A call to action with a slow band of light that sweeps across the face,"
+    "description": "A call-to-action button with a slow band of light sweeping across its face, a lit top edge and a soft bloom. A call to action with a slow band of light that sweeps across the face, a lit top edge and a soft bloom underneath. The sweep pauses for reduced motion. Renders a button, or pass `render` to make it a link.",
+    "category": "animation",
+    "related": [
+      "button",
+      "magnetic-cta",
+      "border-beam",
+      "shine-border"
+    ],
+    "guide": "Use it for the single most important action on a marketing page. Reach for Button in product UI, MagneticCta when the action should move toward the pointer, and BorderBeam or ShineBorder to light a whole card.",
+    "examples": [
+      "<ShimmerButton tone=\"accent\" onClick={startTrial}>Start free trial</ShimmerButton>\n<ShimmerButton render={<a href=\"/signup\" />}>Get started</ShimmerButton>"
+    ]
   },
   {
     "name": "shine-border",
@@ -8232,7 +14042,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A card whose border is a band of coloured light sweeping around it, masked to the border ring so the content is untouched."
+    "description": "A card whose border is a band of coloured light sweeping around it, masked to the border ring so the content is untouched. A conic gradient of your colours turns on a registered CSS angle behind a mask that keeps only the ring, so it stays crisp at any radius. It holds still for reduced motion.",
+    "category": "animation",
+    "related": [
+      "border-beam",
+      "cta-glow",
+      "shimmer-button",
+      "tilt-card"
+    ],
+    "guide": "Use it to single out one card: a featured plan, a new release, an invite. Reach for BorderBeam for a short travelling beam instead of a band, and CtaGlow for a whole glowing call-to-action section.",
+    "examples": [
+      "<ShineBorder radius={16} duration={6}>\n  <div className=\"rounded-[inherit] bg-surface p-6\">Lumen Pro</div>\n</ShineBorder>"
+    ]
   },
   {
     "name": "soft-stack",
@@ -8248,7 +14069,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<SoftStack />"
+    "description": "A small stack of cards that fan up into a tidy, receding pile on a spring when it scrolls into view. Each card sits a little lower and smaller than the one in front, so the pile reads as depth without blurred shadows. It plays once; reduced motion shows the settled pile.",
+    "usage": "<SoftStack />",
+    "category": "animation",
+    "related": [
+      "stack-reveal-story",
+      "device-frame-stack"
+    ],
+    "guide": "Use it as a light visual beside feature copy (\"your workspaces\", \"every account\"). Reach for StackRevealStory for readable stacked cards with body text, and DeviceFrameStack for stacked screenshots.",
+    "examples": [
+      "<SoftStack items={[\"Payroll\", \"Invoices\", \"Expenses\"]} />"
+    ]
   },
   {
     "name": "sparkles-text",
@@ -8262,7 +14093,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Text with small four point stars that twinkle around it, placed at"
+    "description": "Text with small four-point stars that twinkle in and out around it at random. Text with small four point stars that twinkle around it, placed at random and replaced as they fade. The stars are decorative and hidden from assistive tech; the text stays a normal text node.",
+    "category": "animation",
+    "related": [
+      "text",
+      "gradient-text",
+      "confetti-button"
+    ],
+    "guide": "Use it for one short celebratory word or phrase. Reach for GradientText for a still accent and ConfettiButton for a one-off burst on success.",
+    "examples": [
+      "<SparklesText count={10}>Paid in full</SparklesText>"
+    ]
   },
   {
     "name": "split-proof-panel",
@@ -8281,7 +14122,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "showcase"
     ],
-    "usage": "<SplitProofPanel />"
+    "description": "A two-column proof section: a pitch with a checklist and a call to action on one side, a stack of short proof cards rising in on the other. The proof column rises once on the morph spring; reduced motion shows it in place. Copy the file and replace the sample pitch and proof points with real, checkable ones.",
+    "usage": "<SplitProofPanel />",
+    "category": "marketing",
+    "related": [
+      "free-premium-compare",
+      "metric-ticker-board"
+    ],
+    "guide": "Use it to back a claim right after a hero (\"built to survive a client tab share\"). Reach for FreePremiumCompare for a side-by-side tier comparison, and MetricTickerBoard when the proof is numbers.",
+    "examples": [
+      "<SplitProofPanel />"
+    ]
   },
   {
     "name": "stack-reveal-story",
@@ -8297,7 +14148,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "showcase"
     ],
-    "usage": "<StackRevealStory />"
+    "description": "Numbered cards that rise on a spring and overlap into a stack on wider screens, telling a short three-step story. From md up each card tucks under the one before it; on phones they sit as a plain list so nothing overlaps text. Each card plays once; reduced motion shows the stack in place.",
+    "usage": "<StackRevealStory />",
+    "category": "animation",
+    "related": [
+      "soft-stack",
+      "scroll-chapter-story",
+      "sticky-feature-story"
+    ],
+    "guide": "Use it for a compact \"how it works\" in three beats. Reach for SoftStack for a purely visual pile, ScrollChapterStory for full-width chapters, and StickyFeatureStory for pinned steps beside a preview.",
+    "examples": [
+      "<StackRevealStory cards={[{ title: \"Connect\", body: \"Link your bank once.\" }, { title: \"Send\", body: \"Invoices go out on time.\" }]} />"
+    ]
   },
   {
     "name": "stats-counter",
@@ -8309,12 +14171,24 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "deps": [
       "motion"
     ],
-    "registryDeps": [],
+    "registryDeps": [
+      "number-roll"
+    ],
     "galleries": [
       "premium-heroes"
     ],
-    "description": "A number that counts up from zero when it scrolls into view, for stats sections.",
-    "usage": "<StatsCounter value={400} label=\"Components+\" />"
+    "description": "A single stat whose digits roll up from zero, odometer style, when it scrolls into view, for stats sections. The digits spring into place with the roll preset rather than counting through every value. Screen readers and search engines get the final value as plain text from the first paint; reduced motion shows it straight away.",
+    "usage": "<StatsCounter value={400} label=\"Components+\" />",
+    "category": "animation",
+    "related": [
+      "metric-ticker-board",
+      "number-roll",
+      "launch-countdown"
+    ],
+    "guide": "Use it for one figure in a row of stats. Reach for MetricTickerBoard for a ready-made board of several, and NumberRoll for a live value that changes.",
+    "examples": [
+      "<div className=\"grid grid-cols-3 gap-4\">\n  <StatsCounter value={12400} label=\"invoices paid this month\" />\n  <StatsCounter value={98.4} label=\"paid on time\" suffix=\"%\" format={{ maximumFractionDigits: 1 }} />\n</div>"
+    ]
   },
   {
     "name": "status-marketing",
@@ -8335,7 +14209,20 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<StatusMarketing />"
+    "description": "A status page section: incident banner, operational badge, a gradient headline that wipes in, and a grid of uptime bars per service. It composes the free IncidentBanner, StatusBadge and UptimeBar with MaskedGradientHeadline, so the data components stay accessible and the motion stays to one headline wipe and one rise. Copy the file and feed it your real services and downtime days.",
+    "usage": "<StatusMarketing />",
+    "category": "marketing",
+    "related": [
+      "incident-banner",
+      "status-badge",
+      "uptime-bar",
+      "masked-gradient-headline",
+      "health-indicator"
+    ],
+    "guide": "Use it on a public status or reliability page. Reach for UptimeBar alone inside product UI, and HealthIndicator for one service's state.",
+    "examples": [
+      "<StatusMarketing />"
+    ]
   },
   {
     "name": "sticky-cta-bar",
@@ -8354,7 +14241,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<StickyCtaBar title=\"Sticky close on scroll\" />"
+    "description": "A floating call-to-action bar that springs up from the bottom of the screen once the visitor has scrolled past the hero, and tucks away again at the top. While hidden it is inert, so keyboard and screen-reader users never land on buttons they cannot see. It moves on the snappy spring; reduced motion shows and hides it instantly.",
+    "usage": "<StickyCtaBar title=\"Sticky close on scroll\" />",
+    "category": "marketing",
+    "related": [
+      "sticky-bar",
+      "publish-bar",
+      "announcement-bar"
+    ],
+    "guide": "Use it on long marketing pages where the hero CTA scrolls away. Reach for the free StickyBar or PublishBar for in-product action bars, and AnnouncementBar for a message pinned to the top.",
+    "examples": [
+      "<StickyCtaBar title=\"Close your books in a day\" threshold={480} actions={<Button render={<a href=\"/signup\" />}>Start free</Button>} />"
+    ]
   },
   {
     "name": "sticky-feature-story",
@@ -8370,7 +14268,21 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<StickyFeatureStory />"
+    "description": "A pinned two-column story: as you scroll, each step on the left lights up in turn while a mock preview on the right follows along. The section is as tall as its steps need and works for any number of them. The active step nudges into place on the snappy spring and is marked `aria-current=\"step\"`. Reduced motion drops the pinning and shows every step as a plain list.",
+    "usage": "<StickyFeatureStory />",
+    "category": "animation",
+    "related": [
+      "scroll-chapter-story",
+      "pin-scroll-gallery",
+      "product-tour",
+      "parallax-panel",
+      "stack-reveal-story",
+      "tracing-beam"
+    ],
+    "guide": "Use it to explain three to five features in order on a launch page. Reach for ScrollChapterStory for full-width chapters, PinScrollGallery for big sideways frames, and ProductTour when the visitor should click through.",
+    "examples": [
+      "<StickyFeatureStory steps={[{ label: \"01\", title: \"Connect\", body: \"Link your bank once.\" }, { label: \"02\", title: \"Reconcile\", body: \"Payments match themselves.\" }]} />"
+    ]
   },
   {
     "name": "terminal",
@@ -8385,7 +14297,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "An animated terminal window that types each command and prints its output line by line, with a blinking cursor and a replay button."
+    "description": "An animated terminal window that types each command and prints its output line by line, with a blinking cursor and a replay button. Five line kinds (command, output, success, error, info) each get their own token colour and glyph. Typing pauses while the window is off screen and picks up where it left off; reduced motion prints the whole transcript at once. The box reserves its full height, so nothing below it shifts.",
+    "category": "developer-tools",
+    "related": [
+      "terminal-window",
+      "code-block",
+      "console-output"
+    ],
+    "guide": "Use it to show an install command or CLI flow on a docs or launch page. Reach for the free TerminalWindow for a static transcript, CodeBlock for copyable code, and ConsoleOutput for streaming logs inside product UI.",
+    "examples": [
+      "<Terminal title=\"zsh\" lines={[{ kind: \"command\", text: \"npx shadcn@latest add https://ui.minidev.pro/r/button.json\" }, { kind: \"success\", text: \"Created 1 file\" }]} />"
+    ]
   },
   {
     "name": "testimonial-carousel",
@@ -8403,7 +14325,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-heroes"
     ],
-    "usage": "<TestimonialCarousel items={[\n  { quote: \"The premium heroes actually feel designed.\", name: \"Sam Rivera\", role: \"Founder\" },\n  { quote: \"We shipped a launch page in an afternoon.\", name: \"Lee Park\", role: \"Design Eng\" },\n  { quote: \"Free kit for product, Premium for marketing.\", name: \"Ava Chen\", role: \"PM\" },\n]} />"
+    "description": "One large customer quote at a time that rotates on its own, with dot and Previous / Next controls. It follows the WAI-ARIA carousel pattern: a labelled region, slide buttons with `aria-current`, rotation that pauses while the pointer or keyboard focus is inside and stops once the visitor takes control, and a polite announcement only when the visitor changes the slide. Quotes rise on the morph spring and leave faster; reduced motion never auto-rotates.",
+    "usage": "<TestimonialCarousel items={[\n  { quote: \"The premium heroes actually feel designed.\", name: \"Sam Rivera\", role: \"Founder\" },\n  { quote: \"We shipped a launch page in an afternoon.\", name: \"Lee Park\", role: \"Design Eng\" },\n  { quote: \"Free kit for product, Premium for marketing.\", name: \"Ava Chen\", role: \"PM\" },\n]} />",
+    "category": "marketing",
+    "related": [
+      "marquee-quotes",
+      "testimonial",
+      "press-quote"
+    ],
+    "guide": "Use it for three to six longer testimonials. Reach for MarqueeQuotes for many short quotes at once, and the free Testimonial or PressQuote for a single static quote. Use real customer words: never invent testimonials.",
+    "examples": [
+      "<TestimonialCarousel interval={6000} items={[{ quote: \"Month-end close went from four days to one.\", name: \"Maya Patel\", role: \"Controller, Northwind\" }]} />"
+    ]
   },
   {
     "name": "text-reveal",
@@ -8417,7 +14350,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A paragraph that lights up word by word as it scrolls through the"
+    "description": "A paragraph that lights up word by word, from muted to full ink, as it scrolls through the viewport. A paragraph that lights up word by word as it scrolls through the viewport, from muted to full ink. The words are real text in order, so search engines and screen readers read it normally.",
+    "category": "animation",
+    "related": [
+      "masked-gradient-headline",
+      "blur-fade",
+      "scroll-reveal"
+    ],
+    "guide": "Use it for one manifesto or mission paragraph on a long page. Reach for MaskedGradientHeadline for a headline wipe, and BlurFade or ScrollReveal to bring whole blocks in.",
+    "examples": [
+      "<TextReveal text=\"Lumen closes the books so your team can open the next quarter.\" />"
+    ]
   },
   {
     "name": "text-scramble",
@@ -8433,7 +14376,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<TextScramble />"
+    "description": "A short monospace line that decodes from random glyphs into the real text, left to right, the first time it scrolls into view. The real text is in the page from the first paint and is what screen readers and search engines read; the scrambled glyphs are hidden from them. Monospace keeps the width steady while it decodes. It plays once; reduced motion shows the text straight away.",
+    "usage": "<TextScramble />",
+    "category": "animation",
+    "related": [
+      "hyper-text",
+      "typing-text",
+      "word-rotate",
+      "morphing-text"
+    ],
+    "guide": "Use it for a short label, eyebrow or code-flavoured headline (two or three words). Reach for HyperText for a scramble on hover, TypingText for a typewriter, and WordRotate or MorphingText for cycling phrases.",
+    "examples": [
+      "<TextScramble text=\"RECONCILED\" />"
+    ]
   },
   {
     "name": "tilt-card",
@@ -8450,7 +14405,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "A card that tilts toward the pointer in 3D, with a sliding glare and parallax children, and springs flat when the pointer leaves."
+    "description": "A card that tilts toward the pointer in 3D, with a sliding glare and parallax children, and springs flat when the pointer leaves. The glare moves across the face like light on a foil print. Children marked `data-depth` float at their own parallax rate. Touch scrolls straight through it; reduced motion keeps it flat.",
+    "category": "animation",
+    "related": [
+      "card-tilt",
+      "shine-border",
+      "parallax-panel"
+    ],
+    "guide": "Use it for a showcase card, a pricing hero or a product shot. Reach for CardTilt for a simpler tilt without glare or depth, and ShineBorder to draw the eye without motion.",
+    "examples": [
+      "<TiltCard maxTilt={10}>\n  <div className=\"rounded-xl bg-surface p-6\"><h3 data-depth=\"1\">Lumen Pro</h3></div>\n</TiltCard>"
+    ]
   },
   {
     "name": "tracing-beam",
@@ -8464,7 +14429,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A vertical beam beside long content that grows as you scroll, with a glowing tip and a node that lights for each entry."
+    "description": "A vertical beam beside long content that grows as you scroll, with a glowing tip and a node that lights for each entry. The beam is an SVG path driven by scroll progress through the section and smoothed with a spring, so it glides rather than jumps. Each direct child of the content gets a node on the track that fills the moment the beam passes it. Reduced motion drops the spring and follows the scroll exactly.",
+    "category": "animation",
+    "related": [
+      "timeline",
+      "sticky-feature-story",
+      "scroll-chapter-story"
+    ],
+    "guide": "Use it for changelogs, timelines and long step-by-step stories. Reach for the free Timeline for a static list, and StickyFeatureStory or ScrollChapterStory for full-screen scroll chapters.",
+    "examples": [
+      "<TracingBeam items={[{ version: \"v3.2\", date: \"14 Oct 2026\", title: \"Auto-reconcile\", body: \"…\" }]} />"
+    ]
   },
   {
     "name": "typing-text",
@@ -8478,7 +14453,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "A typewriter that types a phrase, holds, deletes and moves to the next,"
+    "description": "A typewriter line that types a phrase, holds, deletes it and moves to the next, with a blinking caret. A typewriter that types a phrase, holds, deletes and moves to the next, with a blinking caret. Starts when it scrolls into view, and screen readers get the phrases as plain text instead of the keystrokes.",
+    "category": "animation",
+    "related": [
+      "word-rotate",
+      "morphing-text",
+      "hero-typed-headline",
+      "text-scramble"
+    ],
+    "guide": "Use it for a short hero line that types a few phrases. Reach for WordRotate to swap one word in a sentence, MorphingText for a softer melt, and HeroTypedHeadline for a complete typed hero.",
+    "examples": [
+      "<TypingText phrases={[\"Send the invoice.\", \"Get paid on time.\"]} speed={50} />"
+    ]
   },
   {
     "name": "typographic-marquee",
@@ -8487,16 +14473,25 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "kind": "premium",
     "path": "src/registry/premium/typographic-marquee.tsx",
     "import": "@/registry/premium/typographic-marquee",
-    "deps": [
-      "motion"
-    ],
+    "deps": [],
     "registryDeps": [],
     "galleries": [
       "premium-motion",
       "showcase"
     ],
-    "description": "@deprecated use phrases",
-    "usage": "<TypographicMarquee />"
+    "description": "Big display phrases separated by accent dots, scrolling endlessly across a band, for a bold typographic break between sections. The band loops on the compositor (a CSS transform), pauses while the pointer is over it, and holds still for reduced motion. Screen readers read the phrases once; the looping copy is hidden from them.",
+    "usage": "<TypographicMarquee />",
+    "category": "animation",
+    "related": [
+      "logo-wall-motion",
+      "marquee-quotes",
+      "marquee",
+      "pricing-kinetic"
+    ],
+    "guide": "Use it as a loud divider or a list of selling points. Reach for LogoWallMotion for logos, MarqueeQuotes for testimonials, and the free Marquee for a small, quiet ticker.",
+    "examples": [
+      "<TypographicMarquee phrases={[\"Bank sync\", \"Auto reminders\", \"One-click close\"]} duration={24} />"
+    ]
   },
   {
     "name": "waitlist-hero",
@@ -8506,6 +14501,7 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "path": "src/registry/premium/waitlist-hero.tsx",
     "import": "@/registry/premium/waitlist-hero",
     "deps": [
+      "lucide-react",
       "motion"
     ],
     "registryDeps": [
@@ -8516,7 +14512,18 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-templates"
     ],
-    "usage": "<WaitlistHero />"
+    "description": "A \"coming soon\" hero with a breathing accent glow, a one-field email form that handles loading, success and error, and a social-proof row. `onSubmit` may return a promise: the button shows progress, success replaces the form with a confirmation, and a thrown error keeps the typed email and shows the message. Results are announced to screen readers. The glow holds still for reduced motion.",
+    "usage": "<WaitlistHero />",
+    "category": "marketing",
+    "related": [
+      "command-waitlist",
+      "newsletter-signup",
+      "launch-countdown"
+    ],
+    "guide": "Use it for a pre-launch page or a gated beta. Reach for CommandWaitlist for a command-palette styled signup, the free NewsletterSignup for a small inline form, and LaunchCountdown to add a clock.",
+    "examples": [
+      "<WaitlistHero\n  title=\"Lumen 3.0 is almost here\"\n  onSubmit={async (email) => { await fetch(\"/api/waitlist\", { method: \"POST\", body: JSON.stringify({ email }) }) }}\n  proof={null}\n/>"
+    ]
   },
   {
     "name": "waveform-hero",
@@ -8534,7 +14541,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     "galleries": [
       "premium-motion"
     ],
-    "usage": "<WaveformHero />"
+    "description": "A hero with a headline over a row of thin accent bars that rise and fall like a live audio waveform, and a magnetic call to action. The bars breathe with compositor-only CSS transforms, each at its own pace, pause while off screen, and hold still for reduced motion. The waveform is decorative and hidden from screen readers.",
+    "usage": "<WaveformHero />",
+    "category": "marketing",
+    "related": [
+      "wavy-background",
+      "audio-player"
+    ],
+    "guide": "Use it for audio, voice, AI-call or \"live\" products. Reach for WavyBackground for soft rolling waves behind any hero, and the free AudioPlayer when the waveform must reflect real audio.",
+    "examples": [
+      "<WaveformHero title=\"Every call, transcribed\" description=\"Lumen listens to supplier calls and logs every promise to pay.\" cta=\"Try it free\" />"
+    ]
   },
   {
     "name": "wavy-background",
@@ -8551,7 +14568,19 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
       "button"
     ],
     "galleries": [],
-    "description": "Layered canvas waves that roll across the bottom of the panel behind your content, each at its own pace."
+    "description": "Layered canvas waves that roll across the bottom of the panel behind your content, each at its own pace. Every wave is two sine harmonics with its own phase, so the layers breathe against each other instead of marching in step. Colours resolve through the cascade, so var(--accent) follows theme and material changes. The canvas is sharp on high density screens, resizes with its box, sleeps off screen and in background tabs, and draws one still frame for reduced motion.",
+    "category": "animation",
+    "related": [
+      "aurora-background",
+      "light-field",
+      "meteors",
+      "particles",
+      "waveform-hero"
+    ],
+    "guide": "Use it behind a hero, footer or sign-up panel. Reach for AuroraBackground for a CSS-only gradient, LightField for a WebGL glow, and Meteors or Particles for small moving points.",
+    "examples": [
+      "<WavyBackground coverage={0.5}>\n  <h2 className=\"text-4xl font-medium text-fg\">Cash flow, smoothed out</h2>\n</WavyBackground>"
+    ]
   },
   {
     "name": "word-rotate",
@@ -8565,6 +14594,17 @@ export const COMPONENT_INDEX: ComponentIndexEntry[] = [
     ],
     "registryDeps": [],
     "galleries": [],
-    "description": "Cycles through a list of words in place: the old word lifts and blurs out,"
+    "description": "A sentence with one word that rotates through a list in place, lifting and blurring out as the next rises in. The slot holds every word invisibly, so it is always as wide as the widest one and the sentence around it never jumps. The new word arrives on the morph spring and the old one leaves faster than it came. It pauses off screen, shows the first word for reduced motion, and screen readers hear the full list once.",
+    "category": "animation",
+    "related": [
+      "morphing-text",
+      "typing-text",
+      "hyper-text",
+      "text-scramble"
+    ],
+    "guide": "Use it for a hero line like \"Interfaces for <rotating word>\". Reach for MorphingText to cycle whole phrases, TypingText for a typewriter, and HyperText or TextScramble for a one-off decode.",
+    "examples": [
+      "<WordRotate prefix=\"Invoicing for\" words={[\"agencies\", \"studios\", \"consultants\"]} interval={2400} />"
+    ]
   }
 ]

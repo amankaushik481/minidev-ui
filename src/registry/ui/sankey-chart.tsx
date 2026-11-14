@@ -2,7 +2,21 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** An SVG sankey diagram that lays nodes out in columns computed from the links, draws curved ribbons, labels nodes with values, highlights a node's flows on hover or focus, and includes a hidden table. */
+/**
+ * An SVG sankey diagram that lays nodes out in columns computed from the links, draws curved ribbons, labels nodes with values, highlights a node's flows on hover or focus, and includes a hidden table.
+ *
+ * Use it for flows between stages: traffic sources to outcomes, budget to teams, energy in to
+ * out. You only pass `links`; columns, sizes and colours are computed. Nodes are one Tab stop,
+ * arrow keys walk them and each speaks its in and out flows. For a single funnel use a funnel
+ * chart; for parts of one whole use a pie or bar chart.
+ *
+ * @example
+ * <SankeyChart
+ *   title="Signups by source"
+ *   unit="visitors"
+ *   links={[{ source: "Search", target: "Signed up", value: 1400 }, { source: "Search", target: "Left", value: 800 }]}
+ * />
+ */
 type SankeyLink = { source: string; target: string; value: number }
 
 type SankeyNodeInput = {
@@ -228,7 +242,7 @@ function SankeyChart({
   const [width, setWidth] = React.useState(640)
   const [active, setActive] = React.useState<string | null>(null)
   const [focusIdx, setFocusIdx] = React.useState(0)
-  const uid = React.useId().replace(/:/g, "")
+  const uid = React.useId().replace(/[^a-zA-Z0-9-]/g, "")
   const titleId = React.useId()
 
   React.useEffect(() => {
@@ -261,6 +275,8 @@ function SankeyChart({
   }
 
   const total = nodes.filter((n) => !n.inLinks.length).reduce((s, n) => s + n.value, 0)
+  // Keep a valid Tab stop when the data shrinks under the last focused node.
+  const tabStop = Math.min(focusIdx, Math.max(0, nodes.length - 1))
 
   return (
     <figure
@@ -333,7 +349,7 @@ function SankeyChart({
                 }}
                 role="img"
                 aria-label={describe(n)}
-                tabIndex={i === focusIdx ? 0 : -1}
+                tabIndex={i === tabStop ? 0 : -1}
                 className="cursor-pointer outline-none transition-opacity duration-[140ms] ease-hairline"
                 style={{ opacity: near(n) ? 1 : 0.35 }}
                 onPointerEnter={() => setActive(n.id)}

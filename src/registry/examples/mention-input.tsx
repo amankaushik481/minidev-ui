@@ -50,6 +50,23 @@ function CommentFormDemo() {
   )
 }
 
+function OnMentionDemo() {
+  const [tagged, setTagged] = React.useState<string[]>([])
+  return (
+    <div className="flex w-full max-w-md flex-col gap-2">
+      <MentionInput
+        defaultValue="Great close on Northwind, "
+        suggestions={team}
+        onMention={(handle) => setTagged((t) => (t.includes(handle) ? t : [...t, handle]))}
+        aria-label="Shout-out"
+      />
+      <p aria-live="polite" className="text-xs text-fg-muted">
+        {tagged.length ? `Tagged: ${tagged.join(", ")}` : "Pick someone from the @ list to tag them."}
+      </p>
+    </div>
+  )
+}
+
 export const examples: Example[] = [
   {
     title: "Controlled with suggestions",
@@ -103,5 +120,26 @@ function ControlledDemo() {
   )
 }`,
     node: <CommentFormDemo />,
+  },
+  {
+    title: "Uncontrolled with onMention",
+    description: "Leave it uncontrolled with defaultValue and listen to onMention, which fires with the handle each time a suggestion is picked.",
+    code: `function OnMentionDemo() {
+  const [tagged, setTagged] = React.useState<string[]>([])
+  return (
+    <div className="flex w-full max-w-md flex-col gap-2">
+      <MentionInput
+        defaultValue="Great close on Northwind, "
+        suggestions={team}
+        onMention={(handle) => setTagged((t) => (t.includes(handle) ? t : [...t, handle]))}
+        aria-label="Shout-out"
+      />
+      <p aria-live="polite" className="text-xs text-fg-muted">
+        {tagged.length ? \`Tagged: \${tagged.join(", ")}\` : "Pick someone from the @ list to tag them."}
+      </p>
+    </div>
+  )
+}`,
+    node: <OnMentionDemo />,
   },
 ]

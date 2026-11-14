@@ -1,11 +1,33 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
+/**
+ * The basic raised surface: a bordered, rounded panel with optional header, content and footer slots.
+ *
+ * Compose `Card` > `CardHeader` (`CardTitle`, `CardDescription`, `CardAction`) + `CardContent` +
+ * `CardFooter`. Spacing comes from one `--card-spacing` variable, so `size="sm"` tightens every
+ * slot at once. A first child `<img>` bleeds to the edges. Use it for any grouped content; prefer
+ * `StatCard` for a single KPI and `BlogCard` for a linked article. Server component friendly.
+ *
+ * @example
+ * <Card>
+ *   <CardHeader>
+ *     <CardTitle>Northwind</CardTitle>
+ *     <CardDescription>Customer since 2023</CardDescription>
+ *     <CardAction><Button size="sm" variant="outline">Edit</Button></CardAction>
+ *   </CardHeader>
+ *   <CardContent>Open balance: $12,400</CardContent>
+ *   <CardFooter><Button size="sm">Send invoice</Button></CardFooter>
+ * </Card>
+ */
 function Card({
   className,
   size = "default",
   ...props
-}: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
+}: React.ComponentProps<"div"> & {
+  /** Spacing scale for every slot: default 20px, sm 14px. */
+  size?: "default" | "sm"
+}) {
   return (
     <div
       data-slot="card"
@@ -19,6 +41,7 @@ function Card({
   )
 }
 
+/** Title, description and an optional `CardAction` in the top-right. */
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -32,6 +55,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/** The card's heading text. It renders a div; put an `h2`/`h3` inside when the page outline needs a heading. */
 function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -55,6 +79,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/** A button or menu pinned to the header's top-right corner. */
 function CardAction({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -78,6 +103,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/** A tinted bottom bar for actions, separated by a hairline. */
 function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div

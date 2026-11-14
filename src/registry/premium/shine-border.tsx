@@ -10,6 +10,15 @@ import { Button } from "@/registry/ui/button"
  * A conic gradient of your colours turns on a registered CSS angle behind
  * a mask that keeps only the ring, so it stays crisp at any radius. It
  * holds still for reduced motion.
+ *
+ * Use it to single out one card: a featured plan, a new release, an invite.
+ * Reach for BorderBeam for a short travelling beam instead of a band, and
+ * CtaGlow for a whole glowing call-to-action section.
+ *
+ * @example
+ * <ShineBorder radius={16} duration={6}>
+ *   <div className="rounded-[inherit] bg-surface p-6">Lumen Pro</div>
+ * </ShineBorder>
  */
 type ShineBorderProps = {
   children?: React.ReactNode

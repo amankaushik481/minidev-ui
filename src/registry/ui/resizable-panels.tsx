@@ -3,7 +3,23 @@ import * as React from "react"
 import { ChevronRightIcon, FileCodeIcon, FileJsonIcon, FileTextIcon, FolderOpenIcon, HashIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/** Split panes with draggable, keyboard operable handles, min and max sizes, snap to collapse and nested groups in either direction. */
+/**
+ * Split panes with draggable, keyboard operable handles, min and max sizes, snap to collapse and nested groups in either direction.
+ *
+ * Use it for editors, inspectors and mail-style layouts where people size panes themselves.
+ * Children are `ResizablePanel` and `ResizableHandle` in alternation, directly inside (no
+ * wrapper elements). Sizes are percentages. Handles are ARIA separators: arrows resize, Shift
+ * jumps, Enter collapses a collapsible pane, double click resets. Give the group a height.
+ * For a fixed sidebar that only opens and closes use CollapsibleSidebar.
+ *
+ * @example
+ * <ResizablePanels className="h-96" onSizesChange={saveLayout}>
+ *   <ResizablePanel defaultSize={25} minSize={15} collapsible>Files</ResizablePanel>
+ *   <ResizableHandle aria-label="Resize file list" />
+ *   <ResizablePanel>Editor</ResizablePanel>
+ * </ResizablePanels>
+ * <ResizablePanels className="h-64" left={<Nav />} right={<Content />} initial={30} />
+ */
 type Orientation = "horizontal" | "vertical"
 
 type ResizablePanelProps = {
@@ -322,8 +338,9 @@ function ResizablePanels({
   const signature = panels.map((p) => `${p.min}/${p.max}/${p.def ?? "-"}/${p.collapsible ? 1 : 0}/${p.collapsedSize}`).join("|")
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const stablePanels = React.useMemo(() => panels, [signature])
+  const defaultsKey = defaultSizes?.join(",")
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const defaults = React.useMemo(() => normalize(stablePanels, defaultSizes), [stablePanels, defaultSizes?.join(",")])
+  const defaults = React.useMemo(() => normalize(stablePanels, defaultSizes), [stablePanels, defaultsKey])
   const [inner, setInner] = React.useState<number[]>(defaults)
   const raw = sizesProp ?? inner
   const sizes = raw.length === stablePanels.length ? raw : defaults

@@ -8,6 +8,7 @@ import { SegmentedControl } from "@/registry/ui/segmented-control"
 import { CodeBlock } from "@/registry/ui/code-block"
 import { hexToRgb, oklchToHex, toGamut } from "@/lib/color"
 import { Control } from "./shadow-generator"
+import { ShareLink, useShareUrl } from "./share-url"
 
 /*
  * CSS gradient generator. The gradient is plain data (kind, angle, position,
@@ -122,6 +123,28 @@ export const PRESETS: { name: string; g: Gradient }[] = [
   { name: "Hue ring", g: { kind: "conic", angle: 0, x: 50, y: 50, shape: "circle", space: "oklch", stops: [{ color: "#FF5A5A", pos: 0, alpha: 100 }, { color: "#FFD15A", pos: 17, alpha: 100 }, { color: "#5AE37A", pos: 33, alpha: 100 }, { color: "#5AD6FF", pos: 50, alpha: 100 }, { color: "#6B7BFF", pos: 67, alpha: 100 }, { color: "#E35AFF", pos: 83, alpha: 100 }, { color: "#FF5A5A", pos: 100, alpha: 100 }] } },
 ]
 
+/** Compact, URL-safe form of a gradient: `linear-135-50-50-circle-oklch-6D5BFF.0.100_F472B6.100.100`. */
+export const encodeGradient = (g: Gradient) =>
+  [g.kind, g.angle, g.x, g.y, g.shape, g.space, g.stops.map((s) => `${s.color.replace("#", "")}.${s.pos}.${s.alpha}`).join("_")].join("-")
+
+/** Reverses encodeGradient. Returns null for anything malformed, so a bad link falls back to the default. */
+export function decodeGradient(v: string): Gradient | null {
+  const [kind, angle, x, y, shape, space, stops] = v.split("-")
+  const n = (t: string, lo: number, hi: number) => (/^\d+(\.\d+)?$/.test(t ?? "") && +t >= lo && +t <= hi ? +t : null)
+  if (!["linear", "radial", "conic"].includes(kind) || !["circle", "ellipse"].includes(shape) || !["srgb", "oklch", "oklab"].includes(space)) return null
+  const a = n(angle, 0, 359), cx = n(x, 0, 100), cy = n(y, 0, 100)
+  if (a === null || cx === null || cy === null || !stops) return null
+  const list: Stop[] = []
+  for (const part of stops.split("_").slice(0, 16)) {
+    const [hex, pos, alpha] = part.split(".")
+    const p = n(pos, 0, 100), al = n(alpha, 0, 100)
+    if (!/^[0-9a-f]{6}$/i.test(hex ?? "") || p === null || al === null) return null
+    list.push({ color: `#${hex.toUpperCase()}`, pos: p, alpha: al })
+  }
+  if (list.length < 2) return null
+  return { kind: kind as GradientKind, angle: a, x: cx, y: cy, shape: shape as Gradient["shape"], space: space as Space, stops: list }
+}
+
 const CHECKER = "repeating-conic-gradient(rgb(0 0 0 / 0.08) 0% 25%, transparent 0% 50%) 0 0 / 16px 16px"
 
 /* ----------------------------------- UI ----------------------------------- */
@@ -196,25 +219,28 @@ function Dial({ value, onChange }: { value: number; onChange: (deg: number) => v
 }
 
 const INIT: Gradient = PRESETS[0].g
+const noop = () => () => {}
+const supportsOklch = () => {
+  try {
+    return CSS.supports("background-image", "linear-gradient(in oklch, red, blue)")
+  } catch {
+    return false
+  }
+}
 
 export function GradientGenerator() {
   const [g, setG] = React.useState<Gradient>(INIT)
   const [active, setActive] = React.useState(0)
   const [drag, setDrag] = React.useState<number | null>(null)
-  const [supported, setSupported] = React.useState(true)
+  const supported = React.useSyncExternalStore(noop, supportsOklch, () => true)
+  const link = useShareUrl({ g: encodeGradient(g) }, (p) => {
+    const d = decodeGradient(p.get("g") ?? "")
+    if (d) setG(d)
+  })
   const bar = React.useRef<HTMLDivElement>(null)
   const set = <K extends keyof Gradient>(k: K, v: Gradient[K]) => setG((p) => ({ ...p, [k]: v }))
   const setStop = (i: number, patch: Partial<Stop>) => setG((p) => ({ ...p, stops: p.stops.map((s, j) => (j === i ? { ...s, ...patch } : s)) }))
 
-  React.useEffect(() => {
-    try {
-      setSupported(typeof CSS !== "undefined" && CSS.supports("background-image", "linear-gradient(in oklch, red, blue)"))
-    } catch {
-      setSupported(false)
-    }
-  }, [])
-
-  const css = gradientCss(g)
   const shown = supported ? g : { ...g, space: "srgb" as Space }
   const previewCss = gradientCss(shown)
   const barCss = `linear-gradient(90deg${shown.space === "srgb" ? "" : ` in ${shown.space}`}, ${stopList(g.stops)})`
@@ -376,7 +402,10 @@ export function GradientGenerator() {
               ))}
             </div>
           </div>
-          <button type="button" onClick={() => { setG(INIT); setActive(0) }} className="text-[12.5px] text-fg-muted underline underline-offset-4 hover:text-fg">Reset</button>
+          <div className="flex items-center justify-between gap-3">
+            <button type="button" onClick={() => { setG(INIT); setActive(0) }} className="text-[12.5px] text-fg-muted underline underline-offset-4 hover:text-fg">Reset</button>
+            <ShareLink href={link} />
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">

@@ -2,9 +2,11 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 import { INSTALLS } from "@/content/install"
-import { ContentShell, Crumbs } from "@/components/seo/prose"
+import { Crumbs } from "@/components/seo/prose"
+import { DocsShell } from "../_components/docs-shell"
 import { JsonLd } from "@/components/seo/json-ld"
 import { breadcrumbLd, graph, itemListLd, meta } from "@/lib/seo"
+import { SITE } from "@/lib/site"
 import { CodeBlock } from "@/registry/ui/code-block"
 
 export const metadata: Metadata = meta({
@@ -15,27 +17,38 @@ export const metadata: Metadata = meta({
 
 export default function InstallIndex() {
   return (
-    <ContentShell>
+    <DocsShell>
       <JsonLd data={graph(itemListLd(INSTALLS.map((g) => ({ name: g.title, path: `/docs/installation/${g.slug}` })), "Installation guides"), breadcrumbLd([{ name: "Docs", path: "/docs" }, { name: "Installation", path: "/docs/installation" }]))} />
-      <div className="mx-auto max-w-4xl px-4 pt-12 pb-24 sm:px-6 sm:pt-16 lg:px-8">
+      <div className="max-w-3xl">
         <Crumbs items={[{ name: "Docs", href: "/docs" }, { name: "Installation" }]} />
-        <h1 className="mt-4 text-4xl leading-[1.02] font-medium tracking-[-0.045em] text-fg sm:text-6xl">Installation</h1>
+        <h1 className="mt-4 text-4xl leading-[1.04] font-medium tracking-[-0.045em] text-fg sm:text-5xl">Installation</h1>
         <p className="mt-5 max-w-2xl text-[1.125rem] leading-[1.65] text-fg-muted">
-          MiniDev UI works anywhere React and Tailwind CSS v4 run. Pick your framework for exact steps, or use the one line below if your project already uses the shadcn CLI.
+          MiniDev UI works anywhere React 18+ and Tailwind CSS v4 run. Pick your framework for exact steps. Already set up? One of these lines is all you need.
         </p>
-        <div className="mt-8">
-          <CodeBlock language="bash" code="npx shadcn@latest add @minidev/button" />
+        <div className="mt-8 space-y-4">
+          <div className="space-y-2">
+            <p className="text-[0.8125rem] font-medium text-fg">Own the source: the shadcn CLI copies one file into your repo</p>
+            <CodeBlock language="bash" code={`npx shadcn@latest add ${SITE.registry}/button`} />
+          </div>
+          <div className="space-y-2">
+            <p className="text-[0.8125rem] font-medium text-fg">Keep it in a dependency: the npm package</p>
+            <CodeBlock language="bash" code={`npm i ${SITE.npmPackage} @base-ui/react class-variance-authority clsx tailwind-merge lucide-react`} />
+          </div>
+          <p className="text-[0.875rem] leading-[1.7] text-fg-muted">
+            Want the shortest path from an empty folder? The <Link href="/docs#quick-start" className="text-accent-fg underline decoration-accent-line underline-offset-4">quick start</Link> gets a component on screen in five steps. Using an AI agent?{" "}
+            <Link href="/docs/ai" className="text-accent-fg underline decoration-accent-line underline-offset-4">Point it at the agent guide</Link>.
+          </p>
         </div>
         <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {INSTALLS.map((g) => (
-            <Link key={g.slug} href={`/docs/installation/${g.slug}`} className="group min-w-0 rounded-2xl border border-border bg-surface p-6 shadow-raised outline-none hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
+            <Link key={g.slug} href={`/docs/installation/${g.slug}`} className="group min-w-0 rounded-2xl border border-border bg-surface p-5 shadow-raised outline-none hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
               <span className="text-[1.25rem] font-medium tracking-[-0.025em] text-fg">{g.framework}</span>
               <span className="mt-2 block text-[0.875rem] leading-[1.6] text-fg-muted">{g.description}</span>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-fg">Read the steps <ArrowRightIcon className="size-3.5 transition-transform group-hover:translate-x-0.5" /></span>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-fg">Read the steps <ArrowRightIcon className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden /></span>
             </Link>
           ))}
         </div>
       </div>
-    </ContentShell>
+    </DocsShell>
   )
 }

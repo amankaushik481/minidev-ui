@@ -112,7 +112,8 @@ export const examples: Example[] = [
   {
     title: "Copy callback",
     description: "onCopy tells you what was copied and from which path, so you can confirm it in your own toast.",
-    code: `function CopyDemo() {
+    code: `// customer is the object from the "Compact without toolbar" example.
+function CopyDemo() {
   const [last, setLast] = React.useState<string | null>(null)
   return (
     <div className="flex w-full max-w-2xl flex-col gap-2">

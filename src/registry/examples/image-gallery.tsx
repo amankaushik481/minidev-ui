@@ -54,7 +54,8 @@ const OFFICE: GalleryImage[] = [
   {
     title: "Four columns",
     description: "Override the column classes for a denser wall; the tiles stay square and keep the 8px gap.",
-    code: `const PRODUCT: GalleryImage[] = [
+    code: `// swatch is the helper from the "Custom images" example; use real image URLs in your app.
+const PRODUCT: GalleryImage[] = [
   { src: swatch("hsl(220 55% 60%)", "hsl(240 45% 35%)"), alt: "Dashboard overview" },
   { src: swatch("hsl(200 60% 65%)", "hsl(220 50% 40%)"), alt: "Invoice editor" },
   { src: swatch("hsl(150 45% 55%)", "hsl(170 40% 30%)"), alt: "Bank sync settings" },

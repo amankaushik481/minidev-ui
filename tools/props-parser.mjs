@@ -61,18 +61,31 @@ function splitTop(s, seps) {
 
 function parseMembers(body) {
   const props = []
+  let pending
   for (let raw of splitTop(body, [";", ",", "\n"])) {
-    let doc
+    let doc = pending
     const d = raw.match(/\/\*\*([\s\S]*?)\*\//)
     if (d) {
       doc = d[1].replace(/^\s*\*\s?/gm, "").replace(/\s+/g, " ").trim()
       raw = raw.replace(d[0], "")
     }
-    raw = raw.trim()
-    if (!raw) continue
+    raw = raw.replace(/\/\*[\s\S]*?\*\//g, "").trim()
+    // A `/** doc */` on its own line arrives as its own chunk (we split on newlines): keep it for the next member.
+    if (!raw) {
+      pending = doc
+      continue
+    }
+    pending = undefined
     const m = raw.match(/^(readonly\s+)?["']?([A-Za-z_$][\w$-]*)["']?(\?)?\s*:\s*([\s\S]+)$/)
     if (!m) continue
-    props.push({ name: m[2], optional: Boolean(m[3]), type: m[4].replace(/\s+/g, " ").trim(), ...(doc ? { doc } : {}) })
+    let def
+    if (doc) {
+      def = doc.match(/@default\s+(.+?)(?=\s@(?:deprecated|see|example|remarks)\b|$)/)?.[1]
+      const deprecated = /@deprecated\b/.test(doc)
+      doc = doc.replace(/\s*@(?:default|deprecated|see|example|remarks)\b.*$/, "").trim()
+      if (deprecated) doc = `Deprecated. ${doc}`.trim()
+    }
+    props.push({ name: m[2], optional: Boolean(m[3]), type: m[4].replace(/\s+/g, " ").trim(), ...(doc ? { doc } : {}), ...(def ? { default: def } : {}) })
   }
   return props
 }
@@ -213,4 +226,56 @@ export function extractProps(src, title) {
     .filter(Boolean)
   if (!props.length && !extendsText.length) return null
   return { props, extends: [...new Set(extendsText)] }
+}
+
+/**
+ * The component's own JSDoc: the column-0 `/** … *\/` block that names the component ("Button — …"),
+ * else the one right above its declaration, else the first column-0 block in the file.
+ * Returns { summary, body, examples } where body is the "when to use" prose and examples are @example blocks.
+ */
+export function parseFileDoc(src, title) {
+  const blocks = [...src.matchAll(/^\/\*\*([\s\S]*?)\*\//gm)]
+  if (!blocks.length) return null
+  const decl = new RegExp(`^\\s*(?:export\\s+)?(?:default\\s+)?(?:async\\s+)?(?:function|const)\\s+${title}\\b`)
+  const pick =
+    blocks.find((b) => new RegExp(`^[\\s*]*${title}\\s+[—–-]`).test(b[1])) ??
+    blocks.find((b) => decl.test(src.slice(b.index + b[0].length).replace(/^\s*\n/, ""))) ??
+    blocks[0]
+  const lines = pick[1].split("\n").map((l) => l.replace(/^\s*\*(?: |$)/, "").replace(/\s+$/, ""))
+  const summary = []
+  const body = []
+  const examples = []
+  let mode = "summary"
+  for (const l of lines) {
+    const tag = l.match(/^\s*@(\w+)\s*(.*)$/)
+    if (tag) {
+      mode = tag[1] === "example" ? "example" : "tag"
+      if (mode === "example") examples.push(tag[2] ? [tag[2]] : [])
+      continue
+    }
+    if (!l.trim()) {
+      if (mode === "summary" && summary.length) mode = "body"
+      else if (mode === "example" || mode === "tag") mode = "body"
+      if (mode === "body") body.push("")
+      continue
+    }
+    if (mode === "summary") summary.push(l.trim())
+    else if (mode === "example") examples.at(-1).push(l)
+    else if (mode === "body") body.push(l.trim())
+  }
+  const text = summary.join(" ").replace(/^[A-Z][\w.]*(?:\s+[A-Z][\w.]*)*\s+[—–-]{1,2}\s+/, "")
+  const paras = body
+    .join("\n")
+    .split(/\n\s*\n/)
+    .map((p) => p.replace(/\n(?!\s*[-*] )/g, " ").trim())
+    .filter(Boolean)
+  const dedent = (ls) => {
+    const ind = Math.min(...ls.filter((l) => l.trim()).map((l) => l.match(/^\s*/)[0].length))
+    return ls.map((l) => l.slice(ind)).join("\n").trim()
+  }
+  return {
+    summary: text ? text[0].toUpperCase() + text.slice(1) : undefined,
+    body: paras.join("\n\n") || undefined,
+    examples: examples.filter((e) => e.some((l) => l.trim())).map(dedent),
+  }
 }

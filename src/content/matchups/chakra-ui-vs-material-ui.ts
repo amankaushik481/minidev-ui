@@ -55,6 +55,11 @@ const matchup: Matchup = {
       a: "CSS animations keyed to `data-state`, through `_open` and `_closed` style props",
       b: "Transition utilities ship with the core library",
     },
+    {
+      feature: "AI tooling",
+      a: "`llms.txt`, AI rules and skills, and the `@chakra-ui/react-mcp` MCP server (template tools need a Pro license)",
+      b: "`llms.txt` with a Markdown file per component page, and the MUI MCP server (`@mui/mcp`)",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -100,7 +105,7 @@ const matchup: Matchup = {
     },
   ],
   minidev: [
-    "MiniDev UI is neither a style prop system nor a Material Design library. It is a free, MIT licensed shadcn-compatible registry on Base UI and Tailwind CSS v4 that copies source into your repo. If you are choosing between these two because you want a complete, themed package without Tailwind, MiniDev UI is probably not your pick.",
+    "MiniDev UI is neither a style prop system nor a Material Design library. It is a free, MIT licensed shadcn-compatible registry on Base UI and Tailwind CSS v4 that copies source into your repo. If you are choosing between these two because you want a complete, themed package without Tailwind, MiniDev UI is probably not your pick. For AI coding agents it publishes [`llms.txt`](/glossary/llms-txt), a Markdown page per component, [`AGENTS.md`](/glossary/agents-md) rules and an [MCP server](/glossary/mcp); setup is on [Use MiniDev UI with AI agents](/docs/ai).",
     "If you are open to Tailwind and want finished product screens you can edit, such as billing, settings and admin pages, compare it with [Chakra UI](/compare/minidev-ui-vs-chakra-ui) and with [Material UI](/compare/minidev-ui-vs-material-ui).",
   ],
   faq: [
@@ -139,6 +144,8 @@ const matchup: Matchup = {
     { label: "Material UI all components", url: "https://mui.com/material-ui/all-components/" },
     { label: "MUI templates", url: "https://mui.com/templates/" },
     { label: "Base UI", url: "https://base-ui.com/" },
+    { label: "Material UI llms.txt", url: "https://mui.com/material-ui/llms.txt" },
+    { label: "MUI MCP server", url: "https://mui.com/material-ui/getting-started/mcp/" },
   ],
 }
 

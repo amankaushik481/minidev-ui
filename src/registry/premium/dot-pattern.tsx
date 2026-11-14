@@ -4,11 +4,21 @@ import { useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 /**
- * A background of dots or grid lines drawn as one SVG pattern, faded at the
- * edges, with an optional glow that follows the pointer and lights the
- * pattern beneath it. Sits behind content with pointer-events off.
+ * A background of dots or grid lines drawn as one SVG pattern, faded at the edges, with an optional glow that lights the pattern under the pointer.
+ *
+ * The pattern sits behind your children with pointer-events off. The glow
+ * writes CSS variables on pointer move, so React never re-renders while it
+ * follows; it is off for reduced motion. Use it as a quiet section or hero
+ * backdrop; for animated texture use FlickeringGrid, for a reactive grid of
+ * boxes use BackgroundBoxes.
+ *
+ * @example
+ * <DotPattern variant="grid" gap={24} className="h-[420px]">
+ *   <h2 className="text-3xl text-fg">Every pixel, accounted for</h2>
+ * </DotPattern>
  */
 type DotPatternProps = {
+  /** Dots at each cell centre, or hairline grid lines. */
   variant?: "dots" | "grid"
   /** Cell size in pixels. */
   gap?: number
@@ -26,7 +36,6 @@ function DotPattern({ variant = "dots", gap = 18, weight = 1, glow = true, fade 
   const reduce = useReducedMotion()
   const id = React.useId().replace(/:/g, "")
   const ref = React.useRef<HTMLDivElement>(null)
-  const [p, setP] = React.useState<{ x: number; y: number } | null>(null)
   const pattern = (color: string) => (
     <pattern id={`${id}-${color === "lit" ? "l" : "b"}`} width={gap} height={gap} patternUnits="userSpaceOnUse">
       {variant === "dots" ? (
@@ -37,16 +46,20 @@ function DotPattern({ variant = "dots", gap = 18, weight = 1, glow = true, fade 
     </pattern>
   )
   const mask = fade ? "radial-gradient(ellipse at center, black 30%, transparent 75%)" : undefined
+  const spot = "radial-gradient(160px circle at var(--dp-x, -999px) var(--dp-y, -999px), black, transparent)"
   return (
     <div
       ref={ref}
       data-slot="dot-pattern"
       onPointerMove={(e) => {
-        if (!glow || reduce) return
-        const r = ref.current!.getBoundingClientRect()
-        setP({ x: e.clientX - r.left, y: e.clientY - r.top })
+        const el = ref.current
+        if (!glow || reduce || !el) return
+        const r = el.getBoundingClientRect()
+        el.style.setProperty("--dp-x", `${e.clientX - r.left}px`)
+        el.style.setProperty("--dp-y", `${e.clientY - r.top}px`)
+        el.style.setProperty("--dp-on", "1")
       }}
-      onPointerLeave={() => setP(null)}
+      onPointerLeave={() => ref.current?.style.setProperty("--dp-on", "0")}
       className={cn("relative isolate h-[320px] w-full overflow-hidden rounded-2xl border border-border bg-bg", className)}
     >
       <svg aria-hidden className="pointer-events-none absolute inset-0 -z-10 size-full" style={{ maskImage: mask, WebkitMaskImage: mask }}>
@@ -56,11 +69,11 @@ function DotPattern({ variant = "dots", gap = 18, weight = 1, glow = true, fade 
         </defs>
         <rect width="100%" height="100%" fill={`url(#${id}-b)`} />
       </svg>
-      {glow && p ? (
+      {glow && !reduce ? (
         <svg
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 size-full"
-          style={{ maskImage: `radial-gradient(160px circle at ${p.x}px ${p.y}px, black, transparent)`, WebkitMaskImage: `radial-gradient(160px circle at ${p.x}px ${p.y}px, black, transparent)` }}
+          className="pointer-events-none absolute inset-0 -z-10 size-full opacity-[var(--dp-on,0)] transition-opacity duration-200"
+          style={{ maskImage: spot, WebkitMaskImage: spot }}
         >
           <rect width="100%" height="100%" fill={`url(#${id}-l)`} />
         </svg>

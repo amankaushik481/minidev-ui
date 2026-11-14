@@ -12,24 +12,30 @@ import { BLOCK_TYPES } from "@/content/blocks"
 import { INSTALLS } from "@/content/install"
 import { TEMPLATE_SEO } from "@/content/pages"
 import { BRAND_SLUGS } from "@/lib/seo-routes"
+import { CHANGELOG } from "@/content/changelog"
 import { SITE } from "@/lib/site"
 
-/** Bump when the component set changes; used as lastModified for library pages. */
-const LIBRARY_UPDATED = new Date("2026-10-14")
+/** Library pages change with each release, so the newest changelog entry dates them. */
+const LIBRARY_UPDATED = new Date(CHANGELOG[0].date)
+/** Keep in step with UPDATED in src/app/docs/ai/page.tsx. */
+const AI_DOCS_UPDATED = new Date("2026-11-14")
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const u = (path: string) => `${SITE.url}${path}`
   const page = (path: string, priority: number, changeFrequency: "daily" | "weekly" | "monthly" = "weekly", lastModified = LIBRARY_UPDATED) => ({ url: u(path), lastModified, changeFrequency, priority })
-  // The alternatives index changes when any of its pages is re-checked.
-  const alternativesChecked = new Date(ALTERNATIVES.map((p) => p.checked).reduce((x, y) => (x > y ? x : y)))
+  const newest = (dates: string[]) => new Date(dates.reduce((x, y) => (x > y ? x : y)))
+  // An index changes when any page under it changes.
+  const alternativesChecked = newest(ALTERNATIVES.map((p) => p.checked))
+  const compareChecked = newest([...COMPARISONS, ...MATCHUPS].map((c) => c.checked))
+  const guidesUpdated = newest(GUIDES.map((g) => g.updated ?? g.date))
   return [
     page("", 1, "weekly"),
     page("/docs", 0.9),
     page("/components", 0.9),
     page("/gallery", 0.8),
     page("/templates", 0.9),
-    page("/guides", 0.8),
-    page("/compare", 0.6, "monthly"),
+    page("/guides", 0.8, "weekly", guidesUpdated),
+    page("/compare", 0.6, "monthly", compareChecked),
     page("/alternatives", 0.6, "monthly", alternativesChecked),
     page("/tools", 0.8),
     page("/studio", 0.8, "monthly"),
@@ -38,6 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/glossary", 0.7, "monthly"),
     page("/changelog", 0.5, "weekly"),
     page("/docs/installation", 0.8, "monthly"),
+    page("/docs/ai", 0.9, "weekly", AI_DOCS_UPDATED),
     page("/blocks", 0.9),
     ...BLOCK_TYPES.map((b) => page(`/blocks/${b.slug}`, 0.8)),
     page("/about", 0.5, "monthly"),

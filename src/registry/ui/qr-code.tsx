@@ -4,7 +4,18 @@ import { CheckIcon, DownloadIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
-/** A dependency free QR code rendered as crisp SVG, with error correction levels, a logo well and a one click SVG download. */
+/**
+ * A dependency free QR code rendered as crisp SVG, with error correction levels, a logo well and a one click SVG download.
+ *
+ * Use it for share links, app downloads, Wi-Fi and payment payloads. The modules use
+ * `currentColor`, so the code follows your text token in both themes. A logo child only renders
+ * at `level="H"`. Pass `bare` for just the SVG. `encodeQr` is exported for custom renderers.
+ *
+ * @example
+ * <QrCode value="https://ui.minidev.pro" />
+ * <QrCode value={inviteUrl} level="H" size={160} caption="Scan to join"><Logo className="size-6" /></QrCode>
+ * <QrCode value={otpauthUri} bare size={120} title="Authenticator setup code" />
+ */
 type QrLevel = "L" | "M" | "Q" | "H"
 
 type QrCodeProps = {
@@ -144,7 +155,7 @@ function utf8(text: string): Uint8Array {
   if (typeof TextEncoder !== "undefined") return new TextEncoder().encode(text)
   const out: number[] = []
   for (let i = 0; i < text.length; i++) {
-    let c = text.codePointAt(i)!
+    const c = text.codePointAt(i)!
     if (c > 0xffff) i++
     if (c < 0x80) out.push(c)
     else if (c < 0x800) out.push(0xc0 | (c >> 6), 0x80 | (c & 63))

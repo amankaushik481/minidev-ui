@@ -112,8 +112,12 @@ export const libraryLd = () => ({
   "@type": "SoftwareSourceCode",
   "@id": `${SITE.url}/#library`,
   name: SITE.name,
+  alternateName: SITE.npmPackage,
+  description: `${SITE.countLabel} React and Tailwind CSS v4 components, blocks and templates built on Base UI. Install any one with the shadcn CLI or let an AI agent read /llms.txt.`,
   url: SITE.url,
+  version: SITE.version,
   codeRepository: SITE.github ?? SITE.npm,
+  sameAs: [SITE.npm, ...(SITE.github ? [SITE.github] : [])],
   programmingLanguage: ["TypeScript", "React", "CSS"],
   runtimePlatform: "Web browser",
   license: "https://opensource.org/licenses/MIT",
@@ -149,11 +153,16 @@ export function itemListLd(items: { name: string; path: string }[], name?: strin
 }
 
 export function componentLd(c: { name: string; title: string; description: string; keywords?: string[]; deps: string[] }) {
+  const url = abs(`/docs/${c.name}`)
   return {
     "@type": "SoftwareSourceCode",
+    "@id": `${url}#code`,
     name: `${c.title} for React`,
     description: c.description,
-    url: abs(`/docs/${c.name}`),
+    url,
+    mainEntityOfPage: url,
+    version: SITE.version,
+    codeRepository: SITE.github ?? SITE.npm,
     codeSampleType: "full solution",
     programmingLanguage: { "@type": "ComputerLanguage", name: "TypeScript (React)" },
     runtimePlatform: "React 19, Tailwind CSS v4",
@@ -163,7 +172,11 @@ export function componentLd(c: { name: string; title: string; description: strin
     ...(c.deps.length ? { softwareRequirements: c.deps.join(", ") } : {}),
     isPartOf: { "@id": `${SITE.url}/#library` },
     author: { "@id": ORG_ID },
-    downloadUrl: abs(`/r/${c.name}.json`),
+    // The two machine-readable copies: the shadcn registry item and the Markdown docs agents read.
+    encoding: [
+      { "@type": "MediaObject", contentUrl: abs(`/r/${c.name}.json`), encodingFormat: "application/json" },
+      { "@type": "MediaObject", contentUrl: abs(`/docs/${c.name}.md`), encodingFormat: "text/markdown" },
+    ],
   }
 }
 

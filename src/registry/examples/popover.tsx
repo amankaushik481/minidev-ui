@@ -14,7 +14,7 @@ function ControlledDemo() {
       <PopoverTrigger render={<Button variant="outline" />}>Archive customer</PopoverTrigger>
       <PopoverContent>
         <PopoverHeader>
-          <PopoverTitle>Archive Globex?</PopoverTitle>
+          <PopoverTitle>Archive Kestrel Labs?</PopoverTitle>
           <PopoverDescription>Open invoices stay payable. You can restore the customer later.</PopoverDescription>
         </PopoverHeader>
         <div className="flex justify-end gap-2">
@@ -133,7 +133,7 @@ export const examples: Example[] = [
       <PopoverTrigger render={<Button variant="outline" />}>Archive customer</PopoverTrigger>
       <PopoverContent>
         <PopoverHeader>
-          <PopoverTitle>Archive Globex?</PopoverTitle>
+          <PopoverTitle>Archive Kestrel Labs?</PopoverTitle>
           <PopoverDescription>Open invoices stay payable. You can restore the customer later.</PopoverDescription>
         </PopoverHeader>
         <div className="flex justify-end gap-2">

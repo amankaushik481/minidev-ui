@@ -3,29 +3,53 @@ import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
-const cells = [
-  { title: "Realtime", body: "Every change syncs across devices in under 100ms.", span: "sm:col-span-2" },
-  { title: "Secure", body: "SSO, audit logs and encryption by default.", span: "" },
-  { title: "Motion", body: "Reduced-motion first.", span: "" },
-  { title: "Open", body: "A typed API and webhooks for everything you see.", span: "sm:col-span-2" },
+/**
+ * A bento grid of feature tiles in mixed widths that rise in as they scroll into view and lift slightly on hover.
+ *
+ * Wide tiles span two of three columns from `sm` up. Tiles settle on the
+ * morph spring once; reduced motion shows them in place with no hover lift.
+ * Use it for a features overview with one or two hero features; for equal
+ * cards in a row use AnimatedFeatureRow.
+ *
+ * @example
+ * <FeatureBentoMotion items={[{ title: "Realtime", body: "Syncs in under 100ms.", wide: true }, { title: "Secure", body: "SSO and audit logs." }]} />
+ */
+type BentoItem = {
+  /** Tile heading (rendered as h3). Must be unique. */
+  title: string
+  body: string
+  /** Span two columns from the sm breakpoint. */
+  wide?: boolean
+}
+
+type FeatureBentoMotionProps = {
+  items?: BentoItem[]
+  className?: string
+}
+
+const SAMPLE: BentoItem[] = [
+  { title: "Realtime", body: "Every change syncs across devices in under 100ms.", wide: true },
+  { title: "Secure", body: "SSO, audit logs and encryption by default." },
+  { title: "Motion", body: "Reduced-motion first." },
+  { title: "Open", body: "A typed API and webhooks for everything you see.", wide: true },
 ]
 
-function FeatureBentoMotion({ className }: { className?: string }) {
+const MORPH = { type: "spring", bounce: 0.16, duration: 0.5 } as const
+const SNAPPY = { type: "spring", bounce: 0.18, duration: 0.42 } as const
+
+function FeatureBentoMotion({ items = SAMPLE, className }: FeatureBentoMotionProps) {
   const reduce = useReducedMotion()
   return (
     <div data-slot="feature-bento-motion" data-tier="premium" className={cn("grid gap-3 sm:grid-cols-3", className)}>
-      {cells.map((c, i) => (
+      {items.map((c, i) => (
         <motion.div
           key={c.title}
           initial={reduce ? false : { y: 16 }}
           whileInView={{ y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: i * 0.05 }}
-          whileHover={reduce ? undefined : { y: -3 }}
-          className={cn(
-            "rounded-xl border border-border bg-surface p-5 shadow-highlight",
-            c.span
-          )}
+          transition={reduce ? { duration: 0 } : { ...MORPH, delay: i * 0.05 }}
+          whileHover={reduce ? undefined : { y: -2, transition: SNAPPY }}
+          className={cn("rounded-xl border border-border bg-surface p-5 shadow-raised", c.wide && "sm:col-span-2")}
         >
           <div className="mb-3 h-px w-8 bg-accent" aria-hidden />
           <h3 className="text-sm font-medium text-fg">{c.title}</h3>
@@ -36,3 +60,4 @@ function FeatureBentoMotion({ className }: { className?: string }) {
   )
 }
 export { FeatureBentoMotion }
+export type { FeatureBentoMotionProps, BentoItem as FeatureBentoItem }

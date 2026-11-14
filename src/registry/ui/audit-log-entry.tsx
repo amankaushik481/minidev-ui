@@ -4,10 +4,21 @@ import { cn } from "@/lib/utils"
 import { RelativeTime } from "@/registry/ui/relative-time"
 import { Avatar, AvatarFallback } from "@/registry/ui/avatar"
 
-/** One line of an audit log: who did what to which record, with a relative timestamp. */
+/**
+ * One line of an audit log: who did what to which record, with a relative timestamp.
+ *
+ * Use for a single event; stack several in `AuditTrail`. Prefer `ActivityFeed` for casual
+ * "recent activity" without exact times. The timestamp is a `<time datetime>` for machines.
+ *
+ * @example
+ * <AuditLogEntry actor="Maya Chen" action="approved refund on" target="INV-2041" date="2026-11-14T09:12:00Z" />
+ */
 type AuditLogEntryProps = {
+  /** Who did it; initials are derived for the avatar. */
   actor?: string
+  /** What they did, written to follow the name ("archived invoice"). */
   action?: string
+  /** The record acted on, shown emphasised after the action. */
   target?: string
   /** When it happened. Defaults to about two hours ago. */
   date?: string | Date
@@ -15,6 +26,8 @@ type AuditLogEntryProps = {
 }
 
 const SAMPLE_AGE_MS = 2 * 60 * 60 * 1000
+// Floored to the minute so the server and client render the same sample timestamp.
+const flooredNow = () => Math.floor(Date.now() / 60_000) * 60_000
 
 function AuditLogEntry({
   actor = "Priya Raman",
@@ -23,7 +36,7 @@ function AuditLogEntry({
   date,
   className,
 }: AuditLogEntryProps) {
-  const when = React.useMemo(() => date ?? new Date(Date.now() - SAMPLE_AGE_MS), [date])
+  const when = React.useMemo(() => date ?? new Date(flooredNow() - SAMPLE_AGE_MS), [date])
   return (
     <div
       data-slot="audit-log-entry"
@@ -33,7 +46,7 @@ function AuditLogEntry({
       )}
     >
       <Avatar className="size-7">
-        <AvatarFallback>{actor.slice(0, 2).toUpperCase()}</AvatarFallback>
+        <AvatarFallback aria-hidden>{actor.trim().split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}</AvatarFallback>
       </Avatar>
       <div className="min-w-0 flex-1">
         <p className="text-sm text-fg">

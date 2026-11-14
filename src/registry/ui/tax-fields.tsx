@@ -2,16 +2,37 @@
 import { Input } from "@/registry/ui/input"
 import { cn } from "@/lib/utils"
 
-function TaxFields({ className }: { className?: string }) {
+/**
+ * Country and tax ID fields side by side, for checkout and billing-details forms.
+ *
+ * Uncontrolled inputs with `name`s, so they submit with a plain `<form>`. Pair it with `BillingAddress` for the full postal address.
+ *
+ * @example
+ * <form action={saveBilling}><TaxFields defaultCountry="Germany" /></form>
+ */
+type TaxFieldsProps = {
+  /** Initial country. */
+  defaultCountry?: string
+  /** Initial VAT, GST or EIN number. */
+  defaultTaxId?: string
+  /** Prefix for the field names: `${namePrefix}country` and `${namePrefix}taxId`. */
+  namePrefix?: string
+  className?: string
+}
+
+function TaxFields({ defaultCountry = "United States", defaultTaxId, namePrefix = "", className }: TaxFieldsProps) {
   return (
     <div data-slot="tax-fields" className={cn("grid gap-3 sm:grid-cols-2", className)}>
-      <label className="block text-sm text-fg">Country
-        <Input className="mt-1.5" defaultValue="United States" aria-label="Country" />
+      <label className="block text-sm font-medium text-fg">
+        Country
+        <Input className="mt-1.5" name={`${namePrefix}country`} autoComplete="country-name" defaultValue={defaultCountry} />
       </label>
-      <label className="block text-sm text-fg">Tax ID
-        <Input className="mt-1.5 font-mono" placeholder="VAT / EIN" aria-label="Tax ID" />
+      <label className="block text-sm font-medium text-fg">
+        Tax ID
+        <Input className="mt-1.5 font-mono" name={`${namePrefix}taxId`} placeholder="VAT / EIN" spellCheck={false} defaultValue={defaultTaxId} />
       </label>
     </div>
   )
 }
 export { TaxFields }
+export type { TaxFieldsProps }

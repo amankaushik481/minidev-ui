@@ -55,7 +55,7 @@ export const examples: Example[] = [
     title: "From the side",
     description: "direction sets where the content travels from; offset is the distance in pixels and blur the starting softness.",
     code: `<BlurFade direction="left" offset={32} blur={12} duration={0.7}>
-  <div className="w-80 rounded-2xl border border-border bg-surface p-5 shadow-raised">
+  <div className="w-full max-w-xs rounded-2xl border border-border bg-surface p-5 shadow-raised">
     <p className="text-xs font-medium tracking-[0.06em] text-accent-fg uppercase">Lumen 3.0</p>
     <p className="mt-2 text-xl font-medium tracking-[-0.02em] text-fg">Close the books in minutes</p>
     <p className="mt-1 text-sm text-fg-muted">Reconciliation, reminders and receipts, handled overnight.</p>
@@ -64,7 +64,7 @@ export const examples: Example[] = [
 </BlurFade>`,
     node: (
       <BlurFade direction="left" offset={32} blur={12} duration={0.7}>
-        <div className="w-80 rounded-2xl border border-border bg-surface p-5 shadow-raised">
+        <div className="w-full max-w-xs rounded-2xl border border-border bg-surface p-5 shadow-raised">
           <p className="text-xs font-medium tracking-[0.06em] text-accent-fg uppercase">Lumen 3.0</p>
           <p className="mt-2 text-xl font-medium tracking-[-0.02em] text-fg">Close the books in minutes</p>
           <p className="mt-1 text-sm text-fg-muted">Reconciliation, reminders and receipts, handled overnight.</p>

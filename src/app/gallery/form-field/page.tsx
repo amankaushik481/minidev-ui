@@ -5,7 +5,7 @@ import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 export default function Page() {
   return (
-    <GalleryPage title="Form field wrapper">
+    <GalleryPage title="Form field">
       <GallerySection title="States">
         <FormField id="ff1" label="Email" description="We will never share this." className="w-72">
           <Input id="ff1" type="email" placeholder="you@company.com" />

@@ -13,7 +13,7 @@ function InvoiceRowDemo() {
     { id: "void", label: "Void invoice", destructive: true, onSelect: () => setLast("Voided INV-2041") },
   ]
   return (
-    <div className="flex w-80 flex-col gap-2">
+    <div className="flex w-full max-w-xs flex-col gap-2">
       <ContextMenu items={items}>
         <div className="flex items-center justify-between rounded-xl border border-border bg-surface px-3 py-2.5 text-sm shadow-raised">
           <div>
@@ -79,7 +79,7 @@ export const examples: Example[] = [
     { id: "void", label: "Void invoice", destructive: true, onSelect: () => setLast("Voided INV-2041") },
   ]
   return (
-    <div className="flex w-80 flex-col gap-2">
+    <div className="flex w-full max-w-xs flex-col gap-2">
       <ContextMenu items={items}>
         <div className="flex items-center justify-between rounded-xl border border-border bg-surface px-3 py-2.5 text-sm shadow-raised">
           <div>

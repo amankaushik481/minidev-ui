@@ -3,6 +3,25 @@ import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
+/**
+ * SegmentedControl — a row of options with a raised thumb that glides to the selected one.
+ *
+ * Use it for two to five mutually exclusive views or modes (Monthly / Yearly, List / Board).
+ * It is a radio group: Tab lands on the selected option, arrows move and select, Home and End
+ * jump. Controlled with `value` + `onChange` or uncontrolled with `defaultValue`. For form
+ * fields use RadioGroup; for switching whole panels use Tabs; for on/off toolbar buttons use
+ * ToggleGroup.
+ *
+ * @example
+ * <SegmentedControl items={["Day", "Week", "Month"]} defaultValue="Week" aria-label="Range" />
+ * <SegmentedControl
+ *   aria-label="Layout"
+ *   value={layout}
+ *   onChange={setLayout}
+ *   options={[{ value: "list", label: "List", icon: <ListIcon /> }, { value: "board", label: "Board", icon: <KanbanIcon /> }]}
+ * />
+ */
+
 /*
  * GOLD STANDARD COMPONENT. Other components copy the patterns in this file:
  * - one visual idea (a raised thumb that glides between options),
@@ -12,6 +31,7 @@ import { cn } from "@/lib/utils"
  */
 
 type Option = {
+  /** Value passed to `onChange`. */
   value: string
   label: React.ReactNode
   icon?: React.ReactNode
@@ -23,8 +43,8 @@ type Option = {
 type Size = "sm" | "default" | "lg"
 
 const SIZE: Record<Size, { track: string; item: string; text: string }> = {
-  sm: { track: "h-8 rounded-[9px] p-[3px]", item: "gap-1.5 rounded-md px-2.5 [&_svg]:size-3.5", text: "text-xs" },
-  default: { track: "h-9 rounded-[10px] p-[3px]", item: "gap-1.5 rounded-[7px] px-3 [&_svg]:size-4", text: "text-[0.8125rem]" },
+  sm: { track: "h-8 rounded-lg p-0.5", item: "gap-1.5 rounded-md px-2.5 [&_svg]:size-3.5", text: "text-xs" },
+  default: { track: "h-9 rounded-[10px] p-0.5", item: "gap-1.5 rounded-lg px-3 [&_svg]:size-4", text: "text-[0.8125rem]" },
   lg: { track: "h-11 rounded-xl p-1", item: "gap-2 rounded-lg px-4 [&_svg]:size-4", text: "text-sm" },
 }
 
@@ -33,14 +53,19 @@ type SegmentedControlProps = {
   options?: Option[]
   /** Shorthand: plain labels, value = label. */
   items?: string[]
+  /** Controlled selected value. */
   value?: string
+  /** Starting value when uncontrolled. Defaults to the first option. */
   defaultValue?: string
+  /** Fires with the newly selected value. */
   onChange?: (value: string) => void
+  /** Track height: 32, 36 or 44px. */
   size?: Size
   /** Stretch to the container and split space evenly. */
   fullWidth?: boolean
   disabled?: boolean
   className?: string
+  /** Accessible name of the group. Always set one that says what is being chosen. */
   "aria-label"?: string
 }
 
@@ -73,6 +98,9 @@ function SegmentedControl({
   }
 
   const enabled = options.map((o, i) => (o.disabled || disabled ? -1 : i)).filter((i) => i >= 0)
+  // The selected option is the Tab stop; with no match, the first enabled one is, so the group stays reachable.
+  const selectedIndex = options.findIndex((o) => o.value === value)
+  const tabStop = selectedIndex >= 0 ? selectedIndex : (enabled[0] ?? 0)
   const move = (from: number, dir: 1 | -1 | "first" | "last") => {
     const pos = enabled.indexOf(from)
     const next =
@@ -89,7 +117,7 @@ function SegmentedControl({
       aria-disabled={disabled || undefined}
       data-slot="segmented-control"
       className={cn(
-        "relative isolate inline-flex items-stretch bg-sunken shadow-[inset_0_0_0_1px_var(--border)]",
+        "relative isolate inline-flex items-stretch bg-sunken ring-1 ring-border ring-inset",
         s.track,
         fullWidth && "flex w-full",
         disabled && "opacity-50",
@@ -109,7 +137,7 @@ function SegmentedControl({
             role="radio"
             aria-checked={active}
             disabled={isDisabled}
-            tabIndex={active ? 0 : -1}
+            tabIndex={i === tabStop ? 0 : -1}
             data-state={active ? "on" : "off"}
             onClick={() => select(o.value)}
             onKeyDown={(e) => {
@@ -134,7 +162,7 @@ function SegmentedControl({
                 layoutId={layoutId}
                 aria-hidden
                 data-slot="segmented-control-thumb"
-                className="absolute inset-0 -z-10 rounded-[inherit] bg-raised shadow-[0_1px_2px_0_oklch(0_0_0/0.08),0_0_0_1px_var(--border),inset_0_1px_0_0_var(--highlight)]"
+                className="absolute inset-0 -z-10 rounded-[inherit] bg-raised shadow-raised ring-1 ring-border"
                 transition={reduce ? { duration: 0 } : { type: "spring", bounce: 0.18, duration: 0.42 }}
               />
             ) : (

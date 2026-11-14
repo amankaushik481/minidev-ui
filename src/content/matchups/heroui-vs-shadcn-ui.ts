@@ -102,7 +102,7 @@ const matchup: Matchup = {
     },
   ],
   minidev: [
-    "MiniDev UI follows the shadcn/ui model: a free, MIT shadcn-compatible registry on Base UI and Tailwind CSS v4 that copies source into your repo. If you prefer that model but want the kind of full pages HeroUI sells in Pro, such as dashboards and chat, MiniDev UI includes billing, settings, sign in, admin and chat pages and motion components at no cost.",
+    "MiniDev UI follows the shadcn/ui model: a free, MIT shadcn-compatible registry on Base UI and Tailwind CSS v4 that copies source into your repo. If you prefer that model but want the kind of full pages HeroUI sells in Pro, such as dashboards and chat, MiniDev UI includes billing, settings, sign in, admin and chat pages and motion components at no cost. For AI coding agents it publishes [`llms.txt`](/glossary/llms-txt), a Markdown page per component, [`AGENTS.md`](/glossary/agents-md) rules and an [MCP server](/glossary/mcp); setup is on [Use MiniDev UI with AI agents](/docs/ai).",
     "If React Aria and a package you update with a version bump are what you want, HeroUI remains the better fit. See [MiniDev UI vs HeroUI](/compare/minidev-ui-vs-heroui) and [MiniDev UI vs shadcn/ui](/compare/minidev-ui-vs-shadcn-ui).",
   ],
   faq: [

@@ -11,6 +11,10 @@ import { COMPONENT_INDEX } from "@/lib/component-index"
 import { breadcrumbLd, faqLd, graph, itemListLd, meta } from "@/lib/seo"
 import { componentCopy, humanTitle } from "@/lib/seo-routes"
 import { SITE } from "@/lib/site"
+import { cn } from "@/lib/utils"
+import { AgentNote, InstallAll } from "../../components/_browse/install-card"
+
+const chip = "group inline-flex items-center gap-1.5 rounded-xl border border-border bg-surface px-3.5 py-2 text-[0.875rem] text-fg shadow-key outline-none transition-[border-color] duration-[70ms] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent"
 
 type Params = { params: Promise<{ type: string }> }
 
@@ -51,6 +55,9 @@ export default async function BlockTypePage({ params }: Params) {
             <span key={t} className="rounded-full border border-border bg-surface px-3 py-1 shadow-xs">{t}</span>
           ))}
         </div>
+        <div className="mt-6 max-w-3xl">
+          <InstallAll names={entries.map((e) => e.name)} label={`Copy all ${entries.length}`} />
+        </div>
         <div className="mt-10 grid max-w-3xl grid-cols-1 gap-4">
           {b.intro.map((p) => (
             <p key={p.slice(0, 24)} className="text-[1.0625rem] leading-[1.75] text-fg-muted">
@@ -65,25 +72,38 @@ export default async function BlockTypePage({ params }: Params) {
           ))}
         </section>
 
+        <AgentNote />
+
         <div className="max-w-3xl">
           <FaqList faq={b.faq} />
         </div>
 
-        <section className="mt-16">
-          <h2 className="text-[1.25rem] font-medium tracking-[-0.02em] text-fg">More block types</h2>
-          <div className="mt-4 flex flex-wrap gap-2">
+        <nav aria-labelledby="more-types" className="mt-16">
+          <h2 id="more-types" className="text-[1.25rem] font-medium tracking-[-0.02em] text-fg">
+            More block types
+          </h2>
+          <ul className="mt-4 flex flex-wrap gap-2">
             {others.map((o) => (
-              <Link key={o.slug} href={`/blocks/${o.slug}`} className="group inline-flex items-center gap-1.5 rounded-xl border border-border bg-surface px-3.5 py-2 text-[0.875rem] text-fg shadow-key hover:border-border-strong">
-                {o.name} <ArrowRightIcon className="size-3.5 text-fg-subtle transition-transform group-hover:translate-x-0.5" />
-              </Link>
+              <li key={o.slug}>
+                <Link href={`/blocks/${o.slug}`} className={chip}>
+                  {o.name} <ArrowRightIcon className="size-3.5 text-fg-subtle transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </li>
             ))}
             {category ? (
-              <Link href={`/components/${category.id}`} className="inline-flex items-center gap-1.5 rounded-xl border border-accent-line bg-accent-soft px-3.5 py-2 text-[0.875rem] text-fg shadow-key">
-                All {category.label.toLowerCase()} components <ArrowRightIcon className="size-3.5" />
-              </Link>
+              <li>
+                <Link href={`/components/${category.id}`} className={cn(chip, "border-accent-line bg-accent-soft")}>
+                  More in {category.label} <ArrowRightIcon className="size-3.5" />
+                </Link>
+              </li>
             ) : null}
-          </div>
-        </section>
+            <li>
+              <Link href="/templates" className={chip}>
+                Full templates <ArrowRightIcon className="size-3.5 text-fg-subtle transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </li>
+          </ul>
+        </nav>
         <StudioNote />
       </div>
     </ContentShell>

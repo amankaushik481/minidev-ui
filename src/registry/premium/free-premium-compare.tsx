@@ -8,6 +8,19 @@ import { CheckIcon } from "lucide-react"
 const FREE = ["MIT product primitives", "Forms · tables · AI chat", "Billing & admin surfaces", "Gallery + docs + playground", "DESIGN.md as law"]
 const PREM = ["Kinetic heroes & sticky stories", "Launch / investor / pricing kits", "Magnetic CTAs & wipe compares", "Client pitch showcase", "Same tokens — zero theme drift"]
 
+/**
+ * Two side-by-side plan cards, Free and Premium, each with a price, a checklist and a link button; the featured card gets an accent ring.
+ *
+ * Cards rise in on the morph spring as they scroll into view; reduced motion
+ * shows them in place. The buttons are real links. Use it for a two-tier
+ * pricing moment; for a detailed feature matrix put FeatureComparison under
+ * it, and for three or more tiers use a pricing table.
+ *
+ * @example
+ * <FreePremiumCompare />
+ */
+const MORPH = { type: "spring", bounce: 0.16, duration: 0.5 } as const
+
 function FreePremiumCompare({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   return (
@@ -25,19 +38,19 @@ function FreePremiumCompare({ className }: { className?: string }) {
           initial={reduce ? false : { y: 16 }}
           whileInView={{ y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: i * 0.08, duration: 0.3 }}
+          transition={reduce ? { duration: 0 } : { ...MORPH, delay: i * 0.08 }}
           className={cn(
-            "rounded-2xl border bg-surface p-6 shadow-highlight sm:p-8",
+            "rounded-2xl border bg-surface p-6 shadow-raised sm:p-8",
             col.featured ? "border-accent shadow-[inset_0_0_0_1px_var(--accent)]" : "border-border"
           )}
         >
-          <p className="text-xs font-medium uppercase tracking-[0.01em] text-fg-muted">{col.tier}</p>
+          <h3 className="text-xs font-medium uppercase tracking-[0.01em] text-fg-muted">{col.tier}</h3>
           <p className="mt-2 text-3xl font-medium tracking-[-0.022em] text-fg">{col.price}</p>
           <p className="mt-2 text-sm text-fg-muted">{col.blurb}</p>
           <ul className="mt-6 space-y-2.5">
             {col.items.map((item) => (
               <li key={item} className="flex items-start gap-2 text-sm text-fg">
-                <CheckIcon className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
+                <CheckIcon className="mt-0.5 size-4 shrink-0 text-accent-fg" aria-hidden />
                 {item}
               </li>
             ))}

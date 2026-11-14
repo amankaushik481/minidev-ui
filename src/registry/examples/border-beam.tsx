@@ -45,11 +45,11 @@ export const examples: Example[] = [
     title: "Around an input",
     description: "A thin, fast beam draws the eye to one field, for example the invite box on an empty team page.",
     code: `<BorderBeam radius={10} width={1} duration={3} className="w-72">
-  <Input type="email" placeholder="teammate@northwind.com" aria-label="Invite by email" />
+  <Input type="email" placeholder="teammate@northwind.example" aria-label="Invite by email" />
 </BorderBeam>`,
     node: (
       <BorderBeam radius={10} width={1} duration={3} className="w-72">
-        <Input type="email" placeholder="teammate@northwind.com" aria-label="Invite by email" />
+        <Input type="email" placeholder="teammate@northwind.example" aria-label="Invite by email" />
       </BorderBeam>
     ),
   },

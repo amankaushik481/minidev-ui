@@ -2,15 +2,25 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/*
- * LightField: a living background drawn by a small WebGL shader. Colour
- * silk made of warped noise drifts slowly, the cursor carries a soft light
- * through it, and fine grain keeps it from looking digital. It starts when
- * the browser is idle, compiles its shader off the main thread where the GPU
- * allows, renders at half resolution and 30 fps, fades in on its first frame,
- * sleeps when off screen or in a background tab, stays empty without a real
- * GPU (put a still behind it), and draws a single still frame for reduced
- * motion. Glass surfaces placed over it frost it beautifully.
+/**
+ * A living WebGL background of slow colour silk with a soft light that follows the cursor and fine film grain.
+ * Warped noise drifts slowly, the cursor carries a soft light through it, and
+ * fine grain keeps it from looking digital. It starts when the browser is
+ * idle, compiles its shader off the main thread where the GPU allows, renders
+ * at half resolution and 30 fps, fades in on its first frame, sleeps when off
+ * screen or in a background tab, stays empty without a real GPU (put a still
+ * behind it), and draws a single still frame for reduced motion. Glass
+ * surfaces placed over it frost it beautifully.
+ *
+ * It fills its parent: put it in a sized, `relative` box with your content
+ * layered above. Reach for AuroraBackground or HeroGradientMesh for a CSS-only
+ * backdrop, and WavyBackground or Particles for a lighter canvas effect.
+ *
+ * @example
+ * <div className="relative h-[480px] overflow-hidden rounded-2xl">
+ *   <LightField className="absolute inset-0" />
+ *   <div className="relative z-10">…</div>
+ * </div>
  */
 
 const VERT = `attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`
@@ -49,6 +59,7 @@ const DARK: Palette = { c1: [0.42, 0.22, 0.95], c2: [0.1, 0.4, 0.9], c3: [0.8, 0
 
 type LightFieldProps = {
   className?: string
+  /** Three RGB colours (0 to 1 per channel) per theme: base, partner and highlight. */
   palette?: { light?: Palette; dark?: Palette }
   /** Frames per second. The silk drifts slowly, so 30 looks the same as 60 for half the GPU work. */
   fps?: number
@@ -63,7 +74,10 @@ type IdleWindow = Window & {
 
 function LightField({ className, palette, fps = 30, resolution = 0.5 }: LightFieldProps) {
   const ref = React.useRef<HTMLCanvasElement>(null)
+  // Key on the colours themselves, so an inline palette object does not rebuild the GL program every render.
+  const paletteKey = JSON.stringify(palette ?? null)
   React.useEffect(() => {
+    const pal = JSON.parse(paletteKey) as LightFieldProps["palette"] | null
     const canvas = ref.current
     if (!canvas) return
     let stop: (() => void) | undefined
@@ -73,7 +87,7 @@ function LightField({ className, palette, fps = 30, resolution = 0.5 }: LightFie
     const idle = w.requestIdleCallback ? w.requestIdleCallback(() => start(), { timeout: 1500 }) : window.setTimeout(() => start(), 300)
     function start() {
       if (cancelled || !canvas) return
-      stop = run(canvas, palette, fps, resolution)
+      stop = run(canvas, pal ?? undefined, fps, resolution)
     }
     return () => {
       cancelled = true
@@ -81,7 +95,7 @@ function LightField({ className, palette, fps = 30, resolution = 0.5 }: LightFie
       else window.clearTimeout(idle)
       stop?.()
     }
-  }, [palette, fps, resolution])
+  }, [paletteKey, fps, resolution])
   return (
     <canvas
       ref={ref}
@@ -113,7 +127,7 @@ function run(canvas: HTMLCanvasElement, palette: LightFieldProps["palette"], fps
 
   let raf = 0
   let dead = false
-  const cleanups: (() => void)[] = []
+  const cleanups: (() => void)[] = [() => gl.deleteProgram(prog)]
   // With KHR_parallel_shader_compile the driver compiles off the main thread; poll until it is done.
   const parallel = gl.getExtension("KHR_parallel_shader_compile") as { COMPLETION_STATUS_KHR: number } | null
   const whenLinked = (cb: () => void) => {
@@ -129,6 +143,7 @@ function run(canvas: HTMLCanvasElement, palette: LightFieldProps["palette"], fps
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return
     gl.useProgram(prog)
     const buf = gl.createBuffer()
+    cleanups.push(() => gl.deleteBuffer(buf))
     gl.bindBuffer(gl.ARRAY_BUFFER, buf)
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW)
     const loc = gl.getAttribLocation(prog, "p")

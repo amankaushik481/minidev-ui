@@ -4,7 +4,21 @@ import { ArrowDownIcon, ArrowUpIcon, ChevronsUpDownIcon, XIcon } from "lucide-re
 import { cn } from "@/lib/utils"
 import { Checkbox } from "@/registry/ui/checkbox"
 
-/** A product data table: sortable headers, row selection with a bulk bar, hover row actions, sticky header, density and skeleton loading. */
+/**
+ * A product data table: sortable headers, row selection with a bulk bar, hover row actions, sticky header, density and skeleton loading.
+ *
+ * Use for lists of records people scan, sort and act on (invoices, users, deploys). Define `columns` once with a `cell` renderer and an
+ * optional `sortValue`; pass `data` and a stable `getRowId`. For a plain static table use Table; for 10k+ rows use VirtualizedList;
+ * for SQL output use SqlResultTable. Pair with TableToolbar, ColumnVisibilityMenu and TablePagination around it.
+ *
+ * @example
+ * const columns: Column<Invoice>[] = [
+ *   { id: "customer", header: "Customer", cell: (r) => r.customer, sortValue: (r) => r.customer },
+ *   { id: "amount", header: "Amount", align: "right", cell: (r) => money(r.amount), sortValue: (r) => r.amount },
+ * ]
+ * <DataTable columns={columns} data={invoices} getRowId={(r) => r.id} selectable caption="Invoices"
+ *   bulkActions={(ids) => <Button size="sm" variant="ghost" onClick={() => archive(ids)}>Archive</Button>} />
+ */
 
 /*
  * GOLD STANDARD COMPONENT.
@@ -15,11 +29,15 @@ import { Checkbox } from "@/registry/ui/checkbox"
  */
 
 export type Column<T> = {
+  /** Unique column id; used as the sort key and React key. */
   id: string
+  /** Header content. Keep it short; it becomes the sort button's label. */
   header: React.ReactNode
+  /** Renders the cell for one row. */
   cell: (row: T) => React.ReactNode
   /** Enables sorting on this column. Return the value to compare. */
   sortValue?: (row: T) => string | number | Date | null | undefined
+  /** Text alignment. Use "right" for numbers and money (also turns on tabular-nums). */
   align?: "left" | "right" | "center"
   /** CSS width, e.g. "30%" or 120. */
   width?: number | string
@@ -54,7 +72,7 @@ const INVOICE_COLUMNS: Column<Invoice>[] = [
     sortValue: (r) => r.customer,
     cell: (r) => (
       <div className="flex min-w-0 items-center gap-2.5">
-        <span className="grid size-7 shrink-0 place-items-center rounded-full border border-border bg-sunken text-[11px] font-medium text-fg-muted">
+        <span className="grid size-7 shrink-0 place-items-center rounded-full border border-border bg-sunken text-2xs font-medium text-fg-muted">
           {r.customer.split(" ").map((w) => w[0]).slice(0, 2).join("")}
         </span>
         <div className="min-w-0">
@@ -89,25 +107,40 @@ type DataTableProps<T> = {
   columns?: Column<T>[]
   /** Rows. Defaults, with `columns`, to eight sample invoices. */
   data?: T[]
+  /** Stable id per row; selection and React keys use it. Defaults to the row index, which breaks selection when data reorders, so pass one. */
   getRowId?: (row: T, index: number) => string
   /** Adds a checkbox column. */
   selectable?: boolean
+  /** Controlled selected row ids. Leave undefined for internal selection. */
   selected?: string[]
+  /** Called with the selected row ids after every change. */
   onSelectedChange?: (ids: string[]) => void
   /** Rendered in the floating bar while rows are selected. */
   bulkActions?: (ids: string[]) => React.ReactNode
   /** Rendered at the row's end, revealed on hover/focus. */
   rowActions?: (row: T) => React.ReactNode
+  /** Makes rows clickable and focusable; Enter on a focused row also fires it. */
   onRowClick?: (row: T) => void
+  /** Initial sort for uncontrolled sorting, e.g. { id: "amount", dir: "desc" }. */
   defaultSort?: Sort
+  /** Controlled sort. Pass with `onSortChange`; null means unsorted. */
+  sort?: Sort
+  /** Called when a header is clicked: asc, then desc, then null. */
+  onSortChange?: (sort: Sort) => void
+  /** Row height: compact 36px, default 44px, comfortable 56px. */
   density?: Density
+  /** Shows five skeleton rows instead of data and sets aria-busy. */
   loading?: boolean
   /** Fixes the height and makes the header sticky. */
   maxHeight?: number | string
+  /** Shown when `data` is empty. Defaults to "No results". */
   empty?: React.ReactNode
+  /** Screen-reader caption that names the table. Strongly recommended. */
   caption?: string
   className?: string
 }
+
+const ROW_INDEX = (_r: unknown, i: number) => String(i)
 
 const ROW_H: Record<Density, string> = { compact: "h-9", default: "h-11", comfortable: "h-14" }
 const ALIGN = { left: "text-left", right: "text-right", center: "text-center" }
@@ -124,7 +157,7 @@ function compare(a: unknown, b: unknown) {
 function DataTable<T = Invoice>({
   columns = SAMPLE_COLUMNS,
   data = SAMPLE_ROWS,
-  getRowId = (_r, i) => String(i),
+  getRowId = ROW_INDEX,
   selectable,
   selected: selectedProp,
   onSelectedChange,
@@ -132,6 +165,8 @@ function DataTable<T = Invoice>({
   rowActions,
   onRowClick,
   defaultSort = null,
+  sort: sortProp,
+  onSortChange,
   density = "default",
   loading,
   maxHeight,
@@ -139,7 +174,8 @@ function DataTable<T = Invoice>({
   caption,
   className,
 }: DataTableProps<T>) {
-  const [sort, setSort] = React.useState<Sort>(defaultSort)
+  const [innerSort, setInnerSort] = React.useState<Sort>(defaultSort)
+  const sort = sortProp !== undefined ? sortProp : innerSort
   const [innerSel, setInnerSel] = React.useState<string[]>([])
   const selected = selectedProp ?? innerSel
   const setSelected = (ids: string[]) => {
@@ -162,8 +198,11 @@ function DataTable<T = Invoice>({
   const allChecked = ids.length > 0 && selCount === ids.length
   const someChecked = selCount > 0 && !allChecked
 
-  const toggleSort = (id: string) =>
-    setSort((s) => (s?.id !== id ? { id, dir: "asc" } : s.dir === "asc" ? { id, dir: "desc" } : null))
+  const toggleSort = (id: string) => {
+    const next: Sort = sort?.id !== id ? { id, dir: "asc" } : sort.dir === "asc" ? { id, dir: "desc" } : null
+    if (sortProp === undefined) setInnerSort(next)
+    onSortChange?.(next)
+  }
 
   const colCount = columns.length + (selectable ? 1 : 0) + (rowActions ? 1 : 0)
   const pad = density === "compact" ? "px-3" : "px-4"
@@ -182,7 +221,7 @@ function DataTable<T = Invoice>({
               "text-xs font-medium text-fg-muted",
               maxHeight !== undefined && "sticky top-0 z-10",
               "[&_th]:border-b [&_th]:border-border [&_th]:bg-[color-mix(in_oklch,var(--sunken)_70%,var(--surface))]",
-              scrolled && "[&_th]:shadow-[0_1px_0_0_var(--border),0_6px_12px_-8px_oklch(0_0_0/0.18)]"
+              scrolled && "[&_th]:shadow-[0_1px_0_0_var(--border),var(--sh-md)]"
             )}
           >
             <tr>
@@ -221,11 +260,11 @@ function DataTable<T = Invoice>({
                         {c.header}
                         <span className="grid size-3.5 place-items-center">
                           {dir === "asc" ? (
-                            <ArrowUpIcon className="size-3 text-accent-fg" />
+                            <ArrowUpIcon aria-hidden className="size-3 text-accent-fg" />
                           ) : dir === "desc" ? (
-                            <ArrowDownIcon className="size-3 text-accent-fg" />
+                            <ArrowDownIcon aria-hidden className="size-3 text-accent-fg" />
                           ) : (
-                            <ChevronsUpDownIcon className="size-3 opacity-0 transition-opacity group-hover/sort:opacity-60 group-focus-visible/sort:opacity-60" />
+                            <ChevronsUpDownIcon aria-hidden className="size-3 opacity-0 transition-opacity group-hover/sort:opacity-60 group-focus-visible/sort:opacity-60" />
                           )}
                         </span>
                       </button>
@@ -322,7 +361,7 @@ function DataTable<T = Invoice>({
         >
           <div className="pointer-events-auto flex animate-[rise-in_200ms_var(--ease-hairline)_both] items-center gap-1 rounded-xl border border-border bg-raised p-1 pl-3 text-[0.8125rem] shadow-overlay">
             <span className="mr-1 font-medium text-fg tabular-nums">{selCount} selected</span>
-            <span className="mx-1 h-4 w-px bg-border" />
+            <span aria-hidden className="mx-1 h-4 w-px bg-border" />
             {bulkActions?.(selected)}
             <button
               type="button"
@@ -330,7 +369,7 @@ function DataTable<T = Invoice>({
               onClick={() => setSelected([])}
               className="grid size-7 place-items-center rounded-md text-fg-subtle outline-none hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
             >
-              <XIcon className="size-3.5" />
+              <XIcon aria-hidden className="size-3.5" />
             </button>
           </div>
         </div>
@@ -340,4 +379,4 @@ function DataTable<T = Invoice>({
 }
 
 export { DataTable }
-export type { DataTableProps, Sort as DataTableSort }
+export type { DataTableProps, Sort as DataTableSort, Density as DataTableDensity }

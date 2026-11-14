@@ -42,8 +42,6 @@ function AgentConsole() {
   const [runId, setRunId] = React.useState(0)
   React.useEffect(() => {
     if (!inView) return
-    if (reduce) return setI(RUN.length)
-    setI(0)
     let n = 0
     let t: ReturnType<typeof setTimeout>
     const next = () => {
@@ -51,7 +49,12 @@ function AgentConsole() {
       setI(n)
       if (n < RUN.length) t = setTimeout(next, RUN[n].ms + 350)
     }
-    t = setTimeout(next, RUN[0].ms + 500)
+    // State is set from timers, not synchronously in the effect body.
+    t = setTimeout(() => {
+      if (reduce) return setI(RUN.length)
+      setI(0)
+      t = setTimeout(next, RUN[0].ms + 500)
+    }, 0)
     return () => clearTimeout(t)
   }, [inView, runId, reduce])
   const done = i >= RUN.length

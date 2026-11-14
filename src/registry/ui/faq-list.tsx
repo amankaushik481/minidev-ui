@@ -3,8 +3,22 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionPanel } from "@/registry/ui/accordion"
 
-/** Frequently asked questions as an accordion: one question per row, the answer unfolds beneath it. */
-type Faq = { q: string; a: string }
+/**
+ * FaqList — frequently asked questions as an accordion: one question per row, the answer unfolds beneath it.
+ *
+ * Use on pricing and marketing pages. Each question is a button inside a
+ * heading, so screen reader users can jump between questions. For arbitrary
+ * collapsible sections use `Accordion`; for one disclosure use `ExpandableRow`.
+ *
+ * @example
+ * <FaqList items={[{ q: "Can I cancel anytime?", a: "Yes, from Billing. You keep access until the period ends." }]} />
+ */
+type Faq = {
+  /** The question. */
+  q: string
+  /** The answer, plain text. */
+  a: string
+}
 
 const SAMPLE_ITEMS: Faq[] = [
   { q: "How does the free trial work?", a: "Every Lumen workspace starts with 14 days of the Growth plan. No card is needed, and you keep your data if you move to Starter afterwards." },

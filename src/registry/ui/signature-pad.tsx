@@ -5,16 +5,44 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
 /**
- * A signature field drawn with pointer events on a canvas: smooth
- * quadratic strokes with pressure-aware width, undo and clear, a typed
- * name fallback for keyboard users, and export to a PNG data URL.
+ * A signature field drawn on a canvas with smooth, pressure-aware strokes, undo and clear, a typed-name fallback for keyboard users, and PNG export.
+ *
+ * Both modes report through one `onChange`: a drawn signature or the typed
+ * name rendered in a script face, as a transparent PNG data URL, or null
+ * when empty. Store the data URL or upload it as an image.
+ *
+ * @example
+ * const [sig, setSig] = React.useState<string | null>(null)
+ * <SignaturePad label="Sign to accept" onChange={setSig} />
+ * <Button disabled={!sig}>Accept</Button>
  */
 type SignaturePadProps = {
-  /** Called with a PNG data URL after each stroke, or null when cleared. */
+  /** Called with a PNG data URL after each stroke or typed change, or null when empty. */
   onChange?: (dataUrl: string | null) => void
+  /** Visible label; also names the canvas and the typed input. */
   label?: string
+  /** Canvas height in px. */
   height?: number
   className?: string
+}
+
+const SCRIPT_FONT = '"Snell Roundhand", "Segoe Script", "Brush Script MT", cursive'
+
+/** Render a typed name to a transparent PNG so typed and drawn signatures share one output. */
+function typedToPng(name: string, color: string): string | null {
+  if (!name.trim()) return null
+  const c = document.createElement("canvas")
+  const ctx = c.getContext("2d")
+  if (!ctx) return null
+  const font = `italic 64px ${SCRIPT_FONT}`
+  ctx.font = font
+  c.width = Math.ceil(ctx.measureText(name).width) + 48
+  c.height = 112
+  ctx.font = font
+  ctx.fillStyle = color
+  ctx.textBaseline = "middle"
+  ctx.fillText(name, 24, 56)
+  return c.toDataURL("image/png")
 }
 
 type Pt = { x: number; y: number; p: number }
@@ -23,9 +51,13 @@ function SignaturePad({ onChange, label = "Signature", height = 180, className }
   const canvas = React.useRef<HTMLCanvasElement>(null)
   const strokes = React.useRef<Pt[][]>([])
   const drawing = React.useRef(false)
+  const drawn = React.useRef<string | null>(null)
   const [count, setCount] = React.useState(0)
   const [typed, setTyped] = React.useState("")
   const [mode, setMode] = React.useState<"draw" | "type">("draw")
+  const id = React.useId()
+  const labelId = `${id}-label`
+  const hintId = `${id}-hint`
 
   const redraw = React.useCallback(() => {
     const c = canvas.current
@@ -38,6 +70,14 @@ function SignaturePad({ onChange, label = "Signature", height = 180, className }
     ctx.lineCap = "round"
     ctx.lineJoin = "round"
     for (const s of strokes.current) {
+      if (s.length === 1) {
+        // a tap leaves a dot
+        ctx.beginPath()
+        ctx.arc(s[0].x, s[0].y, (1.2 + s[0].p * 2.4) / 2, 0, Math.PI * 2)
+        ctx.fillStyle = ctx.strokeStyle
+        ctx.fill()
+        continue
+      }
       for (let i = 1; i < s.length; i++) {
         const a = s[i - 1]
         const b = s[i]
@@ -65,9 +105,19 @@ function SignaturePad({ onChange, label = "Signature", height = 180, className }
     const ro = new ResizeObserver(fit)
     ro.observe(c)
     return () => ro.disconnect()
-  }, [redraw])
+    // the canvas remounts when switching back from "type", so re-observe it
+  }, [redraw, mode])
 
-  const emit = () => onChange?.(strokes.current.length ? canvas.current!.toDataURL("image/png") : null)
+  const emit = () => {
+    drawn.current = strokes.current.length && canvas.current ? canvas.current.toDataURL("image/png") : null
+    onChange?.(drawn.current)
+  }
+  const endStroke = () => {
+    if (!drawing.current) return
+    drawing.current = false
+    setCount(strokes.current.length)
+    emit()
+  }
   const point = (e: React.PointerEvent): Pt => {
     const r = canvas.current!.getBoundingClientRect()
     return { x: e.clientX - r.left, y: e.clientY - r.top, p: e.pressure && e.pointerType !== "mouse" ? e.pressure : 0.5 }
@@ -76,8 +126,17 @@ function SignaturePad({ onChange, label = "Signature", height = 180, className }
   return (
     <div data-slot="signature-pad" className={cn("w-full max-w-md", className)}>
       <div className="mb-2 flex items-center justify-between">
-        <span id="sig-label" className="text-sm font-medium text-fg">{label}</span>
-        <button type="button" onClick={() => setMode(mode === "draw" ? "type" : "draw")} className="text-xs text-fg-muted underline underline-offset-4 outline-none hover:text-fg focus-visible:ring-2 focus-visible:ring-accent">
+        <span id={labelId} className="text-sm font-medium text-fg">{label}</span>
+        <button
+          type="button"
+          onClick={() => {
+            const next = mode === "draw" ? "type" : "draw"
+            setMode(next)
+            if (next === "type") onChange?.(typedToPng(typed, getComputedStyle(document.documentElement).color))
+            else onChange?.(drawn.current)
+          }}
+          className="rounded-sm text-xs text-fg-muted underline underline-offset-4 outline-none hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
+        >
           {mode === "draw" ? "Type instead" : "Draw instead"}
         </button>
       </div>
@@ -86,11 +145,12 @@ function SignaturePad({ onChange, label = "Signature", height = 180, className }
           <canvas
             ref={canvas}
             role="img"
-            aria-labelledby="sig-label"
-            aria-describedby="sig-hint"
+            aria-labelledby={labelId}
+            aria-describedby={hintId}
             className="block w-full touch-none text-fg"
             style={{ height }}
             onPointerDown={(e) => {
+              if (e.pointerType === "mouse" && e.button !== 0) return
               ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
               drawing.current = true
               strokes.current.push([point(e)])
@@ -101,25 +161,24 @@ function SignaturePad({ onChange, label = "Signature", height = 180, className }
               strokes.current[strokes.current.length - 1].push(point(e))
               redraw()
             }}
-            onPointerUp={() => {
-              if (!drawing.current) return
-              drawing.current = false
-              setCount(strokes.current.length)
-              emit()
-            }}
+            onPointerUp={endStroke}
+            onPointerCancel={endStroke}
           />
-          <span id="sig-hint" className="sr-only">Draw your signature with a mouse, pen or finger, or choose Type instead.</span>
+          <span id={hintId} className="sr-only">Draw your signature with a mouse, pen or finger, or choose Type instead.</span>
           <span aria-hidden className="pointer-events-none absolute inset-x-6 bottom-9 border-b border-dashed border-border-strong" />
           {!count ? <span aria-hidden className="pointer-events-none absolute bottom-3 left-6 text-xs text-fg-subtle">Sign above the line</span> : null}
         </div>
       ) : (
         <input
-          aria-labelledby="sig-label"
+          aria-labelledby={labelId}
           value={typed}
-          onChange={(e) => setTyped(e.target.value)}
+          onChange={(e) => {
+            setTyped(e.target.value)
+            onChange?.(typedToPng(e.target.value, getComputedStyle(e.currentTarget).color))
+          }}
           placeholder="Type your full name"
           className="h-[120px] w-full rounded-xl border border-border bg-surface px-5 text-center text-4xl text-fg italic shadow-raised outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          style={{ fontFamily: '"Snell Roundhand", "Segoe Script", "Brush Script MT", cursive' }}
+          style={{ fontFamily: SCRIPT_FONT }}
         />
       )}
       {mode === "draw" ? (

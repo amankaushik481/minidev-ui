@@ -4,8 +4,30 @@ import { cn } from "@/lib/utils"
 import { Checkbox } from "@/registry/ui/checkbox"
 import { Label } from "@/registry/ui/label"
 
-/** A titled group of checkbox facets with result counts, for a filter sidebar. */
-type Facet = { value: string; label: string; count?: number }
+/**
+ * FacetFilter — a titled group of checkbox facets with result counts, for a filter sidebar.
+ *
+ * Use for multi-select filters in a sidebar or popover. For filter chips in a
+ * toolbar use `ChipFilter`; for a single choice use `RadioGroup`; for many
+ * options with search use `MultiSelect`.
+ *
+ * @example
+ * const [status, setStatus] = React.useState<string[]>([])
+ * <FacetFilter
+ *   title="Status"
+ *   options={[{ value: "paid", label: "Paid", count: 128 }, { value: "open", label: "Open", count: 42 }]}
+ *   value={status}
+ *   onChange={setStatus}
+ * />
+ */
+type Facet = {
+  /** Stable value stored in the selection. */
+  value: string
+  /** Visible label. */
+  label: string
+  /** Result count shown at the end of the row. */
+  count?: number
+}
 
 const SAMPLE_OPTIONS: Facet[] = [
   { value: "paid", label: "Paid", count: 128 },
@@ -25,6 +47,7 @@ type FacetFilterProps = {
   value?: string[]
   /** Selection when uncontrolled. With the sample options, "Open" and "Overdue" start checked. */
   defaultValue?: string[]
+  /** Called with the full new selection, in toggle order. */
   onChange?: (value: string[]) => void
   className?: string
 }
@@ -39,17 +62,20 @@ function FacetFilter({
 }: FacetFilterProps) {
   const [inner, setInner] = React.useState<string[]>(() => defaultValue ?? (options === SAMPLE_OPTIONS ? SAMPLE_SELECTED : []))
   const value = valueProp ?? inner
+  const uid = React.useId()
   const toggle = (v: string) => {
     const next = value.includes(v) ? value.filter((x) => x !== v) : [...value, v]
     if (valueProp === undefined) setInner(next)
     onChange?.(next)
   }
   return (
-    <div data-slot="facet-filter" className={cn("min-w-48 space-y-2", className)}>
-      <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">{title}</p>
+    <div role="group" aria-labelledby={`${uid}-title`} data-slot="facet-filter" className={cn("min-w-48 space-y-2", className)}>
+      <p id={`${uid}-title`} className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">
+        {title}
+      </p>
       <ul className="space-y-1.5">
         {options.map((o) => {
-          const id = `facet-${title}-${o.value}`
+          const id = `${uid}-${o.value}`
           return (
             <li key={o.value} className="flex items-center gap-2">
               <Checkbox

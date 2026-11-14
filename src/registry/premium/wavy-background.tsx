@@ -12,6 +12,15 @@ import { Button } from "@/registry/ui/button"
  * the cascade, so var(--accent) follows theme and material changes. The
  * canvas is sharp on high density screens, resizes with its box, sleeps off
  * screen and in background tabs, and draws one still frame for reduced motion.
+ *
+ * Use it behind a hero, footer or sign-up panel. Reach for AuroraBackground
+ * for a CSS-only gradient, LightField for a WebGL glow, and Meteors or
+ * Particles for small moving points.
+ *
+ * @example
+ * <WavyBackground coverage={0.5}>
+ *   <h2 className="text-4xl font-medium text-fg">Cash flow, smoothed out</h2>
+ * </WavyBackground>
  */
 type WavyBackgroundProps = {
   /** Colours of the waves, back to front. Any CSS colour, including var(--token). */

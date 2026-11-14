@@ -2,31 +2,46 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/*
- * GOLD STANDARD COMPONENT.
- * One real <input> sits invisibly over the slots, so paste, SMS autofill,
- * backspace, selection and screen readers all behave natively. The slots are
- * pure paint: a fake caret, a glyph that settles in, a shake on error.
+/**
+ * OtpInput — a one-time code field drawn as separate slots, with SMS autofill, paste and a shake on error.
+ *
+ * One real <input> sits invisibly over the slots, so paste, SMS autofill
+ * (autocomplete="one-time-code"), backspace, selection and screen readers all behave
+ * natively. The slots are pure paint: a fake caret, a glyph that settles in, a shake
+ * when `status` turns "invalid". Use it for 2FA and email verification codes; for
+ * other fixed-shape values use MaskedInput.
+ *
+ * @example
+ * <OtpInput length={6} groups={[3, 3]} onComplete={verify} status={error ? "invalid" : "idle"} />
  */
 
 type Status = "idle" | "invalid" | "success"
 
 type OtpInputProps = {
+  /** Number of characters in the code. */
   length?: number
+  /** Controlled code. */
   value?: string
+  /** Initial code when uncontrolled. */
   defaultValue?: string
+  /** Fires with the cleaned code on every edit. */
   onChange?: (value: string) => void
   /** Fires once when every slot is filled. */
   onComplete?: (value: string) => void
-  /** Split the slots into groups, e.g. [3, 3] renders "123 – 456". */
+  /** Split the slots into groups, e.g. [3, 3] renders "123 – 456". Must sum to `length`. */
   groups?: number[]
+  /** Allowed characters. "alphanumeric" upper-cases letters. */
   pattern?: "numeric" | "alphanumeric"
+  /** "invalid" shakes and turns the slots red (aria-invalid); "success" turns them green. */
   status?: Status
   disabled?: boolean
   autoFocus?: boolean
+  /** Form field name for the hidden input. */
   name?: string
+  /** Slot size: "default" 40×44, "lg" 48×56. */
   size?: "default" | "lg"
   className?: string
+  /** Accessible name. Defaults to "One-time code". */
   "aria-label"?: string
 }
 
@@ -54,10 +69,12 @@ function OtpInput({
   const [sel, setSel] = React.useState<[number, number]>([value.length, value.length])
   const ref = React.useRef<HTMLInputElement>(null)
   const [shakeKey, setShakeKey] = React.useState(0)
-
-  React.useEffect(() => {
+  // Shake each time status becomes "invalid": adjust state during render, not in an effect.
+  const [prevStatus, setPrevStatus] = React.useState(status)
+  if (status !== prevStatus) {
+    setPrevStatus(status)
     if (status === "invalid") setShakeKey((k) => k + 1)
-  }, [status])
+  }
 
   const commit = (raw: string) => {
     const clean = raw.replace(RX[pattern], "").slice(0, length)

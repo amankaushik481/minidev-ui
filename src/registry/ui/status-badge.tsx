@@ -4,8 +4,16 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 /**
- * StatusBadge — tinted fill, hairline edge, and a status dot that carries the
- * meaning. Tones share lightness so a row of badges reads as one set.
+ * StatusBadge — a status pill with a tinted fill, hairline edge and a leading dot, in six tones that share lightness.
+ *
+ * Tones share lightness so a row of badges reads as one set.
+ *
+ * Use it for the state of a record ("Paid", "Failed", "Draft"); the text carries the meaning,
+ * the colour reinforces it. For counts and categories use Badge; for a bare dot use StatusDot.
+ *
+ * @example
+ * <StatusBadge tone="success">Paid</StatusBadge>
+ * <StatusBadge tone="danger">Failed</StatusBadge>
  */
 const statusBadgeVariants = cva(
   [
@@ -27,7 +35,10 @@ const statusBadgeVariants = cva(
   }
 )
 
-function StatusBadge({ className, tone, children, ...props }: React.ComponentProps<"span"> & VariantProps<typeof statusBadgeVariants>) {
+type StatusBadgeProps = React.ComponentProps<"span"> & VariantProps<typeof statusBadgeVariants>
+
+function StatusBadge({ className, tone, children, ...props }: StatusBadgeProps) {
   return <span data-slot="status-badge" data-tone={tone ?? "neutral"} className={cn(statusBadgeVariants({ tone }), className)} {...props}>{children}</span>
 }
 export { StatusBadge, statusBadgeVariants }
+export type { StatusBadgeProps }

@@ -16,7 +16,7 @@ export default function Page() {
   const [c, setC] = React.useState("next")
   const [m, setM] = React.useState<string[]>(["next"])
   return (
-    <GalleryPage title="Combobox / autocomplete / multi-select">
+    <GalleryPage title="Combobox & multi-select">
       <GallerySection title="Combobox"><Combobox items={items} value={c} onChange={setC} /></GallerySection>
       <GallerySection title="Autocomplete"><Autocomplete options={items.map(i=>i.label)} placeholder="Framework" aria-label="Framework" /></GallerySection>
       <GallerySection title="Multi-select"><MultiSelect items={items} value={m} onChange={setM} /></GallerySection>

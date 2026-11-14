@@ -50,6 +50,11 @@ const matchup: Matchup = {
       a: "Tailwind and Headless UI transitions; templates may add their own animation libraries",
       b: "Mostly CSS transitions; no motion library required by default",
     },
+    {
+      feature: "AI tooling",
+      a: "No `llms.txt` at the site root when checked in November 2026; code sits behind a sign-in, so agents cannot fetch it on their own",
+      b: "`llms.txt` and an official MCP server for browsing and installing from registries",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -94,7 +99,7 @@ const matchup: Matchup = {
     },
   ],
   minidev: [
-    "MiniDev UI is a free, MIT licensed shadcn-compatible registry, so it sits next to shadcn/ui and installs with the same CLI. For teams weighing Tailwind Plus for its application screens, it covers some of the same ground at no cost: billing, settings, sign in, analytics and admin pages, plus motion components and 8 landing page templates shown as live demos.",
+    "MiniDev UI is a free, MIT licensed shadcn-compatible registry, so it sits next to shadcn/ui and installs with the same CLI. For teams weighing Tailwind Plus for its application screens, it covers some of the same ground at no cost: billing, settings, sign in, analytics and admin pages, plus motion components and 8 landing page templates shown as live demos. For AI coding agents it publishes [`llms.txt`](/glossary/llms-txt), a Markdown page per component, [`AGENTS.md`](/glossary/agents-md) rules and an [MCP server](/glossary/mcp); setup is on [Use MiniDev UI with AI agents](/docs/ai).",
     "It does not offer downloadable site templates or Vue and HTML versions, so it is not a full replacement for Tailwind Plus. See [MiniDev UI vs Tailwind Plus](/compare/minidev-ui-vs-tailwind-plus) and [MiniDev UI vs shadcn/ui](/compare/minidev-ui-vs-shadcn-ui).",
   ],
   faq: [

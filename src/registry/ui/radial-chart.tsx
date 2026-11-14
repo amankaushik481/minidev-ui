@@ -4,7 +4,17 @@ import { animate, motion, useMotionValue, useReducedMotion, useTransform } from 
 import { cn } from "@/lib/utils"
 import { SegmentedControl } from "@/registry/ui/segmented-control"
 
-/** A radial bar chart of concentric progress rings with a legend, a rolling centre total and spring animated values. */
+/**
+ * A radial bar chart of concentric progress rings with a legend, a rolling centre total and spring animated values.
+ *
+ * Use it for two to five goals against targets (revenue, activation, NPS). One item renders a
+ * single full ring, a drop-in radial progress. Pass `periods` to get a built-in period switch.
+ * For scores on one shared scale use RadarChart; for a tiny inline ring use ProgressCircle.
+ *
+ * @example
+ * <RadialChart title="Q4 goals" data={[{ label: "Revenue", value: 84, max: 100 }, { label: "Activation", value: 62, max: 70 }]} />
+ * <RadialChart data={[{ label: "Storage", value: 38, max: 50 }]} />
+ */
 type RadialDatum = {
   label: string
   value: number
@@ -141,7 +151,7 @@ function RadialChart({
           {rings.map((r) => {
             const dim = hot != null && hot !== r.i
             return (
-              <g key={r.label} className={cn("transition-opacity duration-[140ms]", dim && "opacity-35")}>
+              <g key={`${r.label}-${r.i}`} className={cn("transition-opacity duration-[140ms]", dim && "opacity-35")}>
                 <path
                   d={arc(r.r, sweep)}
                   fill="none"
@@ -191,7 +201,7 @@ function RadialChart({
         <ul className="mt-4 space-y-0.5 border-t border-border pt-3">
           {rings.map((r) => (
             <li
-              key={r.label}
+              key={`${r.label}-${r.i}`}
               onPointerEnter={() => setHot(r.i)}
               onPointerLeave={() => setHot(null)}
               className={cn("flex h-7 items-center gap-2 text-xs transition-opacity duration-[140ms]", hot != null && hot !== r.i && "opacity-50")}

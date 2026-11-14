@@ -4,17 +4,36 @@ import { BoldIcon, CodeIcon, Columns2Icon, EyeIcon, HeadingIcon, ItalicIcon, Lin
 import { cn } from "@/lib/utils"
 import { SegmentedControl } from "@/registry/ui/segmented-control"
 
-/** A markdown editor with a toolbar that wraps the selection, Cmd/Ctrl+B and I shortcuts, write, split and preview modes, a live preview rendered without innerHTML, and a word count. */
+/**
+ * MarkdownEditor — a markdown textarea with a formatting toolbar, Cmd/Ctrl+B, I, E and K shortcuts, write, split and preview modes, a live preview rendered without innerHTML, and a word count.
+ *
+ * Use it for release notes, comments, descriptions and docs fields. For
+ * rendering markdown only use MarkdownRenderer (or the exported
+ * MarkdownPreview), for rich text without markdown syntax use RichTextToolbar,
+ * and for chat input use PromptInput. Works controlled (value + onChange) or
+ * uncontrolled (defaultValue).
+ *
+ * @example
+ * <MarkdownEditor value={notes} onChange={setNotes} label="Release notes" defaultMode="write" />
+ */
 type MarkdownEditorMode = "write" | "split" | "preview"
 
 type MarkdownEditorProps = {
+  /** Markdown text (controlled). */
   value?: string
+  /** Initial markdown when uncontrolled. Defaults to sample release notes. */
   defaultValue?: string
+  /** Called with the full text on every edit and toolbar action. */
   onChange?: (value: string) => void
+  /** View (controlled): write shows the textarea, preview the rendered result, split both. */
   mode?: MarkdownEditorMode
+  /** Initial view when uncontrolled. */
   defaultMode?: MarkdownEditorMode
+  /** Called when the view changes. */
   onModeChange?: (mode: MarkdownEditorMode) => void
+  /** Accessible name for the textarea. */
   label?: string
+  /** Shown in the empty textarea. */
   placeholder?: string
   /** Editor and preview height in px before the textarea is resized. */
   minHeight?: number
@@ -154,7 +173,7 @@ function inline(text: string): React.ReactNode[] {
       if (end > i + 1) {
         flush()
         out.push(
-          <code key={k++} className="rounded-[5px] border border-border bg-sunken px-1 py-px font-mono text-[0.85em] text-fg">
+          <code key={k++} className="rounded-md border border-border bg-sunken px-1 py-px font-mono text-[0.85em] text-fg">
             {text.slice(i + 1, end)}
           </code>
         )
@@ -304,6 +323,9 @@ function MarkdownPreview({ source, className }: { source: string; className?: st
   )
 }
 
+const noSubscribe = () => () => {}
+const isMacPlatform = () => /Mac|iPhone|iPad/.test(navigator.platform ?? "") || /Mac/.test(navigator.userAgent)
+
 type Tool = { id: string; label: string; icon: React.ReactNode; keys?: string }
 
 const TOOLS: Tool[] = [
@@ -346,14 +368,13 @@ function MarkdownEditor({
   const [innerMode, setInnerMode] = React.useState<MarkdownEditorMode>(defaultMode)
   const mode = modeProp ?? innerMode
   const [sel, setSel] = React.useState<[number, number]>([0, 0])
-  const [mac, setMac] = React.useState(false)
+  // false on the server and during hydration, the real platform after: markup matches, no effect needed.
+  const mac = React.useSyncExternalStore(noSubscribe, isMacPlatform, () => false)
+  const [tool, setTool] = React.useState(0)
+  const toolRefs = React.useRef<(HTMLButtonElement | null)[]>([])
   const ta = React.useRef<HTMLTextAreaElement>(null)
   const pendingSel = React.useRef<[number, number] | null>(null)
   const id = React.useId()
-
-  React.useEffect(() => {
-    setMac(/Mac|iPhone|iPad/.test(navigator.platform ?? "") || /Mac/.test(navigator.userAgent))
-  }, [])
 
   React.useLayoutEffect(() => {
     const p = pendingSel.current
@@ -459,13 +480,36 @@ function MarkdownEditor({
   return (
     <div data-slot="markdown-editor" className={cn("w-full max-w-3xl rounded-xl border border-border bg-surface shadow-raised", disabled && "opacity-60", className)}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-2 py-2">
-        <div role="toolbar" aria-label="Formatting" aria-controls={`${id}-text`} className="flex items-center gap-0.5">
-          <span className="sr-only">{label}</span>
+        <div
+          role="toolbar"
+          aria-label="Formatting"
+          aria-controls={`${id}-text`}
+          className="flex items-center gap-0.5"
+          // One tab stop for the whole toolbar; arrows, Home and End move between tools.
+          onKeyDown={(e) => {
+            const last = TOOLS.length - 1
+            const to =
+              e.key === "ArrowRight" ? (tool + 1) % TOOLS.length
+              : e.key === "ArrowLeft" ? (tool + last) % TOOLS.length
+              : e.key === "Home" ? 0
+              : e.key === "End" ? last
+              : -1
+            if (to < 0) return
+            e.preventDefault()
+            setTool(to)
+            toolRefs.current[to]?.focus()
+          }}
+        >
           {TOOLS.map((t, i) => (
             <React.Fragment key={t.id}>
               {i === 4 ? <span aria-hidden className="mx-1 h-4 w-px bg-border" /> : null}
               <button
+                ref={(el) => {
+                  toolRefs.current[i] = el
+                }}
                 type="button"
+                tabIndex={i === tool ? 0 : -1}
+                onFocus={() => setTool(i)}
                 aria-label={t.keys ? `${t.label} (${combo(t.keys)})` : t.label}
                 title={t.keys ? `${t.label} (${combo(t.keys)})` : t.label}
                 aria-pressed={pressed(t.id)}
@@ -515,7 +559,8 @@ function MarkdownEditor({
           </div>
         ) : null}
         {showPreview ? (
-          <div className="overflow-auto p-5" style={{ minHeight: minHeight + 16 }} aria-live="polite" aria-label="Preview">
+          // Not a live region: re-announcing the whole preview on every keystroke would drown out typing.
+          <div role="region" className="overflow-auto p-5" style={{ minHeight: minHeight + 16 }} aria-label="Preview">
             <MarkdownPreview source={value} />
           </div>
         ) : null}

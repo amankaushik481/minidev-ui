@@ -35,7 +35,7 @@ export const examples: Example[] = [
   {
     title: "API key field",
     description: "A read only input with the button beside it; keep the same value in both so what is copied is what is shown.",
-    code: `<div className="flex w-80 flex-col gap-1.5">
+    code: `<div className="flex w-full max-w-xs flex-col gap-1.5">
   <Label htmlFor="api-key">Live API key</Label>
   <div className="flex items-center gap-2">
     <Input id="api-key" readOnly value="lm_live_4f9a2c7e1b8d" className="font-mono" />
@@ -43,7 +43,7 @@ export const examples: Example[] = [
   </div>
 </div>`,
     node: (
-      <div className="flex w-80 flex-col gap-1.5">
+      <div className="flex w-full max-w-xs flex-col gap-1.5">
         <Label htmlFor="api-key">Live API key</Label>
         <div className="flex items-center gap-2">
           <Input id="api-key" readOnly value="lm_live_4f9a2c7e1b8d" className="font-mono" />

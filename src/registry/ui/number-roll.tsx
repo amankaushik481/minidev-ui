@@ -3,17 +3,25 @@ import * as React from "react"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
-/*
- * NumberRoll: an odometer. Each digit is a strip of 0-9 that springs to its
- * place, so changing $1,284 to $1,391 rolls only the digits that changed.
- * Digits keep their identity from the right, so 999 → 1,000 grows a column
- * instead of reshuffling. Screen readers get the plain formatted value.
+/**
+ * NumberRoll — an odometer number whose digits roll on a spring when the value changes.
+ *
+ * Each digit is a strip of 0-9 that springs to its place, so changing $1,284 to $1,391
+ * rolls only the digits that changed. Digits keep their identity from the right, so
+ * 999 → 1,000 grows a column instead of reshuffling. Screen readers get the plain
+ * formatted value; with reduced motion the number swaps instantly. Use it for live
+ * totals, prices and KPI values; for a static number just render it with tabular-nums.
+ *
+ * @example
+ * <NumberRoll value={mrr} format={{ style: "currency", currency: "USD" }} trend />
  */
 
 type NumberRollProps = {
+  /** The number to show. Change it to roll. */
   value?: number
   /** Intl.NumberFormat options, e.g. { style: "currency", currency: "USD" }. */
   format?: Intl.NumberFormatOptions
+  /** BCP 47 locale for formatting, e.g. "de-DE". */
   locale?: string
   /** Briefly tint up/down changes with success/danger. */
   trend?: boolean
@@ -45,15 +53,19 @@ function Digit({ d, reduce }: { d: number; reduce: boolean | null }) {
 
 function NumberRoll({ value = 1284, format, locale = "en-US", trend, className }: NumberRollProps) {
   const reduce = useReducedMotion()
-  const fmt = React.useMemo(() => new Intl.NumberFormat(locale, format), [locale, JSON.stringify(format)]) // eslint-disable-line react-hooks/exhaustive-deps
+  // Keyed on the options' contents so an inline `format={{…}}` object does not rebuild the formatter each render.
+  const formatKey = JSON.stringify(format ?? null)
+  const fmt = React.useMemo(() => new Intl.NumberFormat(locale, JSON.parse(formatKey) ?? undefined), [locale, formatKey])
   const text = fmt.format(value)
   const prev = React.useRef(value)
   const [dir, setDir] = React.useState<0 | 1 | -1>(0)
 
   React.useEffect(() => {
-    if (!trend || value === prev.current) return
-    setDir(value > prev.current ? 1 : -1)
+    const from = prev.current
+    // Track every change, so turning `trend` on later compares against the latest value.
     prev.current = value
+    if (!trend || value === from) return
+    setDir(value > from ? 1 : -1)
     const t = setTimeout(() => setDir(0), 900)
     return () => clearTimeout(t)
   }, [value, trend])

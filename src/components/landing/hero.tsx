@@ -1,18 +1,18 @@
 "use client"
 import * as React from "react"
 import Link from "next/link"
-import { ArrowRightIcon, CheckIcon, CopyIcon, MousePointer2Icon, RulerIcon } from "lucide-react"
+import { ArrowRightIcon, BotIcon, CheckIcon, CopyIcon, MousePointer2Icon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SITE } from "@/lib/site"
 import { COMPONENT_COUNTS } from "@/lib/component-lite"
 import { Button } from "@/registry/ui/button"
-import { Kbd } from "@/registry/ui/kbd"
-import { useBlueprint } from "@/components/blueprint/blueprint"
 import { LazySection } from "@/components/landing/lazy-section"
 import { MaterialSwitcher } from "@/registry/ui/light-provider"
 import { LightField } from "@/registry/premium/light-field"
 
 export const COUNTS = COMPONENT_COUNTS
+
+const AGENT_READY = ["One-command install", "MCP server", "llms.txt", "Markdown docs per component", "Every value is a token"]
 
 export function InstallPill({ className }: { className?: string }) {
   const cmd = `npx shadcn add ${SITE.registry}/button`
@@ -72,7 +72,6 @@ function Stage() {
 }
 
 export function Hero() {
-  const { toggle } = useBlueprint()
   return (
     <section className="relative isolate overflow-hidden pb-8">
       {/* The light, visible on the page itself */}
@@ -86,20 +85,17 @@ export function Hero() {
       <div className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pt-16">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <div className="hero-rise">
-            <button
-              type="button"
-              onClick={toggle}
-              className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface py-1 pr-3 pl-1 text-[12.5px] text-fg-muted shadow-xs outline-none transition-colors hover:border-border-strong hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
+            <Link
+              href="/docs/ai"
+              className="group inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-surface py-1 pr-3 pl-1 text-[12.5px] text-fg-muted shadow-xs outline-none transition-colors hover:border-border-strong hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
             >
-              <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2 py-0.5 text-[11px] font-medium text-on-accent">
-                <RulerIcon className="size-3" /> New
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-accent px-2 py-0.5 text-[11px] font-medium text-on-accent">
+                <BotIcon aria-hidden className="size-3" /> New
               </span>
-              <span className="sm:hidden">Blueprint mode. Tap to try</span>
-              <span className="hidden sm:inline-flex sm:items-center sm:gap-1">
-                Blueprint mode: hold <Kbd className="h-4.5 min-w-4.5 text-[10px]">⌥</Kbd> anywhere, or click here
-              </span>
-              <ArrowRightIcon className="size-3.5 transition-transform duration-200 ease-hairline group-hover:translate-x-0.5" />
-            </button>
+              <span className="truncate sm:hidden">MCP server for your coding agent</span>
+              <span className="hidden sm:inline">An MCP server for Claude Code, Cursor and Codex</span>
+              <ArrowRightIcon aria-hidden className="size-3.5 shrink-0 transition-transform duration-200 ease-hairline group-hover:translate-x-0.5" />
+            </Link>
           </div>
 
           {/* The headline only slides (no fade), so it is the first thing painted: it is the page's LCP. */}
@@ -113,8 +109,8 @@ export function Hero() {
           </h1>
 
           <p style={{ animationDelay: "0.16s" }} className="hero-lift mt-6 max-w-2xl text-[1.0625rem] leading-[1.6] text-pretty text-fg-muted sm:text-lg">
-            One light crosses the page and all {COUNTS.total} free React components catch it: shadows swing, glass frosts, metal glints.
-            Pick a material and the whole kit changes with it. Blocks, templates and brand kits included. MIT, Tailwind&nbsp;CSS&nbsp;v4,
+            {COUNTS.total} free React components, blocks and templates for Tailwind&nbsp;CSS&nbsp;v4, built on Base&nbsp;UI. Your coding agent installs
+            them in one command and gets them right the first time. One light crosses the page and every component catches it. MIT,
             shadcn-compatible.
           </p>
 
@@ -125,6 +121,19 @@ export function Hero() {
             </Button>
             <InstallPill />
           </div>
+
+          <ul
+            aria-label="Built for AI agents"
+            style={{ animationDelay: "0.32s" }}
+            className="hero-rise mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[12.5px] text-fg-muted"
+          >
+            {AGENT_READY.map((t) => (
+              <li key={t} className="inline-flex items-center gap-1.5">
+                <CheckIcon aria-hidden className="size-3.5 text-accent-fg" />
+                {t}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <Stage />

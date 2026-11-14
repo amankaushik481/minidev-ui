@@ -1,22 +1,39 @@
 "use client"
 import * as React from "react"
-import { Reorder, useDragControls, useReducedMotion } from "motion/react"
+import { Reorder, useDragControls, useReducedMotion, type Transition } from "motion/react"
 import { GripVerticalIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 /**
- * A drag to reorder list built on Motion's Reorder: grab the handle to
- * drag, or focus it and use Arrow Up and Arrow Down to move an item by
- * keyboard. Every move is announced, and the new order comes back through
- * onReorder.
+ * A drag-to-reorder list: drag the grip handle, or focus it and use the arrow keys; every move is announced and the new order comes back through onReorder.
+ *
+ * Built on Motion's Reorder.
+ *
+ * Keyboard: Arrow Up/Down move one place, Home/End move to the ends; focus stays on the moved handle.
+ * Pass a new `items` array (different ids or order) to reset the list from outside.
+ *
+ * @example
+ * <SortableList items={tasks} onReorder={(next) => saveOrder(next.map((t) => t.id))} />
  */
-type Item = { id: string; label: string; detail?: string }
+type Item = {
+  /** Stable id; the list keys and compares by it. */
+  id: string
+  /** Row text. */
+  label: string
+  /** Secondary text on the right, e.g. a due date. */
+  detail?: string
+}
 
 type SortableListProps = {
+  /** Rows in their starting order. Defaults to a short sample task list. */
   items?: Item[]
+  /** Called with the full list after every drag or keyboard move. */
   onReorder?: (items: Item[]) => void
   className?: string
 }
+
+/** The "release" spring preset: rows settle after a drag. */
+const RELEASE: Transition = { type: "spring", stiffness: 400, damping: 40 }
 
 const DEMO: Item[] = [
   { id: "a", label: "Design review", detail: "Tue 10:00" },
@@ -29,14 +46,22 @@ const DEMO: Item[] = [
 function Row({ item, index, total, move }: { item: Item; index: number; total: number; move: (from: number, to: number) => void }) {
   const controls = useDragControls()
   const reduce = useReducedMotion()
+  const [dragging, setDragging] = React.useState(false)
   return (
     <Reorder.Item
       value={item}
       dragListener={false}
       dragControls={controls}
       layout={reduce ? undefined : true}
-      whileDrag={{ scale: 1.02, boxShadow: "0 18px 40px -12px rgb(0 0 0 / 0.35)", zIndex: 10 }}
-      className="relative flex items-center gap-3 rounded-xl border border-border bg-surface px-3 py-2.5 shadow-raised select-none"
+      transition={reduce ? { duration: 0 } : RELEASE}
+      whileDrag={reduce ? { zIndex: 10 } : { scale: 1.02, zIndex: 10 }}
+      onDragStart={() => setDragging(true)}
+      onDragEnd={() => setDragging(false)}
+      data-dragging={dragging || undefined}
+      className={cn(
+        "relative flex items-center gap-3 rounded-xl border border-border bg-surface px-3 py-2.5 select-none transition-shadow duration-[140ms]",
+        dragging ? "shadow-overlay" : "shadow-raised"
+      )}
     >
       <button
         type="button"
@@ -51,13 +76,21 @@ function Row({ item, index, total, move }: { item: Item; index: number; total: n
             e.preventDefault()
             move(index, index + 1)
           }
+          if (e.key === "Home" && index > 0) {
+            e.preventDefault()
+            move(index, 0)
+          }
+          if (e.key === "End" && index < total - 1) {
+            e.preventDefault()
+            move(index, total - 1)
+          }
         }}
         className="grid size-7 cursor-grab touch-none place-items-center rounded-md text-fg-subtle outline-none hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent active:cursor-grabbing"
       >
-        <GripVerticalIcon className="size-4" />
+        <GripVerticalIcon className="size-4" aria-hidden />
       </button>
       <span className="min-w-0 flex-1 truncate text-sm text-fg">{item.label}</span>
-      {item.detail ? <span className="shrink-0 font-mono text-[11px] text-fg-subtle">{item.detail}</span> : null}
+      {item.detail ? <span className="shrink-0 font-mono text-2xs text-fg-subtle">{item.detail}</span> : null}
     </Reorder.Item>
   )
 }
@@ -65,6 +98,14 @@ function Row({ item, index, total, move }: { item: Item; index: number; total: n
 function SortableList({ items = DEMO, onReorder, className }: SortableListProps) {
   const [list, setList] = React.useState(items)
   const [said, setSaid] = React.useState("")
+  const root = React.useRef<HTMLDivElement>(null)
+  // reset when the caller passes a list with different ids or order, not on every new array identity
+  const sig = items.map((i) => i.id).join("\u0000")
+  const [lastSig, setLastSig] = React.useState(sig)
+  if (sig !== lastSig) {
+    setLastSig(sig)
+    setList(items)
+  }
   const update = (next: Item[]) => {
     setList(next)
     onReorder?.(next)
@@ -76,10 +117,10 @@ function SortableList({ items = DEMO, onReorder, className }: SortableListProps)
     update(next)
     setSaid(`${it.label} moved to position ${to + 1} of ${next.length}`)
     // keep focus on the moved handle
-    requestAnimationFrame(() => (document.querySelectorAll<HTMLButtonElement>('[data-slot="sortable-list"] button')[to])?.focus())
+    requestAnimationFrame(() => root.current?.querySelectorAll<HTMLButtonElement>("button")[to]?.focus())
   }
   return (
-    <div data-slot="sortable-list" className={cn("w-full max-w-sm", className)}>
+    <div ref={root} data-slot="sortable-list" className={cn("w-full max-w-sm", className)}>
       <Reorder.Group axis="y" values={list} onReorder={update} className="flex flex-col gap-2">
         {list.map((it, i) => (
           <Row key={it.id} item={it} index={i} total={list.length} move={move} />

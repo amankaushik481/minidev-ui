@@ -4,8 +4,16 @@ import { XIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/registry/ui/avatar"
 
-/** A pill with an avatar and a name, optionally removable, for assignee pickers and share lists. */
+/**
+ * A pill with an avatar and a name, optionally removable, for assignee pickers and share lists.
+ *
+ * Passing `onRemove` adds an "x" button labelled "Remove {name}". Use `AttachmentChip` for files, `ContextChip` for AI context items, and `AvatarGroup` for a compact stack of people.
+ *
+ * @example
+ * <UserChip name="Priya Raman" src="/avatars/priya.jpg" onRemove={() => unassign("priya")} />
+ */
 type UserChipProps = {
+  /** Display name. Also drives the initials fallback and the remove label. */
   name?: string
   /** Avatar image; initials are used when absent. */
   src?: string
@@ -33,15 +41,15 @@ function UserChip({ name = "Maya Chen", src, onRemove, className }: UserChipProp
         {src ? <AvatarImage src={src} alt="" /> : null}
         <AvatarFallback className="text-[9px]">{initials(name)}</AvatarFallback>
       </Avatar>
-      {name}
+      <span className="truncate">{name}</span>
       {onRemove ? (
         <button
           type="button"
           aria-label={`Remove ${name}`}
-          className="rounded-full text-fg-muted outline-none hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
+          className="-mr-1 grid size-5 place-items-center rounded-full text-fg-muted outline-none transition-colors duration-[70ms] hover:bg-surface hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
           onClick={onRemove}
         >
-          <XIcon className="size-3" />
+          <XIcon className="size-3" aria-hidden />
         </button>
       ) : null}
     </span>

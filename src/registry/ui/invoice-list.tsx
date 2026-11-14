@@ -3,7 +3,16 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { StatusBadge } from "@/registry/ui/status-badge"
 
-/** A compact list of invoices: number and date on the left, amount and status badge on the right. */
+/**
+ * InvoiceList — a compact list of invoices: number and date on the left, amount and status badge on the right.
+ *
+ * Use it for a billing history or a customer's recent invoices. For one
+ * invoice with line items use InvoiceDetail; for sorting, filtering and
+ * selection use DataTable.
+ *
+ * @example
+ * <InvoiceList items={[{ id: "INV-2041", date: "Sep 24, 2026", amount: "$12,400.00", status: "open" }]} />
+ */
 type InvoiceItem = { id: string; date: string; amount: string; status: "paid" | "open" | "void" }
 
 const SAMPLE_ITEMS: InvoiceItem[] = [
@@ -23,14 +32,22 @@ type InvoiceListProps = {
 
 function InvoiceList({ items = SAMPLE_ITEMS, className }: InvoiceListProps) {
   return (
-    <div data-slot="invoice-list" className={cn("w-full max-w-md divide-y divide-border rounded-xl border border-border", className)}>
-      {items.map(i => (
-        <div key={i.id} className="flex items-center justify-between gap-3 px-3 py-3 text-sm">
-          <div><p className="font-medium text-fg">{i.id}</p><p className="text-xs text-fg-muted">{i.date}</p></div>
-          <div className="flex items-center gap-3"><span className="tabular-nums">{i.amount}</span><StatusBadge tone={i.status==="paid"?"success":i.status==="void"?"neutral":"warning"}>{i.status}</StatusBadge></div>
-        </div>
+    <ul data-slot="invoice-list" className={cn("w-full max-w-md divide-y divide-border rounded-xl border border-border bg-surface text-fg", className)}>
+      {items.map((i) => (
+        <li key={i.id} className="flex items-center justify-between gap-3 px-3 py-3 text-sm">
+          <div className="min-w-0">
+            <p className="truncate font-medium text-fg">{i.id}</p>
+            <p className="text-xs text-fg-muted">{i.date}</p>
+          </div>
+          <div className="flex shrink-0 items-center gap-3">
+            <span className="tabular-nums">{i.amount}</span>
+            <StatusBadge className="capitalize" tone={i.status === "paid" ? "success" : i.status === "void" ? "neutral" : "warning"}>
+              {i.status}
+            </StatusBadge>
+          </div>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 export { InvoiceList }

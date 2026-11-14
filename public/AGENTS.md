@@ -1,0 +1,43 @@
+# MiniDev UI: rules for AI coding agents
+
+Paste this into your project's AGENTS.md (or CLAUDE.md, .github/copilot-instructions.md). Source: https://ui.minidev.pro/AGENTS.md
+
+MiniDev UI (https://ui.minidev.pro) is a free, MIT-licensed library of 500+ React components, page blocks and motion pieces for Tailwind CSS v4, built on Base UI. Every component is one file the project owns.
+
+## Look it up before you write it
+
+1. Find the component. Index and rules: https://ui.minidev.pro/llms.txt. Every component with a one-line description: https://ui.minidev.pro/llms-full.txt. If the `minidev-ui` MCP server is connected, ask it instead.
+2. Read that component's docs before using it: https://ui.minidev.pro/docs/<name>.md. The exact source is in https://ui.minidev.pro/r/<name>.json.
+3. Use an existing component or block before hand-writing markup. Use only the props the docs show. Never invent props, variants or sizes.
+
+## Install
+
+- This project's route decides the import path. `components.json` present: shadcn CLI. `minidev-ui-kit` in package.json: npm package. Do not mix them.
+- shadcn CLI: `npx shadcn@latest add @minidev/<name>` (several at once: `npx shadcn@latest add @minidev/kpi-row @minidev/chart-card`). Long form: `npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`. Files land in `components/ui/<name>.tsx`; import `import { KpiRow } from "@/components/ui/kpi-row"`.
+- npm: `npm i minidev-ui-kit`, then `import { KpiRow } from "minidev-ui-kit/ui/kpi-row"`. Blocks: `minidev-ui-kit/blocks/<name>`. Motion pieces: `minidev-ui-kit/premium/<name>`. In Next.js add `transpilePackages: ["minidev-ui-kit"]`.
+- Exports are named and PascalCase of the file name (`chat-thread` exports `ChatThread`). There are no default exports.
+- Tokens, once per project. shadcn route: `curl -o app/minidev.css https://ui.minidev.pro/r/styles.css`, then `@import "./minidev.css";` after `@import "tailwindcss";`, and delete the `:root`, `.dark` and `@theme inline` blocks that `shadcn init` generated (they override MiniDev's tokens and turn the accent gray). npm route: `@import "minidev-ui-kit/styles.css";` plus `@source "../node_modules/minidev-ui-kit";` (path relative to the CSS file).
+
+## Write code the way the kit does
+
+- Colour: semantic tokens only. Surfaces `bg-bg`, `bg-surface`, `bg-raised`, `bg-sunken`, `bg-ink`, `bg-accent`. Lines `border-border`, `border-border-strong`. Text `text-fg`, `text-fg-muted`, `text-fg-subtle`, `text-on-ink`, `text-accent-fg`. Status `success`, `warning`, `danger`, `info`. Tints `bg-accent-soft`, `border-accent-line`. Never hex, never palette steps (`blue-500`), never `bg-white` or `bg-black`, never opacity variants on cards (`bg-surface/80`).
+- Buttons: `<Button>` is the ink primary. `variant="accent"` for the one brand action, `"outline"` secondary, `"ghost"` quiet, `"soft"` tinted, `"secondary"` filled neutral. Sizes `xs`, `sm`, `default`, `lg`, `xl`. Icon-only: `<IconButton aria-label="…">`.
+- Links that look like buttons use Base UI's `render` prop, not `asChild`: `<Button render={<Link href="/pricing" />}>See pricing</Button>`.
+- Depth: only `shadow-xs`, `shadow-sm`, `shadow-raised` (cards), `shadow-key` (outline controls), `shadow-ink` (solid buttons), `shadow-md`, `shadow-lg`, `shadow-overlay` (menus, dialogs). No `shadow-[...]`, no `backdrop-blur` on surfaces.
+- Radius: controls `rounded-lg`, cards `rounded-xl`, overlays `rounded-2xl`. Nested radius = outer minus padding.
+- Spacing and sizes are even numbers on a 2px grid. Control heights 28, 32, 36, 44, 48px.
+- Numbers use `tabular-nums`. Headings get negative tracking; body text does not.
+- Dark mode is the `dark` class on `<html>`. Never branch on theme inside a component.
+- Materials: `data-material="hairline | glass | metal | paper"` on `<html>` or any element. They work only through the tokens above, which is why the token rules matter.
+- Motion: springs from `motion/react`, never ad-hoc durations for movement. `snappy { type: "spring", bounce: 0.18, duration: 0.42 }` for toggles and tabs, `morph { type: "spring", bounce: 0.16, duration: 0.5 }` for size or shape changes. Always `const reduce = useReducedMotion()` and `transition={reduce ? { duration: 0 } : SPRING}`. No animation on page load in product UI. Hover never moves layout; press never scales.
+- Accessibility: keep the focus rings. Wrap fields in `<FormField id label error>` so labels and errors are wired. Every icon-only control has an `aria-label`.
+
+## Gotchas
+
+- Most components are client components (`"use client"`). A server component can render them, but function props such as `onSubmit` or `onCta` need a client parent.
+- Scrolling regions such as ChatThread need a height from you, for example `className="h-96"`.
+- Demo data: use believable product data. Never invent real company logos, testimonials, awards or customer stats.
+
+## When you finish
+
+List the `npx shadcn@latest add` command (or npm imports) you used, so the user can reproduce the install.

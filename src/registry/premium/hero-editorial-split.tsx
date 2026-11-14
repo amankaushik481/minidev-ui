@@ -6,6 +6,16 @@ import { MagneticCta } from "@/registry/premium/magnetic-cta"
 import { Button } from "@/registry/ui/button"
 import { DeviceFrameStack } from "@/registry/premium/device-frame-stack"
 
+/**
+ * A two-column hero: an editorial headline that rises line by line out of a mask with a magnetic CTA on the left, a fanned DeviceFrameStack on the right.
+ *
+ * Stacks to one column below `lg`. Reduced motion shows everything in place.
+ * Use it for a launch announcement with a visual; for a centred hero use
+ * HeroAurora or HeroKineticType.
+ *
+ * @example
+ * <HeroEditorialSplit />
+ */
 function HeroEditorialSplit({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   return (

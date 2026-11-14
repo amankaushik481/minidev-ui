@@ -3,6 +3,19 @@
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress"
 import { cn } from "@/lib/utils"
 
+/**
+ * Progress — a thin determinate progress bar built on Base UI, with optional label and value text.
+ *
+ * Use it for uploads, onboarding steps and long tasks with a known end. Pass `value={null}` for an
+ * indeterminate bar. For a compact ring use ProgressCircle; for usage against a limit use QuotaBar.
+ * Children render above the track, so put ProgressLabel and ProgressValue inside.
+ *
+ * @example
+ * <Progress value={42}>
+ *   <ProgressLabel>Uploading</ProgressLabel>
+ *   <ProgressValue />
+ * </Progress>
+ */
 function Progress({
   className,
   children,
@@ -48,7 +61,7 @@ function ProgressIndicator({
   return (
     <ProgressPrimitive.Indicator
       data-slot="progress-indicator"
-      className={cn("h-full bg-accent transition-[width,transform]", className)}
+      className={cn("h-full bg-accent transition-[width,transform] duration-200 ease-hairline", className)}
       {...props}
     />
   )

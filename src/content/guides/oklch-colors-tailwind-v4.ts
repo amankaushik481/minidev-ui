@@ -295,7 +295,7 @@ contrast([0.45, 0.012, 266], [0.985, 0.0015, 264]) // 7.13, fg-muted on bg`,
     { type: "h2", text: "Components to start with", id: "components" },
     {
       type: "p",
-      text: "Every MiniDev component is written against these tokens, so any of them shows the theme at work. [ThemePicker](/docs/theme-picker) toggles the `.dark` class, and [Button](/docs/button) and [Badge](/docs/badge) show the accent tints (`accent-soft`, `accent-line`, `accent-fg`) and `danger` in both modes.",
+      text: "Every MiniDev component is written against these tokens, so any of them shows the theme at work. [ThemePicker](/docs/theme-picker) toggles the `.dark` class (with `applyToDocument`), and [Button](/docs/button) and [Badge](/docs/badge) show the accent tints (`accent-soft`, `accent-line`, `accent-fg`) and `danger` in both modes.",
     },
     { type: "component", name: "theme-picker" },
     { type: "component", name: "button" },

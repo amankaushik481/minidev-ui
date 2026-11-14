@@ -6,6 +6,21 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 import { Badge } from "@/registry/ui/badge"
 
+/**
+ * A two-column proof section: a pitch with a checklist and a call to action on one side, a stack of short proof cards rising in on the other.
+ * The proof column rises once on the morph spring; reduced motion shows it in
+ * place. Copy the file and replace the sample pitch and proof points with
+ * real, checkable ones.
+ *
+ * Use it to back a claim right after a hero ("built to survive a client tab
+ * share"). Reach for FreePremiumCompare for a side-by-side tier comparison,
+ * and MetricTickerBoard when the proof is numbers.
+ *
+ * @example
+ * <SplitProofPanel />
+ */
+const MORPH = { type: "spring", bounce: 0.16, duration: 0.5 } as const
+
 function SplitProofPanel({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   const proofs: [string, string][] = [
@@ -27,7 +42,7 @@ function SplitProofPanel({ className }: { className?: string }) {
         </p>
         <ul className="space-y-2 text-sm text-fg">
           {["Site chrome on every major surface", "One token set across every page", "Contrast and keyboard checked in both themes"].map((t) => (
-            <li key={t} className="flex gap-2"><span className="text-accent">▹</span>{t}</li>
+            <li key={t} className="flex gap-2"><span aria-hidden className="text-accent-fg">▹</span>{t}</li>
           ))}
         </ul>
         <Button size="sm" className="w-full sm:w-auto" render={<Link href="/showcase" />}>Open /showcase</Button>
@@ -36,6 +51,7 @@ function SplitProofPanel({ className }: { className?: string }) {
         initial={reduce ? false : { y: 12 }}
         whileInView={{ y: 0 }}
         viewport={{ once: true }}
+        transition={reduce ? { duration: 0 } : MORPH}
         className="flex flex-col justify-center gap-3 bg-sunken p-5 sm:p-8"
       >
         {proofs.map(([k, v]) => (

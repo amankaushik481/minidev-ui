@@ -37,7 +37,7 @@ export const examples: Example[] = [
   <div>
     <h2 className="text-2xl font-medium tracking-[-0.03em] text-fg">Know the moment money moves</h2>
     <p className="mt-3 text-sm leading-[1.6] text-fg-muted">
-      Payments, signups and deploys show up in Lumen as they happen, so Northwind's finance team stopped refreshing dashboards.
+      Payments, signups and deploys show up in Lumen as they happen, so the Northwind finance team stopped refreshing dashboards.
     </p>
     <Button variant="outline" className="mt-5">See the live demo <ArrowRightIcon /></Button>
   </div>
@@ -48,7 +48,7 @@ export const examples: Example[] = [
         <div>
           <h2 className="text-2xl font-medium tracking-[-0.03em] text-fg">Know the moment money moves</h2>
           <p className="mt-3 text-sm leading-[1.6] text-fg-muted">
-            Payments, signups and deploys show up in Lumen as they happen, so Northwind's finance team stopped refreshing dashboards.
+            Payments, signups and deploys show up in Lumen as they happen, so the Northwind finance team stopped refreshing dashboards.
           </p>
           <Button variant="outline" className="mt-5">See the live demo <ArrowRightIcon /></Button>
         </div>

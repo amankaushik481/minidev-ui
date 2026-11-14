@@ -4,12 +4,25 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
+/**
+ * A kinetic type hero: each headline line rises out of its own mask in turn, the last one in an accent gradient, then copy and two buttons follow.
+ *
+ * Pass `lines` to set the headline (one string per line); the lines join into
+ * one h1 for screen readers and search. Reduced motion shows everything in
+ * place. Use it for a bold, type-led launch; for a single rotating word use
+ * HeroTypedHeadline, for poster scale with a grid use HeroPosterType.
+ *
+ * @example
+ * <HeroKineticType lines={["Close the books", "every single", "day."]} description="Lumen reconciles as you go." />
+ */
 function HeroKineticType({
   lines = ["Ship interfaces", "that feel", "composed."],
   description = "Plan, build and ship from one calm workspace. Every detail considered, nothing in your way.",
   className,
 }: {
+  /** Headline, one string per line. The last line gets the gradient. */
   lines?: string[]
+  /** Paragraph under the headline. */
   description?: string
   className?: string
 }) {
@@ -30,12 +43,12 @@ function HeroKineticType({
       <div className="relative mx-auto max-w-4xl min-w-0">
         <h1 className="text-[clamp(1.75rem,4vw+1rem,3.75rem)] font-medium leading-[1.08] tracking-[-0.028em] text-fg sm:leading-[1.05] sm:tracking-[-0.034em]">
           {lines.map((line, i) => (
-            <span key={line} className="block overflow-hidden py-0.5">
+            <span key={i} className="block overflow-hidden py-0.5">
               <motion.span
                 className="block"
                 initial={reduce ? false : { y: "110%" }}
                 animate={{ y: 0 }}
-                transition={{ duration: 0.7, delay: 0.08 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                transition={reduce ? { duration: 0 } : { duration: 0.7, delay: 0.08 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               >
                 {i === lines.length - 1 ? (
                   <span className="bg-[linear-gradient(100deg,var(--fg)_0%,var(--accent)_60%,var(--accent-2)_100%)] bg-clip-text text-transparent">

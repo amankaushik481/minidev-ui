@@ -8,6 +8,17 @@ import { cn } from "@/lib/utils"
  * Reveals its children as they scroll into view, rising out of a soft blur and settling into focus on a spring.
  * Wrap each item of a list and grow the `delay` to stagger them. Reduced
  * motion shows everything in place at once.
+ *
+ * Use it for scroll reveals of cards, sections and images on marketing pages.
+ * Product UI should not animate on load (law 5), so keep it out of app chrome.
+ * With no children it renders a sample grid of six feature cards.
+ *
+ * @example
+ * {features.map((f, i) => (
+ *   <BlurFade key={f.id} delay={i * 0.08} direction="up">
+ *     <FeatureCard {...f} />
+ *   </BlurFade>
+ * ))}
  */
 type BlurFadeProps = {
   children?: React.ReactNode

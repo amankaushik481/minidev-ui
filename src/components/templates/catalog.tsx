@@ -18,7 +18,7 @@ export function LivePreview({ slug }: { slug: string }) {
   const name = TEMPLATES.find((t) => t.slug === slug)?.name ?? slug
   const src = (theme: "light" | "dark", w: number) => `/templates/previews/${slug}-${theme}-${w}.webp`
   const set = (theme: "light" | "dark") => `${src(theme, 480)} 480w, ${src(theme, 960)} 960w`
-  const sizes = "(min-width: 1024px) 400px, 92vw"
+  const sizes = "(min-width: 1024px) 400px, (min-width: 768px) 46vw, 92vw"
   return (
     <div className="relative aspect-[1440/900] overflow-hidden rounded-t-[22px] border-b border-border bg-sunken">
       {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized WebP, nothing for the image optimizer to do */}

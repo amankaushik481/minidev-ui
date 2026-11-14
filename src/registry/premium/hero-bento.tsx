@@ -4,6 +4,18 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
+/**
+ * A hero with a centred headline and button above a bento grid of four capability tiles that rise in on load.
+ *
+ * Use it for a product overview hero that shows breadth at a glance; for a
+ * scroll-triggered bento lower on the page use FeatureBentoMotion. Reduced
+ * motion shows the tiles in place.
+ *
+ * @example
+ * <HeroBento />
+ */
+const MORPH = { type: "spring", bounce: 0.16, duration: 0.5 } as const
+
 const tiles = [
   { title: "AI surfaces", body: "Threads, traces, citations.", span: "lg:col-span-2" },
   { title: "Billing", body: "Plans, seats, invoices.", span: "" },
@@ -32,9 +44,9 @@ function HeroBento({ className }: { className?: string }) {
             key={t.title}
             initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 * i, duration: 0.35 }}
+            transition={reduce ? { duration: 0 } : { ...MORPH, delay: 0.05 * i }}
             className={cn(
-              "min-w-0 rounded-xl border border-border bg-surface p-5 shadow-highlight",
+              "min-w-0 rounded-xl border border-border bg-surface p-5 shadow-raised",
               t.span
             )}
           >

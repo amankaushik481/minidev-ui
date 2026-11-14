@@ -3,16 +3,25 @@ import * as React from "react"
 import { useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
-/*
- * SplitFlap: a departure-board display. Each character flips through the
- * alphabet to its target, top half falling over the bottom like a real
- * Solari board, with a staggered start per column so a whole row ripples.
+/**
+ * A departure-board display where each character flips through the alphabet to its target, rippling across the row like a Solari board.
+ *
+ * Top half falls over the bottom with a staggered start per column.
  * Screen readers get the final text once; the flipping is decoration.
+ *
+ * The board is always dark (it scopes the dark tokens to itself). Supported
+ * characters: A-Z, 0-9, space and : . - ' / ·; anything else shows blank.
+ * Use it for a headline status or a launch moment; for a changing number
+ * in a dashboard use NumberRoll, which is quieter.
+ *
+ * @example
+ * <SplitFlap value="GATE 12" length={8} tone="accent" />
  */
 
 const CHARSET = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:.-'/·"
 
 type SplitFlapProps = {
+  /** Text to flip to. Change it to flip again from the current characters. */
   value?: string
   /** Pad or cut to this many cells. */
   length?: number
@@ -20,6 +29,7 @@ type SplitFlapProps = {
   speed?: number
   /** Extra delay per column, for the ripple. */
   stagger?: number
+  /** Cell size: 24px, 32px or 48px tall. */
   size?: "sm" | "default" | "lg"
   /** Colour of the characters. */
   tone?: "default" | "accent" | "success" | "warning" | "danger"
@@ -27,16 +37,16 @@ type SplitFlapProps = {
 }
 
 const SIZE = {
-  sm: "h-6 w-[17px] text-[13px] rounded-[3px]",
-  default: "h-8 w-[22px] text-[17px] rounded-[4px]",
-  lg: "h-12 w-8 text-[26px] rounded-[5px]",
+  sm: "h-6 w-[18px] text-sm rounded-[4px]",
+  default: "h-8 w-[22px] text-lg rounded-[4px]",
+  lg: "h-12 w-8 text-[26px] rounded-[6px]",
 }
 const TONE = {
-  default: "text-[oklch(0.96_0.01_90)]",
-  accent: "text-accent",
-  success: "text-[oklch(0.82_0.16_150)]",
-  warning: "text-[oklch(0.86_0.15_85)]",
-  danger: "text-[oklch(0.74_0.17_28)]",
+  default: "text-fg",
+  accent: "text-accent-fg",
+  success: "text-success",
+  warning: "text-warning",
+  danger: "text-danger",
 }
 
 function idx(c: string) {
@@ -46,20 +56,24 @@ function idx(c: string) {
 
 function Cell({ target, speed, delay, size, tone }: { target: string; speed: number; delay: number; size: keyof typeof SIZE; tone: keyof typeof TONE }) {
   const reduce = useReducedMotion()
-  const [cur, setCur] = React.useState(" ")
-  const [next, setNext] = React.useState(" ")
+  const [curState, setCur] = React.useState(" ")
+  const [nextState, setNext] = React.useState(" ")
   const [flip, setFlip] = React.useState(0)
   const curRef = React.useRef(" ")
 
+  const goal = CHARSET[idx(target)]
+
   React.useEffect(() => {
-    const goal = CHARSET[idx(target)]
-    if (reduce) {
-      curRef.current = goal
-      setCur(goal)
-      setNext(goal)
-      return
-    }
     let t: ReturnType<typeof setTimeout>
+    if (reduce) {
+      // render shows the goal directly; sync state after paint so a later motion change starts from it
+      curRef.current = goal
+      t = setTimeout(() => {
+        setCur(goal)
+        setNext(goal)
+      })
+      return () => clearTimeout(t)
+    }
     const step = () => {
       const c = curRef.current
       if (c === goal) return
@@ -74,18 +88,20 @@ function Cell({ target, speed, delay, size, tone }: { target: string; speed: num
     }
     t = setTimeout(step, delay)
     return () => clearTimeout(t)
-  }, [target, speed, delay, reduce])
+  }, [goal, speed, delay, reduce])
 
-  const half = "absolute inset-x-0 h-1/2 overflow-hidden bg-[linear-gradient(oklch(0.24_0.008_260),oklch(0.19_0.008_260))]"
+  const half = "absolute inset-x-0 h-1/2 overflow-hidden bg-linear-to-b from-raised to-surface"
   const glyph = (c: string, bottom?: boolean) => (
     <span className={cn("absolute inset-x-0 flex h-[200%] items-center justify-center", bottom ? "-top-full" : "top-0")}>{c}</span>
   )
+  const cur = reduce ? goal : curState
+  const next = reduce ? goal : nextState
   const animating = cur !== next
   return (
     <span className={cn("relative inline-block shrink-0 font-mono leading-none font-semibold [perspective:260px]", SIZE[size], TONE[tone])} aria-hidden>
       {/* static: next top, current bottom */}
       <span className={cn(half, "top-0 rounded-t-[inherit]")}>{glyph(next)}</span>
-      <span className={cn(half, "bottom-0 rounded-b-[inherit] bg-[linear-gradient(oklch(0.2_0.008_260),oklch(0.16_0.008_260))]")}>{glyph(cur, true)}</span>
+      <span className={cn(half, "bottom-0 rounded-b-[inherit] from-surface to-sunken")}>{glyph(cur, true)}</span>
       {animating ? (
         <>
           <span
@@ -97,7 +113,7 @@ function Cell({ target, speed, delay, size, tone }: { target: string; speed: num
           </span>
           <span
             key={`b${flip}`}
-            className={cn(half, "bottom-0 origin-top rounded-b-[inherit] bg-[linear-gradient(oklch(0.2_0.008_260),oklch(0.16_0.008_260))] [backface-visibility:hidden]")}
+            className={cn(half, "bottom-0 origin-top rounded-b-[inherit] from-surface to-sunken [backface-visibility:hidden]")}
             style={{ animation: `flap-bottom ${speed * 0.45}ms cubic-bezier(0,0,0.3,1.4) ${speed * 0.55}ms both` }}
           >
             {glyph(next, true)}
@@ -105,8 +121,8 @@ function Cell({ target, speed, delay, size, tone }: { target: string; speed: num
         </>
       ) : null}
       {/* hinge */}
-      <span className="absolute inset-x-0 top-1/2 z-10 h-px -translate-y-1/2 bg-black/70" />
-      <span className="absolute inset-0 rounded-[inherit] shadow-[inset_0_1px_0_oklch(1_0_0/0.08),0_1px_2px_oklch(0_0_0/0.4)]" />
+      <span className="absolute inset-x-0 top-1/2 z-10 h-px -translate-y-1/2 bg-bg" />
+      <span className="absolute inset-0 rounded-[inherit] shadow-raised" />
     </span>
   )
 }
@@ -114,7 +130,8 @@ function Cell({ target, speed, delay, size, tone }: { target: string; speed: num
 function SplitFlap({ value = "NOW BOARDING", length, speed = 70, stagger = 28, size = "default", tone = "default", className }: SplitFlapProps) {
   const text = length ? value.toUpperCase().padEnd(length, " ").slice(0, length) : value.toUpperCase()
   return (
-    <span data-slot="split-flap" className={cn("inline-flex gap-[2px]", className)}>
+    // `dark` scopes the dark tokens: a flap board reads as a dark object in either theme
+    <span data-slot="split-flap" className={cn("dark inline-flex gap-0.5", className)}>
       <span className="sr-only">{value}</span>
       {text.split("").map((c, i) => (
         <Cell key={i} target={c} speed={speed} delay={i * stagger} size={size} tone={tone} />

@@ -3,10 +3,20 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/registry/ui/avatar"
 
-/** A quote card with the customer's avatar, name and role, for landing pages and case studies. */
+/**
+ * A quote card with the customer's avatar, name and role, for landing pages and case studies.
+ *
+ * Renders a semantic `<figure>` with `<blockquote>` and `<figcaption>`. Use `PressQuote` for a publication pull quote. Only quote real customers.
+ *
+ * @example
+ * <Testimonial quote="Month-end close went from six days to two." name="Maya Chen" role="Head of Finance, Northwind" />
+ */
 type TestimonialProps = {
+  /** The quote, without quotation marks; curly quotes are added. */
   quote?: string
+  /** Person quoted. Also drives the avatar initials. */
   name?: string
+  /** Title and company, e.g. "Head of Finance, Northwind". */
   role?: string
   /** Avatar image; initials are used when absent. */
   src?: string

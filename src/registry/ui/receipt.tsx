@@ -1,9 +1,22 @@
 "use client"
 import { cn } from "@/lib/utils"
 
-/** Receipt — a monospaced receipt card with an id, itemised lines and a ruled total. */
+/**
+ * Receipt — a monospaced receipt card with an id, itemised lines and a ruled total.
+ *
+ * Use it in order confirmations, billing history and chat answers that show a charge. Amounts
+ * are display strings, so format money before passing it. For an editable bill use an invoice
+ * table instead.
+ *
+ * @example
+ * <Receipt id="RCP-1042" lines={[{ label: "Pro plan", amount: "$49.00" }, { label: "Tax", amount: "$3.92" }]} total="$52.92" />
+ */
 
-type ReceiptLine = { label: string; amount: string }
+type ReceiptLine = {
+  label: string
+  /** Formatted amount, e.g. "$49.00". */
+  amount: string
+}
 
 // A Lumen receipt for Northwind's Pro plan.
 const SAMPLE_LINES: ReceiptLine[] = [
@@ -14,8 +27,11 @@ const SAMPLE_LINES: ReceiptLine[] = [
 ]
 
 type ReceiptProps = {
+  /** Receipt number shown in the header. */
   id?: string
+  /** Itemised lines, in order. */
   lines?: ReceiptLine[]
+  /** Formatted grand total. */
   total?: string
   className?: string
 }
@@ -30,8 +46,8 @@ function Receipt({
     <div data-slot="receipt" className={cn("min-w-64 rounded-xl border border-border bg-surface p-4 font-mono text-xs", className)}>
       <p className="text-sm font-medium text-fg">Receipt {id}</p>
       <ul className="mt-3 space-y-1">
-        {lines.map((l) => (
-          <li key={l.label} className="flex justify-between gap-4 text-fg-muted">
+        {lines.map((l, i) => (
+          <li key={`${l.label}-${i}`} className="flex justify-between gap-4 text-fg-muted">
             <span>{l.label}</span>
             <span className="tabular-nums">{l.amount}</span>
           </li>

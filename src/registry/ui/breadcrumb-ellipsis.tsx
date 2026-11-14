@@ -1,9 +1,21 @@
-"use client"
 import * as React from "react"
 import { MoreHorizontalIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-function BreadcrumbEllipsis({ className }: { className?: string }) {
+/**
+ * A "…" marker for collapsed middle levels in a breadcrumb trail.
+ *
+ * Decorative by default (hidden from screen readers). To let people open the hidden levels, wrap
+ * it in a `DropdownMenuTrigger` and give that trigger `aria-label="Show more pages"`.
+ *
+ * @example
+ * <BreadcrumbEllipsis />
+ */
+type BreadcrumbEllipsisProps = {
+  className?: string
+}
+
+function BreadcrumbEllipsis({ className }: BreadcrumbEllipsisProps) {
   return (
     <span
       data-slot="breadcrumb-ellipsis"
@@ -16,3 +28,4 @@ function BreadcrumbEllipsis({ className }: { className?: string }) {
   )
 }
 export { BreadcrumbEllipsis }
+export type { BreadcrumbEllipsisProps }

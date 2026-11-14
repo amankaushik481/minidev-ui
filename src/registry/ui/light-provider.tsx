@@ -2,7 +2,21 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** The page's single light source: it follows the pointer, drifts when idle, and every shadow and sheen in the kit falls away from it. */
+/**
+ * LightProvider — the page's single light source: it follows the pointer, drifts when idle, and every shadow and sheen in the kit falls away from it.
+ *
+ * Optional: without it shadows fall from a fixed light. Render it once near
+ * the root (it renders nothing and only touches `document` in an effect, so it
+ * is SSR safe). Pick a material with MaterialSwitcher or by setting
+ * data-material on <html> or any subtree.
+ *
+ * @example
+ * // app/layout.tsx
+ * <body>
+ *   <LightProvider />
+ *   {children}
+ * </body>
+ */
 
 /*
  * Light & Material.
@@ -40,6 +54,8 @@ function useReducedMotion() {
 
 /* Number of providers currently running the light. Only the first one does. */
 let lights = 0
+/* Providers waiting for the light; when the running one unmounts, they retry and one takes over. */
+const waiting = new Set<() => void>()
 
 type LightProviderProps = {
   /** Drift when the pointer is idle or absent. */
@@ -51,18 +67,26 @@ type LightProviderProps = {
 function LightProvider({ idle = true, children }: LightProviderProps) {
   const reduce = useReducedMotion()
   const [secondary, setSecondary] = React.useState(false)
+  const [turn, setTurn] = React.useState(0)
   React.useEffect(() => {
     if (lights > 0) {
+      // `lights` is a module counter, so who runs the light is only known after mount.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSecondary(true)
-      return
+      const retry = () => setTurn((t) => t + 1)
+      waiting.add(retry)
+      return () => {
+        waiting.delete(retry)
+      }
     }
     lights++
     const stop = reduce ? undefined : runLight(idle)
     return () => {
       lights--
       stop?.()
+      waiting.forEach((retry) => retry())
     }
-  }, [reduce, idle])
+  }, [reduce, idle, turn])
   if (children !== undefined) return <>{children}</>
   if (secondary) return <LightDemo />
   return <span data-slot="light-provider" hidden />
@@ -283,7 +307,16 @@ const SWATCH: Record<Material, string> = {
 }
 const LABEL: Record<Material, string> = { hairline: "Hairline", glass: "Glass", metal: "Metal", paper: "Paper" }
 
-function MaterialSwitcher({ size = "default", labels = true, className }: { size?: "sm" | "default" | "lg"; labels?: boolean; className?: string }) {
+type MaterialSwitcherProps = {
+  /** Control height: 32, 36 or 44px. */
+  size?: "sm" | "default" | "lg"
+  /** Show the material names; false shows swatches only (each keeps an aria-label). */
+  labels?: boolean
+  className?: string
+}
+
+/** MaterialSwitcher — a radio group that sets data-material on <html> (hairline, glass, metal, paper), with a circular reveal and a remembered choice. */
+function MaterialSwitcher({ size = "default", labels = true, className }: MaterialSwitcherProps) {
   const { material, setMaterial } = useMaterial()
   const reduce = useReducedMotion()
   const refs = React.useRef<(HTMLButtonElement | null)[]>([])
@@ -334,10 +367,15 @@ function MaterialSwitcher({ size = "default", labels = true, className }: { size
             tabIndex={on ? 0 : -1}
             onClick={(e) => pick(m, e.currentTarget)}
             onKeyDown={(e) => {
-              const d = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0
-              if (!d) return
+              const last = MATERIALS.length - 1
+              const n =
+                e.key === "ArrowRight" || e.key === "ArrowDown" ? (i + 1) % MATERIALS.length
+                : e.key === "ArrowLeft" || e.key === "ArrowUp" ? (i + last) % MATERIALS.length
+                : e.key === "Home" ? 0
+                : e.key === "End" ? last
+                : -1
+              if (n < 0) return
               e.preventDefault()
-              const n = (i + d + MATERIALS.length) % MATERIALS.length
               refs.current[n]?.focus()
               pick(MATERIALS[n], refs.current[n])
             }}
@@ -366,4 +404,4 @@ function MaterialSwitcher({ size = "default", labels = true, className }: { size
 }
 
 export { LightProvider, MaterialSwitcher, useMaterial, MATERIALS }
-export type { Material, LightProviderProps }
+export type { Material, LightProviderProps, MaterialSwitcherProps }

@@ -9,6 +9,16 @@ import { CodeBlock } from "@/registry/ui/code-block"
 import { Toc } from "@/registry/ui/toc"
 import { ScrollReveal } from "@/registry/premium/scroll-reveal"
 
+/**
+ * A documentation home: a hero with search and two entry buttons, then a sticky table of contents beside install, tokens and premium sections that reveal on scroll.
+ *
+ * A page template for a docs landing route; swap the copy, TOC items and
+ * sections. The search field is presentational until you wire `onChange` on
+ * SearchInput. For a single docs article use Toc with your MDX content.
+ *
+ * @example
+ * <DocsMarketing />
+ */
 function DocsMarketing({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   return (
@@ -58,7 +68,7 @@ function DocsMarketing({ className }: { className?: string }) {
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <h2 id="premium" className="text-2xl font-medium tracking-[-0.018em] text-fg">Premium</h2>
-            <p className="mt-2 text-sm text-fg-muted">Motion blocks live under <code className="rounded border border-border bg-sunken px-1">src/registry/premium</code>.</p>
+            <p className="mt-2 text-sm text-fg-muted">Motion blocks live under <code className="rounded-sm border border-border bg-sunken px-1 font-mono">src/registry/premium</code>.</p>
           </ScrollReveal>
         </div>
       </div>

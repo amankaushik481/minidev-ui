@@ -6,6 +6,7 @@ import { SegmentedControl } from "@/registry/ui/segmented-control"
 import { CodeBlock } from "@/registry/ui/code-block"
 import { fmtOklch, hexToOklch, toGamut, type Oklch } from "@/lib/color"
 import { Control } from "./shadow-generator"
+import { ShareLink, useShareUrl } from "./share-url"
 
 const num = (v: number | readonly number[]) => (Array.isArray(v) ? v[0] : (v as number))
 
@@ -111,19 +112,31 @@ export function ThemeGenerator() {
   const [hex, setHex] = React.useState("#6D5BFF")
   const [neutral, setNeutral] = React.useState<Neutral>("Zinc")
   const [radius, setRadius] = React.useState(10)
-  const brand = hexToOklch(/^#[0-9a-f]{6}$/i.test(hex) ? hex : "#6D5BFF")!
+  const hexOk = !!hexToOklch(hex.trim())
+  const brand = hexToOklch(hexOk ? hex.trim() : "#6D5BFF")!
   const { light, dark } = build(brand, neutral, radius)
   const block = (sel: string, vars: Record<string, string>) => `${sel} {\n${Object.entries(vars).map(([k, x]) => `  --${k}: ${x};`).join("\n")}\n}`
   const css = `${block(":root", light)}\n\n${block(".dark", dark)}`
+  // The utilities (bg-primary, rounded-lg) read these; shadcn's own globals.css already has this block.
+  const mapping = `@custom-variant dark (&:is(.dark *));\n\n@theme inline {\n  --radius-sm: calc(var(--radius) - 4px);\n  --radius-md: calc(var(--radius) - 2px);\n  --radius-lg: var(--radius);\n  --radius-xl: calc(var(--radius) + 4px);\n${Object.keys(light).filter((k) => k !== "radius").map((k) => `  --color-${k}: var(--${k});`).join("\n")}\n}`
+  const link = useShareUrl({ hex, neutral, radius: String(radius) }, (p) => {
+    const h = p.get("hex")
+    if (h && hexToOklch(h)) setHex(h)
+    const n = p.get("neutral")
+    if (n && n in NEUTRALS) setNeutral(n as Neutral)
+    const r = Number(p.get("radius"))
+    if (p.has("radius") && r >= 0 && r <= 20) setRadius(Math.round(r))
+  })
   return (
     <div className="space-y-5">
       <div className="grid grid-cols-1 gap-5 rounded-2xl border border-border bg-surface p-5 shadow-raised md:grid-cols-3">
         <div className="space-y-2">
           <label htmlFor="tg-hex" className="text-[13px] font-medium text-fg">Brand color</label>
           <div className="flex gap-2">
-            <input type="color" aria-label="Pick a brand color" value={/^#[0-9a-f]{6}$/i.test(hex) ? hex : "#6d5bff"} onChange={(e) => setHex(e.target.value.toUpperCase())} className="h-9 w-12 shrink-0 cursor-pointer rounded-md border border-border bg-transparent" />
-            <Input id="tg-hex" value={hex} onChange={(e) => setHex(e.target.value)} className="font-mono" />
+            <input type="color" aria-label="Pick a brand color" value={/^#[0-9a-f]{6}$/i.test(hex.trim()) ? hex.trim().toLowerCase() : "#6d5bff"} onChange={(e) => setHex(e.target.value.toUpperCase())} className="h-9 w-12 shrink-0 cursor-pointer rounded-md border border-border bg-transparent" />
+            <Input id="tg-hex" value={hex} onChange={(e) => setHex(e.target.value)} className="font-mono" spellCheck={false} aria-invalid={!hexOk} aria-describedby={hexOk ? undefined : "tg-hex-err"} />
           </div>
+          {hexOk ? null : <p id="tg-hex-err" className="text-[12.5px] text-danger">Enter a 3 or 6 digit hex, like #6D5BFF. The preview keeps the default until then.</p>}
         </div>
         <div className="space-y-2">
           <span className="text-[13px] font-medium text-fg">Neutral</span>
@@ -137,7 +150,11 @@ export function ThemeGenerator() {
         <Preview vars={light} label="Light" />
         <Preview vars={{ ...dark, radius: light.radius }} label="Dark" />
       </div>
+      <div className="flex justify-end">
+        <ShareLink href={link} />
+      </div>
       <CodeBlock language="css" filename="globals.css (paste under @import &quot;tailwindcss&quot;)" code={css} className="max-h-[520px] overflow-y-auto" />
+      <CodeBlock language="css" filename="globals.css mapping (skip if your file already has @theme inline)" code={mapping} className="max-h-[360px] overflow-y-auto" />
     </div>
   )
 }

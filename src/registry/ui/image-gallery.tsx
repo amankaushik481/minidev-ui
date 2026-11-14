@@ -3,8 +3,21 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { AspectRatio } from "@/registry/ui/aspect-ratio"
 
-/** A square-tile image grid, two columns on phones and three from the small breakpoint up. */
-type GalleryImage = { src: string; alt: string }
+/**
+ * ImageGallery — a square-tile image grid, two columns on phones and three from the small breakpoint up.
+ *
+ * Use it for a static set of photos or screenshots. For mixed heights use
+ * MasonryGrid, for one image at a time use Carousel, and to open a tile full
+ * screen wrap it in ImageLightbox.
+ *
+ * @example
+ * <ImageGallery images={[{ src: "/a.jpg", alt: "Front of the store" }, { src: "/b.jpg", alt: "Checkout counter" }]} />
+ */
+type GalleryImage = {
+  src: string
+  /** Describe the image; use an empty string only for purely decorative tiles. */
+  alt: string
+}
 
 /* Sample tiles are tiny inline SVG landscapes, so the demo needs no network and no image files. */
 const scene = (top: string, bottom: string, near: string, far: string, sun: string, sx: number, sy: number) =>
@@ -33,10 +46,10 @@ function ImageGallery({
 }: ImageGalleryProps) {
   return (
     <div data-slot="image-gallery" className={cn("grid w-full max-w-2xl grid-cols-2 gap-2 sm:grid-cols-3", className)}>
-      {images.map((img) => (
-        <AspectRatio key={img.src} ratio={1} className="rounded-xl border border-border bg-sunken">
+      {images.map((img, i) => (
+        <AspectRatio key={`${img.src}-${i}`} ratio={1} className="rounded-xl border border-border bg-sunken">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={img.src} alt={img.alt} className="absolute inset-0 size-full object-cover" />
+          <img src={img.src} alt={img.alt} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" />
         </AspectRatio>
       ))}
     </div>

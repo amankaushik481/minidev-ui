@@ -220,6 +220,21 @@ import { PricingPlans } from "@/components/ui/pricing-plans"
       ],
     },
 
+    { type: "h2", text: "Set up your AI coding agent", id: "ai-agents" },
+    {
+      type: "p",
+      text: "If Claude Code, Cursor, Codex or another agent writes code in this project, give it the MiniDev rules once. They tell it which install route the project uses, to read each component's docs before using it, and to use the semantic tokens instead of raw colors:",
+    },
+    {
+      type: "code",
+      lang: "bash",
+      code: `curl -fsSL https://ui.minidev.pro/AGENTS.md >> AGENTS.md`,
+    },
+    {
+      type: "p",
+      text: "Claude Code reads `CLAUDE.md`, so add the line `@AGENTS.md` to it. To look components up, the agent can read [`llms.txt`](https://ui.minidev.pro/llms.txt) and the Markdown docs at `https://ui.minidev.pro/docs/<name>.md`, or call the MiniDev MCP server. Setup for each agent is on [Use MiniDev UI with AI agents](/docs/ai).",
+    },
+
     { type: "h2", text: "Troubleshooting", id: "troubleshooting" },
     {
       type: "list",

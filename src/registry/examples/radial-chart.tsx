@@ -78,4 +78,48 @@ export const examples: Example[] = [
       />
     ),
   },
+  {
+    title: "Period switch",
+    description: "Pass periods instead of data and a segmented control above the rings swaps datasets; the rings sweep to the new values.",
+    code: `<RadialChart
+  title="Collections"
+  periods={[
+    {
+      label: "This month",
+      data: [
+        { label: "Collected", value: 84200, max: 120000, format: (n) => \`$\${(n / 1000).toFixed(1)}k\` },
+        { label: "Paid on time", value: 91, max: 100, format: (n) => \`\${n}%\` },
+      ],
+    },
+    {
+      label: "Last month",
+      data: [
+        { label: "Collected", value: 112400, max: 120000, format: (n) => \`$\${(n / 1000).toFixed(1)}k\` },
+        { label: "Paid on time", value: 86, max: 100, format: (n) => \`\${n}%\` },
+      ],
+    },
+  ]}
+/>`,
+    node: (
+      <RadialChart
+        title="Collections"
+        periods={[
+          {
+            label: "This month",
+            data: [
+              { label: "Collected", value: 84200, max: 120000, format: (n) => `$${(n / 1000).toFixed(1)}k` },
+              { label: "Paid on time", value: 91, max: 100, format: (n) => `${n}%` },
+            ],
+          },
+          {
+            label: "Last month",
+            data: [
+              { label: "Collected", value: 112400, max: 120000, format: (n) => `$${(n / 1000).toFixed(1)}k` },
+              { label: "Paid on time", value: 86, max: 100, format: (n) => `${n}%` },
+            ],
+          },
+        ]}
+      />
+    ),
+  },
 ]

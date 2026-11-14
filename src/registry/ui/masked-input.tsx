@@ -4,6 +4,24 @@ import { CheckIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { inputVariants } from "@/registry/ui/input"
 
+/**
+ * MaskedInput — a text field that formats as you type from a mask such as "(999) 999-9999".
+ *
+ * Mask tokens: "9" digit, "A" letter, "*" letter or digit, "\\" escapes a token; anything else
+ * is a literal. The caret stays where you expect on insert, delete and paste, pasted text is
+ * refitted to the mask, and an optional guide shows the characters still to come. onChange
+ * returns the masked string, the raw characters and whether the mask is full.
+ * Use it for fixed-shape values (dates, plates, IBANs). For phone numbers with no fixed
+ * shape use PhoneInput; for one-time codes use OtpInput.
+ * Pass `mask` for a single field; without it the component renders `examples`.
+ *
+ * @example
+ * <MaskedInput
+ *   label="Phone"
+ *   mask="(999) 999-9999"
+ *   onChange={({ raw, complete }) => complete && save(raw)}
+ * />
+ */
 type Token = { kind: "slot"; test: RegExp } | { kind: "lit"; ch: string }
 
 const SLOT: Record<string, RegExp> = { "9": /^\d$/, A: /^\p{L}$/u, "*": /^[\p{L}\d]$/u }
@@ -73,39 +91,42 @@ const EXAMPLES: MaskedInputExample[] = [
   { label: "IBAN", mask: "AA99 **** 9999 9999 9999 99", uppercase: true, hint: "Paste it with or without spaces" },
 ]
 
-/**
- * A text input that formats as you type from a mask such as "(999) 999-9999"
- * ("9" digit, "A" letter, "*" letter or digit, "\\" escapes). The caret stays
- * where you expect on insert, delete and paste, pasted text is refitted to the
- * mask, and an optional guide shows the characters still to come. onChange
- * returns the masked string, the raw characters and whether the mask is full.
- * Pass `mask` for a single field; without it the component renders `examples`.
- */
 type MaskedInputProps = {
   /** The mask. When omitted, the `examples` list is rendered instead. */
   mask?: string
+  /** Visible label above the field. Without one, pass `aria-label`. */
   label?: React.ReactNode
+  /** Accessible name when there is no visible `label`. */
+  "aria-label"?: string
   /** Raw value (slot characters only), for a controlled field. */
   value?: string
+  /** Initial raw value when uncontrolled. Extra or mismatched characters are dropped. */
   defaultValue?: string
+  /** Fires on every edit with `{ masked, raw, complete }`. */
   onChange?: (value: MaskedValue) => void
   /** Show the remaining mask while typing. `true` uses `guideChar`; a string is a template as long as the mask, e.g. "MM/DD/YYYY". */
   guide?: boolean | string
+  /** Character drawn for empty slots when `guide` is `true`. */
   guideChar?: string
   /** Capitalise letters as they are typed. */
   uppercase?: boolean
+  /** Shown when empty and unfocused. Defaults to the guide template. */
   placeholder?: string
+  /** Help text under the field, linked with aria-describedby. Turns danger-coloured when `invalid`. */
   hint?: React.ReactNode
   /** Show a check once every slot is filled. */
   showComplete?: boolean
   /** Show the raw value (slot characters only) under the field. */
   showRaw?: boolean
+  /** Marks the field invalid (aria-invalid) and colours the hint. */
   invalid?: boolean
   disabled?: boolean
   required?: boolean
   id?: string
+  /** Form field name. The submitted value is the masked string. */
   name?: string
   autoComplete?: string
+  /** Virtual keyboard hint. Defaults to "numeric" for digit-only masks. */
   inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"]
   /** Fields rendered when no `mask` is passed. */
   examples?: MaskedInputExample[]
@@ -134,6 +155,7 @@ function MaskedInput({
   inputMode,
   examples = EXAMPLES,
   className,
+  "aria-label": ariaLabel,
 }: MaskedInputProps) {
   if (mask === undefined) {
     return (
@@ -165,6 +187,7 @@ function MaskedInput({
       name={name}
       autoComplete={autoComplete}
       inputMode={inputMode}
+      aria-label={ariaLabel}
       className={cn("w-full max-w-sm", className)}
     />
   )
@@ -193,6 +216,7 @@ function MaskedField({
   autoComplete = "off",
   inputMode,
   className,
+  "aria-label": ariaLabel,
 }: FieldProps) {
   const tokens = React.useMemo(() => parseMask(mask), [mask])
   const slotPos = React.useMemo(() => tokens.flatMap((t, i) => (t.kind === "slot" ? [i] : [])), [tokens])
@@ -301,6 +325,7 @@ function MaskedField({
           spellCheck={false}
           disabled={disabled}
           required={required}
+          aria-label={ariaLabel}
           aria-invalid={invalid || undefined}
           aria-describedby={hintId}
           data-complete={complete || undefined}

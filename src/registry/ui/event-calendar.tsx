@@ -5,7 +5,23 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 import { SegmentedControl } from "@/registry/ui/segmented-control"
 
-/** A week and day event scheduler with overlap layout, an all-day row, a current time line and click to create. */
+/**
+ * EventCalendar — a week and day event scheduler with overlap layout, an all-day row, a current time line and click to create.
+ *
+ * Use for meeting and shift schedules. Events are plain objects with Date
+ * `start` and `end`; `calendars` set their colours. Click an empty slot (or
+ * focus a day column and use Up/Down then Enter) to fire `onCreate`. For a
+ * month grid use `CalendarMonth`; for a list of upcoming events use
+ * `CalendarAgenda`; for project timelines use `GanttChart`.
+ *
+ * @example
+ * <EventCalendar
+ *   events={[{ id: "1", title: "Sprint planning", start: new Date(2026, 10, 16, 11), end: new Date(2026, 10, 16, 12), calendar: "eng" }]}
+ *   calendars={[{ id: "eng", label: "Engineering", tone: "info" }]}
+ *   onCreate={({ start, end }) => openNewEvent(start, end)}
+ *   onEventClick={(ev) => openEvent(ev.id)}
+ * />
+ */
 type CalendarTone = "accent" | "info" | "success" | "warning" | "neutral"
 
 type CalendarSource = { id: string; label: string; tone: CalendarTone }
@@ -24,12 +40,15 @@ type CalendarEvent = {
 type CalendarView = "week" | "day"
 
 type EventCalendarProps = {
+  /** Events to place. Defaults to a sample Lumen work week around today. */
   events?: CalendarEvent[]
+  /** Calendars that colour events and fill the legend. */
   calendars?: CalendarSource[]
   /** Controlled view. */
   view?: CalendarView
   /** "auto" picks Day under 600px of width and Week above. */
   defaultView?: CalendarView | "auto"
+  /** Called when the Week/Day control or a day header changes the view. */
   onViewChange?: (view: CalendarView) => void
   /** Any date inside the first week or day shown. Defaults to today. */
   defaultDate?: Date
@@ -46,7 +65,9 @@ type EventCalendarProps = {
   slotMinutes?: number
   /** Called when an empty slot is clicked or chosen with the keyboard. */
   onCreate?: (range: { start: Date; end: Date }) => void
+  /** Called when an event block is clicked or activated with the keyboard. */
   onEventClick?: (event: CalendarEvent) => void
+  /** BCP 47 locale for dates and times, e.g. "en-GB". */
   locale?: string
   className?: string
 }

@@ -1,6 +1,27 @@
+"use client"
+import * as React from "react"
 import { OnboardingWizard } from "@/registry/ui/onboarding-wizard"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/registry/ui/card"
+import { Button } from "@/registry/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/registry/ui/card"
 import type { Example } from "./types"
+
+function WelcomeCardDemo() {
+  const [done, setDone] = React.useState(false)
+  return (
+    <Card className="w-full max-w-lg">
+      <CardHeader>
+        <CardTitle>Welcome to Lumen, Maya</CardTitle>
+        <CardDescription>Three short steps and your team can start sending invoices.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <OnboardingWizard onComplete={() => setDone(true)} />
+      </CardContent>
+      <CardFooter className="justify-end">
+        <Button disabled={!done}>Go to invoices</Button>
+      </CardFooter>
+    </Card>
+  )
+}
 
 export const examples: Example[] = [
   {
@@ -10,27 +31,25 @@ export const examples: Example[] = [
     node: <OnboardingWizard className="w-full max-w-md" />,
   },
   {
-    title: "Inside a welcome card",
-    description: "Wrap it in a Card with a greeting for a first-run screen; the wizard keeps its own step state.",
-    code: `<Card className="w-full max-w-lg">
-  <CardHeader>
-    <CardTitle>Welcome to Lumen, Maya</CardTitle>
-    <CardDescription>Three short steps and your team can start sending invoices.</CardDescription>
-  </CardHeader>
-  <CardContent>
-    <OnboardingWizard />
-  </CardContent>
-</Card>`,
-    node: (
-      <Card className="w-full max-w-lg">
-        <CardHeader>
-          <CardTitle>Welcome to Lumen, Maya</CardTitle>
-          <CardDescription>Three short steps and your team can start sending invoices.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <OnboardingWizard />
-        </CardContent>
-      </Card>
-    ),
+    title: "Finish with onComplete",
+    description: "onComplete fires when the last step is reached; use it to unlock the way out of the first-run screen or to route away.",
+    code: `function WelcomeCardDemo() {
+  const [done, setDone] = React.useState(false)
+  return (
+    <Card className="w-full max-w-lg">
+      <CardHeader>
+        <CardTitle>Welcome to Lumen, Maya</CardTitle>
+        <CardDescription>Three short steps and your team can start sending invoices.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <OnboardingWizard onComplete={() => setDone(true)} />
+      </CardContent>
+      <CardFooter className="justify-end">
+        <Button disabled={!done}>Go to invoices</Button>
+      </CardFooter>
+    </Card>
+  )
+}`,
+    node: <WelcomeCardDemo />,
   },
 ]

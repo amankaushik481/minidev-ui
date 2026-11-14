@@ -3,10 +3,24 @@ import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
-/** A sticky table of contents that spies on headings while you scroll, with a marker that glides to the active item and smooth scroll on click. */
+/**
+ * A sticky table of contents that spies on headings while you scroll, with a marker that glides to the active item and smooth scroll on click.
+ *
+ * Give it `items` (ids must exist on the page) or a `selector` for the article container and it
+ * reads the h2/h3 headings itself. It works with the window or the nearest scrolling ancestor.
+ * The active link gets `aria-current="location"`; clicking moves focus to the heading.
+ * With no props it renders a demo article. For page-to-page docs navigation use Sidebar.
+ *
+ * @example
+ * <div className="flex gap-8">
+ *   <article id="doc">…<h2 id="install">Install</h2>…</article>
+ *   <TableOfContents selector="#doc" />
+ * </div>
+ */
 type TocItem = {
   /** The heading element id. */
   id: string
+  /** Link text. */
   title: string
   /** 2 for h2, 3 for h3 (indented). */
   level?: 2 | 3
@@ -65,10 +79,20 @@ function TocList({
   const reduce = useReducedMotion()
   const markerId = React.useId()
   const [active, setActive] = React.useState<string | null>(items[0]?.id ?? null)
+  const activeRef = React.useRef(active)
   const lockUntil = React.useRef(0)
   const changeRef = React.useRef(onActiveChange)
-  changeRef.current = onActiveChange
+  React.useEffect(() => {
+    changeRef.current = onActiveChange
+  })
   const ids = items.map((i) => i.id).join("|")
+  // one place that moves the marker and reports the change, outside any state updater
+  const activate = React.useCallback((id: string) => {
+    if (activeRef.current === id) return
+    activeRef.current = id
+    setActive(id)
+    changeRef.current?.(id)
+  }, [])
 
   React.useEffect(() => {
     const heads = items.map((i) => ({ id: i.id, el: document.getElementById(i.id) })).filter((h): h is { id: string; el: HTMLElement } => !!h.el)
@@ -90,13 +114,10 @@ function TocList({
           if (y <= top + offset + 1) current = h.id
           else break
         }
-      setActive((prev) => {
-        if (prev !== current) changeRef.current?.(current)
-        return current
-      })
+      activate(current)
     }
     const onScroll = () => {
-      if (lockUntil.current > Date.now()) return
+      if (lockUntil.current > performance.now()) return
       if (!raf) raf = requestAnimationFrame(compute)
     }
     target.addEventListener("scroll", onScroll, { passive: true })
@@ -108,7 +129,7 @@ function TocList({
       if (raf) cancelAnimationFrame(raf)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ids, offset])
+  }, [ids, offset, activate])
 
   const go = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     const el = document.getElementById(id)
@@ -122,9 +143,10 @@ function TocList({
     } else {
       window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior })
     }
-    lockUntil.current = Date.now() + (reduce ? 0 : 700)
-    if (active !== id) onActiveChange?.(id)
-    setActive(id)
+    // hold the spy while the smooth scroll runs so the marker doesn't sweep through every heading
+    lockUntil.current = Infinity
+    requestAnimationFrame((now) => (lockUntil.current = now + (reduce ? 0 : 700)))
+    activate(id)
     if (typeof el.focus === "function") {
       if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1")
       el.focus({ preventScroll: true })
@@ -132,8 +154,8 @@ function TocList({
   }
 
   return (
-    <nav aria-label={title || "Table of contents"} data-slot="table-of-contents" className={cn("w-full max-w-56 text-[0.8125rem]", sticky && "sticky top-4 self-start", className)}>
-      {title ? <p className="mb-2 pl-3 font-mono text-[10px] font-medium tracking-[0.08em] text-fg-subtle uppercase">{title}</p> : null}
+    <nav aria-label={title || "Table of contents"} data-slot="table-of-contents" className={cn("w-full max-w-56 text-sm", sticky && "sticky top-4 self-start", className)}>
+      {title ? <p className="mb-2 pl-3 font-mono text-2xs font-medium tracking-[0.08em] text-fg-subtle uppercase">{title}</p> : null}
       <ul className="relative">
         <span aria-hidden className="absolute top-0 bottom-0 left-0 w-px bg-border" />
         {items.map((item) => {
@@ -142,12 +164,12 @@ function TocList({
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
-                aria-current={on ? "true" : undefined}
+                aria-current={on ? "location" : undefined}
                 onClick={(e) => go(e, item.id)}
                 className={cn(
                   "relative block truncate rounded-r-md py-1 pr-2 leading-[1.5] outline-none transition-colors duration-[70ms] ease-hairline",
                   "hover:text-fg focus-visible:ring-2 focus-visible:ring-accent",
-                  item.level === 3 ? "pl-6 text-[0.75rem]" : "pl-3",
+                  item.level === 3 ? "pl-6 text-xs" : "pl-3",
                   on ? "font-medium text-fg" : "text-fg-muted"
                 )}
               >
@@ -186,7 +208,7 @@ const ARTICLE: { id: string; level: 2 | 3; title: string; body: string[] }[] = [
 function DemoArticle({ prefix }: { prefix: string }) {
   return (
     <article className="min-w-0 flex-1 px-5 py-4">
-      <p className="font-mono text-[10px] font-medium tracking-[0.08em] text-fg-subtle uppercase">Lumen API reference</p>
+      <p className="font-mono text-2xs font-medium tracking-[0.08em] text-fg-subtle uppercase">Lumen API reference</p>
       <p className="mt-1 text-xl font-medium text-fg">Invoices</p>
       {ARTICLE.map((s) => {
         const H = s.level === 2 ? "h2" : "h3"
@@ -196,7 +218,7 @@ function DemoArticle({ prefix }: { prefix: string }) {
               {s.title}
             </H>
             {s.body.map((p, i) => (
-              <p key={i} className="mt-2 text-[0.8125rem] leading-[1.65] text-fg-muted">
+              <p key={i} className="mt-2 text-sm leading-[1.65] text-fg-muted">
                 {p}
               </p>
             ))}

@@ -67,7 +67,7 @@ const page: AlternativesPage = {
     },
     {
       id: "minidev-ui",
-      what: "A shadcn-compatible registry of over 500 items built on Base UI, Tailwind CSS v4 and motion: UI components, motion components and full-page blocks such as billing, settings, sign in and AI chat.",
+      what: "A shadcn-compatible registry of 548 items built on Base UI, Tailwind CSS v4 and motion: UI components, motion components and full-page blocks such as billing, settings, sign in and AI chat. Documented for AI coding agents with `llms.txt`, Markdown docs per component and an MCP server.",
       price: "Free, MIT, no paid tier",
       styling: "Tailwind CSS v4 utilities with semantic OKLCH tokens, copied into your repo",
       bestFor: "Keeping shadcn/ui and adding finished product screens and motion, rather than replacing it",
@@ -106,6 +106,10 @@ const page: AlternativesPage = {
     {
       q: "Can I keep shadcn/ui and add another library?",
       a: "Yes. shadcn-compatible registries such as MiniDev UI and coss ui install with the same CLI, so their components can join an existing shadcn/ui project. Watch for components with the same file name, such as `button`; the CLI asks before overwriting.",
+    },
+    {
+      q: "Which shadcn/ui alternative works best with AI coding agents?",
+      a: "Most of them now publish something for agents. HeroUI, Mantine, Chakra UI and Material UI each have `llms.txt` and an MCP server; daisyUI has `llms.txt` and a paid MCP server; coss ui has `llms.txt` with Markdown docs. MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server, and agents install it with the shadcn CLI they already know. Radix Themes and Tailwind Plus had no `llms.txt` at their site roots when checked in November 2026, and Tailwind Plus code sits behind a sign-in.",
     },
   ],
   sources: [

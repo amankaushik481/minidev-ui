@@ -1,0 +1,30 @@
+{
+  "name": "minidev-ui-mcp",
+  "version": "0.2.0",
+  "description": "MCP server for MiniDev UI: lets Claude Code, Cursor, VS Code, Windsurf and other AI agents search, read and install 500+ React + Tailwind v4 components. Zero dependencies.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "minidev-ui-mcp": "server.mjs"
+  },
+  "files": [
+    "server.mjs",
+    "core.mjs",
+    "props-parser.mjs",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node test.mjs"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "keywords": ["mcp", "model-context-protocol", "react", "tailwind", "shadcn", "ui", "components", "ai-agents", "claude-code", "cursor"],
+  "homepage": "https://ui.minidev.pro",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amankaushik481/minidev-ui.git",
+    "directory": "mcp"
+  }
+}

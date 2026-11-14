@@ -98,7 +98,7 @@ function Toasts() {
     <div className="relative h-24 w-56">
       {[2, 1, 0].map((i) => (
         <div key={i} className="absolute inset-x-0 flex items-center gap-2 rounded-xl border border-border bg-raised p-2.5 shadow-md" style={{ bottom: i * 9, transform: `scale(${1 - i * 0.05})`, opacity: 1 - i * 0.25 }}>
-          <span className="grid size-4 place-items-center rounded-full bg-success text-[8px] text-white">✓</span>
+          <span className="grid size-4 place-items-center rounded-full bg-success/15 text-[8px] text-success">✓</span>
           <div className="space-y-1"><div className={cn("h-1.5 w-24", line, "bg-border-strong")} /><div className={cn("h-1 w-16", line)} /></div>
         </div>
       ))}
@@ -161,7 +161,7 @@ const PREVIEWS: Record<string, () => React.ReactNode> = {
         <svg viewBox="0 0 200 50" className="mt-1 h-10 w-full text-accent" preserveAspectRatio="none"><path d="M0,40 C30,38 40,30 70,28 C100,26 110,18 140,16 C165,14 180,8 200,6" fill="none" stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" /><line x1="140" x2="140" y1="0" y2="50" stroke="currentColor" strokeOpacity="0.35" vectorEffect="non-scaling-stroke" /></svg>
       </div>
       <div className="absolute -right-4 -bottom-6 flex w-44 items-center gap-2 rounded-lg border border-border bg-raised p-2 shadow-overlay">
-        <span className="grid size-4 place-items-center rounded-full bg-success text-[8px] text-white">✓</span>
+        <span className="grid size-4 place-items-center rounded-full bg-success/15 text-[8px] text-success">✓</span>
         <span className="text-[10px] font-medium text-fg">Deployed to production</span>
       </div>
     </div>
@@ -175,7 +175,7 @@ const PREVIEWS: Record<string, () => React.ReactNode> = {
     </div>
   ),
   "split-button": () => (
-    <div className="flex"><span className="rounded-l-lg bg-ink px-3 py-1.5 text-xs font-medium text-on-ink shadow-ink">Deploy</span><span className="grid place-items-center rounded-r-lg border-l border-white/15 bg-ink px-1.5 text-on-ink shadow-ink"><ChevronDownIcon className="size-3.5" /></span></div>
+    <div className="flex"><span className="rounded-l-lg bg-ink px-3 py-1.5 text-xs font-medium text-on-ink shadow-ink">Deploy</span><span className="grid place-items-center rounded-r-lg border-l border-on-ink/15 bg-ink px-1.5 text-on-ink shadow-ink"><ChevronDownIcon className="size-3.5" /></span></div>
   ),
   "icon-button": () => (
     <div className="flex gap-1.5">{[CopyIcon, LinkIcon, TrashIcon, MoreHorizontalIcon].map((I, i) => <span key={i} className="grid size-8 place-items-center rounded-lg border border-border bg-surface text-fg-muted shadow-key"><I className="size-3.5" /></span>)}</div>
@@ -216,7 +216,7 @@ const PREVIEWS: Record<string, () => React.ReactNode> = {
   ),
   "otp-input": () => <div className="flex gap-1.5">{["4", "2", "9", "", "", ""].map((d, i) => <span key={i} className={cn("grid size-8 place-items-center rounded-lg border bg-surface text-sm font-medium text-fg shadow-xs", i === 3 ? "border-accent shadow-[0_0_0_3px_var(--accent-soft)]" : "border-border")}>{d}</span>)}</div>,
   slider: () => (
-    <div className="relative h-4 w-48"><div className="absolute top-1/2 h-1.5 w-full -translate-y-1/2 rounded-full bg-sunken" /><div className="absolute top-1/2 h-1.5 w-[62%] -translate-y-1/2 rounded-full bg-accent" /><span className="absolute top-1/2 left-[62%] size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border border-border bg-white shadow-sm" /></div>
+    <div className="relative h-4 w-48"><div className="absolute top-1/2 h-1.5 w-full -translate-y-1/2 rounded-full bg-sunken" /><div className="absolute top-1/2 h-1.5 w-[62%] -translate-y-1/2 rounded-full bg-accent" /><span className="absolute top-1/2 left-[62%] size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border border-border bg-raised shadow-sm" /></div>
   ),
   "date-picker": () => (
     <div className={cn(box, "w-44 p-2 shadow-xs")}>
@@ -224,7 +224,7 @@ const PREVIEWS: Record<string, () => React.ReactNode> = {
       <div className="grid grid-cols-7 gap-0.5">{Array.from({ length: 21 }).map((_, i) => <span key={i} className={cn("grid h-4 place-items-center rounded text-[8px] tabular-nums", i === 9 ? "bg-ink text-on-ink" : i > 9 && i < 13 ? "bg-accent-soft text-accent-fg" : "text-fg-muted")}>{i + 1}</span>)}</div>
     </div>
   ),
-  "color-picker": () => <div className="flex gap-1.5">{["var(--accent)", "oklch(0.6 0.15 250)", "oklch(0.62 0.14 200)", "var(--success)", "var(--warning)", "var(--danger)"].map((c, i) => <span key={i} className={cn("size-6 rounded-full border border-black/10", i === 0 && "ring-2 ring-accent ring-offset-2 ring-offset-bg")} style={{ background: c }} />)}</div>,
+  "color-picker": () => <div className="flex gap-1.5">{["var(--accent)", "oklch(0.6 0.15 250)", "oklch(0.62 0.14 200)", "var(--success)", "var(--warning)", "var(--danger)"].map((c, i) => <span key={i} className={cn("size-6 rounded-full border border-border", i === 0 && "ring-2 ring-accent ring-offset-2 ring-offset-bg")} style={{ background: c }} />)}</div>,
   "choice-card": () => (
     <div className="flex gap-2">{["Personal", "Team"].map((l, i) => <div key={l} className={cn("w-24 space-y-1 rounded-lg border p-2", i === 1 ? "border-accent shadow-[0_0_0_3px_var(--accent-soft)]" : "border-border bg-surface")}><span className={cn("block size-3 rounded-full border", i === 1 ? "border-accent bg-accent" : "border-border-strong")} /><p className="text-[11px] font-medium text-fg">{l}</p><div className={cn("h-1 w-14", line)} /></div>)}</div>
   ),
@@ -255,7 +255,7 @@ const PREVIEWS: Record<string, () => React.ReactNode> = {
   billing: () => <Plans />,
   commerce: () => <Plans />,
   settings: () => (
-    <div className={cn(box, "w-52 divide-y divide-border shadow-xs")}>{[true, false, true].map((on, i) => <div key={i} className="flex items-center justify-between px-2.5 py-2"><div className={cn("h-1.5", line, "bg-border-strong", ["w-20", "w-24", "w-16"][i])} /><span className={cn("h-3.5 w-6 rounded-full p-0.5", on ? "bg-accent" : "bg-border-strong")}><span className={cn("block size-2.5 rounded-full bg-white", on && "translate-x-2.5")} /></span></div>)}</div>
+    <div className={cn(box, "w-52 divide-y divide-border shadow-xs")}>{[true, false, true].map((on, i) => <div key={i} className="flex items-center justify-between px-2.5 py-2"><div className={cn("h-1.5", line, "bg-border-strong", ["w-20", "w-24", "w-16"][i])} /><span className={cn("h-3.5 w-6 rounded-full p-0.5", on ? "bg-accent" : "bg-border-strong")}><span className={cn("block size-2.5 rounded-full bg-raised", on && "translate-x-2.5")} /></span></div>)}</div>
   ),
   admin: () => <Table rows={3} />,
   navigation: () => <Shell />,
@@ -296,7 +296,7 @@ const PREVIEWS: Record<string, () => React.ReactNode> = {
 export function GalleryPreview({ slug }: { slug: string }) {
   const P = PREVIEWS[slug]
   return (
-    <div inert className="pointer-events-none scale-[0.94] transition-transform duration-300 ease-hairline select-none group-hover:scale-100">
+    <div inert className="pointer-events-none scale-[0.94] transition-transform duration-300 ease-hairline select-none group-hover:scale-100 motion-reduce:transition-none">
       {P ? P() : <Button size="sm" variant="outline"><PlusIcon />{slug}</Button>}
     </div>
   )

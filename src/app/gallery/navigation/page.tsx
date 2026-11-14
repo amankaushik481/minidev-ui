@@ -8,7 +8,7 @@ import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 export default function Page() {
   return (
-    <GalleryPage title="Navigation & layout chrome">
+    <GalleryPage title="Navigation menus">
       <GallerySection title="Menubar">
         <Menubar>
           <MenubarMenu>

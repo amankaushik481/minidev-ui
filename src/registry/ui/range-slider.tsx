@@ -3,19 +3,32 @@ import * as React from "react"
 import { Slider, type SliderProps } from "@/registry/ui/slider"
 import { cn } from "@/lib/utils"
 
-/** Two-thumb slider. Both value bubbles show while either thumb is dragged. */
+/**
+ * RangeSlider — a two-thumb slider for picking a low and high value. Both value bubbles show while either thumb is dragged.
+ *
+ * Use it for price, date or size ranges. For one value use Slider. Values are plain number
+ * arrays `[low, high]`; `onValueCommitted` fires once on release, which is the place to query.
+ *
+ * @example
+ * <RangeSlider defaultValue={[20, 80]} min={0} max={200} step={5} aria-label="Price" onValueCommitted={([lo, hi]) => setPrice({ lo, hi })} />
+ */
 
 type RangeSliderProps = Pick<SliderProps, "format" | "marks" | "showValue" | "name" | "minStepsBetweenValues" | "aria-labelledby"> & {
+  /** Controlled `[low, high]`. */
   value?: number[]
+  /** Starting `[low, high]` when uncontrolled. */
   defaultValue?: number[]
+  /** Fires on every move with `[low, high]`. */
   onValueChange?: (value: number[]) => void
   /** Fires once when the user releases the thumb. */
   onValueCommitted?: (value: number[]) => void
   min?: number
   max?: number
+  /** Snap interval. */
   step?: number
   disabled?: boolean
   className?: string
+  /** Accessible name. Defaults to "Range" unless `aria-labelledby` is set. */
   "aria-label"?: string
 }
 

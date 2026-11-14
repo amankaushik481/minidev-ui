@@ -18,7 +18,7 @@ const page: AlternativesPage = {
     },
     {
       id: "minidev-ui",
-      what: "A free shadcn-compatible registry with over 100 motion components built on motion, plus UI components and full product pages, all on one token system.",
+      what: "A free shadcn-compatible registry with over 100 motion components built on motion, plus UI components and full product pages, all on one token system. Documented for AI coding agents with `llms.txt`, Markdown docs per component and an MCP server.",
       price: "Free, MIT, no paid tier",
       styling: "Tailwind CSS v4 with semantic OKLCH tokens; its stylesheet maps the shadcn/ui token names, so Magic UI pieces can follow the same theme",
       bestFor: "Product screens and marketing motion that share one theme; it pairs with Magic UI rather than replacing every effect",
@@ -91,6 +91,10 @@ const page: AlternativesPage = {
     {
       q: "Can I use Magic UI and Aceternity UI together?",
       a: "Yes. Both install with the shadcn CLI and use Tailwind CSS. Check that Framer Motion and motion resolve to compatible versions, and swap hard coded colors in Aceternity effects for your theme tokens.",
+    },
+    {
+      q: "Which Magic UI alternative works best with AI coding agents?",
+      a: "Magic UI is already well set up, with an MCP server and `llms.txt`. Aceternity UI publishes `llms.txt` and `llms-full.txt`, and shadcn/ui has an MCP server that installs from any registry. MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server, and agents install it with the shadcn CLI they already know, including spring presets and reduced motion rules for its motion components. Tailwind Plus and Preline UI had no `llms.txt` at their site roots when checked in November 2026.",
     },
   ],
   sources: [

@@ -117,13 +117,13 @@ export function WireCanvas({ className }: { className?: string }) {
 
         {/* Side labels */}
         <motion.span
-          className="pointer-events-none absolute bottom-3 z-10 hidden -translate-x-[calc(100%+12px)] rounded-full border border-border bg-raised/90 px-2.5 py-1 text-[11px] font-medium text-fg shadow-sm backdrop-blur sm:inline-flex"
+          className="pointer-events-none absolute bottom-3 z-10 hidden -translate-x-[calc(100%+12px)] rounded-full border border-border bg-raised px-2.5 py-1 text-[11px] font-medium text-fg shadow-sm sm:inline-flex"
           style={{ left, opacity: productLabelOpacity }}
         >
           Product
         </motion.span>
         <motion.span
-          className="pointer-events-none absolute bottom-3 z-10 hidden translate-x-3 items-center gap-1.5 rounded-full border border-accent-line bg-raised/90 px-2.5 py-1 font-mono text-[11px] text-accent-fg shadow-sm backdrop-blur sm:inline-flex"
+          className="pointer-events-none absolute bottom-3 z-10 hidden translate-x-3 items-center gap-1.5 rounded-full border border-accent-line bg-raised px-2.5 py-1 font-mono text-[11px] text-accent-fg shadow-sm sm:inline-flex"
           style={{ left, opacity: specLabelOpacity }}
         >
           Hairline spec

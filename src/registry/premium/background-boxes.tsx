@@ -13,6 +13,14 @@ import { Button } from "@/registry/ui/button"
  * content on top and with touch. Left alone, a box lights now and then so
  * the panel looks alive; that idle flicker pauses off screen and stops for
  * reduced motion, and the fade is instant for reduced motion too.
+ *
+ * Use it as an interactive hero backdrop; children render on top. For quiet
+ * ambient motion use FlickeringGrid or AuroraBackground instead.
+ *
+ * @example
+ * <BackgroundBoxes density={1.5} idle={0}>
+ *   <h1 className="text-4xl text-fg">Built on a grid you can feel</h1>
+ * </BackgroundBoxes>
  */
 type BackgroundBoxesProps = {
   /** Box density. 1 draws 64px boxes, 2 draws them half the size. */

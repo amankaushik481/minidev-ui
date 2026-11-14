@@ -16,14 +16,111 @@ import { useTheme } from "@/components/theme-toggle"
 
 const TOC = [
   { id: "introduction", label: "Introduction" },
+  { id: "quick-start", label: "Quick start" },
+  { id: "ai", label: "For AI agents" },
   { id: "installation", label: "Installation" },
   { id: "browse", label: "Browse by category" },
   { id: "usage", label: "Usage" },
   { id: "theming", label: "Theming" },
+  { id: "materials", label: "Materials" },
   { id: "dark-mode", label: "Dark mode" },
-  { id: "ai", label: "For AI agents" },
   { id: "principles", label: "Principles" },
 ]
+
+const PKG = SITE.npmPackage
+const DEPS = `${PKG} @base-ui/react class-variance-authority clsx tailwind-merge lucide-react`
+const CSS_IMPORTS = `@import "tailwindcss";\n@import "${PKG}/styles.css";\n/* Tailwind skips node_modules; this path is relative to this CSS file */\n@source "../node_modules/${PKG}";`
+// Vite templates load no Geist; point the font tokens at the system stack.
+const FONT_VARS = `\n\n:root {\n  --font-geist-sans: ui-sans-serif, system-ui, sans-serif;\n  --font-geist-mono: ui-monospace, monospace;\n}`
+const hello = (name: string) =>
+  `import { Button } from "${PKG}/ui/button"\n\nexport default function ${name}() {\n  return (\n    <main className="grid min-h-svh place-items-center">\n      <Button variant="accent">It works</Button>\n    </main>\n  )\n}`
+
+type Step = { title: string; code: string; language: string; filename?: string; note?: string }
+
+const QUICK: { label: string; slug: string; run: string; steps: Step[] }[] = [
+  {
+    label: "Next.js",
+    slug: "nextjs",
+    run: "npm run dev",
+    steps: [
+      { title: "Create the app", language: "bash", code: `npx create-next-app@latest my-app --yes\ncd my-app`, note: "--yes takes the defaults: TypeScript, Tailwind CSS v4, App Router, no src folder." },
+      { title: "Install the kit", language: "bash", code: `npm i ${DEPS}` },
+      { title: "Let Next.js compile it", language: "ts", filename: "next.config.ts", code: `import type { NextConfig } from "next"\n\nconst nextConfig: NextConfig = {\n  transpilePackages: ["${PKG}"],\n}\n\nexport default nextConfig`, note: "The package ships TypeScript source, so Next.js has to compile it." },
+      { title: "Replace the global stylesheet", language: "css", filename: "app/globals.css", code: CSS_IMPORTS, note: "Replace the whole file. The template's :root and @theme blocks would override the tokens and turn the accent gray." },
+      { title: "Render a component", language: "tsx", filename: "app/page.tsx", code: hello("Home") },
+    ],
+  },
+  {
+    label: "Vite",
+    slug: "vite",
+    run: "npm run dev",
+    steps: [
+      { title: "Create the app", language: "bash", code: `npm create vite@latest my-app -- --template react-ts\ncd my-app` },
+      { title: "Install Tailwind and the kit", language: "bash", code: `npm i tailwindcss @tailwindcss/vite ${DEPS}` },
+      { title: "Add the Tailwind plugin", language: "ts", filename: "vite.config.ts", code: `import tailwindcss from "@tailwindcss/vite"\nimport react from "@vitejs/plugin-react"\nimport { defineConfig } from "vite"\n\nexport default defineConfig({\n  plugins: [react(), tailwindcss()],\n})` },
+      { title: "Replace the stylesheet", language: "css", filename: "src/index.css", code: CSS_IMPORTS + FONT_VARS, note: "Replace the whole file; the template's styles fight the tokens." },
+      { title: "Render a component", language: "tsx", filename: "src/App.tsx", code: hello("App") },
+    ],
+  },
+  {
+    label: "React Router",
+    slug: "react-router",
+    run: "npm run dev",
+    steps: [
+      { title: "Create the app", language: "bash", code: `npx create-react-router@latest my-app\ncd my-app`, note: "The template already runs Tailwind CSS v4 through @tailwindcss/vite." },
+      { title: "Install the kit", language: "bash", code: `npm i ${DEPS}` },
+      { title: "Compile the kit for SSR", language: "ts", filename: "vite.config.ts", code: `import { reactRouter } from "@react-router/dev/vite"\nimport tailwindcss from "@tailwindcss/vite"\nimport { defineConfig } from "vite"\nimport tsconfigPaths from "vite-tsconfig-paths"\n\nexport default defineConfig({\n  plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],\n  ssr: { noExternal: ["${PKG}"] },\n})`, note: "Keep the plugins your template generated; the new line is ssr.noExternal. Without it Node tries to load .tsx during SSR." },
+      { title: "Replace the stylesheet", language: "css", filename: "app/app.css", code: CSS_IMPORTS + FONT_VARS },
+      { title: "Render a component", language: "tsx", filename: "app/routes/home.tsx", code: hello("Home") },
+    ],
+  },
+]
+
+const AGENT_PROMPT = `Use MiniDev UI (${SITE.url}) for all UI in this project.
+Read ${SITE.url}/llms.txt first: it has the rules and every component.
+Install: npm i ${DEPS}
+Import from "${PKG}/ui/<name>", "${PKG}/blocks/<name>" or "${PKG}/premium/<name>".
+CSS, after Tailwind: @import "${PKG}/styles.css"; @source "<relative path>/node_modules/${PKG}";
+Next.js: transpilePackages: ["${PKG}"]. Vite SSR: ssr: { noExternal: ["${PKG}"] }.
+To own the source instead: npx shadcn@latest add ${SITE.registry}/<name>
+Style with semantic tokens only (bg-surface, text-fg-muted, border-border, bg-accent). Never hex or palette steps like blue-500.`
+
+const MATERIALS = [
+  ["hairline", "The default. 1px lines, flat fills, a top highlight."],
+  ["glass", "Translucent surfaces that blur what sits behind them."],
+  ["metal", "Brushed fills and a sheen that follows the light."],
+  ["paper", "Warm, matte stock with a soft grain."],
+]
+
+function QuickStart() {
+  return (
+    <Tabbed
+      tabs={QUICK.map((f) => ({
+        label: f.label,
+        content: (
+          <div>
+            <ol className="space-y-6">
+              {f.steps.map((s, n) => (
+                <li key={s.title} className="grid grid-cols-[24px_minmax(0,1fr)] gap-x-3">
+                  <span aria-hidden className="mt-0.5 grid size-6 place-items-center rounded-full border border-border bg-surface font-mono text-[11px] tabular-nums text-fg-muted shadow-xs">{n + 1}</span>
+                  <div className="min-w-0 space-y-2.5">
+                    <p className="text-[0.9375rem] font-medium text-fg">{s.title}</p>
+                    <CodeBlock language={s.language} filename={s.filename} code={s.code} />
+                    {s.note ? <p className="text-[0.8125rem] leading-[1.6] text-fg-muted">{s.note}</p> : null}
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-6 text-[0.875rem] leading-[1.7] text-fg-muted">
+              Run <code className="rounded bg-sunken px-1 font-mono text-[12.5px] text-fg">{f.run}</code> and open the URL it prints: an accent button on a plain page means the tokens and Tailwind are both wired. Dark mode, fonts and the shadcn CLI route are in the{" "}
+              <Link href={`/docs/installation/${f.slug}`} className="text-accent-fg underline decoration-accent-line underline-offset-4">full {f.label} guide</Link>.
+            </p>
+          </div>
+        ),
+      }))}
+    />
+  )
+}
 
 const count = (k: string) => COMPONENT_LITE.filter((c) => c.kind === k).length
 
@@ -134,6 +231,45 @@ export default function DocsPage() {
         </section>
 
         <section className="mt-16 space-y-5">
+          <DocsH2 id="quick-start">Quick start</DocsH2>
+          <p className="text-[0.9375rem] leading-[1.7] text-fg-muted">
+            From an empty folder to a rendered component in five steps. Every block has a copy button. This route installs the npm package; to keep the
+            source in your repo instead, follow the <Link href="/docs/installation" className="text-accent-fg underline decoration-accent-line underline-offset-4">shadcn CLI guides</Link>.
+          </p>
+          <QuickStart />
+        </section>
+
+        <section className="mt-16 space-y-5">
+          <DocsH2 id="ai">For AI agents</DocsH2>
+          <p className="text-[0.9375rem] leading-[1.7] text-fg-muted">
+            Working with Claude Code, Cursor, Codex or v0? Paste this into the chat or your rules file. It tells the agent where the docs are, how to install and which classes are allowed.
+          </p>
+          <CodeBlock language="text" filename="Agent instructions" code={AGENT_PROMPT} />
+          <div className="grid gap-2 sm:grid-cols-3">
+            {[
+              { href: "/llms.txt", label: "/llms.txt", d: "Rules and the component list" },
+              { href: "/llms-full.txt", label: "/llms-full.txt", d: "Every component with its import" },
+              { href: "/r/registry.json", label: "/r/registry.json", d: "The shadcn registry index" },
+            ].map((x) => (
+              <a key={x.href} href={x.href} className="group rounded-lg border border-border bg-surface px-3.5 py-2.5 shadow-xs outline-none transition-[border-color] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
+                <span className="block font-mono text-[12.5px] text-fg">{x.label}</span>
+                <span className="mt-0.5 block text-[0.8125rem] text-fg-muted">{x.d}</span>
+              </a>
+            ))}
+          </div>
+          <Link href="/docs/ai" className="group flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 shadow-raised outline-none transition-[border-color] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">
+            <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-accent-line bg-accent-soft text-accent-fg">
+              <BotIcon className="size-5" aria-hidden />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-[0.9375rem] font-medium text-fg">The full agent guide</span>
+              <span className="block text-[0.8125rem] leading-[1.6] text-fg-muted">Rules files for each agent, prompts that work, and how to check what it generated.</span>
+            </span>
+            <ArrowRightIcon className="size-4 shrink-0 text-fg-subtle transition-transform group-hover:translate-x-0.5" aria-hidden />
+          </Link>
+        </section>
+
+        <section className="mt-16 space-y-5">
           <DocsH2 id="installation">Installation</DocsH2>
           <p className="text-[0.9375rem] leading-[1.7] text-fg-muted">
             You need React 18 or newer and Tailwind CSS v4. Pick whichever way of adding components you prefer. They all produce the same code.
@@ -221,6 +357,28 @@ export default function DocsPage() {
         </section>
 
         <section className="mt-16 space-y-5">
+          <DocsH2 id="materials">Materials</DocsH2>
+          <p className="text-[0.9375rem] leading-[1.7] text-fg-muted">
+            One attribute changes what every surface is made of. Put <code className="rounded bg-sunken px-1 font-mono text-[12.5px] text-fg">data-material</code> on{" "}
+            <code className="rounded bg-sunken px-1 font-mono text-[12.5px] text-fg">&lt;html&gt;</code> for the whole app, or on any element for one region. The nearest one wins, so
+            materials nest. Components do not change: they keep using <code className="rounded bg-sunken px-1 font-mono text-[12.5px] text-fg">bg-surface</code> and the shadow set, and the material restyles those.
+          </p>
+          <dl className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
+            {MATERIALS.map(([m, d]) => (
+              <div key={m} className="bg-surface p-4">
+                <dt className="font-mono text-[12.5px] text-fg">{m}</dt>
+                <dd className="mt-1 text-[0.8125rem] leading-[1.6] text-fg-muted">{d}</dd>
+              </div>
+            ))}
+          </dl>
+          <CodeBlock language="tsx" filename="app/layout.tsx" code={`<html lang="en" data-material="glass">\n  <body>\n    {children}\n    {/* A paper panel inside a glass app */}\n    <aside data-material="paper">…</aside>\n  </body>\n</html>`} />
+          <p className="text-[0.875rem] leading-[1.7] text-fg-muted">
+            Shadows fall from one light, fixed at the top left by default. To make it follow the pointer, add <code className="rounded bg-sunken px-1 font-mono text-[12.5px] text-fg">light-provider</code> and render{" "}
+            <code className="rounded bg-sunken px-1 font-mono text-[12.5px] text-fg">&lt;LightProvider /&gt;</code> once near the root. <Link href="/#materials" className="text-accent-fg underline decoration-accent-line underline-offset-4">See all four side by side</Link>.
+          </p>
+        </section>
+
+        <section className="mt-16 space-y-5">
           <DocsH2 id="dark-mode">Dark mode</DocsH2>
           <p className="text-[0.9375rem] leading-[1.7] text-fg-muted">
             Dark mode is the <code className="rounded bg-sunken px-1 font-mono text-[12.5px] text-fg">dark</code> class on the root element. Tokens are redefined, components are not.
@@ -231,24 +389,6 @@ export default function DocsPage() {
             filename="app/layout.tsx"
             code={`<html lang="en" suppressHydrationWarning>\n  <head>\n    <script dangerouslySetInnerHTML={{ __html: \`(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")}catch(e){}})()\` }} />\n  </head>\n  <body>{children}</body>\n</html>`}
           />
-        </section>
-
-        <section className="mt-16 space-y-5">
-          <DocsH2 id="ai">For AI agents</DocsH2>
-          <div className="flex gap-4 rounded-2xl border border-border bg-surface p-5 shadow-raised">
-            <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-accent-line bg-accent-soft text-accent-fg">
-              <BotIcon className="size-5" />
-            </span>
-            <div className="space-y-2 text-[0.9375rem] leading-[1.7] text-fg-muted">
-              <p>
-                Give your coding agent <a className="font-mono text-[13px] text-accent-fg underline decoration-accent-line underline-offset-4" href="/llms.txt">/llms.txt</a> for the rules and{" "}
-                <a className="font-mono text-[13px] text-accent-fg underline decoration-accent-line underline-offset-4" href="/llms-full.txt">/llms-full.txt</a> for every component and its import.
-              </p>
-              <p>
-                The machine-readable registry lives at <a className="font-mono text-[13px] text-accent-fg underline decoration-accent-line underline-offset-4" href="/r/registry.json">/r/registry.json</a>, one JSON file per component under <span className="font-mono text-[13px] text-fg">/r</span>.
-              </p>
-            </div>
-          </div>
         </section>
 
         <section className="mt-16 space-y-5">

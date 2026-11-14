@@ -2,15 +2,33 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** A left-hand tab list with the active panel beside it, for settings pages. */
-type VerticalTab = { id: string; label: string; content: React.ReactNode }
+/**
+ * A left-hand tab list with the active panel beside it, for settings pages; stacks above the panel on small screens.
+ *
+ * Follows the WAI-ARIA tabs pattern: one tab stop, Up/Down (and Left/Right) move and select, Home/End jump. Use `Tabs` for horizontal tabs, `SettingsLayout` for a full settings page with routes, and `SegmentedControl` for switching a view in place.
+ *
+ * @example
+ * <VerticalTabs defaultValue="billing" tabs={[{ id: "general", label: "General", content: <GeneralForm /> }, { id: "billing", label: "Billing", content: <BillingForm /> }]} />
+ */
+type VerticalTab = {
+  /** Unique id; used as the value. */
+  id: string
+  label: string
+  /** The panel shown while this tab is selected. */
+  content: React.ReactNode
+}
 
 type VerticalTabsProps = {
-  /** Tabs in order; the first is selected by default. Defaults to Lumen's workspace settings. */
+  /** Tabs in order. Defaults to Lumen's workspace settings. */
   tabs?: VerticalTab[]
-  /** Controlled selected tab id. */
+  /** Controlled selected tab id. Pair with `onChange`. */
   value?: string
+  /** Initially selected tab id for the uncontrolled tabs. Defaults to the first tab. */
+  defaultValue?: string
+  /** Called with the id of the newly selected tab. */
   onChange?: (id: string) => void
+  /** Accessible name for the tab list. */
+  "aria-label"?: string
   className?: string
 }
 
@@ -98,33 +116,73 @@ const SAMPLE_TABS: VerticalTab[] = [
   },
 ]
 
-function VerticalTabs({ tabs = SAMPLE_TABS, value, onChange, className }: VerticalTabsProps) {
-  const [internal, setInternal] = React.useState(tabs[0]?.id)
-  const current = value ?? internal
-  const active = tabs.find((t) => t.id === current) ?? tabs[0]
+function VerticalTabs({ tabs = SAMPLE_TABS, value, defaultValue, onChange, "aria-label": ariaLabel = "Settings sections", className }: VerticalTabsProps) {
+  const [internal, setInternal] = React.useState(defaultValue ?? tabs[0]?.id)
+  const active = tabs.find((t) => t.id === (value ?? internal)) ?? tabs[0]
+  const refs = React.useRef<(HTMLButtonElement | null)[]>([])
+  const uid = React.useId()
+
+  const select = (i: number) => {
+    const t = tabs[i]
+    if (!t) return
+    refs.current[i]?.focus()
+    if (value === undefined) setInternal(t.id)
+    onChange?.(t.id)
+  }
+
+  const onKeyDown = (e: React.KeyboardEvent, i: number) => {
+    const n = tabs.length
+    const to = {
+      ArrowDown: (i + 1) % n,
+      ArrowRight: (i + 1) % n,
+      ArrowUp: (i - 1 + n) % n,
+      ArrowLeft: (i - 1 + n) % n,
+      Home: 0,
+      End: n - 1,
+    }[e.key]
+    if (to === undefined) return
+    e.preventDefault()
+    select(to)
+  }
+
   return (
     <div data-slot="vertical-tabs" className={cn("grid w-full gap-4 md:grid-cols-[180px_1fr]", className)}>
-      <div role="tablist" aria-orientation="vertical" className="flex flex-col gap-1">
-        {tabs.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            role="tab"
-            aria-selected={t.id === current}
-            className={cn(
-              "h-9 rounded-lg px-3 text-left text-sm outline-none focus-visible:ring-2 focus-visible:ring-accent",
-              t.id === current ? "bg-sunken text-fg" : "text-fg-muted hover:text-fg"
-            )}
-            onClick={() => {
-              if (value === undefined) setInternal(t.id)
-              onChange?.(t.id)
-            }}
-          >
-            {t.label}
-          </button>
-        ))}
+      <div role="tablist" aria-orientation="vertical" aria-label={ariaLabel} className="flex flex-col gap-1">
+        {tabs.map((t, i) => {
+          const selected = t.id === active?.id
+          return (
+            <button
+              key={t.id}
+              ref={(el) => {
+                refs.current[i] = el
+              }}
+              id={`${uid}-tab-${i}`}
+              type="button"
+              role="tab"
+              aria-selected={selected}
+              aria-controls={`${uid}-panel`}
+              tabIndex={selected ? 0 : -1}
+              className={cn(
+                "h-9 rounded-lg px-3 text-left text-sm outline-none transition-colors duration-[70ms] focus-visible:ring-2 focus-visible:ring-accent",
+                selected ? "bg-sunken font-medium text-fg" : "text-fg-muted hover:text-fg"
+              )}
+              onClick={() => select(i)}
+              onKeyDown={(e) => onKeyDown(e, i)}
+            >
+              {t.label}
+            </button>
+          )
+        })}
       </div>
-      <div role="tabpanel" className="min-w-0">{active?.content}</div>
+      <div
+        id={`${uid}-panel`}
+        role="tabpanel"
+        aria-labelledby={active ? `${uid}-tab-${tabs.indexOf(active)}` : undefined}
+        tabIndex={0}
+        className="min-w-0 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      >
+        {active?.content}
+      </div>
     </div>
   )
 }

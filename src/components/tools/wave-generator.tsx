@@ -128,7 +128,8 @@ export function WaveGenerator() {
     a.href = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }))
     a.download = `wave-${o.seed}.svg`
     a.click()
-    URL.revokeObjectURL(a.href)
+    // Revoke after the click is handled; revoking at once can cancel the download in Firefox and Safari.
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000)
   }
   const setDirection = (d: WaveOptions["direction"]) => setO((p) => ({ ...p, direction: d, color: d === "bottom" ? sections.bottom : sections.top }))
   const setSection = (k: "top" | "bottom", v: string) => {

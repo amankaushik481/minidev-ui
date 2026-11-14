@@ -77,7 +77,7 @@ export const examples: Example[] = [
       <span className="text-sm font-medium text-fg">Priya Raman</span>
       <span className="text-xs text-fg-muted">2h ago</span>
     </div>
-    <p className="mt-0.5 text-sm text-fg-muted">Northwind confirmed INV-2041 is in Friday's payment run, so we can stop the reminders.</p>
+    <p className="mt-0.5 text-sm text-fg-muted">Northwind confirmed INV-2041 is in Friday’s payment run, so we can stop the reminders.</p>
     <ReactionBar className="mt-2" reactions={[{ emoji: "🎉", count: 3, active: true }, { emoji: "👍", count: 2 }]} />
   </div>
 </div>`,
@@ -89,7 +89,7 @@ export const examples: Example[] = [
             <span className="text-sm font-medium text-fg">Priya Raman</span>
             <span className="text-xs text-fg-muted">2h ago</span>
           </div>
-          <p className="mt-0.5 text-sm text-fg-muted">Northwind confirmed INV-2041 is in Friday's payment run, so we can stop the reminders.</p>
+          <p className="mt-0.5 text-sm text-fg-muted">Northwind confirmed INV-2041 is in Friday’s payment run, so we can stop the reminders.</p>
           <ReactionBar className="mt-2" reactions={[{ emoji: "🎉", count: 3, active: true }, { emoji: "👍", count: 2 }]} />
         </div>
       </div>

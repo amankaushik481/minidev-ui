@@ -3,7 +3,14 @@ import * as React from "react"
 import { CornerDownRightIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/** A windowed list that renders only the rows in view, with fixed or measured row heights, overscan, keyboard row navigation and scroll to index. */
+/**
+ * A windowed list that renders only the rows in view, with fixed or measured row heights, overscan, keyboard row navigation and scroll to index.
+ *
+ * Use it for thousands of rows (logs, invoices, search results). Generic over the row type: pass `items`, `renderRow` and `getKey`. Set `rowHeight="auto"` for rows of varying height. A ref exposes `scrollToIndex` and `setActiveIndex`. Use `VirtualizedList` for a bare fixed-height list without header or keyboard model, `DataTable` for sortable columns under ~1,000 rows, and `InfiniteScroll` to load pages as the reader scrolls.
+ *
+ * @example
+ * <VirtualList items={logs} rowHeight={32} getKey={(l) => l.id} renderRow={(l, i, { active }) => <LogRow log={l} active={active} />} onSelect={(l) => open(l.id)} title="Logs" />
+ */
 type VirtualListHandle = {
   /** Scroll until the row is in view. "auto" scrolls the least amount needed. */
   scrollToIndex: (index: number, align?: "auto" | "start" | "center" | "end") => void
@@ -170,6 +177,8 @@ function VirtualList<T = Invoice>({
   const offsets = React.useMemo(() => {
     if (!auto) return null
     const o = new Float64Array(count + 1)
+    // sizes is a mutable cache; `tick` re-runs this memo whenever the observer writes to it.
+    // eslint-disable-next-line react-hooks/refs
     for (let i = 0; i < count; i++) o[i + 1] = o[i] + (sizes.current.get(i) ?? estimatedRowHeight)
     return o
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -207,6 +216,8 @@ function VirtualList<T = Invoice>({
   // One observer measures every mounted row in "auto" mode.
   const measurer = React.useMemo(() => {
     if (!auto || typeof ResizeObserver === "undefined") return null
+    // The callback reads sizes when the observer fires, never during render.
+    // eslint-disable-next-line react-hooks/refs
     return new ResizeObserver((entries) => {
       let changed = false
       for (const e of entries) {

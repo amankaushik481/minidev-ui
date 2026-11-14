@@ -3,8 +3,29 @@ import * as React from "react"
 import { BellIcon, GlobeIcon, LockIcon, ReceiptIcon, RefreshCwIcon, WebhookIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/** A responsive grid of feature cards, each with an optional icon, a title and a short description. */
-type Feature = { title: string; description: string; icon?: React.ReactNode }
+/**
+ * FeatureGrid — a responsive grid of feature cards, each with an optional icon, a title and a short description.
+ *
+ * Use on marketing pages to list product capabilities: one column on phones,
+ * two on tablets, three on desktop. For an asymmetric showcase use
+ * `BentoGrid`; for a plan-by-plan matrix use `PlanComparison`.
+ *
+ * @example
+ * <FeatureGrid
+ *   features={[
+ *     { title: "Invoices in seconds", description: "Draft, send and track from one screen.", icon: <ReceiptIcon className="size-5" /> },
+ *     { title: "Automatic reminders", description: "Nudges stop the moment a payment lands." },
+ *   ]}
+ * />
+ */
+type Feature = {
+  /** Card heading. */
+  title: string
+  /** One or two sentences. */
+  description: string
+  /** Decorative icon above the title, about size-5. */
+  icon?: React.ReactNode
+}
 
 const SAMPLE_FEATURES: Feature[] = [
   { title: "Invoices in seconds", description: "Draft, send and track invoices from one screen. Lumen fills in customer details and tax rates for you.", icon: <ReceiptIcon className="size-5" /> },
@@ -29,8 +50,12 @@ function FeatureGrid({
     <div data-slot="feature-grid" className={cn("grid gap-4 sm:grid-cols-2 lg:grid-cols-3", className)}>
       {features.map((f) => (
         <div key={f.title} className="rounded-xl border border-border bg-surface p-5 shadow-highlight">
-          {f.icon ? <div className="mb-3 text-accent">{f.icon}</div> : null}
-          <h3 className="text-sm font-medium text-fg">{f.title}</h3>
+          {f.icon ? (
+            <div aria-hidden className="mb-3 text-accent">
+              {f.icon}
+            </div>
+          ) : null}
+          <h3 className="text-sm font-medium text-balance text-fg">{f.title}</h3>
           <p className="mt-1.5 text-sm leading-[1.55] text-fg-muted">{f.description}</p>
         </div>
       ))}

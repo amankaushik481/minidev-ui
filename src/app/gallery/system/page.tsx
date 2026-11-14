@@ -9,7 +9,7 @@ import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 export default function Page() {
   return (
-    <GalleryPage title="System / developer">
+    <GalleryPage title="Developer tools">
       <GallerySection title="Terminal">
         <TerminalWindow>{`$ npm run audit\nAUDIT PASS`}</TerminalWindow>
         <ConsoleOutput lines={[{ text: "ready on :3000" }, { level: "warn", text: "deprecated API" }, { level: "error", text: "failed to fetch" }]} />

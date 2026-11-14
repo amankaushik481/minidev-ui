@@ -14,11 +14,11 @@ const NAMES = [
 export const examples: Example[] = [
   {
     title: "Names only",
-    description: "mark is optional, so a plain list of customer names works when you do not have marks to show.",
+    description: "mark is optional, so a plain list of customer names works when you do not have marks to show; label names the list for screen readers.",
     code: `const NAMES = [{ name: "Northwind" }, { name: "Halcyon" }, { name: "Fathom" }, { name: "Meridian" }, { name: "Quill" }]
 
-<LogoCloud logos={NAMES} />`,
-    node: <LogoCloud logos={NAMES} />,
+<LogoCloud logos={NAMES} label="Customers" />`,
+    node: <LogoCloud logos={NAMES} label="Customers" />,
   },
   {
     title: "With a heading",

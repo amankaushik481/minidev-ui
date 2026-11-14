@@ -22,6 +22,15 @@ AI writes a component in seconds. There are thousands of libraries and most of t
 
 Tagline: **Every pixel, accounted for.**
 
+## Agents are users too
+
+Most MiniDev UI code is installed and written by AI coding agents. A component is not done until an agent can use it right on the first try from its docs alone:
+
+- One file, named PascalCase exports (`chat-thread` exports `ChatThread`), no default exports.
+- The first JSDoc line says what it is; the next paragraph says when to use it and names the alternatives. Every prop has a one-line JSDoc comment and a default. These flow into `/docs/<name>.md`, `llms.txt`, `llms-full.txt`, `components.json` and the MCP server.
+- One `@example` that works when pasted, and `className` on the root so callers can size and place it.
+- The rules an agent needs live in `public/AGENTS.md`, `public/rules/minidev-ui.mdc` and `public/skill/minidev-ui/SKILL.md`. If a component needs a rule they do not cover, add it there.
+
 ## The material law (read this twice)
 
 Materials only reach a component through tokens. So:

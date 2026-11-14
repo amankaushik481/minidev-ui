@@ -25,13 +25,13 @@ function ChooseDemo() {
 export const examples: Example[] = [
   {
     title: "Highlighted beside a plain tier",
-    description: "highlighted swaps the outline button for the solid one and adds the accent ring; give cards a width so they line up.",
+    description: "highlighted swaps the outline button for the solid one and adds the accent ring, and badge puts a small label beside the name; give cards a width so they line up.",
     code: `<PlanCard name="Starter" price="$0" features={["5 invoices a month", "1 seat", "Email support"]} cta="Start free" className="w-64" />
-<PlanCard highlighted className="w-64" />`,
+<PlanCard highlighted badge="Most popular" className="w-64" />`,
     node: (
       <div className="flex flex-wrap items-stretch justify-center gap-4">
         <PlanCard name="Starter" price="$0" features={["5 invoices a month", "1 seat", "Email support"]} cta="Start free" className="w-64" />
-        <PlanCard highlighted className="w-64" />
+        <PlanCard highlighted badge="Most popular" className="w-64" />
       </div>
     ),
   },

@@ -53,7 +53,7 @@ const page: AlternativesPage = {
     },
     {
       id: "minidev-ui",
-      what: "A free shadcn-compatible registry of over 500 React items on Base UI, Tailwind CSS v4 and motion, with product screens, full-page blocks and 8 landing page templates shown as live demos.",
+      what: "A free shadcn-compatible registry of 548 React items on Base UI, Tailwind CSS v4 and motion, with product screens, full-page blocks and 8 landing page templates shown as live demos. Documented for AI coding agents with `llms.txt`, Markdown docs per component and an MCP server.",
       price: "Free, MIT, no paid tier",
       styling: "Tailwind CSS v4 utilities with semantic OKLCH tokens",
       bestFor: "React product screens such as billing, settings, dashboards and AI chat; it has no downloadable site templates and no Vue or HTML versions",
@@ -99,6 +99,10 @@ const page: AlternativesPage = {
     {
       q: "Is there a free option from the Tailwind team?",
       a: "Yes, Headless UI. It is MIT licensed, made by Tailwind Labs, and provides the unstyled, accessible components that Tailwind Plus uses for behavior in React and Vue.",
+    },
+    {
+      q: "Which Tailwind Plus alternative works best with AI coding agents?",
+      a: "Any public library beats Tailwind Plus here, because its code sits behind a sign-in and an agent cannot fetch it on its own. Among the alternatives, shadcn/ui and HeroUI have `llms.txt` and MCP servers, Untitled UI has `llms.txt` and an MCP server, Flowbite has an MCP server and daisyUI has `llms.txt`. MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server, and agents install it with the shadcn CLI they already know.",
     },
   ],
   sources: [

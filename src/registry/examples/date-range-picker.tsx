@@ -20,7 +20,7 @@ function ControlledDemo() {
 
 function PresetsDemo() {
   const [range, setRange] = React.useState<Range>({})
-  const iso = (d: Date) => d.toISOString().slice(0, 10)
+  const iso = (d: Date) => d.toLocaleDateString("en-CA") // local YYYY-MM-DD; toISOString would shift to UTC
   const lastDays = (n: number) => {
     const to = new Date()
     const from = new Date(to)
@@ -62,7 +62,7 @@ function ControlledDemo() {
     description: "Buttons set the range from today; Clear resets both fields with an empty object.",
     code: `function PresetsDemo() {
   const [range, setRange] = React.useState<Range>({})
-  const iso = (d: Date) => d.toISOString().slice(0, 10)
+  const iso = (d: Date) => d.toLocaleDateString("en-CA") // local YYYY-MM-DD; toISOString would shift to UTC
   const lastDays = (n: number) => {
     const to = new Date()
     const from = new Date(to)

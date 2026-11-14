@@ -36,6 +36,52 @@ Status: `success`, `warning`, `danger`, `info`, at equal perceptual weight.
 
 No hex, no palette steps (`blue-500`) in components. Dark mode redefines tokens, never components.
 
+### Token table (for agents)
+
+Use the class, never the raw value. Values are the hairline defaults; glass, metal and paper redefine the same names.
+"Worst" is the measured WCAG contrast on the hardest surface (bg, surface, raised or sunken) across all eight looks (4 materials × light/dark; glass measured over its darkest or brightest backdrop).
+
+| Token | Class | Use for | Light | Dark | Worst |
+|---|---|---|---|---|---|
+| `--bg` | `bg-bg` | Page | `oklch(0.985 0.0015 264)` | `oklch(0.145 0.004 270)` | |
+| `--surface` | `bg-surface` | Cards, panels, inputs | `oklch(1 0 0)` | `oklch(0.172 0.005 270)` | |
+| `--raised` | `bg-raised` | Menus, popovers, dialogs | `oklch(1 0 0)` | `oklch(0.2 0.006 270)` | |
+| `--sunken` | `bg-sunken` | Wells, tracks, code, hover fill | `oklch(0.967 0.0025 264)` | `oklch(0.125 0.004 270)` | |
+| `--overlay-scrim` | `bg-scrim` | Behind modals | `oklch(0.2 0.01 264 / 0.28)` | `oklch(0.05 0.005 270 / 0.6)` | |
+| `--border` | `border-border` | Default 1px line | `oklch(0.917 0.004 264)` | `oklch(0.262 0.006 270)` | |
+| `--border-strong` | `border-border-strong` | Inputs, emphasis, dividers | `oklch(0.862 0.006 264)` | `oklch(0.33 0.008 270)` | |
+| `--grid-line` | `bg-grid`, `bg-dots` | Textures only | `oklch(0.2 0.02 264 / 0.055)` | `oklch(1 0 0 / 0.045)` | |
+| `--fg` | `text-fg` | Body text, headings | `oklch(0.185 0.012 268)` | `oklch(0.965 0.003 270)` | 11.7 (≥ 7) |
+| `--fg-muted` | `text-fg-muted` | Secondary text, labels | `oklch(0.44 0.012 266)` | `oklch(0.73 0.01 270)` | 7.0 (≥ 7) |
+| `--fg-subtle` | `text-fg-subtle` | Hints, placeholders, meta | `oklch(0.54 0.01 266)` | `oklch(0.63 0.01 270)` | 4.5 (≥ 4.5) |
+| `--ink` | `bg-ink` | Primary button fill | `oklch(0.205 0.013 268)` | `oklch(0.965 0.003 270)` | |
+| `--ink-hover` | `hover:bg-ink-hover` | Primary button hover | `oklch(0.29 0.014 268)` | `oklch(0.88 0.004 270)` | |
+| `--on-ink` | `text-on-ink` | Text on ink | `oklch(0.99 0.002 264)` | `oklch(0.17 0.006 270)` | 13.7 on ink |
+| `--accent` | `bg-accent`, `ring-accent` | Accent button, focus ring, selection | `oklch(0.53 0.215 283)` | `oklch(0.7 0.165 285)` | 3.8 (≥ 3, focus) |
+| `--accent-hover` | `hover:bg-accent-hover` | Accent hover | `oklch(0.48 0.215 283)` | `oklch(0.76 0.15 285)` | |
+| `--accent-fg` | `text-accent-fg` | Links, accent text | `oklch(0.47 0.2 283)` | `oklch(0.78 0.13 285)` | 4.9 (≥ 4.5) |
+| `--accent-soft` | `bg-accent-soft` | Selected row, tint fill, field focus halo | `oklch(0.53 0.215 283 / 0.09)` | `oklch(0.7 0.165 285 / 0.13)` | |
+| `--accent-line` | `border-accent-line` | Tint border | `oklch(0.53 0.215 283 / 0.28)` | `oklch(0.7 0.165 285 / 0.35)` | |
+| `--on-accent` | `text-on-accent` | Text on accent | `oklch(0.99 0.004 283)` | `oklch(0.16 0.02 285)` | 5.6 on accent |
+| `--accent-2` | `to-accent-2` | Gradient partner only | `oklch(0.62 0.19 318)` | `oklch(0.76 0.14 325)` | |
+| `--success` | `text-success`, `bg-success` | Status | `oklch(0.53 0.13 155)` | `oklch(0.72 0.14 155)` | 3.2 (≥ 3) |
+| `--warning` | `text-warning`, `bg-warning` | Status | `oklch(0.64 0.14 72)` | `oklch(0.8 0.13 78)` | 3.1 (≥ 3) |
+| `--danger` | `text-danger`, `bg-danger` | Status, destructive | `oklch(0.54 0.2 25)` | `oklch(0.7 0.17 25)` | 3.7 (≥ 3) |
+| `--info` | `text-info`, `bg-info` | Status | `oklch(0.55 0.13 240)` | `oklch(0.72 0.12 240)` | 3.1 (≥ 3) |
+
+Status colours meet 3:1 (icons, dots, badges, large text). For small status text, pair the icon in the status colour with `text-fg` words.
+shadcn names (`bg-background`, `text-muted-foreground`, `bg-primary`, `bg-card`, `bg-popover`, `ring-ring`, `--chart-1..5`) are aliases of the tokens above, so shadcn code works unchanged.
+
+## User preferences
+
+All in `minidev.css`, no component work needed:
+
+- `prefers-reduced-motion`: animations and transitions are instant; the light stops drifting.
+- `prefers-reduced-transparency`: glass turns solid (tinted, no blur).
+- `prefers-contrast: more`: `fg-subtle` becomes `fg-muted`, `border` becomes `border-strong`.
+- `forced-colors`: focus draws a system `Highlight` outline; slider ranges, progress fills, switch and slider thumbs and radio dots stay visible. Keep the slot names (`slider-range`, `progress-indicator`, `*-thumb`, `radio-group-dot`) on those parts.
+- Print: every look prints as light hairline ink on white, without materials or shadows.
+
 ## Depth
 
 | Token | Use |

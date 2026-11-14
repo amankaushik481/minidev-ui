@@ -5,13 +5,18 @@ import { ArrowRightIcon, BookOpenIcon } from "lucide-react"
 import { CATEGORIES, categoryById } from "@/content/categories"
 import { componentsInCategory } from "@/content/component-seo"
 import { guideBySlug } from "@/content/guides"
-import { ComponentCard, ContentShell, Crumbs, FaqList, Inline, StudioNote } from "@/components/seo/prose"
+import { BLOCK_TYPES } from "@/content/blocks"
+import { ContentShell, Crumbs, FaqList, Inline, StudioNote } from "@/components/seo/prose"
 import { JsonLd } from "@/components/seo/json-ld"
 import { COMPONENT_INDEX } from "@/lib/component-index"
 import { GALLERY_ENTRIES } from "@/lib/gallery-catalog"
 import { breadcrumbLd, faqLd, graph, itemListLd, meta } from "@/lib/seo"
-import { humanTitle } from "@/lib/seo-routes"
+import { componentCopy, humanTitle } from "@/lib/seo-routes"
 import { SITE } from "@/lib/site"
+import { ComponentBrowser } from "../_browse/component-browser"
+import { AgentNote, type BrowseItem } from "../_browse/install-card"
+
+const chip = "group inline-flex items-center gap-1.5 rounded-xl border border-border bg-surface px-3.5 py-2 text-[0.875rem] text-fg shadow-key outline-none transition-[border-color] duration-[70ms] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent"
 
 type Params = { params: Promise<{ category: string }> }
 
@@ -28,12 +33,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return meta({ title: c.title, description: c.description, path: `/components/${c.id}`, image: `/components/${c.id}/opengraph-image`, keywords: [c.h1.toLowerCase(), `free ${c.label.toLowerCase()} components`, `tailwind ${c.label.toLowerCase()}`, `shadcn ${c.label.toLowerCase()}`, `${n} components`] })
 }
 
-const GROUPS = [
-  { kind: "ui", label: "Components" },
-  { kind: "block", label: "Blocks and full pages" },
-  { kind: "premium", label: "Motion" },
-] as const
-
 export default async function CategoryPage({ params }: Params) {
   const c = categoryById((await params).category)
   if (!c) notFound()
@@ -42,6 +41,8 @@ export default async function CategoryPage({ params }: Params) {
   const galleries = c.galleries.map((s) => GALLERY_ENTRIES.find((g) => g.slug === s)).filter((g): g is (typeof GALLERY_ENTRIES)[number] => Boolean(g))
   const guide = c.guide ? guideBySlug(c.guide) : undefined
   const related = c.related.map(categoryById).filter((x): x is NonNullable<typeof x> => Boolean(x))
+  const blockTypes = BLOCK_TYPES.filter((b) => b.category === c.id)
+  const items: BrowseItem[] = entries.map((e) => ({ name: e.name, title: humanTitle(e.title), kind: e.kind, description: componentCopy(e).description }))
   return (
     <ContentShell>
       <JsonLd
@@ -70,22 +71,8 @@ export default async function CategoryPage({ params }: Params) {
           ))}
         </div>
 
-        {GROUPS.map((g) => {
-          const list = entries.filter((e) => e.kind === g.kind)
-          if (!list.length) return null
-          return (
-            <section key={g.kind} className="mt-14">
-              <h2 className="text-[1.5rem] font-medium tracking-[-0.03em] text-fg">
-                {g.label} <span className="font-mono text-[0.875rem] text-fg-subtle">{list.length}</span>
-              </h2>
-              <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2">
-                {list.map((e) => (
-                  <ComponentCard key={e.name} name={e.name} />
-                ))}
-              </div>
-            </section>
-          )
-        })}
+        <ComponentBrowser items={items} label={c.label} />
+        <AgentNote />
 
         {galleries.length || guide ? (
           <section className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -120,16 +107,32 @@ export default async function CategoryPage({ params }: Params) {
           <FaqList faq={c.faq} />
         </div>
 
-        <section className="mt-16">
-          <h2 className="text-[1.25rem] font-medium tracking-[-0.02em] text-fg">Related categories</h2>
-          <div className="mt-4 flex flex-wrap gap-2">
+        <nav aria-labelledby="related-heading" className="mt-16">
+          <h2 id="related-heading" className="text-[1.25rem] font-medium tracking-[-0.02em] text-fg">
+            Related categories
+          </h2>
+          <ul className="mt-4 flex flex-wrap gap-2">
             {related.map((r) => (
-              <Link key={r.id} href={`/components/${r.id}`} className="group inline-flex items-center gap-1.5 rounded-xl border border-border bg-surface px-3.5 py-2 text-[0.875rem] text-fg shadow-key hover:border-border-strong">
-                {r.h1.replace(/^./, (m) => m.toUpperCase())} <ArrowRightIcon className="size-3.5 text-fg-subtle transition-transform group-hover:translate-x-0.5" />
-              </Link>
+              <li key={r.id}>
+                <Link href={`/components/${r.id}`} className={chip}>
+                  {r.h1.replace(/^./, (m) => m.toUpperCase())} <ArrowRightIcon className="size-3.5 text-fg-subtle transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </li>
             ))}
-          </div>
-        </section>
+            {blockTypes.map((b) => (
+              <li key={b.slug}>
+                <Link href={`/blocks/${b.slug}`} className={chip}>
+                  {b.name} blocks <ArrowRightIcon className="size-3.5 text-fg-subtle transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/components" className={chip}>
+                All categories <ArrowRightIcon className="size-3.5 text-fg-subtle transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </li>
+          </ul>
+        </nav>
         <StudioNote />
       </div>
     </ContentShell>

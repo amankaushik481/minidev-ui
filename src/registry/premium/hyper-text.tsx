@@ -9,6 +9,13 @@ import { cn } from "@/lib/utils"
  * when it scrolls into view and again on hover, set in monospace so nothing
  * shifts while it runs. Screen readers only ever get the final text, and
  * reduced motion shows it at once.
+ *
+ * Use it for short headline moments (a tagline, a stat line); keep it under
+ * a line or two. For a headline that types word by word use HeroTypedHeadline,
+ * for a gradient fill use GradientText.
+ *
+ * @example
+ * <HyperText text="Close the books in 24 hours" trigger="both" className="text-4xl" />
  */
 type HyperTextProps = {
   text?: string

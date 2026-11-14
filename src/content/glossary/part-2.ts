@@ -369,7 +369,7 @@ export function InfoPopover() {
       { type: "h2", text: "How MiniDev UI handles it", id: "minidev-ui" },
       {
         type: "p",
-        text: "Dark mode in MiniDev UI redefines [semantic tokens](/glossary/semantic-tokens) under `.dark`; components carry no `dark:` overrides for their core colors. Shadows, highlights and materials are retuned per theme too. [ThemePicker](/docs/theme-picker) is a three-way light, dark and system control that toggles the class and reports changes, so you can wire it to your own persistence.",
+        text: "Dark mode in MiniDev UI redefines [semantic tokens](/glossary/semantic-tokens) under `.dark`; components carry no `dark:` overrides for their core colors. Shadows, highlights and materials are retuned per theme too. [ThemePicker](/docs/theme-picker) is a three-way light, dark and system control that reports changes and, with `applyToDocument`, toggles the class, so you can wire it to your own persistence.",
       },
       { type: "component", name: "theme-picker" },
     ],
@@ -499,9 +499,14 @@ export function InfoPopover() {
         type: "p",
         text: "MiniDev UI ships semantic tokens only, written in [OKLCH](/glossary/oklch) and mapped to Tailwind utilities: surfaces (`bg`, `surface`, `raised`, `sunken`), text (`fg`, `fg-muted`, `fg-subtle`), brand (`accent`, `accent-soft`, `on-accent`), four status colors and a shadow scale. It also maps them onto the shadcn variable names (`--primary`, `--muted`, `--ring`), so existing shadcn components pick them up. Generate a scale of your own with the [OKLCH palette generator](/tools/oklch-palette-generator).",
       },
+      { type: "h2", text: "Tokens and AI coding agents", id: "ai-agents" },
+      {
+        type: "p",
+        text: "Tokens are also the cheapest way to keep generated code on brand. An agent that is told \"semantic tokens only: `bg-surface`, `text-fg-muted`, `border-border`; never hex, never `blue-500`, never `bg-white`\" writes markup that themes, switches to dark mode and changes material without edits, because every color goes through a name you control. An agent left to pick raw palette steps writes code that looks right once and breaks on the first theme change. MiniDev UI publishes its token rules in [`AGENTS.md`](/glossary/agents-md) and [`llms.txt`](/glossary/llms-txt) so coding agents read them before they write a line.",
+      },
     ],
     related: ["light-provider", "theme-picker", "color-picker", "badge"],
-    see: ["semantic-tokens", "css-variables", "design-system", "oklch"],
+    see: ["semantic-tokens", "css-variables", "design-system", "oklch", "agents-md"],
   },
 
   // ──────────────────────────────────────────────────────────── FOUC
@@ -1051,16 +1056,16 @@ export default async function PricingPage() {
         type: "code",
         lang: "bash",
         code: `# by URL
-npx shadcn@latest add @minidev/badge
+npx shadcn@latest add https://ui.minidev.pro/r/badge.json
 
-# or register a namespace once in components.json:
+# or by namespace; if your CLI does not resolve @minidev, register it once in components.json:
 #   "registries": { "@minidev": "https://ui.minidev.pro/r/{name}.json" }
 npx shadcn@latest add @minidev/badge`,
       },
       { type: "h2", text: "Why it matters", id: "why-it-matters" },
       {
         type: "p",
-        text: "Registries turn copy-paste code into a distribution channel with dependency resolution. Consumers get editable source and no runtime package to track, and publishers ship updates by redeploying JSON. The same files are easy for AI coding tools to read. [Build your own shadcn registry](/guides/shadcn-custom-registry) covers hosting one, from `registry.json` to deployment.",
+        text: "Registries turn copy-paste code into a distribution channel with dependency resolution. Consumers get editable source and no runtime package to track, and publishers ship updates by redeploying JSON. The same files are easy for AI coding tools to read: an agent can fetch one item, see its exact source and dependencies, and install it with one command, and the shadcn [MCP server](/glossary/mcp) lets agents browse and install from any registry without leaving the editor. [Build your own shadcn registry](/guides/shadcn-custom-registry) covers hosting one, from `registry.json` to deployment.",
       },
       { type: "h2", text: "How MiniDev UI uses it", id: "minidev-ui" },
       {
@@ -1075,7 +1080,7 @@ npx shadcn@latest add @minidev/badge`,
       { type: "component", name: "code-block" },
     ],
     related: ["code-block", "copy-button", "badge", "button"],
-    see: ["shadcn-ui", "component-library", "tailwind-css-v4"],
+    see: ["shadcn-ui", "component-library", "tailwind-css-v4", "mcp", "llms-txt"],
   },
 
   // ─────────────────────────────────────────────────────── shadcn/ui

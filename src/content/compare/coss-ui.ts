@@ -12,10 +12,10 @@ const comparison: Comparison = {
     "Origin UI, the popular collection of copy and paste Tailwind and React components, became part of coss.com, and its work continues in coss ui: a component library built on Base UI that serves as the design system of Cal.com, with ready made compositions called particles. MiniDev UI is also built on Base UI and installs through the shadcn CLI, and it is free and MIT. coss ui is a strong pick for clean, well considered form controls and app components backed by a company that uses them in production. MiniDev UI adds full product screens, page blocks, motion pieces and a material theming system.",
   rows: [
     { feature: "Price", minidev: "Free", other: "Free" },
-    { feature: "License", minidev: "MIT", other: "Open source; check the cosscom/coss repository for the current license" },
+    { feature: "License", minidev: "MIT", other: "The cosscom/coss repository is AGPL-3.0, with some packages under MIT; check the license of the files you use" },
     {
       feature: "Scope",
-      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
+      minidev: "548 items: 397 UI components, 108 motion components, 43 blocks and pages",
       other: "Core UI components plus particles (ready made compositions); the classic Origin UI collection is still browsable at coss.com/origin",
     },
     {
@@ -33,7 +33,7 @@ const comparison: Comparison = {
     { feature: "Tailwind version", minidev: "Tailwind CSS v4", other: "Tailwind CSS v4, per its shadcn-style setup; check the docs" },
     {
       feature: "Install",
-      minidev: "`npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or npm `minidev-ui-kit`",
+      minidev: "`npx shadcn@latest add @minidev/<name>`, or npm `minidev-ui-kit`",
       other: "shadcn CLI or copy and paste, per its docs",
     },
     {
@@ -43,6 +43,11 @@ const comparison: Comparison = {
     },
     { feature: "Dark mode", minidev: "Yes, from the same token set", other: "Yes" },
     { feature: "Backing", minidev: "MiniDev, a studio that builds MVPs, apps and websites", other: "coss.com, the company behind Cal.com; it is Cal.com's design system" },
+    {
+      feature: "AI tooling",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
+      other: "`llms.txt` with a Markdown file per docs page; installable through the shadcn CLI",
+    },
   ],
   body: [
     { type: "h2", text: "What happened to Origin UI", id: "what-happened-to-origin-ui" },
@@ -52,7 +57,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 items, also built on Base UI, with Tailwind CSS v4 and motion. It covers core components and goes further into full product screens such as billing, settings, data tables and AI chat, plus page blocks and about 86 motion components.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of 548 items, also built on Base UI, with Tailwind CSS v4 and motion. It covers core components and goes further into full product screens such as billing, settings, data tables and AI chat, plus page blocks and 108 motion components.",
     },
     { type: "h2", text: "Where coss ui shines", id: "where-coss-ui-shines" },
     {
@@ -68,9 +73,9 @@ const comparison: Comparison = {
     {
       type: "list",
       items: [
-        "**Whole screens.** About 43 blocks and pages, from a sign in page to an admin console and support inbox.",
+        "**Whole screens.** 43 blocks and pages, from a sign in page to an admin console and support inbox.",
         "**Product domains.** Billing, invoices, settings, notifications, command palettes, kanban boards and AI chat surfaces.",
-        "**Motion.** Around 72 animated components for heroes, pricing, marquees and scroll stories, all free.",
+        "**Motion.** 108 animated components for heroes, pricing, marquees and scroll stories, all free.",
         "**Material system.** One light source drives shadows across the page, and a `data-material` attribute switches between hairline, glass, metal and paper.",
       ],
     },
@@ -113,6 +118,10 @@ const comparison: Comparison = {
       q: "Which should I pick for a SaaS app?",
       a: "coss ui if you want a clean, production tested component base. MiniDev UI if you also want finished screens like billing, settings and AI chat, plus motion and page blocks. Both are free.",
     },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or coss ui?",
+      a: "Close. Both are on Base UI, both install through the shadcn CLI and both publish `llms.txt` with a Markdown file per docs page. MiniDev UI adds `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server.",
+    },
   ],
   sources: [
     { label: "coss ui", url: "https://coss.com/ui" },
@@ -122,6 +131,7 @@ const comparison: Comparison = {
     { label: "coss.com origin", url: "https://coss.com/origin" },
     { label: "cosscom/coss on GitHub", url: "https://github.com/cosscom/coss" },
     { label: "Announcement: Origin UI becomes part of coss.com", url: "https://x.com/pacovitiello/status/1976672108139921707" },
+    { label: "coss ui llms.txt", url: "https://coss.com/ui/llms.txt" },
   ],
 }
 

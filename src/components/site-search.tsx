@@ -56,7 +56,7 @@ export function SiteSearch({ className, compact }: { className?: string; compact
         <SearchIcon className="size-3.5 shrink-0" />
         {compact ? null : (
           <>
-            <span className="flex-1 text-left">Search components…</span>
+            <span className="flex-1 truncate text-left">Search…</span>
             <Kbd className="h-5 text-[10px]">⌘K</Kbd>
           </>
         )}

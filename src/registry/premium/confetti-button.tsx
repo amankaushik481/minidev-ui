@@ -5,13 +5,22 @@ import { PartyPopperIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 /**
- * A button that bursts confetti from itself on click: a few dozen paper
- * pieces with gravity, drag and spin, drawn on a throwaway canvas and
- * cleaned up when they land. No library. Reduced motion skips the burst.
+ * A button that bursts confetti from itself on click, for celebrating a finished action.
+ *
+ * A few dozen paper pieces with gravity, drag and spin are drawn on a
+ * throwaway canvas and cleaned up when they land; physics are time based, so
+ * 60 and 120Hz screens fall at the same speed. No library. Reduced motion
+ * skips the burst and keeps the click. It takes every native button prop.
+ * Use it for "you did it" moments (first invoice sent, plan upgraded), not
+ * for routine saves; for a normal action use Button.
+ *
+ * @example
+ * <ConfettiButton onClick={publish}>Publish</ConfettiButton>
  */
 type ConfettiButtonProps = React.ComponentProps<"button"> & {
   /** Number of pieces per burst. */
   count?: number
+  /** Piece colours, any CSS colour. Defaults to the accent, accent-2, success, warning and info tokens. */
   colors?: string[]
 }
 
@@ -33,17 +42,22 @@ function burst(el: HTMLElement, count: number, colors: string[]) {
     return { x: ox, y: oy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, w: 6 + Math.random() * 5, h: 8 + Math.random() * 8, rot: Math.random() * 6, vr: (Math.random() - 0.5) * 0.4, color: colors[Math.floor(Math.random() * colors.length)], life: 0 }
   })
   let raf = 0
-  const tick = () => {
+  let last = 0
+  const tick = (now: number) => {
+    // Steps are in 60fps frames, so the fall looks the same at any refresh rate. Capped after a tab switch.
+    const k = last ? Math.min(3, (now - last) / (1000 / 60)) : 1
+    last = now
+    const drag = Math.pow(0.985, k)
     ctx.clearRect(0, 0, innerWidth, innerHeight)
     let alive = 0
     for (const p of parts) {
-      p.life++
-      p.vy += 0.28
-      p.vx *= 0.985
-      p.vy *= 0.985
-      p.x += p.vx
-      p.y += p.vy
-      p.rot += p.vr
+      p.life += k
+      p.vy += 0.28 * k
+      p.vx *= drag
+      p.vy *= drag
+      p.x += p.vx * k
+      p.y += p.vy * k
+      p.rot += p.vr * k
       if (p.y < innerHeight + 40 && p.life < 240) alive++
       ctx.save()
       ctx.translate(p.x, p.y)
@@ -75,11 +89,13 @@ function ConfettiButton({ children = <><PartyPopperIcon className="size-4" /> Ce
         onClick?.(e)
         if (reduce || !ref.current) return
         const css = getComputedStyle(ref.current)
-        const palette = colors ?? [css.getPropertyValue("--accent"), css.getPropertyValue("--accent-2"), css.getPropertyValue("--success"), css.getPropertyValue("--warning"), "#ffffff"].map((x) => x.trim() || "#8b7cff")
+        const tokens = ["--accent", "--accent-2", "--success", "--warning", "--info"].map((v) => css.getPropertyValue(v).trim()).filter(Boolean)
+        // No tokens in scope (e.g. styles not loaded): fall back to the button's own text colour.
+        const palette = colors?.length ? colors : tokens.length ? tokens : [css.color]
         burst(ref.current, count, palette)
       }}
       className={cn(
-        "inline-flex h-11 items-center gap-2 rounded-xl bg-ink px-5 text-[0.9375rem] font-medium text-on-ink shadow-ink outline-none transition-transform active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
+        "inline-flex h-11 items-center gap-2 rounded-[0.625rem] bg-ink px-5 text-[0.9375rem] font-medium text-on-ink shadow-ink outline-none transition-[background-color,translate] duration-150 hover:bg-ink-hover active:translate-y-[0.5px] disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
         className,
       )}
       {...props}

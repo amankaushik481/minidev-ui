@@ -23,12 +23,12 @@ const comparison: Comparison = {
     },
     {
       feature: "Scope",
-      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
+      minidev: "548 items: 397 UI components, 108 motion components, 43 blocks and pages",
       other: "60+ UI components in the core library; Flowbite React provides React versions of the core components",
     },
     {
       feature: "Blocks and templates",
-      minidev: "About 43 blocks and pages; 8 landing page templates shown as live demos, with brand kits",
+      minidev: "43 blocks and pages; 8 landing page templates shown as live demos, with brand kits",
       other: "Flowbite Blocks for application, marketing and e-commerce sections, with full access in Flowbite Pro; project starters via `create-flowbite-react`",
     },
     {
@@ -53,7 +53,7 @@ const comparison: Comparison = {
     },
     {
       feature: "Install",
-      minidev: "`npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or npm `minidev-ui-kit`",
+      minidev: "`npx shadcn@latest add @minidev/<name>`, or npm `minidev-ui-kit`",
       other: "`npm install flowbite`, then `@plugin \"flowbite/plugin\";` and a `@source` line; React: `npx flowbite-react@latest init`",
     },
     {
@@ -68,7 +68,7 @@ const comparison: Comparison = {
     },
     {
       feature: "AI tooling",
-      minidev: "`llms.txt` and `llms-full.txt`; shadcn MCP compatible",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
       other: "Official MIT licensed Flowbite MCP server for Figma to code, theme generation and component context",
     },
   ],
@@ -80,7 +80,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 React items built on Base UI, Tailwind CSS v4 and motion. You add items with the shadcn CLI and the source lands in your repo. The focus is product screens: data tables, billing and invoice pages, settings, command palettes, notification centers and AI chat, plus about 43 full-page blocks and 86 motion components under one token system.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of 548 React items built on Base UI, Tailwind CSS v4 and motion. You add items with the shadcn CLI and the source lands in your repo. The focus is product screens: data tables, billing and invoice pages, settings, command palettes, notification centers and AI chat, plus 43 full-page blocks and 108 motion components under one token system.",
     },
     { type: "h2", text: "Where Flowbite shines", id: "where-flowbite-shines" },
     {
@@ -145,6 +145,10 @@ const comparison: Comparison = {
     {
       q: "Do Flowbite and MiniDev UI both have MCP servers?",
       a: "Flowbite has an official MCP server. MiniDev UI publishes `llms.txt` and a shadcn registry that the shadcn MCP server and CLI can read.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Flowbite?",
+      a: "Both have an MCP server. Flowbite's focuses on Figma to code, theme generation and component context. MiniDev UI's searches components and returns props, examples, source and the design rules, and the site also publishes `llms.txt`, a Markdown page per component and `AGENTS.md` rules.",
     },
   ],
   sources: [

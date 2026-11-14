@@ -2,8 +2,21 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** An indented table of contents for a docs page, with the current section highlighted. */
-type TocItem = { id: string; title: string; level?: 1 | 2 | 3 }
+/**
+ * An indented table of contents for a docs page, with the current section highlighted.
+ *
+ * Links jump to `#id` anchors. Pass `activeId` from your own scroll-spy (IntersectionObserver) to follow the reader; without it the last clicked entry is marked. Use `TableOfContents` for built-in scroll-spy and a sticky rail.
+ *
+ * @example
+ * <Toc items={[{ id: "install", title: "Install" }, { id: "usage", title: "Usage", level: 2 }]} activeId={visibleId} />
+ */
+type TocItem = {
+  /** Id of the heading element to link to. */
+  id: string
+  title: string
+  /** Indent depth: 1 for h2, 2 for h3, 3 for h4. Defaults to 1. */
+  level?: 1 | 2 | 3
+}
 
 type TocProps = {
   /** Headings in page order. Defaults to the Lumen API guide. */

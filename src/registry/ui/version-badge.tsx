@@ -2,15 +2,23 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function VersionBadge({
-  version,
-  channel,
-  className,
-}: {
+/**
+ * A mono version tag ("v2.4.1") with an optional release-channel pill: stable, beta or canary.
+ *
+ * Pass the version with or without a leading "v". Use `EnvBadge` for deploy environments and `Badge` for anything else.
+ *
+ * @example
+ * <VersionBadge version="2.4.1" channel="beta" />
+ */
+type VersionBadgeProps = {
+  /** Semver string, e.g. "2.4.1" or "v2.4.1". */
   version: string
+  /** Release channel pill. Omit to hide. */
   channel?: "stable" | "beta" | "canary"
   className?: string
-}) {
+}
+
+function VersionBadge({ version, channel, className }: VersionBadgeProps) {
   return (
     <span
       data-slot="version-badge"
@@ -19,16 +27,21 @@ function VersionBadge({
         className
       )}
     >
-      <span className="text-fg">v{version}</span>
+      <span className="text-fg tabular-nums">v{version.replace(/^v/i, "")}</span>
       {channel ? (
-        <span className={cn(
-          "rounded px-1 py-px text-[10px] font-sans font-medium tracking-[0.01em] uppercase",
-          channel === "stable" && "bg-success/15 text-fg",
-          channel === "beta" && "bg-accent/15 text-fg",
-          channel === "canary" && "bg-warning/20 text-fg",
-        )}>{channel}</span>
+        <span
+          className={cn(
+            "rounded px-1 py-px font-sans text-[10px] font-medium tracking-[0.01em] uppercase",
+            channel === "stable" && "bg-success/15 text-fg",
+            channel === "beta" && "bg-accent-soft text-fg",
+            channel === "canary" && "bg-warning/20 text-fg"
+          )}
+        >
+          {channel}
+        </span>
       ) : null}
     </span>
   )
 }
 export { VersionBadge }
+export type { VersionBadgeProps }

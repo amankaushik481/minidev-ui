@@ -3,29 +3,53 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { smoothPath } from "@/registry/ui/area-chart"
 
-type Point = { label: string; value: number; compare?: number }
+/**
+ * InteractiveAreaChart — an area chart you scrub with the pointer or arrow keys; a crosshair pins the value and its change against a comparison line.
+ *
+ * Use it for one headline series over time with an optional "last period"
+ * line (revenue, signups). For a static area use AreaChart, for several lines
+ * use LineChart, and for a tiny inline trend use StatSparkline.
+ * Keyboard: Left and Right step through points, Home and End jump to the ends.
+ *
+ * @example
+ * <InteractiveAreaChart
+ *   label="Revenue"
+ *   compareLabel="Last year"
+ *   format={(n) => `$${n}k`}
+ *   data={[{ label: "Jan", value: 42, compare: 38 }, { label: "Feb", value: 47, compare: 40 }]}
+ * />
+ */
+type Point = {
+  /** X axis label, for example a month. */
+  label: string
+  value: number
+  /** Comparison value for the same period; drawn as a dashed line when every point has one. */
+  compare?: number
+}
 
 const SAMPLE: Point[] = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ].map((label, i) => ({ label, value: Math.round(42 + i * 3.4 + Math.sin(i * 1.3) * 5), compare: Math.round(38 + i * 2.2 + Math.cos(i) * 3) }))
 
-/**
- * InteractiveAreaChart — hover or arrow-key across the series; a hairline
- * crosshair pins the value and the delta against the comparison line.
- */
+type InteractiveAreaChartProps = {
+  /** Points in order, left to right. Defaults to twelve months of revenue. */
+  data?: Point[]
+  /** Formats values in the header and for screen readers. */
+  format?: (n: number) => string
+  /** Series name, shown in the header and legend and used as the accessible name. */
+  label?: string
+  /** Name of the comparison series. */
+  compareLabel?: string
+  className?: string
+}
+
 function InteractiveAreaChart({
   data = SAMPLE,
   format = (n: number) => `$${n.toLocaleString()}k`,
   label = "Revenue",
   compareLabel = "Last year",
   className,
-}: {
-  data?: Point[]
-  format?: (n: number) => string
-  label?: string
-  compareLabel?: string
-  className?: string
-}) {
+}: InteractiveAreaChartProps) {
   const id = React.useId().replace(/:/g, "")
   const [i, setI] = React.useState<number | null>(null)
   const w = 600
@@ -39,9 +63,10 @@ function InteractiveAreaChart({
   const pts = data.map((d, k) => [x(k), y(d.value)] as const)
   const cmp = data.every((d) => d.compare != null) ? data.map((d, k) => [x(k), y(d.compare!)] as const) : null
   const line = smoothPath(pts)
-  const active = i ?? data.length - 1
+  const active = Math.min(i ?? data.length - 1, data.length - 1)
   const cur = data[active]
-  const delta = cur.compare != null ? ((cur.value - cur.compare) / cur.compare) * 100 : null
+  if (!cur) return null
+  const delta = cur.compare ? ((cur.value - cur.compare) / Math.abs(cur.compare)) * 100 : null
 
   const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect()
@@ -81,6 +106,8 @@ function InteractiveAreaChart({
         onKeyDown={(e) => {
           if (e.key === "ArrowLeft") { e.preventDefault(); setI(Math.max(0, active - 1)) }
           if (e.key === "ArrowRight") { e.preventDefault(); setI(Math.min(data.length - 1, active + 1)) }
+          if (e.key === "Home") { e.preventDefault(); setI(0) }
+          if (e.key === "End") { e.preventDefault(); setI(data.length - 1) }
         }}
         className="relative mt-5 h-52 cursor-crosshair rounded-md outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
       >
@@ -106,13 +133,13 @@ function InteractiveAreaChart({
         </svg>
         <span
           aria-hidden
-          className="pointer-events-none absolute size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-surface bg-accent shadow-[0_0_0_5px_var(--accent-soft)] transition-[left,top] duration-100"
+          className="pointer-events-none absolute size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-surface bg-accent shadow-[0_0_0_5px_var(--accent-soft)] transition-[left,top] duration-100 motion-reduce:transition-none"
           style={{ left: `${(x(active) / w) * 100}%`, top: `${(y(cur.value) / h) * 100}%` }}
         />
       </div>
-      <div className="mt-2 flex justify-between font-mono text-[10px] text-fg-subtle">
+      <div aria-hidden className="mt-2 flex justify-between font-mono text-[10px] text-fg-subtle">
         {data.map((d, k) => (
-          <span key={d.label} className={cn("transition-colors", k === active && "text-fg")}>{d.label}</span>
+          <span key={`${d.label}-${k}`} className={cn("transition-colors duration-[70ms]", k === active && "text-fg")}>{d.label}</span>
         ))}
       </div>
     </div>

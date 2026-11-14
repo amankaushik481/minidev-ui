@@ -19,12 +19,12 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "MIT" },
     {
       feature: "Scope",
-      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
+      minidev: "548 items: 397 UI components, 108 motion components, 43 blocks and pages",
       other: "68 components as CSS class names, 35 built-in themes and a theme generator",
     },
     {
       feature: "Blocks and templates",
-      minidev: "About 43 blocks and pages; 8 landing page templates shown as live demos, with brand kits",
+      minidev: "43 blocks and pages; 8 landing page templates shown as live demos, with brand kits",
       other: "Official templates (dashboards, landing pages, auth) sold in the daisyUI store; component examples in the free docs",
     },
     {
@@ -49,7 +49,7 @@ const comparison: Comparison = {
     },
     {
       feature: "Install",
-      minidev: "`npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or npm `minidev-ui-kit`",
+      minidev: "`npx shadcn@latest add @minidev/<name>`, or npm `minidev-ui-kit`",
       other: "Install the `daisyui` npm package, then add `@plugin \"daisyui\";` after `@import \"tailwindcss\";`",
     },
     {
@@ -64,7 +64,7 @@ const comparison: Comparison = {
     },
     {
       feature: "AI tooling",
-      minidev: "`llms.txt` and `llms-full.txt`; shadcn MCP compatible",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
       other: "`llms.txt`, setup guides for many editors, a daisyUI skill, and the paid Blueprint MCP server",
     },
   ],
@@ -76,7 +76,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 React items built on Base UI, Tailwind CSS v4 and motion. Each item is a component with behavior: a combobox filters and handles the keyboard, a dialog traps focus, a data table sorts its columns. You add items with the shadcn CLI and the source lands in your repo, along with about 43 full-page blocks and 86 motion components.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of 548 React items built on Base UI, Tailwind CSS v4 and motion. Each item is a component with behavior: a combobox filters and handles the keyboard, a dialog traps focus, a data table sorts its columns. You add items with the shadcn CLI and the source lands in your repo, along with 43 full-page blocks and 108 motion components.",
     },
     { type: "h2", text: "Where daisyUI shines", id: "where-daisyui-shines" },
     {
@@ -96,7 +96,7 @@ const comparison: Comparison = {
         "**Behavior included.** Menus, comboboxes, date pickers, dialogs and command palettes come with keyboard support and ARIA from Base UI, so you do not wire it yourself.",
         "**Product screens.** Billing, settings, sign in, admin consoles and AI chat are ready to adapt, free under MIT.",
         "**A visual system.** One light source drives shadows, and a `data-material` attribute switches between hairline, glass, metal and paper.",
-        "**Motion included.** About 86 motion components built on motion share the same tokens as the UI.",
+        "**Motion included.** 108 motion components built on motion share the same tokens as the UI.",
       ],
     },
     { type: "component", name: "command-palette" },
@@ -141,6 +141,10 @@ const comparison: Comparison = {
     {
       q: "Which is better for a non-React project?",
       a: "daisyUI, since its class names work in any framework or plain HTML. MiniDev UI is React only.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or daisyUI?",
+      a: "Both publish `llms.txt` and an agent skill. daisyUI's MCP server (Blueprint) is paid; MiniDev UI's is free, and MiniDev UI adds a Markdown page per component and `AGENTS.md` rules. daisyUI class names are short and easy for agents to write; MiniDev components arrive with behavior and accessibility already wired.",
     },
   ],
   sources: [

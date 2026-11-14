@@ -3,7 +3,21 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function Label({ className, ...props }: React.ComponentProps<"label">) {
+/**
+ * Label — the caption for a form control; point htmlFor at the control's id so clicking it focuses the field.
+ *
+ * Use it beside Input, Textarea, Checkbox, Switch and friends. It dims when a
+ * sibling `peer` control is disabled or a `group` ancestor has
+ * data-disabled="true". For a label with description and error text wired up
+ * for you use FormField.
+ *
+ * @example
+ * <Label htmlFor="email">Email</Label>
+ * <Input id="email" type="email" />
+ */
+type LabelProps = React.ComponentProps<"label">
+
+function Label({ className, ...props }: LabelProps) {
   return (
     <label
       data-slot="label"
@@ -18,3 +32,4 @@ function Label({ className, ...props }: React.ComponentProps<"label">) {
 }
 
 export { Label }
+export type { LabelProps }

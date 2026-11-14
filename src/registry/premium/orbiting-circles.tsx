@@ -5,9 +5,17 @@ import { BotIcon, CloudIcon, CreditCardIcon, DatabaseIcon, GitBranchIcon, MailIc
 import { cn } from "@/lib/utils"
 
 /**
+ * Icons orbiting a centre on hairline rings, each ring at its own speed and direction, for integration sections.
  * Icons orbiting a centre on hairline rings, for "works with everything"
  * integration sections. Each ring sets its own radius, speed and direction;
  * icons stay upright as they travel. Static for reduced motion.
+ *
+ * Use it for an integrations or "works with your stack" section. Reach for
+ * OrbitLogoCluster for text logos on one ring, IconCloud for a 3D sphere of
+ * icons, and AnimatedBeam to show data flowing between named tools.
+ *
+ * @example
+ * <OrbitingCircles size={320} rings={[{ radius: 80, duration: 20, icons: [MailIcon, DatabaseIcon] }]} center={<Logo />} />
  */
 type Ring = { radius: number; duration: number; reverse?: boolean; icons: LucideIcon[] }
 

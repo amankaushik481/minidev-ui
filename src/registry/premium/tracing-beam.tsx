@@ -9,6 +9,13 @@ import { cn } from "@/lib/utils"
  * smoothed with a spring, so it glides rather than jumps. Each direct child of
  * the content gets a node on the track that fills the moment the beam passes
  * it. Reduced motion drops the spring and follows the scroll exactly.
+ *
+ * Use it for changelogs, timelines and long step-by-step stories. Reach for
+ * the free Timeline for a static list, and StickyFeatureStory or
+ * ScrollChapterStory for full-screen scroll chapters.
+ *
+ * @example
+ * <TracingBeam items={[{ version: "v3.2", date: "14 Oct 2026", title: "Auto-reconcile", body: "…" }]} />
  */
 type TracingBeamItem = {
   /** Release tag shown in mono. */

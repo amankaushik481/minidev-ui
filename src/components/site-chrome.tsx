@@ -28,7 +28,11 @@ function NpmIcon(props: React.ComponentProps<"svg">) {
   )
 }
 
+/** The header nav: the shared NAV plus the agents page, right after Docs. */
+const HEADER_NAV = [NAV[0], { href: "/docs/ai", label: "AI" }, ...NAV.slice(1)]
+
 function isActive(path: string, href: string) {
+  if (href === "/docs") return path === "/docs" || (path.startsWith("/docs/") && path !== "/docs/ai" && !path.startsWith("/docs/ai/"))
   if (href === "/gallery") return path === "/gallery" || (path.startsWith("/gallery/") && !path.startsWith("/gallery/blocks") && !path.startsWith("/gallery/premium"))
   return path === href || path.startsWith(href + "/")
 }
@@ -37,8 +41,14 @@ export function SiteHeader({ solid }: { solid?: boolean }) {
   const path = usePathname()
   const [open, setOpen] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
+  const menuButton = React.useRef<HTMLButtonElement>(null)
 
-  React.useEffect(() => setOpen(false), [path])
+  // Close the menu on navigation (state adjusted during render, not in an effect)
+  const [menuPath, setMenuPath] = React.useState(path)
+  if (menuPath !== path) {
+    setMenuPath(path)
+    setOpen(false)
+  }
   React.useEffect(() => {
     const on = () => setScrolled(window.scrollY > 8)
     on()
@@ -47,7 +57,11 @@ export function SiteHeader({ solid }: { solid?: boolean }) {
   }, [])
   React.useEffect(() => {
     if (!open) return
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false)
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return
+      setOpen(false)
+      menuButton.current?.focus()
+    }
     document.addEventListener("keydown", onKey)
     document.body.style.overflow = "hidden"
     return () => {
@@ -74,8 +88,8 @@ export function SiteHeader({ solid }: { solid?: boolean }) {
           v{SITE.version}
         </span>
 
-        <nav className="ml-4 hidden items-center gap-0.5 md:flex" aria-label="Primary">
-          {NAV.map((item) => {
+        <nav className="ml-4 hidden items-center gap-0.5 lg:flex" aria-label="Primary">
+          {HEADER_NAV.map((item) => {
             const active = isActive(path, item.href)
             return (
               <Link
@@ -96,25 +110,26 @@ export function SiteHeader({ solid }: { solid?: boolean }) {
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5">
-          <SiteSearch className="hidden md:inline-flex" />
+          <SiteSearch className="hidden md:inline-flex lg:w-44 xl:w-52" />
           <SiteSearch compact className="md:hidden" />
           {SITE.github ? (
             <a href={SITE.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="hidden size-8 items-center justify-center rounded-lg text-fg-muted outline-none transition-colors hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent sm:inline-flex">
               <GithubIcon className="size-4" />
             </a>
           ) : null}
-          <a href={SITE.npm} target="_blank" rel="noreferrer" aria-label="npm package" className="hidden size-8 items-center justify-center rounded-lg text-fg-muted outline-none transition-colors hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent sm:inline-flex">
+          <a href={SITE.npm} target="_blank" rel="noreferrer" aria-label="npm package" className="hidden size-8 items-center justify-center rounded-lg text-fg-muted outline-none transition-colors hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent sm:inline-flex lg:hidden xl:inline-flex">
             <NpmIcon className="size-4" />
           </a>
           <MaterialSwitcher size="sm" labels={false} className="hidden xl:inline-flex" />
-          <BlueprintToggle className="hidden sm:inline-flex" />
+          <BlueprintToggle className="hidden sm:inline-flex lg:hidden xl:inline-flex" />
           <ThemeToggle />
-          <Button size="sm" className="ml-1 hidden lg:inline-flex" render={<Link href="/docs" />}>
+          <Button size="sm" className="ml-1 hidden xl:inline-flex" render={<Link href="/docs" />}>
             Get started
           </Button>
           <button
+            ref={menuButton}
             type="button"
-            className="inline-flex size-8 items-center justify-center rounded-lg text-fg outline-none hover:bg-sunken focus-visible:ring-2 focus-visible:ring-accent md:hidden"
+            className="inline-flex size-8 items-center justify-center rounded-lg text-fg outline-none hover:bg-sunken focus-visible:ring-2 focus-visible:ring-accent lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -126,12 +141,13 @@ export function SiteHeader({ solid }: { solid?: boolean }) {
       </div>
 
       {open ? (
-        <div id="mobile-nav" className="h-[calc(100dvh-3.5rem)] overflow-y-auto border-t border-border bg-bg md:hidden">
+        <div id="mobile-nav" className="h-[calc(100dvh-3.5rem)] overflow-y-auto border-t border-border bg-bg lg:hidden">
           <nav className="flex flex-col px-4 py-4" aria-label="Mobile">
-            {NAV.map((item, i) => (
+            {HEADER_NAV.map((item, i) => (
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive(path, item.href) ? "page" : undefined}
                 style={{ animationDelay: `${i * 30}ms` }}
                 className={cn(
                   "flex h-12 animate-[rise-in_220ms_var(--ease-hairline)_both] items-center justify-between border-b border-border text-lg font-medium tracking-[-0.014em] outline-none",
@@ -146,6 +162,13 @@ export function SiteHeader({ solid }: { solid?: boolean }) {
               <Button size="lg" render={<Link href="/docs" />}>Get started</Button>
               <Button size="lg" variant="outline" render={<a href={SITE.studio.url} />}>Hire the studio</Button>
             </div>
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[0.875rem] text-fg-muted">
+              {SITE.github ? <a href={SITE.github} target="_blank" rel="noreferrer" className="hover:text-fg">GitHub</a> : null}
+              <a href={SITE.npm} target="_blank" rel="noreferrer" className="hover:text-fg">npm</a>
+              <a href="/llms.txt" className="hover:text-fg">llms.txt</a>
+              <Link href="/guides" className="hover:text-fg">Guides</Link>
+              <Link href="/changelog" className="hover:text-fg">Changelog</Link>
+            </div>
           </nav>
         </div>
       ) : null}
@@ -153,7 +176,9 @@ export function SiteHeader({ solid }: { solid?: boolean }) {
   )
 }
 
-const FOOTER = [
+type FooterLink = { href: string; label: string; external?: boolean; raw?: boolean }
+
+const FOOTER: { title: string; links: FooterLink[] }[] = [
   {
     title: "Library",
     links: [
@@ -165,6 +190,21 @@ const FOOTER = [
       { href: "/gallery/premium-motion", label: "Motion" },
       { href: "/templates", label: "Templates" },
       { href: "/playground", label: "Theme playground" },
+      { href: "/showcase", label: "Showcase" },
+      { href: "/changelog", label: "Changelog" },
+    ],
+  },
+  {
+    title: "AI agents",
+    links: [
+      { href: "/docs/ai", label: "Build with AI agents" },
+      { href: "/docs/ai#mcp", label: "MCP server" },
+      { href: "/llms.txt", label: "llms.txt", raw: true },
+      { href: "/llms-full.txt", label: "llms-full.txt", raw: true },
+      { href: "/AGENTS.md", label: "AGENTS.md rules", raw: true },
+      { href: "/skill/minidev-ui/SKILL.md", label: "Claude skill", raw: true },
+      { href: "/rules/minidev-ui.mdc", label: "Cursor rules", raw: true },
+      { href: "/r/registry.json", label: "shadcn registry", raw: true },
     ],
   },
   {
@@ -186,17 +226,15 @@ const FOOTER = [
     links: [
       { href: "/guides", label: "Guides" },
       { href: "/glossary", label: "Glossary" },
-      { href: "/changelog", label: "Changelog" },
+      { href: "/compare", label: "Compare libraries" },
+      { href: "/alternatives", label: "Alternatives" },
       { href: "/tools", label: "Free tools" },
       { href: "/tools/box-shadow-generator", label: "Box shadow generator" },
       { href: "/tools/shadcn-theme-generator", label: "shadcn theme generator" },
       { href: "/tools/contrast-checker", label: "Contrast checker" },
       { href: "/tools/svg-to-jsx", label: "SVG to JSX" },
-      { href: "/compare", label: "Compare libraries" },
       { href: "/about", label: "About" },
       { href: "/brand", label: "Brand kit" },
-      { href: "/llms.txt", label: "llms.txt" },
-      { href: SITE.npm, label: "npm package", external: true },
     ],
   },
   {
@@ -206,6 +244,8 @@ const FOOTER = [
       { href: SITE.studio.url, label: "minidev.pro", external: true },
       { href: "/studio#prototype", label: "Free 48h prototype" },
       { href: "/tools/brand-kit-generator", label: "Brand kit generator" },
+      ...(SITE.github ? [{ href: SITE.github, label: "GitHub", external: true }] : []),
+      { href: SITE.npm, label: "npm package", external: true },
     ],
   },
 ]
@@ -234,8 +274,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
-          <div className="col-span-2 max-w-xs lg:col-span-1">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 sm:grid-cols-3 lg:grid-cols-[1.4fr_repeat(5,1fr)]">
+          <div className="col-span-2 max-w-xs sm:col-span-3 lg:col-span-1">
             <Logo />
             <p className="mt-4 text-[0.8125rem] leading-[1.6] text-fg-muted">
               {COMPONENT_COUNT_LABEL} React + Tailwind components drawn in hairlines. Copy them, own them, ship them. MIT, free forever.
@@ -247,10 +287,15 @@ export function SiteFooter() {
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    {"external" in l && l.external ? (
+                    {l.external ? (
                       <a href={l.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1 text-[0.8125rem] text-fg-muted outline-none transition-colors hover:text-fg focus-visible:text-fg">
                         {l.label}
                         <ArrowUpRightIcon className="size-3 opacity-0 transition-opacity group-hover:opacity-100" />
+                      </a>
+                    ) : l.raw ? (
+                      // a plain file, not a route: skip the client router
+                      <a href={l.href} className="text-[0.8125rem] text-fg-muted outline-none transition-colors hover:text-fg focus-visible:text-fg">
+                        {l.label}
                       </a>
                     ) : (
                       // prefetch off: a footer full of links would fetch every route the moment it scrolls into view

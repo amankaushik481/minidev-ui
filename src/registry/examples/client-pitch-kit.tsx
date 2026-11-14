@@ -38,7 +38,7 @@ export const examples: Example[] = [
     items={[
       { quote: "We closed the quarter in four days instead of three weeks.", name: "Maya Chen", role: "CFO, Northwind" },
       { quote: "Reminders alone cut our overdue invoices by a third.", name: "Theo Okafor", role: "Controller, Northwind" },
-      { quote: "The audit trail made our first external audit painless.", name: "Priya Raman", role: "Finance lead, Lumen" },
+      { quote: "The audit trail made our first external audit painless.", name: "Priya Raman", role: "Finance lead, Helix Biotech" },
     ]}
   />
   <div className="flex justify-center">
@@ -52,7 +52,7 @@ export const examples: Example[] = [
           items={[
             { quote: "We closed the quarter in four days instead of three weeks.", name: "Maya Chen", role: "CFO, Northwind" },
             { quote: "Reminders alone cut our overdue invoices by a third.", name: "Theo Okafor", role: "Controller, Northwind" },
-            { quote: "The audit trail made our first external audit painless.", name: "Priya Raman", role: "Finance lead, Lumen" },
+            { quote: "The audit trail made our first external audit painless.", name: "Priya Raman", role: "Finance lead, Helix Biotech" },
           ]}
         />
         <div className="flex justify-center">

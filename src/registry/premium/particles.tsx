@@ -11,6 +11,15 @@ import { Button } from "@/registry/ui/button"
  * The canvas is sharp on high density screens, resizes with its box, sleeps
  * off screen and in background tabs, and draws one still frame for reduced
  * motion.
+ *
+ * Use it behind a hero or CTA panel that should feel alive under the
+ * pointer. Reach for Meteors for streaks, LightField for a soft WebGL glow,
+ * and DotPattern or FlickeringGrid for a static or barely moving texture.
+ *
+ * @example
+ * <Particles quantity={140} mode="attract" className="h-[420px]">
+ *   <h2 className="text-4xl font-medium text-fg">Every invoice, accounted for</h2>
+ * </Particles>
  */
 type ParticlesProps = {
   /** Number of particles. */

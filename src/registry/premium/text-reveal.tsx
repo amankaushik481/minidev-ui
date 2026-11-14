@@ -4,9 +4,17 @@ import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } f
 import { cn } from "@/lib/utils"
 
 /**
+ * A paragraph that lights up word by word, from muted to full ink, as it scrolls through the viewport.
  * A paragraph that lights up word by word as it scrolls through the
  * viewport, from muted to full ink. The words are real text in order, so
  * search engines and screen readers read it normally.
+ *
+ * Use it for one manifesto or mission paragraph on a long page. Reach for
+ * MaskedGradientHeadline for a headline wipe, and BlurFade or ScrollReveal to
+ * bring whole blocks in.
+ *
+ * @example
+ * <TextReveal text="Lumen closes the books so your team can open the next quarter." />
  */
 type TextRevealProps = {
   text?: string

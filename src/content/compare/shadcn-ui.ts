@@ -15,7 +15,7 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "MIT" },
     {
       feature: "Scope",
-      minidev: "Over 500 registry items: roughly 375 UI components, 86 motion components and 43 blocks and pages",
+      minidev: "548 registry items: 397 UI components, 108 motion components and 43 blocks and pages",
       other: "Core UI components, charts and a set of blocks; see the docs for the current list",
     },
     {
@@ -37,7 +37,7 @@ const comparison: Comparison = {
     { feature: "Tailwind version", minidev: "Tailwind CSS v4", other: "Tailwind CSS v4, with legacy docs for v3" },
     {
       feature: "Install",
-      minidev: "`npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or npm `minidev-ui-kit`",
+      minidev: "`npx shadcn@latest add @minidev/<name>`, or npm `minidev-ui-kit`",
       other: "`npx shadcn@latest add <name>` from the official registry",
     },
     {
@@ -48,7 +48,7 @@ const comparison: Comparison = {
     { feature: "Dark mode", minidev: "Yes, from the same token set", other: "Yes" },
     {
       feature: "AI tooling",
-      minidev: "`llms.txt` and `llms-full.txt`; works with the shadcn MCP server as a registry",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
       other: "`llms.txt` and an official MCP server for browsing and installing from registries",
     },
   ],
@@ -60,7 +60,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is one of those registries. Every item is a single file you can add with the shadcn CLI, or you can install the whole kit from npm as `minidev-ui-kit`. It is built on Base UI, Tailwind CSS v4 and motion, and it is also MIT. The difference is scope and look: over 500 items, most of them screens and parts of screens that product teams build over and over, drawn to one visual system.",
+      text: "MiniDev UI is one of those registries. Every item is a single file you can add with the shadcn CLI, or you can install the whole kit from npm as `minidev-ui-kit`. It is built on Base UI, Tailwind CSS v4 and motion, and it is also MIT. The difference is scope and look: 548 items, most of them screens and parts of screens that product teams build over and over, drawn to one visual system.",
     },
     { type: "h2", text: "Where shadcn/ui shines", id: "where-shadcn-ui-shines" },
     {
@@ -77,9 +77,10 @@ const comparison: Comparison = {
       type: "list",
       items: [
         "**Product surfaces, finished.** Billing pages, invoice lists, settings layouts, data tables, kanban boards, command palettes, AI chat threads and prompt inputs, each ready to drop in.",
-        "**Full-page blocks.** Around 43 compositions such as a sign in page, analytics page, support inbox and admin console, so you start from a working screen instead of a blank route.",
-        "**Motion pieces.** About 72 animated components (heroes, pricing, marquees, scroll stories) built on motion, all free.",
+        "**Full-page blocks.** 43 full-page compositions such as a sign in page, analytics page, support inbox and admin console, so you start from a working screen instead of a blank route.",
+        "**Motion pieces.** 108 animated components (heroes, pricing, marquees, scroll stories) built on motion, all free.",
         "**Light and material.** One light source drives directional shadows across the page, and a `data-material` attribute switches between hairline, glass, metal and paper without touching component code.",
+        "**Rules agents can follow.** [`llms.txt`](/glossary/llms-txt) and [`AGENTS.md`](/glossary/agents-md) spell out the tokens, shadows and springs, every component has a Markdown page at `/docs/<name>.md`, and an [MCP server](/glossary/mcp) lets an agent search and read components before it writes code. Setup is on [Use MiniDev UI with AI agents](/docs/ai).",
       ],
     },
     { type: "component", name: "billing-page" },
@@ -132,6 +133,10 @@ const comparison: Comparison = {
     {
       q: "Are both free for commercial projects?",
       a: "Yes. Both are MIT licensed, so you can use them in commercial and client work.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or shadcn/ui?",
+      a: "Both are well supported. shadcn/ui has the largest footprint in training data, so agents often know it without looking anything up, plus `llms.txt` and an MCP server that can also install MiniDev items. MiniDev UI adds a Markdown page per component, design rules an agent can follow (tokens, shadows, springs) in `llms.txt` and `AGENTS.md`, a Claude Code skill and its own MCP server. Both install with the same CLI, so an agent can use them together.",
     },
   ],
   sources: [

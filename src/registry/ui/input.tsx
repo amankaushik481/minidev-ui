@@ -32,6 +32,19 @@ const inputVariants = cva(
   }
 )
 
+/**
+ * Input — a single-line text field on Base UI Input, with hover, focus halo, invalid, disabled and read-only states.
+ *
+ * Use it for any short text, email, number or password value; give it a Label
+ * (or wrap it in FormField) or an aria-label. For icons or units inside the
+ * field use InputAffix, for multi-line text use Textarea, and for specialised
+ * values use PasswordInput, SearchInput, NumberInput, CurrencyInput or OtpInput.
+ * Mark errors with aria-invalid so the border turns danger.
+ *
+ * @example
+ * <Label htmlFor="email">Email</Label>
+ * <Input id="email" type="email" placeholder="you@company.com" aria-invalid={!!error} />
+ */
 type InputProps = Omit<React.ComponentProps<"input">, "size" | "prefix"> &
   VariantProps<typeof inputVariants>
 

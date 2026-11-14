@@ -8,13 +8,13 @@ export const examples: Example[] = [
     code: `<CardTilt
   title="Paid in 140 currencies"
   body="Customers pay in their own currency and Lumen settles in yours, at the rate locked on send."
-  className="w-80"
+  className="w-full max-w-xs"
 />`,
     node: (
       <CardTilt
         title="Paid in 140 currencies"
         body="Customers pay in their own currency and Lumen settles in yours, at the rate locked on send."
-        className="w-80"
+        className="w-full max-w-xs"
       />
     ),
   },

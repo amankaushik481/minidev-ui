@@ -1,26 +1,47 @@
 "use client"
 import * as React from "react"
-import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { NumberRoll } from "@/registry/ui/number-roll"
 import { MagneticCta } from "@/registry/premium/magnetic-cta"
 
+/**
+ * A launch countdown in days, hours, minutes and seconds whose digits roll like an odometer, above a magnetic call to action.
+ * Pass `target` for a real launch date; without it the clock counts down
+ * `targetOffsetMs` from mount, which suits demos. Each digit springs to its
+ * place instead of swapping. The clock is a `timer` region: screen readers
+ * read the time left when they reach it but are not interrupted every second.
+ * Reduced motion swaps digits instantly.
+ *
+ * Use it for a pre-launch or waitlist page. Reach for FlipStatBoard or
+ * StatsCounter for figures that do not tick, and NumberRoll for one number.
+ *
+ * @example
+ * <LaunchCountdown target="2026-12-01T09:00:00Z" title="Lumen 3.0 opens in" cta="Join the waitlist" />
+ */
+type LaunchCountdownProps = {
+  /** Label above the clock. */
+  title?: string
+  /** The moment the clock reaches zero: a Date, an ISO string or epoch milliseconds. Overrides `targetOffsetMs`. */
+  target?: Date | string | number
+  /** Without `target`, count down this many milliseconds from mount. */
+  targetOffsetMs?: number
+  /** Call to action under the clock. Pass null to hide it. */
+  cta?: React.ReactNode
+  /** Called once when the clock reaches zero. */
+  onComplete?: () => void
+  className?: string
+}
+
+const TWO = { minimumIntegerDigits: 2, useGrouping: false } satisfies Intl.NumberFormatOptions
+
 function Unit({ label, value }: { label: string; value: number }) {
-  const reduce = useReducedMotion()
-  const v = String(value).padStart(2, "0")
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="flex gap-1" aria-label={`${value} ${label}`}>
-        {v.split("").map((d, i) => (
-          <motion.span
-            key={`${label}-${i}-${d}`}
-            initial={reduce ? false : { y: 10 }}
-            animate={{ y: 0 }}
-            className="inline-flex h-14 w-10 items-center justify-center rounded-lg border border-border bg-surface font-mono text-2xl font-medium tabular-nums text-fg shadow-highlight"
-          >
-            {d}
-          </motion.span>
-        ))}
-      </div>
+      <NumberRoll
+        value={value}
+        format={TWO}
+        className="h-14 min-w-20 items-center justify-center rounded-lg border border-border bg-surface px-3 font-mono text-3xl font-medium text-fg shadow-highlight"
+      />
       <span className="text-[10px] font-medium tracking-[0.01em] text-fg-muted uppercase">{label}</span>
     </div>
   )
@@ -28,19 +49,37 @@ function Unit({ label, value }: { label: string; value: number }) {
 
 function LaunchCountdown({
   title = "Opens in",
+  target,
   targetOffsetMs = 1000 * 60 * 60 * 36,
+  cta = "Join the waitlist",
+  onComplete,
   className,
-}: {
-  title?: string
-  targetOffsetMs?: number
-  className?: string
-}) {
-  const target = React.useMemo(() => Date.now() + targetOffsetMs, [targetOffsetMs])
-  const [left, setLeft] = React.useState(targetOffsetMs)
+}: LaunchCountdownProps) {
+  const at = target === undefined ? NaN : new Date(target).getTime()
+  const fixed = Number.isFinite(at) ? at : null
+  // The server and first client render agree on the offset; a fixed target is corrected on mount.
+  const [left, setLeft] = React.useState(fixed === null ? targetOffsetMs : 0)
+  const completeRef = React.useRef(onComplete)
   React.useEffect(() => {
-    const id = window.setInterval(() => setLeft(Math.max(0, target - Date.now())), 1000)
+    completeRef.current = onComplete
+  }, [onComplete])
+
+  React.useEffect(() => {
+    const end = fixed ?? Date.now() + targetOffsetMs
+    let id = 0
+    const tick = () => {
+      const ms = Math.max(0, end - Date.now())
+      setLeft(ms)
+      if (ms === 0) {
+        window.clearInterval(id)
+        completeRef.current?.()
+      }
+    }
+    tick()
+    id = window.setInterval(tick, 1000)
     return () => window.clearInterval(id)
-  }, [target])
+  }, [fixed, targetOffsetMs])
+
   const s = Math.floor(left / 1000)
   const days = Math.floor(s / 86400)
   const hours = Math.floor((s % 86400) / 3600)
@@ -56,14 +95,15 @@ function LaunchCountdown({
       )}
     >
       <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">{title}</p>
-      <div className="flex flex-wrap items-end justify-center gap-4">
+      <div role="timer" aria-label={title} className="flex flex-wrap items-end justify-center gap-4">
         <Unit label="Days" value={days} />
         <Unit label="Hours" value={hours} />
         <Unit label="Mins" value={mins} />
         <Unit label="Secs" value={secs} />
       </div>
-      <MagneticCta>Join the waitlist</MagneticCta>
+      {cta ? <MagneticCta>{cta}</MagneticCta> : null}
     </section>
   )
 }
 export { LaunchCountdown }
+export type { LaunchCountdownProps }

@@ -3,11 +3,31 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { SegmentedControl } from "@/registry/ui/segmented-control"
 
-/** A project timeline with day and week scales, a today line, progress fills, dependency arrows, a sticky task column and focusable bars. */
+/**
+ * GanttChart — a project timeline with day and week scales, a today line, progress fills, dependency arrows, a sticky task column and focusable bars.
+ *
+ * Use for launch plans and delivery schedules. Tasks take Date objects or
+ * ISO day strings; `end` is inclusive. Tasks with the same `group` share a
+ * heading and colour; `dependsOn` draws arrows. For a single plain bar row
+ * use `GanttRow`; for calendar events by the hour use `EventCalendar`; for
+ * request spans use `TraceWaterfall`.
+ *
+ * @example
+ * <GanttChart
+ *   title="Launch plan"
+ *   tasks={[
+ *     { id: "design", name: "Landing page design", start: "2026-11-02", end: "2026-11-09", progress: 60, group: "Design" },
+ *     { id: "build", name: "Checkout flow", start: "2026-11-10", end: "2026-11-20", group: "Engineering", dependsOn: ["design"] },
+ *   ]}
+ *   onTaskClick={(task) => openTask(task.id)}
+ * />
+ */
 type GanttTone = "accent" | "info" | "success" | "warning" | "danger"
 
 type GanttTask = {
+  /** Stable id, referenced by other tasks' `dependsOn`. */
   id: string
+  /** Task name in the left column, on the bar and in the tooltip. */
   name: string
   /** Start date: a Date or an ISO day string such as "2026-10-14". */
   start: Date | string
@@ -30,7 +50,9 @@ type GanttChartProps = {
   tasks?: GanttTask[]
   /** Controlled zoom level. */
   scale?: GanttScale
+  /** Initial zoom level when uncontrolled. */
   defaultScale?: GanttScale
+  /** Called when the Day/Week control changes the scale. */
   onScaleChange?: (scale: GanttScale) => void
   /** The date the today line marks. Defaults to the current date. */
   today?: Date | string
@@ -337,6 +359,12 @@ function GanttChart({
                     onPointerLeave={() => setHover(null)}
                     onFocus={(e) => show(r.task.id, e.currentTarget)}
                     onBlur={() => setHover(null)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape" && hover) {
+                        e.stopPropagation()
+                        setHover(null)
+                      }
+                    }}
                     data-slot="gantt-bar"
                     className={cn(
                       "absolute h-6 overflow-hidden rounded-md border text-left outline-none",

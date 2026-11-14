@@ -56,6 +56,11 @@ const comparison: Comparison = {
       minidev: "Tailwind CSS v4",
       other: "The install docs use Tailwind v4 syntax (`@import \"tailwindcss\"`, `@source`, `@custom-variant`)",
     },
+    {
+      feature: "AI tooling",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
+      other: "No `llms.txt` at the site root when checked in November 2026; agents rely on the HTML docs and the copied markup",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -93,6 +98,10 @@ const comparison: Comparison = {
     {
       q: "Which should I use for a marketing site?",
       a: "Either. Preline has a large set of free marketing blocks in plain HTML that fits any stack, with more in Pro. MiniDev UI's 15 block types, 8 landing page templates and 108 motion components are React, so pick it if the site runs on Next.js or another React framework and you want animation.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Preline UI?",
+      a: "MiniDev UI. When checked in November 2026, Preline UI had no `llms.txt` at its site root, so agents work from the HTML docs or from memory. MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server, and an agent installs any item with one shadcn command.",
     },
   ],
   sources: [

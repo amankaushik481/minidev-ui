@@ -2,11 +2,25 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** Rounded-top bars on a hairline baseline; hovering one bar dims its siblings and surfaces the value, and the peak is marked by default. */
+/**
+ * Rounded-top bars on a hairline baseline; hovering one bar dims its siblings and surfaces the value, and the peak is marked by default.
+ *
+ * Use for one value per period or category (monthly revenue, signups per day). Prefer
+ * `StackedBarChart` for parts of a whole, `HorizontalBarChart` for long category names, and
+ * `AreaChart` for a continuous trend. Screen readers get `label` followed by every label and value.
+ * Size it with `className` (default `h-40 w-full`).
+ *
+ * @example
+ * <BarChart label="Revenue by month" format={(n) => `$${(n / 1000).toFixed(1)}k`}
+ *   data={[{ label: "Sep", value: 56100 }, { label: "Oct", value: 61400 }]} />
+ */
 type BarChartProps = {
+  /** One bar per item, left to right. `label` is printed under the bar. Omit for sample data. */
   data?: { label: string; value: number }[]
   className?: string
+  /** Accessible name; every label and formatted value is appended for screen readers. */
   label?: string
+  /** Formats values in the hover bubble and the accessible summary. */
   format?: (n: number) => string
 }
 
@@ -30,31 +44,33 @@ function BarChart({
   data = SAMPLE_DATA,
   className,
   label = "Bar chart",
-  format = (n: number) => n.toLocaleString(),
+  // Fixed locale so the server and client render the same digits.
+  format = (n: number) => n.toLocaleString("en-US"),
 }: BarChartProps) {
   const max = Math.max(...data.map((d) => d.value), 1)
   const peak = data.findIndex((d) => d.value === max)
   const [hover, setHover] = React.useState<number | null>(null)
   const active = hover ?? peak
+  const summary = data.length ? `${label}. ${data.map((d) => `${d.label}: ${format(d.value)}`).join(", ")}.` : `${label}. No data.`
   return (
-    <div data-slot="bar-chart" role="img" aria-label={label} className={cn("flex h-40 w-full flex-col pt-7", className)} onMouseLeave={() => setHover(null)}>
+    <div data-slot="bar-chart" role="img" aria-label={summary} className={cn("flex h-40 w-full flex-col pt-7", className)} onMouseLeave={() => setHover(null)}>
       <div className="relative flex flex-1 items-end gap-1.5 border-b border-border">
         {[0.25, 0.5, 0.75].map((f) => (
           <span key={f} aria-hidden className="pointer-events-none absolute inset-x-0 border-t border-dashed border-border/70" style={{ bottom: `${f * 100}%` }} />
         ))}
         {data.map((d, i) => (
-          <div key={d.label} className="relative flex h-full flex-1 items-end" onMouseEnter={() => setHover(i)}>
+          <div key={i} className="relative flex h-full flex-1 items-end" onMouseEnter={() => setHover(i)}>
             <div
               className={cn(
-                "relative w-full rounded-t-[5px] transition-[opacity,background-color] duration-[140ms] ease-hairline",
+                "relative w-full rounded-t-md transition-[opacity,background-color] duration-[140ms] ease-hairline",
                 i === active ? "bg-accent" : "bg-accent/35",
                 hover != null && i !== hover && "opacity-60"
               )}
               style={{ height: `${Math.max(2, (d.value / max) * 100)}%` }}
             >
-              <span className="absolute inset-x-0 top-0 h-px rounded-t-[5px] bg-white/30" />
+              <span aria-hidden className="absolute inset-x-0 top-0 h-px rounded-t-md bg-on-accent/30" />
               {i === active ? (
-                <span className="absolute -top-7 left-1/2 -translate-x-1/2 rounded-md bg-ink px-1.5 py-0.5 font-mono text-[10px] font-medium whitespace-nowrap text-on-ink shadow-md">
+                <span className="absolute -top-7 left-1/2 -translate-x-1/2 rounded-md bg-ink px-1.5 py-0.5 font-mono text-[10px] font-medium whitespace-nowrap text-on-ink tabular-nums shadow-md">
                   {format(d.value)}
                 </span>
               ) : null}
@@ -64,7 +80,7 @@ function BarChart({
       </div>
       <div className="flex gap-1.5 pt-2">
         {data.map((d, i) => (
-          <span key={d.label} className={cn("flex-1 truncate text-center font-mono text-[10px]", i === active ? "text-fg" : "text-fg-subtle")}>
+          <span key={i} aria-hidden className={cn("flex-1 truncate text-center font-mono text-[10px]", i === active ? "text-fg" : "text-fg-subtle")}>
             {d.label}
           </span>
         ))}

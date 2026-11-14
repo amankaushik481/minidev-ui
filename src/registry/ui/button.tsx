@@ -5,10 +5,24 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 /**
- * Button — the Hairline keycap.
- * Solid variants carry an inner top highlight + inner bottom edge (shadow-ink),
- * outline carries a 1px bottom "key" edge (shadow-key). Hover changes one
- * property. Press sinks 0.5px. Nothing shifts layout.
+ * Button — the Hairline keycap: the kit's one button, in eight variants and nine sizes.
+ *
+ * Use `default` (ink) for the primary action, `outline` for secondary, `ghost` in toolbars,
+ * `destructive` for irreversible actions, `accent` at most once per screen, `link` for inline text
+ * actions. For an icon-only button use `IconButton` (it requires `aria-label`). To render a link
+ * that looks like a button, pass `render={<a href="/pricing" />}` (or a Next.js `<Link />`);
+ * `nativeButton` is set for you. Disable with `disabled`; Base UI keeps it focusable when you also
+ * pass `focusableWhenDisabled`.
+ *
+ * Solid variants carry an inner top highlight and bottom edge (shadow-ink), outline a 1px key
+ * edge (shadow-key). Hover changes one property, press sinks 0.5px, nothing shifts layout.
+ *
+ * @example
+ * <Button>Save invoice</Button>
+ * <Button variant="outline" size="sm"><DownloadIcon /> Export</Button>
+ * <Button render={<a href="/pricing" />} variant="accent" size="lg">See pricing</Button>
+ *
+ * Sizes: xs 28px, sm 32px, default 36px, lg 44px, xl 48px; icon, icon-xs, icon-sm, icon-lg are square.
  */
 const buttonVariants = cva(
   [

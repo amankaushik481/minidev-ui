@@ -3,8 +3,27 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { FileRow } from "@/registry/ui/file-row"
 
-/** A stack of file rows with name, metadata and an optional download action. */
-type FileItem = { id: string; name: string; meta?: string }
+/**
+ * FileList — a stack of file rows with name, metadata and an optional download action.
+ *
+ * Use for attachments, exports and documents on a record. For one row use
+ * `FileRow`; for uploading use `FileDropzone`; for a folder hierarchy use
+ * `FileTree`.
+ *
+ * @example
+ * <FileList
+ *   files={[{ id: "f1", name: "INV-2041.pdf", meta: "PDF · 184 KB" }]}
+ *   onDownload={(id) => download(id)}
+ * />
+ */
+type FileItem = {
+  /** Stable id passed back to onDownload. */
+  id: string
+  /** File name, truncated when long. */
+  name: string
+  /** Secondary line, e.g. "PDF · 184 KB · Sep 24". */
+  meta?: string
+}
 
 const SAMPLE_FILES: FileItem[] = [
   { id: "f1", name: "INV-2041-northwind.pdf", meta: "PDF · 184 KB · Sep 24, 2026" },
@@ -29,11 +48,13 @@ function FileList({
 }: FileListProps) {
   const download = onDownload ?? (files === SAMPLE_FILES ? () => {} : undefined)
   return (
-    <div data-slot="file-list" className={cn("space-y-2", className)}>
+    <ul data-slot="file-list" aria-label="Files" className={cn("space-y-2", className)}>
       {files.map((f) => (
-        <FileRow key={f.id} name={f.name} meta={f.meta} onDownload={download ? () => download(f.id) : undefined} />
+        <li key={f.id}>
+          <FileRow name={f.name} meta={f.meta} onDownload={download ? () => download(f.id) : undefined} />
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 export { FileList }

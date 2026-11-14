@@ -57,10 +57,20 @@ export function ShadowGenerator() {
           drag(e)
         }}
         onPointerMove={(e) => e.buttons === 1 && drag(e)}
-        className="relative h-[440px] cursor-crosshair touch-none overflow-hidden rounded-2xl border border-border select-none"
+        onKeyDown={(e) => {
+          const d = e.shiftKey ? 0.1 : 0.02
+          const dx = e.key === "ArrowLeft" ? -d : e.key === "ArrowRight" ? d : 0
+          const dy = e.key === "ArrowUp" ? -d : e.key === "ArrowDown" ? d : 0
+          if (!dx && !dy) return
+          e.preventDefault()
+          setS((p) => ({ ...p, lx: Math.min(1, Math.max(0, p.lx + dx)), ly: Math.min(1, Math.max(0, p.ly + dy)) }))
+        }}
+        tabIndex={0}
+        className="relative h-[360px] cursor-crosshair touch-none overflow-hidden rounded-2xl border border-border outline-none select-none focus-visible:ring-2 focus-visible:ring-accent lg:h-[440px]"
         style={{ background: bg }}
         role="application"
-        aria-label="Drag to move the light source"
+        aria-roledescription="light position pad"
+        aria-label={`Light source at ${Math.round(s.lx * 100)}% across, ${Math.round(s.ly * 100)}% down. Drag, or use the arrow keys (Shift for bigger steps).`}
       >
         <div
           className="pointer-events-none absolute"

@@ -20,7 +20,23 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/** A code editor style file explorer with file icons, git status, a filter field and full tree keyboard support. */
+/**
+ * FileTree — a code editor style file explorer with file icons, git status, a filter field and full tree keyboard support.
+ *
+ * Use for repos, artifacts and agent workspaces. Folders are nodes with a
+ * `children` array (even empty); files have none. Paths passed to
+ * `onSelect` are names joined by "/". Keyboard follows the WAI-ARIA tree
+ * pattern. For a generic nested list without file semantics use `TreeView`;
+ * for a single file citation use `FileReference`.
+ *
+ * @example
+ * <FileTree
+ *   title="lumen-web"
+ *   data={[{ name: "app", children: [{ name: "page.tsx", status: "M" }] }, { name: "package.json" }]}
+ *   defaultExpanded={["app"]}
+ *   onSelect={(path) => openFile(path)}
+ * />
+ */
 type GitStatus = "M" | "A" | "D" | "U"
 
 type FileTreeNode = {

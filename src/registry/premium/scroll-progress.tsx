@@ -9,6 +9,14 @@ import { cn } from "@/lib/utils"
  * `container`, or give it children and it becomes its own scrolling panel.
  * The spring gives the bar a little weight as you scroll; reduced motion
  * tracks the scroll position exactly.
+ *
+ * Use it on long articles, docs and changelogs. Reach for ScrollProgressRail
+ * for a sticky rail with section labels, and the free Progress for task
+ * progress that is not tied to scrolling.
+ *
+ * @example
+ * <ScrollProgress fixed variant="bar" />
+ * <ScrollProgress variant="both" title="Release notes">{longContent}</ScrollProgress>
  */
 type ScrollProgressProps = {
   /** Which indicators to show. */

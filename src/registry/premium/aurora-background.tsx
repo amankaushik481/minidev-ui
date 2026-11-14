@@ -10,6 +10,14 @@ import { Button } from "@/registry/ui/button"
  * Three blurred bands of accent colour move at different periods, so the
  * motion never reads as a loop. The light sits behind the content, ignores
  * the pointer, pauses off screen and holds still for reduced motion.
+ *
+ * Use it as a hero or CTA backdrop; children render on top. For a static
+ * glow use HeroGradientMesh, for a pointer-reactive grid use BackgroundBoxes.
+ *
+ * @example
+ * <AuroraBackground intensity={0.8} className="h-[480px]">
+ *   <h1 className="text-4xl text-fg">See your runway in a new light</h1>
+ * </AuroraBackground>
  */
 type AuroraBackgroundProps = {
   /** Strength of the light, 0 to 1. */

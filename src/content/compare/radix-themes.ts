@@ -48,6 +48,11 @@ const comparison: Comparison = {
       minidev: "15 block types, 43 full page blocks and 8 landing page templates as live demos",
       other: "Components, layout, typography and utilities, plus a playground on the site",
     },
+    {
+      feature: "AI tooling",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
+      other: "No `llms.txt` at the site root when checked in November 2026; agents rely on the HTML docs or the package types",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -85,6 +90,10 @@ const comparison: Comparison = {
     {
       q: "Are both free?",
       a: "Yes. Radix Themes is MIT licensed and free, and MiniDev UI is MIT with no paid tier.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Radix Themes?",
+      a: "MiniDev UI. When checked in November 2026, Radix Themes had no `llms.txt` at its site root, so agents work from the HTML docs or from memory and the type definitions. MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server, and an agent installs any item with one shadcn command.",
     },
   ],
   sources: [

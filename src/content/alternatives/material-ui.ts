@@ -53,7 +53,7 @@ const page: AlternativesPage = {
     },
     {
       id: "minidev-ui",
-      what: "A free shadcn-compatible registry of over 500 items on Base UI, Tailwind CSS v4 and motion, with full product screens such as billing, settings, admin consoles and AI chat.",
+      what: "A free shadcn-compatible registry of 548 items on Base UI, Tailwind CSS v4 and motion, with full product screens such as billing, settings, admin consoles and AI chat. Documented for AI coding agents with `llms.txt`, Markdown docs per component and an MCP server.",
       price: "Free, MIT, no paid tier",
       styling: "Tailwind CSS v4 utilities with semantic OKLCH tokens, copied into your repo",
       bestFor: "Tailwind teams that want finished screens they own; its data table is not a virtualized grid, so it does not replace MUI X",
@@ -93,6 +93,10 @@ const page: AlternativesPage = {
     {
       q: "How is Base UI related to Material UI?",
       a: "Base UI is an unstyled component library published by the MUI organization. shadcn/ui made it the default primitive layer in July 2026, and MiniDev UI is built on it.",
+    },
+    {
+      q: "Which Material UI alternative works best with AI coding agents?",
+      a: "Material UI itself is well set up, with `llms.txt` and the MUI MCP server, so check that you need to switch. Among the alternatives, Mantine, Chakra UI, HeroUI and shadcn/ui have `llms.txt` and MCP servers, and Ant Design publishes `llms.txt` and Markdown docs. MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server, and agents install it with the shadcn CLI they already know. Radix Themes had no `llms.txt` at its site root when checked in November 2026.",
     },
   ],
   sources: [

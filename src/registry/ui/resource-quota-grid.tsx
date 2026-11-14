@@ -3,8 +3,21 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { QuotaBar } from "@/registry/ui/quota-bar"
 
-/** A responsive grid of quota cards, one bar per metered resource, for plan and usage pages. */
-type Quota = { label: string; used: number; max: number }
+/**
+ * A responsive grid of quota cards, one bar per metered resource, for plan and usage pages.
+ *
+ * Each card is a QuotaBar, so bars turn warning near the limit and danger at it. For a single
+ * meter use QuotaBar directly.
+ *
+ * @example
+ * <ResourceQuotaGrid items={[{ label: "Seats", used: 18, max: 25 }, { label: "Storage (GB)", used: 38, max: 50 }]} />
+ */
+type Quota = {
+  /** Resource name, also the meter's accessible name. */
+  label: string
+  used: number
+  max: number
+}
 
 type ResourceQuotaGridProps = {
   /** Metered resources to show. Defaults to a Lumen workspace on the Scale plan. */

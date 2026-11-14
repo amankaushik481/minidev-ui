@@ -10,6 +10,13 @@ import { cn } from "@/lib/utils"
  * token colour and glyph. Typing pauses while the window is off screen and
  * picks up where it left off; reduced motion prints the whole transcript at
  * once. The box reserves its full height, so nothing below it shifts.
+ *
+ * Use it to show an install command or CLI flow on a docs or launch page.
+ * Reach for the free TerminalWindow for a static transcript, CodeBlock for
+ * copyable code, and ConsoleOutput for streaming logs inside product UI.
+ *
+ * @example
+ * <Terminal title="zsh" lines={[{ kind: "command", text: "npx shadcn@latest add https://ui.minidev.pro/r/button.json" }, { kind: "success", text: "Created 1 file" }]} />
  */
 type TerminalLine = {
   /** Commands are typed character by character. Every other kind prints whole. */
@@ -104,18 +111,16 @@ function Cursor() {
 function CommandRow({ text, typed, prompt, state }: { text: string; typed: number; prompt: string; state: "hidden" | "typing" | "shown" }) {
   const parts = tokenize(text)
   const shown = state === "shown" ? text.length : typed
-  let offset = 0
-  let cursorPlaced = state !== "typing"
+  const starts = parts.map((_, i) => parts.slice(0, i).reduce((n, q) => n + q.t.length, 0))
+  // The cursor sits in the first token the typing has not passed yet.
+  const cursorAt = state === "typing" ? starts.findIndex((s, i) => shown <= s + parts[i].t.length) : -1
   return (
     <div data-slot="terminal-line" data-kind="command" className={cn("flex gap-2", state === "hidden" && "invisible")}>
       <span className="shrink-0 text-accent-fg select-none">{prompt}</span>
       <span className="min-w-0 whitespace-pre-wrap [overflow-wrap:anywhere]">
         {parts.map((p, i) => {
-          const start = offset
-          offset += p.t.length
-          const vis = Math.max(0, Math.min(p.t.length, shown - start))
-          const withCursor = !cursorPlaced && shown <= offset
-          if (withCursor) cursorPlaced = true
+          const vis = Math.max(0, Math.min(p.t.length, shown - starts[i]))
+          const withCursor = i === cursorAt
           return (
             <span key={i} className={p.c}>
               {p.t.slice(0, vis)}

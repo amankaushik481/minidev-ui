@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils"
 import { CodeBlock } from "@/registry/ui/code-block"
 import { Skeleton } from "@/registry/ui/skeleton"
 import { DocsH2, DocsShell, Tabbed, humanize } from "../_components/docs-shell"
+import { PageActions } from "./page-actions"
 
 class PreviewBoundary extends React.Component<{ fallback: React.ReactNode; children: React.ReactNode }, { failed: boolean }> {
   state = { failed: false }
@@ -24,33 +25,25 @@ class PreviewBoundary extends React.Component<{ fallback: React.ReactNode; child
   }
 }
 
-function useModule(name: string) {
-  const [mod, setMod] = React.useState<Record<string, unknown> | null>(null)
+/** Loads per-component data on the client. The result is tagged with its key, so a new key reads as loading without resetting state in the effect. */
+function useLoad<T>(key: string, load: (() => Promise<T>) | undefined, fallback: T): T | null {
+  const [got, setGot] = React.useState<{ key: string; value: T } | null>(null)
   React.useEffect(() => {
     let live = true
-    setMod(null)
-    REGISTRY_LOADERS[name]?.().then((m) => live && setMod(m)).catch(() => live && setMod({}))
+    ;(load ? load() : Promise.resolve(fallback)).catch(() => fallback).then((value) => live && setGot({ key, value }))
     return () => {
       live = false
     }
-  }, [name])
-  return mod
+    // load and fallback are derived from key
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key])
+  return got?.key === key ? got.value : null
 }
 
-function useExamples(name: string) {
-  const [ex, setEx] = React.useState<Example[] | null>(null)
-  React.useEffect(() => {
-    let live = true
-    setEx(null)
-    const load = EXAMPLE_LOADERS[name]
-    if (!load) { setEx([]); return }
-    load().then((m) => live && setEx(m.examples)).catch(() => live && setEx([]))
-    return () => {
-      live = false
-    }
-  }, [name])
-  return ex
-}
+const useModule = (name: string) => useLoad<Record<string, unknown>>(name, REGISTRY_LOADERS[name], {})
+const useExamples = (name: string) => useLoad<Example[]>(name, EXAMPLE_LOADERS[name] && (() => EXAMPLE_LOADERS[name]().then((m) => m.examples)), [])
+const useSource = (name: string) =>
+  useLoad<string>(name, () => fetch(`/r/${name}.json`).then((r) => (r.ok ? r.json() : null)).then((j) => j?.files?.[0]?.content ?? ""), "")
 
 function ExampleCard({ ex, dark }: { ex: Example; dark: boolean }) {
   const [showCode, setShowCode] = React.useState(false)
@@ -76,22 +69,6 @@ function ExampleCard({ ex, dark }: { ex: Example; dark: boolean }) {
   )
 }
 
-function useSource(name: string) {
-  const [src, setSrc] = React.useState<string | null>(null)
-  React.useEffect(() => {
-    let live = true
-    setSrc(null)
-    fetch(`/r/${name}.json`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((j) => live && setSrc(j?.files?.[0]?.content ?? ""))
-      .catch(() => live && setSrc(""))
-    return () => {
-      live = false
-    }
-  }, [name])
-  return src
-}
-
 function Stage({ children, dark, onDark, onReset }: { children: React.ReactNode; dark: boolean; onDark: () => void; onReset: () => void }) {
   return (
     <div className={cn("overflow-hidden rounded-2xl border border-border shadow-raised", dark && "dark")}>
@@ -111,6 +88,8 @@ function Stage({ children, dark, onDark, onReset }: { children: React.ReactNode;
   )
 }
 
+const noSubscribe = () => () => {}
+
 /** Everything that needs the full component index or the SEO copy is computed on the server and passed in,
  * so those data files never ship to the browser. */
 export type DocsData = {
@@ -122,20 +101,25 @@ export type DocsData = {
   category: { id: string; label: string; h1: string } | null
   related: { name: string; title: string; description: string }[]
   depTitles: Record<string, string>
+  /** URL path of this page's Markdown twin. */
+  md: string
+  /** The usage snippet, shared with the Markdown so both say the same thing. */
+  usage: string
+  /** Every name the component file exports. */
+  exports: string[]
 }
 
 export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server-rendered API reference. */ api?: React.ReactNode; /** Server-rendered cross links (guides, glossary, block hubs). */ learn?: React.ReactNode }) {
-  const { entry, prev, next, galleries, description, category, related, depTitles } = data
+  const { entry, prev, next, galleries, description, category, related, depTitles, md, usage, exports } = data
   const params = { name: entry.name }
   const mod = useModule(params.name)
   const examples = useExamples(params.name)
   const src = useSource(params.name)
-  const [dark, setDark] = React.useState(false)
+  // Preview theme follows the site until the reader flips it; the server snapshot is light.
+  const siteDark = React.useSyncExternalStore(noSubscribe, () => document.documentElement.classList.contains("dark"), () => false)
+  const [darkOverride, setDark] = React.useState<boolean | null>(null)
+  const dark = darkOverride ?? siteDark
   const [nonce, setNonce] = React.useState(0)
-
-  React.useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"))
-  }, [])
 
   const demos = getPlaygroundDemos(entry.name)
   const Comp = mod?.[entry.title] as React.ComponentType | undefined
@@ -194,7 +178,11 @@ export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server
       content: (
         <div className="space-y-3">
           <CodeBlock language="bash" code={`npm i ${SITE.npmPackage}${entry.deps.length ? " " + entry.deps.join(" ") : ""}`} />
+          <CodeBlock language="css" filename="globals.css" code={`@import "tailwindcss";\n@import "${SITE.npmPackage}/styles.css";\n@source "../node_modules/${SITE.npmPackage}";`} />
           <CodeBlock language="tsx" code={`import { ${entry.title} } from "${pkgPath}"`} />
+          <p className="text-[12.5px] leading-[1.6] text-fg-muted">
+            Next.js also needs <code className="font-mono text-[11.5px] text-fg">transpilePackages: [&quot;{SITE.npmPackage}&quot;]</code> in next.config.
+          </p>
         </div>
       ),
     },
@@ -218,6 +206,7 @@ export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server
     ...(entry.registryDeps.length || entry.deps.length ? [{ id: "dependencies", label: "Dependencies" }] : []),
     ...(galleries.length || (examples && examples.length) ? [{ id: "examples", label: "Examples" }] : []),
     ...(related.length ? [{ id: "related", label: "Related" }] : []),
+    ...(learn ? [{ id: "learn", label: "Learn more" }] : []),
   ]
 
   return (
@@ -245,6 +234,9 @@ export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server
         <p className="mt-3 max-w-2xl text-[1.0625rem] leading-[1.65] text-fg-muted">
           {description}
         </p>
+        <div className="mt-5 -ml-2.5">
+          <PageActions name={entry.name} title={humanize(entry.title)} md={md} />
+        </div>
         <div className="mt-5 flex flex-wrap items-center gap-2 text-xs">
           <span className="rounded-md border border-border bg-surface px-2 py-1 font-mono text-fg-muted shadow-xs">{entry.path}</span>
           <a href={`/r/${entry.name}.json`} className="inline-flex items-center gap-1 rounded-md border border-border bg-surface px-2 py-1 font-mono text-fg-muted shadow-xs hover:text-fg">
@@ -258,7 +250,7 @@ export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server
               {
                 label: "Preview",
                 content: (
-                  <Stage dark={dark} onDark={() => setDark((d) => !d)} onReset={() => setNonce((n) => n + 1)}>
+                  <Stage dark={dark} onDark={() => setDark(!dark)} onReset={() => setNonce((n) => n + 1)}>
                     <React.Fragment key={nonce}>{preview}</React.Fragment>
                   </Stage>
                 ),
@@ -278,14 +270,15 @@ export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server
 
         <section className="mt-14 space-y-5">
           <DocsH2 id="usage">Usage</DocsH2>
-          <CodeBlock
-            language="tsx"
-            code={
-              entry.usage
-                ? `import { ${entry.title} } from "@/components/ui/${entry.name}"\n\nexport function Example() {\n  return (\n${entry.usage.split("\n").map((l) => "    " + l).join("\n")}\n  )\n}`
-                : `import { ${entry.title} } from "@/components/ui/${entry.name}"\n\nexport function Example() {\n  return <${entry.title} />\n}`
-            }
-          />
+          <CodeBlock language="tsx" code={usage} />
+          {exports.length > 1 ? (
+            <p className="text-[0.8125rem] leading-[1.7] text-fg-muted">
+              Exports{" "}
+              {exports.map((x, i) => (
+                <React.Fragment key={x}>{i ? " " : ""}<code className="rounded-[5px] border border-border bg-sunken px-1 py-px font-mono text-[0.9em] text-fg">{x}</code></React.Fragment>
+              ))}
+            </p>
+          ) : null}
         </section>
 
         {api ? (

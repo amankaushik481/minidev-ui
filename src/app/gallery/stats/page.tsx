@@ -6,7 +6,7 @@ import { GalleryPage, GallerySection } from "../_components/gallery-chrome"
 
 export default function Page() {
   return (
-    <GalleryPage title="Stats & charts">
+    <GalleryPage title="Stats & KPIs">
       <GallerySection title="KPI row">
         <KpiRow className="w-full" items={[
           { label: "MRR", value: "$48.2k", delta: "+12% vs last month" },

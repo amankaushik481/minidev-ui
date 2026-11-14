@@ -5,6 +5,16 @@ import { cn } from "@/lib/utils"
 import { MagneticCta } from "@/registry/premium/magnetic-cta"
 import { Button } from "@/registry/ui/button"
 
+/**
+ * A poster-scale type hero on a thirds grid: three headline lines rise out of masks, the last in an accent gradient, with a magnetic CTA below.
+ *
+ * Reduced motion shows everything in place. Use it for a launch or brand page
+ * that should feel like a poster (see BrandKitPage); for editable lines use
+ * HeroKineticType.
+ *
+ * @example
+ * <HeroPosterType />
+ */
 function HeroPosterType({ className }: { className?: string }) {
   const reduce = useReducedMotion()
   return (

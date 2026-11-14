@@ -3,6 +3,20 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
+/**
+ * A semantic HTML table with hairline row dividers, a hover tint and horizontal scroll on narrow screens.
+ *
+ * Compose Table > TableHeader/TableBody/TableFooter > TableRow > TableHead/TableCell, plus an
+ * optional TableCaption. Numbers line up (tabular-nums). Add SortableHeader inside a TableHead
+ * (set `aria-sort` on the TableHead), TableToolbar above and TablePagination below. Mark a
+ * selected row with `data-selected` or `aria-selected`. For SQL output use SqlResultTable.
+ *
+ * @example
+ * <Table>
+ *   <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead className="text-right">Amount</TableHead></TableRow></TableHeader>
+ *   <TableBody><TableRow><TableCell>INV-2041</TableCell><TableCell className="text-right">$12,400.00</TableCell></TableRow></TableBody>
+ * </Table>
+ */
 function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
     <div
@@ -11,7 +25,7 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
     >
       <table
         data-slot="table"
-        className={cn("w-full caption-bottom text-sm", className)}
+        className={cn("w-full caption-bottom text-sm tabular-nums", className)}
         {...props}
       />
     </div>
@@ -56,7 +70,7 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
     <tr
       data-slot="table-row"
       className={cn(
-        "border-b transition-colors hover:bg-sunken/60 has-aria-expanded:bg-sunken/60 data-[state=selected]:bg-sunken",
+        "border-b transition-colors duration-[70ms] hover:bg-sunken/60 has-aria-expanded:bg-sunken/60 data-[state=selected]:bg-sunken data-selected:bg-sunken aria-selected:bg-sunken",
         className
       )}
       {...props}

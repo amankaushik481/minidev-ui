@@ -2,9 +2,23 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** ReactionBar — emoji reaction pills with counts; the ones you pressed get the accent border. */
+/**
+ * ReactionBar — emoji reaction pills with counts; the ones you pressed get the accent border.
+ *
+ * Use it under comments, chat messages and changelog posts. Without `onToggle` it keeps its own
+ * counts; with it, you own the data and pass back updated `reactions`. Each pill is a toggle
+ * button with `aria-pressed`.
+ *
+ * @example
+ * <ReactionBar reactions={[{ emoji: "👍", count: 3, active: true }, { emoji: "🎉", count: 1 }]} onToggle={(emoji) => toggleReaction(messageId, emoji)} />
+ */
 
-type Reaction = { emoji: string; count: number; active?: boolean }
+type Reaction = {
+  emoji: string
+  count: number
+  /** True when the current viewer has reacted with this emoji. */
+  active?: boolean
+}
 
 // Reactions on a Lumen changelog post.
 const SAMPLE_REACTIONS: Reaction[] = [
@@ -15,6 +29,7 @@ const SAMPLE_REACTIONS: Reaction[] = [
 ]
 
 type ReactionBarProps = {
+  /** Pills to show, in order. */
   reactions?: Reaction[]
   /** Called with the emoji that was pressed. Omit it and the bar toggles its own counts. */
   onToggle?: (emoji: string) => void
@@ -45,11 +60,12 @@ function ReactionBar({
           key={r.emoji}
           type="button"
           aria-pressed={!!r.active}
-          aria-label={`${r.emoji} ${r.count}`}
+          aria-label={`${r.emoji} ${r.count} ${r.count === 1 ? "reaction" : "reactions"}`}
           className={cn(
             "inline-flex h-7 items-center gap-1 rounded-full border px-2 text-xs font-medium tabular-nums text-fg outline-none",
-            "focus-visible:ring-2 focus-visible:ring-accent",
-            r.active ? "border-accent bg-surface" : "border-border bg-surface hover:border-fg-subtle"
+            "transition-[border-color,background-color] duration-[70ms] ease-hairline active:translate-y-[0.5px]",
+            "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
+            r.active ? "border-accent bg-accent-soft" : "border-border bg-surface hover:border-fg-subtle"
           )}
           onClick={() => toggle(r.emoji)}
         >

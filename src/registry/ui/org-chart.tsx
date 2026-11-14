@@ -4,12 +4,31 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { ChevronDownIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/** A collapsible organisation chart with connector lines, initials avatars, team colours, per node counts and arrow key navigation. */
+/**
+ * OrgChart — a collapsible organisation chart with connector lines, initials avatars, team colours, per node counts and arrow key navigation.
+ *
+ * Cards carry an initials avatar, name, role and a team coloured stripe; a pill under
+ * each manager shows how many people report up and folds the branch on a spring.
+ * Connectors are plain CSS borders and the tree scrolls sideways when wider than its
+ * container. Keyboard: one tab stop; ArrowLeft/Right walk siblings, ArrowDown opens or
+ * enters reports, ArrowUp goes to the manager, Home/End jump, Enter/Space selects and
+ * toggles. Use it for people directories and admin consoles; for a file-style
+ * hierarchy use TreeView, for a sidebar menu use NestedNav.
+ *
+ * @example
+ * <OrgChart
+ *   data={{ id: "ceo", name: "Maya Chen", role: "CEO", children: [{ id: "cto", name: "Theo Okafor", role: "CTO", team: "Engineering" }] }}
+ *   defaultExpandDepth={1}
+ *   onSelect={(node) => openProfile(node.id)}
+ * />
+ */
 type OrgTone = "accent" | "info" | "success" | "warning" | "neutral"
 
 type OrgNode = {
+  /** Unique id across the whole tree. */
   id: string
   name: string
+  /** Job title under the name. */
   role: string
   /** Team name. Each team gets a colour, in order of first appearance. */
   team?: string
@@ -27,11 +46,13 @@ type OrgChartProps = {
   defaultExpanded?: string[]
   /** Controlled selected node id. */
   selectedId?: string
+  /** Initially selected node id when uncontrolled. */
   defaultSelectedId?: string
   /** Called when a node is clicked or activated. */
   onSelect?: (node: OrgNode) => void
   /** Pin team names to colours. Unlisted teams are coloured in order. */
   teamTones?: Partial<Record<string, OrgTone>>
+  /** Accessible name for the tree. */
   "aria-label"?: string
   className?: string
 }
@@ -254,18 +275,11 @@ function Node({ node, root = false }: { node: OrgNode; root?: boolean }) {
   )
 }
 
-/**
- * An org chart for people directories and admin consoles. Cards carry an
- * initials avatar, name, role and a team coloured stripe; a pill under each
- * manager shows how many people report up and folds the branch with a
- * spring. Connectors are plain CSS borders, the tree scrolls sideways when
- * it is wider than its container, and the arrow keys walk siblings, reports
- * and managers.
- */
 function OrgChart({
   data = SAMPLE,
   defaultExpandDepth = 0,
-  defaultExpanded = ["theo"],
+  // The sample opens one extra branch; custom trees start from defaultExpandDepth only.
+  defaultExpanded = data === SAMPLE ? ["theo"] : [],
   selectedId,
   defaultSelectedId,
   onSelect,

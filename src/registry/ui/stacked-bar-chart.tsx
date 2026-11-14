@@ -2,8 +2,25 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/** Vertical bars stacked by series, with a legend, for comparing revenue mix across periods. */
-type Stack = { label: string; values: number[] }
+/**
+ * Vertical bars stacked by series, with a legend, for comparing revenue mix across periods.
+ *
+ * Screen readers get the numbers as a hidden data table. Use it for part-to-whole over time with
+ * 2 to 4 series; use BarChart for one series and AreaChart for continuous trends.
+ *
+ * @example
+ * <StackedBarChart
+ *   label="Revenue mix by month"
+ *   seriesLabels={["Subscriptions", "Usage"]}
+ *   data={[{ label: "Jan", values: [48, 14] }, { label: "Feb", values: [52, 16] }]}
+ * />
+ */
+type Stack = {
+  /** Period label under the bar, e.g. "Jan". */
+  label: string
+  /** One value per series, in `seriesLabels` order. */
+  values: number[]
+}
 
 type StackedBarChartProps = {
   /** One stack per period; `values` line up with `seriesLabels`. Defaults to eight months of Lumen revenue. */
@@ -11,6 +28,7 @@ type StackedBarChartProps = {
   /** Names of the stacked series, bottom to top. */
   seriesLabels?: string[]
   className?: string
+  /** Chart title for screen readers. */
   label?: string
 }
 
@@ -36,12 +54,33 @@ function StackedBarChart({
   const colors = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-5)"]
   const max = Math.max(...data.map((d) => d.values.reduce((a, b) => a + b, 0)), 1)
   return (
-    <div data-slot="stacked-bar-chart" role="img" aria-label={label} className={cn("w-full max-w-lg space-y-3", className)}>
-      <div className="flex h-40 items-stretch gap-2 border-b border-border">
+    <figure data-slot="stacked-bar-chart" aria-label={label} className={cn("w-full max-w-lg space-y-3", className)}>
+      <table className="sr-only">
+        <caption>{label}</caption>
+        <thead>
+          <tr>
+            <th scope="col">Period</th>
+            {seriesLabels.map((s) => (
+              <th key={s} scope="col">{s}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((d) => (
+            <tr key={d.label}>
+              <th scope="row">{d.label}</th>
+              {seriesLabels.map((s, i) => (
+                <td key={s}>{d.values[i] ?? 0}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div aria-hidden className="flex h-40 items-stretch gap-2 border-b border-border">
         {data.map((d) => {
           return (
             <div key={d.label} className="flex min-h-0 flex-1 flex-col items-center">
-              <div className="flex min-h-0 w-full flex-1 flex-col justify-end gap-px overflow-hidden rounded-t-[5px]">
+              <div className="flex min-h-0 w-full flex-1 flex-col justify-end gap-px overflow-hidden rounded-t-[4px]">
                 {[...d.values].reverse().map((v, i) => {
                   const idx = d.values.length - 1 - i
                   return (
@@ -58,12 +97,12 @@ function StackedBarChart({
           )
         })}
       </div>
-      <div className="-mt-1 flex gap-2">
+      <div aria-hidden className="-mt-1 flex gap-2">
         {data.map((d) => (
-          <span key={d.label} className="flex-1 text-center font-mono text-[10px] text-fg-subtle">{d.label}</span>
+          <span key={d.label} className="flex-1 text-center font-mono text-2xs text-fg-subtle">{d.label}</span>
         ))}
       </div>
-      <div className="flex flex-wrap gap-3">
+      <div aria-hidden className="flex flex-wrap gap-3">
         {seriesLabels.map((s, i) => (
           <span key={s} className="inline-flex items-center gap-1.5 text-xs text-fg-muted">
             <span className="size-2 rounded-sm" style={{ background: colors[i % colors.length] }} aria-hidden />
@@ -71,7 +110,7 @@ function StackedBarChart({
           </span>
         ))}
       </div>
-    </div>
+    </figure>
   )
 }
 export { StackedBarChart }

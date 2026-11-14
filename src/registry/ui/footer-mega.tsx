@@ -3,8 +3,25 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Link } from "@/registry/ui/link"
 
-/** A multi-column site footer: brand and tagline on the left, titled link columns across the rest. */
-type Col = { title: string; links: { label: string; href: string }[] }
+/**
+ * FooterMega — a multi-column site footer: brand and tagline on the left, titled link columns across the rest.
+ *
+ * Use at the bottom of marketing sites with many links. Each column is a
+ * labelled nav landmark. For a single row of links use `FooterNav`.
+ *
+ * @example
+ * <FooterMega
+ *   brand="Lumen"
+ *   tagline="Invoicing for teams that close their books every day."
+ *   columns={[{ title: "Product", links: [{ label: "Pricing", href: "/pricing" }] }]}
+ * />
+ */
+type Col = {
+  /** Column heading; also the nav landmark's name. */
+  title: string
+  /** Links in the column, top to bottom. */
+  links: { label: string; href: string }[]
+}
 
 const SAMPLE_COLUMNS: Col[] = [
   {
@@ -60,14 +77,18 @@ function FooterMega({
           <p className="mt-2 max-w-xs text-sm text-fg-muted">{tagline}</p>
         </div>
         {columns.map((col) => (
-          <div key={col.title}>
+          <nav key={col.title} aria-label={col.title}>
             <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">{col.title}</p>
             <ul className="mt-3 space-y-2">
               {col.links.map((l) => (
-                <li key={l.label}><Link href={l.href} className="text-sm text-fg-muted hover:text-fg">{l.label}</Link></li>
+                <li key={`${l.label}-${l.href}`}>
+                  <Link href={l.href} className="text-sm text-fg-muted hover:text-fg">
+                    {l.label}
+                  </Link>
+                </li>
               ))}
             </ul>
-          </div>
+          </nav>
         ))}
       </div>
     </footer>

@@ -25,7 +25,7 @@ function ControlledDemo() {
           <DialogDescription>They get an email with a link that works for 7 days.</DialogDescription>
         </DialogHeader>
         <FormField id="invite-email" label="Email">
-          <Input id="invite-email" type="email" placeholder="theo@northwind.io" />
+          <Input id="invite-email" type="email" placeholder="theo@northwind.example" />
         </FormField>
         <DialogFooter>
           <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
@@ -97,7 +97,7 @@ export const examples: Example[] = [
           <DialogDescription>They get an email with a link that works for 7 days.</DialogDescription>
         </DialogHeader>
         <FormField id="invite-email" label="Email">
-          <Input id="invite-email" type="email" placeholder="theo@northwind.io" />
+          <Input id="invite-email" type="email" placeholder="theo@northwind.example" />
         </FormField>
         <DialogFooter>
           <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>

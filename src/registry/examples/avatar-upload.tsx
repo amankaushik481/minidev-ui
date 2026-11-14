@@ -1,9 +1,27 @@
 "use client"
+import * as React from "react"
 import { AvatarUpload } from "@/registry/ui/avatar-upload"
 import { Button } from "@/registry/ui/button"
 import { FormField } from "@/registry/ui/form-field"
 import { Input } from "@/registry/ui/input"
 import type { Example } from "./types"
+
+function UploadDemo() {
+  const [status, setStatus] = React.useState("No new photo yet.")
+  return (
+    <div className="flex flex-col gap-2">
+      <AvatarUpload
+        name="Priya Raman"
+        buttonLabel="Change photo"
+        onChange={(file) => {
+          setStatus(`Uploading ${file.name} (${Math.round(file.size / 1024)} KB)…`)
+          setTimeout(() => setStatus("Saved. Your new photo shows on comments and approvals."), 900)
+        }}
+      />
+      <p className="text-xs text-fg-muted" aria-live="polite">{status}</p>
+    </div>
+  )
+}
 
 export const examples: Example[] = [
   {
@@ -45,5 +63,26 @@ export const examples: Example[] = [
         <Button type="submit" className="self-start">Save profile</Button>
       </form>
     ),
+  },
+  {
+    title: "Upload on change",
+    description: "onChange hands you the picked File while the preview updates on its own; upload it and say what happened.",
+    code: `function UploadDemo() {
+  const [status, setStatus] = React.useState("No new photo yet.")
+  return (
+    <div className="flex flex-col gap-2">
+      <AvatarUpload
+        name="Priya Raman"
+        buttonLabel="Change photo"
+        onChange={(file) => {
+          setStatus(\`Uploading \${file.name} (\${Math.round(file.size / 1024)} KB)…\`)
+          setTimeout(() => setStatus("Saved. Your new photo shows on comments and approvals."), 900)
+        }}
+      />
+      <p className="text-xs text-fg-muted" aria-live="polite">{status}</p>
+    </div>
+  )
+}`,
+    node: <UploadDemo />,
   },
 ]

@@ -1,33 +1,57 @@
 "use client"
+import * as React from "react"
 import { FormField } from "@/registry/ui/form-field"
 import { Input } from "@/registry/ui/input"
 import { Button } from "@/registry/ui/button"
 import { cn } from "@/lib/utils"
-function AddCardForm({ className, onSubmit }: { className?: string; onSubmit?: () => void }) {
+
+/**
+ * A payment card form: card number, expiry and CVC with the right autofill hints, and a save button.
+ *
+ * Use in billing settings or checkout when you collect card details yourself. If you use a hosted
+ * payment element (Stripe Elements and similar), render that instead and keep only the layout.
+ * Field ids are generated, so several forms can share a page.
+ *
+ * @example
+ * <AddCardForm onSubmit={(data) => saveCard(Object.fromEntries(data))} />
+ *
+ * Fields are submitted as `cc-number`, `cc-exp` and `cc-csc` in the FormData.
+ */
+type AddCardFormProps = {
+  /** Called on submit with the form's FormData. The page does not reload. */
+  onSubmit?: (data: FormData) => void
+  /** Text on the submit button. */
+  submitLabel?: React.ReactNode
+  className?: string
+}
+
+function AddCardForm({ className, onSubmit, submitLabel = "Save card" }: AddCardFormProps) {
+  const id = React.useId()
   return (
     <form
       data-slot="add-card-form"
       className={cn("space-y-3", className)}
       onSubmit={(e) => {
         e.preventDefault()
-        onSubmit?.()
+        onSubmit?.(new FormData(e.currentTarget))
       }}
     >
-      <FormField id="card-number" label="Card number">
-        <Input id="card-number" inputMode="numeric" placeholder="4242 4242 4242 4242" autoComplete="cc-number" />
+      <FormField id={`${id}-number`} label="Card number">
+        <Input id={`${id}-number`} name="cc-number" inputMode="numeric" placeholder="4242 4242 4242 4242" autoComplete="cc-number" required />
       </FormField>
       <div className="grid grid-cols-2 gap-3">
-        <FormField id="card-exp" label="Expiry">
-          <Input id="card-exp" placeholder="MM/YY" autoComplete="cc-exp" />
+        <FormField id={`${id}-exp`} label="Expiry">
+          <Input id={`${id}-exp`} name="cc-exp" inputMode="numeric" placeholder="MM/YY" autoComplete="cc-exp" required />
         </FormField>
-        <FormField id="card-cvc" label="CVC">
-          <Input id="card-cvc" placeholder="123" autoComplete="cc-csc" />
+        <FormField id={`${id}-cvc`} label="CVC">
+          <Input id={`${id}-cvc`} name="cc-csc" inputMode="numeric" placeholder="123" autoComplete="cc-csc" maxLength={4} required />
         </FormField>
       </div>
       <Button type="submit" className="w-full">
-        Save card
+        {submitLabel}
       </Button>
     </form>
   )
 }
 export { AddCardForm }
+export type { AddCardFormProps }

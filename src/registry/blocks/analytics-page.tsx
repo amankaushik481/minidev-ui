@@ -1,37 +1,61 @@
 "use client"
+import { cn } from "@/lib/utils"
 import { AdminStatStrip } from "@/registry/ui/admin-stat-strip"
+import { BarChart } from "@/registry/ui/bar-chart"
 import { ChartCard } from "@/registry/ui/chart-card"
+import { InteractiveAreaChart } from "@/registry/ui/interactive-area-chart"
+import { PageHeader } from "@/registry/ui/page-header"
 
-function AnalyticsPage() {
+/**
+ * AnalyticsPage — a metrics page: four KPIs with deltas, a hoverable revenue trend and a signups bar chart.
+ *
+ * Use for a product or revenue analytics screen with a few headline charts. For the app home with activity use
+ * DashboardHome; to let people build their own chart use ReportBuilder. Charts carry text summaries for screen
+ * readers and stack on small screens.
+ *
+ * @example
+ * <AnalyticsPage />
+ */
+type AnalyticsPageProps = {
+  className?: string
+}
+
+function AnalyticsPage({ className }: AnalyticsPageProps) {
   return (
-    <div data-slot="analytics-page" className="space-y-6">
-      <div>
-        <h3 className="text-xl font-medium tracking-[-0.014em] text-fg">Analytics</h3>
-        <p className="mt-1 text-sm text-fg-muted">Product usage across web, iOS and Android.</p>
-      </div>
-      <AdminStatStrip stats={[
-        { label: "Installs", value: "12.4k", delta: 12 },
-        { label: "Trial starts", value: "3.1k", delta: 28 },
-        { label: "Conversions", value: "98%", delta: 2 },
-        { label: "Active seats", value: "184", delta: -1 },
-      ]} />
+    <div data-slot="analytics-page" className={cn("space-y-6", className)}>
+      <PageHeader title="Analytics" description="Revenue and growth for the Northwind workspace." />
+      <AdminStatStrip
+        stats={[
+          { label: "Trial starts", value: "312", delta: 18 },
+          { label: "Trial to paid", value: "24.6%", delta: 2.1 },
+          { label: "ARPA", value: "$412", delta: 4 },
+          { label: "Active seats", value: "1,184", delta: -1 },
+        ]}
+      />
       <div className="grid gap-4 lg:grid-cols-2">
-        <ChartCard title="Installs" description="Last 30 days">
-          <div className="flex h-28 items-end gap-1">
-            {[40,55,48,70,62,80,74,88,76,92,85,96].map((h,i)=>(
-              <div key={i} className="flex-1 rounded-sm bg-accent/80" style={{height:`${h}%`}} />
-            ))}
-          </div>
+        <ChartCard className="min-w-0" title="Revenue" description="Last 12 months, vs prior year">
+          <InteractiveAreaChart />
         </ChartCard>
-        <ChartCard title="Trial starts" description="Showcase + motion galleries">
-          <div className="flex h-28 items-end gap-1">
-            {[20,28,35,42,40,55,60,58,70,75,82,90].map((h,i)=>(
-              <div key={i} className="flex-1 rounded-sm bg-accent/50" style={{height:`${h}%`}} />
-            ))}
-          </div>
+        <ChartCard className="min-w-0" title="Trial starts" description="Last 8 weeks">
+          <BarChart
+            label="Trial starts by week"
+            className="h-48 w-full"
+            data={[
+              { label: "W38", value: 214 },
+              { label: "W39", value: 236 },
+              { label: "W40", value: 228 },
+              { label: "W41", value: 251 },
+              { label: "W42", value: 267 },
+              { label: "W43", value: 259 },
+              { label: "W44", value: 288 },
+              { label: "W45", value: 312 },
+            ]}
+          />
         </ChartCard>
       </div>
     </div>
   )
 }
+
 export { AnalyticsPage }
+export type { AnalyticsPageProps }

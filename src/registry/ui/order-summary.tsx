@@ -1,11 +1,27 @@
 "use client"
 import * as React from "react"
 import { cn } from "@/lib/utils"
-import { Separator } from "@/registry/ui/separator"
 
-/** OrderSummary — label and value lines above a separator and a bold total, for checkout and invoices. */
+/**
+ * OrderSummary — label and value lines above a separator and a bold total, for checkout and invoices.
+ *
+ * Marked up as a description list (dt/dd) so each amount is read with its label.
+ * Values are preformatted strings: format money with Intl.NumberFormat before passing
+ * it in. Use it beside a checkout form; for a full price table use PricingTable.
+ *
+ * @example
+ * <OrderSummary
+ *   lines={[{ label: "Subtotal", value: "$120.00" }, { label: "Tax", value: "$9.60" }]}
+ *   total="$129.60"
+ * />
+ */
 
-type Line = { label: string; value: string }
+type Line = {
+  /** Row name, e.g. "Subtotal". Also the row key, so keep it unique. */
+  label: string
+  /** Preformatted amount, e.g. "$12,400.00" or "Free". */
+  value: string
+}
 
 // Lumen checkout for a Northwind annual plan.
 const SAMPLE_LINES: Line[] = [
@@ -17,30 +33,35 @@ const SAMPLE_LINES: Line[] = [
 const SAMPLE_TOTAL = "$12,052.80"
 
 type OrderSummaryProps = {
+  /** Rows above the total, in order. */
   lines?: Line[]
+  /** Preformatted grand total. */
   total?: string
+  /** Label for the total row. */
+  totalLabel?: string
   className?: string
 }
 
 function OrderSummary({
   lines = SAMPLE_LINES,
   total = SAMPLE_TOTAL,
+  totalLabel = "Total",
   className,
 }: OrderSummaryProps) {
   return (
-    <div data-slot="order-summary" className={cn("min-w-72 space-y-3 rounded-xl border border-border bg-surface p-4", className)}>
+    <dl data-slot="order-summary" className={cn("min-w-72 space-y-3 rounded-xl border border-border bg-surface p-4", className)}>
       {lines.map((l) => (
-        <div key={l.label} className="flex justify-between text-sm">
-          <span className="text-fg-muted">{l.label}</span>
-          <span className="tabular-nums text-fg">{l.value}</span>
+        <div key={l.label} className="flex justify-between gap-4 text-sm">
+          <dt className="text-fg-muted">{l.label}</dt>
+          <dd className="tabular-nums text-fg">{l.value}</dd>
         </div>
       ))}
-      <Separator />
-      <div className="flex justify-between text-sm font-medium">
-        <span className="text-fg">Total</span>
-        <span className="tabular-nums text-fg">{total}</span>
+      {/* A border, not <Separator />: a <dl> may only hold dt/dd groups. */}
+      <div className="flex justify-between gap-4 border-t border-border pt-3 text-sm font-medium">
+        <dt className="text-fg">{totalLabel}</dt>
+        <dd className="tabular-nums text-fg">{total}</dd>
       </div>
-    </div>
+    </dl>
   )
 }
 export { OrderSummary }

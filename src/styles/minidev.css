@@ -25,7 +25,7 @@
 
   /* Ink */
   --fg: oklch(0.185 0.012 268);
-  --fg-muted: oklch(0.45 0.012 266);
+  --fg-muted: oklch(0.44 0.012 266);
   --fg-subtle: oklch(0.54 0.01 266);
   --ink: oklch(0.205 0.013 268);
   --ink-hover: oklch(0.29 0.014 268);
@@ -298,7 +298,9 @@
     background: color-mix(in oklch, var(--accent) 22%, transparent);
     color: var(--fg);
   }
+  /* Full-strength ring (>= 3:1 on every surface in all eight looks); the 50% default above is too faint. */
   :focus-visible {
+    outline-color: var(--ring);
     outline-offset: 2px;
   }
   * {
@@ -498,8 +500,10 @@
   --border-strong: oklch(1 0 0 / 0.85);
   --grid-line: oklch(0.3 0.05 283 / 0.06);
   --fg: oklch(0.17 0.02 283);
-  --fg-muted: oklch(0.38 0.025 283);
+  --fg-muted: oklch(0.36 0.025 283);
   --fg-subtle: oklch(0.47 0.02 283);
+  /* Darker amber: the frost and tinted backdrop eat contrast (keeps 3:1 as an icon or badge). */
+  --warning: oklch(0.55 0.13 70);
   --ink: oklch(0.2 0.03 283 / 0.9);
   --highlight: oklch(1 0 0 / 0.95);
   --mat-sheen: radial-gradient(520px circle at var(--lx) var(--ly), oklch(1 0 0 / 0.55), oklch(1 0 0 / 0) 70%);
@@ -527,8 +531,9 @@
   --border-strong: oklch(1 0 0 / 0.2);
   --grid-line: oklch(1 0 0 / 0.05);
   --fg: oklch(0.98 0.005 283);
-  --fg-muted: oklch(0.8 0.02 283);
+  --fg-muted: oklch(0.82 0.02 283);
   --fg-subtle: oklch(0.7 0.02 283);
+  --warning: oklch(0.8 0.13 78);
   --ink: oklch(0.97 0.01 283 / 0.92);
   --highlight: oklch(1 0 0 / 0.22);
   --mat-sheen: radial-gradient(520px circle at var(--lx) var(--ly), oklch(1 0 0 / 0.12), oklch(1 0 0 / 0) 70%);
@@ -569,8 +574,9 @@ html.dark[data-material="glass"] {
   --border-strong: oklch(0.72 0.008 250);
   --grid-line: oklch(0.3 0.01 250 / 0.07);
   --fg: oklch(0.2 0.01 250);
-  --fg-muted: oklch(0.42 0.012 250);
-  --fg-subtle: oklch(0.5 0.01 250);
+  --fg-muted: oklch(0.36 0.012 250);
+  --fg-subtle: oklch(0.45 0.01 250);
+  --warning: oklch(0.52 0.12 70);
   --ink: oklch(0.27 0.012 250);
   --ink-hover: oklch(0.33 0.012 250);
   --highlight: oklch(1 0 0 / 0.95);
@@ -603,6 +609,7 @@ html.dark[data-material="glass"] {
   --fg: oklch(0.96 0.003 250);
   --fg-muted: oklch(0.74 0.008 250);
   --fg-subtle: oklch(0.64 0.008 250);
+  --warning: oklch(0.8 0.13 78);
   --ink: oklch(0.9 0.004 250);
   --ink-hover: oklch(0.97 0.003 250);
   --highlight: oklch(1 0 0 / 0.16);
@@ -625,8 +632,9 @@ html.dark[data-material="glass"] {
   --border-strong: oklch(0.82 0.022 78);
   --grid-line: oklch(0.4 0.04 70 / 0.07);
   --fg: oklch(0.23 0.02 60);
-  --fg-muted: oklch(0.44 0.022 60);
+  --fg-muted: oklch(0.42 0.022 60);
   --fg-subtle: oklch(0.52 0.02 60);
+  --warning: oklch(0.6 0.13 70);
   --ink: oklch(0.26 0.04 262);
   --ink-hover: oklch(0.32 0.05 262);
   --highlight: oklch(1 0 0 / 0.7);
@@ -653,8 +661,9 @@ html.dark[data-material="glass"] {
   --border-strong: oklch(0.4 0.014 60);
   --grid-line: oklch(1 0 0 / 0.05);
   --fg: oklch(0.94 0.012 80);
-  --fg-muted: oklch(0.75 0.014 75);
+  --fg-muted: oklch(0.77 0.014 75);
   --fg-subtle: oklch(0.65 0.012 75);
+  --warning: oklch(0.8 0.13 78);
   --ink: oklch(0.93 0.015 85);
   --ink-hover: oklch(0.98 0.01 85);
   --on-ink: oklch(0.22 0.01 60);
@@ -688,4 +697,94 @@ html.dark[data-material="glass"] {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   USER PREFERENCES
+   Unlayered on purpose, so these win over component utilities.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* Reduced transparency: glass turns solid, keeps its tint and its light. */
+@media (prefers-reduced-transparency: reduce) {
+  [data-material="glass"] {
+    --bg: oklch(0.955 0.012 283);
+    --surface: oklch(0.985 0.006 283);
+    --raised: oklch(0.993 0.004 283);
+    --sunken: oklch(0.935 0.014 283);
+    --border: oklch(0.9 0.012 283);
+    --border-strong: oklch(0.84 0.016 283);
+    --ink: oklch(0.2 0.03 283);
+    --mat-blur: none;
+  }
+  :is(.dark[data-material="glass"], .dark [data-material="glass"]) {
+    --bg: oklch(0.16 0.02 283);
+    --surface: oklch(0.2 0.024 283);
+    --raised: oklch(0.235 0.028 283);
+    --sunken: oklch(0.13 0.016 283);
+    --border: oklch(0.3 0.02 283);
+    --border-strong: oklch(0.38 0.024 283);
+    --ink: oklch(0.97 0.01 283);
+  }
+}
+
+/* More contrast: subtle text steps up to muted (>= 7:1), lines step up to strong. */
+@media (prefers-contrast: more) {
+  :root, .dark, [data-material] {
+    --fg-subtle: var(--fg-muted) !important;
+    --border: var(--border-strong) !important;
+  }
+}
+
+/* Forced colors (Windows High Contrast): box-shadow rings and background fills
+   are dropped, so draw focus as a real outline and keep fills and knobs visible. */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+  :is([data-slot="slider-range"], [data-slot="progress-indicator"]) {
+    forced-color-adjust: none;
+    background: Highlight;
+  }
+  :is([data-slot="switch-thumb"], [data-slot="slider-thumb"], [data-slot="radio-group-dot"]) {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+  :is([data-slot="segmented-control-thumb"], [data-slot="tabs-thumb"]) {
+    outline: 2px solid Highlight;
+  }
+  :is([data-slot="switch"], [data-slot="slider-track"], [data-slot="progress-track"]) {
+    border: 1px solid CanvasText;
+  }
+}
+
+/* Print: always light hairline ink on white paper, no light, no material, no depth. */
+@media print {
+  :root, .dark, [data-material] {
+    --bg: oklch(1 0 0) !important;
+    --surface: oklch(1 0 0) !important;
+    --raised: oklch(1 0 0) !important;
+    --sunken: oklch(0.967 0.0025 264) !important;
+    --border: oklch(0.862 0.006 264) !important;
+    --border-strong: oklch(0.7 0.006 264) !important;
+    --fg: oklch(0.185 0.012 268) !important;
+    --fg-muted: oklch(0.44 0.012 266) !important;
+    --fg-subtle: oklch(0.54 0.01 266) !important;
+    --ink: oklch(0.205 0.013 268) !important;
+    --on-ink: oklch(0.99 0.002 264) !important;
+    --accent-fg: oklch(0.47 0.2 283) !important;
+    --mat-surface-bg: none !important;
+    --mat-ink-bg: none !important;
+    --mat-page-bg: none !important;
+    --mat-knob: none !important;
+    --mat-blur: none !important;
+    color-scheme: light !important;
+  }
+  html[data-material] {
+    background: none !important;
+  }
+  *, *::before, *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
 }

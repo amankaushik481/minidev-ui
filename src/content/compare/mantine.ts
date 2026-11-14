@@ -15,12 +15,12 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "MIT" },
     {
       feature: "Scope",
-      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
+      minidev: "548 items: 397 UI components, 108 motion components, 43 blocks and pages",
       other: "100+ components and 70+ hooks, plus packages for forms, dates, charts, notifications, spotlight, rich text, carousel, dropzone and modals",
     },
     {
       feature: "Blocks and templates",
-      minidev: "About 43 blocks and pages; 8 landing page templates shown as live demos, with brand kits",
+      minidev: "43 blocks and pages; 8 landing page templates shown as live demos, with brand kits",
       other: "Mantine UI: 123 free, MIT prebuilt components for application UI, page sections and blogs; starter templates for Next.js and Vite",
     },
     {
@@ -45,7 +45,7 @@ const comparison: Comparison = {
     },
     {
       feature: "Install",
-      minidev: "`npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or npm `minidev-ui-kit`",
+      minidev: "`npx shadcn@latest add @minidev/<name>`, or npm `minidev-ui-kit`",
       other: "`npm i @mantine/core @mantine/hooks`, import `@mantine/core/styles.css`, wrap the app in `MantineProvider`; PostCSS preset recommended",
     },
     {
@@ -60,7 +60,7 @@ const comparison: Comparison = {
     },
     {
       feature: "AI tooling",
-      minidev: "`llms.txt` and `llms-full.txt`; shadcn MCP compatible",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
       other: "`llms.txt`, `llms-full.txt`, an experimental `@mantine/mcp-server` and agent skills",
     },
   ],
@@ -72,7 +72,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of over 500 items built on Base UI, Tailwind CSS v4 and motion. You add items with the shadcn CLI and the source lands in your repo. Its focus is product screens: data tables, billing and invoice pages, settings layouts, command palettes, notification centers and AI chat, plus about 43 full-page blocks and 86 motion components under one token system.",
+      text: "MiniDev UI is a free, MIT licensed shadcn-compatible registry of 548 items built on Base UI, Tailwind CSS v4 and motion. You add items with the shadcn CLI and the source lands in your repo. Its focus is product screens: data tables, billing and invoice pages, settings layouts, command palettes, notification centers and AI chat, plus 43 full-page blocks and 108 motion components under one token system.",
     },
     { type: "h2", text: "Where Mantine shines", id: "where-mantine-shines" },
     {
@@ -91,9 +91,9 @@ const comparison: Comparison = {
       items: [
         "**Tailwind native.** If your codebase is already on Tailwind CSS v4, MiniDev components use the same utilities and tokens as the rest of your UI.",
         "**You own the code.** Every component is a file in your repo, so changes are edits rather than overrides through a styles API.",
-        "**Finished screens.** About 43 blocks and pages, from sign in to an admin console, give you a working screen to adapt.",
+        "**Finished screens.** 43 blocks and pages, from sign in to an admin console, give you a working screen to adapt.",
         "**A visual system.** One light source drives shadows, and a `data-material` attribute switches between hairline, glass, metal and paper.",
-        "**Motion included.** About 86 motion components built on motion share the same tokens as the UI.",
+        "**Motion included.** 108 motion components built on motion share the same tokens as the UI.",
       ],
     },
     { type: "component", name: "settings-page" },
@@ -133,6 +133,10 @@ const comparison: Comparison = {
     {
       q: "Can I keep Mantine hooks after switching components?",
       a: "Yes. `@mantine/hooks` is a separate package, so you can keep using its hooks while replacing Mantine components with MiniDev UI.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Mantine?",
+      a: "Both are well set up. Mantine has `llms.txt`, `llms-full.txt`, an experimental MCP server and agent skills. MiniDev UI has the same files plus a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server. Choose by the code you want the agent to write: Mantine props and CSS modules, or Tailwind utilities with semantic tokens.",
     },
   ],
   sources: [

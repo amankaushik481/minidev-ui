@@ -72,13 +72,13 @@ function ControlledDemo() {
   {
     title: "With form field",
     description: "FormField adds the label and hint; defaultValue preselects an item without taking control.",
-    code: `<FormField label="Customer" description="Start typing to filter the list.">
-  <Combobox defaultValue="northwind" placeholder="Pick a customer" />
+    code: `<FormField id="invoice-customer" label="Customer" description="Start typing to filter the list.">
+  <Combobox id="invoice-customer" defaultValue="northwind" placeholder="Pick a customer" />
 </FormField>`,
     node: (
       <div className="w-64">
-        <FormField label="Customer" description="Start typing to filter the list.">
-          <Combobox defaultValue="northwind" placeholder="Pick a customer" />
+        <FormField id="invoice-customer" label="Customer" description="Start typing to filter the list.">
+          <Combobox id="invoice-customer" defaultValue="northwind" placeholder="Pick a customer" />
         </FormField>
       </div>
     ),

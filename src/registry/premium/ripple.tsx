@@ -10,6 +10,15 @@ import { Button } from "@/registry/ui/button"
  * Clicking or tapping the panel sends an extra ripple out from the pointer.
  * The rings sit behind the content, pause off screen and hold still for
  * reduced motion.
+ *
+ * Use it behind a "live", "listening" or "connected" message. Reach for
+ * OrbitingCircles to show integrations around a centre, and Meteors or
+ * Particles for a looser, less centred backdrop.
+ *
+ * @example
+ * <Ripple count={6} origin={{ x: 50, y: 40 }}>
+ *   <h2 className="text-4xl font-medium text-fg">Lumen hears every payment</h2>
+ * </Ripple>
  */
 type RippleProps = {
   /** Number of rings. */
@@ -93,10 +102,11 @@ function Ripple({
             key={b.id}
             data-slot="ripple-burst"
             onAnimationEnd={() => setBursts((all) => all.filter((x) => x.id !== b.id))}
-            className="absolute block -translate-x-1/2 -translate-y-1/2 rounded-full border"
+            className="absolute block size-[440px] rounded-full border"
             style={{
               left: b.x,
               top: b.y,
+              transform: "translate(-50%, -50%) scale(0.02)",
               borderColor: "var(--accent)",
               background: "var(--accent-soft)",
               animation: "ripple-burst 1.1s cubic-bezier(0.2, 0, 0, 1) forwards",
@@ -118,7 +128,7 @@ function Ripple({
           </div>
         )}
       </div>
-      <style>{`@keyframes ripple-ping{0%{transform:translate(-50%,-50%) scale(1);opacity:var(--ripple-o)}10%{transform:translate(-50%,-50%) scale(1.035);opacity:calc(var(--ripple-o) + 0.45)}32%,100%{transform:translate(-50%,-50%) scale(1);opacity:var(--ripple-o)}}@keyframes ripple-burst{from{width:8px;height:8px;opacity:0.9}to{width:440px;height:440px;opacity:0}}`}</style>
+      <style>{`@keyframes ripple-ping{0%{transform:translate(-50%,-50%) scale(1);opacity:var(--ripple-o)}10%{transform:translate(-50%,-50%) scale(1.035);opacity:calc(var(--ripple-o) + 0.45)}32%,100%{transform:translate(-50%,-50%) scale(1);opacity:var(--ripple-o)}}@keyframes ripple-burst{from{transform:translate(-50%,-50%) scale(0.02);opacity:0.9}to{transform:translate(-50%,-50%) scale(1);opacity:0}}`}</style>
     </div>
   )
 }

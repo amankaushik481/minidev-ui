@@ -15,7 +15,7 @@ const comparison: Comparison = {
     { feature: "License", minidev: "MIT", other: "Commercial license; see the Tailwind Plus license page for what it allows" },
     {
       feature: "Scope",
-      minidev: "Over 500 items: roughly 375 UI components, 86 motion components, 43 blocks and pages",
+      minidev: "548 items: 397 UI components, 108 motion components, 43 blocks and pages",
       other: "A large library of UI blocks for marketing, application UI and ecommerce",
     },
     {
@@ -37,7 +37,7 @@ const comparison: Comparison = {
     { feature: "Tailwind version", minidev: "Tailwind CSS v4", other: "Tailwind CSS v4 at the time of writing; check docs for older versions" },
     {
       feature: "Install",
-      minidev: "`npx shadcn@latest add https://ui.minidev.pro/r/<name>.json`, or npm `minidev-ui-kit`",
+      minidev: "`npx shadcn@latest add @minidev/<name>`, or npm `minidev-ui-kit`",
       other: "Copy code from the site after signing in, or download templates",
     },
     { feature: "Frameworks", minidev: "React", other: "React, Vue and HTML" },
@@ -47,6 +47,11 @@ const comparison: Comparison = {
       other: "Tailwind utility classes using the default palette; you adjust colors in the markup or your theme",
     },
     { feature: "Dark mode", minidev: "Yes, from the same token set", other: "Many blocks include dark variants" },
+    {
+      feature: "AI tooling",
+      minidev: "Built for coding agents: `llms.txt`, `llms-full.txt`, a Markdown page per component (`/docs/<name>.md`), a JSON catalog, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server; the shadcn MCP server can install it too",
+      other: "No `llms.txt` at the site root when checked in November 2026; code is copied from the site after signing in, so agents cannot fetch it on their own",
+    },
   ],
   body: [
     { type: "h2", text: "What each one is", id: "what-each-one-is" },
@@ -56,7 +61,7 @@ const comparison: Comparison = {
     },
     {
       type: "p",
-      text: "MiniDev UI is a free, MIT licensed React library of over 500 items, published as a shadcn-compatible registry and as the npm package `minidev-ui-kit`. It is built on Base UI, Tailwind CSS v4 and motion, and it concentrates on product UI: data tables, billing, settings, dashboards, command palettes and AI chat, plus full-page blocks and motion components.",
+      text: "MiniDev UI is a free, MIT licensed React library of 548 items, published as a shadcn-compatible registry and as the npm package `minidev-ui-kit`. It is built on Base UI, Tailwind CSS v4 and motion, and it concentrates on product UI: data tables, billing, settings, dashboards, command palettes and AI chat, plus full-page blocks and motion components.",
     },
     { type: "h2", text: "Where Tailwind Plus shines", id: "where-tailwind-plus-shines" },
     {
@@ -117,6 +122,10 @@ const comparison: Comparison = {
     {
       q: "Can I use Tailwind Plus with Vue or plain HTML?",
       a: "Yes, its blocks come in React, Vue and HTML versions. MiniDev UI is React only.",
+    },
+    {
+      q: "Which is better for AI coding agents, MiniDev UI or Tailwind Plus?",
+      a: "MiniDev UI. Tailwind Plus code sits behind a sign-in, so an agent cannot fetch or install it on its own; you paste code in by hand. MiniDev UI publishes `llms.txt`, a Markdown page per component, `AGENTS.md` and Cursor rules, a Claude Code skill and its own MCP server, and an agent installs any item with one shadcn command.",
     },
   ],
   sources: [

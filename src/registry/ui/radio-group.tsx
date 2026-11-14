@@ -4,6 +4,25 @@ import { Radio as RadioPrimitive } from "@base-ui/react/radio"
 import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group"
 import { cn } from "@/lib/utils"
 
+/**
+ * RadioGroup — accessible single choice radios on Base UI, with arrow-key navigation built in.
+ *
+ * Use it for two to six mutually exclusive options shown at once, each with a Label. For a
+ * compact switcher use SegmentedControl; for long lists use Select. Base UI's `onValueChange`
+ * receives `(value, eventDetails)`.
+ *
+ * @example
+ * <RadioGroup defaultValue="card" aria-label="Payment method" onValueChange={(v) => setMethod(v as string)}>
+ *   <div className="flex items-center gap-2">
+ *     <RadioGroupItem value="card" id="pm-card" />
+ *     <Label htmlFor="pm-card">Card</Label>
+ *   </div>
+ *   <div className="flex items-center gap-2">
+ *     <RadioGroupItem value="bank" id="pm-bank" />
+ *     <Label htmlFor="pm-bank">Bank transfer</Label>
+ *   </div>
+ * </RadioGroup>
+ */
 function RadioGroup({ className, ...props }: RadioGroupPrimitive.Props) {
   return (
     <RadioGroupPrimitive
@@ -37,7 +56,7 @@ function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
         keepMounted
         className="flex items-center justify-center"
       >
-        <span className="size-1.5 scale-0 rounded-full bg-on-accent transition-transform duration-200 ease-spring group-data-checked/radio-group-item:scale-100" />
+        <span data-slot="radio-group-dot" className="size-1.5 scale-0 rounded-full bg-on-accent transition-transform duration-200 ease-spring group-data-checked/radio-group-item:scale-100" />
       </RadioPrimitive.Indicator>
     </RadioPrimitive.Root>
   )
