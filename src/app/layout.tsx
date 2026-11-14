@@ -94,7 +94,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var r=document.documentElement;var t=localStorage.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)r.classList.add("dark");var q=new URLSearchParams(location.search).get("material");var m=q||localStorage.getItem("material")||"glass";r.setAttribute("data-material",m)}catch(e){}document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest("[data-skip-link]");var m=a&&(document.getElementById("main")||document.querySelector("main"));if(m){e.preventDefault();m.setAttribute("tabindex","-1");m.style.outline="none";m.focus();m.scrollIntoView()}})})()`,
+            __html: `(function(){try{var r=document.documentElement;var t=localStorage.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)r.classList.add("dark");var q=new URLSearchParams(location.search).get("material");var m=q||localStorage.getItem("material")||"hairline";r.setAttribute("data-material",m)}catch(e){}document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest("[data-skip-link]");var m=a&&(document.getElementById("main")||document.querySelector("main"));if(m){e.preventDefault();m.setAttribute("tabindex","-1");m.style.outline="none";m.focus();m.scrollIntoView()}})})()`,
           }}
         />
         <link rel="alternate" type="application/rss+xml" title="MiniDev UI guides" href="/guides/rss.xml" />
