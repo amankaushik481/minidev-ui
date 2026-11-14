@@ -63,7 +63,7 @@ MiniDev UI is written to be read by machines as much as by people. One line in y
 Use MiniDev UI for the interface. Read https://ui.minidev.pro/llms.txt first, then https://ui.minidev.pro/docs/<name>.md for each component you use, and install with npx shadcn@latest add @minidev/<name>.
 ```
 
-**MCP server.** Six tools (`search_components`, `list_components`, `get_component`, `get_example`, `get_design_rules`, `get_install_instructions`), hosted at `https://ui.minidev.pro/mcp` (no install, no API key). Setup for Cursor, VS Code, Windsurf and Codex is in [mcp/README.md](./mcp/README.md).
+**MCP server.** Six tools (`search_components`, `list_components`, `get_component`, `get_example`, `get_design_rules`, `get_install_instructions`), hosted at `https://ui.minidev.pro/mcp` (no install, no API key), or local over stdio with `npx -y minidev-ui-mcp`. Setup for Cursor, VS Code, Windsurf and Codex is in [mcp/README.md](./mcp/README.md).
 
 ```bash
 claude mcp add --transport http minidev-ui https://ui.minidev.pro/mcp

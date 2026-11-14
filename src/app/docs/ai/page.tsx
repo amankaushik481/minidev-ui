@@ -338,7 +338,8 @@ export default async function AiDocsPage() {
           <p className={body}>
             Tools: <code className={code}>search_components</code>, <code className={code}>list_components</code>, <code className={code}>get_component</code>,{" "}
             <code className={code}>get_example</code>, <code className={code}>get_design_rules</code> and <code className={code}>get_install_instructions</code>. To run it
-            locally over stdio instead, clone the repo and point your client at <code className={code}>node mcp/server.mjs</code>.
+            locally over stdio instead (Node 18+), use <code className={code}>claude mcp add minidev-ui -- npx -y minidev-ui-mcp</code>, or command{" "}
+            <code className={code}>npx</code> with args <code className={code}>[&quot;-y&quot;, &quot;minidev-ui-mcp&quot;]</code> in any client.
           </p>
         </section>
 
