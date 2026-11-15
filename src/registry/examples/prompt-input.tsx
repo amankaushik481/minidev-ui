@@ -77,7 +77,7 @@ export const examples: Example[] = [
   },
   {
     title: "With toolbar",
-    description: "The toolbar slot sits next to the attach button; a model badge and a toggle button are typical contents.",
+    description: "The toolbar slot fills the left of the bottom bar; a model badge and a toggle button are typical contents. Pass onAttach to add a paperclip before it.",
     code: `function ToolbarDemo() {
   const [value, setValue] = React.useState("")
   const [web, setWeb] = React.useState(false)

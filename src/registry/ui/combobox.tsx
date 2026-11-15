@@ -43,6 +43,10 @@ type ComboboxProps = {
   required?: boolean
   /** Accessible name when there is no visible label. */
   "aria-label"?: string
+  /** Ids of the hint or error text. FormField passes this in for you. */
+  "aria-describedby"?: string
+  /** Marks the trigger invalid and draws the danger border. FormField sets it when there is an `error`. */
+  "aria-invalid"?: React.AriaAttributes["aria-invalid"]
 }
 
 type Item = { value: string; label: string }
@@ -75,6 +79,8 @@ function Combobox({
   name,
   required,
   "aria-label": ariaLabel,
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
 }: ComboboxProps) {
   const [inner, setInner] = React.useState(defaultValue)
   const current = value ?? inner
@@ -99,12 +105,14 @@ function Combobox({
         <ComboboxPrimitive.Trigger
           id={id}
           aria-label={ariaLabel}
+          aria-describedby={ariaDescribedBy}
+          aria-invalid={ariaInvalid}
           data-placeholder={selected ? undefined : ""}
           className={cn(
             "inline-flex h-9 w-64 items-center justify-between gap-2 rounded-lg border border-border bg-surface px-3 text-sm text-fg",
             "shadow-highlight outline-none transition-[border-color] duration-[70ms] ease-hairline",
             "hover:border-fg-subtle focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
-            "data-disabled:cursor-not-allowed data-disabled:opacity-50",
+            "data-disabled:cursor-not-allowed data-disabled:opacity-50 aria-invalid:border-danger",
             className
           )}
         >

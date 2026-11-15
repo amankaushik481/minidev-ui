@@ -31,6 +31,13 @@ function OnboardingFlow({ onFinish, className }: OnboardingFlowProps) {
   const [step, setStep] = React.useState(0)
   const [v, setV] = React.useState<OnboardingValues>({ workspace: "", invites: "", digest: "daily" })
   const last = step === STEPS.length - 1
+  const heading = React.useRef<HTMLHeadingElement>(null)
+  const shown = React.useRef(step)
+  React.useEffect(() => {
+    // Focus only when the step actually changed, never on mount (StrictMode-safe).
+    if (shown.current !== step) heading.current?.focus()
+    shown.current = step
+  }, [step])
   return (
     <form
       data-slot="onboarding-flow"
@@ -43,8 +50,12 @@ function OnboardingFlow({ onFinish, className }: OnboardingFlowProps) {
       }}
     >
       <div>
-        <h2 id={`${id}-title`} className="text-lg font-medium tracking-[-0.014em] text-fg">
-          Set up Lumen
+        <h2 ref={heading} tabIndex={-1} className="text-lg font-medium tracking-[-0.014em] text-fg outline-none">
+          <span id={`${id}-title`}>Set up Lumen</span>
+          {/* Read when focus lands here after Continue or Back; the form's name stays "Set up Lumen". */}
+          <span className="sr-only">
+            , step {step + 1} of {STEPS.length}: {STEPS[step]}
+          </span>
         </h2>
         <p className="mt-1 text-sm text-fg-muted">Three questions. You can change any of this later.</p>
       </div>

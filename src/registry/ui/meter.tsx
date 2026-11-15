@@ -6,7 +6,9 @@ import { cn } from "@/lib/utils"
  * Meter — a labelled bar showing how much of a known range is used (storage, quota, seats).
  *
  * Exposes role="meter" with the value and a percentage text. Use Meter for a
- * level that can go up and down; use Progress for a task moving toward done.
+ * level that can go up and down; use Progress for a task moving toward done,
+ * and QuotaBar when the fill should turn warning or danger near a limit.
+ * Pass `valueText` with units ("42 of 50 GB") so screen readers hear the amount.
  *
  * @example
  * <Meter label="Storage" value={42} max={50} valueText="42 of 50 GB" showValue />

@@ -7,9 +7,13 @@ import { Button } from "@/registry/ui/button"
 /**
  * A signature field drawn on a canvas with smooth, pressure-aware strokes, undo and clear, a typed-name fallback for keyboard users, and PNG export.
  *
- * Both modes report through one `onChange`: a drawn signature or the typed
- * name rendered in a script face, as a transparent PNG data URL, or null
- * when empty. Store the data URL or upload it as an image.
+ * Use it to sign off a contract, a delivery or an approval, where you need
+ * an image of the signature rather than a checkbox. Both modes report through
+ * one `onChange`: a drawn signature or the typed name rendered in a script
+ * face, as a transparent PNG data URL, or null when empty. Store the data URL
+ * or upload it as an image. There is no `value` prop, so it always starts
+ * empty. For a plain "I agree" use Checkbox; for an uploaded image use
+ * ImageUpload.
  *
  * @example
  * const [sig, setSig] = React.useState<string | null>(null)

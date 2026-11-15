@@ -6,8 +6,10 @@ import { MetricDelta } from "@/registry/ui/metric-delta"
 /**
  * A row of admin KPIs with label, value and a percentage delta, four up on desktop.
  *
- * Use at the top of an admin or analytics page. Prefer `StatCard` for a single, larger KPI with a
- * sparkline. Marked up as a description list (label → value) so screen readers pair them.
+ * Use at the top of an admin or analytics page. Set `invert` on a stat that is better going
+ * down (churn, failed sign-ins), so a fall shows green. Use `StatCard` for a single larger KPI and
+ * `StatSparkline` for one with a trend. Marked up as a description list (label → value)
+ * so screen readers pair them.
  *
  * @example
  * <AdminStatStrip stats={[{ label: "MRR", value: "$48,200", delta: 8 }, { label: "Churn", value: "2.1%", delta: -3 }]} />
@@ -19,6 +21,8 @@ type Stat = {
   value: string
   /** Change in percent; positive renders green with an up arrow, negative red. Omit to hide. */
   delta?: number
+  /** Down is good: a negative delta shows green and a positive one red. Defaults to false. */
+  invert?: boolean
 }
 
 type AdminStatStripProps = {
@@ -43,10 +47,7 @@ function AdminStatStrip({ stats = SAMPLE_STATS, className }: AdminStatStripProps
           <dd className="mt-1 flex items-end justify-between gap-2">
             <span className="text-xl font-medium tabular-nums text-fg">{s.value}</span>
             {s.delta != null ? (
-              <span>
-                <span className="sr-only">{s.delta >= 0 ? "up" : "down"}</span>
-                <MetricDelta value={s.delta} />
-              </span>
+              <MetricDelta value={s.delta} invert={s.invert} />
             ) : null}
           </dd>
         </div>

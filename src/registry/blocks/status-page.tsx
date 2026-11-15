@@ -56,7 +56,7 @@ function StatusPage({ className }: StatusPageProps) {
               <span className="text-sm font-medium text-fg">{s.name}</span>
               <HealthIndicator status={s.status} />
             </div>
-            <UptimeBar label="Last 90 days" days={90} downtimes={s.downtimes} />
+            <UptimeBar label={`${s.name}, last 90 days`} days={90} downtimes={s.downtimes} />
           </li>
         ))}
       </ul>

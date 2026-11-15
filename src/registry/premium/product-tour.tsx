@@ -6,6 +6,7 @@ import { Button } from "@/registry/ui/button"
 
 /**
  * ProductTour — a step list beside a stage that fades to the selected step, with Back and Next.
+ * On the last step Next becomes Done and calls `onFinish`.
  * The list items are buttons marked `aria-current="step"`; the stage rises in
  * on the morph spring and is announced politely as it changes. Optional
  * `media` per step fills the stage. Reduced motion swaps steps instantly.
@@ -38,6 +39,8 @@ type ProductTourProps = {
   steps?: TourStep[]
   /** Called with the index of the step the visitor moves to. */
   onStepChange?: (index: number) => void
+  /** Called when the visitor presses Done on the last step. Without it, Done is disabled. */
+  onFinish?: () => void
   className?: string
 }
 
@@ -46,10 +49,12 @@ const MORPH = { type: "spring", bounce: 0.16, duration: 0.5 } as const
 function ProductTour({
   steps = SAMPLE_STEPS,
   onStepChange,
+  onFinish,
   className,
 }: ProductTourProps) {
   const reduce = useReducedMotion()
   const [active, setStep] = React.useState(0)
+  const last = active === steps.length - 1
   const setActive = (next: number) => {
     setStep(next)
     onStepChange?.(next)
@@ -92,7 +97,9 @@ function ProductTour({
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" disabled={active === 0} onClick={() => setActive(Math.max(0, active - 1))}>Back</Button>
-          <Button size="sm" disabled={active === steps.length - 1} onClick={() => setActive(Math.min(steps.length - 1, active + 1))}>Next</Button>
+          <Button size="sm" disabled={last && !onFinish} onClick={() => (last ? onFinish?.() : setActive(active + 1))}>
+            {last ? "Done" : "Next"}
+          </Button>
         </div>
       </motion.div>
     </div>

@@ -55,7 +55,8 @@ function IpAllowlist({ value, defaultValue = ["203.0.113.10"], onChange, classNa
     const v = draft.trim()
     if (!v) return
     if (!isIpOrCidr(v)) return setError("Enter an IPv4 or IPv6 address, optionally with a /prefix.")
-    if (ips.includes(v)) return setError(`${v} is already on the list.`)
+    // IPv6 hex is case-insensitive, so 2001:DB8::1 duplicates 2001:db8::1.
+    if (ips.some((ip) => ip.toLowerCase() === v.toLowerCase())) return setError(`${v} is already on the list.`)
     setError("")
     setIps([...ips, v])
     setDraft("")

@@ -26,14 +26,17 @@ export function Inline({ text }: { text: string }) {
     else {
       const href = m[4]
       const external = /^https?:/.test(href)
+      // [`Name`](/docs/x) renders as linked code.
+      const code = /^`([^`]+)`$/.exec(m[3])
+      const label = code ? <code className="rounded-[5px] border border-border bg-sunken px-1.5 py-0.5 font-mono text-[0.86em]">{code[1]}</code> : m[3]
       out.push(
         external ? (
           <a key={k++} href={href} target="_blank" rel="noopener" className="text-accent-fg underline decoration-accent-line underline-offset-4 hover:decoration-accent">
-            {m[3]}
+            {label}
           </a>
         ) : (
           <Link key={k++} href={href} className="text-accent-fg underline decoration-accent-line underline-offset-4 hover:decoration-accent">
-            {m[3]}
+            {label}
           </Link>
         ),
       )

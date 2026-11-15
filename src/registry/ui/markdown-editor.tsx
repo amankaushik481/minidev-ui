@@ -39,6 +39,8 @@ type MarkdownEditorProps = {
   minHeight?: number
   disabled?: boolean
   className?: string
+  /** Submits the markdown under this name in a hidden input, so it is sent in every mode, including preview. No name by default. */
+  name?: string
 }
 
 type Block =
@@ -362,6 +364,7 @@ function MarkdownEditor({
   minHeight = 300,
   disabled,
   className,
+  name,
 }: MarkdownEditorProps) {
   const [inner, setInner] = React.useState(defaultValue)
   const value = valueProp ?? inner
@@ -479,6 +482,8 @@ function MarkdownEditor({
 
   return (
     <div data-slot="markdown-editor" className={cn("w-full max-w-3xl rounded-xl border border-border bg-surface shadow-raised", disabled && "opacity-60", className)}>
+      {/* A hidden input, not the textarea's name: preview mode unmounts the textarea. */}
+      {name ? <input type="hidden" name={name} value={value} disabled={disabled} /> : null}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-2 py-2">
         <div
           role="toolbar"

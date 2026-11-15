@@ -6,9 +6,10 @@ import { Button } from "@/registry/ui/button"
 /**
  * A floating bar that appears when table rows are selected: "3 selected", your action buttons and Clear.
  *
- * Render it under a selectable `DataTable` or list and pass the selection size as `count`; it
- * renders nothing at 0. Sticky to the bottom of its scroll container. The count is a live region,
- * so changes are announced; the bar itself is a labelled region.
+ * Render it under a `Table` with `RowSelection` checkboxes, or a selectable card list, and pass the
+ * selection size as `count`; it renders nothing at 0. `DataTable` with `selectable` has its own bar,
+ * so do not add this one there. Sticky to the bottom of its scroll container. The count is a live
+ * region, so changes are announced; the bar itself is a labelled region.
  *
  * @example
  * <BulkActionsBar count={selected.length} onClear={() => setSelected([])}>

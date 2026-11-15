@@ -70,7 +70,7 @@ const guide: Guide = {
       type: "code",
       lang: "tsx",
       filename: "app/(app)/layout.tsx",
-      code: 'import { AppShell } from "@/components/ui/app-shell"\nimport { Topbar } from "@/components/ui/topbar"\nimport { AppNav, MobileNav } from "./app-nav"\n\nexport default function AppLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <AppShell\n      className="h-dvh min-h-0 rounded-none border-0"\n      sidebar={<AppNav />}\n      topbar={<Topbar left={<MobileNav />} right={<UserMenu />} />}\n    >\n      <main className="mx-auto max-w-6xl">{children}</main>\n    </AppShell>\n  )\n}',
+      code: 'import { AppShell } from "@/components/ui/app-shell"\nimport { Topbar } from "@/components/ui/topbar"\nimport { AppNav, MobileNav } from "./app-nav"\n\nexport default function AppLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <AppShell\n      className="h-dvh min-h-0 rounded-none border-0"\n      sidebar={<AppNav />}\n      topbar={<Topbar left={<MobileNav />} right={<UserMenu />} />}\n    >\n      <div className="mx-auto max-w-6xl">{children}</div>\n    </AppShell>\n  )\n}',
     },
     {
       type: "p",

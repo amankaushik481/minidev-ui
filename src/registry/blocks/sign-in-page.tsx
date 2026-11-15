@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { AuthCard } from "@/registry/ui/auth-card"
 import { Button } from "@/registry/ui/button"
 import { FormField } from "@/registry/ui/form-field"
+import { InlineAlert } from "@/registry/ui/inline-alert"
 import { Input } from "@/registry/ui/input"
 import { SocialAuthRow } from "@/registry/ui/social-auth-row"
 
@@ -17,7 +18,7 @@ import { SocialAuthRow } from "@/registry/ui/social-auth-row"
  * <SignInPage onSubmit={({ email, password }) => signIn(email, password)} />
  */
 type SignInPageProps = {
-  /** Called with the entered credentials when the form is submitted. */
+  /** Called with the entered credentials when the form is submitted. If the promise rejects, a danger InlineAlert shows above the button. */
   onSubmit?: (values: { email: string; password: string }) => void | Promise<void>
   className?: string
 }
@@ -25,6 +26,7 @@ type SignInPageProps = {
 function SignInPage({ onSubmit, className }: SignInPageProps) {
   const id = React.useId()
   const [busy, setBusy] = React.useState(false)
+  const [error, setError] = React.useState(false)
   return (
     <div data-slot="sign-in-page" className={cn("flex min-h-[480px] items-center justify-center p-4 sm:p-6", className)}>
       <AuthCard
@@ -51,8 +53,11 @@ function SignInPage({ onSubmit, className }: SignInPageProps) {
             e.preventDefault()
             const f = new FormData(e.currentTarget)
             setBusy(true)
+            setError(false)
             try {
               await onSubmit?.({ email: String(f.get("email") ?? ""), password: String(f.get("password") ?? "") })
+            } catch {
+              setError(true)
             } finally {
               setBusy(false)
             }
@@ -64,6 +69,11 @@ function SignInPage({ onSubmit, className }: SignInPageProps) {
           <FormField id={`${id}-password`} label="Password">
             <Input id={`${id}-password`} name="password" type="password" autoComplete="current-password" required />
           </FormField>
+          {error ? (
+            <InlineAlert tone="danger" title="Could not sign you in">
+              Check your email and password, then try again.
+            </InlineAlert>
+          ) : null}
           <Button type="submit" className="w-full" disabled={busy}>
             {busy ? "Signing in…" : "Sign in"}
           </Button>

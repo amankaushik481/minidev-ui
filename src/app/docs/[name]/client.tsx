@@ -69,6 +69,21 @@ function ExampleCard({ ex, dark }: { ex: Example; dark: boolean }) {
   )
 }
 
+/** What an example card shows before its live preview loads: the same frame, title and description. */
+function ExampleCardShell({ title, description }: { title: string; description?: string }) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-border shadow-raised">
+      <div className="grid min-h-[200px] place-items-center bg-bg p-6 sm:p-10">
+        <Skeleton className="h-16 w-full max-w-sm" />
+      </div>
+      <div className="border-t border-border bg-surface px-4 py-3">
+        <h3 className="text-[0.9375rem] font-medium text-fg">{title}</h3>
+        {description ? <p className="mt-0.5 text-[0.8125rem] leading-[1.55] text-fg-muted">{description}</p> : null}
+      </div>
+    </div>
+  )
+}
+
 function Stage({ children, dark, onDark, onReset }: { children: React.ReactNode; dark: boolean; onDark: () => void; onReset: () => void }) {
   return (
     <div className={cn("overflow-hidden rounded-2xl border border-border shadow-raised", dark && "dark")}>
@@ -107,10 +122,27 @@ export type DocsData = {
   usage: string
   /** Every name the component file exports. */
   exports: string[]
+  /** The live examples' titles, rendered on the server until the examples load. */
+  exampleMeta: { title: string; description?: string }[]
+  /** The component needs data props to render, so the preview uses its first example. */
+  previewFromExample: boolean
 }
 
-export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server-rendered API reference. */ api?: React.ReactNode; /** Server-rendered cross links (guides, glossary, block hubs). */ learn?: React.ReactNode }) {
-  const { entry, prev, next, galleries, description, category, related, depTitles, md, usage, exports } = data
+export function ComponentDocs({
+  data,
+  api,
+  sections = [],
+  learn,
+}: {
+  data: DocsData
+  /** Server-rendered API reference. */
+  api?: React.ReactNode
+  /** Server-rendered depth sections (when to use, keyboard, accessibility, FAQ), each a full <section>. */
+  sections?: { id: string; label: string; node: React.ReactNode }[]
+  /** Server-rendered cross links (guides, glossary, block hubs). */
+  learn?: React.ReactNode
+}) {
+  const { entry, prev, next, galleries, description, category, related, depTitles, md, usage, exports, exampleMeta, previewFromExample } = data
   const params = { name: entry.name }
   const mod = useModule(params.name)
   const examples = useExamples(params.name)
@@ -149,6 +181,14 @@ export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server
         </div>
       ))}
     </div>
+  ) : previewFromExample && exampleMeta.length ? (
+    examples?.[0] ? (
+      <div className="flex w-full min-w-0 justify-center">
+        <PreviewBoundary key={nonce} fallback={fallback}>{examples[0].node}</PreviewBoundary>
+      </div>
+    ) : (
+      <div className="w-full max-w-md space-y-3"><Skeleton className="h-6 w-1/3" /><Skeleton className="h-24 w-full" /></div>
+    )
   ) : mod === null ? (
     <div className="w-full max-w-md space-y-3"><Skeleton className="h-6 w-1/3" /><Skeleton className="h-24 w-full" /></div>
   ) : Comp ? (
@@ -198,13 +238,16 @@ export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server
     },
   ]
 
+  // Before the examples load, the server-known titles stand in, so the section is in the HTML and does not jump.
+  const hasExamples = Boolean(galleries.length || (examples ? examples.length : exampleMeta.length))
   const toc = [
     { id: "preview", label: "Preview" },
     { id: "installation", label: "Installation" },
     { id: "usage", label: "Usage" },
     ...(api ? [{ id: "api", label: "API reference" }] : []),
+    ...sections.map(({ id, label }) => ({ id, label })),
     ...(entry.registryDeps.length || entry.deps.length ? [{ id: "dependencies", label: "Dependencies" }] : []),
-    ...(galleries.length || (examples && examples.length) ? [{ id: "examples", label: "Examples" }] : []),
+    ...(hasExamples ? [{ id: "examples", label: "Examples" }] : []),
     ...(related.length ? [{ id: "related", label: "Related" }] : []),
     ...(learn ? [{ id: "learn", label: "Learn more" }] : []),
   ]
@@ -288,6 +331,10 @@ export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server
           </section>
         ) : null}
 
+        {sections.map((s) => (
+          <React.Fragment key={s.id}>{s.node}</React.Fragment>
+        ))}
+
         {entry.registryDeps.length || entry.deps.length ? (
           <section className="mt-14 space-y-5">
             <DocsH2 id="dependencies">Dependencies</DocsH2>
@@ -312,13 +359,21 @@ export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server
           </section>
         ) : null}
 
-        {galleries.length || (examples && examples.length) ? (
+        {hasExamples ? (
           <section className="mt-14 space-y-5">
             <DocsH2 id="examples">Examples</DocsH2>
-            {examples && examples.length ? (
+            {examples ? (
+              examples.length ? (
+                <div className="space-y-5">
+                  {examples.map((ex) => (
+                    <ExampleCard key={ex.title} ex={ex} dark={dark} />
+                  ))}
+                </div>
+              ) : null
+            ) : exampleMeta.length ? (
               <div className="space-y-5">
-                {examples.map((ex) => (
-                  <ExampleCard key={ex.title} ex={ex} dark={dark} />
+                {exampleMeta.map((ex) => (
+                  <ExampleCardShell key={ex.title} title={ex.title} description={ex.description} />
                 ))}
               </div>
             ) : null}
@@ -340,7 +395,7 @@ export function ComponentDocs({ data, api, learn }: { data: DocsData; /** Server
 
         {related.length ? (
           <section className="mt-14 space-y-5">
-            <DocsH2 id="related">Related {category ? category.label.toLowerCase() : ""} components</DocsH2>
+            <DocsH2 id="related">Related components</DocsH2>
             <div className="grid gap-2 sm:grid-cols-2">
               {related.map((r) => (
                 <Link key={r.name} href={`/docs/${r.name}`} className="group rounded-xl border border-border bg-surface px-4 py-3 shadow-raised outline-none transition-[border-color] hover:border-border-strong focus-visible:ring-2 focus-visible:ring-accent">

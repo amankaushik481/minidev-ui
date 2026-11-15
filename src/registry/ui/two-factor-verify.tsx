@@ -13,7 +13,7 @@ import { Button } from "@/registry/ui/button"
  * <TwoFactorVerify onVerify={async (code) => setInvalid(!(await verify(code)))} invalid={invalid} />
  */
 type TwoFactorVerifyProps = {
-  /** Called with the 6-digit code on completion or submit. */
+  /** Called with the 6-digit code on completion or submit, once per code: editing the code allows the next call. */
   onVerify?: (code: string) => void
   /** Shows the field as invalid, e.g. after a wrong code. */
   invalid?: boolean
@@ -24,6 +24,13 @@ type TwoFactorVerifyProps = {
 
 function TwoFactorVerify({ onVerify, invalid, description = "Enter the 6-digit code from your authenticator app.", className }: TwoFactorVerifyProps) {
   const [code, setCode] = React.useState("")
+  // The last code sent, so the sixth digit and a later Verify/Enter do not both call onVerify.
+  const sent = React.useRef("")
+  const verify = (c: string) => {
+    if (c === sent.current) return
+    sent.current = c
+    onVerify?.(c)
+  }
   return (
     <div data-slot="two-factor-verify" className={className}>
       <AuthCard title="Two-factor authentication" description={description}>
@@ -31,10 +38,19 @@ function TwoFactorVerify({ onVerify, invalid, description = "Enter the 6-digit c
           className="space-y-3"
           onSubmit={(e) => {
             e.preventDefault()
-            if (code.length === 6) onVerify?.(code)
+            if (code.length === 6) verify(code)
           }}
         >
-          <OtpInput value={code} onChange={setCode} onComplete={onVerify} status={invalid ? "invalid" : "idle"} aria-label="6-digit code" />
+          <OtpInput
+            value={code}
+            onChange={(c) => {
+              setCode(c)
+              if (c !== sent.current) sent.current = ""
+            }}
+            onComplete={verify}
+            status={invalid ? "invalid" : "idle"}
+            aria-label="6-digit code"
+          />
           <Button type="submit" className="w-full" disabled={code.length < 6}>
             Verify
           </Button>

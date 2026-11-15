@@ -7,8 +7,8 @@ import { Button } from "@/registry/ui/button"
  * FloatingActionButton — a round, fixed-position primary button in the bottom-right corner of the viewport.
  *
  * Use for the one primary action of a mobile or canvas screen ("New
- * invoice"). Takes every `Button` prop. An icon-only FAB must have an
- * `aria-label`. For an inline primary action use `Button`; for a sticky
+ * invoice"). Takes every `Button` prop, and `aria-label` is required so an
+ * icon-only FAB always has a name. For an inline primary action use `Button`; for a sticky
  * bottom action bar use `StickyBar`.
  *
  * @example
@@ -16,7 +16,7 @@ import { Button } from "@/registry/ui/button"
  *   <PlusIcon />
  * </FloatingActionButton>
  */
-function FloatingActionButton({ className, children, ...props }: React.ComponentProps<typeof Button>) {
+function FloatingActionButton({ className, children, ...props }: React.ComponentProps<typeof Button> & { "aria-label": string }) {
   return (
     <Button
       data-slot="floating-action-button"

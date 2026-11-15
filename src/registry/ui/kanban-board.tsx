@@ -51,13 +51,22 @@ const SAMPLE_COLUMNS: KanbanColumn[] = [
 type KanbanBoardProps = {
   /** Columns left to right, each with its cards. Defaults to a Lumen engineering board. */
   columns?: KanbanColumn[]
+  /** Accessible name for the focusable, scrolling board. */
+  "aria-label"?: string
   className?: string
 }
 
-function KanbanBoard({ columns = SAMPLE_COLUMNS, className }: KanbanBoardProps) {
+function KanbanBoard({ columns = SAMPLE_COLUMNS, "aria-label": ariaLabel = "Board", className }: KanbanBoardProps) {
   const id = React.useId()
   return (
-    <div data-slot="kanban-board" className={cn("flex w-full gap-3 overflow-x-auto pb-2", className)}>
+    <div
+      data-slot="kanban-board"
+      role="region"
+      aria-label={ariaLabel}
+      // focusable so keyboard users can scroll to off-screen columns; the cards are not focusable
+      tabIndex={0}
+      className={cn("flex w-full gap-3 overflow-x-auto rounded-xl pb-2 outline-none focus-visible:ring-2 focus-visible:ring-accent", className)}
+    >
       {columns.map((col, ci) => (
         <section key={col.id} aria-labelledby={`${id}-c${ci}`} className="w-64 shrink-0 rounded-xl border border-border bg-sunken p-2">
           <div className="mb-2 flex items-center justify-between px-1">

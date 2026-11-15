@@ -6,11 +6,14 @@ import { GUIDES } from "@/content/guides"
 import { GLOSSARY } from "@/content/glossary"
 import { BLOCK_TYPES } from "@/content/blocks"
 import { PropsTable } from "@/components/seo/props-table"
+import { COMPONENT_PROPS } from "@/lib/component-props"
 import { ComponentDocs, type DocsData } from "./client"
 import { GALLERY_ENTRIES } from "@/lib/gallery-catalog"
 import { componentCopy } from "@/lib/seo-routes"
+import { componentDocs } from "@/content/component-docs"
+import { docsSections } from "@/components/seo/component-docs"
 import { DocsH2 } from "../_components/docs-shell"
-import { exportedNames, mdPath, relatedTo, usageSnippet } from "./markdown"
+import { exampleSources, exportedNames, mdPath, relatedTo, usageSnippet } from "./markdown"
 
 /** Cross links computed on the server: guides that use the component, glossary terms that explain it, block hubs that list it. */
 function learnLinks(name: string) {
@@ -59,7 +62,14 @@ export default async function ComponentDocsPage({ params }: { params: Promise<{ 
   if (!entry) notFound()
   const links = learnLinks(name)
   const hasLearn = Boolean(links.guides.length || links.terms.length || links.hubs.length)
-  return <ComponentDocs data={docsData(entry)} api={<PropsTable name={entry.name} title={entry.title} />} learn={hasLearn ? <LearnMore {...links} /> : undefined} />
+  return (
+    <ComponentDocs
+      data={docsData(entry)}
+      api={<PropsTable name={entry.name} title={entry.title} />}
+      sections={docsSections(entry, componentDocs(entry.name))}
+      learn={hasLearn ? <LearnMore {...links} /> : undefined}
+    />
+  )
 }
 
 /** The slice of the index and SEO copy the docs page needs, computed here so the full data never reaches the browser. */
@@ -82,6 +92,10 @@ function docsData(entry: (typeof COMPONENT_INDEX)[number]): DocsData {
     md: mdPath(entry.name),
     usage: usageSnippet(entry),
     exports: exportedNames(entry),
+    // Titles and descriptions only, so the examples section is in the HTML before the live previews load.
+    exampleMeta: exampleSources(entry.name).map(({ title, description }) => ({ title, description })),
+    // A required array prop (rows, items) means a bare <Comp /> crashes, so the preview shows the first example instead.
+    previewFromExample: Boolean(COMPONENT_PROPS[entry.name]?.props.some((p) => !p.optional && p.type.endsWith("[]"))),
     depTitles: Object.fromEntries(entry.registryDeps.map((d) => [d, COMPONENT_INDEX.find((c) => c.name === d)?.title ?? d])),
   }
 }

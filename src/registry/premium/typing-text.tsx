@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils"
 
 /**
  * A typewriter line that types a phrase, holds, deletes it and moves to the next, with a blinking caret.
- * A typewriter that types a phrase, holds, deletes and moves to the next,
- * with a blinking caret. Starts when it scrolls into view, and screen
- * readers get the phrases as plain text instead of the keystrokes.
+ * Starts when it scrolls into view, and screen readers get the phrases as
+ * plain text instead of the keystrokes. Reduced motion shows the first
+ * phrase in full.
  *
  * Use it for a short hero line that types a few phrases. Reach for WordRotate
  * to swap one word in a sentence, MorphingText for a softer melt, and

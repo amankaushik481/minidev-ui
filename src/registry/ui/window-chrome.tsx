@@ -5,7 +5,10 @@ import { cn } from "@/lib/utils"
 /**
  * A neutral app-window frame (three grey dots and a title bar) for screenshots and product previews on marketing pages.
  *
- * Children sit in 16px padding. Use `TerminalWindow` for CLI output and `CodeEditorFrame` for source code.
+ * Use it on landing pages, docs and changelogs to frame a product screenshot or a live component
+ * preview so it reads as an app. Children sit in 16px padding; always pass `title`. Use
+ * `BrowserMockup` when an address bar matters, `TerminalWindow` for CLI output and
+ * `CodeEditorFrame` for source code.
  *
  * @example
  * <WindowChrome title="Lumen — Invoices"><InvoiceList /></WindowChrome>

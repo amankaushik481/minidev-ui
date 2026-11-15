@@ -14,7 +14,7 @@ export const examples: Example[] = [
   <ul className="h-full divide-y divide-border overflow-y-auto pb-16 text-sm">
     {INVOICES.map((line) => <li key={line} className="px-4 py-2.5 text-fg">{line}</li>)}
   </ul>
-  <FloatingActionButton className="absolute right-4 bottom-4">
+  <FloatingActionButton aria-label="New invoice" className="absolute right-4 bottom-4">
     <PlusIcon /> New invoice
   </FloatingActionButton>
 </div>`,
@@ -23,7 +23,7 @@ export const examples: Example[] = [
         <ul className="h-full divide-y divide-border overflow-y-auto pb-16 text-sm">
           {INVOICES.map((line) => <li key={line} className="px-4 py-2.5 text-fg">{line}</li>)}
         </ul>
-        <FloatingActionButton className="absolute right-4 bottom-4">
+        <FloatingActionButton aria-label="New invoice" className="absolute right-4 bottom-4">
           <PlusIcon /> New invoice
         </FloatingActionButton>
       </div>

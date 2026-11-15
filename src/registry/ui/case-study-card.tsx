@@ -10,7 +10,7 @@ import { MetricDelta } from "@/registry/ui/metric-delta"
  * Only show results the customer has approved; never invent figures.
  *
  * @example
- * <CaseStudyCard company="Northwind" title="Month-end close in two days" result="2 days" delta={-60} />
+ * <CaseStudyCard company="Northwind" title="Month-end close in two days" result="2 days" delta={-60} invertDelta />
  */
 type CaseStudyCardProps = {
   /** Customer name, shown as a small uppercase eyebrow. */
@@ -21,19 +21,21 @@ type CaseStudyCardProps = {
   result: string
   /** Optional percent change shown beside the result; negative values render as a decrease. */
   delta?: number
+  /** Show a fall in `delta` as good (green), for figures like close time or cost. */
+  invertDelta?: boolean
   /** Wraps the card in a link when set, so the whole card opens the full story. */
   href?: string
   className?: string
 }
 
-function CaseStudyCard({ company, title, result, delta, href, className }: CaseStudyCardProps) {
+function CaseStudyCard({ company, title, result, delta, invertDelta = false, href, className }: CaseStudyCardProps) {
   const body = (
     <>
       <p className="text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">{company}</p>
       <h3 className="mt-2 text-base font-medium text-balance text-fg">{title}</h3>
       <div className="mt-4 flex items-end justify-between gap-3">
         <p className="text-2xl font-medium tracking-[-0.018em] tabular-nums text-fg">{result}</p>
-        {delta != null ? <MetricDelta value={delta} /> : null}
+        {delta != null ? <MetricDelta value={delta} invert={invertDelta} /> : null}
       </div>
     </>
   )

@@ -11,7 +11,7 @@ import { GLOSSARY } from "@/content/glossary"
 import { BLOCK_TYPES } from "@/content/blocks"
 import { INSTALLS } from "@/content/install"
 import { TEMPLATE_SEO } from "@/content/pages"
-import { BRAND_SLUGS } from "@/lib/seo-routes"
+import { BRAND_SLUGS, galleryDuplicatesDocs } from "@/lib/seo-routes"
 import { CHANGELOG } from "@/content/changelog"
 import { SITE } from "@/lib/site"
 
@@ -40,7 +40,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/tools", 0.8),
     page("/studio", 0.8, "monthly"),
     page("/showcase", 0.5, "monthly"),
-    page("/playground", 0.5, "monthly"),
     page("/glossary", 0.7, "monthly"),
     page("/changelog", 0.5, "weekly"),
     page("/docs/installation", 0.8, "monthly"),
@@ -55,7 +54,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...COMPONENT_INDEX.map((c) => page(`/docs/${c.name}`, c.kind === "block" ? 0.7 : 0.6, "monthly")),
     ...Object.keys(TEMPLATE_SEO).map((s) => page(`/templates/${s}`, 0.8, "monthly")),
     ...BRAND_SLUGS.map((s) => page(s === "minidev" ? "/brand" : `/brand/${s}`, 0.5, "monthly")),
-    ...GALLERY_ENTRIES.map((g) => page(`/gallery/${g.slug}`, 0.5, "monthly")),
+    // Left out: /playground (robots.txt blocks /playground/) and the noindexed galleries that repeat a docs page.
+    ...GALLERY_ENTRIES.filter((g) => !galleryDuplicatesDocs(g.slug)).map((g) => page(`/gallery/${g.slug}`, 0.5, "monthly")),
     ...GUIDES.map((g) => page(`/guides/${g.slug}`, 0.7, "monthly", new Date(g.updated ?? g.date))),
     ...COMPARISONS.map((c) => page(`/compare/${c.slug}`, 0.6, "monthly", new Date(c.checked))),
     ...MATCHUPS.map((m) => page(`/compare/${m.slug}`, 0.6, "monthly", new Date(m.checked))),

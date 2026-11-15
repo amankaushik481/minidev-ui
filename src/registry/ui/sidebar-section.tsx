@@ -6,7 +6,9 @@ import { cn } from "@/lib/utils"
  * A titled group inside a Sidebar: a small uppercase label above a stack of SidebarNavItems.
  *
  * The title names the group for screen readers (`role="group"`). Use one per cluster of links
- * ("Workspace", "Settings"); the Sidebar itself is the outer frame.
+ * ("Workspace", "Settings"); the Sidebar itself is the outer frame. When the Sidebar collapses
+ * to its rail the title becomes screen-reader only, so the group keeps its name. For groups that
+ * open and close use NestedNav.
  *
  * @example
  * <SidebarSection title="Workspace">
@@ -32,7 +34,7 @@ function SidebarSection({ title, children, className }: SidebarSectionProps) {
       className={cn("space-y-1 px-2 py-3", className)}
     >
       {title ? (
-        <p id={id} className="px-2 pb-1 text-xs font-medium tracking-[0.01em] text-fg-muted uppercase">{title}</p>
+        <p id={id} className="px-2 pb-1 text-xs font-medium tracking-[0.01em] text-fg-muted uppercase group-data-[collapsed]/sidebar:sr-only">{title}</p>
       ) : null}
       <div className="space-y-0.5">{children}</div>
     </div>

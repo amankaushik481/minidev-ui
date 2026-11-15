@@ -40,7 +40,7 @@ function LiveComponentRail({
     { label: "Button", node: <Button>Primary</Button> },
     { label: "Badge", node: <Badge>Hairline</Badge> },
     { label: "Switch", node: <Switch defaultChecked aria-label="Demo switch" /> },
-    { label: "Input", node: <Input placeholder="Search registry…" className="w-40" /> },
+    { label: "Input", node: <Input aria-label="Search registry" placeholder="Search registry…" className="w-40" /> },
     { label: "Outline", node: <Button variant="outline">Secondary</Button> },
     { label: "Danger", node: <Button variant="destructive" size="sm">Delete</Button> },
   ]

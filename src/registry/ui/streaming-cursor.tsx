@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils"
 /**
  * A blinking 2px accent caret to append after text that is still streaming in.
  *
- * Decorative (aria-hidden). Render it only while tokens arrive and remove it when the stream ends.
- * StreamingMessage already includes it.
+ * Decorative (aria-hidden). Render it after your own streamed text only while tokens arrive, and
+ * remove it when the stream ends. `MessageBubble` and `StreamingMessage` already render it when
+ * `streaming` is set. Use `TypingIndicator` before the first token arrives. The blink comes from
+ * the `caret-blink` keyframes in the kit stylesheet.
  *
  * @example
  * <p>{text}{isStreaming ? <StreamingCursor /> : null}</p>

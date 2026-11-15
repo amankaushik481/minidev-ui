@@ -21,7 +21,7 @@ type VideoPlayerChromeProps = {
   defaultPlaying?: boolean
   /** Called with the next playing state when the button is pressed. */
   onToggle?: (playing: boolean) => void
-  /** Playback position, 0–100. */
+  /** Playback position, 0–100. `NaN` (before metadata loads) shows as 0. */
   progress?: number
   /** The media, e.g. a `<video>`; it fills the stage behind the button. */
   children?: React.ReactNode
@@ -31,7 +31,7 @@ type VideoPlayerChromeProps = {
 function VideoPlayerChrome({ title, playing: playingProp, defaultPlaying = false, onToggle, progress = 0, children, className }: VideoPlayerChromeProps) {
   const [internal, setInternal] = React.useState(defaultPlaying)
   const playing = playingProp ?? internal
-  const pct = Math.max(0, Math.min(100, progress))
+  const pct = Number.isFinite(progress) ? Math.max(0, Math.min(100, progress)) : 0
   return (
     <div data-slot="video-player-chrome" className={cn("overflow-hidden rounded-xl border border-border bg-sunken", className)}>
       <div className="relative grid aspect-video place-items-center [&>video]:absolute [&>video]:inset-0 [&>video]:size-full [&>video]:object-cover">
@@ -41,7 +41,7 @@ function VideoPlayerChrome({ title, playing: playingProp, defaultPlaying = false
           variant="secondary"
           size="icon-lg"
           className="relative"
-          aria-label={playing ? "Pause" : "Play"}
+          aria-label={`${playing ? "Pause" : "Play"}${title ? ` ${title}` : ""}`}
           onClick={() => {
             if (playingProp === undefined) setInternal(!playing)
             onToggle?.(!playing)

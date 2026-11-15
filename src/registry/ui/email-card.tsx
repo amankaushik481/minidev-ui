@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils"
 /**
  * EmailCard — a bordered content block inside an email body, with an optional title.
  *
- * Use inside `EmailLayout` to group a receipt summary, a code or a callout.
- * For cards in the app use `Card`.
+ * Use inside `EmailLayout` to group a receipt summary, a sign-in code or a callout. It has
+ * `mx-6 my-4` built in to line up with `EmailHeader` and `EmailFooter`, so place it directly in
+ * the layout, not inside another padded block. For the call to action use `EmailButton`; for
+ * cards in the app use `Card`.
  *
  * @example
  * <EmailCard title="Invoice INV-2041">$12,400.00 due Nov 30.</EmailCard>

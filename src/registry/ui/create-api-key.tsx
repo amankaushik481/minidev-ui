@@ -14,8 +14,8 @@ import { cn } from "@/lib/utils"
  * <CreateApiKey onCreate={async (name) => setSecret(await createKey(name))} />
  */
 type CreateApiKeyProps = {
-  /** Called with the trimmed key name. The field clears afterwards. */
-  onCreate?: (name: string) => void
+  /** Called with the trimmed key name. The field clears once it returns, or once its promise resolves; a rejected promise keeps the name. */
+  onCreate?: (name: string) => void | Promise<void>
   /** Field label. Defaults to "Key name". */
   label?: string
   /** Input placeholder. Defaults to "Production". */
@@ -30,8 +30,8 @@ function CreateApiKey({ className, onCreate, label = "Key name", placeholder = "
   const create = () => {
     const n = name.trim()
     if (!n || disabled) return
-    onCreate?.(n)
-    setName("")
+    // A rejection is the caller's to report; keeping the name lets them retry.
+    Promise.resolve(onCreate?.(n)).then(() => setName(""), () => {})
   }
   return (
     <div data-slot="create-api-key" className={cn("flex flex-wrap items-end gap-2", className)}>

@@ -7,9 +7,10 @@ import { cn } from "@/lib/utils"
  * Label — the caption for a form control; point htmlFor at the control's id so clicking it focuses the field.
  *
  * Use it beside Input, Textarea, Checkbox, Switch and friends. It dims when a
- * sibling `peer` control is disabled or a `group` ancestor has
- * data-disabled="true". For a label with description and error text wired up
- * for you use FormField.
+ * native `peer` control before it is `:disabled` or a `group` ancestor has
+ * data-disabled="true"; Base UI controls (Checkbox, Switch, Radio) render a
+ * span, so use the `group` wrapper for those. For a label with description and
+ * error text wired up for you use FormField.
  *
  * @example
  * <Label htmlFor="email">Email</Label>

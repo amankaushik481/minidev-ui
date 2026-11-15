@@ -17,8 +17,8 @@ export default function Page() {
           <EmailLayout>
             <EmailHeader />
             <div className="space-y-3 px-6 py-6">
-              <h1 className="text-xl font-medium text-fg">Confirm it is you</h1>
-              <p className="text-sm text-fg-muted">Click below to verify aman@minidev.pro.</p>
+              <h2 className="text-xl font-medium text-fg">Confirm it is you</h2>
+              <p className="text-sm text-fg-muted">Click below to verify maya@acme.com.</p>
               <EmailButton>Verify email</EmailButton>
             </div>
             <EmailCard title="Did not request this?">Ignore this message — your account stays unchanged.</EmailCard>

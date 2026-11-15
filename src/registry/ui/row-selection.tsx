@@ -7,6 +7,7 @@ import { Checkbox } from "@/registry/ui/checkbox"
  *
  * Put one in each row's first cell and one in the header with `indeterminate` when only some rows
  * are selected. It is a Checkbox with a default "Select row" name; give each row a specific one.
+ * Use it with `Table` and `BulkActionsBar`; `DataTable` with `selectable` draws its own checkboxes.
  *
  * @example
  * <RowSelection checked={allSelected} indeterminate={someSelected} onCheckedChange={toggleAll} aria-label="Select all rows" />

@@ -35,7 +35,7 @@ export const examples: Example[] = [
   { author: "Theo Okafor", text: "INV-2033 reminder sent." },
 ]
 
-<MasonryGrid minColumnWidth={200} gap={16} className="max-w-2xl">
+<MasonryGrid aria-label="Team notes" minColumnWidth={200} gap={16} className="max-w-2xl">
   {NOTES.map((n, i) => (
     <div key={i} className="rounded-xl border border-border bg-surface p-4 shadow-raised">
       <p className="text-sm leading-[1.55] text-fg">{n.text}</p>
@@ -44,7 +44,7 @@ export const examples: Example[] = [
   ))}
 </MasonryGrid>`,
     node: (
-      <MasonryGrid minColumnWidth={200} gap={16} className="max-w-2xl">
+      <MasonryGrid aria-label="Team notes" minColumnWidth={200} gap={16} className="max-w-2xl">
         {NOTES.map((n, i) => (
           <div key={i} className="rounded-xl border border-border bg-surface p-4 shadow-raised">
             <p className="text-sm leading-[1.55] text-fg">{n.text}</p>

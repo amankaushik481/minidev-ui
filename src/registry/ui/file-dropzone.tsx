@@ -40,6 +40,8 @@ type UploadFile = {
 type FileDropzoneProps = {
   /** Called with accepted files every time files are added. */
   onFiles?: (files: File[]) => void
+  /** Called with the file when someone removes it from the list. */
+  onRemove?: (file: File) => void
   /**
    * Optional uploader. Call onProgress(0..1) as bytes go out; throw to fail.
    * Without it, files are listed as done immediately.
@@ -92,6 +94,7 @@ function extOf(name: string) {
 
 function FileDropzone({
   onFiles,
+  onRemove,
   upload,
   accept,
   multiple = true,
@@ -167,12 +170,13 @@ function FileDropzone({
     ok.forEach(run)
   }
 
-  const remove = (fid: string) =>
-    setFiles((l) => {
-      const f = l.find((x) => x.id === fid)
-      if (f?.preview) URL.revokeObjectURL(f.preview)
-      return l.filter((x) => x.id !== fid)
-    })
+  const remove = (fid: string) => {
+    const f = files.find((x) => x.id === fid)
+    if (!f) return
+    if (f.preview) URL.revokeObjectURL(f.preview)
+    setFiles((l) => l.filter((x) => x.id !== fid))
+    onRemove?.(f.file)
+  }
 
   const open = () => !disabled && inputRef.current?.click()
 

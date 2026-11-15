@@ -6,7 +6,7 @@ import { CATEGORIES, categoryById } from "@/content/categories"
 import { componentsInCategory } from "@/content/component-seo"
 import { guideBySlug } from "@/content/guides"
 import { BLOCK_TYPES } from "@/content/blocks"
-import { ContentShell, Crumbs, FaqList, Inline, StudioNote } from "@/components/seo/prose"
+import { Blocks, ContentShell, Crumbs, FaqList, Inline, StudioNote } from "@/components/seo/prose"
 import { JsonLd } from "@/components/seo/json-ld"
 import { COMPONENT_INDEX } from "@/lib/component-index"
 import { GALLERY_ENTRIES } from "@/lib/gallery-catalog"
@@ -43,6 +43,11 @@ export default async function CategoryPage({ params }: Params) {
   const related = c.related.map(categoryById).filter((x): x is NonNullable<typeof x> => Boolean(x))
   const blockTypes = BLOCK_TYPES.filter((b) => b.category === c.id)
   const items: BrowseItem[] = entries.map((e) => ({ name: e.name, title: humanTitle(e.title), kind: e.kind, description: componentCopy(e).description }))
+  // Picker rows name registry components; a row whose component is gone drops out rather than linking to a 404.
+  const picker = c.picker.flatMap((p) => {
+    const e = COMPONENT_INDEX.find((x) => x.name === p.use)
+    return e ? [[p.need, `[${humanTitle(e.title)}](/docs/${e.name})`, p.note]] : []
+  })
   return (
     <ContentShell>
       <JsonLd
@@ -70,6 +75,17 @@ export default async function CategoryPage({ params }: Params) {
             </p>
           ))}
         </div>
+
+        {picker.length ? (
+          <section aria-labelledby="picker-heading" className="mt-12 max-w-3xl">
+            <h2 id="picker-heading" className="scroll-mt-24 text-[1.75rem] font-medium tracking-[-0.03em] text-fg">
+              Which one should I use?
+            </h2>
+            <div className="mt-5">
+              <Blocks blocks={[{ type: "table", head: ["You need", "Use", "Why"], rows: picker }]} />
+            </div>
+          </section>
+        ) : null}
 
         <ComponentBrowser items={items} label={c.label} />
         <AgentNote />

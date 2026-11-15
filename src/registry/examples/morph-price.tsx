@@ -28,9 +28,9 @@ function PlanCardDemo() {
 export const examples: Example[] = [
   {
     title: "Your prices",
-    description: "monthly and yearly are per-unit amounts; the saving line is worked out from the two, and only the digits that differ roll.",
-    code: `<MorphPrice monthly={24} yearly={19} currency="EUR" unit="/ month" defaultCadence="monthly" className="w-full max-w-md" />`,
-    node: <MorphPrice monthly={24} yearly={19} currency="EUR" unit="/ month" defaultCadence="monthly" className="w-full max-w-md" />,
+    description: "monthly and yearly are per-unit amounts; the saving line is worked out from the two, note sets the line under the switch to match, and only the digits that differ roll.",
+    code: `<MorphPrice monthly={24} yearly={19} currency="EUR" unit="/ month" defaultCadence="monthly" note="Save 21% with yearly" className="w-full max-w-md" />`,
+    node: <MorphPrice monthly={24} yearly={19} currency="EUR" unit="/ month" defaultCadence="monthly" note="Save 21% with yearly" className="w-full max-w-md" />,
   },
   {
     title: "Inside a plan card",

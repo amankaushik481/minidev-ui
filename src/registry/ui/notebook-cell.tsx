@@ -16,7 +16,7 @@ import { CodeEditorFrame } from "@/registry/ui/code-editor-frame"
  * <NotebookCell code={source} output={result} running={busy} onRun={run} filename="query.sql" />
  */
 type NotebookCellProps = {
-  /** Source shown in the editor frame. */
+  /** Source shown in the editor frame. Line breaks and indentation are kept; long lines wrap. */
   code: string
   /** Result text. Omit (or pass null) to hide the output area. */
   output?: string | null
@@ -37,7 +37,9 @@ function NotebookCell({ code, output, onRun, running = false, filename = "cell.t
           <PlayIcon />
         </IconButton>
         <div className="min-w-0 flex-1">
-          <CodeEditorFrame filename={filename}>{code}</CodeEditorFrame>
+          <CodeEditorFrame filename={filename}>
+            <pre className="whitespace-pre-wrap break-words">{code}</pre>
+          </CodeEditorFrame>
         </div>
       </div>
       {output != null ? (

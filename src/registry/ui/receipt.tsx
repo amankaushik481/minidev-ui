@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils"
  * Receipt — a monospaced receipt card with an id, itemised lines and a ruled total.
  *
  * Use it in order confirmations, billing history and chat answers that show a charge. Amounts
- * are display strings, so format money before passing it. For an editable bill use an invoice
- * table instead.
+ * are display strings, so format money before passing it, and `total` is shown as given. For a bill
+ * with a status and due date use `InvoiceDetail`; for the emailed version use `EmailReceipt`.
  *
  * @example
  * <Receipt id="RCP-1042" lines={[{ label: "Pro plan", amount: "$49.00" }, { label: "Tax", amount: "$3.92" }]} total="$52.92" />

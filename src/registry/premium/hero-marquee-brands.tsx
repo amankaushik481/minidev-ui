@@ -1,5 +1,6 @@
 "use client"
 import * as React from "react"
+import { PauseIcon, PlayIcon } from "lucide-react"
 import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
@@ -7,9 +8,9 @@ import { Button } from "@/registry/ui/button"
 /**
  * A social-proof hero: a centred headline and two buttons above an endless marquee of customer names.
  *
- * The marquee scrolls on transform only, pauses while hovered (WCAG
- * 2.2.2), stops for reduced motion, and is read once as a list by screen
- * readers (the looping copy is hidden). The sample names are
+ * The marquee scrolls on transform only, pauses on hover and with the "Pause
+ * motion" button (WCAG 2.2.2), stops for reduced motion, and is read once as
+ * a list by screen readers (the looping copy is hidden). The sample names are
  * fictional; pass `brands` with customers you actually have permission to
  * name. For a grid of logos use a logo wall.
  *
@@ -40,6 +41,7 @@ function HeroMarqueeBrands({
   className,
 }: HeroMarqueeBrandsProps) {
   const reduce = useReducedMotion()
+  const [paused, setPaused] = React.useState(false)
   const row = (hidden?: boolean) => (
     <ul aria-hidden={hidden || undefined} aria-label={hidden ? undefined : "Customers"} className="flex shrink-0 gap-10 pr-10">
       {brands.map((b, i) => (
@@ -72,15 +74,22 @@ function HeroMarqueeBrands({
           </Button>
         </div>
       </div>
-      <div data-slot="hero-marquee-brands-track" className="group w-full max-w-full min-w-0 overflow-hidden border-t border-border bg-sunken py-4">
-        {/* Two identical rows with trailing padding, so -50% lands exactly on the seam. */}
-        <div
-          className="flex w-max text-sm font-medium text-fg group-hover:[animation-play-state:paused]"
-          style={{ animation: reduce ? undefined : `hero-marquee ${duration}s linear infinite` }}
-        >
-          {row()}
-          {row(true)}
+      <div data-slot="hero-marquee-brands-track" className="group flex w-full max-w-full min-w-0 items-center gap-2 border-t border-border bg-sunken py-2 pr-2">
+        <div className="min-w-0 flex-1 overflow-hidden py-2">
+          {/* Two identical rows with trailing padding, so -50% lands exactly on the seam. */}
+          <div
+            className={cn("flex w-max text-sm font-medium text-fg", !reduce && "[animation:hero-marquee_var(--hm-d)_linear_infinite] group-hover:[animation-play-state:paused]")}
+            // Inline, so the button's pause wins over the animation class.
+            style={{ "--hm-d": `${duration}s`, animationPlayState: paused ? "paused" : undefined } as React.CSSProperties}
+          >
+            {row()}
+            {row(true)}
+          </div>
         </div>
+        <Button variant="ghost" size="sm" className="shrink-0 motion-reduce:hidden" aria-pressed={paused} onClick={() => setPaused((p) => !p)}>
+          {paused ? <PlayIcon aria-hidden /> : <PauseIcon aria-hidden />}
+          {paused ? "Play motion" : "Pause motion"}
+        </Button>
       </div>
       <style>{`@keyframes hero-marquee{to{transform:translateX(-50%)}}`}</style>
     </section>

@@ -48,7 +48,7 @@ function SeatManager({
             {seats.length} of {limit} used
           </p>
         </div>
-        <Button type="button" size="sm" onClick={onInvite} disabled={full}>
+        <Button type="button" size="sm" onClick={onInvite} disabled={full} focusableWhenDisabled>
           Invite
         </Button>
       </div>

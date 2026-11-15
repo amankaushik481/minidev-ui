@@ -4,7 +4,7 @@ import { AuditLogEntry } from "@/registry/ui/audit-log-entry"
 import { cn } from "@/lib/utils"
 
 /**
- * A bordered list of audit log entries, newest first, each with a relative timestamp.
+ * A bordered list of audit log entries in the order you pass them, each with a relative timestamp.
  *
  * Use on security and admin pages to show who changed what. Pair it with `AuditFilterBar` above.
  * Prefer `ActivityFeed` for casual activity, and `DataTable` when the log needs paging and sorting.

@@ -30,8 +30,10 @@ type Project = {
 }
 
 type AgencyPortfolioProps = {
-  /** Brand shown in the navbar. */
+  /** Brand shown in the navbar and the footer. */
   brand?: string
+  /** Line under the brand in the footer. */
+  tagline?: string
   /** Page headline (the only h1). */
   title?: string
   /** Line under the headline. */
@@ -50,6 +52,7 @@ const MORPH = { type: "spring", bounce: 0.16, duration: 0.5 } as const
 
 function AgencyPortfolio({
   brand = "Studio",
+  tagline = "Product design and engineering.",
   title = "Product UI with a pulse",
   description = "Selected work. Products we designed, built and shipped in thirty days.",
   projects = SAMPLE_PROJECTS,
@@ -109,7 +112,7 @@ function AgencyPortfolio({
           })}
         </ul>
       </div>
-      <FooterMega columns={[{ title: brand, links: [{ label: "Work", href: "#" }, { label: "Contact", href: "#" }] }]} />
+      <FooterMega brand={brand} tagline={tagline} columns={[{ title: brand, links: [{ label: "Work", href: "#" }, { label: "Contact", href: "#" }] }]} />
     </div>
   )
 }

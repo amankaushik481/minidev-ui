@@ -7,10 +7,12 @@ import { cn } from "@/lib/utils"
 /**
  * A card listing webhook endpoints (URL, subscribed events, active or paused) with an "Add endpoint" button.
  *
- * Use it on developer settings pages. Use `ApiKeyList` for API keys and `IntegrationCard` for third-party connections.
+ * Use it on developer settings pages to show where events are delivered. Pass `hooks` (an empty
+ * array shows an empty state) and `onAdd` to open your create dialog; rows have no actions of their
+ * own. Use `ApiKeyList` for API keys and `IntegrationCard` for third-party connections.
  *
  * @example
- * <WebhookList hooks={[{ url: "https://api.northwind.com/hooks/lumen", events: "invoice.paid, invoice.overdue", status: "active" }]} onAdd={openCreateDialog} />
+ * <WebhookList hooks={[{ url: "https://api.northwind.example/hooks/lumen", events: "invoice.paid, invoice.overdue", status: "active" }]} onAdd={openCreateDialog} />
  */
 type Webhook = {
   /** Endpoint URL, shown in mono. */

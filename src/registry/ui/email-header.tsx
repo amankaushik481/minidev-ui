@@ -5,8 +5,9 @@ import { cn } from "@/lib/utils"
 /**
  * EmailHeader — the top band of an email template with the sender's brand name.
  *
- * Use as the first child of `EmailLayout`. Pass `children` to replace the
- * brand text with a logo.
+ * Use as the first child of `EmailLayout`, above the body and any `EmailCard`. Pass `children`
+ * to replace the brand text with a logo image (absolute URL, fixed width and height, and `alt`
+ * set to the brand name). Its 24px side padding lines up with `EmailCard` and `EmailFooter`.
  *
  * @example
  * <EmailHeader brand="Lumen" />

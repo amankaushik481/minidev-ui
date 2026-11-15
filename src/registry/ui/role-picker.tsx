@@ -27,6 +27,7 @@ function RolePicker({
   value,
   defaultValue = "member",
   onValueChange,
+  name,
   "aria-label": ariaLabel = "Role",
   className,
 }: {
@@ -38,6 +39,8 @@ function RolePicker({
   defaultValue?: string
   /** Fires with the picked role value. */
   onValueChange?: (value: string) => void
+  /** Form field name, so the picked role is sent with a surrounding form. */
+  name?: string
   /** Accessible name of the group. */
   "aria-label"?: string
   className?: string
@@ -48,6 +51,7 @@ function RolePicker({
       value={value}
       defaultValue={value === undefined ? defaultValue : undefined}
       onValueChange={(v) => onValueChange?.(v as string)}
+      name={name}
       aria-label={ariaLabel}
       data-slot="role-picker"
       className={cn("gap-2", className)}

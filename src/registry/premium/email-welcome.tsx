@@ -11,9 +11,8 @@ import { EmailButton } from "@/registry/ui/email-button"
 /**
  * A welcome email preview: brand header, a "You are in" message, a primary button, a quick-start card and a footer, inside an email client frame.
  *
- * Built from the Email* primitives, which use email-safe layout. Use it as a
- * starting point for onboarding emails; for a payment confirmation use
- * EmailReceipt.
+ * Built from the Email* primitives. Use it as a starting point for onboarding
+ * emails; for a payment confirmation use EmailReceipt.
  *
  * @example
  * <EmailWelcome />

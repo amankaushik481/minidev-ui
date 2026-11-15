@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
  * PriorityPicker — a row of four pill radios (Low, Medium, High, Urgent) for an issue or task priority.
  *
  * Use it in issue forms and task sidebars. Arrow keys move and select, like any radio group.
- * For an arbitrary option list use SegmentedControl or RadioGroup.
+ * Pass `name` to submit the value with a form. For an arbitrary option list use SegmentedControl or RadioGroup.
  *
  * @example
  * const [priority, setPriority] = React.useState<Priority>("medium")
@@ -27,6 +27,7 @@ function PriorityPicker({
   defaultValue,
   onChange,
   disabled,
+  name,
   "aria-label": ariaLabel = "Priority",
   className,
 }: {
@@ -37,6 +38,8 @@ function PriorityPicker({
   /** Fires with the picked priority. */
   onChange?: (value: Priority) => void
   disabled?: boolean
+  /** Form field name. When set, a hidden input submits the current priority ("" when none). Unset by default. */
+  name?: string
   /** Accessible name of the group. */
   "aria-label"?: string
   className?: string
@@ -100,6 +103,7 @@ function PriorityPicker({
           </button>
         )
       })}
+      {name ? <input type="hidden" name={name} value={selected < 0 ? "" : levels[selected].value} disabled={disabled} /> : null}
     </div>
   )
 }

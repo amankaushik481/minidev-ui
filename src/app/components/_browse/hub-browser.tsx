@@ -7,7 +7,7 @@ import { EmptySearch } from "@/registry/ui/empty-search"
 import { matches } from "./component-browser"
 import { type BrowseItem, InstallCard } from "./install-card"
 
-export type HubCategory = { id: string; name: string; count: number; samples: { name: string; title: string }[] }
+export type HubCategory = { id: string; name: string; count: number; blurb: string; samples: { name: string; title: string }[] }
 
 // shortcut: results stop at 60 cards; add paging if people search the hub for broad words.
 const LIMIT = 60
@@ -66,6 +66,7 @@ export function HubBrowser({ categories, items }: { categories: HubCategory[]; i
                 </Link>
                 <span className="font-mono text-[12px] font-normal text-fg-subtle tabular-nums">{c.count}</span>
               </h2>
+              <p className="mt-2 text-[0.875rem] leading-[1.6] text-fg-muted">{c.blurb}</p>
               <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[0.875rem] leading-[1.6]">
                 {c.samples.map((s) => (
                   <li key={s.name}>

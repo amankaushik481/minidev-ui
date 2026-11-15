@@ -67,6 +67,8 @@ type SegmentedControlProps = {
   className?: string
   /** Accessible name of the group. Always set one that says what is being chosen. */
   "aria-label"?: string
+  /** Submits the selected value in a hidden input under this name. No name by default. */
+  name?: string
 }
 
 function SegmentedControl({
@@ -80,6 +82,7 @@ function SegmentedControl({
   disabled,
   className,
   "aria-label": ariaLabel = "Options",
+  name,
 }: SegmentedControlProps) {
   const options = React.useMemo<Option[]>(
     () => optionsProp ?? (items ?? ["Monthly", "Yearly"]).map((i) => ({ value: i, label: i })),
@@ -124,6 +127,7 @@ function SegmentedControl({
         className
       )}
     >
+      {name ? <input type="hidden" name={name} value={value ?? ""} disabled={disabled} /> : null}
       {options.map((o, i) => {
         const active = o.value === value
         const isDisabled = disabled || o.disabled

@@ -5,7 +5,9 @@ import { cn } from "@/lib/utils"
 /**
  * Country and tax ID fields side by side, for checkout and billing-details forms.
  *
- * Uncontrolled inputs with `name`s, so they submit with a plain `<form>`. Pair it with `BillingAddress` for the full postal address.
+ * Use it in checkout and billing settings when invoices need the buyer's country and VAT, GST or EIN number. The inputs are
+ * uncontrolled and named `country` and `taxId` (after `namePrefix`), so they submit with a plain `<form>` or a Server Action.
+ * Country is free text with autofill; swap in `Select` for a fixed list. Pair it with `BillingAddress` for the postal address.
  *
  * @example
  * <form action={saveBilling}><TaxFields defaultCountry="Germany" /></form>

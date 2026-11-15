@@ -16,7 +16,7 @@ import { Button } from "@/registry/ui/button"
  * <ForgotPasswordForm onSubmit={async (email) => await sendResetLink(email)} />
  */
 type ForgotPasswordFormProps = {
-  /** Called with the email address on submit. Return a promise to show a pending state until it settles. */
+  /** Called with the email address on submit. Return a promise to show a pending state until it settles; if it rejects, the form shows "Something went wrong. Try again." */
   onSubmit?: (email: string) => void | Promise<void>
   /** Card heading. */
   title?: React.ReactNode
@@ -33,6 +33,7 @@ function ForgotPasswordForm({
 }: ForgotPasswordFormProps) {
   const id = React.useId()
   const [pending, setPending] = React.useState(false)
+  const [error, setError] = React.useState("")
   return (
     <form
       data-slot="forgot-password-form"
@@ -42,8 +43,11 @@ function ForgotPasswordForm({
         const email = String(new FormData(e.currentTarget).get("email") ?? "").trim()
         if (!onSubmit || pending) return
         setPending(true)
+        setError("")
         try {
           await onSubmit(email)
+        } catch {
+          setError("Something went wrong. Try again.")
         } finally {
           setPending(false)
         }
@@ -53,6 +57,11 @@ function ForgotPasswordForm({
         <FormField id={id} label="Email">
           <Input id={id} name="email" type="email" autoComplete="email" required />
         </FormField>
+        {error ? (
+          <p role="alert" className="text-xs tracking-[0.01em] text-danger">
+            {error}
+          </p>
+        ) : null}
         <Button type="submit" className="w-full" disabled={pending} aria-busy={pending || undefined}>
           {pending ? "Sending…" : "Send reset email"}
         </Button>

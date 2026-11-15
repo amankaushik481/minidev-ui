@@ -6,7 +6,7 @@ import { RelativeTime } from "@/registry/ui/relative-time"
 /**
  * NotificationItem — one row of a notification list: title, body, relative time and an unread dot.
  *
- * The time renders with RelativeTime ("42 min ago") and is hydration-safe. Unread rows
+ * The time renders with RelativeTime ("42m ago") and is hydration-safe. Unread rows
  * get a tinted background, an accent dot and "Unread" for screen readers. Stack rows
  * in a list; for the bell-and-popover inbox use NotificationInbox.
  *

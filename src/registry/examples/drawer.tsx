@@ -56,6 +56,12 @@ export const examples: Example[] = [
     ),
   },
   {
+    title: "Your own trigger",
+    description: "Pass any button as trigger; the drawer wires it to open and keeps its own state.",
+    code: `<Drawer title="Invoice INV-2041" trigger={<Button variant="outline">Invoice actions</Button>} />`,
+    node: <Drawer title="Invoice INV-2041" trigger={<Button variant="outline">Invoice actions</Button>} />,
+  },
+  {
     title: "Controlled open",
     description: "Own the open state to use your own trigger and to close the drawer from a button inside it.",
     code: `function ControlledDemo() {

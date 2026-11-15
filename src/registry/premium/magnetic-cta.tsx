@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/registry/ui/button"
 
 /**
- * A call-to-action button that leans toward the pointer as it nears, like a magnet, and springs back when the pointer leaves.
+ * A call-to-action button that leans toward the pointer while the pointer is over it, like a magnet, and springs back when it leaves.
  * It is the kit Button inside a wrapper that moves on a spring, so every
  * Button prop (variant, size, render, onClick, disabled) works unchanged.
  * Only a mouse or pen pulls it; touch and keyboard use it as a normal button,

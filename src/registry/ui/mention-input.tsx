@@ -104,6 +104,8 @@ function MentionInput({
         value={text}
         placeholder={placeholder}
         aria-label={ariaLabel ?? (id ? undefined : "Comment")}
+        role="combobox"
+        aria-expanded={open}
         aria-autocomplete="list"
         aria-controls={open ? listId : undefined}
         aria-activedescendant={open ? `${listId}-${current}` : undefined}

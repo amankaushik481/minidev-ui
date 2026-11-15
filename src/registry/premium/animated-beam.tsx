@@ -28,7 +28,7 @@ type BeamProps = {
   from: React.RefObject<HTMLElement | null>
   /** Element the beam ends at (its centre). */
   to: React.RefObject<HTMLElement | null>
-  /** Vertical bend of the curve, in pixels. Negative bends up. */
+  /** Vertical bend of the curve, in pixels. Positive bends up, negative bends down. */
   curvature?: number
   /** Seconds for one pulse to travel the path. */
   duration?: number

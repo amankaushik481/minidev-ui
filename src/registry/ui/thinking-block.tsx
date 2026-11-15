@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 /**
  * A collapsible "Thinking" disclosure for a model's hidden reasoning in a chat transcript, closed by default.
  *
- * Use it for one plain block of reasoning text. Use `ReasoningBlock` for streamed, step-by-step reasoning with a timer, and `ToolCallCard` for tool invocations.
+ * Use it for one plain block of reasoning text. Use `ReasoningBlock` for reasoning that streams, with a shimmering title while active and a "Thought for 4s" label, and `ToolCallCard` for tool invocations.
  *
  * @example
  * <ThinkingBlock label="Thought for 4s">Checking which invoices are overdue before drafting the reminder…</ThinkingBlock>

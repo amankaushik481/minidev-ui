@@ -29,6 +29,7 @@ function TerminalWindow({ title = "Terminal", children, className }: TerminalWin
       </div>
       {/* Focusable so keyboard users can scroll long output. */}
       <pre
+        role="region"
         tabIndex={0}
         aria-label={`${title} output`}
         className="overflow-auto p-4 font-mono text-xs leading-relaxed text-fg outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"

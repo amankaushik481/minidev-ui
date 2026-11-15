@@ -19,9 +19,9 @@ type ServerErrorStateProps = {
   description?: React.ReactNode
   /** Status code shown above the headline. */
   code?: string | number
-  /** Called by the Retry button. */
+  /** Called by the Retry button. Without it, no Retry button renders. */
   onRetry?: () => void
-  /** Request id shown in mono and copied by the "Copy request id" button. Leave it out to hide both. */
+  /** Request id shown in mono and copied by the "Copy request id" button. Defaults to a sample id; pass "" to hide both. */
   requestId?: string
   className?: string
 }
@@ -51,7 +51,7 @@ function ServerErrorState({
       <p className="mt-2 text-sm text-pretty text-fg-muted">{description}</p>
       {requestId ? <p className="mt-2 font-mono text-xs text-fg-subtle">{requestId}</p> : null}
       <div className="mt-4 flex flex-wrap gap-2">
-        <Button size="sm" onClick={onRetry}>Retry</Button>
+        {onRetry ? <Button size="sm" onClick={onRetry}>Retry</Button> : null}
         {requestId ? (
           <Button size="sm" variant="outline" onClick={copy}>
             {copied ? "Copied" : "Copy request id"}

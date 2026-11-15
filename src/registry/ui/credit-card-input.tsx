@@ -9,7 +9,7 @@ import { inputVariants } from "@/registry/ui/input"
  * Card details fields with brand-aware formatting, a Luhn check, auto-advance and inline errors; UI only, never sends card data anywhere.
  *
  * The number groups by brand (Visa, Mastercard and Discover 4-4-4-4, Amex 4-6-5), the brand shows as a text badge, expiry formats to
- * MM / YY and advances on its own, and the CVC expects 4 digits for Amex. Fields carry cc-* autocomplete hints and aria-invalid, and
+ * MM / YY and advances on its own, and the CVC expects 4 digits for Amex. Fields carry cc-* names and autocomplete hints and aria-invalid, and
  * errors appear once a field is left. It formats and checks input in the browser and does not process, tokenize or transmit payments:
  * for real payments prefer your provider's hosted fields (Stripe Elements and the like) for PCI scope, and use this for demos,
  * prototypes or providers that accept raw values. For a saved card use PaymentMethodCard; for a full add-card flow use AddCardForm.
@@ -290,6 +290,7 @@ function CreditCardInput({
             value={name}
             onChange={(e) => setName(e.target.value)}
             onBlur={blur("name")}
+            name="cc-name"
             autoComplete="cc-name"
             placeholder="Maya Chen"
             spellCheck={false}
@@ -348,6 +349,7 @@ function CreditCardInput({
               onChange={onNumber}
               onBlur={blur("number")}
               inputMode="numeric"
+              name="cc-number"
               autoComplete="cc-number"
               placeholder={spec.brand === "amex" ? "1234 123456 12345" : "1234 1234 1234 1234"}
               spellCheck={false}
@@ -399,6 +401,7 @@ function CreditCardInput({
                   setExpiryEager(false)
                 }}
                 inputMode="numeric"
+                name="cc-exp"
                 autoComplete="cc-exp"
                 placeholder="MM / YY"
                 spellCheck={false}
@@ -422,6 +425,7 @@ function CreditCardInput({
                 onKeyDown={backTo("expiry")}
                 onBlur={blur("cvc")}
                 inputMode="numeric"
+                name="cc-csc"
                 autoComplete="cc-csc"
                 placeholder={spec.cvc === 4 ? "CVC 4" : "CVC"}
                 spellCheck={false}
@@ -445,6 +449,7 @@ function CreditCardInput({
                   onChange={(e) => setPostal(e.target.value.toUpperCase().replace(/[^A-Z0-9 -]/g, "").slice(0, 10))}
                   onKeyDown={backTo("cvc")}
                   onBlur={blur("postal")}
+                  name="postal-code"
                   autoComplete="postal-code"
                   placeholder="ZIP"
                   spellCheck={false}

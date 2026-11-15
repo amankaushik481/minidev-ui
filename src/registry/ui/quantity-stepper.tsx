@@ -24,6 +24,7 @@ function QuantityStepper({
   disabled,
   "aria-label": ariaLabel = "Quantity",
   className,
+  name,
 }: {
   /** Controlled quantity. */
   value?: number
@@ -41,6 +42,8 @@ function QuantityStepper({
   /** Names the group and the buttons, e.g. "Tickets" gives "Decrease tickets". */
   "aria-label"?: string
   className?: string
+  /** Submits the quantity in a hidden input under this name. No name by default. */
+  name?: string
 }) {
   const [inner, setInner] = React.useState(defaultValue)
   const n = value ?? inner
@@ -58,6 +61,7 @@ function QuantityStepper({
       aria-label={ariaLabel}
       className={cn("inline-flex items-center gap-1 rounded-lg border border-border bg-surface p-1", disabled && "opacity-45", className)}
     >
+      {name ? <input type="hidden" name={name} value={n} disabled={disabled} /> : null}
       <Button type="button" size="icon-sm" variant="ghost" aria-label={`Decrease ${noun}`} onClick={() => set(n - step)} disabled={disabled || n <= min}>
         <MinusIcon aria-hidden />
       </Button>

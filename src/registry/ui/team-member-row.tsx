@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils"
 type TeamMemberRowProps = {
   name?: string
   email?: string
-  /** Free text shown in an outline badge, e.g. "Admin" or "Member". */
+  /** Free text shown in an outline badge, e.g. "Admin" or "Member". No badge when left out or empty. */
   role?: string
   /** Avatar image; initials are used when absent. */
   src?: string
@@ -30,12 +30,12 @@ function initials(name: string) {
   return (parts.length > 1 ? parts[0][0] + parts[parts.length - 1][0] : name.slice(0, 2)).toUpperCase()
 }
 
-function TeamMemberRow({ name = "Sam Rivera", email = "sam@acme.co", role = "Admin", src, actions, className }: TeamMemberRowProps) {
+function TeamMemberRow({ name = "Sam Rivera", email = "sam@acme.co", role, src, actions, className }: TeamMemberRowProps) {
   return (
     <div data-slot="team-member-row" className={cn("flex items-center gap-3 border-b border-border px-3 py-2.5 last:border-b-0", className)}>
       <Avatar className="size-8">
         {src ? <AvatarImage src={src} alt="" /> : null}
-        <AvatarFallback>{initials(name)}</AvatarFallback>
+        <AvatarFallback aria-hidden>{initials(name)}</AvatarFallback>
       </Avatar>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-medium text-fg">{name}</p>

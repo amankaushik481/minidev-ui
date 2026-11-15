@@ -8,14 +8,15 @@ import { Textarea } from "@/registry/ui/textarea"
  * A comment box: a textarea and a submit button that stays disabled until there is text. ⌘/Ctrl+Enter submits.
  *
  * Use under a CommentThread or on an issue, invoice or review page. For an AI chat input use PromptInput or AiComposer;
- * for @mentions use MentionInput. It clears itself after `onSubmit` and hands you the trimmed text.
+ * for @mentions use MentionInput. It hands you the trimmed text and clears once `onSubmit` returns, or once its promise
+ * resolves. A rejected promise keeps the text so people can try again.
  *
  * @example
- * <CommentComposer onSubmit={(text) => addComment({ body: text })} submitLabel="Reply" />
+ * <CommentComposer onSubmit={(text) => api.comments.create({ body: text })} submitLabel="Reply" />
  */
 type CommentComposerProps = {
-  /** Called with the trimmed text when the user submits. The box then clears. */
-  onSubmit?: (value: string) => void
+  /** Called with the trimmed text when the user submits. Return a promise to clear only after it resolves; a rejection keeps the text. */
+  onSubmit?: (value: string) => void | Promise<void>
   placeholder?: string
   /** Accessible name for the textarea. Defaults to "Comment". */
   label?: string
@@ -34,11 +35,19 @@ function CommentComposer({
   className,
 }: CommentComposerProps) {
   const [value, setValue] = React.useState("")
+  const [sending, setSending] = React.useState(false)
   const submit = () => {
     const text = value.trim()
-    if (!text || disabled) return
-    onSubmit?.(text)
-    setValue("")
+    if (!text || disabled || sending) return
+    setSending(true)
+    // Clear only once the save resolves, and only if nothing new was typed meanwhile. A rejection keeps the text; the caller shows the error.
+    // The executor runs now, so a synchronous throw becomes a rejection too and cannot leave the box stuck in `sending`.
+    new Promise<void>((resolve) => resolve(onSubmit?.(text)))
+      .then(
+        () => setValue((v) => (v.trim() === text ? "" : v)),
+        () => {}
+      )
+      .finally(() => setSending(false))
   }
   return (
     <form
@@ -65,7 +74,7 @@ function CommentComposer({
       />
       <div className="flex items-center justify-end gap-3">
         <span aria-hidden className="text-2xs text-fg-subtle max-sm:hidden">⌘ Enter to send</span>
-        <Button type="submit" size="sm" disabled={disabled || !value.trim()}>
+        <Button type="submit" size="sm" disabled={disabled || sending || !value.trim()}>
           {submitLabel}
         </Button>
       </div>

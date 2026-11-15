@@ -1,6 +1,6 @@
 # MiniDev UI
 
-> 548 free, MIT-licensed React + Tailwind CSS v4 components (397 components, 43 blocks, 108 motion pieces) for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Every component is one TypeScript file you own, installed with the shadcn CLI or imported from npm. Semantic OKLCH tokens, light + dark from one token set.
+> 557 free, MIT-licensed React + Tailwind CSS v4 components (406 components, 43 blocks, 108 motion pieces) for product UI: forms, data tables, charts, billing, auth, settings, overlays, and AI surfaces (chat, reasoning, tool calls). Built on Base UI. Every component is one TypeScript file you own, installed with the shadcn CLI or imported from npm. Semantic OKLCH tokens, light + dark from one token set.
 
 ## Quick start (follow exactly)
 
@@ -29,7 +29,7 @@
 - Motion: springs from the presets only. snappy `{ type: "spring", bounce: 0.18, duration: 0.42 }` (toggles, tabs), morph `{ type: "spring", bounce: 0.16, duration: 0.5 }` (panels, size changes), roll `{ type: "spring", stiffness: 260, damping: 28, mass: 0.9 }` (numbers), release `{ type: "spring", stiffness: 400, damping: 40 }` (after drag), data `{ type: "spring", bounce: 0.12, duration: 0.7 }` (charts). Always `transition={useReducedMotion() ? { duration: 0 } : PRESET}`. Nothing animates on page load in product UI.
 - Overlays (Dialog, Sheet, Drawer) always get a title for their accessible name. Form fields get a visible label.
 
-## Components (397)
+## Components (406)
 
 ### Accordion
 
@@ -139,13 +139,13 @@ Props:
 
 A row of admin KPIs with label, value and a percentage delta, four up on desktop.
 
-Use at the top of an admin or analytics page. Prefer `StatCard` for a single, larger KPI with a sparkline. Marked up as a description list (label → value) so screen readers pair them.
+Use at the top of an admin or analytics page. Set `invert` on a stat that is better going down (churn, failed sign-ins), so a fall shows green. Use `StatCard` for a single larger KPI and `StatSparkline` for one with a trend. Marked up as a description list (label → value) so screen readers pair them.
 
 - Name: `admin-stat-strip` (component, Dashboard)
 - Install: `npx shadcn@latest add @minidev/admin-stat-strip` or `npm i minidev-ui-kit`
 - Import: `import { AdminStatStrip } from "@/components/ui/admin-stat-strip"` (npm: `"minidev-ui-kit/ui/admin-stat-strip"`)
 - Uses: metric-delta
-- Related: stat-card, admin-overview
+- Related: stat-card, stat-sparkline, admin-overview
 - Docs: https://ui.minidev.pro/docs/admin-stat-strip (Markdown: https://ui.minidev.pro/docs/admin-stat-strip.md)
 
 Props:
@@ -190,6 +190,40 @@ Props:
   actions={<DropdownMenu>…</DropdownMenu>} />
 ```
 
+### AgentPlan
+
+An AI agent's live to-do list: tasks with statuses, subtasks, tools and a progress bar.
+
+Use it while an agent works through a plan, fed from a todo or plan tool call (Claude Code's `TodoWrite`, Codex's `update_plan`, or your own AI SDK tool). Statuses are `pending`, `in_progress`, `completed`, `failed` and `skipped`. The active row is highlighted and announced; when the agent moves on, the highlight glides to the next row and the check pops in. For a log of tool calls that already ran use AgentTrace; for a checklist the user ticks use OnboardingChecklist.
+
+- Name: `agent-plan` (component, AI chat)
+- Install: `npx shadcn@latest add @minidev/agent-plan` or `npm i minidev-ui-kit`
+- Import: `import { AgentPlan } from "@/components/ui/agent-plan"` (npm: `"minidev-ui-kit/ui/agent-plan"`)
+- Dependencies: @base-ui/react, lucide-react, motion
+- Related: agent-trace, onboarding-checklist
+- Docs: https://ui.minidev.pro/docs/agent-plan (Markdown: https://ui.minidev.pro/docs/agent-plan.md)
+
+Props:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| title? | `string` | `"Plan"` | Header label. |
+| tasks? | `AgentPlanTask[]` | `SAMPLE_TASKS` | Tasks in plan order. |
+| defaultOpen? | `boolean` | `true` | Whether the task list starts expanded. |
+| onTaskClick? | `(task: AgentPlanTask) => void` |  | Makes each task title a button. Fires with the clicked task, e.g. to scroll to its output. |
+| className? | `string` |  |  |
+
+```tsx
+<AgentPlan
+  title="Migrate billing to Stripe"
+  tasks={[
+    { id: "1", title: "Read the current billing module", status: "completed" },
+    { id: "2", title: "Write the webhook handler", status: "in_progress", tools: ["edit_file"] },
+    { id: "3", title: "Run the test suite", status: "pending" },
+  ]}
+/>
+```
+
 ### AgentTrace
 
 An AI agent run as a timeline of tool calls and steps.
@@ -200,7 +234,7 @@ A hairline rail connects the steps; the running step spins, finished steps repor
 - Install: `npx shadcn@latest add @minidev/agent-trace` or `npm i minidev-ui-kit`
 - Import: `import { AgentTrace } from "@/components/ui/agent-trace"` (npm: `"minidev-ui-kit/ui/agent-trace"`)
 - Dependencies: lucide-react
-- Related: tool-call-card, build-pipeline, trace-waterfall
+- Related: tool-call-card, build-pipeline, agent-plan, trace-waterfall
 - Docs: https://ui.minidev.pro/docs/agent-trace (Markdown: https://ui.minidev.pro/docs/agent-trace.md)
 
 Props:
@@ -227,14 +261,14 @@ Props:
 
 A chat input for AI apps: multiline prompt, suggestion chips, model picker, attach, and a send button that becomes stop while streaming.
 
-Use as the input of a chat or assistant panel. Prefer `PromptInput` for a single-line prompt without the model picker, and `Textarea` for plain forms. Enter sends, Shift+Enter adds a line, and Enter during IME composition is left alone. Works controlled (`value` + `onChange`) or uncontrolled (`defaultValue`; it clears itself after `onSubmit`).
+Use as the input of a chat or assistant panel. Prefer `PromptInput` for a composer that grows with its text and takes your own `toolbar`, and `Textarea` for plain forms. Enter sends, Shift+Enter adds a line, and Enter during IME composition is left alone. Works controlled (`value` + `onChange`) or uncontrolled (`defaultValue`; it clears itself after `onSubmit`).
 
 - Name: `ai-composer` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/ai-composer` or `npm i minidev-ui-kit`
 - Import: `import { AiComposer } from "@/components/ui/ai-composer"` (npm: `"minidev-ui-kit/ui/ai-composer"`)
 - Dependencies: lucide-react
 - Uses: icon-button, model-picker, suggestion-chips
-- Related: prompt-input, textarea, chat-thread, comment-composer, stop-generating, chat-page
+- Related: prompt-input, textarea, chat-thread, comment-composer, speech-input, stop-generating, chat-page
 - Docs: https://ui.minidev.pro/docs/ai-composer (Markdown: https://ui.minidev.pro/docs/ai-composer.md)
 
 Props:
@@ -251,7 +285,7 @@ Props:
 | models? | `AiComposerModel[]` | `DEFAULT_MODELS` | Models offered in the picker. |
 | model? | `string` |  | Controlled model id. |
 | onModelChange? | `(id: string) => void` |  |  |
-| onAttach? | `() => void` |  | Called by the paperclip button. Wire it to a file input or picker. |
+| onAttach? | `() => void` |  | Called by the paperclip button, which only renders when this is set. Wire it to a file input or picker. |
 | placeholder? | `string` | `"Ask anything…"` |  |
 | label? | `string` | `"Message"` | Accessible name for the text area. |
 | disabled? | `boolean` |  |  |
@@ -357,7 +391,7 @@ Props:
 
 ### AppShell
 
-A product layout frame: optional sidebar on the left (from md up), optional top bar, and a scrolling content area.
+A product layout frame: optional sidebar on the left (from md up), optional top bar, and a scrolling `<main>` content area.
 
 Use as the outer frame of an app page or an app preview. Prefer `Sidebar` for the navigation itself (pass it as `sidebar`) and `Topbar` for the header. Below md the sidebar is hidden, so also render a mobile menu (for example a `Sheet`) inside `topbar`.
 
@@ -374,7 +408,7 @@ Props:
 | sidebar? | `React.ReactNode` |  | Left column content, usually navigation. Hidden below the md breakpoint. |
 | sidebarLabel? | `string` | `"Sidebar"` | Accessible name of the sidebar landmark. |
 | topbar? | `React.ReactNode` |  | Rendered above the content, full width of the main column. |
-| children? | `React.ReactNode` |  | Page content; this area scrolls. |
+| children? | `React.ReactNode` |  | Page content, rendered inside the `<main>` landmark; this area scrolls. |
 | className? | `string` |  |  |
 
 ```tsx
@@ -476,11 +510,12 @@ Props:
 
 A box that keeps a fixed width-to-height ratio, for images, video and embeds.
 
-Children should fill it absolutely (`absolute inset-0 size-full object-cover`). Uses the native CSS `aspect-ratio`, so it works in server components and needs no JavaScript.
+Use it for cover images, video and map embeds and card thumbnails, so the space is reserved before the media loads and nothing below it jumps. Children should fill it absolutely (`absolute inset-0 size-full object-cover`); content taller than the ratio is clipped. Uses the native CSS `aspect-ratio`, so it works in server components and needs no JavaScript. For a screenshot in a window frame use BrowserMockup or WindowChrome.
 
 - Name: `aspect-ratio` (component, Layout)
 - Install: `npx shadcn@latest add @minidev/aspect-ratio` or `npm i minidev-ui-kit`
 - Import: `import { AspectRatio } from "@/components/ui/aspect-ratio"` (npm: `"minidev-ui-kit/ui/aspect-ratio"`)
+- Related: browser-mockup, window-chrome
 - Docs: https://ui.minidev.pro/docs/aspect-ratio (Markdown: https://ui.minidev.pro/docs/aspect-ratio.md)
 
 Props (also accepts <div>):
@@ -529,7 +564,7 @@ const [assignee, setAssignee] = React.useState("theo")
 
 A small chip for one attached file, with an optional remove button.
 
-Use in a composer or form to list files the user has attached. Prefer `FileDropzone` for picking and uploading files, and `PromptInputAttachments` for the AI prompt input. The remove button only renders with `onRemove` and is named "Remove <file name>".
+Use in a composer or form to list files the user has attached. Prefer `FileDropzone` for picking and uploading files, and `PromptInputAttachments` for the AI prompt input. The remove button only renders with `onRemove` and its name is "Remove" followed by the file name.
 
 - Name: `attachment-chip` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/attachment-chip` or `npm i minidev-ui-kit`
@@ -593,7 +628,7 @@ Use to capture a voice note or memo in the browser (MediaRecorder + Web Audio, n
 - Install: `npx shadcn@latest add @minidev/audio-recorder` or `npm i minidev-ui-kit`
 - Import: `import { AudioRecorder } from "@/components/ui/audio-recorder"` (npm: `"minidev-ui-kit/ui/audio-recorder"`)
 - Dependencies: lucide-react, motion
-- Related: audio-player
+- Related: audio-player, speech-input
 - Docs: https://ui.minidev.pro/docs/audio-recorder (Markdown: https://ui.minidev.pro/docs/audio-recorder.md)
 
 Props:
@@ -675,7 +710,7 @@ Props:
 
 ### AuditTrail
 
-A bordered list of audit log entries, newest first, each with a relative timestamp.
+A bordered list of audit log entries in the order you pass them, each with a relative timestamp.
 
 Use on security and admin pages to show who changed what. Pair it with `AuditFilterBar` above. Prefer `ActivityFeed` for casual activity, and `DataTable` when the log needs paging and sorting.
 
@@ -706,7 +741,7 @@ It is layout only; put your `FormField`s and `Button`s inside. Use `footer` for 
 - Name: `auth-card` (component, Auth)
 - Install: `npx shadcn@latest add @minidev/auth-card` or `npm i minidev-ui-kit`
 - Import: `import { AuthCard } from "@/components/ui/auth-card"` (npm: `"minidev-ui-kit/ui/auth-card"`)
-- Related: form-field, button, card, magic-link-form, sign-up-form, social-auth-row, sign-in-page
+- Related: form-field, button, card, magic-link-form, sign-up-form, social-auth-row, sso-provider-card, sign-in-page
 - Docs: https://ui.minidev.pro/docs/auth-card (Markdown: https://ui.minidev.pro/docs/auth-card.md)
 
 Props:
@@ -959,7 +994,7 @@ Use for one value per period or category (monthly revenue, signups per day). Pre
 - Name: `bar-chart` (component, Charts)
 - Install: `npx shadcn@latest add @minidev/bar-chart` or `npm i minidev-ui-kit`
 - Import: `import { BarChart } from "@/components/ui/bar-chart"` (npm: `"minidev-ui-kit/ui/bar-chart"`)
-- Related: stacked-bar-chart, horizontal-bar-chart, area-chart, chart-card, pie-chart, dashboard-home, report-builder
+- Related: stacked-bar-chart, horizontal-bar-chart, area-chart, chart-card, pie-chart, scatter-chart, dashboard-home, report-builder
 - Docs: https://ui.minidev.pro/docs/bar-chart (Markdown: https://ui.minidev.pro/docs/bar-chart.md)
 
 Props:
@@ -1066,13 +1101,13 @@ Props:
 
 A "…" marker for collapsed middle levels in a breadcrumb trail.
 
-Decorative by default (hidden from screen readers). To let people open the hidden levels, wrap it in a `DropdownMenuTrigger` and give that trigger `aria-label="Show more pages"`.
+Use it when a trail is deeper than about four levels and the middle ones matter less than the root and the current page. `Breadcrumb` takes string labels only, so build that trail by hand (a `nav` with an `ol`) and put this between the items. Decorative by default (hidden from screen readers). To let people open the hidden levels, wrap it in a `DropdownMenuTrigger` and give that trigger `aria-label="Show more pages"`.
 
 - Name: `breadcrumb-ellipsis` (component, Navigation)
 - Install: `npx shadcn@latest add @minidev/breadcrumb-ellipsis` or `npm i minidev-ui-kit`
 - Import: `import { BreadcrumbEllipsis } from "@/components/ui/breadcrumb-ellipsis"` (npm: `"minidev-ui-kit/ui/breadcrumb-ellipsis"`)
 - Dependencies: lucide-react
-- Related: dropdown-menu, breadcrumb
+- Related: breadcrumb, dropdown-menu
 - Docs: https://ui.minidev.pro/docs/breadcrumb-ellipsis (Markdown: https://ui.minidev.pro/docs/breadcrumb-ellipsis.md)
 
 Props:
@@ -1089,7 +1124,7 @@ Props:
 
 A navigation trail of links with chevron separators; the last item is the current page.
 
-Use at the top of nested pages (Customers › Northwind › INV-2041). Prefer `BackLink` when there is only one level to go back. Follows the WAI-ARIA breadcrumb pattern: a labelled `nav` with an ordered list, separators hidden from screen readers, and `aria-current="page"` on the last item. Long trails wrap; pass `BreadcrumbEllipsis` yourself if you collapse the middle.
+Use at the top of nested pages (Customers › Northwind › INV-2041). Prefer `BackLink` when there is only one level to go back. Follows the WAI-ARIA breadcrumb pattern: a labelled `nav` with an ordered list, separators hidden from screen readers, and `aria-current="page"` on the last item. Long trails wrap and each label truncates. Labels are strings, so to collapse the middle levels build the trail by hand with `BreadcrumbEllipsis` instead.
 
 - Name: `breadcrumb` (component, Navigation)
 - Install: `npx shadcn@latest add @minidev/breadcrumb` or `npm i minidev-ui-kit`
@@ -1142,13 +1177,13 @@ Props:
 
 A floating bar that appears when table rows are selected: "3 selected", your action buttons and Clear.
 
-Render it under a selectable `DataTable` or list and pass the selection size as `count`; it renders nothing at 0. Sticky to the bottom of its scroll container. The count is a live region, so changes are announced; the bar itself is a labelled region.
+Render it under a `Table` with `RowSelection` checkboxes, or a selectable card list, and pass the selection size as `count`; it renders nothing at 0. `DataTable` with `selectable` has its own bar, so do not add this one there. Sticky to the bottom of its scroll container. The count is a live region, so changes are announced; the bar itself is a labelled region.
 
 - Name: `bulk-actions-bar` (component, Tables)
 - Install: `npx shadcn@latest add @minidev/bulk-actions-bar` or `npm i minidev-ui-kit`
 - Import: `import { BulkActionsBar } from "@/components/ui/bulk-actions-bar"` (npm: `"minidev-ui-kit/ui/bulk-actions-bar"`)
 - Uses: button
-- Related: data-table
+- Related: table, row-selection, data-table
 - Docs: https://ui.minidev.pro/docs/bulk-actions-bar (Markdown: https://ui.minidev.pro/docs/bulk-actions-bar.md)
 
 Props:
@@ -1295,6 +1330,44 @@ Props:
 ```tsx
 const [day, setDay] = React.useState<number>()
 <CalendarMonth month={new Date(2026, 10, 1)} selected={day} onSelect={setDay} />
+```
+
+### Calendar
+
+A month grid for picking one date, a range or several dates, with arrow-key navigation and a range preview on hover.
+
+Use it inline or inside a Popover when people need to see the month: bookings, report periods, availability. Set `mode` to "single", "range" or "multiple"; `value` is then a `Date`, a `{ from, to }` range or a `Date[]`. `months={2}` shows two months side by side from the `sm` breakpoint, and `presets` adds a rail of ready-made ranges in range mode. Bound it with `min`, `max` and `disabled`. Month and day names come from `Intl.DateTimeFormat` in `locale`. It has no frame, so it sits flush in a Popover or card; on its own add `className="rounded-xl border border-border bg-surface shadow-raised"`. For a typed native field use DatePicker or DateRangePicker, for a date plus a time use DateTimePicker, and to show events use EventCalendar.
+
+- Name: `calendar` (component, Forms)
+- Install: `npx shadcn@latest add @minidev/calendar` or `npm i minidev-ui-kit`
+- Import: `import { Calendar } from "@/components/ui/calendar"` (npm: `"minidev-ui-kit/ui/calendar"`)
+- Dependencies: lucide-react, motion
+- Uses: button
+- Related: popover, date-picker, date-range-picker, date-time-picker, event-calendar
+- Docs: https://ui.minidev.pro/docs/calendar (Markdown: https://ui.minidev.pro/docs/calendar.md)
+
+Props:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| mode? | `M` | `"single" as M` | "single" picks one day, "range" a from/to pair, "multiple" any set of days. |
+| value? | `CalendarValue<M> \| null` |  | Controlled selection: a Date, a `{ from, to }` range or a Date[], to match `mode`. |
+| defaultValue? | `CalendarValue<M> \| null` | `null` | Starting selection when uncontrolled. |
+| onValueChange? | `(value: CalendarValue<M>) => void` |  | Fires with the whole new selection on every pick. |
+| months? | `1 \| 2` | `1` | Months shown at once. Two sit side by side from the sm breakpoint and stack on phones. |
+| defaultMonth? | `Date` |  | The first month shown. Defaults to the selection's month, else the current month. |
+| min? | `Date` |  | Earliest day that can be picked. |
+| max? | `Date` |  | Latest day that can be picked. |
+| disabled? | `Date[] \| ((date: Date) => boolean)` |  | Days that cannot be picked: a list of dates or a test function. |
+| weekStartsOn? | `0 \| 1` | `0` | First column of the week: 0 is Sunday, 1 is Monday. |
+| locale? | `string` | `"en-US"` | BCP 47 locale for month, weekday and day labels. Fixed by default so server and client render the same text. |
+| presets? | `CalendarPreset[]` |  | Ready-made ranges shown in a rail beside the grid. Range mode only. |
+| showOutsideDays? | `boolean` | `true` | Show the days of the previous and next month in muted text. |
+| className? | `string` |  |  |
+
+```tsx
+const [range, setRange] = React.useState<DateRange>()
+<Calendar mode="range" months={2} value={range} onValueChange={setRange} defaultMonth={new Date(2026, 10, 1)} />
 ```
 
 ### Callout
@@ -1458,11 +1531,12 @@ Props:
 | title | `string` |  | Headline describing the outcome. Rendered as an h3. |
 | result | `string` |  | The headline figure, pre-formatted (e.g. "2 days", "$1.2M"). |
 | delta? | `number` |  | Optional percent change shown beside the result; negative values render as a decrease. |
+| invertDelta? | `boolean` | `false` | Show a fall in `delta` as good (green), for figures like close time or cost. |
 | href? | `string` |  | Wraps the card in a link when set, so the whole card opens the full story. |
 | className? | `string` |  |  |
 
 ```tsx
-<CaseStudyCard company="Northwind" title="Month-end close in two days" result="2 days" delta={-60} />
+<CaseStudyCard company="Northwind" title="Month-end close in two days" result="2 days" delta={-60} invertDelta />
 ```
 
 ### Center
@@ -1491,12 +1565,12 @@ Props (also accepts <div>):
 
 A "42/280" counter for a text field that turns red past the limit and tells screen readers only when the limit is near.
 
-Place it under a Textarea or Input and point the field's `aria-describedby` at its `id`. It does not block typing; pair it with the field's `maxLength` if you need a hard cap.
+Use it for bios, tweets, SMS bodies and meta descriptions, anywhere a limit is part of the content. Place it under a Textarea or Input and point the field's `aria-describedby` at its `id`. It does not block typing; pair it with the field's `maxLength` if you need a hard cap. For a word count and live preview use MarkdownEditor.
 
 - Name: `character-count` (component, Forms)
 - Install: `npx shadcn@latest add @minidev/character-count` or `npm i minidev-ui-kit`
 - Import: `import { CharacterCount } from "@/components/ui/character-count"` (npm: `"minidev-ui-kit/ui/character-count"`)
-- Related: textarea, input
+- Related: textarea, input, markdown-editor
 - Docs: https://ui.minidev.pro/docs/character-count (Markdown: https://ui.minidev.pro/docs/character-count.md)
 
 Props:
@@ -1552,7 +1626,7 @@ Pass the same colours your chart uses so the key matches. Swatches are decorativ
 - Name: `chart-legend` (component, Charts)
 - Install: `npx shadcn@latest add @minidev/chart-legend` or `npm i minidev-ui-kit`
 - Import: `import { ChartLegend } from "@/components/ui/chart-legend"` (npm: `"minidev-ui-kit/ui/chart-legend"`)
-- Related: chart-card, line-chart
+- Related: chart-card, line-chart, scatter-chart
 - Docs: https://ui.minidev.pro/docs/chart-legend (Markdown: https://ui.minidev.pro/docs/chart-legend.md)
 
 Props:
@@ -1684,7 +1758,7 @@ Use for independent on/off choices and multi-select lists; wrap several in Check
 - Install: `npx shadcn@latest add @minidev/checkbox` or `npm i minidev-ui-kit`
 - Import: `import { Checkbox } from "@/components/ui/checkbox"` (npm: `"minidev-ui-kit/ui/checkbox"`)
 - Dependencies: @base-ui/react
-- Related: checkbox-group, switch, label, row-selection
+- Related: checkbox-group, switch, label, row-selection, signature-pad
 - Docs: https://ui.minidev.pro/docs/checkbox (Markdown: https://ui.minidev.pro/docs/checkbox.md)
 
 Props: CheckboxPrimitive.Root props.
@@ -1789,7 +1863,7 @@ Props (also accepts <button>):
 
 A small inline chip that cites a source in an AI answer: an optional numbered index plus the source name.
 
-Place it inline after the sentence it supports. It renders a button (open a SourceCard or side panel in `onClick`), or a link when `href` is set. For a full source preview use SourceCard; for attached files in a prompt use ContextPill.
+Place it inline after the sentence it supports. It renders a button (open a SourceCard or side panel in `onClick`), or a link when `href` is set. Other props (`onClick`, `aria-label`, `id`…) reach either element. For a full source preview use SourceCard; for attached files in a prompt use ContextPill.
 
 - Name: `citation-chip` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/citation-chip` or `npm i minidev-ui-kit`
@@ -1805,7 +1879,7 @@ Props (also accepts <button>):
 | href? | `string` |  | Renders an external link (opens in a new tab) instead of a button. |
 
 ```tsx
-<p>Refunds settle in 5-10 days <CitationChip index={1} href="https://docs.stripe.com/refunds">Stripe docs</CitationChip></p>
+<p>Refunds settle in 5-10 days <CitationChip index={1} href="https://docs.acme.example/refunds">Refund policy</CitationChip></p>
 ```
 
 ### Cluster
@@ -1890,7 +1964,7 @@ Props:
 
 A Sidebar with a built-in collapse toggle on its edge that shrinks it to an icon rail.
 
-Use as the left rail of an app shell. Uncontrolled by default; pass `collapsed` + `onCollapsedChange` to persist the state. Put SidebarNavItem children inside; their labels truncate when collapsed. For a full layout use AppShell; on mobile use MobileNavDrawer.
+Use as the left rail of an app shell. Uncontrolled by default; pass `collapsed` + `onCollapsedChange` to persist the state. Put SidebarNavItem children inside; when collapsed their labels become screen-reader only, so each icon keeps its name. For a full layout use AppShell; on mobile use MobileNavDrawer.
 
 - Name: `collapsible-sidebar` (component, Navigation)
 - Install: `npx shadcn@latest add @minidev/collapsible-sidebar` or `npm i minidev-ui-kit`
@@ -1964,6 +2038,7 @@ Props:
 | label? | `string` | `"Color"` | Accessible name for the group. Defaults to "Color". |
 | disabled? | `boolean` |  |  |
 | className? | `string` |  |  |
+| name? | `string` |  | Submits the chosen colour string in a hidden input under this name. No name by default. |
 
 ```tsx
 const [color, setColor] = React.useState("oklch(0.52 0.12 150)")
@@ -2011,7 +2086,7 @@ Use when a single choice has more than about 7 options (customers, assignees, co
 - Install: `npx shadcn@latest add @minidev/combobox` or `npm i minidev-ui-kit`
 - Import: `import { Combobox } from "@/components/ui/combobox"` (npm: `"minidev-ui-kit/ui/combobox"`)
 - Dependencies: @base-ui/react, lucide-react
-- Related: select, multi-select, autocomplete, label, form-field, assign-picker, language-picker
+- Related: select, multi-select, autocomplete, label, form-field, assign-picker, country-select, language-picker
 - Docs: https://ui.minidev.pro/docs/combobox (Markdown: https://ui.minidev.pro/docs/combobox.md)
 
 Props:
@@ -2031,6 +2106,8 @@ Props:
 | name? | `string` |  | Submits the selected `value` under this name inside a `<form>`. |
 | required? | `boolean` |  | Requires a selection before the form submits. |
 | aria-label? | `string` |  | Accessible name when there is no visible label. |
+| aria-describedby? | `string` |  | Ids of the hint or error text. FormField passes this in for you. |
+| aria-invalid? | `React.AriaAttributes["aria-invalid"]` |  | Marks the trigger invalid and draws the danger border. FormField sets it when there is an `error`. |
 
 ```tsx
 const [customer, setCustomer] = React.useState("northwind")
@@ -2130,7 +2207,7 @@ Props:
 
 A comment box: a textarea and a submit button that stays disabled until there is text. ⌘/Ctrl+Enter submits.
 
-Use under a CommentThread or on an issue, invoice or review page. For an AI chat input use PromptInput or AiComposer; for @mentions use MentionInput. It clears itself after `onSubmit` and hands you the trimmed text.
+Use under a CommentThread or on an issue, invoice or review page. For an AI chat input use PromptInput or AiComposer; for @mentions use MentionInput. It hands you the trimmed text and clears once `onSubmit` returns, or once its promise resolves. A rejected promise keeps the text so people can try again.
 
 - Name: `comment-composer` (component, Forms)
 - Install: `npx shadcn@latest add @minidev/comment-composer` or `npm i minidev-ui-kit`
@@ -2143,7 +2220,7 @@ Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| onSubmit? | `(value: string) => void` |  | Called with the trimmed text when the user submits. The box then clears. |
+| onSubmit? | `(value: string) => void \| Promise<void>` |  | Called with the trimmed text when the user submits. Return a promise to clear only after it resolves; a rejection keeps the text. |
 | placeholder? | `string` | `"Add a comment…"` |  |
 | label? | `string` | `"Comment"` | Accessible name for the textarea. Defaults to "Comment". |
 | submitLabel? | `string` | `"Comment"` | Submit button text. Defaults to "Comment". |
@@ -2151,7 +2228,7 @@ Props:
 | className? | `string` |  |  |
 
 ```tsx
-<CommentComposer onSubmit={(text) => addComment({ body: text })} submitLabel="Reply" />
+<CommentComposer onSubmit={(text) => api.comments.create({ body: text })} submitLabel="Reply" />
 ```
 
 ### CommentThread
@@ -2240,7 +2317,7 @@ Props:
 
 A ready-made "are you sure?" flow: a red trigger button that opens an alert dialog with Cancel and a destructive Confirm.
 
-Drop it in wherever one destructive action needs a confirmation step. Both buttons close the dialog; `onConfirm` runs on Confirm. Focus starts inside, Escape cancels, and focus returns to the trigger. For custom layouts compose AlertDialog yourself; for type-the-name confirmation use DeleteAccountConfirm; for a settings section use DangerZone.
+Drop it in wherever one destructive action needs a confirmation step. Pass `open` and `onOpenChange` to open it from a menu item instead. Both buttons close the dialog; `onConfirm` runs on Confirm. Focus starts inside, Escape cancels, and focus returns to the trigger. For custom layouts compose AlertDialog yourself; for type-the-name confirmation use DeleteAccountConfirm; for a settings section use DangerZone.
 
 - Name: `confirm-destructive` (component, Overlays)
 - Install: `npx shadcn@latest add @minidev/confirm-destructive` or `npm i minidev-ui-kit`
@@ -2253,13 +2330,13 @@ Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| triggerLabel? | `string` | `"Delete"` | Text of the red trigger button. Defaults to "Delete". |
+| triggerLabel? | `string` | `"Delete"` | Text of the red trigger button. Defaults to "Delete". Not used when `open` is set. |
 | title? | `string` | `"Are you sure?"` | Dialog title, phrased as the question. |
 | description? | `string` | `"This action cannot be undone."` | The consequence, read when the dialog opens. |
 | confirmLabel? | `string` | `"Confirm"` | Confirm button text. Defaults to "Confirm"; prefer the verb, e.g. "Delete invoice". |
 | cancelLabel? | `string` | `"Cancel"` | Cancel button text. Defaults to "Cancel". |
 | onConfirm? | `() => void` |  | Runs when Confirm is pressed, before the dialog closes. |
-| open? | `boolean` |  | Controlled open state. |
+| open? | `boolean` |  | Controlled open state. When set, the red trigger is not rendered, so open it from your own button or menu item. |
 | onOpenChange? | `(open: boolean) => void` |  | Called with the next open state. |
 
 ```tsx
@@ -2393,7 +2470,7 @@ Props:
 
 A rounded pill naming one item attached to an AI prompt (a file, a URL, a selection), with an optional remove button.
 
-Show a row of them above or inside PromptInput for the context the model will see. Pass `onRemove` to make it dismissible. For on/off context toggles use ContextChip; for uploaded files with size and progress use AttachmentChip; for a removable tag use TagsInput.
+Show a row of them above or inside PromptInput for the context the model will see. Pass `onRemove` to make it dismissible. For on/off context toggles use ContextChip; for attached files with a size use AttachmentChip; for a removable tag use TagsInput.
 
 - Name: `context-pill` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/context-pill` or `npm i minidev-ui-kit`
@@ -2527,6 +2604,48 @@ Props:
 <CopyId value="usr_8f2a91c4" />
 ```
 
+### CountrySelect
+
+A searchable country picker whose names come from the browser in any language, with emoji flags and no data files.
+
+Use it for billing, shipping and sign-up forms. The value is an ISO 3166-1 alpha-2 code ("US", "DE"). Search matches the start of any word in the localised or English name, or the exact two-letter code, ignoring accents. Pin the countries most of your users pick with `priority`. Built on Base UI Combobox, styled like Combobox; use Combobox for any other long list and PhoneInput for phone numbers. The `countries(locale)` helper returns the same sorted list for your own fields, such as the country column in TaxFields.
+
+- Name: `country-select` (component, Forms)
+- Install: `npx shadcn@latest add @minidev/country-select` or `npm i minidev-ui-kit`
+- Import: `import { CountrySelect } from "@/components/ui/country-select"` (npm: `"minidev-ui-kit/ui/country-select"`)
+- Dependencies: @base-ui/react, lucide-react
+- Related: combobox, phone-input, tax-fields
+- Docs: https://ui.minidev.pro/docs/country-select (Markdown: https://ui.minidev.pro/docs/country-select.md)
+
+Props:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| value? | `string` |  | Controlled selection, an ISO 3166-1 alpha-2 code such as "US". Leave undefined for an uncontrolled select. |
+| defaultValue? | `string` |  | Initial code for the uncontrolled select. |
+| onValueChange? | `(code: string) => void` |  | Called with the picked country's upper-case code. |
+| locale? | `string` | `"en"` | BCP 47 locale for the country names and their sort order, for example "de" or "ja". |
+| priority? | `string[]` | `[]` | Codes pinned in a "Suggested" group above the rest, in this order. They are not repeated below. |
+| exclude? | `string[]` | `[]` | Codes to leave out, for example countries you do not ship to. |
+| showFlag? | `boolean` | `true` | Show the emoji flag before each name. |
+| placeholder? | `string` | `"Select country"` | Trigger text while nothing is selected. |
+| searchPlaceholder? | `string` | `"Search countries…"` | Placeholder of the search field inside the popup. |
+| emptyText? | `string` | `"No country found"` | Shown when the search matches nothing. |
+| priorityLabel? | `string` | `"Suggested"` | Heading of the `priority` group. |
+| disabled? | `boolean` |  |  |
+| id? | `string` |  | Id for the trigger, so a `<label htmlFor>` or FormField can name it. |
+| name? | `string` |  | Submits the selected code under this name inside a `<form>`. |
+| required? | `boolean` |  | Requires a selection before the form submits. |
+| aria-label? | `string` |  | Accessible name when there is no visible label. |
+| className? | `string` |  | Classes for the trigger button (width defaults to w-64). |
+
+```tsx
+const [country, setCountry] = React.useState("US")
+<FormField id="country" label="Country">
+  <CountrySelect id="country" name="country" value={country} onValueChange={setCountry} priority={["US", "GB", "CA"]} />
+</FormField>
+```
+
 ### CouponInput
 
 A coupon or promo-code field with an Apply button and an inline, announced success or error message.
@@ -2597,7 +2716,7 @@ Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| onCreate? | `(name: string) => void` |  | Called with the trimmed key name. The field clears afterwards. |
+| onCreate? | `(name: string) => void \| Promise<void>` |  | Called with the trimmed key name. The field clears once it returns, or once its promise resolves; a rejected promise keeps the name. |
 | label? | `string` | `"Key name"` | Field label. Defaults to "Key name". |
 | placeholder? | `string` | `"Production"` | Input placeholder. Defaults to "Production". |
 | disabled? | `boolean` |  |  |
@@ -2635,7 +2754,7 @@ Props:
 
 Card details fields with brand-aware formatting, a Luhn check, auto-advance and inline errors; UI only, never sends card data anywhere.
 
-The number groups by brand (Visa, Mastercard and Discover 4-4-4-4, Amex 4-6-5), the brand shows as a text badge, expiry formats to MM / YY and advances on its own, and the CVC expects 4 digits for Amex. Fields carry cc-* autocomplete hints and aria-invalid, and errors appear once a field is left. It formats and checks input in the browser and does not process, tokenize or transmit payments: for real payments prefer your provider's hosted fields (Stripe Elements and the like) for PCI scope, and use this for demos, prototypes or providers that accept raw values. For a saved card use PaymentMethodCard; for a full add-card flow use AddCardForm.
+The number groups by brand (Visa, Mastercard and Discover 4-4-4-4, Amex 4-6-5), the brand shows as a text badge, expiry formats to MM / YY and advances on its own, and the CVC expects 4 digits for Amex. Fields carry cc-* names and autocomplete hints and aria-invalid, and errors appear once a field is left. It formats and checks input in the browser and does not process, tokenize or transmit payments: for real payments prefer your provider's hosted fields (Stripe Elements and the like) for PCI scope, and use this for demos, prototypes or providers that accept raw values. For a saved card use PaymentMethodCard; for a full add-card flow use AddCardForm.
 
 `onChange` receives `{ number, expiry, cvc, brand, name, postalCode, valid }`; `luhn(digits)` is exported for your own checks.
 
@@ -2759,6 +2878,47 @@ Props:
 />
 ```
 
+### DataGrid
+
+An editable spreadsheet grid: arrow keys move between cells, typing edits, and you can paste straight from Excel or Google Sheets.
+
+Use it when people change many values in place: price lists, stock counts, budgets, bulk imports. Columns are text, number, select or checkbox. Shift+arrows select a block, Cmd/Ctrl+C copies it as tab-separated text, Cmd/Ctrl+V pastes a block from a spreadsheet and turns "1,240.50" into a number, Delete clears and Cmd/Ctrl+Z undoes. The grid is controlled: it shows `rows` and hands every edit to `onRowsChange`; without that prop it is read-only. The header and first column stay put while you scroll, and columns resize by dragging the header edge. For sorting, filtering and row selection use DataTable; to edit a single value in a read-only table use InlineCellEdit; for query output use SqlResultTable.
+
+- Name: `data-grid` (component, Tables)
+- Install: `npx shadcn@latest add @minidev/data-grid` or `npm i minidev-ui-kit`
+- Import: `import { DataGrid } from "@/components/ui/data-grid"` (npm: `"minidev-ui-kit/ui/data-grid"`)
+- Uses: checkbox, select
+- Related: data-table, inline-cell-edit, sql-result-table
+- Docs: https://ui.minidev.pro/docs/data-grid (Markdown: https://ui.minidev.pro/docs/data-grid.md)
+
+Props:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| columns | `DataGridColumn<T>[]` |  | Column definitions, left to right. The first column stays visible while scrolling sideways. |
+| rows | `T[]` |  | The rows to show. The grid never copies them: edits go to `onRowsChange`. |
+| onRowsChange? | `(rows: T[]) => void` |  | Fires with a new rows array after each edit, paste, clear or undo. Leave it out for a read-only grid. |
+| getRowId? | `(row: T, index: number) => string` | `(_, i) => String(i)` | Stable key for each row. Defaults to the row index. |
+| rowNumbers? | `boolean` | `true` | Show a numbered column on the left. Click a number to select its row. |
+| aria-label | `string` |  | Accessible name of the grid, such as "Price list". |
+| className? | `string` |  | Size the scroll area here, for example `max-h-[32rem]`. |
+
+```tsx
+const [rows, setRows] = React.useState(products)
+<DataGrid
+  aria-label="Price list"
+  rows={rows}
+  onRowsChange={setRows}
+  getRowId={(r) => r.sku}
+  columns={[
+    { key: "sku", header: "SKU", readOnly: true },
+    { key: "name", header: "Product", width: 220 },
+    { key: "price", header: "Price", type: "number" },
+    { key: "active", header: "Active", type: "checkbox" },
+  ]}
+/>
+```
+
 ### DataTable
 
 A product data table: sortable headers, row selection with a bulk bar, hover row actions, sticky header, density and skeleton loading.
@@ -2815,7 +2975,7 @@ The value is an ISO date string ("2026-11-14"), so store, compare (`a < b`) and 
 - Install: `npx shadcn@latest add @minidev/date-picker` or `npm i minidev-ui-kit`
 - Import: `import { DatePicker } from "@/components/ui/date-picker"` (npm: `"minidev-ui-kit/ui/date-picker"`)
 - Uses: input
-- Related: date-range-picker, time-picker, calendar-month, label, form-field
+- Related: date-range-picker, time-picker, calendar-month, label, form-field, calendar, date-time-picker
 - Docs: https://ui.minidev.pro/docs/date-picker (Markdown: https://ui.minidev.pro/docs/date-picker.md)
 
 Props:
@@ -2851,7 +3011,7 @@ Use for from/to filters, reporting periods and bookings. For a single date use `
 - Install: `npx shadcn@latest add @minidev/date-range-picker` or `npm i minidev-ui-kit`
 - Import: `import { DateRangePicker } from "@/components/ui/date-range-picker"` (npm: `"minidev-ui-kit/ui/date-range-picker"`)
 - Uses: date-picker
-- Related: date-picker, calendar-month, report-builder
+- Related: date-picker, calendar-month, calendar, report-builder
 - Docs: https://ui.minidev.pro/docs/date-range-picker (Markdown: https://ui.minidev.pro/docs/date-range-picker.md)
 
 Props:
@@ -2865,11 +3025,54 @@ Props:
 | className? | `string` |  |  |
 | fromId? | `string` |  | Id for the start input, to point an external <label> at it. |
 | toId? | `string` |  | Id for the end input. |
+| fromName? | `string` |  | Form field name for the start date, so FormData includes it. No name by default. |
+| toName? | `string` |  | Form field name for the end date. |
 | aria-label? | `string` |  | Accessible name for the group. |
 
 ```tsx
 const [range, setRange] = React.useState<DateRange>({ from: "2026-11-01", to: "2026-11-30" })
 <DateRangePicker value={range} onChange={setRange} />
+<DateRangePicker fromName="from" toName="to" /> // submits both days with a <form>
+```
+
+### DateTimePicker
+
+One field for a date and a time: a calendar and a time list in a popover, with past times disabled on today.
+
+Use it for meetings, scheduled sends, deploy windows and deadlines, anywhere a single moment matters. The value is a `Date` (or `null` when empty). Pass `min={new Date()}` to block past days and the past slots of today; slots are `minuteStep` minutes apart. The trigger shows the value through `Intl.DateTimeFormat` (medium date, short time), and the time list follows the locale's 12 or 24 hour clock unless `hour12` is set. Pass `name` to submit it with a form as an ISO string. For a date alone use Calendar or DatePicker; for a time alone use TimePicker.
+
+- Name: `date-time-picker` (component, Forms)
+- Install: `npx shadcn@latest add @minidev/date-time-picker` or `npm i minidev-ui-kit`
+- Import: `import { DateTimePicker } from "@/components/ui/date-time-picker"` (npm: `"minidev-ui-kit/ui/date-time-picker"`)
+- Dependencies: lucide-react
+- Uses: button, calendar, popover
+- Related: calendar, date-picker, time-picker
+- Docs: https://ui.minidev.pro/docs/date-time-picker (Markdown: https://ui.minidev.pro/docs/date-time-picker.md)
+
+Props:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| value? | `Date \| null` |  | Controlled value, or `null` for empty. |
+| defaultValue? | `Date \| null` | `null` | Starting value when uncontrolled. |
+| onValueChange? | `(value: Date \| null) => void` |  | Fires with the new Date, or `null` after Clear. |
+| minuteStep? | `5 \| 15 \| 30` | `15` | Minutes between time slots. |
+| hour12? | `boolean` |  | Force a 12 or 24 hour clock. Defaults to the locale's clock. |
+| min? | `Date` |  | Earliest moment. Days before it and earlier slots on its day are disabled. |
+| max? | `Date` |  | Latest moment. Days after it and later slots on its day are disabled. |
+| disabled? | `boolean` | `false` | Disable the trigger. |
+| placeholder? | `string` | `"Pick a date and time"` | Trigger text while empty. |
+| timeZoneLabel? | `string` |  | Time zone note in the popover footer, such as "Times in Europe/Berlin". |
+| locale? | `string` | `"en-US"` | BCP 47 locale for the trigger, the calendar and the time labels. |
+| weekStartsOn? | `0 \| 1` | `0` | First column of the calendar week: 0 is Sunday, 1 is Monday. |
+| name? | `string` |  | Form field name. Submits the value as an ISO 8601 string in UTC, or "" when empty. |
+| id? | `string` |  | Id for a `<label htmlFor>` or FormField. |
+| className? | `string` |  |  |
+| aria-label? | `string` |  | What the moment is for, such as "Send at". The value is appended to it. |
+
+```tsx
+const [when, setWhen] = React.useState<Date | null>(null)
+<DateTimePicker value={when} onValueChange={setWhen} min={new Date()} minuteStep={30} timeZoneLabel="Europe/Berlin" aria-label="Send at" />
 ```
 
 ### DeleteAccountConfirm
@@ -2901,13 +3104,13 @@ Props:
 
 A two-option Compact / Comfortable switch for table and list row density.
 
-Use in a table toolbar or view menu. For other short option sets use `SegmentedControl`; for on/off settings use `Switch`.
+Use in a `TableToolbar` or view menu to let people fit more rows on screen. It always keeps one option pressed. `DataTable` takes "compact", "default" or "comfortable", so pass the value through or map "comfortable" to "default". For other short option sets use `SegmentedControl`; for on/off settings use `Switch`.
 
 - Name: `density-toggle` (component, Tables)
 - Install: `npx shadcn@latest add @minidev/density-toggle` or `npm i minidev-ui-kit`
 - Import: `import { DensityToggle } from "@/components/ui/density-toggle"` (npm: `"minidev-ui-kit/ui/density-toggle"`)
 - Uses: toggle, toggle-group
-- Related: segmented-control, switch
+- Related: table-toolbar, data-table, segmented-control, switch
 - Docs: https://ui.minidev.pro/docs/density-toggle (Markdown: https://ui.minidev.pro/docs/density-toggle.md)
 
 Props:
@@ -3022,7 +3225,7 @@ Use for one ratio at a glance (storage used, goal reached). For several slices u
 - Name: `donut-chart` (component, Charts)
 - Install: `npx shadcn@latest add @minidev/donut-chart` or `npm i minidev-ui-kit`
 - Import: `import { DonutChart } from "@/components/ui/donut-chart"` (npm: `"minidev-ui-kit/ui/donut-chart"`)
-- Related: pie-chart, radial-chart, gauge-chart, meter, progress, horizontal-bar-chart
+- Related: pie-chart, radial-chart, gauge-chart, meter, progress, heatmap-cell, horizontal-bar-chart
 - Docs: https://ui.minidev.pro/docs/donut-chart (Markdown: https://ui.minidev.pro/docs/donut-chart.md)
 
 Props:
@@ -3077,7 +3280,7 @@ Props:
 
 A bottom sheet for quick actions and mobile forms: a Sheet that slides up from the bottom edge.
 
-Uncontrolled, it renders its own trigger button (pass `trigger` to replace it). Controlled, pass `open` and `onClose` and render your own trigger. For a side panel use `Sheet`; for a centred modal use `Dialog`; for an iOS style action list use `MobileActionSheet`.
+Uncontrolled, it renders its own trigger button, or the element you pass as `trigger`, wired to open it. Controlled, pass `open` and `onClose` and render your own trigger. For a side panel use `Sheet`; for a centred modal use `Dialog`; for an iOS style action list use `MobileActionSheet`.
 
 - Name: `drawer` (component, Overlays)
 - Install: `npx shadcn@latest add @minidev/drawer` or `npm i minidev-ui-kit`
@@ -3095,7 +3298,7 @@ Props:
 | side? | `"left" \| "right" \| "top" \| "bottom"` | `"bottom"` | Edge the drawer slides from. |
 | title? | `string` |  | Title in the drawer's header bar. |
 | children? | `React.ReactNode` |  | Drawer content. Defaults to a Lumen invoice action list. |
-| trigger? | `React.ReactNode` |  | Rendered when the drawer is uncontrolled. Defaults to an "Open drawer" button. |
+| trigger? | `React.ReactNode` |  | Element that opens the drawer when it is uncontrolled; its own onClick still runs. Defaults to an "Open drawer" button. |
 | className? | `string` |  | Extra classes for the panel. |
 
 ```tsx
@@ -3196,7 +3399,7 @@ It is an <a>, because email clients follow links, not buttons. Use one per email
 - Name: `email-button` (component, Email)
 - Install: `npx shadcn@latest add @minidev/email-button` or `npm i minidev-ui-kit`
 - Import: `import { EmailButton } from "@/components/ui/email-button"` (npm: `"minidev-ui-kit/ui/email-button"`)
-- Related: email-layout, button
+- Related: email-layout, button, email-card
 - Docs: https://ui.minidev.pro/docs/email-button (Markdown: https://ui.minidev.pro/docs/email-button.md)
 
 Props:
@@ -3215,12 +3418,12 @@ Props:
 
 A bordered content block inside an email body, with an optional title.
 
-Use inside `EmailLayout` to group a receipt summary, a code or a callout. For cards in the app use `Card`.
+Use inside `EmailLayout` to group a receipt summary, a sign-in code or a callout. It has `mx-6 my-4` built in to line up with `EmailHeader` and `EmailFooter`, so place it directly in the layout, not inside another padded block. For the call to action use `EmailButton`; for cards in the app use `Card`.
 
 - Name: `email-card` (component, Email)
 - Install: `npx shadcn@latest add @minidev/email-card` or `npm i minidev-ui-kit`
 - Import: `import { EmailCard } from "@/components/ui/email-card"` (npm: `"minidev-ui-kit/ui/email-card"`)
-- Related: email-layout, card
+- Related: email-layout, email-header, email-footer, email-button, card
 - Docs: https://ui.minidev.pro/docs/email-card (Markdown: https://ui.minidev.pro/docs/email-card.md)
 
 Props:
@@ -3245,7 +3448,7 @@ Use as the last child of `EmailLayout`. Marketing email must carry a working uns
 - Install: `npx shadcn@latest add @minidev/email-footer` or `npm i minidev-ui-kit`
 - Import: `import { EmailFooter } from "@/components/ui/email-footer"` (npm: `"minidev-ui-kit/ui/email-footer"`)
 - Uses: link
-- Related: email-layout
+- Related: email-layout, email-card, email-header
 - Docs: https://ui.minidev.pro/docs/email-footer (Markdown: https://ui.minidev.pro/docs/email-footer.md)
 
 Props:
@@ -3269,12 +3472,12 @@ Props:
 
 The top band of an email template with the sender's brand name.
 
-Use as the first child of `EmailLayout`. Pass `children` to replace the brand text with a logo.
+Use as the first child of `EmailLayout`, above the body and any `EmailCard`. Pass `children` to replace the brand text with a logo image (absolute URL, fixed width and height, and `alt` set to the brand name). Its 24px side padding lines up with `EmailCard` and `EmailFooter`.
 
 - Name: `email-header` (component, Email)
 - Install: `npx shadcn@latest add @minidev/email-header` or `npm i minidev-ui-kit`
 - Import: `import { EmailHeader } from "@/components/ui/email-header"` (npm: `"minidev-ui-kit/ui/email-header"`)
-- Related: email-layout
+- Related: email-layout, email-card, email-footer
 - Docs: https://ui.minidev.pro/docs/email-header (Markdown: https://ui.minidev.pro/docs/email-header.md)
 
 Props:
@@ -3339,7 +3542,7 @@ Props:
 | className? | `string` |  |  |
 
 ```tsx
-<EmailPreviewFrame subject="Your invoice from Lumen" from="billing@lumen.dev">
+<EmailPreviewFrame subject="Your invoice from Lumen" from="billing@lumen.example">
   <EmailLayout>...</EmailLayout>
 </EmailPreviewFrame>
 ```
@@ -3546,7 +3749,7 @@ Use for meeting and shift schedules. Events are plain objects with Date `start` 
 - Import: `import { EventCalendar } from "@/components/ui/event-calendar"` (npm: `"minidev-ui-kit/ui/event-calendar"`)
 - Dependencies: lucide-react
 - Uses: button, segmented-control
-- Related: calendar-month, calendar-agenda, gantt-chart
+- Related: calendar-month, calendar-agenda, gantt-chart, calendar
 - Docs: https://ui.minidev.pro/docs/event-calendar (Markdown: https://ui.minidev.pro/docs/event-calendar.md)
 
 Props:
@@ -3615,7 +3818,7 @@ Props:
 
 A settings row that explains a data export and offers one button to request it.
 
-Use on account or workspace settings pages (GDPR exports, backups). For a destructive action use `DangerZone`; for a download list use `FileList`.
+Use on account or workspace settings pages (GDPR exports, backups). It only calls `onExport`: building the file and showing progress are yours, through `description` and `actionLabel`. For a destructive action use `DangerZone`; for a download list use `FileList`.
 
 - Name: `export-data` (component, Settings)
 - Install: `npx shadcn@latest add @minidev/export-data` or `npm i minidev-ui-kit`
@@ -3690,6 +3893,8 @@ Props:
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | items? | `Faq[]` | `SAMPLE_ITEMS` | Question and answer pairs. Defaults to Lumen billing questions. |
+| defaultValue? | `string[]` |  | Items open on first render, as `faq-0`, `faq-1` and so on. Defaults to none. |
+| multiple? | `boolean` | `false` | Let several answers stay open at once. Defaults to one at a time. |
 | className? | `string` |  |  |
 
 ```tsx
@@ -3805,6 +4010,7 @@ Props:
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | onFiles? | `(files: File[]) => void` |  | Called with accepted files every time files are added. |
+| onRemove? | `(file: File) => void` |  | Called with the file when someone removes it from the list. |
 | upload? | `(file: File, onProgress: (p: number) => void) => Promise<void>` |  | Optional uploader. Call onProgress(0..1) as bytes go out; throw to fail. Without it, files are listed as done immediately. |
 | accept? | `string` |  | Same syntax as <input accept>: MIME types, wildcards and extensions, e.g. "image/*,.pdf". |
 | multiple? | `boolean` | `true` | Allow several files at once. When false, a new file replaces the previous one. |
@@ -3980,7 +4186,7 @@ const [q, setQ] = React.useState("")
 
 A round, fixed-position primary button in the bottom-right corner of the viewport.
 
-Use for the one primary action of a mobile or canvas screen ("New invoice"). Takes every `Button` prop. An icon-only FAB must have an `aria-label`. For an inline primary action use `Button`; for a sticky bottom action bar use `StickyBar`.
+Use for the one primary action of a mobile or canvas screen ("New invoice"). Takes every `Button` prop, and `aria-label` is required so an icon-only FAB always has a name. For an inline primary action use `Button`; for a sticky bottom action bar use `StickyBar`.
 
 - Name: `floating-action-button` (component, Buttons)
 - Install: `npx shadcn@latest add @minidev/floating-action-button` or `npm i minidev-ui-kit`
@@ -3989,7 +4195,11 @@ Use for the one primary action of a mobile or canvas screen ("New invoice"). Tak
 - Related: button, sticky-bar
 - Docs: https://ui.minidev.pro/docs/floating-action-button (Markdown: https://ui.minidev.pro/docs/floating-action-button.md)
 
-Props: Button props.
+Props (also accepts Button props):
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| aria-label | `string` |  |  |
 
 ```tsx
 <FloatingActionButton aria-label="New invoice" onClick={create}>
@@ -4022,6 +4232,7 @@ Props:
 | value? | `string` |  | Controlled text. |
 | defaultValue? | `string` | `""` | Initial text when uncontrolled. |
 | onChange? | `(value: string) => void` |  | Called with the new text on every keystroke. |
+| onBlur? | `() => void` |  | Called when the field loses focus, e.g. React Hook Form's `field.onBlur` to mark it touched. |
 | icon? | `React.ReactNode` |  | Icon shown at the start of the field (inputs only). |
 | hint? | `React.ReactNode` |  | Helper text under the field, linked with aria-describedby. |
 | error? | `React.ReactNode` |  | Error message. Marks the field invalid and replaces the hint. |
@@ -4074,7 +4285,7 @@ Props:
 
 A one-line site footer: brand on the left, a row of quiet links on the right.
 
-Use for app and docs footers with a handful of links. For a marketing footer with titled link columns use `FooterMega`.
+Use for app and docs footers with a handful of links (docs, status, privacy, terms). The links wrap onto a second line on narrow screens. `brand` is plain text and links have no `target`, so edit the file for a logo or new-tab links. For a marketing footer with titled link columns use `FooterMega`.
 
 - Name: `footer-nav` (component, Navigation)
 - Install: `npx shadcn@latest add @minidev/footer-nav` or `npm i minidev-ui-kit`
@@ -4112,7 +4323,7 @@ Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| onSubmit? | `(email: string) => void \| Promise<void>` |  | Called with the email address on submit. Return a promise to show a pending state until it settles. |
+| onSubmit? | `(email: string) => void \| Promise<void>` |  | Called with the email address on submit. Return a promise to show a pending state until it settles; if it rejects, the form shows "Something went wrong. Try again." |
 | title? | `React.ReactNode` | `"Forgot password"` | Card heading. |
 | description? | `React.ReactNode` | `"We'll email you a link to reset it."` | Line under the heading. |
 | className? | `string` |  |  |
@@ -4380,12 +4591,12 @@ Props:
 
 One square of a heatmap, tinted from sunken to accent by intensity.
 
-Use it to build custom grids (activity by hour, usage by day). For a ready year of daily cells use StreakCalendar.
+Use it to build custom grids (activity by hour, usage by day): map your data into a CSS grid and pass each count normalised to 0..1 as `intensity`, with a `label` such as "Tue 14:00, 42 runs". For a ready year of daily cells use StreakCalendar; for a single ratio use DonutChart or Meter.
 
 - Name: `heatmap-cell` (component, Charts)
 - Install: `npx shadcn@latest add @minidev/heatmap-cell` or `npm i minidev-ui-kit`
 - Import: `import { HeatmapCell } from "@/components/ui/heatmap-cell"` (npm: `"minidev-ui-kit/ui/heatmap-cell"`)
-- Related: streak-calendar
+- Related: streak-calendar, donut-chart, meter
 - Docs: https://ui.minidev.pro/docs/heatmap-cell (Markdown: https://ui.minidev.pro/docs/heatmap-cell.md)
 
 Props:
@@ -4559,7 +4770,7 @@ const blob = await getCroppedBlob(url, rect!, { type: "image/webp", width: 1200 
 
 A square-tile image grid, two columns on phones and three from the small breakpoint up.
 
-Use it for a static set of photos or screenshots. For mixed heights use MasonryGrid, for one image at a time use Carousel, and to open a tile full screen wrap it in ImageLightbox.
+Use it for a static set of photos or screenshots. For mixed heights use MasonryGrid, for a swipeable row use Carousel, and to let visitors open a tile larger render each image as an ImageLightbox in your own grid.
 
 - Name: `image-gallery` (component, Media)
 - Install: `npx shadcn@latest add @minidev/image-gallery` or `npm i minidev-ui-kit`
@@ -4620,7 +4831,7 @@ The preview uses an object URL that the component revokes when the image is repl
 - Import: `import { ImageUpload } from "@/components/ui/image-upload"` (npm: `"minidev-ui-kit/ui/image-upload"`)
 - Dependencies: lucide-react
 - Uses: file-dropzone
-- Related: avatar-upload, file-dropzone, image-cropper
+- Related: avatar-upload, file-dropzone, image-cropper, signature-pad
 - Docs: https://ui.minidev.pro/docs/image-upload (Markdown: https://ui.minidev.pro/docs/image-upload.md)
 
 Props:
@@ -4701,7 +4912,7 @@ It uses IntersectionObserver, never fires twice for the same page, shows a loadi
 - Install: `npx shadcn@latest add @minidev/infinite-scroll` or `npm i minidev-ui-kit`
 - Import: `import { InfiniteScroll } from "@/components/ui/infinite-scroll"` (npm: `"minidev-ui-kit/ui/infinite-scroll"`)
 - Uses: button, spinner
-- Related: virtual-list, pagination
+- Related: virtual-list, pagination, virtualized-list
 - Docs: https://ui.minidev.pro/docs/infinite-scroll (Markdown: https://ui.minidev.pro/docs/infinite-scroll.md)
 
 Props:
@@ -4711,7 +4922,7 @@ Props:
 | loadMore? | `(page: number) => Promise<{ items: T[]; hasMore: boolean }>` |  | Fetch a page (0-based); return its items and whether more remain. Throw to show Retry. |
 | renderItem? | `(item: T, index: number) => React.ReactNode` |  | Renders one item. Each is wrapped in an li. |
 | rootMargin? | `string` | `"240px"` | How far before the end to start loading, as a CSS margin. |
-| label? | `string` | `"Results"` | Accessible name for the list. |
+| label? | `string` | `"Results"` | Accessible name for the focusable scroll box and the list inside it. |
 | className? | `string` |  |  |
 
 ```tsx
@@ -4761,7 +4972,7 @@ Use it for quick edits inside DataTable or Table rows. For a heading edited in p
 - Install: `npx shadcn@latest add @minidev/inline-cell-edit` or `npm i minidev-ui-kit`
 - Import: `import { InlineCellEdit } from "@/components/ui/inline-cell-edit"` (npm: `"minidev-ui-kit/ui/inline-cell-edit"`)
 - Uses: input
-- Related: data-table, table, editable-heading, dialog, sheet
+- Related: data-table, table, editable-heading, dialog, sheet, data-grid
 - Docs: https://ui.minidev.pro/docs/inline-cell-edit (Markdown: https://ui.minidev.pro/docs/inline-cell-edit.md)
 
 Props:
@@ -4905,7 +5116,7 @@ Use it for one headline series over time with an optional "last period" line (re
 - Install: `npx shadcn@latest add @minidev/interactive-area-chart` or `npm i minidev-ui-kit`
 - Import: `import { InteractiveAreaChart } from "@/components/ui/interactive-area-chart"` (npm: `"minidev-ui-kit/ui/interactive-area-chart"`)
 - Uses: area-chart
-- Related: area-chart, line-chart, stat-sparkline
+- Related: area-chart, line-chart, stat-sparkline, scatter-chart
 - Docs: https://ui.minidev.pro/docs/interactive-area-chart (Markdown: https://ui.minidev.pro/docs/interactive-area-chart.md)
 
 Props:
@@ -5161,6 +5372,7 @@ Props:
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | columns? | `KanbanColumn[]` | `SAMPLE_COLUMNS` | Columns left to right, each with its cards. Defaults to a Lumen engineering board. |
+| aria-label? | `string` |  | Accessible name for the focusable, scrolling board. |
 | className? | `string` |  |  |
 
 ```tsx
@@ -5277,7 +5489,7 @@ Props:
 
 The caption for a form control; point htmlFor at the control's id so clicking it focuses the field.
 
-Use it beside Input, Textarea, Checkbox, Switch and friends. It dims when a sibling `peer` control is disabled or a `group` ancestor has data-disabled="true". For a label with description and error text wired up for you use FormField.
+Use it beside Input, Textarea, Checkbox, Switch and friends. It dims when a native `peer` control before it is `:disabled` or a `group` ancestor has data-disabled="true"; Base UI controls (Checkbox, Switch, Radio) render a span, so use the `group` wrapper for those. For a label with description and error text wired up for you use FormField.
 
 - Name: `label` (component, Forms)
 - Install: `npx shadcn@latest add @minidev/label` or `npm i minidev-ui-kit`
@@ -5301,7 +5513,7 @@ Works as a radio group: Tab enters at the selected language, arrow keys move and
 - Name: `language-picker` (component, Settings)
 - Install: `npx shadcn@latest add @minidev/language-picker` or `npm i minidev-ui-kit`
 - Import: `import { LanguagePicker } from "@/components/ui/language-picker"` (npm: `"minidev-ui-kit/ui/language-picker"`)
-- Related: select, combobox, region-picker
+- Related: select, combobox, region-picker, timezone-select
 - Docs: https://ui.minidev.pro/docs/language-picker (Markdown: https://ui.minidev.pro/docs/language-picker.md)
 
 Props:
@@ -5380,7 +5592,7 @@ Use it to compare a few series over the same periods (MRR, expansion, churn). Fo
 - Install: `npx shadcn@latest add @minidev/line-chart` or `npm i minidev-ui-kit`
 - Import: `import { LineChart } from "@/components/ui/line-chart"` (npm: `"minidev-ui-kit/ui/line-chart"`)
 - Uses: area-chart
-- Related: interactive-area-chart, area-chart, stat-sparkline, chart-legend, chart-card
+- Related: interactive-area-chart, area-chart, stat-sparkline, chart-legend, chart-card, scatter-chart
 - Docs: https://ui.minidev.pro/docs/line-chart (Markdown: https://ui.minidev.pro/docs/line-chart.md)
 
 Props:
@@ -5605,7 +5817,7 @@ Use it for release notes, comments, descriptions and docs fields. For rendering 
 - Import: `import { MarkdownEditor, MarkdownPreview } from "@/components/ui/markdown-editor"` (npm: `"minidev-ui-kit/ui/markdown-editor"`)
 - Dependencies: lucide-react
 - Uses: segmented-control
-- Related: markdown-renderer, rich-text-toolbar, prompt-input, textarea
+- Related: markdown-renderer, rich-text-toolbar, prompt-input, character-count, textarea
 - Docs: https://ui.minidev.pro/docs/markdown-editor (Markdown: https://ui.minidev.pro/docs/markdown-editor.md)
 
 Props:
@@ -5623,6 +5835,7 @@ Props:
 | minHeight? | `number` | `300` | Editor and preview height in px before the textarea is resized. |
 | disabled? | `boolean` |  |  |
 | className? | `string` |  |  |
+| name? | `string` |  | Submits the markdown under this name in a hidden input, so it is sent in every mode, including preview. No name by default. |
 
 ```tsx
 <MarkdownEditor value={notes} onChange={setNotes} label="Release notes" defaultMode="write" />
@@ -5731,7 +5944,7 @@ Props:
 
 A masonry layout that keeps source order, for cards of uneven height.
 
-A CSS grid with tiny rows where each item spans as many rows as its measured height. Items flow left to right, so keyboard and screen reader order match what you see, and the column count follows the container width. Use it for galleries, notes and testimonials; for equal-height cards use a plain grid. Each child is measured, so pass one element per item (no fragments).
+A CSS grid with tiny rows where each item spans as many rows as its measured height. Items flow left to right, so keyboard and screen reader order match what you see, and the column count follows the container width. Use it for galleries, notes and testimonials; for equal-height cards use a plain grid. Each child is measured, so pass one element per item (no fragments). Other div props (aria-label, role, id) go on the grid element.
 
 - Name: `masonry-grid` (component, Layout)
 - Install: `npx shadcn@latest add @minidev/masonry-grid` or `npm i minidev-ui-kit`
@@ -5739,7 +5952,7 @@ A CSS grid with tiny rows where each item spans as many rows as its measured hei
 - Related: image-gallery
 - Docs: https://ui.minidev.pro/docs/masonry-grid (Markdown: https://ui.minidev.pro/docs/masonry-grid.md)
 
-Props:
+Props (also accepts <div>):
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -5847,14 +6060,14 @@ Props:
 
 The copy, retry, thumbs up and thumbs down row under an AI reply.
 
-Pass `feedback` to show which thumb is on; the buttons expose it as aria-pressed. Place it under a MessageBubble with role="assistant".
+Place it under a MessageBubble with role="assistant". It holds no state: each button only calls its handler, so copy the text in `onCopy` and pass the stored vote back as `feedback` to show the pressed thumb. A button renders only when its handler is set (the thumbs also when `feedback` is set), so pass just the actions you support. For a vote that toggles itself use `FeedbackThumbs`; for a "Not quite right?" footer with Regenerate use `RegenerateBar`.
 
 - Name: `message-actions` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/message-actions` or `npm i minidev-ui-kit`
 - Import: `import { MessageActions } from "@/components/ui/message-actions"` (npm: `"minidev-ui-kit/ui/message-actions"`)
 - Dependencies: lucide-react
 - Uses: icon-button
-- Related: message-bubble, feedback-thumbs
+- Related: message-bubble, feedback-thumbs, regenerate-bar, message-branch
 - Docs: https://ui.minidev.pro/docs/message-actions (Markdown: https://ui.minidev.pro/docs/message-actions.md)
 
 Props:
@@ -5878,6 +6091,41 @@ Props:
 />
 ```
 
+### MessageBranch
+
+The "‹ 2 / 3 ›" switcher that moves between the versions of an AI reply after a regenerate or an edited prompt.
+
+Wrap the assistant reply: pass every version in `versions` (or as children) and it shows one, with a compact selector underneath. The selector hides itself while there is only one version, and in uncontrolled mode a newly added version is shown straight away. Put MessageActions in `actions` to get the selector and the copy, retry and vote buttons on one row. For the "Not quite right?" footer use RegenerateBar.
+
+- Name: `message-branch` (component, AI chat)
+- Install: `npx shadcn@latest add @minidev/message-branch` or `npm i minidev-ui-kit`
+- Import: `import { MessageBranch } from "@/components/ui/message-branch"` (npm: `"minidev-ui-kit/ui/message-branch"`)
+- Dependencies: lucide-react, motion
+- Uses: icon-button
+- Related: message-actions, regenerate-bar
+- Docs: https://ui.minidev.pro/docs/message-branch (Markdown: https://ui.minidev.pro/docs/message-branch.md)
+
+Props:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| versions? | `React.ReactNode[]` |  | Every version of the reply, oldest first. When omitted, each child is one version. |
+| children? | `React.ReactNode` |  | Versions as children, used when `versions` is not passed. |
+| index? | `number` |  | Controlled index of the version shown (0-based). |
+| defaultIndex? | `number` |  | Starting index when uncontrolled. Defaults to the newest version. |
+| onIndexChange? | `(index: number) => void` |  | Fires with the new 0-based index when the user switches version. |
+| hideWhenSingle? | `boolean` | `true` | Hide the selector while there is only one version. |
+| label? | `string` | `"Response"` | What one version is called in the screen reader text: "Response 2 of 3", "Previous response". |
+| actions? | `React.ReactNode` |  | Rendered on the selector row after the switcher, for example MessageActions. |
+| className? | `string` |  |  |
+
+```tsx
+<MessageBranch
+  versions={replies.map((r) => <Markdown key={r.id}>{r.text}</Markdown>)}
+  actions={<MessageActions onRetry={regenerate} />}
+/>
+```
+
 ### MessageBubble
 
 One chat turn: user turns sit in a sunken capsule, assistant turns are plain prose, system turns are a quiet rule.
@@ -5888,7 +6136,7 @@ Use it for AI chat transcripts. Set `streaming` while tokens arrive to show a bl
 - Install: `npx shadcn@latest add @minidev/message-bubble` or `npm i minidev-ui-kit`
 - Import: `import { MessageBubble } from "@/components/ui/message-bubble"` (npm: `"minidev-ui-kit/ui/message-bubble"`)
 - Uses: streaming-cursor
-- Related: message-actions, markdown-renderer
+- Related: message-actions, markdown-renderer, streaming-cursor
 - Docs: https://ui.minidev.pro/docs/message-bubble (Markdown: https://ui.minidev.pro/docs/message-bubble.md)
 
 Props:
@@ -5909,12 +6157,12 @@ Props:
 
 A labelled bar showing how much of a known range is used (storage, quota, seats).
 
-Exposes role="meter" with the value and a percentage text. Use Meter for a level that can go up and down; use Progress for a task moving toward done.
+Exposes role="meter" with the value and a percentage text. Use Meter for a level that can go up and down; use Progress for a task moving toward done, and QuotaBar when the fill should turn warning or danger near a limit. Pass `valueText` with units ("42 of 50 GB") so screen readers hear the amount.
 
 - Name: `meter` (component, Feedback)
 - Install: `npx shadcn@latest add @minidev/meter` or `npm i minidev-ui-kit`
 - Import: `import { Meter } from "@/components/ui/meter"` (npm: `"minidev-ui-kit/ui/meter"`)
-- Related: progress, donut-chart, gauge-chart, goal-ring, usage-meter
+- Related: progress, quota-bar, donut-chart, gauge-chart, goal-ring, heatmap-cell, usage-meter
 - Docs: https://ui.minidev.pro/docs/meter (Markdown: https://ui.minidev.pro/docs/meter.md)
 
 Props:
@@ -6075,6 +6323,7 @@ Props:
 | models? | `Model[]` | `SAMPLE_MODELS` | Options in display order. |
 | placeholder? | `string` | `"Select model"` | Trigger text when nothing is selected. |
 | disabled? | `boolean` |  |  |
+| name? | `string` |  | Form field name; when set, the chosen model id is submitted with the form. |
 | aria-label? | `string` |  | Accessible name for the trigger. Defaults to "Model". |
 | className? | `string` |  | Classes for the trigger. Defaults to a 224px width. |
 
@@ -6142,6 +6391,7 @@ Props:
 | disabled? | `boolean` |  |  |
 | aria-label? | `string` |  | Accessible name for the trigger, e.g. "Reviewers". The current selection is read after it. |
 | className? | `string` |  | Classes for the trigger button. |
+| name? | `string` |  | Submits each selected value as its own hidden input under this name, so `FormData.getAll(name)` returns the array. No name by default. |
 
 ```tsx
 const [reviewers, setReviewers] = React.useState<string[]>([])
@@ -6226,7 +6476,7 @@ Groups are disclosure buttons (aria-expanded); leaves are links when they have a
 - Install: `npx shadcn@latest add @minidev/nested-nav` or `npm i minidev-ui-kit`
 - Import: `import { NestedNav } from "@/components/ui/nested-nav"` (npm: `"minidev-ui-kit/ui/nested-nav"`)
 - Dependencies: lucide-react
-- Related: tree-view, org-chart
+- Related: tree-view, org-chart, sidebar-section
 - Docs: https://ui.minidev.pro/docs/nested-nav (Markdown: https://ui.minidev.pro/docs/nested-nav.md)
 
 Props:
@@ -6320,7 +6570,7 @@ Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| code | `string` |  | Source shown in the editor frame. |
+| code | `string` |  | Source shown in the editor frame. Line breaks and indentation are kept; long lines wrap. |
 | output? | `string \| null` |  | Result text. Omit (or pass null) to hide the output area. |
 | onRun? | `() => void` |  | Called by the run button. |
 | running? | `boolean` | `false` | The cell is executing: disables run and marks the cell busy. |
@@ -6366,7 +6616,7 @@ Props:
 
 One row of a notification list: title, body, relative time and an unread dot.
 
-The time renders with RelativeTime ("42 min ago") and is hydration-safe. Unread rows get a tinted background, an accent dot and "Unread" for screen readers. Stack rows in a list; for the bell-and-popover inbox use NotificationInbox.
+The time renders with RelativeTime ("42m ago") and is hydration-safe. Unread rows get a tinted background, an accent dot and "Unread" for screen readers. Stack rows in a list; for the bell-and-popover inbox use NotificationInbox.
 
 - Name: `notification-item` (component, Feedback)
 - Install: `npx shadcn@latest add @minidev/notification-item` or `npm i minidev-ui-kit`
@@ -6524,7 +6774,7 @@ Props:
 | --- | --- | --- | --- |
 | title? | `React.ReactNode` | `"You are offline"` | Heading text. |
 | description? | `React.ReactNode` | `"Cached registry pages still work. Mu...` | What still works and what is paused. |
-| onRetry? | `() => void` |  | Called by the retry button. |
+| onRetry? | `() => void` |  | Called by the retry button. Without it, no button renders. |
 | retryLabel? | `string` | `"Retry connection"` | Retry button label. |
 | className? | `string` |  |  |
 
@@ -6542,7 +6792,7 @@ Each task is a checkbox (role="checkbox", aria-checked) toggled by click, Space 
 - Install: `npx shadcn@latest add @minidev/onboarding-checklist` or `npm i minidev-ui-kit`
 - Import: `import { OnboardingChecklist } from "@/components/ui/onboarding-checklist"` (npm: `"minidev-ui-kit/ui/onboarding-checklist"`)
 - Dependencies: lucide-react
-- Related: onboarding-wizard, welcome-screen, onboarding-motion
+- Related: onboarding-wizard, agent-plan, step-progress, welcome-screen, onboarding-motion
 - Docs: https://ui.minidev.pro/docs/onboarding-checklist (Markdown: https://ui.minidev.pro/docs/onboarding-checklist.md)
 
 Props:
@@ -6708,9 +6958,10 @@ Props:
 | disabled? | `boolean` |  |  |
 | autoFocus? | `boolean` |  |  |
 | name? | `string` |  | Form field name for the hidden input. |
+| id? | `string` |  | Id for the real input, so a `<label htmlFor>` can name it. With `id` set, the default aria-label is dropped. |
 | size? | `"default" \| "lg"` | `"default"` | Slot size: "default" 40×44, "lg" 48×56. |
 | className? | `string` |  |  |
-| aria-label? | `string` |  | Accessible name. Defaults to "One-time code". |
+| aria-label? | `string` |  | Accessible name. Defaults to "One-time code" when there is no `id`. |
 
 ```tsx
 <OtpInput length={6} groups={[3, 3]} onComplete={verify} status={error ? "invalid" : "idle"} />
@@ -6953,7 +7204,7 @@ Accepts every native input prop (name, required, aria-invalid…); onChange give
 - Install: `npx shadcn@latest add @minidev/phone-input` or `npm i minidev-ui-kit`
 - Import: `import { PhoneInput } from "@/components/ui/phone-input"` (npm: `"minidev-ui-kit/ui/phone-input"`)
 - Uses: input
-- Related: masked-input
+- Related: masked-input, country-select
 - Docs: https://ui.minidev.pro/docs/phone-input (Markdown: https://ui.minidev.pro/docs/phone-input.md)
 
 Props (also accepts <input>):
@@ -7033,7 +7284,7 @@ Props:
 
 A pricing tier with price per period, feature list and a call to action; highlighted tiers get the accent ring.
 
-Lay several side by side for a pricing page; mark the recommended one `highlighted` and give it a `badge`. Prices are preformatted strings. For a full feature matrix use PlanComparison, for a monthly/yearly switch use PricingToggle.
+Lay several side by side for a pricing page; mark the recommended one `highlighted` and give it a `badge`; mark the customer's plan `current` to disable its button. Prices are preformatted strings. For a full feature matrix use PlanComparison, for a monthly/yearly switch use PricingToggle.
 
 - Name: `plan-card` (component, Billing)
 - Install: `npx shadcn@latest add @minidev/plan-card` or `npm i minidev-ui-kit`
@@ -7054,6 +7305,7 @@ Props:
 | cta? | `string` | `"Choose plan"` | Button label. |
 | highlighted? | `boolean` |  | Recommended tier: accent ring and a solid button. |
 | badge? | `string` |  | Small label beside the name, e.g. "Most popular". |
+| current? | `boolean` | `false` | The customer's plan today: the button is disabled but stays focusable. Defaults to false. |
 | className? | `string` |  |  |
 | onCta? | `() => void` |  | Called by the button. |
 
@@ -7104,7 +7356,7 @@ Click or Enter opens it, focus moves inside, Escape or an outside click closes i
 - Import: `import { Popover, PopoverClose, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "@/components/ui/popover"` (npm: `"minidev-ui-kit/ui/popover"`)
 - Dependencies: @base-ui/react
 - Uses: button
-- Related: tooltip, dropdown-menu, dialog, calendar-month, emoji-picker, hover-card, morph-panel, notification-inbox
+- Related: tooltip, dropdown-menu, dialog, calendar-month, calendar, emoji-picker, hover-card, morph-panel
 - Docs: https://ui.minidev.pro/docs/popover (Markdown: https://ui.minidev.pro/docs/popover.md)
 
 Props: PopoverPrimitive.Root props.
@@ -7134,7 +7386,7 @@ Use it on avatars, member lists and chat headers. For a labelled state chip use 
 - Related: status-badge, live-cursors-bar
 - Docs: https://ui.minidev.pro/docs/presence-dot (Markdown: https://ui.minidev.pro/docs/presence-dot.md)
 
-Props:
+Props (also accepts <span>):
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -7145,6 +7397,7 @@ Props:
 ```tsx
 <PresenceDot status="online" />
 <PresenceDot status="busy" label="Maya is in a meeting" />
+<PresenceDot status="online" aria-hidden /> when the status is already in text
 ```
 
 ### PressQuote
@@ -7233,7 +7486,7 @@ const [cadence, setCadence] = React.useState<BillingCadence>("monthly")
 
 A row of four pill radios (Low, Medium, High, Urgent) for an issue or task priority.
 
-Use it in issue forms and task sidebars. Arrow keys move and select, like any radio group. For an arbitrary option list use SegmentedControl or RadioGroup.
+Use it in issue forms and task sidebars. Arrow keys move and select, like any radio group. Pass `name` to submit the value with a form. For an arbitrary option list use SegmentedControl or RadioGroup.
 
 - Name: `priority-picker` (component, Workflow)
 - Install: `npx shadcn@latest add @minidev/priority-picker` or `npm i minidev-ui-kit`
@@ -7249,6 +7502,7 @@ Props:
 | defaultValue? | `Priority` |  | Starting priority when uncontrolled. Nothing is selected by default. |
 | onChange? | `(value: Priority) => void` |  | Fires with the picked priority. |
 | disabled? | `boolean` |  |  |
+| name? | `string` |  | Form field name. When set, a hidden input submits the current priority ("" when none). Unset by default. |
 | aria-label? | `string` |  | Accessible name of the group. |
 | className? | `string` |  |  |
 
@@ -7261,13 +7515,13 @@ const [priority, setPriority] = React.useState<Priority>("medium")
 
 A square product image, title, price and an optional Add to cart button.
 
-Use it in shop grids and recommendation rails. For a pricing tier use PlanCard; for a generic content tile use Card.
+Use it in shop grids and recommendation rails. `price` and `badge` are display strings, so format money before passing it in. The button only renders with `onAdd`, and it is described by the title so it reads "Add to cart, Linen tote". Pair it with WishlistButton for saving. For a pricing tier use PlanCard; for a generic content tile use Card.
 
 - Name: `product-card` (component, E-commerce)
 - Install: `npx shadcn@latest add @minidev/product-card` or `npm i minidev-ui-kit`
 - Import: `import { ProductCard } from "@/components/ui/product-card"` (npm: `"minidev-ui-kit/ui/product-card"`)
 - Uses: aspect-ratio, button
-- Related: plan-card, card
+- Related: wishlist-button, plan-card, card
 - Docs: https://ui.minidev.pro/docs/product-card (Markdown: https://ui.minidev.pro/docs/product-card.md)
 
 Props:
@@ -7364,7 +7618,7 @@ Props: ProgressPrimitive.Root props.
 
 A PromptInput with an attach row above it for file uploads.
 
-Use it when attachments are a first-class part of the prompt and deserve their own row. Otherwise pass `onAttach` to PromptInput and use its built-in paperclip. Takes every PromptInput prop.
+Use it when attachments are a first-class part of the prompt and deserve their own row. Otherwise pass `onAttach` to PromptInput and use its built-in paperclip. Takes every PromptInput prop; `onAttach` goes to the top button only, so the inner PromptInput shows no paperclip.
 
 - Name: `prompt-input-attachments` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/prompt-input-attachments` or `npm i minidev-ui-kit`
@@ -7384,7 +7638,7 @@ The AI chat composer: grows with content, sends on Enter, Shift+Enter for a newl
 
 The whole shell takes the focus halo.
 
-Use it at the bottom of any AI chat. Controlled (`value` + `onChange`) or uncontrolled (`defaultValue`); either way `onSubmit` receives the current text. Enter while an IME is composing does not send. For a plain multi-line field use Textarea.
+Use it at the bottom of any AI chat. Controlled (`value` + `onChange`) or uncontrolled (`defaultValue`); either way `onSubmit` receives the current text. Enter while an IME is composing does not send. The paperclip only shows when you pass `onAttach`. For a plain multi-line field use Textarea.
 
 - Name: `prompt-input` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/prompt-input` or `npm i minidev-ui-kit`
@@ -7401,7 +7655,7 @@ Props:
 | defaultValue? | `string` |  | Starting text when uncontrolled. |
 | onChange? | `(v: string) => void` |  | Fires with the new text on every keystroke. |
 | onSubmit? | `(value: string) => void` |  | Fires with the text on Enter or the Send button, only when it is not blank. |
-| onAttach? | `() => void` |  | Fires when the paperclip button is pressed. Open your file picker here. |
+| onAttach? | `() => void` |  | Shows a paperclip button that calls this; open your file picker here. Without it there is no attach button. |
 | disabled? | `boolean` |  |  |
 | className? | `string` |  |  |
 | placeholder? | `string` | `"Message…"` |  |
@@ -7545,6 +7799,7 @@ Props:
 | disabled? | `boolean` |  |  |
 | aria-label? | `string` |  | Names the group and the buttons, e.g. "Tickets" gives "Decrease tickets". |
 | className? | `string` |  |  |
+| name? | `string` |  | Submits the quantity in a hidden input under this name. No name by default. |
 
 ```tsx
 const [qty, setQty] = React.useState(1)
@@ -7590,7 +7845,7 @@ Use it on billing and usage pages for anything metered against a limit. The fill
 - Name: `quota-bar` (component, Billing)
 - Install: `npx shadcn@latest add @minidev/quota-bar` or `npm i minidev-ui-kit`
 - Import: `import { QuotaBar } from "@/components/ui/quota-bar"` (npm: `"minidev-ui-kit/ui/quota-bar"`)
-- Related: progress, resource-quota-grid, coverage-meter, usage-breakdown
+- Related: progress, resource-quota-grid, coverage-meter, meter, usage-breakdown
 - Docs: https://ui.minidev.pro/docs/quota-bar (Markdown: https://ui.minidev.pro/docs/quota-bar.md)
 
 Props:
@@ -7745,6 +8000,7 @@ Props:
 | disabled? | `boolean` |  |  |
 | readOnly? | `boolean` |  | Show the score without letting people change it. |
 | className? | `string` |  |  |
+| name? | `string` |  | Submits the score (0 when unrated) in a hidden input under this name. No name by default. |
 | aria-label? | `string` |  | Accessible name of the group. |
 
 ```tsx
@@ -7835,12 +8091,12 @@ Props:
 
 A monospaced receipt card with an id, itemised lines and a ruled total.
 
-Use it in order confirmations, billing history and chat answers that show a charge. Amounts are display strings, so format money before passing it. For an editable bill use an invoice table instead.
+Use it in order confirmations, billing history and chat answers that show a charge. Amounts are display strings, so format money before passing it, and `total` is shown as given. For a bill with a status and due date use `InvoiceDetail`; for the emailed version use `EmailReceipt`.
 
 - Name: `receipt` (component, Billing)
 - Install: `npx shadcn@latest add @minidev/receipt` or `npm i minidev-ui-kit`
 - Import: `import { Receipt } from "@/components/ui/receipt"` (npm: `"minidev-ui-kit/ui/receipt"`)
-- Related: invoice-detail
+- Related: invoice-detail, email-receipt
 - Docs: https://ui.minidev.pro/docs/receipt (Markdown: https://ui.minidev.pro/docs/receipt.md)
 
 Props:
@@ -7867,6 +8123,7 @@ Use it at the end of an assistant message. For per-message copy, like and retry 
 - Import: `import { RegenerateBar } from "@/components/ui/regenerate-bar"` (npm: `"minidev-ui-kit/ui/regenerate-bar"`)
 - Dependencies: lucide-react
 - Uses: button
+- Related: message-actions, message-branch
 - Docs: https://ui.minidev.pro/docs/regenerate-bar (Markdown: https://ui.minidev.pro/docs/regenerate-bar.md)
 
 Props:
@@ -7995,7 +8252,7 @@ Props:
 
 A responsive grid of quota cards, one bar per metered resource, for plan and usage pages.
 
-Each card is a QuotaBar, so bars turn warning near the limit and danger at it. For a single meter use QuotaBar directly.
+Use on a plan or usage page to show every metered limit at once: seats, API calls, storage. Each card is a QuotaBar, so bars turn warning at `warnAt` (90% by default) and danger at the limit. Two columns from `sm`. For a single meter use QuotaBar directly.
 
 - Name: `resource-quota-grid` (component, Dashboard)
 - Install: `npx shadcn@latest add @minidev/resource-quota-grid` or `npm i minidev-ui-kit`
@@ -8012,7 +8269,7 @@ Props:
 | className? | `string` |  |  |
 
 ```tsx
-<ResourceQuotaGrid items={[{ label: "Seats", used: 18, max: 25 }, { label: "Storage (GB)", used: 38, max: 50 }]} />
+<ResourceQuotaGrid items={[{ label: "Seats", used: 18, max: 25 }, { label: "Storage", used: 38, max: 50, format: (n) => `${n} GB` }]} />
 ```
 
 ### RetryBlock
@@ -8150,6 +8407,7 @@ Props:
 | value? | `string` |  | Controlled role value. |
 | defaultValue? | `string` | `"member"` | Starting role when uncontrolled. |
 | onValueChange? | `(value: string) => void` |  | Fires with the picked role value. |
+| name? | `string` |  | Form field name, so the picked role is sent with a surrounding form. |
 | aria-label? | `string` |  | Accessible name of the group. |
 | className? | `string` |  |  |
 
@@ -8161,13 +8419,13 @@ Props:
 
 The select checkbox for a data table row or header, with an indeterminate state.
 
-Put one in each row's first cell and one in the header with `indeterminate` when only some rows are selected. It is a Checkbox with a default "Select row" name; give each row a specific one.
+Put one in each row's first cell and one in the header with `indeterminate` when only some rows are selected. It is a Checkbox with a default "Select row" name; give each row a specific one. Use it with `Table` and `BulkActionsBar`; `DataTable` with `selectable` draws its own checkboxes.
 
 - Name: `row-selection` (component, Tables)
 - Install: `npx shadcn@latest add @minidev/row-selection` or `npm i minidev-ui-kit`
 - Import: `import { RowSelection } from "@/components/ui/row-selection"` (npm: `"minidev-ui-kit/ui/row-selection"`)
 - Uses: checkbox
-- Related: checkbox, select
+- Related: checkbox, select, table, bulk-actions-bar, data-table
 - Docs: https://ui.minidev.pro/docs/row-selection (Markdown: https://ui.minidev.pro/docs/row-selection.md)
 
 Props:
@@ -8239,6 +8497,48 @@ Props:
 <SavedViews views={[{ id: "mine", name: "My open", count: 12 }, { id: "all", name: "All issues" }]} value={view} onChange={setView} />
 ```
 
+### ScatterChart
+
+Plots two numbers against each other in SVG; the pointer snaps to the nearest point and the arrow keys walk them.
+
+Use it to show how two measures relate across many items: deal size against win rate, price against rating, latency against payload. Give points a `size` and it becomes a bubble chart. For one measure over time use LineChart or InteractiveAreaChart; for totals by category use BarChart. No chart library: ticks are rounded to 1, 2, 2.5 or 5 steps, and hovering a ChartLegend entry dims the other series.
+
+- Name: `scatter-chart` (component, Charts)
+- Install: `npx shadcn@latest add @minidev/scatter-chart` or `npm i minidev-ui-kit`
+- Import: `import { ScatterChart } from "@/components/ui/scatter-chart"` (npm: `"minidev-ui-kit/ui/scatter-chart"`)
+- Dependencies: motion
+- Uses: chart-legend, chart-tooltip-card
+- Related: line-chart, interactive-area-chart, bar-chart, chart-legend
+- Docs: https://ui.minidev.pro/docs/scatter-chart (Markdown: https://ui.minidev.pro/docs/scatter-chart.md)
+
+Props:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| series? | `ScatterSeries[]` | `SAMPLE` | One or more series of `{ x, y, size?, label? }` points. |
+| xLabel? | `string` |  | X axis title, also used in the tooltip and point labels. |
+| yLabel? | `string` |  | Y axis title, also used in the tooltip and point labels. |
+| xFormat? | `Format` |  | Intl.NumberFormat options (works from Server Components) or a function, for x ticks and values. |
+| yFormat? | `Format` |  | Intl.NumberFormat options or a function, for y ticks and values. |
+| sizeLabel? | `string` | `"Size"` | What `size` measures, shown in the tooltip in bubble mode. |
+| sizeRange? | `[number, number]` | `[8, 40]` | Smallest and largest bubble diameter in px. Bubble area grows with `size`. |
+| referenceLines? | `ReferenceLine[]` | `[]` | Dashed lines at fixed values, such as a target or a median. Included in the axis range. |
+| height? | `number` | `280` | Plot height in px, not counting the axis labels and legend. |
+| locale? | `string` | `"en-US"` | Locale for number formatting. Fixed by default so server and browser render the same text. |
+| legend? | `boolean` | `true` | Show a ChartLegend under the chart when there is more than one series. |
+| label? | `string` | `"Scatter chart"` | Accessible name of the chart. |
+| className? | `string` |  |  |
+
+```tsx
+<ScatterChart
+  label="Deal size against days to close"
+  xLabel="Deal size"
+  yLabel="Days to close"
+  xFormat={{ style: "currency", currency: "USD", notation: "compact" }}
+  series={[{ name: "Inbound", points: [{ x: 12000, y: 21 }, { x: 48000, y: 64, label: "Northwind" }] }]}
+/>
+```
+
 ### SchemaFieldRow
 
 One row of an API or data schema: field name, required badge, type and description.
@@ -8295,7 +8595,7 @@ Props (also accepts ScrollAreaPrimitive.Root props):
 
 A search field with a magnifier icon and a clear button that appears once there is text.
 
-Use it for list filters, table search and site search. Escape or the clear button empties it and keeps focus in the field. Controlled (`value` + `onChange`) or uncontrolled. Clearing calls `onClear` and an `onChange` whose `target.value` is "". For a field with a result list use SearchWithResults; for a command launcher use CommandPalette.
+Use it for list filters, table search and site search. Escape or the clear button empties it and keeps focus in the field; an Escape that clears text does not also close a surrounding dialog. Controlled (`value` + `onChange`) or uncontrolled. Clearing calls `onClear` and an `onChange` whose `target.value` is "". For a field with a result list use SearchWithResults; for a command launcher use CommandPalette.
 
 - Name: `search-input` (component, Forms)
 - Install: `npx shadcn@latest add @minidev/search-input` or `npm i minidev-ui-kit`
@@ -8452,6 +8752,7 @@ Props:
 | disabled? | `boolean` |  |  |
 | className? | `string` |  |  |
 | aria-label? | `string` |  | Accessible name of the group. Always set one that says what is being chosen. |
+| name? | `string` |  | Submits the selected value in a hidden input under this name. No name by default. |
 
 ```tsx
 <SegmentedControl items={["Day", "Week", "Month"]} defaultValue="Week" aria-label="Range" />
@@ -8528,8 +8829,8 @@ Props:
 | title? | `React.ReactNode` | `"Something broke on our side"` | Headline. |
 | description? | `React.ReactNode` | `"The request failed on our server. Re...` | One line on what happened and what to do next. |
 | code? | `string \| number` | `500` | Status code shown above the headline. |
-| onRetry? | `() => void` |  | Called by the Retry button. |
-| requestId? | `string` | `"req_8f2c41d0"` | Request id shown in mono and copied by the "Copy request id" button. Leave it out to hide both. |
+| onRetry? | `() => void` |  | Called by the Retry button. Without it, no Retry button renders. |
+| requestId? | `string` | `"req_8f2c41d0"` | Request id shown in mono and copied by the "Copy request id" button. Defaults to a sample id; pass "" to hide both. |
 | className? | `string` |  |  |
 
 ```tsx
@@ -8540,7 +8841,7 @@ Props:
 
 A list of signed-in devices with a revoke action on every session except the current one.
 
-Use it on an account security page. For API keys use ApiKeyList instead.
+Use it on an account security page so people can sign out a lost or unknown device. Mark the session making the request with `current`: it shows "(this device)" and gets no Revoke button. Revoke does not confirm, so remove the row from `sessions` once your request succeeds. For API keys use ApiKeyList instead.
 
 - Name: `session-list` (component, Settings)
 - Install: `npx shadcn@latest add @minidev/session-list` or `npm i minidev-ui-kit`
@@ -8565,12 +8866,12 @@ Props:
 
 A two-column settings page: a 200px nav rail beside stacked, divided SettingsSection blocks (one column on mobile).
 
-Use SettingsLayout for the page frame and SettingsSection for each titled group of controls. For app-wide navigation use Sidebar instead.
+Use SettingsLayout for the page frame and SettingsSection for each titled group of controls; the last section drops its divider. Below `md` the nav stacks above the sections. For app-wide navigation use Sidebar instead; for a ready single-column page use the SettingsPage block.
 
 - Name: `settings-layout` (component, Settings)
 - Install: `npx shadcn@latest add @minidev/settings-layout` or `npm i minidev-ui-kit`
 - Import: `import { SettingsLayout, SettingsSection } from "@/components/ui/settings-layout"` (npm: `"minidev-ui-kit/ui/settings-layout"`)
-- Related: sidebar, vertical-tabs
+- Related: sidebar, settings-page, vertical-tabs
 - Docs: https://ui.minidev.pro/docs/settings-layout (Markdown: https://ui.minidev.pro/docs/settings-layout.md)
 
 Props:
@@ -8674,12 +8975,12 @@ Props:
 
 A titled group inside a Sidebar: a small uppercase label above a stack of SidebarNavItems.
 
-The title names the group for screen readers (`role="group"`). Use one per cluster of links ("Workspace", "Settings"); the Sidebar itself is the outer frame.
+The title names the group for screen readers (`role="group"`). Use one per cluster of links ("Workspace", "Settings"); the Sidebar itself is the outer frame. When the Sidebar collapses to its rail the title becomes screen-reader only, so the group keeps its name. For groups that open and close use NestedNav.
 
 - Name: `sidebar-section` (component, Navigation)
 - Install: `npx shadcn@latest add @minidev/sidebar-section` or `npm i minidev-ui-kit`
 - Import: `import { SidebarSection } from "@/components/ui/sidebar-section"` (npm: `"minidev-ui-kit/ui/sidebar-section"`)
-- Related: sidebar
+- Related: sidebar, nested-nav
 - Docs: https://ui.minidev.pro/docs/sidebar-section (Markdown: https://ui.minidev.pro/docs/sidebar-section.md)
 
 Props:
@@ -8754,13 +9055,14 @@ Props:
 
 A signature field drawn on a canvas with smooth, pressure-aware strokes, undo and clear, a typed-name fallback for keyboard users, and PNG export.
 
-Both modes report through one `onChange`: a drawn signature or the typed name rendered in a script face, as a transparent PNG data URL, or null when empty. Store the data URL or upload it as an image.
+Use it to sign off a contract, a delivery or an approval, where you need an image of the signature rather than a checkbox. Both modes report through one `onChange`: a drawn signature or the typed name rendered in a script face, as a transparent PNG data URL, or null when empty. Store the data URL or upload it as an image. There is no `value` prop, so it always starts empty. For a plain "I agree" use Checkbox; for an uploaded image use ImageUpload.
 
 - Name: `signature-pad` (component, Forms)
 - Install: `npx shadcn@latest add @minidev/signature-pad` or `npm i minidev-ui-kit`
 - Import: `import { SignaturePad } from "@/components/ui/signature-pad"` (npm: `"minidev-ui-kit/ui/signature-pad"`)
 - Dependencies: lucide-react, type
 - Uses: button
+- Related: checkbox, image-upload
 - Docs: https://ui.minidev.pro/docs/signature-pad (Markdown: https://ui.minidev.pro/docs/signature-pad.md)
 
 Props:
@@ -8875,7 +9177,7 @@ Props (also accepts SliderPrimitive.Root props):
 
 Two outline buttons, "Continue with GitHub" and "Continue with Google", side by side for OAuth sign-in.
 
-Put it at the top of an AuthCard, above an email form. SignUpForm already includes it.
+Put it at the top of an AuthCard, above an email form, and pass `onGithub` and `onGoogle` to start each OAuth flow. Both are `type="button"`, so they never submit a surrounding form. SignUpForm already includes it; for passwordless email sign-in use MagicLinkForm. The buttons are text only.
 
 - Name: `social-auth-row` (component, Auth)
 - Install: `npx shadcn@latest add @minidev/social-auth-row` or `npm i minidev-ui-kit`
@@ -8952,7 +9254,7 @@ Props (also accepts <button>):
 
 A drag-to-reorder list: drag the grip handle, or focus it and use the arrow keys; every move is announced and the new order comes back through onReorder.
 
-Built on Motion's Reorder.
+Use it for short lists people order by hand: priorities, playlist tracks, checklist steps. Every row is rendered, so keep it to a few dozen items. Built on Motion's Reorder. `KanbanBoard` shows cards in columns but cannot drag them; for a fixed order use a plain list.
 
 Keyboard: Arrow Up/Down move one place, Home/End move to the ends; focus stays on the moved handle. Pass a new `items` array (different ids or order) to reset the list from outside.
 
@@ -8979,13 +9281,13 @@ Props:
 
 A citation card for AI answers and RAG results: source title, its URL or path in mono, and a quoted snippet.
 
-Show one per retrieved source under a StreamingMessage. When `href` is set the title becomes a link.
+Show one per retrieved source under an AI answer, or inside a popover opened from a `CitationChip`. When `href` is set the title becomes a link that opens in a new tab; `url` is display text only. Every prop has a sample default, so pass `title`, `url` and `snippet`. For a numbered inline reference inside the answer text use `CitationChip`.
 
 - Name: `source-card` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/source-card` or `npm i minidev-ui-kit`
 - Import: `import { SourceCard } from "@/components/ui/source-card"` (npm: `"minidev-ui-kit/ui/source-card"`)
 - Uses: badge
-- Related: streaming-message, citation-chip, file-reference, link-preview
+- Related: citation-chip, file-reference, link-preview
 - Docs: https://ui.minidev.pro/docs/source-card (Markdown: https://ui.minidev.pro/docs/source-card.md)
 
 Props:
@@ -9025,6 +9327,42 @@ Props:
 
 ```tsx
 <SparklineSet items={[{ label: "Revenue", value: "$12,400", delta: 8.2, data: [4, 6, 5, 8, 9] }]} />
+```
+
+### SpeechInput
+
+A mic button that turns speech into text with the browser's Web Speech API, with a ring that follows your voice.
+
+Put it in the toolbar of PromptInput or AiComposer. Click to start, click again or press Escape to stop. `onTranscript(text, { final })` fires with grey-preview text (`final: false`) while you speak and with settled text (`final: true`) when a phrase ends: append final text, replace the preview. It needs `SpeechRecognition`, which Chrome, Edge and Safari have and Firefox does not; there the button is disabled with a tooltip that says so. It calls no service of its own and needs no API key. To record an audio file instead of text use AudioRecorder.
+
+- Name: `speech-input` (component, AI chat)
+- Install: `npx shadcn@latest add @minidev/speech-input` or `npm i minidev-ui-kit`
+- Import: `import { SpeechInput } from "@/components/ui/speech-input"` (npm: `"minidev-ui-kit/ui/speech-input"`)
+- Dependencies: lucide-react, motion
+- Uses: icon-button, kbd, tooltip
+- Related: prompt-input, ai-composer, audio-recorder
+- Docs: https://ui.minidev.pro/docs/speech-input (Markdown: https://ui.minidev.pro/docs/speech-input.md)
+
+Props:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| onTranscript? | `(text: string, meta: { final: boolean }) => void` |  | Fires with recognised text. `final: false` is a live guess that will be replaced; `final: true` is settled. |
+| lang? | `string` |  | BCP 47 language to recognise, e.g. "en-GB" or "hi-IN". Defaults to the browser language (`navigator.language`). |
+| continuous? | `boolean` | `true` | Keep listening across pauses until stopped. When false, it stops after the first phrase. |
+| interim? | `boolean` | `true` | Send interim guesses (`final: false`) while the user speaks. |
+| onError? | `(error: string) => void` |  | Fires with the Web Speech error code: "not-allowed", "audio-capture", "network", "no-speech"... |
+| onUnsupported? | `() => void` |  | Fires once after mount when the browser has no speech recognition. |
+| disabled? | `boolean` |  | Disables the button and stops listening if it is on. |
+| size? | `"sm" \| "md"` | `"md"` | 32px (sm) or 36px (md). |
+| aria-label? | `string` |  | Accessible name of the button, also its tooltip. Defaults to "Dictate". |
+| className? | `string` |  |  |
+
+```tsx
+const [preview, setPreview] = React.useState("")
+<SpeechInput onTranscript={(text, { final }) => {
+  if (final) { setPrompt((p) => `${p} ${text.trim()}`.trim()); setPreview("") } else setPreview(text)
+}} />
 ```
 
 ### Spinner
@@ -9147,7 +9485,7 @@ Use it under a query editor or in an AI agent's tool-call output. For an app dat
 - Name: `sql-result-table` (component, Dev tools)
 - Install: `npx shadcn@latest add @minidev/sql-result-table` or `npm i minidev-ui-kit`
 - Import: `import { SqlResultTable } from "@/components/ui/sql-result-table"` (npm: `"minidev-ui-kit/ui/sql-result-table"`)
-- Related: table, sortable-header, table-pagination, data-table, json-viewer
+- Related: table, sortable-header, table-pagination, data-grid, data-table, json-viewer
 - Docs: https://ui.minidev.pro/docs/sql-result-table (Markdown: https://ui.minidev.pro/docs/sql-result-table.md)
 
 Props:
@@ -9155,25 +9493,25 @@ Props:
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | columns? | `string[]` | `["id", "email", "plan"]` | Column names in order. |
-| rows? | `SqlCell[][]` | `[ ["1", "aman@minidev.pro", "studio"]...` | Result rows; each row lines up with `columns`. `null` renders as a dimmed NULL. |
+| rows? | `SqlCell[][]` | `[ ["1", "maya@acme.com", "studio"], [...` | Result rows; each row lines up with `columns`. `null` renders as a dimmed NULL. |
 | caption? | `string` | `"Query result"` | Screen-reader caption, e.g. the table name and row count. |
 | className? | `string` |  |  |
 
 ```tsx
-<SqlResultTable columns={["id", "email"]} rows={[[1, "maya@lumen.app"], [2, null]]} caption="users, 2 rows" />
+<SqlResultTable columns={["id", "email"]} rows={[[1, "maya@lumen.example"], [2, null]]} caption="users, 2 rows" />
 ```
 
 ### SsoProviderCard
 
 A settings card for one SSO identity provider (Okta, Azure AD, Google Workspace): name, status badge, enable switch and Configure button.
 
-Render one per provider in an organisation's security settings. The switch is controlled: pass `enabled` and update it in `onEnabledChange`.
+Render one per provider in an organisation's security settings. The switch is controlled: pass `enabled` and update it in `onEnabledChange`. `configured` only changes the badge, so block enabling an unconfigured provider in your handler. For a third-party app connection use IntegrationCard; for the sign-in screen itself use SignInPage or AuthCard.
 
 - Name: `sso-provider-card` (component, Auth)
 - Install: `npx shadcn@latest add @minidev/sso-provider-card` or `npm i minidev-ui-kit`
 - Import: `import { SsoProviderCard } from "@/components/ui/sso-provider-card"` (npm: `"minidev-ui-kit/ui/sso-provider-card"`)
 - Uses: button, status-badge, switch
-- Related: connected-account, integration-card, admin-console
+- Related: integration-card, sign-in-page, auth-card, connected-account, admin-console
 - Docs: https://ui.minidev.pro/docs/sso-provider-card (Markdown: https://ui.minidev.pro/docs/sso-provider-card.md)
 
 Props:
@@ -9220,12 +9558,12 @@ Props:
 
 A vertical flex column with a fixed gap from the 4px spacing scale.
 
-Use it to space sibling blocks evenly without margin utilities. For horizontal rows use `flex gap-*` directly; for a page grid use CSS grid.
+Use it to space sibling blocks evenly without margin utilities: form sections, card bodies, a heading over text over a button. Children stretch to full width, so add `items-start` for buttons. For a row that wraps use Cluster, for a centred column use Center, for page width use Container, and for a page grid use CSS grid.
 
 - Name: `stack` (component, Layout)
 - Install: `npx shadcn@latest add @minidev/stack` or `npm i minidev-ui-kit`
 - Import: `import { Stack } from "@/components/ui/stack"` (npm: `"minidev-ui-kit/ui/stack"`)
-- Related: admin-user-row, cart-line-item, center, cluster, commit-row, connected-account, container, notification-item
+- Related: cluster, center, container, admin-user-row, cart-line-item, commit-row, connected-account, notification-item
 - Docs: https://ui.minidev.pro/docs/stack (Markdown: https://ui.minidev.pro/docs/stack.md)
 
 Props (also accepts <div>):
@@ -9300,13 +9638,13 @@ Props:
 
 A KPI card with a big number, a coloured delta and a trend sparkline bleeding off the bottom edge.
 
-Exported as `StatWithSparkline`. Use it for one headline metric with its trend; use StatCard without a chart, and SparklineSet for a grid of several.
+Exported as `StatWithSparkline`. Use it for one headline metric with its trend; use StatCard without a chart, and SparklineSet for a grid of several. Set `invert` when down is good.
 
 - Name: `stat-sparkline` (component, Dashboard)
 - Install: `npx shadcn@latest add @minidev/stat-sparkline` or `npm i minidev-ui-kit`
 - Import: `import { StatWithSparkline, StatSparkline } from "@/components/ui/stat-sparkline"` (npm: `"minidev-ui-kit/ui/stat-sparkline"`)
 - Uses: area-chart
-- Related: stat-card, sparkline-set, chart-card, interactive-area-chart, kpi-row, latency-badge, line-chart
+- Related: stat-card, sparkline-set, admin-stat-strip, chart-card, interactive-area-chart, kpi-row, latency-badge, line-chart
 - Docs: https://ui.minidev.pro/docs/stat-sparkline (Markdown: https://ui.minidev.pro/docs/stat-sparkline.md)
 
 ```tsx
@@ -9348,7 +9686,7 @@ Use it for the state of a record ("Paid", "Failed", "Draft"); the text carries t
 - Install: `npx shadcn@latest add @minidev/status-badge` or `npm i minidev-ui-kit`
 - Import: `import { StatusBadge } from "@/components/ui/status-badge"` (npm: `"minidev-ui-kit/ui/status-badge"`)
 - Dependencies: class-variance-authority
-- Related: badge, status-dot, due-date-chip, env-badge, health-indicator, permission-chip, presence-dot, status-marketing
+- Related: badge, status-dot, due-date-chip, env-badge, health-indicator, permission-chip, presence-dot, version-badge
 - Docs: https://ui.minidev.pro/docs/status-badge (Markdown: https://ui.minidev.pro/docs/status-badge.md)
 
 Props (also accepts <span>):
@@ -9391,12 +9729,12 @@ Props (also accepts <span>):
 
 A row of labelled segments that fill as a multi-step flow advances, for onboarding and checkout.
 
-Read-only progress, not navigation. Use Stepper for the numbered variant ("1. Details"); use Progress for a single percentage.
+Use above a multi-step form (signup, checkout, workspace setup) to show how far along people are. Keep `current` in your form state; earlier steps are marked done. It is read-only progress, not navigation. Use `Stepper` for the numbered variant ("1. Details"), `Progress` for a single percentage and `OnboardingChecklist` when tasks can be done in any order.
 
 - Name: `step-progress` (component, Workflow)
 - Install: `npx shadcn@latest add @minidev/step-progress` or `npm i minidev-ui-kit`
 - Import: `import { StepProgress } from "@/components/ui/step-progress"` (npm: `"minidev-ui-kit/ui/step-progress"`)
-- Related: stepper, progress
+- Related: stepper, progress, onboarding-checklist
 - Docs: https://ui.minidev.pro/docs/step-progress (Markdown: https://ui.minidev.pro/docs/step-progress.md)
 
 Props:
@@ -9460,11 +9798,12 @@ Props: <div>.
 
 A cell wrapper that stays pinned to the left or right edge while a wide table or board scrolls horizontally.
 
-Opaque so scrolled content passes underneath, with a hairline on the inner edge. The scroll container needs `overflow-x-auto`. For a sticky header row use `sticky top-0` on the thead.
+Use it in a wide div-based grid, board or timeline to keep the name column (or an actions column, with `side="right"`) in view while the rest scrolls. Opaque so scrolled content passes underneath, with a hairline on the inner edge. The scroll container needs `overflow-x-auto`. It renders a `div`, so inside `Table` put `sticky left-0 bg-surface` on the `TableCell` instead.
 
 - Name: `sticky-column` (component, Tables)
 - Install: `npx shadcn@latest add @minidev/sticky-column` or `npm i minidev-ui-kit`
 - Import: `import { StickyColumn } from "@/components/ui/sticky-column"` (npm: `"minidev-ui-kit/ui/sticky-column"`)
+- Related: table
 - Docs: https://ui.minidev.pro/docs/sticky-column (Markdown: https://ui.minidev.pro/docs/sticky-column.md)
 
 Props:
@@ -9512,7 +9851,7 @@ Props:
 
 A 7-column grid of day tiles, filled in accent on active days, for habit and contribution streaks.
 
-Days are numbered from 1. Screen readers hear a summary ("17 of 28 days active"). For a year-long contribution graph build rows of HeatmapCell.
+Use on a profile or dashboard card for a month of habit or activity days. Days are numbered from 1 and fill rows of seven with no weekday labels. Screen readers hear a summary ("17 of 28 days active"). For a year-long contribution graph build rows of HeatmapCell.
 
 - Name: `streak-calendar` (component, Dashboard)
 - Install: `npx shadcn@latest add @minidev/streak-calendar` or `npm i minidev-ui-kit`
@@ -9537,12 +9876,12 @@ Props:
 
 A blinking 2px accent caret to append after text that is still streaming in.
 
-Decorative (aria-hidden). Render it only while tokens arrive and remove it when the stream ends. StreamingMessage already includes it.
+Decorative (aria-hidden). Render it after your own streamed text only while tokens arrive, and remove it when the stream ends. `MessageBubble` and `StreamingMessage` already render it when `streaming` is set. Use `TypingIndicator` before the first token arrives. The blink comes from the `caret-blink` keyframes in the kit stylesheet.
 
 - Name: `streaming-cursor` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/streaming-cursor` or `npm i minidev-ui-kit`
 - Import: `import { StreamingCursor } from "@/components/ui/streaming-cursor"` (npm: `"minidev-ui-kit/ui/streaming-cursor"`)
-- Related: streaming-message, typing-indicator
+- Related: message-bubble, streaming-message, typing-indicator
 - Docs: https://ui.minidev.pro/docs/streaming-cursor (Markdown: https://ui.minidev.pro/docs/streaming-cursor.md)
 
 Props:
@@ -9565,7 +9904,7 @@ Marked `aria-busy` while streaming so screen readers wait for the finished text 
 - Install: `npx shadcn@latest add @minidev/streaming-message` or `npm i minidev-ui-kit`
 - Import: `import { StreamingMessage } from "@/components/ui/streaming-message"` (npm: `"minidev-ui-kit/ui/streaming-message"`)
 - Uses: streaming-cursor
-- Related: stop-generating, source-card, streaming-cursor
+- Related: stop-generating, streaming-cursor
 - Docs: https://ui.minidev.pro/docs/streaming-message (Markdown: https://ui.minidev.pro/docs/streaming-message.md)
 
 Props:
@@ -9659,7 +9998,7 @@ Props:
 
 Previous/next pagination for a data table, with a "Page 2 of 9" readout.
 
-Pages are 1-based and controlled: keep `page` in state and set it in `onPageChange`. Page changes are announced to screen readers. For numbered page links on content pages use Pagination.
+Pages are 1-based and controlled: keep `page` in state and set it in `onPageChange`. A `page` outside 1..pageCount is shown and stepped from the nearest valid page. Page changes are announced to screen readers. For numbered page links on content pages use Pagination.
 
 - Name: `table-pagination` (component, Tables)
 - Install: `npx shadcn@latest add @minidev/table-pagination` or `npm i minidev-ui-kit`
@@ -9673,7 +10012,7 @@ Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| page | `number` |  | Current page, 1-based. |
+| page | `number` |  | Current page, 1-based. Clamped to 1..pageCount for display and stepping. |
 | pageCount | `number` |  | Total pages; 0 is shown as 1. |
 | onPageChange | `(page: number) => void` |  | Called with the requested page number. |
 | className? | `string` |  |  |
@@ -9686,13 +10025,13 @@ Props:
 
 The bar above a data table: a search field on the left, your filters and actions on the right.
 
-Search is controlled: pass `search` and update it in `onSearchChange`, then filter rows yourself. Pair with Table, SortableHeader and TablePagination.
+Use it right above `Table` or `DataTable`. Search is controlled: pass `search` and update it in `onSearchChange`, then filter rows yourself. Put `ColumnVisibilityMenu`, `DensityToggle` or a New button in `children`. Pair with SortableHeader and TablePagination; for a bordered strip of filters with a Clear button use `FilterBar`.
 
 - Name: `table-toolbar` (component, Tables)
 - Install: `npx shadcn@latest add @minidev/table-toolbar` or `npm i minidev-ui-kit`
 - Import: `import { TableToolbar } from "@/components/ui/table-toolbar"` (npm: `"minidev-ui-kit/ui/table-toolbar"`)
 - Uses: search-input
-- Related: table, sortable-header, table-pagination, audit-filter-bar, column-visibility-menu, data-table, filter-bar, rich-text-toolbar
+- Related: table, data-table, column-visibility-menu, density-toggle, sortable-header, table-pagination, filter-bar, audit-filter-bar
 - Docs: https://ui.minidev.pro/docs/table-toolbar (Markdown: https://ui.minidev.pro/docs/table-toolbar.md)
 
 Props:
@@ -9721,7 +10060,7 @@ Compose Table > TableHeader/TableBody/TableFooter > TableRow > TableHead/TableCe
 - Name: `table` (component, Tables)
 - Install: `npx shadcn@latest add @minidev/table` or `npm i minidev-ui-kit`
 - Import: `import { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption } from "@/components/ui/table"` (npm: `"minidev-ui-kit/ui/table"`)
-- Related: sortable-header, table-toolbar, table-pagination, sql-result-table, data-table, description-list, inline-cell-edit
+- Related: sortable-header, table-toolbar, table-pagination, sql-result-table, bulk-actions-bar, data-table, description-list, inline-cell-edit
 - Docs: https://ui.minidev.pro/docs/table (Markdown: https://ui.minidev.pro/docs/table.md)
 
 Props: <table>.
@@ -9783,6 +10122,7 @@ Props:
 | max? | `number` | `Infinity` | Most tags allowed; further entries are ignored. |
 | disabled? | `boolean` |  |  |
 | id? | `string` |  | Id for the inner text input, so a `<Label htmlFor>` can point at it. |
+| name? | `string` |  | Submits each tag as its own hidden input under this name, so `FormData.getAll(name)` returns the list. No name by default. |
 | className? | `string` |  |  |
 | aria-label? | `string` |  |  |
 | aria-invalid? | `boolean` |  |  |
@@ -9795,13 +10135,13 @@ Props:
 
 Country and tax ID fields side by side, for checkout and billing-details forms.
 
-Uncontrolled inputs with `name`s, so they submit with a plain `<form>`. Pair it with `BillingAddress` for the full postal address.
+Use it in checkout and billing settings when invoices need the buyer's country and VAT, GST or EIN number. The inputs are uncontrolled and named `country` and `taxId` (after `namePrefix`), so they submit with a plain `<form>` or a Server Action. Country is free text with autofill; swap in `Select` for a fixed list. Pair it with `BillingAddress` for the postal address.
 
 - Name: `tax-fields` (component, Billing)
 - Install: `npx shadcn@latest add @minidev/tax-fields` or `npm i minidev-ui-kit`
 - Import: `import { TaxFields } from "@/components/ui/tax-fields"` (npm: `"minidev-ui-kit/ui/tax-fields"`)
 - Uses: input
-- Related: billing-address
+- Related: select, billing-address, country-select
 - Docs: https://ui.minidev.pro/docs/tax-fields (Markdown: https://ui.minidev.pro/docs/tax-fields.md)
 
 Props:
@@ -9836,7 +10176,7 @@ Props:
 | --- | --- | --- | --- |
 | name? | `string` | `"Sam Rivera"` |  |
 | email? | `string` | `"sam@acme.co"` |  |
-| role? | `string` | `"Admin"` | Free text shown in an outline badge, e.g. "Admin" or "Member". |
+| role? | `string` |  | Free text shown in an outline badge, e.g. "Admin" or "Member". No badge when left out or empty. |
 | src? | `string` |  | Avatar image; initials are used when absent. |
 | actions? | `React.ReactNode` |  | Trailing controls such as a role picker or an overflow menu. |
 | className? | `string` |  |  |
@@ -9873,13 +10213,13 @@ Props:
 
 A quote card with the customer's avatar, name and role, for landing pages and case studies.
 
-Renders a semantic `<figure>` with `<blockquote>` and `<figcaption>`. Use `PressQuote` for a publication pull quote. Only quote real customers.
+Renders a semantic `<figure>` with `<blockquote>` and `<figcaption>`; without `src` the avatar shows the person's initials. Use it for one or a few static quotes in a grid. Use `PressQuote` for a publication pull quote, TestimonialCarousel to rotate longer quotes, and MarqueeQuotes or SocialProofWall for many at once. Only quote real customers.
 
 - Name: `testimonial` (component, Landing pages)
 - Install: `npx shadcn@latest add @minidev/testimonial` or `npm i minidev-ui-kit`
 - Import: `import { Testimonial } from "@/components/ui/testimonial"` (npm: `"minidev-ui-kit/ui/testimonial"`)
 - Uses: avatar
-- Related: press-quote, case-study-card, logo-cloud, social-proof, social-proof-wall, testimonial-carousel
+- Related: press-quote, testimonial-carousel, marquee-quotes, social-proof-wall, case-study-card, logo-cloud, social-proof
 - Docs: https://ui.minidev.pro/docs/testimonial (Markdown: https://ui.minidev.pro/docs/testimonial.md)
 
 Props:
@@ -9900,7 +10240,7 @@ Props:
 
 Body copy: a 14px paragraph with the kit's line height, in default, muted, subtle or mono flavours.
 
-Renders a `<p>` and accepts every paragraph prop. Use `Heading` for titles and `Prose` for long-form rich text.
+Use it for the body copy in app UI: card descriptions, help text, empty-state messages and ids or amounts (`mono`). Renders a `<p>` and accepts every paragraph prop, so never nest block elements in it. Use `Heading` for titles and `Prose` for long-form rich text such as rendered markdown.
 
 - Name: `text` (component, Layout)
 - Install: `npx shadcn@latest add @minidev/text` or `npm i minidev-ui-kit`
@@ -9972,13 +10312,13 @@ Props:
 
 A collapsible "Thinking" disclosure for a model's hidden reasoning in a chat transcript, closed by default.
 
-Use it for one plain block of reasoning text. Use `ReasoningBlock` for streamed, step-by-step reasoning with a timer, and `ToolCallCard` for tool invocations.
+Use it for one plain block of reasoning text. Use `ReasoningBlock` for reasoning that streams, with a shimmering title while active and a "Thought for 4s" label, and `ToolCallCard` for tool invocations.
 
 - Name: `thinking-block` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/thinking-block` or `npm i minidev-ui-kit`
 - Import: `import { ThinkingBlock } from "@/components/ui/thinking-block"` (npm: `"minidev-ui-kit/ui/thinking-block"`)
 - Dependencies: lucide-react
-- Related: reasoning-block, tool-call-card
+- Related: reasoning-block, tool-call-card, tool-call-collapsed
 - Docs: https://ui.minidev.pro/docs/thinking-block (Markdown: https://ui.minidev.pro/docs/thinking-block.md)
 
 Props:
@@ -10006,7 +10346,7 @@ The browser supplies the locale-aware picker and keyboard support. Works control
 - Install: `npx shadcn@latest add @minidev/time-picker` or `npm i minidev-ui-kit`
 - Import: `import { TimePicker } from "@/components/ui/time-picker"` (npm: `"minidev-ui-kit/ui/time-picker"`)
 - Uses: input
-- Related: date-picker
+- Related: date-picker, date-time-picker
 - Docs: https://ui.minidev.pro/docs/time-picker (Markdown: https://ui.minidev.pro/docs/time-picker.md)
 
 Props (also accepts <input>):
@@ -10043,6 +10383,44 @@ Props:
 
 ```tsx
 <Timeline items={[{ title: "Invoice INV-2041 paid", description: "$12,400 from Northwind", time: "09:41", dateTime: "2026-03-12T09:41" }]} />
+```
+
+### TimezoneSelect
+
+A searchable IANA time zone picker that shows each zone's UTC offset and current local time.
+
+Use it in scheduling, settings and onboarding forms. Search by city ("new york"), zone id ("america/"), offset ("+5:30", "-8") or abbreviation ("PST"). The user's own zone is pinned at the top as Detected and is the default value. All data comes from the browser's `Intl` API, so there is no time zone file to ship or update. Built on Base UI Combobox; for any other searchable list use Combobox, and for languages use LanguagePicker.
+
+- Name: `timezone-select` (component, Forms)
+- Install: `npx shadcn@latest add @minidev/timezone-select` or `npm i minidev-ui-kit`
+- Import: `import { TimezoneSelect } from "@/components/ui/timezone-select"` (npm: `"minidev-ui-kit/ui/timezone-select"`)
+- Dependencies: @base-ui/react, lucide-react
+- Related: combobox, language-picker
+- Docs: https://ui.minidev.pro/docs/timezone-select (Markdown: https://ui.minidev.pro/docs/timezone-select.md)
+
+Props:
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| value? | `string` |  | Controlled IANA zone id, e.g. "America/New_York". |
+| defaultValue? | `string` |  | Starting zone when uncontrolled. Defaults to the browser's zone (`Intl.DateTimeFormat().resolvedOptions().timeZone`). |
+| onValueChange? | `(timeZone: string) => void` |  | Fires with the picked IANA zone id. |
+| zones? | `string[]` |  | Zone ids to offer. Defaults to every zone the browser knows (`Intl.supportedValuesOf("timeZone")`). |
+| showCurrentTime? | `boolean` | `true` | Show each zone's current local time in the list. |
+| groupByRegion? | `boolean` | `true` | Group zones under their region (America, Europe...). When false, one list sorted by offset. |
+| placeholder? | `string` | `"Select a time zone"` | Trigger text while nothing is selected. |
+| disabled? | `boolean` |  | Disables the trigger. |
+| id? | `string` |  | Id for the trigger, so a `<label htmlFor>` or FormField can name it. |
+| name? | `string` |  | Submits the selected zone id under this name inside a `<form>`. |
+| required? | `boolean` |  | Requires a selection before the form submits. |
+| aria-label? | `string` |  | Accessible name when there is no visible label. Defaults to "Time zone" when no `id` is passed. |
+| className? | `string` |  | Classes for the trigger button (width defaults to w-72). |
+
+```tsx
+const [tz, setTz] = React.useState("Europe/Berlin")
+<FormField id="tz" label="Time zone">
+  <TimezoneSelect id="tz" value={tz} onValueChange={setTz} />
+</FormField>
 ```
 
 ### Toast
@@ -10196,20 +10574,20 @@ Props:
 | className? | `string` |  |  |
 
 ```tsx
-<ToolCallCard name="get_invoice" args='id="INV-2041"' status="done" duration="0.3s">{JSON.stringify(result, null, 2)}</ToolCallCard>
+<ToolCallCard name="get_invoice" args='id="INV-2041"' status="done" duration="0.3s"><pre>{JSON.stringify(result, null, 2)}</pre></ToolCallCard>
 ```
 
 ### ToolCallCollapsed
 
 A quiet one-line disclosure for a tool call: chevron and mono tool name, with the details hidden until opened.
 
-Use it when tool calls should stay out of the way in a chat transcript. Use `ToolCallCard` when status and duration matter.
+Use it when tool calls should stay out of the way in a chat transcript. It starts closed and is uncontrolled (`defaultOpen` only); without children the row is static. Use `ToolCallCard` when status, duration or a controlled open state matter, and `ThinkingBlock` for model reasoning.
 
 - Name: `tool-call-collapsed` (component, AI chat)
 - Install: `npx shadcn@latest add @minidev/tool-call-collapsed` or `npm i minidev-ui-kit`
 - Import: `import { ToolCallCollapsed } from "@/components/ui/tool-call-collapsed"` (npm: `"minidev-ui-kit/ui/tool-call-collapsed"`)
 - Dependencies: lucide-react
-- Related: tool-call-card
+- Related: tool-call-card, thinking-block
 - Docs: https://ui.minidev.pro/docs/tool-call-collapsed (Markdown: https://ui.minidev.pro/docs/tool-call-collapsed.md)
 
 Props:
@@ -10444,7 +10822,7 @@ Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| onVerify? | `(code: string) => void` |  | Called with the 6-digit code on completion or submit. |
+| onVerify? | `(code: string) => void` |  | Called with the 6-digit code on completion or submit, once per code: editing the code allows the next call. |
 | invalid? | `boolean` |  | Shows the field as invalid, e.g. after a wrong code. |
 | description? | `React.ReactNode` | `"Enter the 6-digit code from your aut...` | Line under the title. |
 | className? | `string` |  |  |
@@ -10455,7 +10833,7 @@ Props:
 
 ### TypingIndicator
 
-Three pulsing dots in a pill that say someone (or the model) is typing; announced once to screen readers.
+Three pulsing dots in a pill that say someone (or the model) is typing, with `label` as screen reader text in a `role="status"` region.
 
 Render it while waiting for the first token of a reply, then swap in the message. Use `StreamingCursor` once text is arriving, and `Spinner` for non-chat loading.
 
@@ -10608,12 +10986,12 @@ Props:
 
 A mono version tag ("v2.4.1") with an optional release-channel pill: stable, beta or canary.
 
-Pass the version with or without a leading "v". Use `EnvBadge` for deploy environments and `Badge` for anything else.
+Use it in changelogs, release notes, footers and package or API headers to show which release something belongs to. Pass the version with or without a leading "v". Use `EnvBadge` for deploy environments, `StatusBadge` for a state, and `Badge` for anything else.
 
 - Name: `version-badge` (component, Dev tools)
 - Install: `npx shadcn@latest add @minidev/version-badge` or `npm i minidev-ui-kit`
 - Import: `import { VersionBadge } from "@/components/ui/version-badge"` (npm: `"minidev-ui-kit/ui/version-badge"`)
-- Related: env-badge, badge
+- Related: env-badge, status-badge, badge
 - Docs: https://ui.minidev.pro/docs/version-badge (Markdown: https://ui.minidev.pro/docs/version-badge.md)
 
 Props:
@@ -10677,7 +11055,7 @@ Props:
 | playing? | `boolean` |  | Controlled playing state. Pair with `onToggle`. |
 | defaultPlaying? | `boolean` | `false` | Initial state for the uncontrolled player. |
 | onToggle? | `(playing: boolean) => void` |  | Called with the next playing state when the button is pressed. |
-| progress? | `number` | `0` | Playback position, 0–100. |
+| progress? | `number` | `0` | Playback position, 0–100. `NaN` (before metadata loads) shows as 0. |
 | children? | `React.ReactNode` |  | The media, e.g. a `<video>`; it fills the stage behind the button. |
 | className? | `string` |  |  |
 
@@ -10687,13 +11065,15 @@ Props:
 
 ### VirtualList
 
-A windowed list. Only the rows inside the viewport (plus an overscan band) exist in the DOM, so ten thousand rows scroll like ten. Row heights are fixed or measured per row, arrow keys move an active row with Home, End and Page Up/Down, and a ref exposes scrollToIndex for deep links.
+A windowed list that renders only the rows in view, with fixed or measured row heights, overscan, keyboard row navigation and scroll to index.
+
+Use it for thousands of rows (logs, invoices, search results). Generic over the row type: pass `items`, `renderRow` and `getKey`. Set `rowHeight="auto"` for rows of varying height. A ref exposes `scrollToIndex` and `setActiveIndex`. Use `VirtualizedList` for a bare fixed-height list without header or keyboard model, `DataTable` for sortable columns under ~1,000 rows, and `InfiniteScroll` to load pages as the reader scrolls.
 
 - Name: `virtual-list` (component, Tables)
 - Install: `npx shadcn@latest add @minidev/virtual-list` or `npm i minidev-ui-kit`
 - Import: `import { VirtualList } from "@/components/ui/virtual-list"` (npm: `"minidev-ui-kit/ui/virtual-list"`)
 - Dependencies: lucide-react
-- Related: infinite-scroll, virtualized-list
+- Related: virtualized-list, data-table, infinite-scroll
 - Docs: https://ui.minidev.pro/docs/virtual-list (Markdown: https://ui.minidev.pro/docs/virtual-list.md)
 
 Props:
@@ -10719,16 +11099,20 @@ Props:
 | aria-label? | `string` |  |  |
 | className? | `string` |  |  |
 
+```tsx
+<VirtualList items={logs} rowHeight={32} getKey={(l) => l.id} renderRow={(l, i, { active }) => <LogRow log={l} active={active} />} onSelect={(l) => open(l.id)} title="Logs" />
+```
+
 ### VirtualizedList
 
 A bare fixed-row-height windowed list that renders only the rows in view; ten thousand rows cost about twenty DOM nodes.
 
-Pass `count`, `itemHeight` and `renderItem(index)`. Use `VirtualList` for a header, measured row heights, keyboard row navigation and scroll-to-index.
+Use it to show thousands of same-height rows already in memory, such as a log or ledger, without rendering them all. Pass `count`, `itemHeight` and `renderItem(index)`; every row must be exactly `itemHeight` px. Use `VirtualList` for a header, measured row heights, keyboard row navigation and scroll-to-index, `InfiniteScroll` to fetch pages as people scroll, and `DataTable` for sortable columns.
 
 - Name: `virtualized-list` (component, Tables)
 - Install: `npx shadcn@latest add @minidev/virtualized-list` or `npm i minidev-ui-kit`
 - Import: `import { VirtualizedList } from "@/components/ui/virtualized-list"` (npm: `"minidev-ui-kit/ui/virtualized-list"`)
-- Related: virtual-list, data-table
+- Related: virtual-list, infinite-scroll, data-table
 - Docs: https://ui.minidev.pro/docs/virtualized-list (Markdown: https://ui.minidev.pro/docs/virtualized-list.md)
 
 Props:
@@ -10820,7 +11204,7 @@ Props:
 
 A card listing webhook endpoints (URL, subscribed events, active or paused) with an "Add endpoint" button.
 
-Use it on developer settings pages. Use `ApiKeyList` for API keys and `IntegrationCard` for third-party connections.
+Use it on developer settings pages to show where events are delivered. Pass `hooks` (an empty array shows an empty state) and `onAdd` to open your create dialog; rows have no actions of their own. Use `ApiKeyList` for API keys and `IntegrationCard` for third-party connections.
 
 - Name: `webhook-list` (component, Dev tools)
 - Install: `npx shadcn@latest add @minidev/webhook-list` or `npm i minidev-ui-kit`
@@ -10838,7 +11222,7 @@ Props:
 | className? | `string` |  |  |
 
 ```tsx
-<WebhookList hooks={[{ url: "https://api.northwind.com/hooks/lumen", events: "invoice.paid, invoice.overdue", status: "active" }]} onAdd={openCreateDialog} />
+<WebhookList hooks={[{ url: "https://api.northwind.example/hooks/lumen", events: "invoice.paid, invoice.overdue", status: "active" }]} onAdd={openCreateDialog} />
 ```
 
 ### WelcomeScreen
@@ -10891,12 +11275,12 @@ Props: <div>.
 
 A neutral app-window frame (three grey dots and a title bar) for screenshots and product previews on marketing pages.
 
-Children sit in 16px padding. Use `TerminalWindow` for CLI output and `CodeEditorFrame` for source code.
+Use it on landing pages, docs and changelogs to frame a product screenshot or a live component preview so it reads as an app. Children sit in 16px padding; always pass `title`. Use `BrowserMockup` when an address bar matters, `TerminalWindow` for CLI output and `CodeEditorFrame` for source code.
 
 - Name: `window-chrome` (component, Layout)
 - Install: `npx shadcn@latest add @minidev/window-chrome` or `npm i minidev-ui-kit`
 - Import: `import { WindowChrome } from "@/components/ui/window-chrome"` (npm: `"minidev-ui-kit/ui/window-chrome"`)
-- Related: terminal-window, code-editor-frame
+- Related: browser-mockup, terminal-window, code-editor-frame, aspect-ratio
 - Docs: https://ui.minidev.pro/docs/window-chrome (Markdown: https://ui.minidev.pro/docs/window-chrome.md)
 
 Props:
@@ -10922,7 +11306,7 @@ It is a toggle (`aria-pressed`) with a fixed label, so screen readers hear "Save
 - Import: `import { WishlistButton } from "@/components/ui/wishlist-button"` (npm: `"minidev-ui-kit/ui/wishlist-button"`)
 - Dependencies: lucide-react
 - Uses: icon-button
-- Related: toggle
+- Related: toggle, product-card
 - Docs: https://ui.minidev.pro/docs/wishlist-button (Markdown: https://ui.minidev.pro/docs/wishlist-button.md)
 
 Props:
@@ -11115,7 +11499,7 @@ Props:
 
 A release-notes list: one entry per version with date, tag, title and a short body, newest first.
 
-Use for a public /changelog or an in-app "What's new" panel. Each entry is an article with a real <time>, so feeds and search engines can read it. For a marketing changelog with motion use the premium ChangelogMarketing; for docs use DocsPage.
+Use for a public /changelog or an in-app "What's new" panel. Each entry is an article with a real <time>, so feeds and search engines can read it. It takes no data props: replace the `ENTRIES` array in this file with your releases. For a marketing changelog with motion use the premium ChangelogMarketing; for docs use DocsPage.
 
 - Name: `changelog-page` (block, Landing pages)
 - Install: `npx shadcn@latest add @minidev/changelog-page` or `npm i minidev-ui-kit`
@@ -11162,7 +11546,7 @@ Props:
 
 An ops home: page title with a "Commands" button (also ⌘K / Ctrl+K), a KPI row, and a command dialog.
 
-Use for an operator dashboard where the fastest path to any action is the keyboard. For a chart-led overview use DashboardHome; for just the palette use CommandPalette (has its own ⌘K) or CommandDialog. The shortcut listener is attached to the window while the block is mounted.
+Use for an operator dashboard where the fastest path to any action is the keyboard. For a chart-led overview use DashboardHome; for just the palette use CommandPalette (has its own ⌘K) or CommandDialog. The shortcut listener is attached to the window while the block is mounted and skips a ⌘K another handler already claimed.
 
 - Name: `command-center` (block, Dashboard)
 - Install: `npx shadcn@latest add @minidev/command-center` or `npm i minidev-ui-kit`
@@ -11830,7 +12214,7 @@ Props:
 
 ### SearchResultsPage
 
-A search screen: a search field, a live result count, and linked results grouped by type with the match highlighted.
+A search screen: a search field, a live result count, and linked results tagged by type with the match highlighted.
 
 Use for an in-app search across records (customers, invoices, reports). Results filter as you type and the count is announced to screen readers. For a dropdown of results under a field use SearchWithResults; for a ⌘K launcher use CommandPalette; for "nothing found" art use EmptySearch.
 
@@ -11856,13 +12240,13 @@ Props:
 
 An account settings page: profile form, theme picker, notification channels and a danger zone, in that order.
 
-Use for a single-column personal or workspace settings screen. For admin-only controls (users, SSO, quotas) use AdminConsole; for billing use BillingPage. Each section is a registry component, so drop the ones you do not need. The theme picker applies to the whole document by default.
+Use for a single-column personal or workspace settings screen. For admin-only controls (users, SSO, quotas) use AdminConsole; for billing use BillingPage. Each section is a registry component, so drop the ones you do not need. The theme picker does not change the page theme until you add `applyToDocument` or wire it to your theme provider.
 
 - Name: `settings-page` (block, Settings)
 - Install: `npx shadcn@latest add @minidev/settings-page` or `npm i minidev-ui-kit`
 - Import: `import { SettingsPage } from "@/components/ui/settings-page"` (npm: `"minidev-ui-kit/blocks/settings-page"`)
 - Uses: danger-zone, notification-preferences, page-header, profile-form, theme-picker
-- Related: admin-console, billing-page
+- Related: admin-console, billing-page, settings-layout
 - Docs: https://ui.minidev.pro/docs/settings-page (Markdown: https://ui.minidev.pro/docs/settings-page.md)
 
 Props:
@@ -11884,15 +12268,15 @@ Use as the whole /sign-in route. Fields carry `autoComplete` so password manager
 - Name: `sign-in-page` (block, Auth)
 - Install: `npx shadcn@latest add @minidev/sign-in-page` or `npm i minidev-ui-kit`
 - Import: `import { SignInPage } from "@/components/ui/sign-in-page"` (npm: `"minidev-ui-kit/blocks/sign-in-page"`)
-- Uses: auth-card, button, form-field, input, social-auth-row
-- Related: auth-card, otp-input
+- Uses: auth-card, button, form-field, inline-alert, input, social-auth-row
+- Related: auth-card, otp-input, sso-provider-card
 - Docs: https://ui.minidev.pro/docs/sign-in-page (Markdown: https://ui.minidev.pro/docs/sign-in-page.md)
 
 Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| onSubmit? | `(values: { email: string; password: string }) => void \| Promise<void>` |  | Called with the entered credentials when the form is submitted. |
+| onSubmit? | `(values: { email: string; password: string }) => void \| Promise<void>` |  | Called with the entered credentials when the form is submitted. If the promise rejects, a danger InlineAlert shows above the button. |
 | className? | `string` |  |  |
 
 ```tsx
@@ -12038,11 +12422,11 @@ Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| onDecision? | `(key: string, approved: boolean) => void` |  | Called with the request key and the decision when Approve or Reject is pressed. |
+| onDecision? | `(key: string, approved: boolean, priority: string) => void` |  | Called with the request key, the decision and the priority set for it when Approve or Reject is pressed. |
 | className? | `string` |  |  |
 
 ```tsx
-<WorkflowBoard onDecision={(key, approved) => api.approvals.decide(key, approved)} />
+<WorkflowBoard onDecision={(key, approved, priority) => api.approvals.decide(key, approved, priority)} />
 ```
 
 ## Motion (108)
@@ -12065,7 +12449,8 @@ Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| brand? | `string` | `"Studio"` | Brand shown in the navbar. |
+| brand? | `string` | `"Studio"` | Brand shown in the navbar and the footer. |
+| tagline? | `string` | `"Product design and engineering."` | Line under the brand in the footer. |
 | title? | `string` | `"Product UI with a pulse"` | Page headline (the only h1). |
 | description? | `string` | `"Selected work. Products we designed,...` | Line under the headline. |
 | projects? | `Project[]` | `SAMPLE_PROJECTS` |  |
@@ -12134,7 +12519,7 @@ Props:
 
 A live activity feed where new items drop in at the top on a spring and older ones slide down and fall off the end.
 
-Use it for "happening now" sections, notification previews and activity streams on marketing pages. Items cycle through `items` on a timer while the list is on screen, and pause while the pointer or keyboard focus is on it. Reduced motion shows the first `max` items, still. For a static list of notifications use a plain list; for a one-off reveal use BlurFade.
+Use it for "happening now" sections, notification previews and activity streams on marketing pages. Items cycle through `items` on a timer while the list is on screen, and pause while the pointer is over it or it has keyboard focus (the list is a tab stop, named by `label`). Reduced motion shows the first `max` items, still. For a static list of notifications use a plain list; for a one-off reveal use BlurFade.
 
 - Name: `animated-list` (motion, Motion)
 - Install: `npx shadcn@latest add @minidev/animated-list` or `npm i minidev-ui-kit`
@@ -12150,6 +12535,7 @@ Props:
 | items? | `ListItem[]` | `DEFAULT` | Items to cycle through, newest first. |
 | interval? | `number` | `1800` | Milliseconds between arrivals. |
 | max? | `number` | `4` | How many items to keep on screen. |
+| label? | `string` | `"Live activity"` | Accessible name for the list, which is a tab stop so keyboard users can pause it. |
 | className? | `string` |  |  |
 
 ```tsx
@@ -12332,6 +12718,7 @@ Props:
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| brand? | `string` | `"Lumen"` | Brand shown in the navbar and the footer. |
 | title? | `string` | `"Blog"` | Page heading (the only h1). |
 | description? | `string` | `"Craft notes on Hairline UI, motion, ...` |  |
 | posts? | `Post[]` | `SAMPLE_POSTS` |  |
@@ -12431,7 +12818,7 @@ Props:
 
 ### BrowserMockup
 
-A browser window frame with traffic lights, back and forward buttons, an address bar and optional tabs, wrapping your screenshot or any children. PhoneMockup, exported from the same file, is the matching handset with a dynamic island and rounded screen. Both are built from tokens, so they follow light, dark and every material. With no content, the browser shows a Lumen dashboard made of plain divs, with a phone over its corner on wide screens and below it on narrow ones.
+A browser window frame with traffic lights, back and forward buttons, an address bar and optional tabs, wrapping your screenshot or any children. PhoneMockup, exported from the same file, is the matching handset with a dynamic island and rounded screen. Both are built from tokens, so they follow light, dark and every material. With no content, the browser shows a Lumen dashboard made of plain divs, with a phone over its corner on wide screens and below it on narrow ones. With your own content, `phone` shows `phoneContent` on the handset.
 
 Use it to frame product screenshots on landing pages, docs and changelogs. For several tilted frames at once use DeviceFrameStack.
 
@@ -12439,7 +12826,7 @@ Use it to frame product screenshots on landing pages, docs and changelogs. For s
 - Install: `npx shadcn@latest add @minidev/browser-mockup` or `npm i minidev-ui-kit`
 - Import: `import { BrowserMockup, PhoneMockup } from "@/components/ui/browser-mockup"` (npm: `"minidev-ui-kit/premium/browser-mockup"`)
 - Dependencies: lucide-react
-- Related: device-frame-stack, hero-split-showcase, product-os-mock
+- Related: device-frame-stack, aspect-ratio, window-chrome, hero-split-showcase, product-os-mock
 - Docs: https://ui.minidev.pro/docs/browser-mockup (Markdown: https://ui.minidev.pro/docs/browser-mockup.md)
 
 Props:
@@ -12453,6 +12840,7 @@ Props:
 | alt? | `string` | `""` |  |
 | appearance? | `"auto" \| "dark"` | `"auto"` | Stay dark in both themes, or follow the page theme. |
 | phone? | `boolean` |  | Render a PhoneMockup beside the window. Defaults to on for the built-in sample only. |
+| phoneContent? | `React.ReactNode` |  | Screen for the phone when `phone` is on. Defaults to the sample screen with no `src` or children, and an empty screen otherwise. |
 | children? | `React.ReactNode` |  |  |
 | className? | `string` |  |  |
 
@@ -12848,7 +13236,7 @@ Pass `items` as amounts in major units (49 means $49.00); the total and the subj
 - Install: `npx shadcn@latest add @minidev/email-receipt` or `npm i minidev-ui-kit`
 - Import: `import { EmailReceipt } from "@/components/ui/email-receipt"` (npm: `"minidev-ui-kit/premium/email-receipt"`)
 - Uses: email-footer, email-header, email-layout, email-preview-frame, separator
-- Related: email-welcome
+- Related: email-welcome, receipt
 - Docs: https://ui.minidev.pro/docs/email-receipt (Markdown: https://ui.minidev.pro/docs/email-receipt.md)
 
 Props:
@@ -12869,7 +13257,7 @@ Props:
 
 A welcome email preview: brand header, a "You are in" message, a primary button, a quick-start card and a footer, inside an email client frame.
 
-Built from the Email* primitives, which use email-safe layout. Use it as a starting point for onboarding emails; for a payment confirmation use EmailReceipt.
+Built from the Email* primitives. Use it as a starting point for onboarding emails; for a payment confirmation use EmailReceipt.
 
 - Name: `email-welcome` (motion, Email)
 - Install: `npx shadcn@latest add @minidev/email-welcome` or `npm i minidev-ui-kit`
@@ -13322,12 +13710,12 @@ Props:
 
 A social-proof hero: a centred headline and two buttons above an endless marquee of customer names.
 
-The marquee scrolls on transform only, pauses while hovered (WCAG 2.2.2), stops for reduced motion, and is read once as a list by screen readers (the looping copy is hidden). The sample names are fictional; pass `brands` with customers you actually have permission to name. For a grid of logos use a logo wall.
+The marquee scrolls on transform only, pauses on hover and with the "Pause motion" button (WCAG 2.2.2), stops for reduced motion, and is read once as a list by screen readers (the looping copy is hidden). The sample names are fictional; pass `brands` with customers you actually have permission to name. For a grid of logos use a logo wall.
 
 - Name: `hero-marquee-brands` (motion, Landing pages)
 - Install: `npx shadcn@latest add @minidev/hero-marquee-brands` or `npm i minidev-ui-kit`
 - Import: `import { HeroMarqueeBrands } from "@/components/ui/hero-marquee-brands"` (npm: `"minidev-ui-kit/premium/hero-marquee-brands"`)
-- Dependencies: motion
+- Dependencies: lucide-react, motion
 - Uses: button
 - Related: logo-wall-motion
 - Docs: https://ui.minidev.pro/docs/hero-marquee-brands (Markdown: https://ui.minidev.pro/docs/hero-marquee-brands.md)
@@ -13350,14 +13738,14 @@ Props:
 
 A poster-scale type hero on a thirds grid: three headline lines rise out of masks, the last in an accent gradient, with a magnetic CTA below.
 
-Reduced motion shows everything in place. Use it for a launch or brand page that should feel like a poster (see BrandKitPage); for editable lines use HeroKineticType.
+Reduced motion shows everything in place. Use it for a launch or brand page that should feel like a poster (see BrandKitPage). The only prop is `className`: the eyebrow, headline, paragraph and buttons are written in the file, so copy it and edit them. For the same rise with a `lines` prop use HeroKineticType, and for one rotating word use HeroTypedHeadline.
 
 - Name: `hero-poster-type` (motion, Landing pages)
 - Install: `npx shadcn@latest add @minidev/hero-poster-type` or `npm i minidev-ui-kit`
 - Import: `import { HeroPosterType } from "@/components/ui/hero-poster-type"` (npm: `"minidev-ui-kit/premium/hero-poster-type"`)
 - Dependencies: motion
 - Uses: button, magnetic-cta
-- Related: brand-kit-page, hero-kinetic-type
+- Related: brand-kit-page, hero-kinetic-type, hero-typed-headline
 - Docs: https://ui.minidev.pro/docs/hero-poster-type (Markdown: https://ui.minidev.pro/docs/hero-poster-type.md)
 
 Props:
@@ -13405,7 +13793,7 @@ Screen readers and search engines get one stable sentence listing every word; th
 - Import: `import { HeroTypedHeadline } from "@/components/ui/hero-typed-headline"` (npm: `"minidev-ui-kit/premium/hero-typed-headline"`)
 - Dependencies: motion
 - Uses: button
-- Related: hero-kinetic-type, hyper-text, typing-text
+- Related: hero-kinetic-type, hero-poster-type, hyper-text, typing-text
 - Docs: https://ui.minidev.pro/docs/hero-typed-headline (Markdown: https://ui.minidev.pro/docs/hero-typed-headline.md)
 
 Props:
@@ -13649,13 +14037,15 @@ Props:
 
 ### LogoWallMotion
 
-An endless, slowly scrolling strip of customer logos or names with soft faded edges, for social proof under a hero. The strip runs on the compositor (a CSS transform loop), pauses while the pointer is over it, and holds still for reduced motion. Screen readers get the list once; the looping copy is hidden from them.
+An endless, slowly scrolling strip of customer logos or names with soft faded edges, for social proof under a hero. The strip runs on the compositor (a CSS transform loop), pauses on hover and with the "Pause motion" button (WCAG 2.2.2), and holds still for reduced motion. Screen readers get the list once; the looping copy is hidden from them.
 
 Use it for a "trusted by" row. Reach for LogoCloud for a static grid, HeroMarqueeBrands for a hero with a built-in brand strip, and MarqueeQuotes for scrolling testimonials. Pass your real customers: never invent logos.
 
 - Name: `logo-wall-motion` (motion, Landing pages)
 - Install: `npx shadcn@latest add @minidev/logo-wall-motion` or `npm i minidev-ui-kit`
 - Import: `import { LogoWallMotion } from "@/components/ui/logo-wall-motion"` (npm: `"minidev-ui-kit/premium/logo-wall-motion"`)
+- Dependencies: lucide-react
+- Uses: button
 - Related: logo-cloud, hero-marquee-brands, marquee-quotes, live-component-rail, orbit-logo-cluster, typographic-marquee
 - Docs: https://ui.minidev.pro/docs/logo-wall-motion (Markdown: https://ui.minidev.pro/docs/logo-wall-motion.md)
 
@@ -13675,7 +14065,7 @@ Props:
 
 ### MagneticCta
 
-A call-to-action button that leans toward the pointer as it nears, like a magnet, and springs back when the pointer leaves. It is the kit Button inside a wrapper that moves on a spring, so every Button prop (variant, size, render, onClick, disabled) works unchanged. Only a mouse or pen pulls it; touch and keyboard use it as a normal button, and reduced motion keeps it still.
+A call-to-action button that leans toward the pointer while the pointer is over it, like a magnet, and springs back when it leaves. It is the kit Button inside a wrapper that moves on a spring, so every Button prop (variant, size, render, onClick, disabled) works unchanged. Only a mouse or pen pulls it; touch and keyboard use it as a normal button, and reduced motion keeps it still.
 
 Use it for the one primary action on a marketing section. Reach for Button everywhere in product UI, and ShimmerButton when the action should glow rather than move.
 
@@ -13707,7 +14097,7 @@ Use it for many short quotes at a glance. Reach for TestimonialCarousel for one 
 - Name: `marquee-quotes` (motion, Landing pages)
 - Install: `npx shadcn@latest add @minidev/marquee-quotes` or `npm i minidev-ui-kit`
 - Import: `import { MarqueeQuotes } from "@/components/ui/marquee-quotes"` (npm: `"minidev-ui-kit/premium/marquee-quotes"`)
-- Related: testimonial-carousel, logo-wall-motion, typographic-marquee
+- Related: testimonial-carousel, logo-wall-motion, testimonial, typographic-marquee
 - Docs: https://ui.minidev.pro/docs/marquee-quotes (Markdown: https://ui.minidev.pro/docs/marquee-quotes.md)
 
 Props:
@@ -13825,6 +14215,7 @@ Props:
 | currency? | `string` | `"USD"` | ISO 4217 currency code. |
 | unit? | `string` | `"/ seat"` | Text after the price. |
 | defaultCadence? | `Cadence` | `"yearly"` | Billing cadence shown first. |
+| note? | `React.ReactNode` |  | Line under the switch. Defaults to PricingToggle's "Save 20% with yearly"; pass your own when the saving differs. |
 | onCadenceChange? | `(cadence: Cadence) => void` |  | Called when the visitor switches cadence. |
 | className? | `string` |  |  |
 
@@ -13912,12 +14303,12 @@ Props:
 | className? | `string` |  |  |
 
 ```tsx
-<OrbitLogoCluster center="Lumen" logos={["Stripe", "Plaid", "Xero", "QuickBooks"]} duration={48} />
+<OrbitLogoCluster center="Lumen" logos={["Acme Bank", "Northwind CRM", "Globex Pay", "Contoso HR"]} duration={48} />
 ```
 
 ### OrbitingCircles
 
-Icons orbiting a centre on hairline rings, each ring at its own speed and direction, for integration sections. Icons orbiting a centre on hairline rings, for "works with everything" integration sections. Each ring sets its own radius, speed and direction; icons stay upright as they travel. Static for reduced motion.
+Icons orbiting a centre on hairline rings, each ring at its own speed and direction, for integration sections. Each ring sets its own radius, speed and direction; icons stay upright as they travel. Static for reduced motion. Everything is hidden from screen readers, so name the integrations in nearby text.
 
 Use it for an integrations or "works with your stack" section. Reach for OrbitLogoCluster for text logos on one ring, IconCloud for a 3D sphere of icons, and AnimatedBeam to show data flowing between named tools.
 
@@ -14152,7 +14543,7 @@ Props:
 
 ### ProductTour
 
-A step list beside a stage that fades to the selected step, with Back and Next. The list items are buttons marked `aria-current="step"`; the stage rises in on the morph spring and is announced politely as it changes. Optional `media` per step fills the stage. Reduced motion swaps steps instantly.
+A step list beside a stage that fades to the selected step, with Back and Next. On the last step Next becomes Done and calls `onFinish`. The list items are buttons marked `aria-current="step"`; the stage rises in on the morph spring and is announced politely as it changes. Optional `media` per step fills the stage. Reduced motion swaps steps instantly.
 
 Use it to walk visitors through four or five features in order. Reach for OnboardingMotion for a compact welcome card, StickyFeatureStory when scroll should drive the steps, and the free OnboardingWizard for real forms.
 
@@ -14170,6 +14561,7 @@ Props:
 | --- | --- | --- | --- |
 | steps? | `TourStep[]` | `SAMPLE_STEPS` | Steps in order. |
 | onStepChange? | `(index: number) => void` |  | Called with the index of the step the visitor moves to. |
+| onFinish? | `() => void` |  | Called when the visitor presses Done on the last step. Without it, Done is disabled. |
 | className? | `string` |  |  |
 
 ```tsx
@@ -14405,7 +14797,7 @@ Props:
 
 ### ShimmerButton
 
-A call-to-action button with a slow band of light sweeping across its face, a lit top edge and a soft bloom. A call to action with a slow band of light that sweeps across the face, a lit top edge and a soft bloom underneath. The sweep pauses for reduced motion. Renders a button, or pass `render` to make it a link.
+A call-to-action button with a slow band of light sweeping across its face, a lit top edge and a soft bloom. The sweep is not rendered for reduced motion. Renders a button with `type="button"`, or pass `render` to make it a link.
 
 Use it for the single most important action on a marketing page. Reach for Button in product UI, MagneticCta when the action should move toward the pointer, and BorderBeam or ShineBorder to light a whole card.
 
@@ -14422,7 +14814,7 @@ Props (also accepts <button>):
 | --- | --- | --- | --- |
 | duration? | `number` | `2.6` | Seconds for one sweep. |
 | tone? | `"ink" \| "accent"` | `"ink"` | Ink is the kit's primary action; accent spends the brand violet. |
-| size? | `"default" \| "lg"` | `"lg"` | 40px (default) or 48px (lg) tall. |
+| size? | `"default" \| "lg"` | `"lg"` | `lg` (the default) is 48px tall, `default` is 40px. |
 | render? | `React.ReactElement<Record<string, unknown>>` |  | Render as another element, e.g. <a href="/signup" /> or a router Link. Props and handlers are passed through. |
 
 ```tsx
@@ -14487,7 +14879,7 @@ Props:
 
 ### SparklesText
 
-Text with small four-point stars that twinkle in and out around it at random. Text with small four point stars that twinkle around it, placed at random and replaced as they fade. The stars are decorative and hidden from assistive tech; the text stays a normal text node.
+Text with small four-point stars that twinkle in and out around it at random. Stars are placed at random and replaced as they fade, only while the text is on screen. They are decorative and hidden from assistive tech; the text stays a normal text node.
 
 Use it for one short celebratory word or phrase. Reach for GradientText for a still accent and ConfettiButton for a one-off burst on success.
 
@@ -14726,7 +15118,7 @@ Props:
 
 ### TextReveal
 
-A paragraph that lights up word by word, from muted to full ink, as it scrolls through the viewport. A paragraph that lights up word by word as it scrolls through the viewport, from muted to full ink. The words are real text in order, so search engines and screen readers read it normally.
+A paragraph that lights up word by word, from muted to full ink, as it scrolls through the viewport. The words are real text in order, so search engines and screen readers read it normally. Reduced motion renders the paragraph at full ink.
 
 Use it for one manifesto or mission paragraph on a long page. Reach for MaskedGradientHeadline for a headline wipe, and BlurFade or ScrollReveal to bring whole blocks in.
 
@@ -14833,7 +15225,7 @@ Props:
 
 ### TypingText
 
-A typewriter line that types a phrase, holds, deletes it and moves to the next, with a blinking caret. A typewriter that types a phrase, holds, deletes and moves to the next, with a blinking caret. Starts when it scrolls into view, and screen readers get the phrases as plain text instead of the keystrokes.
+A typewriter line that types a phrase, holds, deletes it and moves to the next, with a blinking caret. Starts when it scrolls into view, and screen readers get the phrases as plain text instead of the keystrokes. Reduced motion shows the first phrase in full.
 
 Use it for a short hero line that types a few phrases. Reach for WordRotate to swap one word in a sentence, MorphingText for a softer melt, and HeroTypedHeadline for a complete typed hero.
 

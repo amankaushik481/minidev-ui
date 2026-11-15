@@ -5,8 +5,11 @@ import { cn } from "@/lib/utils"
 /**
  * A "…" marker for collapsed middle levels in a breadcrumb trail.
  *
- * Decorative by default (hidden from screen readers). To let people open the hidden levels, wrap
- * it in a `DropdownMenuTrigger` and give that trigger `aria-label="Show more pages"`.
+ * Use it when a trail is deeper than about four levels and the middle ones matter less than the
+ * root and the current page. `Breadcrumb` takes string labels only, so build that trail by hand
+ * (a `nav` with an `ol`) and put this between the items. Decorative by default (hidden from
+ * screen readers). To let people open the hidden levels, wrap it in a `DropdownMenuTrigger`
+ * and give that trigger `aria-label="Show more pages"`.
  *
  * @example
  * <BreadcrumbEllipsis />

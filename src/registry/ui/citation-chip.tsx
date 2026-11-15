@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils"
  * A small inline chip that cites a source in an AI answer: an optional numbered index plus the source name.
  *
  * Place it inline after the sentence it supports. It renders a button (open a SourceCard or side panel in `onClick`),
- * or a link when `href` is set. For a full source preview use SourceCard; for attached files in a prompt use ContextPill.
+ * or a link when `href` is set. Other props (`onClick`, `aria-label`, `id`…) reach either element. For a full source preview use SourceCard; for attached files in a prompt use ContextPill.
  *
  * @example
- * <p>Refunds settle in 5-10 days <CitationChip index={1} href="https://docs.stripe.com/refunds">Stripe docs</CitationChip></p>
+ * <p>Refunds settle in 5-10 days <CitationChip index={1} href="https://docs.acme.example/refunds">Refund policy</CitationChip></p>
  */
 type CitationChipProps = React.ComponentProps<"button"> & {
   /** Footnote number shown in accent before the label. */
@@ -33,7 +33,7 @@ function CitationChip({ children, className, index, href, ...props }: CitationCh
   )
   if (href)
     return (
-      <a data-slot="citation-chip" href={href} target="_blank" rel="noreferrer" className={cn(chip, className)}>
+      <a {...(props as React.ComponentProps<"a">)} data-slot="citation-chip" href={href} target="_blank" rel="noreferrer" className={cn(chip, className)}>
         {content}
       </a>
     )

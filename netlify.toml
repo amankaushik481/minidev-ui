@@ -7,12 +7,14 @@
 
 # public/ files are served by the CDN without passing through Next, so the
 # agent-file headers in next.config.ts are repeated here. Keep the two in step.
+# X-Robots-Tag keeps these machine files out of search results; robots.txt must not block them.
 [[headers]]
   for = "/llms.txt"
   [headers.values]
     Content-Type = "text/plain; charset=utf-8"
     Access-Control-Allow-Origin = "*"
     Cache-Control = "public, max-age=600, stale-while-revalidate=86400"
+    X-Robots-Tag = "noindex"
     X-Content-Type-Options = "nosniff"
 
 [[headers]]
@@ -21,6 +23,7 @@
     Content-Type = "text/plain; charset=utf-8"
     Access-Control-Allow-Origin = "*"
     Cache-Control = "public, max-age=600, stale-while-revalidate=86400"
+    X-Robots-Tag = "noindex"
     X-Content-Type-Options = "nosniff"
 
 [[headers]]
@@ -29,6 +32,7 @@
     Content-Type = "text/markdown; charset=utf-8"
     Access-Control-Allow-Origin = "*"
     Cache-Control = "public, max-age=600, stale-while-revalidate=86400"
+    X-Robots-Tag = "noindex"
     X-Content-Type-Options = "nosniff"
 
 [[headers]]
@@ -37,6 +41,7 @@
     Content-Type = "text/markdown; charset=utf-8"
     Access-Control-Allow-Origin = "*"
     Cache-Control = "public, max-age=600, stale-while-revalidate=86400"
+    X-Robots-Tag = "noindex"
     X-Content-Type-Options = "nosniff"
 
 [[headers]]
@@ -45,7 +50,13 @@
     Content-Type = "text/markdown; charset=utf-8"
     Access-Control-Allow-Origin = "*"
     Cache-Control = "public, max-age=600, stale-while-revalidate=86400"
+    X-Robots-Tag = "noindex"
     X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/components.json"
+  [headers.values]
+    X-Robots-Tag = "noindex"
 
 [[headers]]
   for = "/r/*"

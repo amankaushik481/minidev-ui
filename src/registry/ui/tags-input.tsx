@@ -25,12 +25,14 @@ type TagsInputProps = {
   disabled?: boolean
   /** Id for the inner text input, so a `<Label htmlFor>` can point at it. */
   id?: string
+  /** Submits each tag as its own hidden input under this name, so `FormData.getAll(name)` returns the list. No name by default. */
+  name?: string
   className?: string
   "aria-label"?: string
   "aria-invalid"?: boolean
 }
 
-function TagsInput({ value, defaultValue = [], onChange, placeholder = "Add tag", max = Infinity, disabled, id, className, ...a11y }: TagsInputProps) {
+function TagsInput({ value, defaultValue = [], onChange, placeholder = "Add tag", max = Infinity, disabled, id, name, className, ...a11y }: TagsInputProps) {
   const [internal, setInternal] = React.useState(defaultValue)
   const tags = value ?? internal
   const [draft, setDraft] = React.useState("")
@@ -62,6 +64,7 @@ function TagsInput({ value, defaultValue = [], onChange, placeholder = "Add tag"
         className
       )}
     >
+      {name ? tags.map((tag) => <input key={tag} type="hidden" name={name} value={tag} disabled={disabled} />) : null}
       {tags.map((tag) => (
         <span key={tag} className="inline-flex h-6 items-center gap-1 rounded-md border border-border bg-sunken pr-1 pl-2 text-xs font-medium text-fg">
           {tag}

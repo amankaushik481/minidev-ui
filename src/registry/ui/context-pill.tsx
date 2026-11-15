@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
  * A rounded pill naming one item attached to an AI prompt (a file, a URL, a selection), with an optional remove button.
  *
  * Show a row of them above or inside PromptInput for the context the model will see. Pass `onRemove` to make it dismissible.
- * For on/off context toggles use ContextChip; for uploaded files with size and progress use AttachmentChip; for a removable tag use TagsInput.
+ * For on/off context toggles use ContextChip; for attached files with a size use AttachmentChip; for a removable tag use TagsInput.
  *
  * @example
  * <ContextPill icon={<FileTextIcon />} onRemove={() => detach("invoice.pdf")}>invoice.pdf</ContextPill>

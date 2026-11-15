@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
  * Children are the output (plain text or `<pre>`); without children the header is static. Use `ToolCallCollapsed` for a minimal one-line disclosure, `ToolResultPanel` to show JSON output, and `AgentTrace` for a whole run.
  *
  * @example
- * <ToolCallCard name="get_invoice" args='id="INV-2041"' status="done" duration="0.3s">{JSON.stringify(result, null, 2)}</ToolCallCard>
+ * <ToolCallCard name="get_invoice" args='id="INV-2041"' status="done" duration="0.3s"><pre>{JSON.stringify(result, null, 2)}</pre></ToolCallCard>
  */
 type ToolCallCardProps = {
   /** Tool or function name, shown in mono. */
@@ -73,7 +73,7 @@ function ToolCallCard({ name, status = "done", args, duration, children, open: o
         <div className={cn("grid transition-[grid-template-rows] duration-200 ease-hairline", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
           {/* inert keeps the collapsed output out of the tab order and the accessibility tree. */}
           <div id={id} inert={!open} className="min-h-0 overflow-hidden">
-            <div className="border-t border-border bg-sunken px-3 py-2.5 font-mono text-xs leading-[1.6] text-fg-muted">{children}</div>
+            <div className="whitespace-pre-wrap border-t border-border bg-sunken px-3 py-2.5 font-mono text-xs leading-[1.6] text-fg-muted">{children}</div>
           </div>
         </div>
       ) : null}

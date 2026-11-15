@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
  *
  * Use in a composer or form to list files the user has attached. Prefer `FileDropzone` for picking
  * and uploading files, and `PromptInputAttachments` for the AI prompt input. The remove button
- * only renders with `onRemove` and is named "Remove <file name>".
+ * only renders with `onRemove` and its name is "Remove" followed by the file name.
  *
  * @example
  * <AttachmentChip name="INV-2041.pdf" meta="240 KB" onRemove={() => remove(file)} />

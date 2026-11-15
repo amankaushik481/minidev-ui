@@ -3,6 +3,25 @@ export type Release = { version: string; date: string; title: string; items: { t
 
 export const CHANGELOG: Release[] = [
   {
+    version: "0.7",
+    date: "2026-11-14",
+    title: "Built for AI coding agents",
+    items: [
+      { text: "Setup for AI agents: one page with the steps for Claude Code, Cursor, Codex, Windsurf, GitHub Copilot and v0.", href: "/docs/ai" },
+      { text: "A hosted MCP server at ui.minidev.pro/mcp, with six tools: list and search components, read a component's source, props and examples, read the design rules, and get install steps for your framework.", href: "/docs/ai#mcp" },
+      { text: "Every component docs page is also served as Markdown at /docs/<name>/md, with install command, imports, props and examples.", href: "/docs/ai#context" },
+      { text: "Rules files for agents: AGENTS.md, a Cursor rules file and a Claude skill, each carrying the design rules the components are built to.", href: "/docs/ai#rules" },
+      { text: "Six 'types of' guides with a short answer, a picker table and live examples: buttons, form inputs, modals and overlays, navigation menus, loading and feedback states, and charts.", href: "/guides/types-of-buttons" },
+      { text: "Ten head-to-head comparisons, such as shadcn/ui vs Material UI and Aceternity UI vs Magic UI, and alternatives pages for shadcn/ui, Tailwind Plus, Material UI, Chakra UI, Aceternity UI and Magic UI.", href: "/alternatives" },
+      { text: "Nine new components: Calendar, Date Time Picker, Data Grid, Agent Plan, Speech Input, Timezone Select, Country Select, Message Branch and Scatter Chart.", href: "/docs/data-grid" },
+      { text: "Every component docs page now says when to use it, lists accessibility facts taken from its source and answers the questions developers ask about it: 1,446 questions across 557 pages. 201 interactive components also get a keyboard table. The same content is in each page's Markdown copy.", href: "/docs/accordion#faq" },
+      { text: "Live examples with code on 150 more component pages, then 580 more examples across 283 pages.", href: "/docs" },
+      { text: "Each docs page lists related components starting with the ones its guide names, and each component category page has a 'Which one should I use?' table.", href: "/components/forms" },
+      { text: "Bug fixes in 83 components, found while writing their docs. A Drawer with your own trigger now opens, OtpInput keeps a pasted code that has spaces, LaunchCountdown calls onComplete once, Button links keep their link role, and MultiSelect, Rating, TagsInput and other form controls take a `name` so FormData includes them.", href: "/docs/drawer" },
+      { text: "A faster site: the landing page's hero paints without JavaScript, sections below the fold load their code when you reach them, template cards use still images, and the cursor light and font files are lighter." },
+    ],
+  },
+  {
     version: "0.6",
     date: "2026-10-14",
     title: "Every page previews live, 28 components, 9 tools, blocks by section",

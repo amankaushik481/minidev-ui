@@ -39,7 +39,7 @@ export default function Page() {
                   <div className="space-y-2">
                     <ThinkingBlock>Considering Hairline tokens, violet accent, and reduced motion…</ThinkingBlock>
                     <p>Here is a launch-ready hero with aurora motion and clear CTAs.</p>
-                    <MessageActions />
+                    <MessageActions onCopy={() => navigator.clipboard.writeText("Here is a launch-ready hero with aurora motion and clear CTAs.")} />
                   </div>
                 )},
               ]} />

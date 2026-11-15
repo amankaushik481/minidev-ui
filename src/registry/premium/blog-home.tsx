@@ -31,6 +31,8 @@ type Post = {
 }
 
 type BlogHomeProps = {
+  /** Brand shown in the navbar and the footer. */
+  brand?: string
   /** Page heading (the only h1). */
   title?: string
   description?: string
@@ -45,6 +47,7 @@ const SAMPLE_POSTS: Post[] = [
 ]
 
 function BlogHome({
+  brand = "Lumen",
   title = "Blog",
   description = "Craft notes on Hairline UI, motion, and audit gates.",
   posts = SAMPLE_POSTS,
@@ -55,7 +58,7 @@ function BlogHome({
   const shown = tag === "all" ? posts : posts.filter((p) => p.tag === tag)
   return (
     <div data-slot="blog-home" data-tier="premium" className={cn("bg-bg", className)}>
-      <NavMarketing />
+      <NavMarketing brand={brand} />
       <div className="mx-auto max-w-5xl space-y-8 px-6 py-16">
         <div>
           <h1 className="text-4xl font-medium tracking-[-0.026em] text-balance text-fg">{title}</h1>
@@ -68,7 +71,7 @@ function BlogHome({
           ))}
         </div>
       </div>
-      <FooterMega columns={[{ title: "More", links: [{ label: "Docs", href: "#" }, { label: "Gallery", href: "#" }] }]} />
+      <FooterMega brand={brand} columns={[{ title: "More", links: [{ label: "Docs", href: "#" }, { label: "Gallery", href: "#" }] }]} />
     </div>
   )
 }

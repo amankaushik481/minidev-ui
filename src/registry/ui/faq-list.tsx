@@ -31,14 +31,18 @@ const SAMPLE_ITEMS: Faq[] = [
 type FaqListProps = {
   /** Question and answer pairs. Defaults to Lumen billing questions. */
   items?: Faq[]
+  /** Items open on first render, as `faq-0`, `faq-1` and so on. Defaults to none. */
+  defaultValue?: string[]
+  /** Let several answers stay open at once. Defaults to one at a time. */
+  multiple?: boolean
   className?: string
 }
 
-function FaqList({ items = SAMPLE_ITEMS, className }: FaqListProps) {
+function FaqList({ items = SAMPLE_ITEMS, defaultValue, multiple = false, className }: FaqListProps) {
   return (
-    <Accordion data-slot="faq-list" className={cn("max-w-2xl", className)}>
+    <Accordion data-slot="faq-list" defaultValue={defaultValue} multiple={multiple} className={cn("max-w-2xl", className)}>
       {items.map((item, i) => (
-        <AccordionItem key={item.q} value={`faq-${i}`}>
+        <AccordionItem key={i} value={`faq-${i}`}>
           <AccordionTrigger>{item.q}</AccordionTrigger>
           <AccordionPanel>{item.a}</AccordionPanel>
         </AccordionItem>

@@ -89,11 +89,11 @@ function CommandWaitlist({
             if (state === "error") setState("idle")
           }}
           placeholder="you@company.com"
-          className="h-10 w-full rounded-lg border border-border bg-bg px-3 font-mono text-sm text-fg shadow-xs transition-[border-color,box-shadow] duration-150 outline-none placeholder:text-fg-subtle focus-visible:border-accent focus-visible:shadow-[0_0_0_3px_var(--accent-soft)] aria-invalid:border-danger"
+          className="h-10 w-full rounded-lg border border-border bg-bg px-3 font-mono text-sm text-fg shadow-xs transition-[border-color,box-shadow] duration-[140ms] outline-none placeholder:text-fg-subtle focus-visible:border-accent focus-visible:shadow-[0_0_0_3px_var(--accent-soft)] aria-invalid:border-danger"
         />
         <div className="flex items-center justify-between gap-3">
           <p id={`${id}-status`} role="status" className={cn("text-xs", state === "error" ? "text-danger" : "text-fg-muted")}>
-            {state === "done" ? successMessage : state === "error" ? errorMessage : "No spam. Launch notes only."}
+            {state === "done" ? successMessage : state === "error" ? errorMessage : state === "pending" ? "Joining…" : "No spam. Launch notes only."}
           </p>
           <Button type="submit" size="sm" disabled={state === "done"} aria-busy={state === "pending" || undefined}>
             {state === "done" ? "Joined" : state === "pending" ? "Joining…" : "Join"}

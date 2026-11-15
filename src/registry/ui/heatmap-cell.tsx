@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils"
 /**
  * HeatmapCell — one square of a heatmap, tinted from sunken to accent by intensity.
  *
- * Use it to build custom grids (activity by hour, usage by day). For a ready
- * year of daily cells use StreakCalendar.
+ * Use it to build custom grids (activity by hour, usage by day): map your data
+ * into a CSS grid and pass each count normalised to 0..1 as `intensity`, with a
+ * `label` such as "Tue 14:00, 42 runs". For a ready year of daily cells use
+ * StreakCalendar; for a single ratio use DonutChart or Meter.
  *
  * @example
  * <HeatmapCell intensity={0.6} label="Tue 14:00, 42 runs" />

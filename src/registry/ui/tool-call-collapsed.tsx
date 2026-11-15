@@ -6,7 +6,9 @@ import { cn } from "@/lib/utils"
 /**
  * A quiet one-line disclosure for a tool call: chevron and mono tool name, with the details hidden until opened.
  *
- * Use it when tool calls should stay out of the way in a chat transcript. Use `ToolCallCard` when status and duration matter.
+ * Use it when tool calls should stay out of the way in a chat transcript. It starts closed and is
+ * uncontrolled (`defaultOpen` only); without children the row is static. Use `ToolCallCard` when
+ * status, duration or a controlled open state matter, and `ThinkingBlock` for model reasoning.
  *
  * @example
  * <ToolCallCollapsed name="search_customers">Found 3 customers matching "northwind".</ToolCallCollapsed>

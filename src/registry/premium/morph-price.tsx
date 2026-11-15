@@ -30,6 +30,8 @@ type MorphPriceProps = {
   unit?: string
   /** Billing cadence shown first. */
   defaultCadence?: Cadence
+  /** Line under the switch. Defaults to PricingToggle's "Save 20% with yearly"; pass your own when the saving differs. */
+  note?: React.ReactNode
   /** Called when the visitor switches cadence. */
   onCadenceChange?: (cadence: Cadence) => void
   className?: string
@@ -41,6 +43,7 @@ function MorphPrice({
   currency = "USD",
   unit = "/ seat",
   defaultCadence = "yearly",
+  note,
   onCadenceChange,
   className,
 }: MorphPriceProps) {
@@ -51,6 +54,7 @@ function MorphPrice({
     <div data-slot="morph-price" data-tier="premium" className={cn("flex flex-col items-center gap-6 rounded-2xl border border-border bg-surface p-8", className)}>
       <PricingToggle
         value={cadence}
+        note={note}
         onChange={(v) => {
           setCadence(v)
           onCadenceChange?.(v)

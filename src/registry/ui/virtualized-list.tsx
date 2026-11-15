@@ -5,7 +5,10 @@ import { cn } from "@/lib/utils"
 /**
  * A bare fixed-row-height windowed list that renders only the rows in view; ten thousand rows cost about twenty DOM nodes.
  *
- * Pass `count`, `itemHeight` and `renderItem(index)`. Use `VirtualList` for a header, measured row heights, keyboard row navigation and scroll-to-index.
+ * Use it to show thousands of same-height rows already in memory, such as a log or ledger, without
+ * rendering them all. Pass `count`, `itemHeight` and `renderItem(index)`; every row must be exactly
+ * `itemHeight` px. Use `VirtualList` for a header, measured row heights, keyboard row navigation and
+ * scroll-to-index, `InfiniteScroll` to fetch pages as people scroll, and `DataTable` for sortable columns.
  *
  * @example
  * <VirtualizedList count={rows.length} itemHeight={40} height={320} renderItem={(i) => <Row row={rows[i]} />} aria-label="Transactions" />

@@ -14,7 +14,7 @@ import {
 /**
  * A ready-made "are you sure?" flow: a red trigger button that opens an alert dialog with Cancel and a destructive Confirm.
  *
- * Drop it in wherever one destructive action needs a confirmation step. Both buttons close the dialog; `onConfirm` runs on Confirm.
+ * Drop it in wherever one destructive action needs a confirmation step. Pass `open` and `onOpenChange` to open it from a menu item instead. Both buttons close the dialog; `onConfirm` runs on Confirm.
  * Focus starts inside, Escape cancels, and focus returns to the trigger. For custom layouts compose AlertDialog yourself;
  * for type-the-name confirmation use DeleteAccountConfirm; for a settings section use DangerZone.
  *
@@ -22,7 +22,7 @@ import {
  * <ConfirmDestructive triggerLabel="Delete invoice" title="Delete INV-2041?" description="This cannot be undone." confirmLabel="Delete" onConfirm={remove} />
  */
 type ConfirmDestructiveProps = {
-  /** Text of the red trigger button. Defaults to "Delete". */
+  /** Text of the red trigger button. Defaults to "Delete". Not used when `open` is set. */
   triggerLabel?: string
   /** Dialog title, phrased as the question. */
   title?: string
@@ -34,7 +34,7 @@ type ConfirmDestructiveProps = {
   cancelLabel?: string
   /** Runs when Confirm is pressed, before the dialog closes. */
   onConfirm?: () => void
-  /** Controlled open state. */
+  /** Controlled open state. When set, the red trigger is not rendered, so open it from your own button or menu item. */
   open?: boolean
   /** Called with the next open state. */
   onOpenChange?: (open: boolean) => void
@@ -53,7 +53,7 @@ function ConfirmDestructive({
   return (
     <div data-slot="confirm-destructive">
       <AlertDialog open={open} onOpenChange={onOpenChange ? (o) => onOpenChange(o) : undefined}>
-        <AlertDialogTrigger render={<Button variant="destructive" size="sm" />}>{triggerLabel}</AlertDialogTrigger>
+        {open === undefined ? <AlertDialogTrigger render={<Button variant="destructive" size="sm" />}>{triggerLabel}</AlertDialogTrigger> : null}
         <AlertDialogContent>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>

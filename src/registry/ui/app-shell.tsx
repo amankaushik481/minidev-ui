@@ -3,7 +3,7 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 /**
- * A product layout frame: optional sidebar on the left (from md up), optional top bar, and a scrolling content area.
+ * A product layout frame: optional sidebar on the left (from md up), optional top bar, and a scrolling `<main>` content area.
  *
  * Use as the outer frame of an app page or an app preview. Prefer `Sidebar` for the navigation
  * itself (pass it as `sidebar`) and `Topbar` for the header. Below md the sidebar is hidden, so
@@ -21,7 +21,7 @@ type AppShellProps = {
   sidebarLabel?: string
   /** Rendered above the content, full width of the main column. */
   topbar?: React.ReactNode
-  /** Page content; this area scrolls. */
+  /** Page content, rendered inside the `<main>` landmark; this area scrolls. */
   children?: React.ReactNode
   className?: string
 }
@@ -34,7 +34,7 @@ function AppShell({ sidebar, sidebarLabel = "Sidebar", topbar, children, classNa
       ) : null}
       <div className="flex min-w-0 flex-1 flex-col">
         {topbar}
-        <div className="flex-1 overflow-auto p-4 md:p-6">{children}</div>
+        <main className="flex-1 overflow-auto p-4 md:p-6">{children}</main>
       </div>
     </div>
   )

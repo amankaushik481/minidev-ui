@@ -16,11 +16,11 @@ import { StatusBadge } from "@/registry/ui/status-badge"
  * Composes IssueKey, DueDateChip, PriorityPicker and ApprovalCard.
  *
  * @example
- * <WorkflowBoard onDecision={(key, approved) => api.approvals.decide(key, approved)} />
+ * <WorkflowBoard onDecision={(key, approved, priority) => api.approvals.decide(key, approved, priority)} />
  */
 type WorkflowBoardProps = {
-  /** Called with the request key and the decision when Approve or Reject is pressed. */
-  onDecision?: (key: string, approved: boolean) => void
+  /** Called with the request key, the decision and the priority set for it when Approve or Reject is pressed. */
+  onDecision?: (key: string, approved: boolean, priority: string) => void
   className?: string
 }
 
@@ -37,8 +37,9 @@ function WorkflowBoard({ onDecision, className }: WorkflowBoardProps) {
   const current = QUEUE[index]
   const decide = (approved: boolean) => {
     if (!current) return
-    onDecision?.(current.key, approved)
+    onDecision?.(current.key, approved, priority)
     setIndex((i) => i + 1)
+    setPriority("high") // each request starts at the default priority
   }
   return (
     <div data-slot="workflow-board" className={cn("space-y-6", className)}>

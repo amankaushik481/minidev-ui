@@ -7,8 +7,8 @@ import { AspectRatio } from "@/registry/ui/aspect-ratio"
  * ImageGallery — a square-tile image grid, two columns on phones and three from the small breakpoint up.
  *
  * Use it for a static set of photos or screenshots. For mixed heights use
- * MasonryGrid, for one image at a time use Carousel, and to open a tile full
- * screen wrap it in ImageLightbox.
+ * MasonryGrid, for a swipeable row use Carousel, and to let visitors open a
+ * tile larger render each image as an ImageLightbox in your own grid.
  *
  * @example
  * <ImageGallery images={[{ src: "/a.jpg", alt: "Front of the store" }, { src: "/b.jpg", alt: "Checkout counter" }]} />

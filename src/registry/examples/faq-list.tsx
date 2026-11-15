@@ -17,7 +17,7 @@ const PRICING_FAQ = [
 export const examples: Example[] = [
   {
     title: "Custom questions",
-    description: "Pass question and answer pairs as items; each row unfolds its own answer and several can stay open at once.",
+    description: "Pass question and answer pairs as items; multiple lets several answers stay open at once, and defaultValue opens the first.",
     code: `const SECURITY_FAQ = [
   { q: "Where is my data stored?", a: "In the region you pick when creating the workspace: eu-west-1, us-east-1 or ap-southeast-2. Data never leaves that region, including backups." },
   { q: "Do you support single sign-on?", a: "Yes. SAML and OIDC are available on the Scale plan, with just-in-time provisioning and SCIM for deprovisioning." },
@@ -25,8 +25,8 @@ export const examples: Example[] = [
   { q: "Can I export everything?", a: "Any admin can export invoices, customers and audit logs as CSV or JSON at any time from Settings, with no waiting period." },
 ]
 
-<FaqList items={SECURITY_FAQ} className="w-full" />`,
-    node: <FaqList items={SECURITY_FAQ} className="w-full" />,
+<FaqList items={SECURITY_FAQ} multiple defaultValue={["faq-0"]} className="w-full" />`,
+    node: <FaqList items={SECURITY_FAQ} multiple defaultValue={["faq-0"]} className="w-full" />,
   },
   {
     title: "Beside a heading",

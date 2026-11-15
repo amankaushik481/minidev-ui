@@ -5,7 +5,9 @@ import { cn } from "@/lib/utils"
 /**
  * A mono version tag ("v2.4.1") with an optional release-channel pill: stable, beta or canary.
  *
- * Pass the version with or without a leading "v". Use `EnvBadge` for deploy environments and `Badge` for anything else.
+ * Use it in changelogs, release notes, footers and package or API headers to show which release
+ * something belongs to. Pass the version with or without a leading "v". Use `EnvBadge` for deploy
+ * environments, `StatusBadge` for a state, and `Badge` for anything else.
  *
  * @example
  * <VersionBadge version="2.4.1" channel="beta" />

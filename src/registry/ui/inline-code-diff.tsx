@@ -22,14 +22,15 @@ type InlineCodeDiffProps = {
 function InlineCodeDiff({ before, after, className }: InlineCodeDiffProps) {
   return (
     <div data-slot="inline-code-diff" className={cn("overflow-hidden rounded-xl border border-border font-mono text-xs", className)}>
-      <pre className="overflow-x-auto border-b border-border bg-danger/5 px-3 py-2 text-danger">
+      {/* Focusable so keyboard users can scroll long lines. */}
+      <pre tabIndex={0} role="region" aria-label="Before" className="overflow-x-auto border-b border-border bg-danger/5 px-3 py-2 text-danger outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset">
         <span aria-hidden className="select-none text-fg-muted">- </span>
         <del className="no-underline">
           <span className="sr-only">Removed: </span>
           {before}
         </del>
       </pre>
-      <pre className="overflow-x-auto bg-success/5 px-3 py-2 text-success">
+      <pre tabIndex={0} role="region" aria-label="After" className="overflow-x-auto bg-success/5 px-3 py-2 text-success outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset">
         <span aria-hidden className="select-none text-fg-muted">+ </span>
         <ins className="no-underline">
           <span className="sr-only">Added: </span>

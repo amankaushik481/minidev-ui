@@ -187,3 +187,13 @@ export type GlossaryTerm = {
   /** Other glossary slugs. */
   see: string[]
 }
+
+/** Hand-written depth for one component's docs page and its Markdown twin. Every line must be true of the component's source. */
+export type ComponentDocsContent = {
+  /** 2-4 questions developers actually search, answered with the real prop names. */
+  faq?: { q: string; a: string }[]
+  /** Interactive components only. `keys`: alternatives split by " / ", chords joined by "+", e.g. "Enter / Space", "Shift+Tab". */
+  keyboard?: { keys: string; action: string }[]
+  /** 2-4 concrete facts from the source: roles, aria attributes, focus handling, reduced motion. */
+  a11y?: string[]
+}

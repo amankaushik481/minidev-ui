@@ -5,7 +5,7 @@ import { Badge } from "@/registry/ui/badge"
 import { SearchInput } from "@/registry/ui/search-input"
 
 /**
- * SearchResultsPage — a search screen: a search field, a live result count, and linked results grouped by type with the match highlighted.
+ * SearchResultsPage — a search screen: a search field, a live result count, and linked results tagged by type with the match highlighted.
  *
  * Use for an in-app search across records (customers, invoices, reports). Results filter as you type and the count
  * is announced to screen readers. For a dropdown of results under a field use SearchWithResults; for a ⌘K launcher

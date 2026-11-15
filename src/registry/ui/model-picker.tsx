@@ -41,6 +41,8 @@ type ModelPickerProps = {
   /** Trigger text when nothing is selected. */
   placeholder?: string
   disabled?: boolean
+  /** Form field name; when set, the chosen model id is submitted with the form. */
+  name?: string
   /** Accessible name for the trigger. Defaults to "Model". */
   "aria-label"?: string
   /** Classes for the trigger. Defaults to a 224px width. */
@@ -54,6 +56,7 @@ function ModelPicker({
   onChange,
   placeholder = "Select model",
   disabled,
+  name,
   "aria-label": ariaLabel = "Model",
   className,
 }: ModelPickerProps) {
@@ -68,6 +71,7 @@ function ModelPicker({
           if (typeof v === "string") onChange?.(v)
         }}
         disabled={disabled}
+        name={name}
       >
       <SelectTrigger className={className ?? "w-56"} aria-label={ariaLabel}>
         <SelectValue placeholder={placeholder} />

@@ -132,7 +132,7 @@ const defaultDescribe = (item: unknown, index: number) => {
 }
 const clampIndex = (i: number, count: number) => Math.max(0, Math.min(count - 1, Math.round(i)))
 
-/**
+/*
  * A windowed list. Only the rows inside the viewport (plus an overscan band)
  * exist in the DOM, so ten thousand rows scroll like ten. Row heights are
  * fixed or measured per row, arrow keys move an active row with Home, End

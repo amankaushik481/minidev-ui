@@ -9,7 +9,9 @@ import { StatusBadge } from "@/registry/ui/status-badge"
  * A settings card for one SSO identity provider (Okta, Azure AD, Google Workspace): name, status badge, enable switch and Configure button.
  *
  * Render one per provider in an organisation's security settings. The switch is controlled:
- * pass `enabled` and update it in `onEnabledChange`.
+ * pass `enabled` and update it in `onEnabledChange`. `configured` only changes the badge, so block
+ * enabling an unconfigured provider in your handler. For a third-party app connection use
+ * IntegrationCard; for the sign-in screen itself use SignInPage or AuthCard.
  *
  * @example
  * <SsoProviderCard name="Okta" description="SAML 2.0" configured enabled={on} onEnabledChange={setOn} onConfigure={openSetup} />

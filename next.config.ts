@@ -5,6 +5,8 @@ const agentText = (type: string) => [
   { key: "Content-Type", value: `${type}; charset=utf-8` },
   { key: "Access-Control-Allow-Origin", value: "*" },
   { key: "Cache-Control", value: "public, max-age=600, stale-while-revalidate=86400" },
+  // Fetchable by anyone, but kept out of search results so they never count as thin pages.
+  { key: "X-Robots-Tag", value: "noindex" },
 ];
 
 const nextConfig: NextConfig = {
@@ -35,6 +37,7 @@ const nextConfig: NextConfig = {
       { source: "/AGENTS.md", headers: agentText("text/markdown") },
       { source: "/skill/:path(.+\\.md)", headers: agentText("text/markdown") },
       { source: "/rules/:file(.+\\.mdc)", headers: agentText("text/markdown") },
+      { source: "/components.json", headers: [{ key: "X-Robots-Tag", value: "noindex" }] },
       {
         source: "/r/:path*",
         headers: [

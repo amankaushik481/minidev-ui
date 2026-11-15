@@ -9,7 +9,8 @@ import { cn } from "@/lib/utils"
  * Use at the top of nested pages (Customers › Northwind › INV-2041). Prefer `BackLink` when there
  * is only one level to go back. Follows the WAI-ARIA breadcrumb pattern: a labelled `nav` with an
  * ordered list, separators hidden from screen readers, and `aria-current="page"` on the last item.
- * Long trails wrap; pass `BreadcrumbEllipsis` yourself if you collapse the middle.
+ * Long trails wrap and each label truncates. Labels are strings, so to collapse the middle levels
+ * build the trail by hand with `BreadcrumbEllipsis` instead.
  *
  * @example
  * <Breadcrumb items={[{ label: "Customers", href: "/customers" }, { label: "Northwind", href: "/customers/northwind" }, { label: "INV-2041" }]} />

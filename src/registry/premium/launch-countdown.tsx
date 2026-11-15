@@ -74,8 +74,10 @@ function LaunchCountdown({
         window.clearInterval(id)
         completeRef.current?.()
       }
+      return ms === 0
     }
-    tick()
+    // A target already past completes once, without starting the interval.
+    if (tick()) return
     id = window.setInterval(tick, 1000)
     return () => window.clearInterval(id)
   }, [fixed, targetOffsetMs])

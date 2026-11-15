@@ -5,8 +5,9 @@ import { cn } from "@/lib/utils"
 /**
  * A two-column settings page: a 200px nav rail beside stacked, divided SettingsSection blocks (one column on mobile).
  *
- * Use SettingsLayout for the page frame and SettingsSection for each titled group of controls.
- * For app-wide navigation use Sidebar instead.
+ * Use SettingsLayout for the page frame and SettingsSection for each titled group of controls; the last
+ * section drops its divider. Below `md` the nav stacks above the sections. For app-wide navigation use
+ * Sidebar instead; for a ready single-column page use the SettingsPage block.
  *
  * @example
  * <SettingsLayout nav={<SidebarNavItem active>Profile</SidebarNavItem>}>

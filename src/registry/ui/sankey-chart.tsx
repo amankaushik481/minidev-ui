@@ -8,12 +8,14 @@ import { cn } from "@/lib/utils"
  * Use it for flows between stages: traffic sources to outcomes, budget to teams, energy in to
  * out. You only pass `links`; columns, sizes and colours are computed. Nodes are one Tab stop,
  * arrow keys walk them and each speaks its in and out flows. For a single funnel use a funnel
- * chart; for parts of one whole use a pie or bar chart.
+ * chart; for parts of one whole use a pie or bar chart. `nodes` defaults to the sample
+ * nodes, so pass your own `nodes` (or `nodes={[]}`) together with your own `links`.
  *
  * @example
  * <SankeyChart
  *   title="Signups by source"
  *   unit="visitors"
+ *   nodes={[]}
  *   links={[{ source: "Search", target: "Signed up", value: 1400 }, { source: "Search", target: "Left", value: 800 }]}
  * />
  */

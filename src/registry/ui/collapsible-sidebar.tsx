@@ -9,7 +9,7 @@ import { Button } from "@/registry/ui/button"
  * A Sidebar with a built-in collapse toggle on its edge that shrinks it to an icon rail.
  *
  * Use as the left rail of an app shell. Uncontrolled by default; pass `collapsed` + `onCollapsedChange` to persist the state.
- * Put SidebarNavItem children inside; their labels truncate when collapsed. For a full layout use AppShell; on mobile use MobileNavDrawer.
+ * Put SidebarNavItem children inside; when collapsed their labels become screen-reader only, so each icon keeps its name. For a full layout use AppShell; on mobile use MobileNavDrawer.
  *
  * @example
  * <CollapsibleSidebar>

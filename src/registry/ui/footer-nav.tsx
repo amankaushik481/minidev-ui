@@ -5,8 +5,10 @@ import { Link } from "@/registry/ui/link"
 /**
  * FooterNav — a one-line site footer: brand on the left, a row of quiet links on the right.
  *
- * Use for app and docs footers with a handful of links. For a marketing
- * footer with titled link columns use `FooterMega`.
+ * Use for app and docs footers with a handful of links (docs, status, privacy, terms). The
+ * links wrap onto a second line on narrow screens. `brand` is plain text and links have no
+ * `target`, so edit the file for a logo or new-tab links. For a marketing footer with titled
+ * link columns use `FooterMega`.
  *
  * @example
  * <FooterNav brand="Lumen" links={[{ label: "Docs", href: "/docs" }, { label: "Status", href: "https://status.example.com" }]} />

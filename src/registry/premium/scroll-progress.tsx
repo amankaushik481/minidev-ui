@@ -87,6 +87,7 @@ const ARTICLE = [
 function ScrollProgress({ variant = "both", container, fixed = false, height = 3, size = 40, children, title = "What is new in Lumen 3.0", subtitle = "Release notes · 4 min read", className }: ScrollProgressProps) {
   const reduce = useReducedMotion()
   const panel = React.useRef<HTMLDivElement>(null)
+  const titleId = React.useId()
   const own = !fixed && !container
   const { scrollYProgress } = useScroll({ container: own ? panel : container })
   const sprung = useSpring(scrollYProgress, SPRING)
@@ -109,14 +110,14 @@ function ScrollProgress({ variant = "both", container, fixed = false, height = 3
     <div data-slot="scroll-progress" className={cn("relative mx-auto w-full max-w-2xl overflow-hidden rounded-2xl border border-border bg-surface shadow-raised", className)}>
       <div className="flex h-14 items-center justify-between border-b border-border px-5">
         <div className="min-w-0">
-          <p className="truncate text-sm font-medium text-fg">{title}</p>
+          <p id={titleId} className="truncate text-sm font-medium text-fg">{title}</p>
           {subtitle ? <p className="truncate text-[11px] text-fg-subtle">{subtitle}</p> : null}
         </div>
         {showRing ? <Ring value={value} size={size} percent={percent} /> : null}
       </div>
       <div className="relative">
         {showBar ? <Bar value={value} height={height} percent={showRing ? undefined : percent} className="absolute inset-x-0 top-0 z-10" /> : null}
-        <div ref={panel} className="h-72 overflow-y-auto overscroll-contain px-5 py-5 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset sm:px-6" tabIndex={0} aria-label="Release notes">
+        <div ref={panel} className="h-72 overflow-y-auto overscroll-contain px-5 py-5 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset sm:px-6" tabIndex={0} aria-labelledby={titleId}>
           {children ?? (
             <div className="max-w-prose space-y-4">
               {ARTICLE.map((p, i) => (

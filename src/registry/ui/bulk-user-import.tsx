@@ -32,6 +32,7 @@ function BulkUserImport({ onImport, className }: BulkUserImportProps) {
         hint="or click to browse"
         multiple={false}
         onFiles={setFiles}
+        onRemove={() => setFiles(null)}
       />
       <Button type="button" disabled={!ready} onClick={() => files && onImport?.(files)}>
         Import users

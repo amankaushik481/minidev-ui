@@ -29,7 +29,7 @@ type InfiniteScrollProps<T> = {
   renderItem?: (item: T, index: number) => React.ReactNode
   /** How far before the end to start loading, as a CSS margin. */
   rootMargin?: string
-  /** Accessible name for the list. */
+  /** Accessible name for the focusable scroll box and the list inside it. */
   label?: string
   className?: string
 }
@@ -98,7 +98,15 @@ function InfiniteScroll<T = DemoItem>({ loadMore, renderItem, rootMargin = "240p
     })
 
   return (
-    <div ref={scroller} data-slot="infinite-scroll" className={cn("h-80 w-full max-w-sm overflow-y-auto rounded-2xl border border-border bg-sunken p-3", className)}>
+    <div
+      ref={scroller}
+      data-slot="infinite-scroll"
+      role="region"
+      aria-label={label}
+      // focusable so keyboard users can scroll even when the items hold nothing focusable
+      tabIndex={0}
+      className={cn("h-80 w-full max-w-sm overflow-y-auto rounded-2xl border border-border bg-sunken p-3 outline-none focus-visible:ring-2 focus-visible:ring-accent", className)}
+    >
       <ul className="space-y-2" aria-busy={loading} aria-label={label}>
         {items.map((it, i) => (
           <li key={i}>{render(it, i)}</li>

@@ -127,6 +127,27 @@
       ]
     },
     {
+      "name": "agent-plan",
+      "type": "registry:ui",
+      "title": "Agent plan",
+      "description": "React AI agent plan and to-do list: pending, in progress, completed, failed and skipped tasks with subtasks, tool chips and a progress bar that fills.",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/agent-plan.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "ai-chat"
+      ]
+    },
+    {
       "name": "agent-trace",
       "type": "registry:ui",
       "title": "Agent trace",
@@ -876,6 +897,28 @@
       "files": [
         {
           "path": "src/registry/ui/calendar-month.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "forms"
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "React calendar for Tailwind and shadcn: single, range or multiple dates, two months, preset ranges, a hover preview of the range and full arrow-key support.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/calendar.tsx",
           "type": "registry:ui"
         }
       ],
@@ -1732,6 +1775,26 @@
       ]
     },
     {
+      "name": "country-select",
+      "type": "registry:ui",
+      "title": "Country select",
+      "description": "React country select with search, emoji flags and names localised by Intl.DisplayNames. Returns ISO codes, pins top countries and submits with forms.",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/country-select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "forms"
+      ]
+    },
+    {
       "name": "coupon-input",
       "type": "registry:ui",
       "title": "Coupon input",
@@ -1886,6 +1949,26 @@
       ]
     },
     {
+      "name": "data-grid",
+      "type": "registry:ui",
+      "title": "Data grid",
+      "description": "Editable React data grid that works like a spreadsheet: arrow keys between cells, type to edit, block selection, copy and paste with Excel or Sheets, undo.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/checkbox.json",
+        "https://ui.minidev.pro/r/select.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/data-grid.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "data-tables"
+      ]
+    },
+    {
       "name": "data-table",
       "type": "registry:ui",
       "title": "Data table",
@@ -1937,6 +2020,29 @@
       "files": [
         {
           "path": "src/registry/ui/date-range-picker.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "forms"
+      ]
+    },
+    {
+      "name": "date-time-picker",
+      "type": "registry:ui",
+      "title": "Date time picker",
+      "description": "React date and time picker in one popover: a calendar and a scrollable time list, 5 to 30 minute steps, past times disabled and a 12 or 24 hour clock.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json",
+        "https://ui.minidev.pro/r/calendar.json",
+        "https://ui.minidev.pro/r/popover.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/date-time-picker.tsx",
           "type": "registry:ui"
         }
       ],
@@ -3979,6 +4085,28 @@
       ]
     },
     {
+      "name": "message-branch",
+      "type": "registry:ui",
+      "title": "Message branch",
+      "description": "React version switcher for AI chat replies: step through regenerated answers with ‹ 2 / 3 › buttons or Alt+Arrow keys, with a cross-fade and live count.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/message-branch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "ai-chat"
+      ]
+    },
+    {
       "name": "message-bubble",
       "type": "registry:ui",
       "title": "Message bubble",
@@ -5593,6 +5721,28 @@
       ]
     },
     {
+      "name": "scatter-chart",
+      "type": "registry:ui",
+      "title": "Scatter chart",
+      "description": "React scatter and bubble chart in plain SVG with rounded axis ticks, reference lines, hover that snaps to the nearest point and arrow-key point navigation.",
+      "dependencies": [
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/chart-legend.json",
+        "https://ui.minidev.pro/r/chart-tooltip-card.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/scatter-chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "charts"
+      ]
+    },
+    {
       "name": "schema-field-row",
       "type": "registry:ui",
       "title": "Schema field row",
@@ -6166,6 +6316,30 @@
       ],
       "categories": [
         "dashboard"
+      ]
+    },
+    {
+      "name": "speech-input",
+      "type": "registry:ui",
+      "title": "Speech input",
+      "description": "React speech to text button on the Web Speech API: live interim text, a mic ring that follows your voice, Escape to stop, no API key and no dependencies.",
+      "dependencies": [
+        "lucide-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/icon-button.json",
+        "https://ui.minidev.pro/r/kbd.json",
+        "https://ui.minidev.pro/r/tooltip.json"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/speech-input.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "ai-chat"
       ]
     },
     {
@@ -6898,6 +7072,26 @@
       ],
       "categories": [
         "dashboard"
+      ]
+    },
+    {
+      "name": "timezone-select",
+      "type": "registry:ui",
+      "title": "Timezone select",
+      "description": "React time zone picker on Base UI Combobox: search by city, UTC offset or abbreviation, live local times, region groups and the user's zone pinned on top.",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/timezone-select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "forms"
       ]
     },
     {
@@ -8420,6 +8614,7 @@
         "https://ui.minidev.pro/r/auth-card.json",
         "https://ui.minidev.pro/r/button.json",
         "https://ui.minidev.pro/r/form-field.json",
+        "https://ui.minidev.pro/r/inline-alert.json",
         "https://ui.minidev.pro/r/input.json",
         "https://ui.minidev.pro/r/social-auth-row.json"
       ],
@@ -9603,6 +9798,7 @@
       "title": "Hero marquee brands",
       "description": "A hero headline above an endlessly scrolling marquee of brand names for social proof. The loop stops when reduced motion is requested by the user.",
       "dependencies": [
+        "lucide-react",
         "motion"
       ],
       "registryDependencies": [
@@ -9865,8 +10061,12 @@
       "type": "registry:component",
       "title": "Logo wall motion",
       "description": "A logo wall that scrolls brand names in an endless marquee loop. Pass your own logos array; the motion stops for users who prefer reduced motion.",
-      "dependencies": [],
-      "registryDependencies": [],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://ui.minidev.pro/r/button.json"
+      ],
       "files": [
         {
           "path": "src/registry/premium/logo-wall-motion.tsx",

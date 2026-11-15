@@ -57,6 +57,8 @@ type MultiSelectProps = {
   "aria-label"?: string
   /** Classes for the trigger button. */
   className?: string
+  /** Submits each selected value as its own hidden input under this name, so `FormData.getAll(name)` returns the array. No name by default. */
+  name?: string
 }
 
 function MultiSelect({
@@ -68,6 +70,7 @@ function MultiSelect({
   disabled,
   "aria-label": ariaLabel,
   className,
+  name,
 }: MultiSelectProps) {
   const [open, setOpen] = React.useState(false)
   const [internal, setInternal] = React.useState<string[]>(() => defaultValue ?? (items === SAMPLE_ITEMS ? SAMPLE_SELECTED : []))
@@ -79,6 +82,7 @@ function MultiSelect({
   const labels = items.filter((i) => selected.includes(i.value))
   return (
     <div data-slot="multi-select" className="space-y-2">
+      {name ? selected.map((v) => <input key={v} type="hidden" name={name} value={v} disabled={disabled} />) : null}
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger
           disabled={disabled}

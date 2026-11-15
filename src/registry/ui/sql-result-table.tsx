@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
  * sorting, selection and pagination use Table with SortableHeader and TablePagination.
  *
  * @example
- * <SqlResultTable columns={["id", "email"]} rows={[[1, "maya@lumen.app"], [2, null]]} caption="users, 2 rows" />
+ * <SqlResultTable columns={["id", "email"]} rows={[[1, "maya@lumen.example"], [2, null]]} caption="users, 2 rows" />
  */
 type SqlCell = string | number | boolean | null
 
@@ -26,7 +26,7 @@ type SqlResultTableProps = {
 function SqlResultTable({
   columns = ["id", "email", "plan"],
   rows = [
-    ["1", "aman@minidev.pro", "studio"],
+    ["1", "maya@acme.com", "studio"],
     ["2", "casey@acme.com", "premium"],
     ["3", "riley@acme.com", "free"],
   ],

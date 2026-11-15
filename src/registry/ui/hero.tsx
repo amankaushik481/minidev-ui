@@ -1,7 +1,7 @@
 "use client"
 import * as React from "react"
 import { cn } from "@/lib/utils"
-import { Button } from "@/registry/ui/button"
+import { Button, buttonVariants } from "@/registry/ui/button"
 
 /**
  * Hero — a centred marketing headline with an optional eyebrow, description and up to two calls to action.
@@ -43,8 +43,15 @@ type HeroProps = {
 }
 
 function HeroButton({ action, variant }: { action: HeroAction; variant: "default" | "outline" }) {
+  // A plain <a>, not Button render={<a />}: Base UI would add role="button" to a link.
+  if (action.href)
+    return (
+      <a href={action.href} onClick={action.onClick} data-slot="button" data-variant={variant} className={buttonVariants({ variant, size: "lg" })}>
+        {action.label}
+      </a>
+    )
   return (
-    <Button size="lg" variant={variant} onClick={action.onClick} render={action.href ? <a href={action.href} /> : undefined}>
+    <Button size="lg" variant={variant} onClick={action.onClick}>
       {action.label}
     </Button>
   )

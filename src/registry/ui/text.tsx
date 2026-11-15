@@ -5,7 +5,9 @@ import { cn } from "@/lib/utils"
 /**
  * Body copy: a 14px paragraph with the kit's line height, in default, muted, subtle or mono flavours.
  *
- * Renders a `<p>` and accepts every paragraph prop. Use `Heading` for titles and `Prose` for long-form rich text.
+ * Use it for the body copy in app UI: card descriptions, help text, empty-state messages and ids or
+ * amounts (`mono`). Renders a `<p>` and accepts every paragraph prop, so never nest block elements
+ * in it. Use `Heading` for titles and `Prose` for long-form rich text such as rendered markdown.
  *
  * @example
  * <Text muted>Invoices are emailed to billing@northwind.com.</Text>

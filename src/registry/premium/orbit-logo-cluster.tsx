@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils"
  * scrolling strip. Pass real partners: never invent logos.
  *
  * @example
- * <OrbitLogoCluster center="Lumen" logos={["Stripe", "Plaid", "Xero", "QuickBooks"]} duration={48} />
+ * <OrbitLogoCluster center="Lumen" logos={["Acme Bank", "Northwind CRM", "Globex Pay", "Contoso HR"]} duration={48} />
  */
 type OrbitLogoClusterProps = {
   /** Content of the centre badge: your mark or a short name. */

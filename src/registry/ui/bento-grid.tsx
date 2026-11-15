@@ -26,7 +26,7 @@ type BentoItem = {
   span?: 2 | 3 | 4 | 6
   /** Row span on large screens. */
   rows?: 1 | 2
-  /** Custom art under the copy. Two-row tiles without one get a small bar chart. */
+  /** Custom art under the copy. Two-row tiles without one get a small bar chart; pass `null` for none. */
   visual?: React.ReactNode
   /** Makes the whole tile a link. */
   href?: string
@@ -71,7 +71,7 @@ function BentoGrid({ items = DEMO, className }: BentoGridProps) {
             </span>
             <h3 className="mt-4 text-base font-medium tracking-[-0.02em] text-fg">{it.title}</h3>
             <p className="mt-1.5 max-w-sm text-sm leading-[1.6] text-fg-muted">{it.description}</p>
-            {it.visual ?? (it.rows === 2 ? <BentoChart /> : null)}
+            {it.visual !== undefined ? it.visual : it.rows === 2 ? <BentoChart /> : null}
           </Tag>
         )
       })}

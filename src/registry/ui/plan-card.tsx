@@ -8,7 +8,7 @@ import { Button } from "@/registry/ui/button"
  * PlanCard — a pricing tier with price per period, feature list and a call to action; highlighted tiers get the accent ring.
  *
  * Lay several side by side for a pricing page; mark the recommended one `highlighted`
- * and give it a `badge`. Prices are preformatted strings. For a full feature matrix
+ * and give it a `badge`; mark the customer's plan `current` to disable its button. Prices are preformatted strings. For a full feature matrix
  * use PlanComparison, for a monthly/yearly switch use PricingToggle.
  *
  * @example
@@ -33,12 +33,14 @@ type PlanCardProps = {
   highlighted?: boolean
   /** Small label beside the name, e.g. "Most popular". */
   badge?: string
+  /** The customer's plan today: the button is disabled but stays focusable. Defaults to false. */
+  current?: boolean
   className?: string
   /** Called by the button. */
   onCta?: () => void
 }
 
-function PlanCard({ name = "Pro", price = "$49", period = "mo", features = SAMPLE_FEATURES, cta = "Choose plan", highlighted, badge, className, onCta }: PlanCardProps) {
+function PlanCard({ name = "Pro", price = "$49", period = "mo", features = SAMPLE_FEATURES, cta = "Choose plan", highlighted, badge, current = false, className, onCta }: PlanCardProps) {
   const headingId = React.useId()
   return (
     <section
@@ -71,7 +73,7 @@ function PlanCard({ name = "Pro", price = "$49", period = "mo", features = SAMPL
           </li>
         ))}
       </ul>
-      <Button className="mt-6 w-full" variant={highlighted ? "default" : "outline"} onClick={onCta}>
+      <Button className="mt-6 w-full" variant={highlighted ? "default" : "outline"} onClick={onCta} disabled={current} focusableWhenDisabled>
         {cta}
       </Button>
     </section>

@@ -26,6 +26,8 @@ type ColorPickerProps = {
   label?: string
   disabled?: boolean
   className?: string
+  /** Submits the chosen colour string in a hidden input under this name. No name by default. */
+  name?: string
 }
 
 type ColorSwatch = { value: string; label: string }
@@ -43,7 +45,7 @@ const SWATCHES: ColorSwatch[] = [
 
 const NEXT: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }
 
-function ColorPicker({ value, defaultValue, onChange, colors = SWATCHES, label = "Color", disabled, className }: ColorPickerProps) {
+function ColorPicker({ value, defaultValue, onChange, colors = SWATCHES, label = "Color", disabled, className, name }: ColorPickerProps) {
   const swatches = colors.map((c) => (typeof c === "string" ? { value: c, label: c } : c))
   const [internal, setInternal] = React.useState(defaultValue ?? swatches[0]?.value)
   const current = value ?? internal
@@ -68,6 +70,7 @@ function ColorPicker({ value, defaultValue, onChange, colors = SWATCHES, label =
       data-slot="color-picker"
       className={cn("flex flex-wrap gap-2", className)}
     >
+      {name ? <input type="hidden" name={name} value={current ?? ""} disabled={disabled} /> : null}
       {swatches.map((c, i) => {
         const selected = c.value === current
         return (

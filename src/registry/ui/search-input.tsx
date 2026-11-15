@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
  * SearchInput — a search field with a magnifier icon and a clear button that appears once there is text.
  *
  * Use it for list filters, table search and site search. Escape or the clear button empties it
- * and keeps focus in the field. Controlled (`value` + `onChange`) or uncontrolled. Clearing calls
+ * and keeps focus in the field; an Escape that clears text does not also close a surrounding dialog. Controlled (`value` + `onChange`) or uncontrolled. Clearing calls
  * `onClear` and an `onChange` whose `target.value` is "". For a field with a result list use
  * SearchWithResults; for a command launcher use CommandPalette.
  *
@@ -68,6 +68,8 @@ function SearchInput({ className, containerClassName, onClear, value, defaultVal
           onKeyDown?.(e)
           if (e.key === "Escape" && current && !e.defaultPrevented) {
             e.preventDefault()
+            // A surrounding Dialog or Popover closes on Escape even when prevented; stopping it keeps them open.
+            e.stopPropagation()
             clear()
           }
         }}

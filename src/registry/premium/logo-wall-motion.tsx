@@ -1,11 +1,13 @@
 "use client"
 import * as React from "react"
+import { PauseIcon, PlayIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Button } from "@/registry/ui/button"
 
 /**
  * An endless, slowly scrolling strip of customer logos or names with soft faded edges, for social proof under a hero.
- * The strip runs on the compositor (a CSS transform loop), pauses while the
- * pointer is over it, and holds still for reduced motion. Screen readers get
+ * The strip runs on the compositor (a CSS transform loop), pauses on hover and
+ * with the "Pause motion" button (WCAG 2.2.2), and holds still for reduced motion. Screen readers get
  * the list once; the looping copy is hidden from them.
  *
  * Use it for a "trusted by" row. Reach for LogoCloud for a static grid,
@@ -34,6 +36,7 @@ function LogoWallMotion({
   reverse = false,
   className,
 }: LogoWallMotionProps) {
+  const [paused, setPaused] = React.useState(false)
   const row = (hidden?: boolean) => (
     <ul aria-hidden={hidden || undefined} className="flex shrink-0 gap-3 pr-3">
       {logos.map((logo, i) => (
@@ -55,11 +58,17 @@ function LogoWallMotion({
         <div
           data-slot="logo-wall-motion-track"
           className="flex w-max [animation:marquee_var(--marquee-d)_linear_infinite] hover:[animation-play-state:paused] motion-reduce:[animation:none]"
-          style={{ "--marquee-d": `${duration}s`, animationDirection: reverse ? "reverse" : undefined } as React.CSSProperties}
+          style={{ "--marquee-d": `${duration}s`, animationDirection: reverse ? "reverse" : undefined, animationPlayState: paused ? "paused" : undefined } as React.CSSProperties}
         >
           {row()}
           {row(true)}
         </div>
+      </div>
+      <div className="flex justify-center motion-reduce:hidden">
+        <Button variant="ghost" size="sm" aria-pressed={paused} onClick={() => setPaused((p) => !p)}>
+          {paused ? <PlayIcon aria-hidden /> : <PauseIcon aria-hidden />}
+          {paused ? "Play motion" : "Pause motion"}
+        </Button>
       </div>
     </div>
   )

@@ -25,7 +25,8 @@ function WaffleChart({ value = 42, total = 100, label = "Adoption", className }:
   const filled = Math.max(0, Math.min(count, Math.round(value)))
   return (
     <div data-slot="waffle-chart" className={cn("space-y-2", className)}>
-      <div className="flex justify-between gap-3 text-xs">
+      {/* The grid's aria-label already says this, so hide the visible row from screen readers. */}
+      <div aria-hidden className="flex justify-between gap-3 text-xs">
         <span className="font-medium text-fg">{label}</span>
         <span className="tabular-nums text-fg-muted">
           {filled}/{count}

@@ -17,7 +17,8 @@ export default function Page() {
       <SkipLink href="#main" />
       <GallerySection title="Type">
         <div id="main" className="space-y-2">
-          <Heading as="h1">Heading one</Heading>
+          {/* An h2 sized as h1: the gallery title is the page's only h1. */}
+          <Heading as="h2" className="text-3xl tracking-[-0.022em]">Heading one</Heading>
           <Heading as="h2">Heading two</Heading>
           <Text muted>Muted body copy for secondary information.</Text>
         </div>

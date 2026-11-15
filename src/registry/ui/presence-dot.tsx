@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
  * @example
  * <PresenceDot status="online" />
  * <PresenceDot status="busy" label="Maya is in a meeting" />
+ * <PresenceDot status="online" aria-hidden /> when the status is already in text
  */
 
 type PresenceStatus = "online" | "away" | "busy" | "offline"
@@ -28,7 +29,8 @@ function PresenceDot({
   status = "offline",
   className,
   label,
-}: {
+  ...props
+}: React.ComponentProps<"span"> & {
   /** Which presence to show. Colour comes from the success, warning, danger and fg-subtle tokens. */
   status?: PresenceStatus
   className?: string
@@ -42,6 +44,7 @@ function PresenceDot({
       role="img"
       aria-label={label ?? names[status]}
       className={cn("inline-block size-2.5 shrink-0 rounded-full", tones[status], className)}
+      {...props}
     />
   )
 }

@@ -3,7 +3,7 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 /**
- * Three pulsing dots in a pill that say someone (or the model) is typing; announced once to screen readers.
+ * Three pulsing dots in a pill that say someone (or the model) is typing, with `label` as screen reader text in a `role="status"` region.
  *
  * Render it while waiting for the first token of a reply, then swap in the message. Use `StreamingCursor` once text is arriving, and `Spinner` for non-chat loading.
  *

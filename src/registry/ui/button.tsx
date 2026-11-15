@@ -87,6 +87,8 @@ function Button({
   // Base UI defaults nativeButton=true. When `render` swaps in a Link/<a>,
   // that must be false or it warns and a11y/forms semantics break.
   const resolvedNative = nativeButton ?? (render != null ? false : true)
+  // A link stays a link: an explicit role (undefined unless you pass one) stops Base UI adding role="button".
+  const linkRole = React.isValidElement<{ href?: unknown }>(render) && render.props.href != null ? { role: props.role } : null
 
   return (
     <ButtonPrimitive
@@ -95,6 +97,7 @@ function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       render={render}
       nativeButton={resolvedNative}
+      {...linkRole}
       {...props}
     />
   )

@@ -68,6 +68,8 @@ type FloatingLabelInputProps = {
   defaultValue?: string
   /** Called with the new text on every keystroke. */
   onChange?: (value: string) => void
+  /** Called when the field loses focus, e.g. React Hook Form's `field.onBlur` to mark it touched. */
+  onBlur?: () => void
   /** Icon shown at the start of the field (inputs only). */
   icon?: React.ReactNode
   /** Helper text under the field, linked with aria-describedby. */
@@ -94,6 +96,7 @@ function FloatingLabelInput({
   value,
   defaultValue = "",
   onChange,
+  onBlur,
   icon,
   hint,
   error,
@@ -116,6 +119,7 @@ function FloatingLabelInput({
       value={value}
       defaultValue={defaultValue}
       onChange={onChange}
+      onBlur={onBlur}
       icon={icon}
       hint={hint}
       error={error}
@@ -129,7 +133,7 @@ function FloatingLabelInput({
   )
 }
 
-type FieldProps = Omit<FloatingLabelInputProps, "fields" | "onSubmit" | "label"> & { label: string; onBlur?: () => void }
+type FieldProps = Omit<FloatingLabelInputProps, "fields" | "onSubmit" | "label"> & { label: string }
 
 function FloatingField({
   label,

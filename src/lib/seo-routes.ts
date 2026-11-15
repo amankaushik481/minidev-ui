@@ -42,6 +42,9 @@ export function docsMeta(name: string): Metadata {
   })
 }
 
+/** A gallery named after one component mostly repeats its /docs page, so search engines get the docs page only. */
+export const galleryDuplicatesDocs = (slug: string) => COMPONENT_INDEX.some((c) => c.name === slug)
+
 export function galleryMeta(slug: string): Metadata {
   const g = GALLERY_ENTRIES.find((x) => x.slug === slug)
   if (!g) return meta({ title: "Gallery", description: "Component gallery.", path: `/gallery/${slug}` })
@@ -50,6 +53,7 @@ export function galleryMeta(slug: string): Metadata {
     title: `${label} Components: Live React Examples`,
     description: `${label} components for React and Tailwind CSS, rendered live with sample data in every state: ${g.description.replace(/\.$/, "")}. Free to copy, MIT licensed.`.slice(0, 200),
     path: `/gallery/${slug}`,
+    noindex: galleryDuplicatesDocs(slug),
   })
 }
 

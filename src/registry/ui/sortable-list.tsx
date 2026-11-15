@@ -7,7 +7,9 @@ import { cn } from "@/lib/utils"
 /**
  * A drag-to-reorder list: drag the grip handle, or focus it and use the arrow keys; every move is announced and the new order comes back through onReorder.
  *
- * Built on Motion's Reorder.
+ * Use it for short lists people order by hand: priorities, playlist tracks, checklist steps. Every
+ * row is rendered, so keep it to a few dozen items. Built on Motion's Reorder. `KanbanBoard` shows
+ * cards in columns but cannot drag them; for a fixed order use a plain list.
  *
  * Keyboard: Arrow Up/Down move one place, Home/End move to the ends; focus stays on the moved handle.
  * Pass a new `items` array (different ids or order) to reset the list from outside.

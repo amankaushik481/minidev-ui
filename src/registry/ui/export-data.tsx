@@ -6,8 +6,10 @@ import { cn } from "@/lib/utils"
 /**
  * ExportData — a settings row that explains a data export and offers one button to request it.
  *
- * Use on account or workspace settings pages (GDPR exports, backups). For a
- * destructive action use `DangerZone`; for a download list use `FileList`.
+ * Use on account or workspace settings pages (GDPR exports, backups). It only
+ * calls `onExport`: building the file and showing progress are yours, through
+ * `description` and `actionLabel`. For a destructive action use `DangerZone`;
+ * for a download list use `FileList`.
  *
  * @example
  * <ExportData onExport={() => requestExport()} />

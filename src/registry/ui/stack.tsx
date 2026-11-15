@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils"
 /**
  * A vertical flex column with a fixed gap from the 4px spacing scale.
  *
- * Use it to space sibling blocks evenly without margin utilities. For horizontal rows use
- * `flex gap-*` directly; for a page grid use CSS grid.
+ * Use it to space sibling blocks evenly without margin utilities: form sections, card bodies, a
+ * heading over text over a button. Children stretch to full width, so add `items-start` for
+ * buttons. For a row that wraps use Cluster, for a centred column use Center, for page width use
+ * Container, and for a page grid use CSS grid.
  *
  * @example
  * <Stack gap={4}><Heading /><Text /><Button>Continue</Button></Stack>

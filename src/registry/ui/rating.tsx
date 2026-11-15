@@ -29,6 +29,8 @@ type RatingProps = {
   /** Show the score without letting people change it. */
   readOnly?: boolean
   className?: string
+  /** Submits the score (0 when unrated) in a hidden input under this name. No name by default. */
+  name?: string
   /** Accessible name of the group. */
   "aria-label"?: string
 }
@@ -41,6 +43,7 @@ function Rating({
   disabled,
   readOnly,
   className,
+  name,
   ...a11y
 }: RatingProps) {
   const [internal, setInternal] = React.useState(defaultValue)
@@ -76,6 +79,7 @@ function Rating({
       className={cn("inline-flex items-center gap-0.5", disabled && "opacity-45", className)}
       onPointerLeave={() => setHover(null)}
     >
+      {name ? <input type="hidden" name={name} value={current} disabled={disabled} /> : null}
       {Array.from({ length: max }, (_, i) => {
         const n = i + 1
         const on = n <= shown

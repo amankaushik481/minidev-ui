@@ -63,7 +63,7 @@ function CommentThread({
               <span className="text-sm font-medium text-fg">{c.author}</span>
               {c.time ? <span className="text-xs text-fg-muted">{c.time}</span> : null}
             </div>
-            <p className="text-sm text-pretty break-words text-fg-muted">{c.body}</p>
+            <p className="text-sm text-pretty break-words whitespace-pre-line text-fg-muted">{c.body}</p>
           </div>
         </li>
       ))}

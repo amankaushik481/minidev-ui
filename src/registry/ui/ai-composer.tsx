@@ -9,8 +9,8 @@ import { SuggestionChips } from "@/registry/ui/suggestion-chips"
 /**
  * A chat input for AI apps: multiline prompt, suggestion chips, model picker, attach, and a send button that becomes stop while streaming.
  *
- * Use as the input of a chat or assistant panel. Prefer `PromptInput` for a single-line prompt
- * without the model picker, and `Textarea` for plain forms. Enter sends, Shift+Enter adds a line,
+ * Use as the input of a chat or assistant panel. Prefer `PromptInput` for a composer that grows
+ * with its text and takes your own `toolbar`, and `Textarea` for plain forms. Enter sends, Shift+Enter adds a line,
  * and Enter during IME composition is left alone. Works controlled (`value` + `onChange`) or
  * uncontrolled (`defaultValue`; it clears itself after `onSubmit`).
  *
@@ -41,7 +41,7 @@ type AiComposerProps = {
   /** Controlled model id. */
   model?: string
   onModelChange?: (id: string) => void
-  /** Called by the paperclip button. Wire it to a file input or picker. */
+  /** Called by the paperclip button, which only renders when this is set. Wire it to a file input or picker. */
   onAttach?: () => void
   placeholder?: string
   /** Accessible name for the text area. */
@@ -106,7 +106,8 @@ function AiComposer({
         className="w-full resize-none bg-transparent text-sm text-fg outline-none placeholder:text-fg-muted disabled:cursor-not-allowed"
         onChange={(e) => set(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+          // keyCode 229 covers Safari, which ends composition before keydown fires.
+          if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) {
             e.preventDefault()
             submit()
           }
@@ -114,9 +115,11 @@ function AiComposer({
       />
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1">
-          <IconButton type="button" size="icon-sm" variant="ghost" aria-label="Attach a file" onClick={onAttach} disabled={disabled}>
-            <PaperclipIcon />
-          </IconButton>
+          {onAttach ? (
+            <IconButton type="button" size="icon-sm" variant="ghost" aria-label="Attach a file" onClick={onAttach} disabled={disabled}>
+              <PaperclipIcon />
+            </IconButton>
+          ) : null}
           <ModelPicker models={models} value={model} onChange={onModelChange} className="w-36" />
         </div>
         {streaming ? (

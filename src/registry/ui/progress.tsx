@@ -29,7 +29,8 @@ function Progress({
       value={value}
       data-slot="progress"
       aria-label={ariaLabel ?? (ariaLabelledBy ? undefined : "Progress")}
-      aria-labelledby={ariaLabelledBy}
+      // Only when set: an explicit undefined would erase the id Base UI links from ProgressLabel, which wins over the "Progress" fallback.
+      {...(ariaLabelledBy && { "aria-labelledby": ariaLabelledBy })}
       className={cn("flex flex-wrap gap-3", className)}
       {...props}
     >

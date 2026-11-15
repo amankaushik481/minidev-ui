@@ -17,7 +17,7 @@ type OfflineStateProps = {
   title?: React.ReactNode
   /** What still works and what is paused. */
   description?: React.ReactNode
-  /** Called by the retry button. */
+  /** Called by the retry button. Without it, no button renders. */
   onRetry?: () => void
   /** Retry button label. */
   retryLabel?: string
@@ -38,9 +38,11 @@ function OfflineState({
         <div>
           <h3 className="text-sm font-medium text-fg">{title}</h3>
           <p className="mt-1 text-sm text-pretty text-fg-muted">{description}</p>
-          <Button className="mt-4" size="sm" variant="outline" onClick={onRetry}>
-            {retryLabel}
-          </Button>
+          {onRetry ? (
+            <Button className="mt-4" size="sm" variant="outline" onClick={onRetry}>
+              {retryLabel}
+            </Button>
+          ) : null}
         </div>
       </div>
     </div>

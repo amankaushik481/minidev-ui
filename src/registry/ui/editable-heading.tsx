@@ -63,13 +63,16 @@ function EditableHeading({
       }}
       onKeyDown={(e) => {
         onKeyDown?.(e)
-        if (e.defaultPrevented || e.nativeEvent.isComposing) return
+        // keyCode 229: Safari can send the IME-confirming Enter with isComposing false.
+        if (e.defaultPrevented || e.nativeEvent.isComposing || e.keyCode === 229) return
         if (e.key === "Enter") {
           e.preventDefault()
           e.currentTarget.blur()
         } else if (e.key === "Escape") {
           e.preventDefault()
           set(before.current)
+          // Write the DOM now too, so an onBlur handler reads the restored text, not the edit.
+          e.currentTarget.value = before.current
           e.currentTarget.blur()
         }
       }}

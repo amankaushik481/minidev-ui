@@ -7,8 +7,10 @@ import { Toggle } from "@/registry/ui/toggle"
 /**
  * DensityToggle — a two-option Compact / Comfortable switch for table and list row density.
  *
- * Use in a table toolbar or view menu. For other short option sets use
- * `SegmentedControl`; for on/off settings use `Switch`.
+ * Use in a `TableToolbar` or view menu to let people fit more rows on screen. It always keeps one
+ * option pressed. `DataTable` takes "compact", "default" or "comfortable", so pass the value through
+ * or map "comfortable" to "default". For other short option sets use `SegmentedControl`; for on/off
+ * settings use `Switch`.
  *
  * @example
  * const [density, setDensity] = React.useState<Density>("comfortable")

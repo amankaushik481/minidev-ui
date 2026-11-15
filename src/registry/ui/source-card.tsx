@@ -6,7 +6,10 @@ import { cn } from "@/lib/utils"
 /**
  * A citation card for AI answers and RAG results: source title, its URL or path in mono, and a quoted snippet.
  *
- * Show one per retrieved source under a StreamingMessage. When `href` is set the title becomes a link.
+ * Show one per retrieved source under an AI answer, or inside a popover opened from a `CitationChip`.
+ * When `href` is set the title becomes a link that opens in a new tab; `url` is display text only.
+ * Every prop has a sample default, so pass `title`, `url` and `snippet`. For a numbered inline
+ * reference inside the answer text use `CitationChip`.
  *
  * @example
  * <SourceCard title="Billing API" url="docs.acme.com/billing" href="https://docs.acme.com/billing" snippet="Invoices are finalised after 1 hour." />

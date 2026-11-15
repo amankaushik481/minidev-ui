@@ -9,8 +9,10 @@ import { Button } from "@/registry/ui/button"
  * A poster-scale type hero on a thirds grid: three headline lines rise out of masks, the last in an accent gradient, with a magnetic CTA below.
  *
  * Reduced motion shows everything in place. Use it for a launch or brand page
- * that should feel like a poster (see BrandKitPage); for editable lines use
- * HeroKineticType.
+ * that should feel like a poster (see BrandKitPage). The only prop is
+ * `className`: the eyebrow, headline, paragraph and buttons are written in the
+ * file, so copy it and edit them. For the same rise with a `lines` prop use
+ * HeroKineticType, and for one rotating word use HeroTypedHeadline.
  *
  * @example
  * <HeroPosterType />

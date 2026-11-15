@@ -29,7 +29,9 @@ export default function ComponentsHub() {
     id: c.id,
     name: c.h1.replace(/^React /, "").replace(/^./, (m) => m.toUpperCase()),
     count: c.items.length,
-    samples: c.items.slice(0, 6).map((n) => ({ name: n, title: title(n) })),
+    blurb: c.blurb,
+    // The picker's first rows are the hand-picked starting points for each category.
+    samples: c.picker.map((p) => p.use).slice(0, 6).map((n) => ({ name: n, title: title(n) })),
   }))
   // Name, title and category only: descriptions for every component would triple the page payload.
   const items: BrowseItem[] = COMPONENT_INDEX.map((e) => ({ name: e.name, title: humanTitle(e.title), kind: e.kind, meta: e.category ? label.get(e.category) : undefined }))

@@ -9,8 +9,9 @@ import { cn } from "@/lib/utils"
  *
  * Use it for "happening now" sections, notification previews and activity
  * streams on marketing pages. Items cycle through `items` on a timer while
- * the list is on screen, and pause while the pointer or keyboard focus is on
- * it. Reduced motion shows the first `max` items, still. For a static list of
+ * the list is on screen, and pause while the pointer is over it or it has
+ * keyboard focus (the list is a tab stop, named by `label`). Reduced
+ * motion shows the first `max` items, still. For a static list of
  * notifications use a plain list; for a one-off reveal use BlurFade.
  *
  * @example
@@ -35,6 +36,8 @@ type AnimatedListProps = {
   interval?: number
   /** How many items to keep on screen. */
   max?: number
+  /** Accessible name for the list, which is a tab stop so keyboard users can pause it. */
+  label?: string
   className?: string
 }
 
@@ -48,7 +51,7 @@ const DEFAULT: ListItem[] = [
   { icon: CircleDollarSignIcon, title: "Plan upgraded", detail: "Globex moved to Team · +$96/mo", time: "8m" },
 ]
 
-function AnimatedList({ items = DEFAULT, interval = 1800, max = 4, className }: AnimatedListProps) {
+function AnimatedList({ items = DEFAULT, interval = 1800, max = 4, label = "Live activity", className }: AnimatedListProps) {
   const reduce = useReducedMotion()
   const ref = React.useRef<HTMLUListElement>(null)
   const inView = useInView(ref, { amount: 0.4 })
@@ -76,7 +79,9 @@ function AnimatedList({ items = DEFAULT, interval = 1800, max = 4, className }: 
       onPointerLeave={() => setHeld(false)}
       onFocus={() => setHeld(true)}
       onBlur={() => setHeld(false)}
-      className={cn("flex w-full max-w-sm flex-col gap-2.5", className)}
+      tabIndex={0}
+      aria-label={label}
+      className={cn("flex w-full max-w-sm flex-col gap-2.5 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg", className)}
     >
       <AnimatePresence initial={false}>
         {shown.map((it) => {

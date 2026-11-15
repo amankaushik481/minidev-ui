@@ -12,7 +12,7 @@ import { PageHeader } from "@/registry/ui/page-header"
  *
  * Use for an operator dashboard where the fastest path to any action is the keyboard. For a chart-led overview use
  * DashboardHome; for just the palette use CommandPalette (has its own ⌘K) or CommandDialog. The shortcut listener
- * is attached to the window while the block is mounted.
+ * is attached to the window while the block is mounted and skips a ⌘K another handler already claimed.
  *
  * @example
  * <CommandCenter />
@@ -25,6 +25,8 @@ function CommandCenter({ className }: CommandCenterProps) {
   const [open, setOpen] = React.useState(false)
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      // Another handler (an uncontrolled CommandPalette, say) that already claimed ⌘K wins.
+      if (e.defaultPrevented) return
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault()
         setOpen((o) => !o)

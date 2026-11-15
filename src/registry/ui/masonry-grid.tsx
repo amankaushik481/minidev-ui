@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
  * what you see, and the column count follows the container width. Use it for
  * galleries, notes and testimonials; for equal-height cards use a plain grid.
  * Each child is measured, so pass one element per item (no fragments).
+ * Other div props (aria-label, role, id) go on the grid element.
  *
  * @example
  * <MasonryGrid minColumnWidth={220} gap={16}>
@@ -25,7 +26,7 @@ type MasonryGridProps = {
   gap?: number
   /** Classes for the grid. */
   className?: string
-}
+} & Omit<React.ComponentProps<"div">, "children" | "className">
 
 const ROW = 4
 const DEMO = [180, 260, 140, 320, 200, 240, 160, 300, 220, 180, 280, 150]
@@ -49,7 +50,7 @@ function Item({ children, gap }: { children: React.ReactNode; gap: number }) {
   )
 }
 
-function MasonryGrid({ children, minColumnWidth = 180, gap = 12, className }: MasonryGridProps) {
+function MasonryGrid({ children, minColumnWidth = 180, gap = 12, className, style, ...props }: MasonryGridProps) {
   const items = React.Children.toArray(
     children ??
       DEMO.map((h, i) => (
@@ -61,8 +62,9 @@ function MasonryGrid({ children, minColumnWidth = 180, gap = 12, className }: Ma
   return (
     <div
       data-slot="masonry-grid"
+      {...props}
       className={cn("grid w-full items-start", className)}
-      style={{ gridTemplateColumns: `repeat(auto-fill, minmax(min(${minColumnWidth}px, 100%), 1fr))`, gridAutoRows: ROW, columnGap: gap, rowGap: gap }}
+      style={{ ...style, gridTemplateColumns: `repeat(auto-fill, minmax(min(${minColumnWidth}px, 100%), 1fr))`, gridAutoRows: ROW, columnGap: gap, rowGap: gap }}
     >
       {items.map((it, i) => (
         <Item key={React.isValidElement(it) && it.key != null ? it.key : i} gap={gap}>

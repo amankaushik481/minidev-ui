@@ -2,7 +2,7 @@
 
 # MiniDev UI
 
-**548 free React components, blocks and motion pieces for real product screens. Built so AI coding agents get them right on the first try.**<br/>
+**557 free React components, blocks and motion pieces for real product screens. Built so AI coding agents get them right on the first try.**<br/>
 Tailwind CSS v4 · Base UI · Motion · shadcn-compatible · MIT
 
 [Website](https://ui.minidev.pro) · [Docs](https://ui.minidev.pro/docs) · [Components](https://ui.minidev.pro/components) · [Blocks](https://ui.minidev.pro/blocks) · [Templates](https://ui.minidev.pro/templates) · [For AI agents](https://ui.minidev.pro/docs/ai) · [llms.txt](https://ui.minidev.pro/llms.txt)
@@ -140,7 +140,7 @@ The rules behind them: [DESIGN.md](./DESIGN.md) and [docs/VISION.md](./docs/VISI
 
 | Kind | Count | Path |
 |---|---|---|
-| Components | 397 | `src/registry/ui` → `minidev-ui-kit/ui/<name>` |
+| Components | 406 | `src/registry/ui` → `minidev-ui-kit/ui/<name>` |
 | Blocks (full sections and pages) | 43 | `src/registry/blocks` → `minidev-ui-kit/blocks/<name>` |
 | Motion pieces | 108 | `src/registry/premium` → `minidev-ui-kit/premium/<name>` |
 

@@ -7,8 +7,11 @@ import { IconButton } from "@/registry/ui/icon-button"
 /**
  * MessageActions — the copy, retry, thumbs up and thumbs down row under an AI reply.
  *
- * Pass `feedback` to show which thumb is on; the buttons expose it as aria-pressed.
- * Place it under a MessageBubble with role="assistant".
+ * Place it under a MessageBubble with role="assistant". It holds no state: each button only calls
+ * its handler, so copy the text in `onCopy` and pass the stored vote back as `feedback` to show
+ * the pressed thumb. A button renders only when its handler is set (the thumbs also when
+ * `feedback` is set), so pass just the actions you support. For a vote that toggles itself use
+ * `FeedbackThumbs`; for a "Not quite right?" footer with Regenerate use `RegenerateBar`.
  *
  * @example
  * <MessageActions
@@ -34,32 +37,37 @@ type MessageActionsProps = {
 }
 
 function MessageActions({ onCopy, onRetry, onGood, onBad, feedback = null, className }: MessageActionsProps) {
+  if (!onCopy && !onRetry && !onGood && !onBad && !feedback) return null
   return (
     <div data-slot="message-actions" role="group" aria-label="Message actions" className={cn("flex items-center gap-0.5", className)}>
-      <IconButton type="button" size="icon-sm" variant="ghost" aria-label="Copy" onClick={onCopy}><CopyIcon /></IconButton>
-      <IconButton type="button" size="icon-sm" variant="ghost" aria-label="Retry" onClick={onRetry}><RefreshCwIcon /></IconButton>
-      <IconButton
-        type="button"
-        size="icon-sm"
-        variant="ghost"
-        aria-label="Good response"
-        aria-pressed={feedback === "good"}
-        className={cn(feedback === "good" && "text-fg")}
-        onClick={onGood}
-      >
-        <ThumbsUpIcon />
-      </IconButton>
-      <IconButton
-        type="button"
-        size="icon-sm"
-        variant="ghost"
-        aria-label="Bad response"
-        aria-pressed={feedback === "bad"}
-        className={cn(feedback === "bad" && "text-fg")}
-        onClick={onBad}
-      >
-        <ThumbsDownIcon />
-      </IconButton>
+      {onCopy ? <IconButton type="button" size="icon-sm" variant="ghost" aria-label="Copy" onClick={onCopy}><CopyIcon /></IconButton> : null}
+      {onRetry ? <IconButton type="button" size="icon-sm" variant="ghost" aria-label="Retry" onClick={onRetry}><RefreshCwIcon /></IconButton> : null}
+      {onGood || feedback ? (
+        <IconButton
+          type="button"
+          size="icon-sm"
+          variant="ghost"
+          aria-label="Good response"
+          aria-pressed={feedback === "good"}
+          className={cn(feedback === "good" && "text-fg")}
+          onClick={onGood}
+        >
+          <ThumbsUpIcon />
+        </IconButton>
+      ) : null}
+      {onBad || feedback ? (
+        <IconButton
+          type="button"
+          size="icon-sm"
+          variant="ghost"
+          aria-label="Bad response"
+          aria-pressed={feedback === "bad"}
+          className={cn(feedback === "bad" && "text-fg")}
+          onClick={onBad}
+        >
+          <ThumbsDownIcon />
+        </IconButton>
+      ) : null}
     </div>
   )
 }

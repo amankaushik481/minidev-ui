@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils"
 /**
  * A "42/280" counter for a text field that turns red past the limit and tells screen readers only when the limit is near.
  *
- * Place it under a Textarea or Input and point the field's `aria-describedby` at its `id`.
- * It does not block typing; pair it with the field's `maxLength` if you need a hard cap.
+ * Use it for bios, tweets, SMS bodies and meta descriptions, anywhere a limit is
+ * part of the content. Place it under a Textarea or Input and point the field's
+ * `aria-describedby` at its `id`. It does not block typing; pair it with the field's
+ * `maxLength` if you need a hard cap. For a word count and live preview use MarkdownEditor.
  *
  * @example
  * const [text, setText] = React.useState("")

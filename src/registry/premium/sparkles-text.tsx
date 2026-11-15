@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils"
 
 /**
  * Text with small four-point stars that twinkle in and out around it at random.
- * Text with small four point stars that twinkle around it, placed at
- * random and replaced as they fade. The stars are decorative and hidden
- * from assistive tech; the text stays a normal text node.
+ * Stars are placed at random and replaced as they fade, only while the text
+ * is on screen. They are decorative and hidden from assistive tech; the text
+ * stays a normal text node.
  *
  * Use it for one short celebratory word or phrase. Reach for GradientText for
  * a still accent and ConfettiButton for a one-off burst on success.

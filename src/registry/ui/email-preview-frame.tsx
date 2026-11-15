@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
  * will look like. Put an `EmailLayout` inside it.
  *
  * @example
- * <EmailPreviewFrame subject="Your invoice from Lumen" from="billing@lumen.dev">
+ * <EmailPreviewFrame subject="Your invoice from Lumen" from="billing@lumen.example">
  *   <EmailLayout>...</EmailLayout>
  * </EmailPreviewFrame>
  */

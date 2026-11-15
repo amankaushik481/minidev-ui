@@ -38,10 +38,12 @@ type OtpInputProps = {
   autoFocus?: boolean
   /** Form field name for the hidden input. */
   name?: string
+  /** Id for the real input, so a `<label htmlFor>` can name it. With `id` set, the default aria-label is dropped. */
+  id?: string
   /** Slot size: "default" 40×44, "lg" 48×56. */
   size?: "default" | "lg"
   className?: string
-  /** Accessible name. Defaults to "One-time code". */
+  /** Accessible name. Defaults to "One-time code" when there is no `id`. */
   "aria-label"?: string
 }
 
@@ -59,9 +61,10 @@ function OtpInput({
   disabled,
   autoFocus,
   name,
+  id,
   size = "default",
   className,
-  "aria-label": ariaLabel = "One-time code",
+  "aria-label": ariaLabel,
 }: OtpInputProps) {
   const [inner, setInner] = React.useState(defaultValue)
   const value = (valueProp ?? inner).slice(0, length)
@@ -111,16 +114,17 @@ function OtpInput({
     >
       <input
         ref={ref}
+        id={id}
         name={name}
         value={value}
         disabled={disabled}
         autoFocus={autoFocus}
-        aria-label={ariaLabel}
+        // aria-label would beat a <label htmlFor={id}>, so only default it without an id.
+        aria-label={ariaLabel ?? (id ? undefined : "One-time code")}
         aria-invalid={status === "invalid" || undefined}
         autoComplete="one-time-code"
         inputMode={pattern === "numeric" ? "numeric" : "text"}
         pattern={pattern === "numeric" ? "[0-9]*" : "[0-9a-zA-Z]*"}
-        maxLength={length}
         spellCheck={false}
         onChange={(e) => {
           commit(e.target.value)

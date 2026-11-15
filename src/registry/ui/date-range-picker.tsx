@@ -13,6 +13,7 @@ import { DatePicker } from "@/registry/ui/date-picker"
  * @example
  * const [range, setRange] = React.useState<DateRange>({ from: "2026-11-01", to: "2026-11-30" })
  * <DateRangePicker value={range} onChange={setRange} />
+ * <DateRangePicker fromName="from" toName="to" /> // submits both days with a <form>
  */
 type DateRange = {
   /** Start day as an ISO string, e.g. "2026-11-01". */
@@ -34,6 +35,10 @@ type DateRangePickerProps = {
   fromId?: string
   /** Id for the end input. */
   toId?: string
+  /** Form field name for the start date, so FormData includes it. No name by default. */
+  fromName?: string
+  /** Form field name for the end date. */
+  toName?: string
   /** Accessible name for the group. */
   "aria-label"?: string
 }
@@ -46,6 +51,8 @@ function DateRangePicker({
   className,
   fromId,
   toId,
+  fromName,
+  toName,
   "aria-label": ariaLabel = "Date range",
 }: DateRangePickerProps) {
   const uid = React.useId()
@@ -59,11 +66,11 @@ function DateRangePicker({
   }
   return (
     <div role="group" aria-label={ariaLabel} data-slot="date-range-picker" className={cn("flex flex-wrap items-center gap-2", className)}>
-      <DatePicker id={from} aria-label="Start date" disabled={disabled} value={current.from} onChange={(fromVal) => set({ ...current, from: fromVal })} />
+      <DatePicker id={from} name={fromName} aria-label="Start date" disabled={disabled} value={current.from} onChange={(fromVal) => set({ ...current, from: fromVal })} />
       <span aria-hidden className="text-xs text-fg-muted">
         to
       </span>
-      <DatePicker id={to} aria-label="End date" disabled={disabled} value={current.to} onChange={(toVal) => set({ ...current, to: toVal })} />
+      <DatePicker id={to} name={toName} aria-label="End date" disabled={disabled} value={current.to} onChange={(toVal) => set({ ...current, to: toVal })} />
     </div>
   )
 }

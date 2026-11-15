@@ -6,9 +6,8 @@ import { cn } from "@/lib/utils"
 
 /**
  * A call-to-action button with a slow band of light sweeping across its face, a lit top edge and a soft bloom.
- * A call to action with a slow band of light that sweeps across the face,
- * a lit top edge and a soft bloom underneath. The sweep pauses for reduced
- * motion. Renders a button, or pass `render` to make it a link.
+ * The sweep is not rendered for reduced motion. Renders a button with
+ * `type="button"`, or pass `render` to make it a link.
  *
  * Use it for the single most important action on a marketing page. Reach
  * for Button in product UI, MagneticCta when the action should move toward
@@ -23,7 +22,7 @@ type ShimmerButtonProps = React.ComponentProps<"button"> & {
   duration?: number
   /** Ink is the kit's primary action; accent spends the brand violet. */
   tone?: "ink" | "accent"
-  /** 40px (default) or 48px (lg) tall. */
+  /** `lg` (the default) is 48px tall, `default` is 40px. */
   size?: "default" | "lg"
   /** Render as another element, e.g. <a href="/signup" /> or a router Link. Props and handlers are passed through. */
   render?: React.ReactElement<Record<string, unknown>>

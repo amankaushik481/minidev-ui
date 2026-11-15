@@ -4,8 +4,11 @@ import { cn } from "@/lib/utils"
 /**
  * A box that keeps a fixed width-to-height ratio, for images, video and embeds.
  *
- * Children should fill it absolutely (`absolute inset-0 size-full object-cover`). Uses the native
- * CSS `aspect-ratio`, so it works in server components and needs no JavaScript.
+ * Use it for cover images, video and map embeds and card thumbnails, so the space is reserved before
+ * the media loads and nothing below it jumps. Children should fill it absolutely
+ * (`absolute inset-0 size-full object-cover`); content taller than the ratio is clipped. Uses the
+ * native CSS `aspect-ratio`, so it works in server components and needs no JavaScript. For a
+ * screenshot in a window frame use BrowserMockup or WindowChrome.
  *
  * @example
  * <AspectRatio ratio={16 / 9} className="rounded-xl bg-sunken">

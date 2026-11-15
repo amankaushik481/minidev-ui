@@ -28,7 +28,8 @@ import { cn } from "@/lib/utils"
  * dynamic island and rounded screen. Both are built from tokens, so they
  * follow light, dark and every material. With no content, the browser shows
  * a Lumen dashboard made of plain divs, with a phone over its corner on wide
- * screens and below it on narrow ones.
+ * screens and below it on narrow ones. With your own content, `phone`
+ * shows `phoneContent` on the handset.
  *
  * Use it to frame product screenshots on landing pages, docs and changelogs.
  * For several tilted frames at once use DeviceFrameStack.
@@ -53,6 +54,8 @@ type BrowserMockupProps = {
   appearance?: "auto" | "dark"
   /** Render a PhoneMockup beside the window. Defaults to on for the built-in sample only. */
   phone?: boolean
+  /** Screen for the phone when `phone` is on. Defaults to the sample screen with no `src` or children, and an empty screen otherwise. */
+  phoneContent?: React.ReactNode
   children?: React.ReactNode
   className?: string
 }
@@ -255,7 +258,7 @@ function PhoneMockup({ src, alt = "", time = "9:41", width = 240, appearance = "
         </div>
         <span aria-hidden data-slot="phone-mockup-island" className="absolute top-2.5 left-1/2 z-10 h-5 w-18 -translate-x-1/2 rounded-full bg-ink dark:bg-sunken" />
         <div className="absolute inset-0 pt-11">
-          {src ? <img src={src} alt={alt} className="block size-full object-cover object-top" /> : children ?? <LumenMobile />}
+          {src ? <img src={src} alt={alt} className="block size-full object-cover object-top" /> : children === undefined ? <LumenMobile /> : children}
         </div>
       </div>
     </div>
@@ -270,6 +273,7 @@ function BrowserMockup({
   alt = "",
   appearance = "auto",
   phone,
+  phoneContent,
   children,
   className,
 }: BrowserMockupProps) {
@@ -337,7 +341,9 @@ function BrowserMockup({
     >
       <div className="relative @xl:pr-44 @xl:pb-8">
         {frame}
-        <PhoneMockup width={192} className="mx-auto mt-6 @xl:absolute @xl:right-0 @xl:bottom-0 @xl:mt-0" />
+        <PhoneMockup width={192} className="mx-auto mt-6 @xl:absolute @xl:right-0 @xl:bottom-0 @xl:mt-0">
+          {phoneContent !== undefined ? phoneContent : sample ? undefined : null}
+        </PhoneMockup>
       </div>
     </div>
   )

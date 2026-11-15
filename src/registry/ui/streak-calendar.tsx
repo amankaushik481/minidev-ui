@@ -5,8 +5,9 @@ import { cn } from "@/lib/utils"
 /**
  * A 7-column grid of day tiles, filled in accent on active days, for habit and contribution streaks.
  *
- * Days are numbered from 1. Screen readers hear a summary ("17 of 28 days active").
- * For a year-long contribution graph build rows of HeatmapCell.
+ * Use on a profile or dashboard card for a month of habit or activity days. Days are numbered
+ * from 1 and fill rows of seven with no weekday labels. Screen readers hear a summary
+ * ("17 of 28 days active"). For a year-long contribution graph build rows of HeatmapCell.
  *
  * @example
  * <StreakCalendar active={[1, 2, 3, 5, 8]} days={28} />

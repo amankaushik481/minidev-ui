@@ -12,7 +12,7 @@ import { DangerZone } from "@/registry/ui/danger-zone"
  *
  * Use for a single-column personal or workspace settings screen. For admin-only controls (users, SSO, quotas) use
  * AdminConsole; for billing use BillingPage. Each section is a registry component, so drop the ones you do not need.
- * The theme picker applies to the whole document by default.
+ * The theme picker does not change the page theme until you add `applyToDocument` or wire it to your theme provider.
  *
  * @example
  * <SettingsPage className="max-w-2xl" />

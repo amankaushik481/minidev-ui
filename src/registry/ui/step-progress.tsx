@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils"
 /**
  * A row of labelled segments that fill as a multi-step flow advances, for onboarding and checkout.
  *
- * Read-only progress, not navigation. Use Stepper for the numbered variant ("1. Details");
- * use Progress for a single percentage.
+ * Use above a multi-step form (signup, checkout, workspace setup) to show how far along people are.
+ * Keep `current` in your form state; earlier steps are marked done. It is read-only progress, not
+ * navigation. Use `Stepper` for the numbered variant ("1. Details"), `Progress` for a single
+ * percentage and `OnboardingChecklist` when tasks can be done in any order.
  *
  * @example
  * <StepProgress steps={["Account", "Company", "Review"]} current={1} />

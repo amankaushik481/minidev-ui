@@ -7,7 +7,8 @@ import { Badge } from "@/registry/ui/badge"
  * ChangelogPage — a release-notes list: one entry per version with date, tag, title and a short body, newest first.
  *
  * Use for a public /changelog or an in-app "What's new" panel. Each entry is an article with a real <time>, so feeds and
- * search engines can read it. For a marketing changelog with motion use the premium ChangelogMarketing; for docs use DocsPage.
+ * search engines can read it. It takes no data props: replace the `ENTRIES` array in this file with your releases.
+ * For a marketing changelog with motion use the premium ChangelogMarketing; for docs use DocsPage.
  *
  * @example
  * <ChangelogPage />

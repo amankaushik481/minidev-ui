@@ -6,8 +6,10 @@ import { SearchInput } from "@/registry/ui/search-input"
 /**
  * The bar above a data table: a search field on the left, your filters and actions on the right.
  *
- * Search is controlled: pass `search` and update it in `onSearchChange`, then filter rows yourself.
- * Pair with Table, SortableHeader and TablePagination.
+ * Use it right above `Table` or `DataTable`. Search is controlled: pass `search` and update it in
+ * `onSearchChange`, then filter rows yourself. Put `ColumnVisibilityMenu`, `DensityToggle` or a New
+ * button in `children`. Pair with SortableHeader and TablePagination; for a bordered strip of
+ * filters with a Clear button use `FilterBar`.
  *
  * @example
  * <TableToolbar search={q} onSearchChange={setQ} searchPlaceholder="Search invoices…">

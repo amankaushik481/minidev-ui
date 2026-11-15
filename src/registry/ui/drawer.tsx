@@ -6,8 +6,8 @@ import { Sheet } from "@/registry/ui/sheet"
 /**
  * Drawer — a bottom sheet for quick actions and mobile forms: a Sheet that slides up from the bottom edge.
  *
- * Uncontrolled, it renders its own trigger button (pass `trigger` to replace
- * it). Controlled, pass `open` and `onClose` and render your own trigger.
+ * Uncontrolled, it renders its own trigger button, or the element you pass as
+ * `trigger`, wired to open it. Controlled, pass `open` and `onClose` and render your own trigger.
  * For a side panel use `Sheet`; for a centred modal use `Dialog`; for an iOS
  * style action list use `MobileActionSheet`.
  *
@@ -29,7 +29,7 @@ type DrawerProps = {
   title?: string
   /** Drawer content. Defaults to a Lumen invoice action list. */
   children?: React.ReactNode
-  /** Rendered when the drawer is uncontrolled. Defaults to an "Open drawer" button. */
+  /** Element that opens the drawer when it is uncontrolled; its own onClick still runs. Defaults to an "Open drawer" button. */
   trigger?: React.ReactNode
   /** Extra classes for the panel. */
   className?: string
@@ -64,19 +64,29 @@ function Drawer({ open, onClose, side = "bottom", title, children, trigger, clas
   const controlled = open !== undefined
   const [internal, setInternal] = React.useState(false)
   const isOpen = controlled ? open : internal
+  const openDrawer = () => setInternal(true)
   const close = () => {
     if (!controlled) setInternal(false)
     onClose?.()
   }
   return (
     <div data-slot="drawer" className="contents">
-      {!controlled
-        ? trigger ?? (
-            <Button type="button" variant="outline" aria-haspopup="dialog" aria-expanded={isOpen} onClick={() => setInternal(true)}>
-              Open drawer
-            </Button>
-          )
-        : null}
+      {controlled ? null : React.isValidElement<React.HTMLAttributes<HTMLElement>>(trigger) ? (
+        React.cloneElement(trigger, {
+          "aria-haspopup": "dialog",
+          "aria-expanded": isOpen,
+          onClick: (e: React.MouseEvent<HTMLElement>) => {
+            trigger.props.onClick?.(e)
+            openDrawer()
+          },
+        })
+      ) : (
+        trigger ?? (
+          <Button type="button" variant="outline" aria-haspopup="dialog" aria-expanded={isOpen} onClick={openDrawer}>
+            Open drawer
+          </Button>
+        )
+      )}
       <Sheet open={isOpen} onClose={close} side={side} title={title ?? (children === undefined ? SAMPLE_TITLE : undefined)} className={className}>
         {children ?? SAMPLE_CONTENT}
       </Sheet>

@@ -10,7 +10,8 @@ import { cn } from "@/lib/utils"
  *
  * Use it at the bottom of any AI chat. Controlled (`value` + `onChange`) or uncontrolled
  * (`defaultValue`); either way `onSubmit` receives the current text. Enter while an IME is
- * composing does not send. For a plain multi-line field use Textarea.
+ * composing does not send. The paperclip only shows when you pass `onAttach`. For a plain
+ * multi-line field use Textarea.
  *
  * @example
  * const [prompt, setPrompt] = React.useState("")
@@ -36,7 +37,7 @@ function PromptInput({
   onChange?: (v: string) => void
   /** Fires with the text on Enter or the Send button, only when it is not blank. */
   onSubmit?: (value: string) => void
-  /** Fires when the paperclip button is pressed. Open your file picker here. */
+  /** Shows a paperclip button that calls this; open your file picker here. Without it there is no attach button. */
   onAttach?: () => void
   disabled?: boolean
   className?: string
@@ -95,15 +96,17 @@ function PromptInput({
       />
       <div className="flex items-center justify-between gap-2 px-2.5 pb-2.5">
         <div className="flex min-w-0 items-center gap-1">
-          <button
-            type="button"
-            aria-label="Attach file"
-            disabled={disabled}
-            onClick={onAttach}
-            className="inline-flex size-8 items-center justify-center rounded-lg text-fg-subtle outline-none transition-colors hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent disabled:pointer-events-none"
-          >
-            <PaperclipIcon className="size-4" aria-hidden />
-          </button>
+          {onAttach ? (
+            <button
+              type="button"
+              aria-label="Attach file"
+              disabled={disabled}
+              onClick={onAttach}
+              className="inline-flex size-8 items-center justify-center rounded-lg text-fg-subtle outline-none transition-colors hover:bg-sunken hover:text-fg focus-visible:ring-2 focus-visible:ring-accent disabled:pointer-events-none"
+            >
+              <PaperclipIcon className="size-4" aria-hidden />
+            </button>
+          ) : null}
           {toolbar}
         </div>
         <button

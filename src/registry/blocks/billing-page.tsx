@@ -32,7 +32,7 @@ function BillingPage({ onChangePlan, className }: BillingPageProps) {
         </h2>
         <div className="grid gap-4 md:grid-cols-3">
           <PlanCard name="Starter" price="$0" features={["1 workspace", "3 data sources", "Weekly digest"]} cta="Downgrade" onCta={() => onChangePlan?.("Starter")} />
-          <PlanCard name="Team" price="$49" period="seat / mo" highlighted features={["All 40+ data sources", "Ask Lumen, unlimited", "Real-time alerts"]} cta="Current plan" />
+          <PlanCard name="Team" price="$49" period="seat / mo" highlighted current features={["All 40+ data sources", "Ask Lumen, unlimited", "Real-time alerts"]} cta="Current plan" />
           <PlanCard name="Scale" price="$129" period="seat / mo" features={["SSO, SCIM, audit log", "EU or US residency", "Dedicated analyst"]} cta="Upgrade" onCta={() => onChangePlan?.("Scale")} />
         </div>
       </section>

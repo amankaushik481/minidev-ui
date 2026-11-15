@@ -7,7 +7,10 @@ import { AspectRatio } from "@/registry/ui/aspect-ratio"
 /**
  * ProductCard — a square product image, title, price and an optional Add to cart button.
  *
- * Use it in shop grids and recommendation rails. For a pricing tier use PlanCard; for a
+ * Use it in shop grids and recommendation rails. `price` and `badge` are display
+ * strings, so format money before passing it in. The button only renders with
+ * `onAdd`, and it is described by the title so it reads "Add to cart, Linen tote".
+ * Pair it with WishlistButton for saving. For a pricing tier use PlanCard; for a
  * generic content tile use Card.
  *
  * @example

@@ -5,9 +5,8 @@ import { cn } from "@/lib/utils"
 
 /**
  * A paragraph that lights up word by word, from muted to full ink, as it scrolls through the viewport.
- * A paragraph that lights up word by word as it scrolls through the
- * viewport, from muted to full ink. The words are real text in order, so
- * search engines and screen readers read it normally.
+ * The words are real text in order, so search engines and screen readers
+ * read it normally. Reduced motion renders the paragraph at full ink.
  *
  * Use it for one manifesto or mission paragraph on a long page. Reach for
  * MaskedGradientHeadline for a headline wipe, and BlurFade or ScrollReveal to
@@ -23,10 +22,13 @@ type TextRevealProps = {
 
 function Word({ word, progress, range }: { word: string; progress: MotionValue<number>; range: [number, number] }) {
   const opacity = useTransform(progress, range, [0.18, 1])
+  // The space sits outside the inline-block so copied text gets a normal space and lines can wrap there.
   return (
-    <motion.span style={{ opacity }} className="inline-block">
-      {word}&nbsp;
-    </motion.span>
+    <>
+      <motion.span style={{ opacity }} className="inline-block">
+        {word}
+      </motion.span>{" "}
+    </>
   )
 }
 

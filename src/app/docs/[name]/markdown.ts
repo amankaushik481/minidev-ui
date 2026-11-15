@@ -3,21 +3,27 @@ import { join } from "node:path"
 import { COMPONENT_INDEX, type ComponentIndexEntry } from "@/lib/component-index"
 import { COMPONENT_PROPS } from "@/lib/component-props"
 import { componentsInCategory } from "@/content/component-seo"
+import { componentDocs } from "@/content/component-docs"
 import { componentCopy, humanTitle } from "@/lib/seo-routes"
 import { SITE } from "@/lib/site"
 
 /** Where the markdown twin of a docs page is served. `/docs/<name>.md` redirects here. */
 export const mdPath = (name: string) => `/docs/${name}/md`
 
-/** Up to six components from the same category, same kind first. Shared by the page and its markdown. */
+/** Up to six components: the ones named in the JSDoc first, then the same category, same kind first. Shared by the page and its markdown. */
 export function relatedTo(entry: ComponentIndexEntry) {
   const category = componentCopy(entry).category
-  if (!category) return []
-  return componentsInCategory(category.id)
+  const sameCategory = category
+    ? componentsInCategory(category.id)
+        .map((n) => COMPONENT_INDEX.find((c) => c.name === n))
+        .filter((c): c is ComponentIndexEntry => Boolean(c))
+        .sort((a, b) => Number(b.kind === entry.kind) - Number(a.kind === entry.kind))
+        .map((c) => c.name)
+    : []
+  return [...new Set([...(entry.related ?? []), ...sameCategory])]
     .filter((n) => n !== entry.name)
     .map((n) => COMPONENT_INDEX.find((c) => c.name === n))
     .filter((c): c is ComponentIndexEntry => Boolean(c))
-    .sort((a, b) => Number(b.kind === entry.kind) - Number(a.kind === entry.kind))
     .slice(0, 6)
 }
 
@@ -58,6 +64,19 @@ export function exampleSources(name: string): { title: string; description?: str
   return out
 }
 
+const NAME_BY_TITLE = new Map(COMPONENT_INDEX.map((c) => [c.title, c.name]))
+
+/** Links the first backticked mention of each other component (`Tabs` -> [`Tabs`](/docs/tabs)) so the prose doubles as a map. */
+export function linkComponentNames(text: string, self: string): string {
+  const seen = new Set<string>()
+  return text.replace(/`([A-Z][A-Za-z0-9]*)`/g, (all, title: string) => {
+    const name = NAME_BY_TITLE.get(title)
+    if (!name || name === self || seen.has(name)) return all
+    seen.add(name)
+    return `[\`${title}\`](/docs/${name})`
+  })
+}
+
 /** The usage snippet the page and the markdown both show. */
 export function usageSnippet(entry: ComponentIndexEntry) {
   const body = entry.usage ? entry.usage.split("\n").map((l) => "    " + l).join("\n") : `    <${entry.title} />`
@@ -65,6 +84,8 @@ export function usageSnippet(entry: ComponentIndexEntry) {
 }
 
 const cell = (s: string) => s.replace(/\|/g, "\\|").replace(/\n/g, " ")
+/** Site-relative links in content become absolute, so the Markdown works outside the site. */
+const absLinks = (s: string) => s.replace(/\]\(\//g, `](${SITE.url}/`)
 const fence = (lang: string, code: string) => "```" + lang + "\n" + code + "\n```"
 
 /** One component's docs as Markdown: what an agent needs to install it and write correct code on the first try. */
@@ -77,6 +98,7 @@ export function componentMarkdown(entry: ComponentIndexEntry): string {
   const props = COMPONENT_PROPS[entry.name]
   const examples = exampleSources(entry.name)
   const related = relatedTo(entry)
+  const docs = componentDocs(entry.name)
   const L: string[] = []
 
   L.push(`# ${copy.name}`, "", `> ${copy.description}`, "")
@@ -87,6 +109,8 @@ export function componentMarkdown(entry: ComponentIndexEntry): string {
     `- License: MIT. One file, yours to edit after install.`,
     "",
   )
+
+  if (entry.guide) L.push("## When to use", "", absLinks(linkComponentNames(entry.guide, entry.name)), "")
 
   L.push("## Installation", "", "### shadcn CLI (copies the source into your project)", "", fence("bash", `npx shadcn@latest add ${SITE.registry}/${entry.name}`), "")
   L.push(`Writes \`components/ui/${entry.name}.tsx\`${entry.registryDeps.length ? ` plus the MiniDev files it is built from (${entry.registryDeps.join(", ")})` : ""} and installs its npm dependencies. Older CLI versions: \`npx shadcn@latest add ${url(`/r/${entry.name}.json`)}\`.`, "")
@@ -115,13 +139,27 @@ export function componentMarkdown(entry: ComponentIndexEntry): string {
     for (const ex of examples) L.push(`### ${ex.title}`, "", ...(ex.description ? [ex.description, ""] : []), fence("tsx", ex.code), "")
   }
 
+  if (docs?.keyboard?.length) {
+    L.push("## Keyboard interactions", "", "| Key | Action |", "| --- | --- |")
+    for (const k of docs.keyboard) L.push(`| ${k.keys.split(" / ").map((x) => `\`${x}\``).join(" or ")} | ${cell(absLinks(k.action))} |`)
+    L.push("")
+  }
+
   L.push("## Accessibility", "")
-  if (entry.deps.includes("@base-ui/react"))
-    L.push("- Built on Base UI primitives, which provide the ARIA roles, keyboard interaction and focus management. Keep the exported parts together so that wiring stays intact.")
-  L.push("- Focus is always visible (a ring on the accent token). Give icon-only controls an `aria-label`.")
-  L.push("- Colours come from semantic tokens, so light and dark mode work without extra classes.")
-  if (entry.kind === "premium") L.push("- Motion respects `prefers-reduced-motion`.")
+  if (docs?.a11y?.length) for (const a of docs.a11y) L.push(`- ${absLinks(a)}`)
+  else {
+    if (entry.deps.includes("@base-ui/react"))
+      L.push("- Built on Base UI primitives, which provide the ARIA roles, keyboard interaction and focus management. Keep the exported parts together so that wiring stays intact.")
+    L.push("- Focus is always visible (a ring on the accent token). Give icon-only controls an `aria-label`.")
+    L.push("- Colours come from semantic tokens, so light and dark mode work without extra classes.")
+    if (entry.kind === "premium") L.push("- Motion respects `prefers-reduced-motion`.")
+  }
   L.push("")
+
+  if (docs?.faq?.length) {
+    L.push("## FAQ", "")
+    for (const f of docs.faq) L.push(`### ${f.q}`, "", absLinks(f.a), "")
+  }
 
   L.push("## Rules for generating code", "")
   L.push(

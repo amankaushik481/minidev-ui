@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils"
 /**
  * A cell wrapper that stays pinned to the left or right edge while a wide table or board scrolls horizontally.
  *
- * Opaque so scrolled content passes underneath, with a hairline on the inner edge. The scroll
- * container needs `overflow-x-auto`. For a sticky header row use `sticky top-0` on the thead.
+ * Use it in a wide div-based grid, board or timeline to keep the name column (or an actions column,
+ * with `side="right"`) in view while the rest scrolls. Opaque so scrolled content passes underneath,
+ * with a hairline on the inner edge. The scroll container needs `overflow-x-auto`. It renders a
+ * `div`, so inside `Table` put `sticky left-0 bg-surface` on the `TableCell` instead.
  *
  * @example
  * <div className="flex overflow-x-auto">

@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 import { JsonLd } from "@/components/seo/json-ld"
 import { COMPONENT_INDEX } from "@/lib/component-index"
-import { breadcrumbLd, componentLd, graph } from "@/lib/seo"
+import { componentDocs } from "@/content/component-docs"
+import { breadcrumbLd, componentLd, faqLd, graph } from "@/lib/seo"
 import { componentCopy, docsMeta } from "@/lib/seo-routes"
 import { mdPath } from "./markdown"
 
@@ -29,9 +30,10 @@ export default async function Layout({ children, params }: Params & { children: 
     ...(c.category ? [{ name: c.category.label, path: `/components/${c.category.id}` }] : []),
     { name: c.name, path: `/docs/${e.name}` },
   ]
+  const faq = componentDocs(e.name)?.faq
   return (
     <>
-      <JsonLd data={graph(componentLd({ name: e.name, title: c.name, description: c.description, keywords: c.keywords, deps: e.deps }), breadcrumbLd(crumbs))} />
+      <JsonLd data={graph(componentLd({ name: e.name, title: c.name, description: c.description, keywords: c.keywords, deps: e.deps }), breadcrumbLd(crumbs), ...(faq?.length ? [faqLd(faq)] : []))} />
       {children}
     </>
   )

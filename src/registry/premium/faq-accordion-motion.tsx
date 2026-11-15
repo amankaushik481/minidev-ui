@@ -53,7 +53,8 @@ function FaqAccordionMotion({ items = FAQS, defaultOpen = 0, className }: FaqAcc
                 type="button"
                 id={`${id}-q-${i}`}
                 aria-expanded={isOpen}
-                aria-controls={`${id}-a-${i}`}
+                // The region only exists while open, so point at it only then.
+                aria-controls={isOpen ? `${id}-a-${i}` : undefined}
                 className="flex w-full items-center justify-between gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium text-fg outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 onClick={() => setOpen(isOpen ? -1 : i)}
               >

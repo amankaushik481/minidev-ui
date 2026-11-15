@@ -5,7 +5,9 @@ import { cn } from "@/lib/utils"
 /**
  * A list of signed-in devices with a revoke action on every session except the current one.
  *
- * Use it on an account security page. For API keys use ApiKeyList instead.
+ * Use it on an account security page so people can sign out a lost or unknown device. Mark the session
+ * making the request with `current`: it shows "(this device)" and gets no Revoke button. Revoke does not
+ * confirm, so remove the row from `sessions` once your request succeeds. For API keys use ApiKeyList instead.
  *
  * @example
  * <SessionList sessions={sessions} onRevoke={(id) => revokeSession(id)} />
